@@ -1,6 +1,6 @@
 {
   "name": "@arquos/design-system",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Design system Arquos \u2014 tokens partag\u00e9s (couleurs, typographie, spacing, radius) en TypeScript, CSS et JSON. Import\u00e9 par les apps mobile et web.",
   "private": true,
   "main": "src/index.ts",

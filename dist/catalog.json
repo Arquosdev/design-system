@@ -218,6 +218,37 @@
       "fichiers": {
         "web": "components/icon-button/icon-button.web.tsx"
       }
+    },
+    {
+      "name": "NavList",
+      "statut": "beta",
+      "role": "Lister les rubriques d'un écran, avec ce que chacune contient, et dire laquelle est ouverte.",
+      "mots_cles": [
+        "navigation",
+        "menu",
+        "rail",
+        "rubriques",
+        "sections",
+        "sommaire",
+        "compteur"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — navFiche / navComp",
+          "boutons recopiés inline"
+        ],
+        "mobile": [
+          "components/full-form/RubriqueNav.tsx"
+        ]
+      },
+      "dossier": "components/nav-list",
+      "fiche": "components/nav-list/nav-list.spec.md",
+      "fichiers": {
+        "web": "components/nav-list/nav-list.web.tsx"
+      }
     }
   ]
 }
