@@ -36,7 +36,7 @@ sur place. C'est lui qui rend la fiche modifiable sans formulaire séparé.
 | ------------ | ------------------------------------------- | ---------- | --------------------------------------------- |
 | `label`      | `string`                                    | —          | Le libellé du champ                            |
 | `value`      | `string \| string[] \| null`                | —          | La valeur courante ; `null` = non renseignée   |
-| `kind`       | `'text' \| 'number' \| 'choice' \| 'multi'` | `'text'`   | Détermine l'éditeur et l'icône de type         |
+| `kind`       | `'text' \| 'number' \| 'choice' \| 'multi'` | `'text'`   | Détermine l'éditeur qui s'ouvre à la saisie    |
 | `options`    | `{ value: string; label: string }[]`        | `[]`       | Requis pour `choice` et `multi`                |
 | `onSave`     | `(v: string \| string[]) => void`           | —          | Appelé à la validation. Absent = lecture seule |
 | `statut`     | `'renseigne' \| 'manquant' \| 'a_verifier'` | —          | Pastille affichée à droite de la valeur        |
@@ -66,7 +66,6 @@ import { FieldRow } from '@arquos/design-system/web';
 ## Anatomie
 
 - Grille deux colonnes : libellé sur `190px` (`typography.small`, `colors.textMuted`), gouttière `spacing.md`, puis la valeur
-- Icône de type devant le libellé : lignes (texte), flèches (nombre), chevron (liste)
 - Valeur éditable : **soulignement pointillé** `1px` en `colors.textSubtle` — c'est le signal « ceci se corrige d'un clic »
 - Valeur non renseignée : le texte « Non renseigné » en `colors.textSubtle`, soulignement pâli en `colors.border`
 - En saisie : contour `1.5px` `colors.primary`, arrondi `radius.control`
@@ -88,4 +87,7 @@ import { FieldRow } from '@arquos/design-system/web';
   la saisie.
 - Chaque éditeur reçoit un `aria-label` repris du libellé — sinon un lecteur d'écran
   annonce un champ sans nom.
-- L'icône de type est décorative : `aria-hidden`, avec le type en infobulle.
+- Le type du champ ne s'annonce pas : il se déduit de l'éditeur qui s'ouvre.
+  Une icône de type devant chaque libellé a été retirée le 24/08/2026 — sur une
+  rubrique de cent champs, cent pictogrammes identiques ne distinguent rien et
+  éloignent le libellé de sa valeur.

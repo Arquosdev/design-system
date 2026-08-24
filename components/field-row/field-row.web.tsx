@@ -73,10 +73,7 @@ export function FieldRow({
         className,
       )}
     >
-      <div className="flex items-center gap-xs pt-xxs text-small text-text-muted">
-        <IconeType kind={kind} />
-        <span className="min-w-0 break-words">{label}</span>
-      </div>
+      <span className="min-w-0 pt-xxs text-small break-words text-text-muted">{label}</span>
 
       <div className="min-w-0">
         {enSaisie ? (
@@ -262,41 +259,5 @@ function EditeurMulti({
         </span>
       </div>
     </div>
-  );
-}
-
-// -------------------------------------------------------------------- icônes
-
-const TITRES: Record<FieldKind, string> = {
-  text: 'Texte libre',
-  number: 'Nombre',
-  choice: 'Liste de choix',
-  multi: 'Choix multiples',
-};
-
-function IconeType({ kind }: { kind: FieldKind }) {
-  const chemins: Record<FieldKind, string> = {
-    text: 'M40 64h176M40 128h176M40 192h176',
-    number: 'M80 96l48-48 48 48M80 160l48 48 48-48',
-    choice: 'M48 96l80 80 80-80',
-    multi: 'M48 96l80 80 80-80',
-  };
-
-  return (
-    <svg
-      width="13"
-      height="13"
-      viewBox="0 0 256 256"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="20"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className="shrink-0 text-text-subtle"
-    >
-      <title>{TITRES[kind]}</title>
-      <path d={chemins[kind]} />
-    </svg>
   );
 }
