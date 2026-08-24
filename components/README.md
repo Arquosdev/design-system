@@ -20,8 +20,10 @@ implémentation par plateforme (`*.web.tsx`, `*.native.tsx`).
 | [IconButton](icon-button/icon-button.spec.md) | Déclencher une action représentée par une icône seule, sans perdre son nom accessible. | 🖥️ | stable |
 | [NavList](nav-list/nav-list.spec.md) | Lister les rubriques d'un écran, avec ce que chacune contient, et dire laquelle est ouverte. | 🖥️ | beta |
 | [PhotoTile](photo-tile/photo-tile.spec.md) | Montrer une photo attendue — prise ou non — avec ce qu'elle est censée montrer. | 🖥️ | beta |
+| [PhotoViewer](photo-viewer/photo-viewer.spec.md) | Regarder une photo en grand, et passer aux suivantes de la même série. | 🖥️ | beta |
 | [SegmentedTabs](segmented-tabs/segmented-tabs.spec.md) | Basculer entre deux ou trois vues d'un même écran, toutes également importantes. | 🖥️ | beta |
 | [StatTile](stat-tile/stat-tile.spec.md) | Mettre en avant une mesure d'identité, celle qu'on veut lire sans chercher. | 🖥️ | beta |
+| [Toast](toast/toast.spec.md) | Annoncer sans quitter la page ce qui vient de réussir ou d'échouer. | 🖥️ | beta |
 
 ## Ajouter un composant
 

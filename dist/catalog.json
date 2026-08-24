@@ -310,6 +310,33 @@
       }
     },
     {
+      "name": "PhotoViewer",
+      "statut": "beta",
+      "role": "Regarder une photo en grand, et passer aux suivantes de la même série.",
+      "mots_cles": [
+        "visionneuse",
+        "lightbox",
+        "photo",
+        "galerie",
+        "plein ecran",
+        "agrandir",
+        "schema"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — lightbox"
+        ]
+      },
+      "dossier": "components/photo-viewer",
+      "fiche": "components/photo-viewer/photo-viewer.spec.md",
+      "fichiers": {
+        "web": "components/photo-viewer/photo-viewer.web.tsx"
+      }
+    },
+    {
       "name": "SegmentedTabs",
       "statut": "beta",
       "role": "Basculer entre deux ou trois vues d'un même écran, toutes également importantes.",
@@ -366,6 +393,33 @@
       "fiche": "components/stat-tile/stat-tile.spec.md",
       "fichiers": {
         "web": "components/stat-tile/stat-tile.web.tsx"
+      }
+    },
+    {
+      "name": "Toast",
+      "statut": "beta",
+      "role": "Annoncer sans quitter la page ce qui vient de réussir ou d'échouer.",
+      "mots_cles": [
+        "toast",
+        "notification",
+        "message",
+        "annonce",
+        "confirmation",
+        "echec",
+        "bandeau"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — this.toast() / this.toastErreur()"
+        ]
+      },
+      "dossier": "components/toast",
+      "fiche": "components/toast/toast.spec.md",
+      "fichiers": {
+        "web": "components/toast/toast.web.tsx"
       }
     }
   ]

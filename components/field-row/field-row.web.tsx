@@ -8,6 +8,9 @@ import { Button } from '../button/button.web';
 export type FieldKind = 'text' | 'number' | 'choice' | 'multi';
 export type FieldStatut = 'renseigne' | 'manquant' | 'a_verifier';
 
+/** Où en est l'enregistrement de la dernière correction, sur CETTE ligne. */
+export type FieldSauvegarde = 'encours' | 'ok' | 'echec';
+
 export interface FieldOption {
   value: string;
   label: string;
@@ -20,8 +23,19 @@ export interface FieldRowProps {
   options?: readonly FieldOption[];
   onSave?: (valeur: string | string[]) => void;
   statut?: FieldStatut;
+  /**
+   * Le retour d'enregistrement, à côté de la valeur. Il appartient à la ligne :
+   * un bandeau en bas d'écran ne dirait pas QUEL champ a échoué.
+   */
+  sauvegarde?: FieldSauvegarde;
   /** Provenance de la valeur, affichée en infobulle (ex. « Relevé du 12/03 »). */
   origine?: string;
+  /**
+   * Les photos qui justifient la valeur — la plaque où elle a été lue.
+   * Sert au libellé du bouton ; l'ouverture appartient à l'appelant.
+   */
+  photos?: readonly { nom: string }[];
+  onVoirPhotos?: () => void;
   readOnly?: boolean;
   className?: string;
 }
@@ -30,6 +44,14 @@ const STATUTS: Record<FieldStatut, { texte: string; classe: string }> = {
   renseigne: { texte: 'Renseigné', classe: 'bg-success-bg text-success' },
   manquant: { texte: 'Manquant', classe: 'bg-danger-bg text-danger' },
   a_verifier: { texte: 'À vérifier', classe: 'bg-orange-50 text-orange-700' },
+};
+
+// Formulations reprises telles quelles du module actuel (index.html:4671) : le
+// wording de la fiche ne change pas parce qu'on la réécrit.
+const SAUVEGARDES: Record<FieldSauvegarde, { texte: string; classe: string }> = {
+  encours: { texte: 'Enregistrement…', classe: 'text-text-subtle' },
+  ok: { texte: '✓ Enregistré', classe: 'text-success' },
+  echec: { texte: '⚠ Non enregistré', classe: 'text-danger' },
 };
 
 /**
@@ -51,7 +73,10 @@ export function FieldRow({
   options = [],
   onSave,
   statut,
+  sauvegarde,
   origine,
+  photos,
+  onVoirPhotos,
   readOnly = false,
   className,
 }: FieldRowProps) {
@@ -113,6 +138,24 @@ export function FieldRow({
             >
               {afficher(value)}
             </span>
+            {onVoirPhotos && photos && photos.length > 0 ? (
+              // Discret par construction : rien à l'écran tant qu'on ne le
+              // cherche pas. La photo explique la valeur, elle ne la remplace
+              // pas — l'imposer encombrerait une rubrique de cent lignes.
+              <button
+                type="button"
+                onClick={onVoirPhotos}
+                aria-label={libellePhotos(photos)}
+                title={libellePhotos(photos)}
+                className={cn(
+                  'inline-flex size-[24px] shrink-0 items-center justify-center rounded-control',
+                  'text-text-subtle outline-none hover:bg-bg-muted hover:text-text-muted',
+                  'focus-visible:ring-2 focus-visible:ring-primary',
+                )}
+              >
+                <IconePhoto />
+              </button>
+            ) : null}
             {statut ? (
               <span
                 className={cn(
@@ -123,10 +166,48 @@ export function FieldRow({
                 {STATUTS[statut].texte}
               </span>
             ) : null}
+            {sauvegarde ? (
+              // `status` et non `alert` : l'échec est déjà visible — la valeur
+              // d'avant est revenue sous les yeux de l'utilisateur. Interrompre
+              // le lecteur d'écran une deuxième fois n'apporterait rien.
+              <span
+                role="status"
+                className={cn(
+                  'shrink-0 text-caption font-bold',
+                  SAUVEGARDES[sauvegarde].classe,
+                )}
+              >
+                {SAUVEGARDES[sauvegarde].texte}
+              </span>
+            ) : null}
           </div>
         )}
       </div>
     </div>
+  );
+}
+
+/** « Photo source — Plaque de charge », ou « 3 photos sources · A · B · C ». */
+function libellePhotos(photos: readonly { nom: string }[]): string {
+  if (photos.length === 1) return `Photo source — ${photos[0].nom}`;
+  return `${photos.length} photos sources · ${photos.map((p) => p.nom).join(' · ')}`;
+}
+
+function IconePhoto() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      aria-hidden="true"
+    >
+      <rect x="1.5" y="3.5" width="13" height="10" rx="1.5" />
+      <circle cx="8" cy="8.5" r="2.5" />
+      <path d="M5 3.5l1-1.5h4l1 1.5" />
+    </svg>
   );
 }
 
