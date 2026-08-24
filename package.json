@@ -8,17 +8,21 @@
   "exports": {
     ".": "./src/index.ts",
     "./tokens.css": "./dist/tokens.css",
-    "./tokens.json": "./dist/tokens.json"
+    "./tokens.json": "./dist/tokens.json",
+    "./catalog.json": "./dist/catalog.json",
+    "./components/*": "./components/*"
   },
   "files": [
     "src",
     "dist",
+    "components",
     "README.md",
     "CLAUDE.md"
   ],
   "scripts": {
-    "build": "node scripts/build-tokens.mjs",
-    "check": "node scripts/build-tokens.mjs --check"
+    "build": "node scripts/build-tokens.mjs && node scripts/build-catalog.mjs",
+    "catalog": "node scripts/build-catalog.mjs",
+    "check": "node scripts/build-tokens.mjs --check && node scripts/build-catalog.mjs --check"
   },
   "repository": {
     "type": "git",

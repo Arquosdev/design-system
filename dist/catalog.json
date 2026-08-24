@@ -1,0 +1,4 @@
+{
+  "$description": "Catalogue des composants du design system Arquos. Avant de créer un composant, chercher ici : si le rôle recherché y figure, réutiliser plutôt que réécrire. Chaque entrée pointe vers sa fiche (`fiche`), qui décrit les props, les états et surtout les cas où le composant ne doit PAS être employé.",
+  "composants": []
+}

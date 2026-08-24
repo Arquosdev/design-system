@@ -15,6 +15,6 @@ jobs:
           # Node 24+ lit le TypeScript nativement — le script de build importe
           # directement les sources `src/*.ts` sans étape de compilation.
           node-version: '24'
-      # Échoue si `dist/` a divergé de `src/` : une modif de token doit toujours
-      # être committée avec ses formats dérivés régénérés.
+      # Échoue si les fichiers générés ont divergé de leur source : une modif de
+      # token ou de fiche composant doit être committée avec ses dérivés régénérés.
       - run: npm run check

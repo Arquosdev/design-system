@@ -1,0 +1,197 @@
+// Construit l'index des composants à partir de l'en-tête de chaque fiche
+// `components/<nom>/<nom>.spec.md`.
+//
+//   node scripts/build-catalog.mjs [--check]
+//
+// Produit :
+//   dist/catalog.json  — index machine-lisible (ce qu'un agent lit en premier)
+//   components/README.md — le même index, en table, pour les humains
+//
+// Objectif : qu'un agent réponde à « existe-t-il déjà un composant pour ça ? »
+// en lisant UN fichier, sans parcourir les implémentations.
+
+import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync } from 'node:fs';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+const COMPONENTS = join(ROOT, 'components');
+const DIST = join(ROOT, 'dist');
+
+/**
+ * Lecteur d'en-tête YAML volontairement minimal : il couvre exactement le schéma
+ * de `_TEMPLATE.spec.md` (scalaires, listes en ligne, un niveau d'imbrication).
+ * Si le schéma s'enrichit, prendre une vraie dépendance YAML plutôt que
+ * d'étendre ceci.
+ */
+function parseFrontmatter(source, file) {
+  const match = source.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  if (!match) throw new Error(`${file} : en-tête YAML manquant`);
+
+  const out = {};
+  let parent = null;
+
+  for (const raw of match[1].split(/\r?\n/)) {
+    const line = raw.replace(/\s+#.*$/, '').trimEnd();
+    if (!line.trim() || line.trim().startsWith('#')) continue;
+
+    const indented = /^\s{2,}\S/.test(line);
+    const [, key, rest] = line.match(/^\s*([\w-]+):\s*(.*)$/) ?? [];
+    if (!key) continue;
+
+    const value =
+      rest === ''
+        ? null
+        : rest.startsWith('[')
+          ? rest
+              .slice(1, rest.lastIndexOf(']'))
+              .split(',')
+              .map((v) => v.trim())
+              .filter(Boolean)
+          : rest.replace(/^['"]|['"]$/g, '');
+
+    if (indented && parent) {
+      out[parent][key] = value ?? [];
+    } else if (value === null) {
+      parent = key;
+      out[key] = {};
+    } else {
+      parent = null;
+      out[key] = value;
+    }
+  }
+  return out;
+}
+
+const REQUIRED = ['name', 'statut', 'role', 'mots_cles', 'plateformes'];
+
+function collect() {
+  if (!existsSync(COMPONENTS)) return [];
+
+  const entries = [];
+  for (const dir of readdirSync(COMPONENTS, { withFileTypes: true })) {
+    if (!dir.isDirectory() || dir.name.startsWith('_')) continue;
+
+    const spec = join(COMPONENTS, dir.name, `${dir.name}.spec.md`);
+    if (!existsSync(spec)) {
+      throw new Error(`components/${dir.name}/ : fiche ${dir.name}.spec.md manquante`);
+    }
+
+    const meta = parseFrontmatter(readFileSync(spec, 'utf8'), spec);
+    const missing = REQUIRED.filter((k) => !meta[k]);
+    if (missing.length) {
+      throw new Error(`${spec} : clés manquantes dans l'en-tête — ${missing.join(', ')}`);
+    }
+
+    // Une plateforme déclarée sans implémentation est un piège : l'agent croirait
+    // le composant disponible et écrirait un import qui n'existe pas.
+    const fichiers = {};
+    for (const plateforme of meta.plateformes) {
+      const ext = plateforme === 'mobile' ? 'native.tsx' : 'web.tsx';
+      const impl = join(COMPONENTS, dir.name, `${dir.name}.${ext}`);
+      if (!existsSync(impl)) {
+        throw new Error(
+          `${spec} : plateforme « ${plateforme} » déclarée mais ${dir.name}.${ext} est absent`,
+        );
+      }
+      fichiers[plateforme] = `components/${dir.name}/${dir.name}.${ext}`;
+    }
+
+    entries.push({
+      ...meta,
+      dossier: `components/${dir.name}`,
+      fiche: `components/${dir.name}/${dir.name}.spec.md`,
+      fichiers,
+    });
+  }
+
+  return entries.sort((a, b) => a.name.localeCompare(b.name, 'fr'));
+}
+
+function buildJson(entries) {
+  return (
+    JSON.stringify(
+      {
+        $description:
+          "Catalogue des composants du design system Arquos. Avant de créer un composant, " +
+          "chercher ici : si le rôle recherché y figure, réutiliser plutôt que réécrire. " +
+          "Chaque entrée pointe vers sa fiche (`fiche`), qui décrit les props, les états et " +
+          "surtout les cas où le composant ne doit PAS être employé.",
+        composants: entries,
+      },
+      null,
+      2,
+    ) + '\n'
+  );
+}
+
+function buildReadme(entries) {
+  const rows = entries.map((c) => {
+    const plateformes = c.plateformes
+      .map((p) => (p === 'mobile' ? '📱' : '🖥️'))
+      .join(' ');
+    return `| [${c.name}](${c.name.toLowerCase()}/${c.name.toLowerCase()}.spec.md) | ${c.role} | ${plateformes} | ${c.statut} |`;
+  });
+
+  return [
+    '# Composants',
+    '',
+    '> Index généré par `npm run catalog` — ne pas éditer à la main.',
+    "> La source de chaque ligne est l'en-tête de la fiche du composant.",
+    '',
+    'Chaque composant vit dans son dossier, avec sa fiche (`*.spec.md`) et une',
+    'implémentation par plateforme (`*.web.tsx`, `*.native.tsx`).',
+    '',
+    '🖥️ web · 📱 mobile',
+    '',
+    '| Composant | Rôle | Plateformes | Statut |',
+    '| --- | --- | --- | --- |',
+    ...(rows.length ? rows : ['| _(aucun pour l\'instant)_ | | | |']),
+    '',
+    '## Ajouter un composant',
+    '',
+    '1. Copier `_TEMPLATE.spec.md` dans `components/<nom>/<nom>.spec.md` et le remplir.',
+    '2. Écrire `<nom>.web.tsx` et/ou `<nom>.native.tsx` — uniquement les plateformes déclarées.',
+    '3. `npm run catalog` pour régénérer cet index et `dist/catalog.json`.',
+    '',
+  ].join('\n');
+}
+
+// --------------------------------------------------------------- write
+
+// Une fiche mal formée doit donner un message exploitable, pas une trace Node :
+// ce script tourne aussi bien sous les yeux d'un agent que dans la CI.
+let entries;
+try {
+  entries = collect();
+} catch (err) {
+  console.error(`✗ ${err.message}`);
+  process.exit(1);
+}
+
+const outputs = [
+  [join(DIST, 'catalog.json'), buildJson(entries), 'dist/catalog.json'],
+  [join(COMPONENTS, 'README.md'), buildReadme(entries), 'components/README.md'],
+];
+
+if (process.argv.includes('--check')) {
+  const stale = outputs.filter(
+    ([path, content]) => !existsSync(path) || readFileSync(path, 'utf8') !== content,
+  );
+  if (stale.length) {
+    console.error(
+      `✗ catalogue pas à jour : ${stale.map(([, , label]) => label).join(', ')}\n` +
+        '  Lance `npm run catalog` et committe le résultat.',
+    );
+    process.exit(1);
+  }
+  console.log(`✓ catalogue à jour (${entries.length} composants)`);
+} else {
+  mkdirSync(DIST, { recursive: true });
+  mkdirSync(COMPONENTS, { recursive: true });
+  for (const [path, content, label] of outputs) {
+    writeFileSync(path, content);
+    console.log(`✓ ${label}`);
+  }
+  console.log(`  ${entries.length} composant(s) indexé(s)`);
+}
