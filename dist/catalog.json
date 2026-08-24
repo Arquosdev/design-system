@@ -249,6 +249,35 @@
       "fichiers": {
         "web": "components/nav-list/nav-list.web.tsx"
       }
+    },
+    {
+      "name": "SegmentedTabs",
+      "statut": "beta",
+      "role": "Basculer entre deux ou trois vues d'un même écran, toutes également importantes.",
+      "mots_cles": [
+        "onglets",
+        "segments",
+        "bascule",
+        "tabs",
+        "vues",
+        "selecteur"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — bascule Fiche / Composants du rail"
+        ],
+        "mobile": [
+          "components/SegmentedTabs.tsx"
+        ]
+      },
+      "dossier": "components/segmented-tabs",
+      "fiche": "components/segmented-tabs/segmented-tabs.spec.md",
+      "fichiers": {
+        "web": "components/segmented-tabs/segmented-tabs.web.tsx"
+      }
     }
   ]
 }

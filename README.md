@@ -128,6 +128,7 @@ Charger la feuille une fois, puis référencer les variables :
 
 ## État
 
+- **v0.5.0** (août 2026) — `SegmentedTabs` : bascule entre deux ou trois vues d'un même écran.
 - **v0.4.1** (août 2026) — `NavList` : groupes repliables.
 - **v0.4.0** (août 2026) — `NavList` : le rail de rubriques, avec compteurs.
 - **v0.3.0** (août 2026) — `Card`, `IconButton`, `Badge`, `DataTable` ; variante `outline` du bouton ; correction de `cn()` qui perdait les couleurs de texte.
