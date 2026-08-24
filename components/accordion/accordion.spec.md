@@ -59,11 +59,11 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent }
 
 - Contour : `1px` `colors.borderSoft`, arrondi `radius.md`
 - En-tête : fond `colors.bgMuted`, titre `typography.small` en gras, méta `typography.caption` en `colors.textSubtle`
-- Chevron : pivote de 180° à l'ouverture
+- Chevron : pointe de côté replié (`-90°`), vers le bas déplié (`0°`)
 
 ## États
 
-- **Ouvert / fermé** : le chevron pivote, le contenu s'anime en hauteur.
+- **Ouvert / fermé** : le chevron pivote d'un quart de tour, le contenu s'anime en hauteur.
 - **Groupe vide** : afficher quand même l'en-tête, avec une méta qui le dit —
   un groupe absent laisse croire que la rubrique n'existe pas.
 - **Focus clavier** : l'en-tête est atteignable au Tab, Entrée et Espace l'activent.

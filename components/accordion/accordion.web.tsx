@@ -80,7 +80,10 @@ function ChevronBas() {
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
-      className="shrink-0 text-text-muted transition-transform duration-200 group-data-[state=open]:rotate-180"
+      // Replié le chevron pointe de côté, déplié il pointe vers le bas — le
+      // comportement de la fiche actuelle. Le faire pivoter de 180° mettrait
+      // une pointe vers le haut, qui se lit « remonter » plutôt que « ouvert ».
+      className="shrink-0 -rotate-90 text-text-muted transition-transform duration-200 group-data-[state=open]:rotate-0"
     >
       <path d="M48 96l80 80 80-80" />
     </svg>
