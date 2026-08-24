@@ -420,6 +420,33 @@
       }
     },
     {
+      "name": "Sheet",
+      "statut": "beta",
+      "role": "Un panneau qui entre par le bord pour une tâche annexe, sans quitter l'écran.",
+      "mots_cles": [
+        "tiroir",
+        "panneau",
+        "drawer",
+        "sheet",
+        "lateral",
+        "completer",
+        "formulaire"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — panneau « Compléter »"
+        ]
+      },
+      "dossier": "components/sheet",
+      "fiche": "components/sheet/sheet.spec.md",
+      "fichiers": {
+        "web": "components/sheet/sheet.web.tsx"
+      }
+    },
+    {
       "name": "StatTile",
       "statut": "beta",
       "role": "Mettre en avant une mesure d'identité, celle qu'on veut lire sans chercher.",

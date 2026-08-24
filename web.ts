@@ -60,6 +60,20 @@ export {
 } from './components/field-row/field-row.web';
 
 export {
+  Sheet,
+  SheetTrigger,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+  SheetBody,
+  SheetFooter,
+  SheetCloseButton,
+  type SheetContentProps,
+} from './components/sheet/sheet.web';
+
+export {
   Command,
   CommandDialog,
   CommandInput,
