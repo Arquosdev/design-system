@@ -13,7 +13,7 @@ Avoir UN seul endroit pour les valeurs de design garantit que :
 
 ## Contenu
 
-Les tokens s'écrivent **une fois** en TypeScript (`src/`) et se lisent dans **trois formats** (`dist/`, généré) — pour que chaque consommateur, humain ou machine, ait le sien.
+Les tokens s'écrivent **une fois** en TypeScript (`src/`) et se lisent dans **quatre formats** (`dist/`, généré) — pour que chaque consommateur, humain ou machine, ait le sien.
 
 | Source (`src/`) | Tokens |
 |---|---|
@@ -114,7 +114,7 @@ Charger la feuille une fois, puis référencer les variables :
 ## Faire évoluer le design system
 
 1. **Modifier un token** = modifier le fichier correspondant dans `src/`
-2. **Régénérer** : `npm run build` — met à jour `dist/tokens.css` et `dist/tokens.json`
+2. **Régénérer** : `npm run build` — met à jour tout le contenu de `dist/`
 3. **Bumper la version** dans `package.json` (semver : 0.1.X pour fixes, 0.X.0 pour ajouts, X.0.0 pour breaking changes)
 4. **Committer `src/` et `dist/` ensemble**, puis tag git : `git tag v0.X.0 && git push --tags`
 5. **Mettre à jour les apps** : changer `#vX.Y.Z` dans leur `package.json`, puis `npm install`
