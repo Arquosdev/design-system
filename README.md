@@ -1,8 +1,22 @@
 # @arquos/design-system
 
-Source de vérité unique pour le **design d'Arquos** : couleurs, typographie, espacements, arrondis. Importé par l'app mobile (`Arquosdev/mobile`) et le module web (`Arquosdev/fiche-equipement`).
+**Un design system pensé pour les agents.**
+Les règles d'usage vivent dans le dépôt, pas dans les têtes — un développeur comme un agent peut les lire et les appliquer.
+
+Source de vérité unique pour le **design d'Arquos** : couleurs, typographie, espacements, arrondis, et les composants partagés. Importé par l'app mobile (`Arquosdev/mobile`) et le module web (`Arquosdev/fiche-equipement`).
 
 > 🤖 **Tu es un agent ?** Lis [`CLAUDE.md`](CLAUDE.md) — il dit quoi importer et comment choisir un token.
+
+## Ce que « pensé pour les agents » veut dire ici
+
+Ce n'est pas une étiquette : c'est vérifiable, fichier par fichier.
+
+- **Chaque token porte sa description** dans `dist/tokens.json` — à quoi il sert, pas seulement sa valeur.
+- **Chaque composant a une fiche** (`components/<nom>/<nom>.spec.md`) avec une section **« Quand NE PAS l'utiliser »**. C'est elle qui évite les détournements : l'implémentation ne dit jamais dans quels cas elle est le mauvais choix.
+- **Le catalogue est lisible par une machine** (`dist/catalog.json`) : un agent répond à « existe-t-il déjà un composant pour ça ? » en lisant un seul fichier, sans parcourir le code.
+- **La CI refuse le drift** : un dérivé non régénéré, une plateforme déclarée sans implémentation, un catalogue périmé.
+
+Un développeur qui arrive y gagne exactement la même chose.
 
 ## Pourquoi ce repo existe
 
