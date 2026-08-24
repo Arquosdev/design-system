@@ -18,6 +18,8 @@ export {
 export { Badge, type BadgeProps } from './components/badge/badge.web';
 export { Card, type CardProps } from './components/card/card.web';
 export { DataTable, type DataTableProps } from './components/data-table/data-table.web';
+export { Gauge, type GaugeProps } from './components/gauge/gauge.web';
+export { StatTile, type StatTileProps } from './components/stat-tile/stat-tile.web';
 export { SegmentedTabs, type SegmentedTabsProps, type Segment } from './components/segmented-tabs/segmented-tabs.web';
 export { NavList, type NavListProps, type NavItem } from './components/nav-list/nav-list.web';
 export { IconButton, type IconButtonProps } from './components/icon-button/icon-button.web';

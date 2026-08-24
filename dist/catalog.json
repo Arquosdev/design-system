@@ -189,6 +189,36 @@
       }
     },
     {
+      "name": "Gauge",
+      "statut": "beta",
+      "role": "Montrer une proportion d'un coup d'œil, avec son chiffre écrit à côté.",
+      "mots_cles": [
+        "jauge",
+        "anneau",
+        "donut",
+        "pourcentage",
+        "progression",
+        "taux",
+        "completude"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — anneau du taux de connaissance"
+        ],
+        "mobile": [
+          "components/KnowledgeRateBadge.tsx"
+        ]
+      },
+      "dossier": "components/gauge",
+      "fiche": "components/gauge/gauge.spec.md",
+      "fichiers": {
+        "web": "components/gauge/gauge.web.tsx"
+      }
+    },
+    {
       "name": "IconButton",
       "statut": "stable",
       "role": "Déclencher une action représentée par une icône seule, sans perdre son nom accessible.",
@@ -277,6 +307,36 @@
       "fiche": "components/segmented-tabs/segmented-tabs.spec.md",
       "fichiers": {
         "web": "components/segmented-tabs/segmented-tabs.web.tsx"
+      }
+    },
+    {
+      "name": "StatTile",
+      "statut": "beta",
+      "role": "Mettre en avant une mesure d'identité, celle qu'on veut lire sans chercher.",
+      "mots_cles": [
+        "tuile",
+        "chiffre",
+        "mesure",
+        "statistique",
+        "identite",
+        "carte",
+        "valeur"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — grille .arq-tuiles"
+        ],
+        "mobile": [
+          "components/KnowledgeRateCard.tsx"
+        ]
+      },
+      "dossier": "components/stat-tile",
+      "fiche": "components/stat-tile/stat-tile.spec.md",
+      "fichiers": {
+        "web": "components/stat-tile/stat-tile.web.tsx"
       }
     }
   ]
