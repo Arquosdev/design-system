@@ -30,7 +30,7 @@ remplace:
 
 | Prop        | Type                        | Défaut | Rôle                                       |
 | ----------- | --------------------------- | ------ | ------------------------------------------ |
-| `titre`     | `string`                    | —      | Intitulé du groupe, en petites capitales    |
+| `titre`     | `string`                    | —      | Intitulé du groupe. À omettre quand ce qui précède le dit déjà |
 | `items`     | `NavItem[]`                  | —      | Les rubriques                               |
 | `courant`   | `string`                    | —      | La clé de la rubrique ouverte               |
 | `onChoisir` | `(cle: string) => void`      | —      | Appelé au clic sur une rubrique             |
@@ -77,6 +77,8 @@ import { NavList } from '@arquos/design-system/web';
 - **Libellé long** : passe à la ligne. Le tronquer cacherait la rubrique cherchée.
 - **Groupe replié contenant la rubrique ouverte** : il reste déplié. Le replier
   cacherait l'endroit où l'on se trouve.
+- **Sans intitulé** : la liste seule. Utile sous un `SegmentedTabs`, qui nomme
+  déjà le groupe — le répéter n'ajoute rien et prend une ligne.
 
 ## Accessibilité
 

@@ -16,7 +16,11 @@ export interface NavItem {
 }
 
 export interface NavListProps {
-  titre: string;
+  /**
+   * Intitulé du groupe. À omettre quand ce qui précède le dit déjà — un onglet
+   * « Composants » suivi d'un intitulé « COMPOSANTS » ne fait que répéter.
+   */
+  titre?: string;
   items: readonly NavItem[];
   courant?: string;
   onChoisir: (cle: string) => void;
@@ -50,7 +54,7 @@ export function NavList({
 
   return (
     <div className={cn('shrink-0', className)}>
-      {repliable ? (
+      {!titre ? null : repliable ? (
         <button
           type="button"
           aria-expanded={deplie}
