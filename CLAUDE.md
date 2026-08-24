@@ -78,6 +78,19 @@ constates une divergence non documentée dans la fiche, c'est un bug, pas une li
 
 La CI refuse une plateforme déclarée sans implémentation, ou un catalogue non régénéré.
 
+## Un piège à connaître : les classes `text-*`
+
+Tailwind utilise le préfixe `text-` pour **deux choses** : la taille et la
+couleur. `tailwind-merge`, qui dédoublonne les classes dans `cn()`, ne connaît
+pas nos noms — sans configuration il range `text-small` et `text-text-on-dark`
+dans le même groupe et ne garde que le dernier. La couleur disparaît, en
+silence : on obtient du texte sombre sur un fond foncé.
+
+`components/_lib/cn.ts` lui déclare donc la liste de nos tailles, dérivée de
+`src/typography.ts`. Rien à faire pour ajouter un préréglage : il est repris
+automatiquement. Mais **ne pas remplacer `cn()` par un simple `clsx`** dans un
+composant, ce serait rouvrir le trou.
+
 ## À ne pas faire
 
 - Éditer `dist/` ou `components/README.md` à la main — le prochain build écrase tout.
