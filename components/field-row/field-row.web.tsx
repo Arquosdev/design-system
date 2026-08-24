@@ -174,7 +174,7 @@ function Editeur({ kind, label, value, options, onValider, onAnnuler }: EditeurP
             </option>
           ))}
         </select>
-        <Button variant="soft" size="sm" onClick={onAnnuler}>
+        <Button variant="secondary" size="sm" onClick={onAnnuler}>
           Annuler
         </Button>
       </div>
@@ -252,7 +252,7 @@ function EditeurMulti({
         <Button size="sm" onClick={() => onValider(choisis)}>
           Enregistrer
         </Button>
-        <Button variant="soft" size="sm" onClick={onAnnuler}>
+        <Button variant="secondary" size="sm" onClick={onAnnuler}>
           Annuler
         </Button>
         <span className="text-caption text-text-subtle">
