@@ -24,8 +24,10 @@ Les tokens s'écrivent **une fois** en TypeScript (`src/`) et se lisent dans **t
 
 | Généré (`dist/`) | Pour qui |
 |---|---|
-| `tokens.css` | Le web — variables `var(--arq-color-primary)` + classes `.arq-text-body` |
+| `tokens.tailwind.css` | Les apps web sous Tailwind v4 — bloc `@theme` + compatibilité shadcn/ui |
+| `tokens.css` | Le web sans Tailwind — variables `var(--arq-color-primary)` + classes `.arq-text-body` |
 | `tokens.json` | Les agents et les outils design — format [W3C Design Tokens](https://tr.designtokens.org/format/), descriptions incluses |
+| `catalog.json` | Les agents — l'index des composants, à lire avant d'en écrire un |
 
 `dist/` est régénéré par `npm run build` et **committé**. La CI (`npm run check`) refuse toute PR où il a divergé de `src/`.
 
@@ -67,7 +69,31 @@ import { tokens } from '@arquos/design-system';
 // tokens.colors, tokens.spacing, tokens.typography…
 ```
 
-### Côté web (CSS)
+### Côté web (React + Tailwind v4)
+
+```css
+/* dans le CSS de l'app */
+@import 'tailwindcss';
+@import '@arquos/design-system/tokens.tailwind.css';
+@source '../../node_modules/@arquos/design-system';
+```
+```tsx
+import { Button, Accordion, FieldRow } from '@arquos/design-system/web';
+
+<Button variant="soft">Compléter</Button>
+```
+
+Les tokens deviennent des classes utilitaires : `bg-primary`, `p-base`,
+`rounded-md`, `text-title`, `shadow-card`. Les composants shadcn/ui fonctionnent
+tels quels — leur vocabulaire (`--primary`, `--ring`, `--radius`) est traduit
+vers les tokens Arquos dans la feuille générée.
+
+> **En développement local** : si l'app référence le design system en
+> `file:../design-system`, ajouter `install-links=true` au `.npmrc` de l'app.
+> Sinon npm crée un lien symbolique, et Turbopack refuse un import CSS qui sort
+> de la racine du projet.
+
+### Côté web (CSS sans Tailwind)
 Charger la feuille une fois, puis référencer les variables :
 
 ```html
@@ -102,5 +128,5 @@ Charger la feuille une fois, puis référencer les variables :
 
 ## État
 
-- **v0.2.0** (août 2026) — les tokens sont générés en CSS et JSON en plus du TypeScript ; garde-fou CI contre la divergence ; `CLAUDE.md` pour les agents. Prochaine étape : les composants partagés (web + mobile) et leur Storybook.
+- **v0.2.0** (août 2026) — tokens générés en CSS, thème Tailwind v4 et JSON ; catalogue de composants ; trois premiers composants web (Button, Accordion, FieldRow) ; garde-fou CI ; `CLAUDE.md` pour les agents.
 - **v0.1.0** (juin 2026) — version initiale : couleurs (depuis `mobile/lib/theme/colors.ts`), typographie/spacing/radius extraits de l'usage réel du repo mobile.
