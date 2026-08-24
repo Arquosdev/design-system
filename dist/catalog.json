@@ -281,6 +281,35 @@
       }
     },
     {
+      "name": "PhotoTile",
+      "statut": "beta",
+      "role": "Montrer une photo attendue — prise ou non — avec ce qu'elle est censée montrer.",
+      "mots_cles": [
+        "photo",
+        "vignette",
+        "image",
+        "miniature",
+        "cliche",
+        "apercu"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — vignettes de la vue d'ensemble et de la rubrique Photos"
+        ],
+        "mobile": [
+          "components/full-form/PhotoGrid.tsx"
+        ]
+      },
+      "dossier": "components/photo-tile",
+      "fiche": "components/photo-tile/photo-tile.spec.md",
+      "fichiers": {
+        "web": "components/photo-tile/photo-tile.web.tsx"
+      }
+    },
+    {
       "name": "SegmentedTabs",
       "statut": "beta",
       "role": "Basculer entre deux ou trois vues d'un même écran, toutes également importantes.",

@@ -128,6 +128,7 @@ Charger la feuille une fois, puis référencer les variables :
 
 ## État
 
+- **v0.7.0** (août 2026) — `PhotoTile` : emplacement photo, pris ou non.
 - **v0.6.0** (août 2026) — `StatTile` et `Gauge`, pour la vue d'ensemble.
 - **v0.5.1** (août 2026) — `NavList` : intitulé facultatif, pour ne pas répéter un onglet.
 - **v0.5.0** (août 2026) — `SegmentedTabs` : bascule entre deux ou trois vues d'un même écran.
