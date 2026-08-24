@@ -40,6 +40,7 @@ sur place. C'est lui qui rend la fiche modifiable sans formulaire séparé.
 | `options`    | `{ value: string; label: string }[]`        | `[]`       | Requis pour `choice` et `multi`                |
 | `onSave`     | `(v: string \| string[]) => void`           | —          | Appelé à la validation. Absent = lecture seule |
 | `statut`     | `'renseigne' \| 'manquant' \| 'a_verifier'` | —          | Pastille affichée à droite de la valeur        |
+| `sauvegarde` | `'encours' \| 'ok' \| 'echec'`              | —          | Retour d'enregistrement, à côté de la valeur   |
 | `origine`    | `string`                                    | —          | Provenance de la valeur, en infobulle          |
 | `readOnly`   | `boolean`                                   | `false`    | Force la lecture seule                         |
 
@@ -80,6 +81,11 @@ import { FieldRow } from '@arquos/design-system/web';
 - **Valeur longue** : passe à la ligne, la ligne grandit. Pas de troncature :
   une cote tronquée est une cote fausse.
 - **Multi-sélection vide** : afficher « Non renseigné », pas « [] ».
+- **Enregistrement** : « Enregistrement… », puis « ✓ Enregistré » ou
+  « ⚠ Non enregistré », via `sauvegarde`. Le retour reste sur la ligne : un
+  bandeau en bas d'écran ne dirait pas quel champ a échoué. Ne l'afficher que
+  si la correction part vraiment — « ✓ Enregistré » sur une valeur qui ne
+  quitte pas l'écran est un mensonge.
 
 ## Accessibilité
 
@@ -87,6 +93,8 @@ import { FieldRow } from '@arquos/design-system/web';
   la saisie.
 - Chaque éditeur reçoit un `aria-label` repris du libellé — sinon un lecteur d'écran
   annonce un champ sans nom.
+- Le retour d'enregistrement est un `role="status"`, pas une alerte : en cas
+  d'échec la valeur d'avant est déjà revenue sous les yeux de l'utilisateur.
 - Le type du champ ne s'annonce pas : il se déduit de l'éditeur qui s'ouvre.
   Une icône de type devant chaque libellé a été retirée le 24/08/2026 — sur une
   rubrique de cent champs, cent pictogrammes identiques ne distinguent rien et

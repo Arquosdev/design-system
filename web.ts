@@ -29,6 +29,18 @@ export { DataTable, type DataTableProps } from './components/data-table/data-tab
 export { Gauge, type GaugeProps } from './components/gauge/gauge.web';
 export { StatTile, type StatTileProps } from './components/stat-tile/stat-tile.web';
 export { PhotoTile, type PhotoTileProps } from './components/photo-tile/photo-tile.web';
+export {
+  PhotoViewer,
+  type PhotoViewerProps,
+  type PhotoVue,
+} from './components/photo-viewer/photo-viewer.web';
+export {
+  ToastProvider,
+  useToast,
+  type ToastProviderProps,
+  type ToastContexte,
+  type ToastTon,
+} from './components/toast/toast.web';
 export { SegmentedTabs, type SegmentedTabsProps, type Segment } from './components/segmented-tabs/segmented-tabs.web';
 export { NavList, type NavListProps, type NavItem } from './components/nav-list/nav-list.web';
 export { IconButton, type IconButtonProps } from './components/icon-button/icon-button.web';
@@ -37,6 +49,7 @@ export {
   type FieldRowProps,
   type FieldKind,
   type FieldStatut,
+  type FieldSauvegarde,
   type FieldOption,
 } from './components/field-row/field-row.web';
 
