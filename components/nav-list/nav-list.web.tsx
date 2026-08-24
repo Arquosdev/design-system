@@ -20,16 +20,52 @@ export interface NavListProps {
   items: readonly NavItem[];
   courant?: string;
   onChoisir: (cle: string) => void;
+  /** Rend l'intitulé cliquable, pour replier le groupe. */
+  repliable?: boolean;
+  /** Ouvert au premier rendu. Sans effet si le groupe n'est pas repliable. */
+  ouvertParDefaut?: boolean;
   className?: string;
 }
 
-export function NavList({ titre, items, courant, onChoisir, className }: NavListProps) {
+export function NavList({
+  titre,
+  items,
+  courant,
+  onChoisir,
+  repliable = false,
+  ouvertParDefaut = true,
+  className,
+}: NavListProps) {
+  const [ouvert, setOuvert] = React.useState(ouvertParDefaut);
+  // Un groupe replié qui contient la rubrique ouverte la cacherait : on le
+  // laisse déplié tant qu'elle est dedans.
+  const contientCourant = items.some((i) => i.cle === courant);
+  const deplie = !repliable || ouvert || contientCourant;
+
+  const intitule = (
+    <span className="flex-1 text-left text-caption font-bold tracking-wide uppercase">
+      {titre}
+    </span>
+  );
+
   return (
     <div className={cn('shrink-0', className)}>
-      <div className="px-xs pb-sm text-caption font-bold tracking-wide text-text-subtle uppercase">
-        {titre}
-      </div>
-      <div className="flex flex-col gap-xxs">
+      {repliable ? (
+        <button
+          type="button"
+          aria-expanded={deplie}
+          onClick={() => setOuvert(!deplie)}
+          className="flex w-full items-center gap-sm rounded-control px-xs pb-sm text-text-subtle outline-none hover:text-text focus-visible:ring-2 focus-visible:ring-primary"
+        >
+          <ChevronBas ouvert={deplie} />
+          {intitule}
+          <span className="shrink-0 tabular-nums text-small">{items.length}</span>
+        </button>
+      ) : (
+        <div className="flex px-xs pb-sm text-text-subtle">{intitule}</div>
+      )}
+
+      <div className={cn('flex flex-col gap-xxs', !deplie && 'hidden')}>
         {items.map((item) => {
           const actif = item.cle === courant;
           return (
@@ -62,5 +98,27 @@ export function NavList({ titre, items, courant, onChoisir, className }: NavList
         })}
       </div>
     </div>
+  );
+}
+
+function ChevronBas({ ouvert }: { ouvert: boolean }) {
+  return (
+    <svg
+      width="11"
+      height="11"
+      viewBox="0 0 256 256"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="22"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className={cn(
+        'shrink-0 transition-transform duration-200',
+        ouvert ? 'rotate-0' : '-rotate-90',
+      )}
+    >
+      <path d="M48 96l80 80 80-80" />
+    </svg>
   );
 }

@@ -34,6 +34,8 @@ remplace:
 | `items`     | `NavItem[]`                  | —      | Les rubriques                               |
 | `courant`   | `string`                    | —      | La clé de la rubrique ouverte               |
 | `onChoisir` | `(cle: string) => void`      | —      | Appelé au clic sur une rubrique             |
+| `repliable` | `boolean`                    | `false`| Rend l'intitulé cliquable, pour replier le groupe |
+| `ouvertParDefaut` | `boolean`              | `true` | Ouvert au premier rendu                     |
 
 `NavItem` : `{ cle, label, compteur?, desactive? }`.
 
@@ -73,6 +75,8 @@ import { NavList } from '@arquos/design-system/web';
   rien à montrer sur cet objet — pas à une rubrique qui charge encore.
 - **Compteur inconnu** : passer `'…'`. Ne jamais afficher `0` par défaut.
 - **Libellé long** : passe à la ligne. Le tronquer cacherait la rubrique cherchée.
+- **Groupe replié contenant la rubrique ouverte** : il reste déplié. Le replier
+  cacherait l'endroit où l'on se trouve.
 
 ## Accessibilité
 
