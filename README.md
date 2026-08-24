@@ -128,5 +128,6 @@ Charger la feuille une fois, puis référencer les variables :
 
 ## État
 
+- **v0.3.0** (août 2026) — `Card`, `IconButton`, `Badge`, `DataTable` ; variante `outline` du bouton ; correction de `cn()` qui perdait les couleurs de texte.
 - **v0.2.0** (août 2026) — tokens générés en CSS, thème Tailwind v4 et JSON ; catalogue de composants ; trois premiers composants web (Button, Accordion, FieldRow) ; garde-fou CI ; `CLAUDE.md` pour les agents.
 - **v0.1.0** (juin 2026) — version initiale : couleurs (depuis `mobile/lib/theme/colors.ts`), typographie/spacing/radius extraits de l'usage réel du repo mobile.
