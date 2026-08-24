@@ -43,6 +43,11 @@ export {
 } from './components/toast/toast.web';
 export { SegmentedTabs, type SegmentedTabsProps, type Segment } from './components/segmented-tabs/segmented-tabs.web';
 export { NavList, type NavListProps, type NavItem } from './components/nav-list/nav-list.web';
+export {
+  FilterChips,
+  type FilterChipsProps,
+  type FilterChip,
+} from './components/filter-chips/filter-chips.web';
 export { IconButton, type IconButtonProps } from './components/icon-button/icon-button.web';
 export {
   FieldRow,
@@ -52,5 +57,16 @@ export {
   type FieldSauvegarde,
   type FieldOption,
 } from './components/field-row/field-row.web';
+
+export {
+  Command,
+  CommandDialog,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+  CommandSeparator,
+} from './components/command/command.web';
 
 export { cn } from './components/_lib/cn';

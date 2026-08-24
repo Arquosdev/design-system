@@ -36,6 +36,11 @@ export interface FieldRowProps {
    */
   photos?: readonly { nom: string }[];
   onVoirPhotos?: () => void;
+  /**
+   * Désigne la ligne : la recherche vient d'y emmener. Elle défile sous les
+   * yeux une fois, puis le repère s'efface.
+   */
+  repere?: boolean;
   readOnly?: boolean;
   className?: string;
 }
@@ -77,12 +82,31 @@ export function FieldRow({
   origine,
   photos,
   onVoirPhotos,
+  repere = false,
   readOnly = false,
   className,
 }: FieldRowProps) {
   const [enSaisie, setEnSaisie] = React.useState(false);
   const editable = Boolean(onSave) && !readOnly;
   const estVide = value === null || value === '' || (Array.isArray(value) && value.length === 0);
+
+  /*
+    Amener la ligne sous les yeux — UNE fois. Sans ça, la recherche change
+    d'écran, allume son repère, et le repère s'éteint hors de l'écran : sur une
+    rubrique de cent lignes, la recherche a l'air de n'avoir rien fait.
+
+    Une seule fois, parce que le `ref` est rappelé à chaque rendu : redéfiler à
+    chaque frappe empêcherait de bouger la page à la main.
+  */
+  const deja = React.useRef(false);
+  const amener = React.useCallback((el: HTMLDivElement | null) => {
+    if (!el || deja.current) return;
+    deja.current = true;
+    el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  }, []);
+  React.useEffect(() => {
+    if (!repere) deja.current = false;
+  }, [repere]);
 
   const ouvrir = () => editable && setEnSaisie(true);
   const valider = (valeur: string | string[]) => {
@@ -92,13 +116,24 @@ export function FieldRow({
 
   return (
     <div
+      ref={repere ? amener : undefined}
       className={cn(
         'grid grid-cols-[190px_1fr] items-start gap-md py-sm',
         'border-b border-border-soft last:border-b-0',
+        // Marges négatives compensées : le fond du repère doit déborder de la
+        // colonne, sinon il s'arrête au ras du libellé et se lit comme un défaut.
+        repere && '-mx-sm animate-repere rounded-control px-sm',
         className,
       )}
     >
-      <span className="min-w-0 pt-xxs text-small break-words text-text-muted">{label}</span>
+      <span
+        className={cn(
+          'min-w-0 pt-xxs text-small break-words text-text-muted',
+          repere && 'animate-repere-libelle underline decoration-transparent decoration-2 underline-offset-4',
+        )}
+      >
+        {label}
+      </span>
 
       <div className="min-w-0">
         {enSaisie ? (

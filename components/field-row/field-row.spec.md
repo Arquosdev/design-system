@@ -41,6 +41,9 @@ sur place. C'est lui qui rend la fiche modifiable sans formulaire séparé.
 | `onSave`     | `(v: string \| string[]) => void`           | —          | Appelé à la validation. Absent = lecture seule |
 | `statut`     | `'renseigne' \| 'manquant' \| 'a_verifier'` | —          | Pastille affichée à droite de la valeur        |
 | `sauvegarde` | `'encours' \| 'ok' \| 'echec'`              | —          | Retour d'enregistrement, à côté de la valeur   |
+| `photos`     | `readonly { nom: string }[]`                | —          | Photos qui justifient la valeur — la plaque où elle a été lue |
+| `onVoirPhotos` | `() => void`                              | —          | Ouvre ces photos. Le picto n'existe que si les deux sont fournis |
+| `repere`     | `boolean`                                   | `false`    | Désigne la ligne : la recherche vient d'y emmener |
 | `origine`    | `string`                                    | —          | Provenance de la valeur, en infobulle          |
 | `readOnly`   | `boolean`                                   | `false`    | Force la lecture seule                         |
 
@@ -81,6 +84,10 @@ import { FieldRow } from '@arquos/design-system/web';
 - **Valeur longue** : passe à la ligne, la ligne grandit. Pas de troncature :
   une cote tronquée est une cote fausse.
 - **Multi-sélection vide** : afficher « Non renseigné », pas « [] ».
+- **Désignée** (`repere`) : la ligne défile sous les yeux **une seule fois**,
+  son fond s'allume puis s'efface, et le libellé se souligne le temps de
+  l'animation. Le fond dit « ici », le trait dit « ce champ-là ». Redéfiler à
+  chaque rendu empêcherait de bouger la page à la main.
 - **Enregistrement** : « Enregistrement… », puis « ✓ Enregistré » ou
   « ⚠ Non enregistré », via `sauvegarde`. Le retour reste sur la ligne : un
   bandeau en bas d'écran ne dirait pas quel champ a échoué. Ne l'afficher que

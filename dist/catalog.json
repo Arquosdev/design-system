@@ -126,6 +126,33 @@
       }
     },
     {
+      "name": "Command",
+      "statut": "beta",
+      "role": "Atteindre n'importe quoi dans un écran dense, en tapant son nom.",
+      "mots_cles": [
+        "recherche",
+        "palette",
+        "commande",
+        "cmdk",
+        "raccourci",
+        "aller a",
+        "chercher"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — palette ⌘K"
+        ]
+      },
+      "dossier": "components/command",
+      "fiche": "components/command/command.spec.md",
+      "fichiers": {
+        "web": "components/command/command.web.tsx"
+      }
+    },
+    {
       "name": "DataTable",
       "statut": "beta",
       "role": "Présenter des mesures en lignes et colonnes, quand la comparaison colonne par colonne est le sujet.",
@@ -186,6 +213,33 @@
       "fiche": "components/field-row/field-row.spec.md",
       "fichiers": {
         "web": "components/field-row/field-row.web.tsx"
+      }
+    },
+    {
+      "name": "FilterChips",
+      "statut": "beta",
+      "role": "Restreindre une liste à une de ses parties, par une barre de puces.",
+      "mots_cles": [
+        "filtre",
+        "puces",
+        "chips",
+        "section",
+        "zone",
+        "restreindre",
+        "categorie"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — photoChips"
+        ]
+      },
+      "dossier": "components/filter-chips",
+      "fiche": "components/filter-chips/filter-chips.spec.md",
+      "fichiers": {
+        "web": "components/filter-chips/filter-chips.web.tsx"
       }
     },
     {
