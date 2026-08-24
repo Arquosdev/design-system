@@ -1,0 +1,197 @@
+/* Tokens Arquos — GÉNÉRÉ, ne pas éditer à la main.
+ * Source : src/*.ts — régénérer avec `npm run build`.
+ */
+
+:root {
+  /* Palette — ramps brutes. Préférer les tokens sémantiques ci-dessous. */
+  --arq-palette-blue-50: #E1ECFA;
+  --arq-palette-blue-100: #B4D2F5;
+  --arq-palette-blue-200: #87B7F0;
+  --arq-palette-blue-300: #5A9CEC;
+  --arq-palette-blue-400: #2F7BCE;
+  --arq-palette-blue-500: #0D5AB7;
+  --arq-palette-blue-600: #0A4B93;
+  --arq-palette-blue-700: #073B6F;
+  --arq-palette-blue-800: #052B4B;
+  --arq-palette-marine-50: #F5F9FD;
+  --arq-palette-marine-100: #DFEAF8;
+  --arq-palette-marine-200: #BFD4ED;
+  --arq-palette-marine-300: #99B8DE;
+  --arq-palette-marine-400: #6E97C8;
+  --arq-palette-marine-500: #3B6DA7;
+  --arq-palette-marine-600: #13437D;
+  --arq-palette-marine-700: #00295B;
+  --arq-palette-marine-800: #001C40;
+  --arq-palette-orange-50: #FFF3DD;
+  --arq-palette-orange-100: #FFE0B0;
+  --arq-palette-orange-200: #FFCD84;
+  --arq-palette-orange-300: #FFBA58;
+  --arq-palette-orange-400: #FFA836;
+  --arq-palette-orange-500: #FFA522;
+  --arq-palette-orange-600: #CC841B;
+  --arq-palette-orange-700: #996315;
+  --arq-palette-orange-800: #66420E;
+  --arq-palette-green-50: #F3FCFB;
+  --arq-palette-green-100: #DFF7F3;
+  --arq-palette-green-200: #B6ECE3;
+  --arq-palette-green-300: #85E0D1;
+  --arq-palette-green-400: #59D4C0;
+  --arq-palette-green-500: #2EB89A;
+  --arq-palette-green-600: #17A679;
+  --arq-palette-green-700: #0C7C59;
+  --arq-palette-green-800: #032B1F;
+  --arq-palette-red-50: #FDF7F7;
+  --arq-palette-red-100: #F1C0C1;
+  --arq-palette-red-200: #EB9E9F;
+  --arq-palette-red-300: #E26F71;
+  --arq-palette-red-400: #DA494B;
+  --arq-palette-red-500: #BE3A37;
+  --arq-palette-red-600: #943124;
+  --arq-palette-red-700: #5E1F17;
+  --arq-palette-red-800: #2D0F0B;
+  --arq-palette-grey-50: #F6F7F9;
+  --arq-palette-grey-100: #EAEEF1;
+  --arq-palette-grey-200: #C8D3DA;
+  --arq-palette-grey-300: #A4B5C1;
+  --arq-palette-grey-400: #8094A3;
+  --arq-palette-grey-500: #5D6D79;
+  --arq-palette-grey-600: #4D5B66;
+  --arq-palette-grey-700: #3F4950;
+  --arq-palette-grey-800: #232B2F;
+  --arq-palette-white: #FFFFFF;
+  --arq-palette-black: #000000;
+
+  /* Marque */
+  --arq-core-marine: #00295B;
+  --arq-core-blue: #0D5AB7;
+  --arq-core-orange: #FFA522;
+  --arq-core-white: #FFFFFF;
+
+  /* Couleurs sémantiques — à utiliser dans le code applicatif */
+  --arq-color-primary: #0D5AB7;
+  --arq-color-primary-dark: #073B6F;
+  --arq-color-brand: #00295B;
+  --arq-color-accent: #FFA522;
+  --arq-color-success: #17A679;
+  --arq-color-success-bg: #DFF7F3;
+  --arq-color-danger: #BE3A37;
+  --arq-color-danger-bg: #F1C0C1;
+  --arq-color-warning: #FFA522;
+  --arq-color-bg: #FFFFFF;
+  --arq-color-bg-muted: #F6F7F9;
+  --arq-color-border: #C8D3DA;
+  --arq-color-text: #232B2F;
+  --arq-color-text-muted: #5D6D79;
+  --arq-color-text-subtle: #8094A3;
+  --arq-color-text-on-dark: #FFFFFF;
+  --arq-color-black: #000000;
+
+  /* Espacements (base 4) */
+  --arq-space-none: 0px;
+  --arq-space-xxs: 2px;
+  --arq-space-xs: 4px;
+  --arq-space-sm: 8px;
+  --arq-space-md: 12px;
+  --arq-space-base: 16px;
+  --arq-space-lg: 20px;
+  --arq-space-xl: 24px;
+  --arq-space-2xl: 32px;
+  --arq-space-3xl: 40px;
+  --arq-space-4xl: 48px;
+  --arq-space-5xl: 64px;
+
+  /* Arrondis */
+  --arq-radius-none: 0px;
+  --arq-radius-sm: 4px;
+  --arq-radius-md: 8px;
+  --arq-radius-lg: 12px;
+  --arq-radius-xl: 16px;
+  --arq-radius-2xl: 20px;
+  --arq-radius-3xl: 24px;
+  --arq-radius-full: 9999px;
+
+  /* Typographie */
+  --arq-font-size-caption: 12px;
+  --arq-font-size-small: 14px;
+  --arq-font-size-body: 16px;
+  --arq-font-size-subhead: 18px;
+  --arq-font-size-title: 20px;
+  --arq-font-size-title-large: 22px;
+  --arq-font-size-headline: 28px;
+  --arq-font-size-display: 32px;
+  --arq-font-weight-regular: 400;
+  --arq-font-weight-medium: 500;
+  --arq-font-weight-semibold: 600;
+  --arq-font-weight-bold: 700;
+  --arq-line-height-tight: 1.2;
+  --arq-line-height-normal: 1.4;
+  --arq-line-height-relaxed: 1.6;
+  --arq-letter-spacing-tight: -0.5px;
+  --arq-letter-spacing-normal: 0px;
+  --arq-letter-spacing-wide: 0.5px;
+}
+
+/* Presets typographiques prêts à l'emploi. */
+.arq-text-caption {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16.799999999999997px;
+}
+
+.arq-text-small {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19.599999999999998px;
+}
+
+.arq-text-body {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22.4px;
+}
+
+.arq-text-body-medium {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22.4px;
+}
+
+.arq-text-body-bold {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22.4px;
+}
+
+.arq-text-subhead {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 21.599999999999998px;
+}
+
+.arq-text-title {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.5px;
+}
+
+.arq-text-title-large {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 26.4px;
+  letter-spacing: -0.5px;
+}
+
+.arq-text-headline {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 33.6px;
+  letter-spacing: -0.5px;
+}
+
+.arq-text-display {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 38.4px;
+  letter-spacing: -0.5px;
+}
