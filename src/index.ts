@@ -6,19 +6,40 @@
 //   import { tokens } from '@arquos/design-system';
 
 export { palette, core, colors, type ColorToken } from './colors';
-export { fontSize, fontWeight, lineHeight, letterSpacing, typography, type TypographyToken } from './typography';
+export {
+  fontFamily,
+  fontFamilyNative,
+  fontSize,
+  fontWeight,
+  lineHeight,
+  letterSpacing,
+  typography,
+  type TypographyToken,
+} from './typography';
 export { spacing, type SpacingToken } from './spacing';
 export { radius, type RadiusToken } from './radius';
+export { shadow, shadowNative, type ShadowToken } from './elevation';
 
 import { palette, core, colors } from './colors';
-import { fontSize, fontWeight, lineHeight, letterSpacing, typography } from './typography';
+import {
+  fontFamily,
+  fontFamilyNative,
+  fontSize,
+  fontWeight,
+  lineHeight,
+  letterSpacing,
+  typography,
+} from './typography';
 import { spacing } from './spacing';
 import { radius } from './radius';
+import { shadow, shadowNative } from './elevation';
 
 export const tokens = {
   palette,
   core,
   colors,
+  fontFamily,
+  fontFamilyNative,
   fontSize,
   fontWeight,
   lineHeight,
@@ -26,4 +47,6 @@ export const tokens = {
   typography,
   spacing,
   radius,
+  shadow,
+  shadowNative,
 } as const;

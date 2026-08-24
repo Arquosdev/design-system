@@ -9,6 +9,7 @@
 
 export const radius = {
   none: 0,
+  control: 5, // pastilles et petits contrôles — hérité de l'identité de marque
   sm: 4,
   md: 8,     // ← défaut (cartes, inputs, boutons standards)
   lg: 12,

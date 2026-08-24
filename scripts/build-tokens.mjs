@@ -13,9 +13,17 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { palette, core, colors } from '../src/colors.ts';
-import { fontSize, fontWeight, lineHeight, letterSpacing, typography } from '../src/typography.ts';
+import {
+  fontFamily,
+  fontSize,
+  fontWeight,
+  lineHeight,
+  letterSpacing,
+  typography,
+} from '../src/typography.ts';
 import { spacing } from '../src/spacing.ts';
 import { radius } from '../src/radius.ts';
+import { shadow } from '../src/elevation.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
@@ -45,6 +53,12 @@ const DESCRIPTIONS = {
     textSubtle: 'Texte tertiaire — placeholders, texte désactivé.',
     textOnDark: 'Texte posé sur une surface foncée (brand, primary).',
     black: 'Noir pur — overlays, ombres. Éviter pour du texte, préférer `text`.',
+    borderSoft: 'Bordure discrète — séparateurs internes, contour de carte.',
+  },
+  shadow: {
+    card: 'Cartes et surfaces posées sur le fond de page.',
+    pop: 'Menus, popovers, feuilles modales.',
+    fab: 'Bouton flottant — ombre teintée de bleu.',
   },
   spacing: {
     none: 'Aucun espace.',
@@ -62,6 +76,7 @@ const DESCRIPTIONS = {
   },
   radius: {
     none: 'Angles droits.',
+    control: 'Pastilles et petits contrôles — hérité de l\'identité de marque.',
     sm: 'Léger — petits éléments, pastilles carrées.',
     md: 'Défaut — cartes, champs, boutons.',
     lg: 'Marqué — cartes de premier plan.',
@@ -112,7 +127,13 @@ function buildCss() {
     lines.push(`  --${NS}-radius-${kebab(key)}: ${value}px;`);
   }
 
+  section('Élévation');
+  for (const [key, value] of Object.entries(shadow)) {
+    lines.push(`  --${NS}-shadow-${kebab(key)}: ${value};`);
+  }
+
   section('Typographie');
+  lines.push(`  --${NS}-font-sans: ${fontFamily};`);
   for (const [key, value] of Object.entries(fontSize)) {
     lines.push(`  --${NS}-font-size-${kebab(key)}: ${value}px;`);
   }
@@ -130,6 +151,7 @@ function buildCss() {
   // graisse + interligne d'un seul coup — l'équivalent web de `typography.body`.
   const presets = Object.entries(typography).map(([key, preset]) => {
     const decls = [
+      `  font-family: var(--${NS}-font-sans);`,
       `  font-size: ${preset.fontSize}px;`,
       `  font-weight: ${preset.fontWeight};`,
       `  line-height: ${preset.lineHeight}px;`,
@@ -203,6 +225,16 @@ function buildJson() {
     radius: {
       $description: 'Arrondis. `md` (8px) est la référence.',
       ...group(radius, 'dimension', 'px', DESCRIPTIONS.radius),
+    },
+    shadow: {
+      $description: 'Trois niveaux d\'élévation, chacun attaché à un usage précis.',
+      ...group(shadow, 'shadow', '', DESCRIPTIONS.shadow),
+    },
+    fontFamily: {
+      $type: 'fontFamily',
+      $value: fontFamily,
+      $description:
+        'DM Sans est la seule police de la marque. Côté React Native, utiliser `fontFamilyNative` : le gras synthétique rend mal sur Android.',
     },
     fontSize: {
       $description: "Échelle typographique. `body` (16px) est la taille du texte courant. Ne pas ajouter de nouvelle taille.",

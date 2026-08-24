@@ -6,6 +6,23 @@
 // Le `body` (16) est la taille par défaut du texte courant.
 // Pour éviter le drift, NE PAS introduire de nouvelles tailles : utiliser un alias.
 
+// DM Sans est la seule police de la marque.
+//
+// Web : une pile CSS classique, la graisse est choisie par `fontWeight`.
+// Mobile : React Native ne synthétise pas correctement le gras sur Android — il
+// faut nommer explicitement la variante chargée, d'où `fontFamilyNative`.
+export const fontFamily =
+  "'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+
+export const fontFamilyNative = {
+  400: 'DMSans_400Regular',
+  500: 'DMSans_500Medium',
+  600: 'DMSans_600SemiBold',
+  700: 'DMSans_700Bold',
+  800: 'DMSans_800ExtraBold',
+  900: 'DMSans_900Black',
+} as const;
+
 export const fontSize = {
   caption: 12,
   small: 14,
