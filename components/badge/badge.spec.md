@@ -30,31 +30,37 @@ remplace:
 
 ## Props
 
-| Prop       | Type                                                          | Défaut      | Rôle              |
-| ---------- | ------------------------------------------------------------- | ----------- | ----------------- |
-| `tone`     | `'neutral' \| 'info' \| 'success' \| 'warning' \| 'danger'`    | `'neutral'` | Registre de sens  |
-| `variant`  | `'plein' \| 'contour'`                                         | `'plein'`   | Fond teinté, ou bordé sur fond blanc |
-| `children` | `ReactNode`                                                    | —           | Le mot            |
+| Prop       | Type                                                                                    | Défaut    | Rôle     |
+| ---------- | --------------------------------------------------------------------------------------- | --------- | -------- |
+| `variant`  | `'default' \| 'secondary' \| 'destructive' \| 'outline' \| 'success' \| 'warning' \| 'muted'` | `'muted'` | Registre |
+| `children` | `ReactNode`                                                                               | —         | Le mot   |
 
-**Choisir le ton :** `success` pour ce qui est conforme, `danger` pour ce qui
-bloque, `warning` pour ce qui approche d'une limite, `info` pour un état neutre
-du parcours, `neutral` pour une simple catégorie.
+**Choisir la variante :** `success` pour ce qui est conforme, `destructive` pour ce
+qui bloque, `warning` pour ce qui approche d'une limite, `secondary` pour un état
+neutre du parcours, `muted` pour une simple catégorie, `outline` pour une précision
+posée sur fond blanc.
+
+> **Base shadcn/ui.** Ses quatre variantes (`default`, `secondary`, `destructive`,
+> `outline`) sont conservées telles quelles. `success`, `warning` et `muted` s'y
+> ajoutent : une fiche d'équipement parle sans cesse de conformité et de vigilance,
+> et shadcn n'a rien pour ça. C'est l'extension que leur documentation invite à
+> faire, pas un fork.
 
 ## Exemples
 
 ```tsx
 import { Badge } from '@arquos/design-system/web';
 
-<Badge tone="success">Conforme</Badge>
-<Badge tone="danger">Non conforme</Badge>
-<Badge variant="contour">Échéance 18/09/2030</Badge>
+<Badge variant="success">Conforme</Badge>
+<Badge variant="destructive">Non conforme</Badge>
+<Badge variant="outline">Échéance 18/09/2030</Badge>
 ```
 
 ## Anatomie
 
 - Padding `spacing.xs` horizontal, `spacing.xxs` vertical · Arrondi `radius.control`
 - Texte `typography.caption` en demi-gras
-- `plein` : fond `…Bg`, texte de la couleur pleine · `contour` : fond `colors.bg`, bordure `colors.border`
+- Fond teinté et texte de la couleur pleine, sauf `outline` : bordure `colors.border` sur fond blanc
 
 ## États
 
@@ -63,6 +69,7 @@ focus. S'il en faut un, c'est que ce devait être un bouton.
 
 ## Accessibilité
 
-- Le badge est du texte : il est lu tel quel, sans `role`.
-- Le contraste des tons `plein` est vérifié sur leur propre fond. Ne pas les
-  poser sur une surface teintée, le rapport n'y tient plus.
+- Le badge est du texte dans un `<span>` : il est lu tel quel, sans `role`. shadcn
+  rend un `<div>` ; un bloc casserait l'alignement à côté d'un libellé.
+- Le contraste est vérifié sur le fond blanc de la fiche. Ne pas poser un badge
+  sur une surface teintée, le rapport n'y tient plus.

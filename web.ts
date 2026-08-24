@@ -8,15 +8,23 @@
 // Les tokens s'importent séparément — ils ne dépendent pas de React :
 //   import { colors, spacing } from '@arquos/design-system';
 
-export { Button, type ButtonProps } from './components/button/button.web';
+export { Button, buttonVariants, type ButtonProps } from './components/button/button.web';
 export {
   Accordion,
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
 } from './components/accordion/accordion.web';
-export { Badge, type BadgeProps } from './components/badge/badge.web';
-export { Card, type CardProps } from './components/card/card.web';
+export { Badge, badgeVariants, type BadgeProps } from './components/badge/badge.web';
+export {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardList,
+  CardFooter,
+} from './components/card/card.web';
 export { DataTable, type DataTableProps } from './components/data-table/data-table.web';
 export { Gauge, type GaugeProps } from './components/gauge/gauge.web';
 export { StatTile, type StatTileProps } from './components/stat-tile/stat-tile.web';

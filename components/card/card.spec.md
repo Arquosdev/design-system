@@ -28,32 +28,51 @@ remplace:
 - **Pour encadrer un élément isolé.** Une bordure autour d'une seule valeur
   n'organise rien, elle ajoute du bruit.
 
-## Props
+## Composition
 
-| Prop       | Type              | Défaut  | Rôle                                            |
-| ---------- | ----------------- | ------- | ----------------------------------------------- |
-| `titre`    | `string`          | —       | En-tête de la carte. Absent = pas d'en-tête      |
-| `meta`     | `string`          | —       | Précision affichée à droite du titre             |
-| `children` | `ReactNode`       | —       | Le contenu                                       |
-| `plat`     | `boolean`         | `false` | Retire le padding du contenu (listes pleine largeur) |
+Une carte s'assemble, elle ne se configure pas par props — comme chez shadcn.
+
+| Partie            | Rôle                                                         |
+| ----------------- | ------------------------------------------------------------ |
+| `Card`            | Le contour. Toujours présent                                   |
+| `CardHeader`      | La barre teintée. Absent = carte sans en-tête                  |
+| `CardTitle`       | Le titre, dans l'en-tête                                       |
+| `CardDescription` | La précision à droite du titre (« 4 documents »)               |
+| `CardContent`     | Le contenu, avec son padding                                   |
+| `CardList`        | Le contenu **sans** padding, pour une liste qui touche les bords |
+| `CardFooter`      | Un pied séparé par un filet                                     |
+
+> **Base shadcn/ui.** Un extrait de leur documentation fonctionne tel quel.
+> `CardHeader` s'écarte du leur sur un point : il pose la barre teintée de la
+> fiche Arquos au lieu d'un simple bloc espacé. `CardList` n'existe pas chez eux
+> — la fiche en a besoin partout.
 
 ## Exemples
 
 ```tsx
-import { Card } from '@arquos/design-system/web';
+import { Card, CardHeader, CardTitle, CardDescription, CardList }
+  from '@arquos/design-system/web';
 
-<Card titre="Réglementaire" meta="4 documents" plat>
-  {documents.map((d) => <LigneDocument key={d.id} {...d} />)}
+<Card>
+  <CardHeader>
+    <CardTitle>Réglementaire</CardTitle>
+    <CardDescription>4 documents</CardDescription>
+  </CardHeader>
+  <CardList>
+    {documents.map((d) => <LigneDocument key={d.id} {...d} />)}
+  </CardList>
 </Card>
 
-<Card>Un bloc sans en-tête.</Card>
+<Card>
+  <CardContent>Un bloc sans en-tête.</CardContent>
+</Card>
 ```
 
 ## Anatomie
 
 - Contour : `1px` `colors.borderSoft`, arrondi `radius.md`, fond `colors.bg`
 - En-tête : fond `colors.bgMuted`, titre `typography.small` en gras, méta `typography.caption` en `colors.textSubtle`
-- Contenu : padding `spacing.base`, sauf en mode `plat`
+- Contenu : padding `spacing.base` avec `CardContent`, aucun avec `CardList`
 
 ## États
 

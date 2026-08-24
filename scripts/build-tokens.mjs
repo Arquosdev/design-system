@@ -339,14 +339,24 @@ function buildTailwind() {
     ['--popover-foreground', colors.text],
     ['--primary', colors.primary],
     ['--primary-foreground', colors.textOnDark],
-    ['--secondary', colors.bgMuted],
-    ['--secondary-foreground', colors.text],
+    /* Chez Arquos, une action secondaire est le bleu doux, pas un gris. On
+       aligne le vocabulaire shadcn dessus plutôt que de forker ses composants :
+       un `variant="secondary"` collé depuis leur site sort ainsi juste. */
+    ['--secondary', palette.blue[50]],
+    ['--secondary-foreground', palette.blue[700]],
     ['--muted', colors.bgMuted],
     ['--muted-foreground', colors.textMuted],
     ['--accent', palette.blue[50]], // survol / état actif discret, pas l'orange
     ['--accent-foreground', colors.primaryDark],
     ['--destructive', colors.danger],
     ['--destructive-foreground', colors.textOnDark],
+    /* Hors vocabulaire shadcn, mais indispensables ici : une fiche d'équipement
+       parle sans cesse de conforme et de vigilance. Nos composants les
+       déclarent en variantes supplémentaires, comme shadcn invite à le faire. */
+    ['--success', colors.success],
+    ['--success-foreground', colors.textOnDark],
+    ['--warning', colors.accent],
+    ['--warning-foreground', colors.text],
     ['--border', colors.border],
     ['--input', colors.border],
     ['--ring', colors.primary],
