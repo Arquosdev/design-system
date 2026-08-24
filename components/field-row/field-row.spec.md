@@ -84,6 +84,17 @@ import { FieldRow } from '@arquos/design-system/web';
 - **Valeur longue** : passe à la ligne, la ligne grandit. Pas de troncature :
   une cote tronquée est une cote fausse.
 - **Multi-sélection vide** : afficher « Non renseigné », pas « [] ».
+- **Menu ouvert** : la valeur cochée est celle du champ. La ligne affiche un
+  libellé (« Moyen »), le menu manipule des valeurs en base (`moyen`) : poser le
+  libellé comme valeur du `select` ne correspond à aucune option, et le
+  navigateur coche alors la première — le menu s'ouvrirait sur « Bon » pour un
+  composant qui est « Moyen ». `menuDeChoix` fait la traduction, et est exporté
+  pour les écrans qui rendent leur propre menu (le tableau des remplacements).
+- **Valeur hors catalogue** : gardée en tête du menu, suffixée « · valeur
+  actuelle ». La retirer la remplacerait en silence dès l'ouverture.
+- **Reclic sur la valeur déjà retenue** : ferme sans écrire. Réenregistrer à
+  l'identique coûterait un aller-retour et daterait la fiche d'une correction
+  qui n'en est pas une.
 - **Désignée** (`repere`) : la ligne défile sous les yeux **une seule fois**,
   son fond s'allume puis s'efface, et le libellé se souligne le temps de
   l'animation. Le fond dit « ici », le trait dit « ce champ-là ». Redéfiler à
