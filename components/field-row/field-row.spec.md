@@ -43,6 +43,8 @@ sur place. C'est lui qui rend la fiche modifiable sans formulaire séparé.
 | `sauvegarde` | `'encours' \| 'ok' \| 'echec'`              | —          | Retour d'enregistrement, à côté de la valeur   |
 | `photos`     | `readonly { nom: string }[]`                | —          | Photos qui justifient la valeur — la plaque où elle a été lue |
 | `onVoirPhotos` | `() => void`                              | —          | Ouvre ces photos. Le picto n'existe que si les deux sont fournis |
+| `schemas`    | `readonly { nom: string }[]`                | —          | Schémas expliquant **comment** la mesure se prend |
+| `onVoirSchemas` | `() => void`                             | —          | Ouvre ces schémas |
 | `repere`     | `boolean`                                   | `false`    | Désigne la ligne : la recherche vient d'y emmener |
 | `origine`    | `string`                                    | —          | Provenance de la valeur, en infobulle          |
 | `readOnly`   | `boolean`                                   | `false`    | Force la lecture seule                         |
@@ -111,6 +113,9 @@ import { FieldRow } from '@arquos/design-system/web';
   la saisie.
 - Chaque éditeur reçoit un `aria-label` repris du libellé — sinon un lecteur d'écran
   annonce un champ sans nom.
+- Les deux pictos — photo source et schéma de mesure — portent en `aria-label`
+  ce qu'ils ouvrent, jamais « voir ». Ils ne disent pas la même chose : la photo
+  dit **où** la valeur a été lue, le schéma **comment** la mesure se prend.
 - Le retour d'enregistrement est un `role="status"`, pas une alerte : en cas
   d'échec la valeur d'avant est déjà revenue sous les yeux de l'utilisateur.
 - Le type du champ ne s'annonce pas : il se déduit de l'éditeur qui s'ouvre.

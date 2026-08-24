@@ -37,6 +37,13 @@ export interface FieldRowProps {
   photos?: readonly { nom: string }[];
   onVoirPhotos?: () => void;
   /**
+   * Les schémas qui expliquent COMMENT la mesure se prend — pas où elle a été
+   * lue. Distincts des photos : sur site ils servent à mesurer, au bureau ils
+   * expliquent une valeur déjà relevée.
+   */
+  schemas?: readonly { nom: string }[];
+  onVoirSchemas?: () => void;
+  /**
    * Désigne la ligne : la recherche vient d'y emmener. Elle défile sous les
    * yeux une fois, puis le repère s'efface.
    */
@@ -108,6 +115,8 @@ export function FieldRow({
   origine,
   photos,
   onVoirPhotos,
+  schemas,
+  onVoirSchemas,
   repere = false,
   readOnly = false,
   className,
@@ -217,6 +226,21 @@ export function FieldRow({
                 <IconePhoto />
               </button>
             ) : null}
+            {onVoirSchemas && schemas && schemas.length > 0 ? (
+              <button
+                type="button"
+                onClick={onVoirSchemas}
+                aria-label={libelleSchemas(schemas)}
+                title={libelleSchemas(schemas)}
+                className={cn(
+                  'inline-flex size-[24px] shrink-0 items-center justify-center rounded-control',
+                  'text-text-subtle outline-none hover:bg-bg-muted hover:text-text-muted',
+                  'focus-visible:ring-2 focus-visible:ring-primary',
+                )}
+              >
+                <IconeSchema />
+              </button>
+            ) : null}
             {statut ? (
               <span
                 className={cn(
@@ -252,6 +276,31 @@ export function FieldRow({
 function libellePhotos(photos: readonly { nom: string }[]): string {
   if (photos.length === 1) return `Photo source — ${photos[0].nom}`;
   return `${photos.length} photos sources · ${photos.map((p) => p.nom).join(' · ')}`;
+}
+
+/** « Schéma de mesure — MA2LV », ou « 3 schémas de mesure · A · B · C ». */
+function libelleSchemas(schemas: readonly { nom: string }[]): string {
+  if (schemas.length === 1) return `Schéma de mesure — ${schemas[0].nom}`;
+  return `${schemas.length} schémas de mesure · ${schemas.map((p) => p.nom).join(' · ')}`;
+}
+
+function IconeSchema() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      aria-hidden="true"
+    >
+      <path d="M2 12.5h12" />
+      <path d="M2 11v3M14 11v3" />
+      <rect x="3.5" y="2" width="9" height="6.5" rx="1" />
+    </svg>
+  );
 }
 
 function IconePhoto() {
