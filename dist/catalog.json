@@ -33,6 +33,40 @@
       }
     },
     {
+      "name": "Badge",
+      "statut": "stable",
+      "role": "Poser une étiquette courte qui qualifie l'élément à côté duquel elle se trouve.",
+      "mots_cles": [
+        "badge",
+        "pastille",
+        "etiquette",
+        "statut",
+        "tag",
+        "echeance",
+        "compteur"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — badge(sev",
+          "size)",
+          "pastilles recopiées inline"
+        ],
+        "mobile": [
+          "components/Tag.tsx",
+          "components/StatusPill.tsx",
+          "components/OpportunityTypePill.tsx"
+        ]
+      },
+      "dossier": "components/badge",
+      "fiche": "components/badge/badge.spec.md",
+      "fichiers": {
+        "web": "components/badge/badge.web.tsx"
+      }
+    },
+    {
       "name": "Button",
       "statut": "stable",
       "role": "Déclencher une action. Le poids visuel dit l'importance de l'action, pas sa nature.",
@@ -60,6 +94,35 @@
       "fiche": "components/button/button.spec.md",
       "fichiers": {
         "web": "components/button/button.web.tsx"
+      }
+    },
+    {
+      "name": "Card",
+      "statut": "stable",
+      "role": "Poser un groupe d'éléments dans une surface délimitée, avec un en-tête facultatif.",
+      "mots_cles": [
+        "carte",
+        "surface",
+        "encart",
+        "groupe",
+        "bloc",
+        "panneau"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — sections bordées recopiées inline"
+        ],
+        "mobile": [
+          "components/Card.tsx"
+        ]
+      },
+      "dossier": "components/card",
+      "fiche": "components/card/card.spec.md",
+      "fichiers": {
+        "web": "components/card/card.web.tsx"
       }
     },
     {
@@ -92,6 +155,37 @@
       "fiche": "components/field-row/field-row.spec.md",
       "fichiers": {
         "web": "components/field-row/field-row.web.tsx"
+      }
+    },
+    {
+      "name": "IconButton",
+      "statut": "stable",
+      "role": "Déclencher une action représentée par une icône seule, sans perdre son nom accessible.",
+      "mots_cles": [
+        "bouton",
+        "icone",
+        "action",
+        "telecharger",
+        "editer",
+        "fermer",
+        "supprimer"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — boutons carrés recopiés inline"
+        ],
+        "mobile": [
+          "components/IconButton.tsx",
+          "components/RowEditButton.tsx"
+        ]
+      },
+      "dossier": "components/icon-button",
+      "fiche": "components/icon-button/icon-button.spec.md",
+      "fichiers": {
+        "web": "components/icon-button/icon-button.web.tsx"
       }
     }
   ]

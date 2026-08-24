@@ -20,6 +20,8 @@ const button = cva(
         primary: 'bg-primary text-text-on-dark hover:opacity-85 active:opacity-70',
         soft: 'bg-blue-50 text-blue-700 hover:opacity-80 active:opacity-70',
         ghost: 'bg-transparent text-text-muted hover:text-primary',
+        outline:
+          'border border-border bg-bg text-text-muted hover:bg-bg-muted active:bg-bg-muted',
         danger: 'bg-danger text-text-on-dark hover:opacity-85 active:opacity-70',
       },
       size: {

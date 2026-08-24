@@ -15,6 +15,9 @@ export {
   AccordionTrigger,
   AccordionContent,
 } from './components/accordion/accordion.web';
+export { Badge, type BadgeProps } from './components/badge/badge.web';
+export { Card, type CardProps } from './components/card/card.web';
+export { IconButton, type IconButtonProps } from './components/icon-button/icon-button.web';
 export {
   FieldRow,
   type FieldRowProps,

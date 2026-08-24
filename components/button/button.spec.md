@@ -29,7 +29,7 @@ remplace:
 
 | Prop        | Type                                            | Défaut      | Rôle                                   |
 | ----------- | ----------------------------------------------- | ----------- | -------------------------------------- |
-| `variant`   | `'primary' \| 'soft' \| 'ghost' \| 'danger'`     | `'primary'` | Poids visuel                           |
+| `variant`   | `'primary' \| 'soft' \| 'outline' \| 'ghost' \| 'danger'` | `'primary'` | Poids visuel               |
 | `size`      | `'sm' \| 'md'`                                   | `'md'`      | `sm` (30px) en ligne, `md` (36px) sinon |
 | `disabled`  | `boolean`                                        | `false`     | Désactive l'interaction                 |
 | `asChild`   | `boolean`                                        | `false`     | Rend l'enfant à la place du `<button>`  |
@@ -38,8 +38,9 @@ remplace:
 Plus tous les attributs d'un `<button>` HTML.
 
 **Choisir la variante :** `primary` pour l'action principale, `soft` pour une action
-secondaire fréquente (c'est la plus courante dans la fiche), `ghost` pour une action
-discrète en fin de ligne, `danger` pour une action destructrice.
+secondaire fréquente (c'est la plus courante dans la fiche), `outline` pour une action
+de second plan posée sur fond blanc, `ghost` pour une action discrète en fin de ligne,
+`danger` pour une action destructrice.
 
 ## Exemples
 
@@ -49,13 +50,14 @@ import { Button } from '@arquos/design-system/web';
 <Button onClick={completer}>Compléter</Button>
 <Button variant="soft" onClick={annuler}>Annuler</Button>
 <Button variant="ghost" size="sm" onClick={voirVides}>Afficher les champs vides</Button>
+<Button variant="outline" onClick={ajouter}>Ajouter un document</Button>
 <Button variant="danger" onClick={supprimer}>Supprimer le constat</Button>
 ```
 
 ## Anatomie
 
-- Fond : `primary` → `colors.primary` · `soft` → `palette.blue[50]` · `ghost` → transparent · `danger` → `colors.danger`
-- Texte : `primary`/`danger` → `colors.textOnDark` · `soft` → `palette.blue[700]` · `ghost` → `colors.textMuted`
+- Fond : `primary` → `colors.primary` · `soft` → `palette.blue[50]` · `outline` → `colors.bg` bordé de `colors.border` · `ghost` → transparent · `danger` → `colors.danger`
+- Texte : `primary`/`danger` → `colors.textOnDark` · `soft` → `palette.blue[700]` · `outline`/`ghost` → `colors.textMuted`
 - Hauteur : `sm` 30px, `md` 36px · Arrondi : `radius.control`
 - Anneau de focus : `colors.primary`
 
