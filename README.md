@@ -128,6 +128,7 @@ Charger la feuille une fois, puis référencer les variables :
 
 ## État
 
+- **v1.0.1** (août 2026) — `FieldRow` suit le renommage des variantes de `Button`.
 - **v1.0.0** (août 2026) — **Button, Card et Badge repris sur la base shadcn/ui.** Noms de variantes et de tailles alignés sur les leurs (`default`, `secondary`, `destructive`…), `Card` passe en composition. Le dépôt accepte `npx shadcn@latest add`. Rupture d'API assumée : voir `CLAUDE.md`.
 - **v0.7.0** (août 2026) — `PhotoTile` : emplacement photo, pris ou non.
 - **v0.6.0** (août 2026) — `StatTile` et `Gauge`, pour la vue d'ensemble.
