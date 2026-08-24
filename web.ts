@@ -51,6 +51,7 @@ export {
 export { IconButton, type IconButtonProps } from './components/icon-button/icon-button.web';
 export {
   FieldRow,
+  menuDeChoix,
   type FieldRowProps,
   type FieldKind,
   type FieldStatut,

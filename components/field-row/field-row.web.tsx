@@ -66,6 +66,32 @@ const SAUVEGARDES: Record<FieldSauvegarde, { texte: string; classe: string }> = 
  */
 const VIDE = 'Non renseigné';
 
+/**
+ * Le menu d'un champ à choix, et la valeur qui doit y être cochée.
+ *
+ * La ligne affiche un **libellé** (« Moyen ») ; le menu manipule des **valeurs
+ * en base** (`moyen`). Poser le libellé comme valeur du `select` ne correspond à
+ * aucune option : le navigateur coche alors la première, et le menu s'ouvre en
+ * annonçant « Bon » sur un composant qui est « Moyen ».
+ *
+ * Une valeur hors catalogue — une marque saisie à la main, un jeton qu'un relevé
+ * a laissé — reste en tête du menu : la retirer reviendrait à la remplacer en
+ * silence dès l'ouverture.
+ */
+export function menuDeChoix(
+  value: string | string[] | null,
+  options: readonly FieldOption[],
+): { choix: FieldOption[]; retenue: string } {
+  const brut = typeof value === 'string' ? value : '';
+  const retenu = options.find((o) => o.value === brut || o.label === brut);
+  const choix: FieldOption[] = [];
+
+  if (!brut) choix.push({ value: '', label: '— choisir —' });
+  else if (!retenu) choix.push({ value: brut, label: `${brut} · valeur actuelle` });
+
+  return { choix: [...choix, ...options], retenue: retenu ? retenu.value : brut };
+}
+
 function afficher(value: string | string[] | null): string {
   if (Array.isArray(value)) return value.length ? value.join(', ') : VIDE;
   return value && value.trim() !== '' ? value : VIDE;
@@ -271,17 +297,22 @@ function Editeur({ kind, label, value, options, onValider, onAnnuler }: EditeurP
   }
 
   if (kind === 'choice') {
+    const { choix, retenue } = menuDeChoix(value, options);
     return (
       <div className="flex flex-wrap items-center gap-sm">
         <select
           autoFocus
           aria-label={label}
-          defaultValue={typeof value === 'string' ? value : ''}
-          onChange={(e) => onValider(e.target.value)}
+          defaultValue={retenue}
+          // Recliquer la valeur déjà retenue ferme sans écrire : c'est ce que le
+          // geste veut dire. Réenregistrer à l'identique coûterait un
+          // aller-retour et daterait la fiche d'une correction qui n'en est pas
+          // une. (Un `select` natif n'émet alors rien — d'où « Annuler ».)
+          onChange={(e) => (e.target.value === retenue ? onAnnuler() : onValider(e.target.value))}
           onKeyDown={(e) => e.key === 'Escape' && onAnnuler()}
           className="h-[30px] min-w-0 flex-1 cursor-pointer rounded-control border-[1.5px] border-primary bg-bg px-xs text-small text-text outline-none"
         >
-          {options.map((o) => (
+          {choix.map((o) => (
             <option key={o.value} value={o.value}>
               {o.label}
             </option>
