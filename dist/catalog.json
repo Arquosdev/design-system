@@ -1,0 +1,192 @@
+{
+  "$description": "Catalogue des composants du design system Arquos. Avant de créer un composant, chercher ici : si le rôle recherché y figure, réutiliser plutôt que réécrire. Chaque entrée pointe vers sa fiche (`fiche`), qui décrit les props, les états et surtout les cas où le composant ne doit PAS être employé.",
+  "composants": [
+    {
+      "name": "Accordion",
+      "statut": "stable",
+      "role": "Grouper des champs sous un titre pliable, pour qu'une page longue reste parcourable.",
+      "mots_cles": [
+        "accordeon",
+        "groupe",
+        "section",
+        "plier",
+        "deplier",
+        "replier"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — motif recopié aux lignes 411",
+          "496",
+          "991"
+        ],
+        "mobile": [
+          "components/full-form/RubriqueBlock.tsx"
+        ]
+      },
+      "dossier": "components/accordion",
+      "fiche": "components/accordion/accordion.spec.md",
+      "fichiers": {
+        "web": "components/accordion/accordion.web.tsx"
+      }
+    },
+    {
+      "name": "Badge",
+      "statut": "stable",
+      "role": "Poser une étiquette courte qui qualifie l'élément à côté duquel elle se trouve.",
+      "mots_cles": [
+        "badge",
+        "pastille",
+        "etiquette",
+        "statut",
+        "tag",
+        "echeance",
+        "compteur"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — badge(sev",
+          "size)",
+          "pastilles recopiées inline"
+        ],
+        "mobile": [
+          "components/Tag.tsx",
+          "components/StatusPill.tsx",
+          "components/OpportunityTypePill.tsx"
+        ]
+      },
+      "dossier": "components/badge",
+      "fiche": "components/badge/badge.spec.md",
+      "fichiers": {
+        "web": "components/badge/badge.web.tsx"
+      }
+    },
+    {
+      "name": "Button",
+      "statut": "stable",
+      "role": "Déclencher une action. Le poids visuel dit l'importance de l'action, pas sa nature.",
+      "mots_cles": [
+        "bouton",
+        "action",
+        "cta",
+        "valider",
+        "enregistrer",
+        "annuler"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — boutons inline recopiés 13 fois"
+        ],
+        "mobile": [
+          "components/Button.tsx",
+          "components/AddNewButton.tsx"
+        ]
+      },
+      "dossier": "components/button",
+      "fiche": "components/button/button.spec.md",
+      "fichiers": {
+        "web": "components/button/button.web.tsx"
+      }
+    },
+    {
+      "name": "Card",
+      "statut": "stable",
+      "role": "Poser un groupe d'éléments dans une surface délimitée, avec un en-tête facultatif.",
+      "mots_cles": [
+        "carte",
+        "surface",
+        "encart",
+        "groupe",
+        "bloc",
+        "panneau"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — sections bordées recopiées inline"
+        ],
+        "mobile": [
+          "components/Card.tsx"
+        ]
+      },
+      "dossier": "components/card",
+      "fiche": "components/card/card.spec.md",
+      "fichiers": {
+        "web": "components/card/card.web.tsx"
+      }
+    },
+    {
+      "name": "FieldRow",
+      "statut": "beta",
+      "role": "Afficher un champ en lecture, et le passer en saisie d'un clic sans quitter la page.",
+      "mots_cles": [
+        "champ",
+        "ligne",
+        "libelle",
+        "valeur",
+        "edition",
+        "inline",
+        "saisie",
+        "formulaire"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — buildField()",
+          "markup recopié lignes 402/487/643/950"
+        ],
+        "mobile": [
+          "components/full-form/FormFieldRenderer.tsx"
+        ]
+      },
+      "dossier": "components/field-row",
+      "fiche": "components/field-row/field-row.spec.md",
+      "fichiers": {
+        "web": "components/field-row/field-row.web.tsx"
+      }
+    },
+    {
+      "name": "IconButton",
+      "statut": "stable",
+      "role": "Déclencher une action représentée par une icône seule, sans perdre son nom accessible.",
+      "mots_cles": [
+        "bouton",
+        "icone",
+        "action",
+        "telecharger",
+        "editer",
+        "fermer",
+        "supprimer"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — boutons carrés recopiés inline"
+        ],
+        "mobile": [
+          "components/IconButton.tsx",
+          "components/RowEditButton.tsx"
+        ]
+      },
+      "dossier": "components/icon-button",
+      "fiche": "components/icon-button/icon-button.spec.md",
+      "fichiers": {
+        "web": "components/icon-button/icon-button.web.tsx"
+      }
+    }
+  ]
+}

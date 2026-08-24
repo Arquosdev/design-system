@@ -1,4 +1,7 @@
 node_modules/
-dist/
 .DS_Store
 *.log
+
+# `dist/` EST committé : les apps installent ce repo directement depuis GitHub
+# (`github:Arquosdev/design-system#vX.Y.Z`), sans étape de build à l'installation.
+# Les formats dérivés doivent donc être présents dans le dépôt.

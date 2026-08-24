@@ -102,6 +102,7 @@ export const colors = {
   bg: palette.white,
   bgMuted: palette.grey[50],
   border: palette.grey[200],
+  borderSoft: palette.grey[100], // séparateurs internes, bordures de carte
   text: palette.grey[800],
   textMuted: palette.grey[500],
   textSubtle: palette.grey[400],

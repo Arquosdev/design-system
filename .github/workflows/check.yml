@@ -1,0 +1,20 @@
+name: check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  tokens:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          # Node 24+ lit le TypeScript nativement — le script de build importe
+          # directement les sources `src/*.ts` sans étape de compilation.
+          node-version: '24'
+      # Échoue si les fichiers générés ont divergé de leur source : une modif de
+      # token ou de fiche composant doit être committée avec ses dérivés régénérés.
+      - run: npm run check
