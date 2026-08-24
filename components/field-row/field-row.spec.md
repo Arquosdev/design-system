@@ -65,20 +65,22 @@ import { FieldRow } from '@arquos/design-system/web';
 
 ## Anatomie
 
-- Grille deux colonnes : libellé (`typography.small`, `colors.textMuted`) puis valeur
+- Grille deux colonnes : libellé sur `190px` (`typography.small`, `colors.textMuted`), gouttière `spacing.md`, puis la valeur
 - Icône de type devant le libellé : lignes (texte), flèches (nombre), chevron (liste)
-- Valeur non renseignée : « — » en `colors.textSubtle`
+- Valeur éditable : **soulignement pointillé** `1px` en `colors.textSubtle` — c'est le signal « ceci se corrige d'un clic »
+- Valeur non renseignée : le texte « Non renseigné » en `colors.textSubtle`, soulignement pâli en `colors.border`
 - En saisie : contour `1.5px` `colors.primary`, arrondi `radius.control`
 
 ## États
 
 - **Lecture** : la valeur est cliquable si `onSave` est fourni, et atteignable au Tab.
 - **Saisie** : Entrée valide, Échap annule, la perte de focus valide.
-- **Non renseignée** : afficher « — », jamais une chaîne vide — sinon la ligne
-  paraît cassée.
+- **Non renseignée** : afficher « Non renseigné », jamais une chaîne vide ni un
+  tiret. Un tiret laisse croire à une donnée sans objet ; le libellé complet dit
+  qu'il manque quelque chose. La ligne reste cliquable pour le combler.
 - **Valeur longue** : passe à la ligne, la ligne grandit. Pas de troncature :
   une cote tronquée est une cote fausse.
-- **Multi-sélection vide** : afficher « — », pas « [] ».
+- **Multi-sélection vide** : afficher « Non renseigné », pas « [] ».
 
 ## Accessibilité
 

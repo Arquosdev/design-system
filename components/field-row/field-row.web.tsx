@@ -32,8 +32,12 @@ const STATUTS: Record<FieldStatut, { texte: string; classe: string }> = {
   a_verifier: { texte: 'À vérifier', classe: 'bg-orange-50 text-orange-700' },
 };
 
-/** Une valeur absente s'affiche « — » : une chaîne vide donne une ligne cassée. */
-const VIDE = '—';
+/**
+ * Une valeur absente s'annonce en toutes lettres. Un tiret laisse croire à une
+ * donnée sans objet ; « Non renseigné » dit qu'il manque quelque chose, et reste
+ * cliquable pour le combler.
+ */
+const VIDE = 'Non renseigné';
 
 function afficher(value: string | string[] | null): string {
   if (Array.isArray(value)) return value.length ? value.join(', ') : VIDE;
@@ -53,6 +57,7 @@ export function FieldRow({
 }: FieldRowProps) {
   const [enSaisie, setEnSaisie] = React.useState(false);
   const editable = Boolean(onSave) && !readOnly;
+  const estVide = value === null || value === '' || (Array.isArray(value) && value.length === 0);
 
   const ouvrir = () => editable && setEnSaisie(true);
   const valider = (valeur: string | string[]) => {
@@ -63,7 +68,7 @@ export function FieldRow({
   return (
     <div
       className={cn(
-        'grid grid-cols-[minmax(0,11rem)_minmax(0,1fr)] items-start gap-sm py-md',
+        'grid grid-cols-[190px_1fr] items-start gap-md py-sm',
         'border-b border-border-soft last:border-b-0',
         className,
       )}
@@ -98,12 +103,15 @@ export function FieldRow({
                 }
               }}
               className={cn(
-                'min-w-0 rounded-control text-small break-words',
-                value === null || (Array.isArray(value) && value.length === 0)
-                  ? 'text-text-subtle'
-                  : 'text-text',
-                editable &&
-                  'cursor-text px-xs -mx-xs hover:bg-bg-muted focus-visible:ring-2 focus-visible:ring-primary outline-none',
+                'min-w-0 text-small font-medium break-words',
+                // Le soulignement pointillé est LE signal « cette valeur se
+                // corrige d'un clic ». Sans lui, rien ne distingue une donnée
+                // modifiable d'une donnée figée. Il pâlit avec la valeur quand
+                // le champ est vide, pour ne pas attirer l'œil sur un manque.
+                editable && 'cursor-text border-b border-dashed pb-px outline-none focus-visible:ring-2 focus-visible:ring-primary',
+                estVide
+                  ? 'text-text-subtle border-border'
+                  : 'text-text border-text-subtle',
               )}
             >
               {afficher(value)}
