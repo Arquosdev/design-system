@@ -1,4 +1,98 @@
 {
   "$description": "Catalogue des composants du design system Arquos. Avant de créer un composant, chercher ici : si le rôle recherché y figure, réutiliser plutôt que réécrire. Chaque entrée pointe vers sa fiche (`fiche`), qui décrit les props, les états et surtout les cas où le composant ne doit PAS être employé.",
-  "composants": []
+  "composants": [
+    {
+      "name": "Accordion",
+      "statut": "stable",
+      "role": "Grouper des champs sous un titre pliable, pour qu'une page longue reste parcourable.",
+      "mots_cles": [
+        "accordeon",
+        "groupe",
+        "section",
+        "plier",
+        "deplier",
+        "replier"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — motif recopié aux lignes 411",
+          "496",
+          "991"
+        ],
+        "mobile": [
+          "components/full-form/RubriqueBlock.tsx"
+        ]
+      },
+      "dossier": "components/accordion",
+      "fiche": "components/accordion/accordion.spec.md",
+      "fichiers": {
+        "web": "components/accordion/accordion.web.tsx"
+      }
+    },
+    {
+      "name": "Button",
+      "statut": "stable",
+      "role": "Déclencher une action. Le poids visuel dit l'importance de l'action, pas sa nature.",
+      "mots_cles": [
+        "bouton",
+        "action",
+        "cta",
+        "valider",
+        "enregistrer",
+        "annuler"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — boutons inline recopiés 13 fois"
+        ],
+        "mobile": [
+          "components/Button.tsx",
+          "components/AddNewButton.tsx"
+        ]
+      },
+      "dossier": "components/button",
+      "fiche": "components/button/button.spec.md",
+      "fichiers": {
+        "web": "components/button/button.web.tsx"
+      }
+    },
+    {
+      "name": "FieldRow",
+      "statut": "beta",
+      "role": "Afficher un champ en lecture, et le passer en saisie d'un clic sans quitter la page.",
+      "mots_cles": [
+        "champ",
+        "ligne",
+        "libelle",
+        "valeur",
+        "edition",
+        "inline",
+        "saisie",
+        "formulaire"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — buildField()",
+          "markup recopié lignes 402/487/643/950"
+        ],
+        "mobile": [
+          "components/full-form/FormFieldRenderer.tsx"
+        ]
+      },
+      "dossier": "components/field-row",
+      "fiche": "components/field-row/field-row.spec.md",
+      "fichiers": {
+        "web": "components/field-row/field-row.web.tsx"
+      }
+    }
+  ]
 }

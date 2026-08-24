@@ -130,7 +130,10 @@ function buildReadme(entries) {
     const plateformes = c.plateformes
       .map((p) => (p === 'mobile' ? '📱' : '🖥️'))
       .join(' ');
-    return `| [${c.name}](${c.name.toLowerCase()}/${c.name.toLowerCase()}.spec.md) | ${c.role} | ${plateformes} | ${c.statut} |`;
+    // Lien relatif à components/, tiré du chemin réel : le nom du composant
+    // (FieldRow) ne donne pas toujours le nom du dossier (field-row).
+    const lien = c.fiche.replace(/^components\//, '');
+    return `| [${c.name}](${lien}) | ${c.role} | ${plateformes} | ${c.statut} |`;
   });
 
   return [

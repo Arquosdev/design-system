@@ -268,10 +268,142 @@ function buildJson() {
   };
 }
 
+// ----------------------------------------------------- Tailwind v4 + shadcn
+
+// Tailwind v4 se configure en CSS : ce que déclare `@theme` devient des classes
+// utilitaires (`--color-primary` → `bg-primary`, `--radius-md` → `rounded-md`).
+//
+// Le second bloc est la couche de compatibilité shadcn/ui : ses composants sont
+// écrits contre un vocabulaire fixe (`--background`, `--primary`, `--ring`…).
+// On le branche UNE FOIS sur les tokens Arquos, ici. Sans ça, chaque app
+// recopierait son propre mapping et repartirait en drift.
+function buildTailwind() {
+  const theme = [];
+  const push = (name, value) => theme.push(`  ${name}: ${value};`);
+
+  theme.push('  /* Couleurs sémantiques */');
+  for (const [key, value] of Object.entries(colors)) {
+    push(`--color-${kebab(key)}`, value);
+  }
+
+  theme.push('', '  /* Palette — pour les cas que le sémantique ne couvre pas */');
+  for (const [ramp, shades] of Object.entries(palette)) {
+    if (typeof shades === 'string') {
+      push(`--color-${ramp}`, shades);
+      continue;
+    }
+    for (const [shade, value] of Object.entries(shades)) {
+      push(`--color-${ramp}-${shade}`, value);
+    }
+  }
+
+  theme.push('', '  /* Espacements */');
+  for (const [key, value] of Object.entries(spacing)) {
+    push(`--spacing-${kebab(key)}`, `${value}px`);
+  }
+
+  theme.push('', '  /* Arrondis */');
+  for (const [key, value] of Object.entries(radius)) {
+    push(`--radius-${kebab(key)}`, `${value}px`);
+  }
+
+  theme.push('', '  /* Typographie */');
+  push('--font-sans', fontFamily);
+  for (const [key, preset] of Object.entries(typography)) {
+    // En Tailwind v4, `--text-x` et `--text-x--line-height` se combinent : une
+    // seule classe `text-body` pose la taille ET l'interligne.
+    push(`--text-${kebab(key)}`, `${preset.fontSize}px`);
+    push(`--text-${kebab(key)}--line-height`, `${preset.lineHeight}px`);
+    push(`--text-${kebab(key)}--font-weight`, preset.fontWeight);
+    if (preset.letterSpacing !== undefined) {
+      push(`--text-${kebab(key)}--letter-spacing`, `${preset.letterSpacing}px`);
+    }
+  }
+  for (const [key, value] of Object.entries(fontWeight)) {
+    push(`--font-weight-${kebab(key)}`, value);
+  }
+
+  theme.push('', '  /* Élévation */');
+  for (const [key, value] of Object.entries(shadow)) {
+    push(`--shadow-${kebab(key)}`, value);
+  }
+
+  // Vocabulaire attendu par les composants shadcn/ui, traduit en tokens Arquos.
+  // `*-foreground` = la couleur du texte posé sur la surface correspondante.
+  const shadcn = [
+    ['--background', colors.bg],
+    ['--foreground', colors.text],
+    ['--card', colors.bg],
+    ['--card-foreground', colors.text],
+    ['--popover', colors.bg],
+    ['--popover-foreground', colors.text],
+    ['--primary', colors.primary],
+    ['--primary-foreground', colors.textOnDark],
+    ['--secondary', colors.bgMuted],
+    ['--secondary-foreground', colors.text],
+    ['--muted', colors.bgMuted],
+    ['--muted-foreground', colors.textMuted],
+    ['--accent', palette.blue[50]], // survol / état actif discret, pas l'orange
+    ['--accent-foreground', colors.primaryDark],
+    ['--destructive', colors.danger],
+    ['--destructive-foreground', colors.textOnDark],
+    ['--border', colors.border],
+    ['--input', colors.border],
+    ['--ring', colors.primary],
+    ['--radius', `${radius.md}px`],
+  ];
+
+  return [
+    '/* Thème Tailwind v4 — GÉNÉRÉ, ne pas éditer à la main.',
+    ' * Source : src/*.ts — régénérer avec `npm run build`.',
+    ' *',
+    ' * Usage dans une app :',
+    ' *   @import "tailwindcss";',
+    ' *   @import "@arquos/design-system/tokens.tailwind.css";',
+    ' */',
+    '',
+    '@theme {',
+    theme.join('\n'),
+    '}',
+    '',
+    '/* Compatibilité shadcn/ui : ses composants lisent ces noms-là.',
+    ' * Ne pas les redéfinir dans les apps — la traduction se fait ici. */',
+    ':root {',
+    shadcn.map(([name, value]) => `  ${name}: ${value};`).join('\n'),
+    '}',
+    '',
+    '@theme inline {',
+    shadcn
+      .filter(([name]) => name !== '--radius')
+      .map(([name]) => `  --color-${name.slice(2)}: var(${name});`)
+      .join('\n'),
+    '}',
+    '',
+    "/* Ouverture et fermeture d'un contenu de hauteur inconnue. Radix publie la",
+    " * hauteur mesurée dans --radix-accordion-content-height : c'est le seul",
+    " * moyen d'animer vers `auto`, que CSS ne sait pas interpoler. */",
+    '@theme {',
+    '  --animate-accordion-down: accordion-down 200ms ease-out;',
+    '  --animate-accordion-up: accordion-up 200ms ease-out;',
+    '',
+    '  @keyframes accordion-down {',
+    '    from { height: 0; }',
+    '    to { height: var(--radix-accordion-content-height); }',
+    '  }',
+    '  @keyframes accordion-up {',
+    '    from { height: var(--radix-accordion-content-height); }',
+    '    to { height: 0; }',
+    '  }',
+    '}',
+    '',
+  ].join('\n');
+}
+
 // --------------------------------------------------------------- write
 
 const outputs = [
   ['tokens.css', buildCss()],
+  ['tokens.tailwind.css', buildTailwind()],
   ['tokens.json', JSON.stringify(buildJson(), null, 2) + '\n'],
 ];
 

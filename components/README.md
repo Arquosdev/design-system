@@ -10,7 +10,9 @@ implémentation par plateforme (`*.web.tsx`, `*.native.tsx`).
 
 | Composant | Rôle | Plateformes | Statut |
 | --- | --- | --- | --- |
-| _(aucun pour l'instant)_ | | | |
+| [Accordion](accordion/accordion.spec.md) | Grouper des champs sous un titre pliable, pour qu'une page longue reste parcourable. | 🖥️ | stable |
+| [Button](button/button.spec.md) | Déclencher une action. Le poids visuel dit l'importance de l'action, pas sa nature. | 🖥️ | stable |
+| [FieldRow](field-row/field-row.spec.md) | Afficher un champ en lecture, et le passer en saisie d'un clic sans quitter la page. | 🖥️ | beta |
 
 ## Ajouter un composant
 
