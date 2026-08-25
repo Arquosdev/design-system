@@ -1,6 +1,7 @@
 ---
 name: Button
 statut: stable
+couche: generique
 role: Déclencher une action. Le poids visuel dit l'importance de l'action, pas sa nature.
 mots_cles: [bouton, action, cta, valider, enregistrer, annuler]
 plateformes: [web]

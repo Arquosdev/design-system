@@ -63,7 +63,30 @@ function parseFrontmatter(source, file) {
   return out;
 }
 
-const REQUIRED = ['name', 'statut', 'role', 'mots_cles', 'plateformes'];
+const REQUIRED = ['name', 'statut', 'role', 'mots_cles', 'plateformes', 'couche'];
+
+/**
+ * Les deux couches, et ce qui les sépare.
+ *
+ * Ce n'est PAS l'atomic design : classer par taille (atome, molécule, organisme)
+ * répond à une question que personne ne se pose en travaillant. Celle-ci se pose
+ * tous les jours — « est-ce que je touche à une brique que tout le monde
+ * partage, ou à quelque chose qui ne vaut que pour l'ascenseur ? »
+ */
+const COUCHES = {
+  generique: {
+    titre: 'Générique',
+    quoi:
+      "Une mécanique que n'importe quelle application aurait — bouton, modale, " +
+      'onglets. Elle vient de shadcn/Radix, ou elle le pourrait.',
+  },
+  metier: {
+    titre: 'Métier',
+    quoi:
+      "Elle porte l'ascenseur : son vocabulaire, ses états, ses règles. " +
+      "shadcn n'a rien d'équivalent, et c'est normal.",
+  },
+};
 
 function collect() {
   if (!existsSync(COMPONENTS)) return [];
@@ -81,6 +104,12 @@ function collect() {
     const missing = REQUIRED.filter((k) => !meta[k]);
     if (missing.length) {
       throw new Error(`${spec} : clés manquantes dans l'en-tête — ${missing.join(', ')}`);
+    }
+
+    if (!COUCHES[meta.couche]) {
+      throw new Error(
+        `${spec} : couche « ${meta.couche} » inconnue — attendu ${Object.keys(COUCHES).join(' ou ')}`,
+      );
     }
 
     // Une plateforme déclarée sans implémentation est un piège : l'agent croirait
@@ -117,6 +146,7 @@ function buildJson(entries) {
           "chercher ici : si le rôle recherché y figure, réutiliser plutôt que réécrire. " +
           "Chaque entrée pointe vers sa fiche (`fiche`), qui décrit les props, les états et " +
           "surtout les cas où le composant ne doit PAS être employé.",
+        couches: COUCHES,
         composants: entries,
       },
       null,
@@ -126,15 +156,30 @@ function buildJson(entries) {
 }
 
 function buildReadme(entries) {
-  const rows = entries.map((c) => {
-    const plateformes = c.plateformes
-      .map((p) => (p === 'mobile' ? '📱' : '🖥️'))
-      .join(' ');
-    // Lien relatif à components/, tiré du chemin réel : le nom du composant
-    // (FieldRow) ne donne pas toujours le nom du dossier (field-row).
-    const lien = c.fiche.replace(/^components\//, '');
-    return `| [${c.name}](${lien}) | ${c.role} | ${plateformes} | ${c.statut} |`;
-  });
+  const table = (liste) => [
+    '| Composant | Rôle | Plateformes | Statut |',
+    '| --- | --- | --- | --- |',
+    ...(liste.length
+      ? liste.map((c) => {
+          const plateformes = c.plateformes
+            .map((p) => (p === 'mobile' ? '📱' : '🖥️'))
+            .join(' ');
+          // Lien relatif à components/, tiré du chemin réel : le nom du
+          // composant (FieldRow) ne donne pas toujours celui du dossier.
+          const lien = c.fiche.replace(/^components\//, '');
+          return `| [${c.name}](${lien}) | ${c.role} | ${plateformes} | ${c.statut} |`;
+        })
+      : ["| _(aucun pour l'instant)_ | | | |"]),
+  ];
+
+  const sections = Object.entries(COUCHES).flatMap(([cle, { titre, quoi }]) => [
+    `## ${titre}`,
+    '',
+    quoi,
+    '',
+    ...table(entries.filter((c) => c.couche === cle)),
+    '',
+  ]);
 
   return [
     '# Composants',
@@ -147,10 +192,7 @@ function buildReadme(entries) {
     '',
     '🖥️ web · 📱 mobile',
     '',
-    '| Composant | Rôle | Plateformes | Statut |',
-    '| --- | --- | --- | --- |',
-    ...(rows.length ? rows : ['| _(aucun pour l\'instant)_ | | | |']),
-    '',
+    ...sections,
     '## Ajouter un composant',
     '',
     '1. Copier `_TEMPLATE.spec.md` dans `components/<nom>/<nom>.spec.md` et le remplir.',

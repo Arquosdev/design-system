@@ -1,6 +1,7 @@
 ---
 name: StatTile
 statut: beta
+couche: metier
 role: Mettre en avant une mesure d'identité, celle qu'on veut lire sans chercher.
 mots_cles: [tuile, chiffre, mesure, statistique, identite, carte, valeur]
 plateformes: [web]

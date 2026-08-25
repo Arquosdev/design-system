@@ -1,6 +1,7 @@
 ---
 name: SegmentedTabs
 statut: beta
+couche: generique
 role: Basculer entre deux ou trois vues d'un même écran, toutes également importantes.
 mots_cles: [onglets, segments, bascule, tabs, vues, selecteur]
 plateformes: [web]

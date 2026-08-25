@@ -1,0 +1,57 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design system/Introduction" />
+
+# Design system Arquos
+
+La source de vérité unique du design Arquos : les tokens et les composants que
+partagent l'application mobile et les modules web.
+
+Cette vitrine ne réécrit rien. Chaque page de composant affiche **sa fiche**,
+lue telle quelle dans le dépôt (`components/<nom>/<nom>.spec.md`), et la page
+Tokens lit `dist/tokens.json`, qui est généré. Une documentation recopiée à la
+main diverge au premier changement — et c'est alors la vitrine qu'on croit.
+
+## Pensé pour être lu par des agents
+
+C'est l'intention de départ, et elle décide de la forme :
+
+- **Un catalogue en un fichier.** `dist/catalog.json` liste les dix-sept
+  composants avec leur rôle, leurs mots-clés et leur couche. Avant d'en écrire
+  un, on le lit ; s'il y figure déjà, on réutilise.
+- **Une fiche par composant, avec une section « Quand NE PAS l'utiliser ».**
+  C'est celle qui compte. Elle évite qu'on détourne un composant vers un usage
+  qui lui ressemble — et un tableau de props ne l'empêche jamais.
+- **Des tokens décrits.** Chaque couleur, chaque espacement porte une phrase qui
+  dit quand l'employer. « Mise en avant, attention : à réserver aux éléments qui
+  doivent capter l'œil » se choisit ; `#FFA522` se devine.
+
+## Deux couches, pas cinq niveaux
+
+Ce n'est pas de l'atomic design. Classer par taille — atome, molécule,
+organisme — répond à une question que personne ne se pose en travaillant. Nous
+classons par une question qui se pose tous les jours :
+
+**Générique** — une mécanique que n'importe quelle application aurait : bouton,
+modale, onglets, palette de recherche. Elle vient de shadcn/Radix, ou elle le
+pourrait. La toucher engage tout le monde.
+
+**Métier** — elle porte l'ascenseur : son vocabulaire, ses états, ses règles.
+`FieldRow` sait qu'une valeur absente se dit « Non renseigné » et non « — » ;
+`PhotoTile` sait qu'une photo manquante est une information. shadcn n'a rien
+d'équivalent, et c'est normal.
+
+Le doute se tranche ainsi : **une application de comptabilité en voudrait-elle
+telle quelle ?** Oui → générique.
+
+## Les trois règles
+
+1. **Avant d'écrire un composant, lire le catalogue.**
+2. **Avant d'en créer un, chercher chez shadcn/ui.** Un composant écrit de zéro
+   là où shadcn en a un, c'est du travail perdu et un comportement clavier de
+   moins.
+3. **Ne jamais écrire une valeur de design en dur.** Pas de `#0D5AB7`, pas de
+   `padding: 16px`. Toujours un token.
+
+Le reste — comment ajouter un composant, comment modifier un token, les pièges
+connus — est dans `CLAUDE.md`, à la racine du dépôt.

@@ -1,0 +1,47 @@
+import type { Meta, StoryObj } from '@storybook/react-vite';
+
+import { ToastProvider, useToast } from '../../components/toast/toast.web';
+import { Button } from '../../components/button/button.web';
+import specification from '../../components/toast/toast.spec.md?raw';
+import { docsDe } from '../fiche';
+
+const meta: Meta = {
+  title: 'Générique/Toast',
+  component: ToastProvider,
+  parameters: { ...docsDe(specification), layout: 'centered' },
+};
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+function Banc() {
+  const { annoncer } = useToast();
+  return (
+    <div className="flex gap-md">
+      <Button onClick={() => annoncer('Document poussé vers le téléchargement.')}>
+        Une confirmation
+      </Button>
+      <Button
+        variant="destructive"
+        onClick={() =>
+          annoncer("Ce champ est verrouillé par l’agence.", { ton: 'echec' })
+        }
+      >
+        Un refus
+      </Button>
+    </div>
+  );
+}
+
+/**
+ * Deux durées : 2,2 s pour une confirmation, qu'on lit d'un œil ; 12 s pour un
+ * refus, qu'il faut avoir le temps de lire. Trois messages au plus s'empilent —
+ * au-delà, la pile couvrirait ce qu'on vient de corriger.
+ */
+export const Defaut: Story = {
+  render: () => (
+    <ToastProvider>
+      <Banc />
+    </ToastProvider>
+  ),
+};

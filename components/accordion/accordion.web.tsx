@@ -22,7 +22,7 @@ export const AccordionItem = React.forwardRef<
 ));
 AccordionItem.displayName = 'AccordionItem';
 
-interface AccordionTriggerProps
+export interface AccordionTriggerProps
   extends Omit<React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>, 'children'> {
   titre: string;
   /** Compteur ou précision affichée à droite du titre (« 4 champs renseignés »). */

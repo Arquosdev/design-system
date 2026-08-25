@@ -1,6 +1,7 @@
 ---
 name: PhotoTile
 statut: beta
+couche: metier
 role: Montrer une photo attendue — prise ou non — avec ce qu'elle est censée montrer.
 mots_cles: [photo, vignette, image, miniature, cliche, apercu]
 plateformes: [web]

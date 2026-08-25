@@ -1,0 +1,45 @@
+name: vitrine
+
+# Publie la vitrine Storybook sur GitHub Pages à chaque poussée sur `main`.
+# C'est la seule façon de REGARDER le design system : le dépôt en décrit les
+# règles, la vitrine en montre le résultat.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Une seule publication à la fois, et on n'annule pas celle qui court : la page
+# publiée serait alors à moitié écrasée.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  publier:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploiement.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      # La vitrine lit `dist/tokens.json` et les fiches : on régénère avant, pour
+      # qu'elle montre la source et non un dérivé qui aurait vieilli.
+      - run: npm run build
+      - run: npm run vitrine
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist-vitrine
+      - id: deploiement
+        uses: actions/deploy-pages@v4

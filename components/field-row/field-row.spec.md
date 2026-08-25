@@ -1,6 +1,7 @@
 ---
 name: FieldRow
 statut: beta
+couche: metier
 role: Afficher un champ en lecture, et le passer en saisie d'un clic sans quitter la page.
 mots_cles: [champ, ligne, libelle, valeur, edition, inline, saisie, formulaire]
 plateformes: [web]

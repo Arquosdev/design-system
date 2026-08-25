@@ -1,6 +1,7 @@
 ---
 name: Command
 statut: beta
+couche: generique
 role: Atteindre n'importe quoi dans un écran dense, en tapant son nom.
 mots_cles: [recherche, palette, commande, cmdk, raccourci, aller a, chercher]
 plateformes: [web]

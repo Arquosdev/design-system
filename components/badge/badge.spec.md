@@ -1,6 +1,7 @@
 ---
 name: Badge
 statut: stable
+couche: generique
 role: Poser une étiquette courte qui qualifie l'élément à côté duquel elle se trouve.
 mots_cles: [badge, pastille, etiquette, statut, tag, echeance, compteur]
 plateformes: [web]

@@ -1,6 +1,7 @@
 ---
 name: Accordion
 statut: stable
+couche: generique
 role: Grouper des champs sous un titre pliable, pour qu'une page longue reste parcourable.
 mots_cles: [accordeon, groupe, section, plier, deplier, replier]
 plateformes: [web]

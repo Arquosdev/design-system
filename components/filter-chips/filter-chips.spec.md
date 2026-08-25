@@ -1,6 +1,7 @@
 ---
 name: FilterChips
 statut: beta
+couche: generique
 role: Restreindre une liste à une de ses parties, par une barre de puces.
 mots_cles: [filtre, puces, chips, section, zone, restreindre, categorie]
 plateformes: [web]

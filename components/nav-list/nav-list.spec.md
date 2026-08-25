@@ -1,6 +1,7 @@
 ---
 name: NavList
 statut: beta
+couche: metier
 role: Lister les rubriques d'un écran, avec ce que chacune contient, et dire laquelle est ouverte.
 mots_cles: [navigation, menu, rail, rubriques, sections, sommaire, compteur]
 plateformes: [web]

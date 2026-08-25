@@ -1,9 +1,20 @@
 {
   "$description": "Catalogue des composants du design system Arquos. Avant de créer un composant, chercher ici : si le rôle recherché y figure, réutiliser plutôt que réécrire. Chaque entrée pointe vers sa fiche (`fiche`), qui décrit les props, les états et surtout les cas où le composant ne doit PAS être employé.",
+  "couches": {
+    "generique": {
+      "titre": "Générique",
+      "quoi": "Une mécanique que n'importe quelle application aurait — bouton, modale, onglets. Elle vient de shadcn/Radix, ou elle le pourrait."
+    },
+    "metier": {
+      "titre": "Métier",
+      "quoi": "Elle porte l'ascenseur : son vocabulaire, ses états, ses règles. shadcn n'a rien d'équivalent, et c'est normal."
+    }
+  },
   "composants": [
     {
       "name": "Accordion",
       "statut": "stable",
+      "couche": "generique",
       "role": "Grouper des champs sous un titre pliable, pour qu'une page longue reste parcourable.",
       "mots_cles": [
         "accordeon",
@@ -35,6 +46,7 @@
     {
       "name": "Badge",
       "statut": "stable",
+      "couche": "generique",
       "role": "Poser une étiquette courte qui qualifie l'élément à côté duquel elle se trouve.",
       "mots_cles": [
         "badge",
@@ -69,6 +81,7 @@
     {
       "name": "Button",
       "statut": "stable",
+      "couche": "generique",
       "role": "Déclencher une action. Le poids visuel dit l'importance de l'action, pas sa nature.",
       "mots_cles": [
         "bouton",
@@ -99,6 +112,7 @@
     {
       "name": "Card",
       "statut": "stable",
+      "couche": "generique",
       "role": "Poser un groupe d'éléments dans une surface délimitée, avec un en-tête facultatif.",
       "mots_cles": [
         "carte",
@@ -128,6 +142,7 @@
     {
       "name": "Command",
       "statut": "beta",
+      "couche": "generique",
       "role": "Atteindre n'importe quoi dans un écran dense, en tapant son nom.",
       "mots_cles": [
         "recherche",
@@ -155,6 +170,7 @@
     {
       "name": "DataTable",
       "statut": "beta",
+      "couche": "metier",
       "role": "Présenter des mesures en lignes et colonnes, quand la comparaison colonne par colonne est le sujet.",
       "mots_cles": [
         "tableau",
@@ -186,6 +202,7 @@
     {
       "name": "FieldRow",
       "statut": "beta",
+      "couche": "metier",
       "role": "Afficher un champ en lecture, et le passer en saisie d'un clic sans quitter la page.",
       "mots_cles": [
         "champ",
@@ -218,6 +235,7 @@
     {
       "name": "FilterChips",
       "statut": "beta",
+      "couche": "generique",
       "role": "Restreindre une liste à une de ses parties, par une barre de puces.",
       "mots_cles": [
         "filtre",
@@ -245,6 +263,7 @@
     {
       "name": "Gauge",
       "statut": "beta",
+      "couche": "metier",
       "role": "Montrer une proportion d'un coup d'œil, avec son chiffre écrit à côté.",
       "mots_cles": [
         "jauge",
@@ -275,6 +294,7 @@
     {
       "name": "IconButton",
       "statut": "stable",
+      "couche": "generique",
       "role": "Déclencher une action représentée par une icône seule, sans perdre son nom accessible.",
       "mots_cles": [
         "bouton",
@@ -306,6 +326,7 @@
     {
       "name": "NavList",
       "statut": "beta",
+      "couche": "metier",
       "role": "Lister les rubriques d'un écran, avec ce que chacune contient, et dire laquelle est ouverte.",
       "mots_cles": [
         "navigation",
@@ -337,6 +358,7 @@
     {
       "name": "PhotoTile",
       "statut": "beta",
+      "couche": "metier",
       "role": "Montrer une photo attendue — prise ou non — avec ce qu'elle est censée montrer.",
       "mots_cles": [
         "photo",
@@ -366,6 +388,7 @@
     {
       "name": "PhotoViewer",
       "statut": "beta",
+      "couche": "generique",
       "role": "Regarder une photo en grand, et passer aux suivantes de la même série.",
       "mots_cles": [
         "visionneuse",
@@ -393,6 +416,7 @@
     {
       "name": "SegmentedTabs",
       "statut": "beta",
+      "couche": "generique",
       "role": "Basculer entre deux ou trois vues d'un même écran, toutes également importantes.",
       "mots_cles": [
         "onglets",
@@ -422,6 +446,7 @@
     {
       "name": "Sheet",
       "statut": "beta",
+      "couche": "generique",
       "role": "Un panneau qui entre par le bord pour une tâche annexe, sans quitter l'écran.",
       "mots_cles": [
         "tiroir",
@@ -449,6 +474,7 @@
     {
       "name": "StatTile",
       "statut": "beta",
+      "couche": "metier",
       "role": "Mettre en avant une mesure d'identité, celle qu'on veut lire sans chercher.",
       "mots_cles": [
         "tuile",
@@ -479,6 +505,7 @@
     {
       "name": "Toast",
       "statut": "beta",
+      "couche": "generique",
       "role": "Annoncer sans quitter la page ce qui vient de réussir ou d'échouer.",
       "mots_cles": [
         "toast",

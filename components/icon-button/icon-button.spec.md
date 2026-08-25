@@ -1,6 +1,7 @@
 ---
 name: IconButton
 statut: stable
+couche: generique
 role: Déclencher une action représentée par une icône seule, sans perdre son nom accessible.
 mots_cles: [bouton, icone, action, telecharger, editer, fermer, supprimer]
 plateformes: [web]

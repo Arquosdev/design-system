@@ -3,6 +3,12 @@
 # quelles : c'est ce qu'un agent parcourt pour trouver le bon composant.
 name: NomDuComposant
 statut: stable # stable | beta | déprécié
+# generique = une mécanique que n'importe quelle application aurait (bouton,
+# modale, onglets) — elle vient de shadcn/Radix, ou elle le pourrait.
+# metier = elle porte l'ascenseur : son vocabulaire, ses états, ses règles.
+# Le doute se tranche ainsi : « une application de comptabilité en voudrait-elle
+# telle quelle ? » Oui → generique.
+couche: generique # generique | metier
 role: Une phrase — ce que le composant fait, à la voix active.
 mots_cles: [bouton, action, cta] # termes qu'un agent chercherait pour tomber ici
 plateformes: [web, mobile] # où l'implémentation existe réellement

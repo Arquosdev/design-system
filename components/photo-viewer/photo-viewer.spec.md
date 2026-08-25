@@ -1,6 +1,7 @@
 ---
 name: PhotoViewer
 statut: beta
+couche: generique
 role: Regarder une photo en grand, et passer aux suivantes de la même série.
 mots_cles: [visionneuse, lightbox, photo, galerie, plein ecran, agrandir, schema]
 plateformes: [web]
