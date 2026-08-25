@@ -4,6 +4,19 @@ Ce repo est la **source de vérité unique** du design Arquos : les tokens (coul
 typographie, espacements, arrondis) et les composants partagés. Les apps mobile
 (`Arquosdev/mobile`) et web (`Arquosdev/fiche-equipement`) le consomment.
 
+## Avant tout : les principes de design
+
+Sept règles qui tranchent les décisions d'écran — montrer ou masquer, proposer ou
+refuser. Elles sont nées de défauts réels du produit, pas d'un manuel, et la
+première prime toujours : **ne jamais montrer ce qui n'est pas**. Un « ✓
+Enregistré » sur une valeur qui ne part nulle part, un jeu de démonstration servi
+sur un vrai appareil, une case qu'on coche et qui n'écrit rien : le produit a
+porté ces trois défauts, et chacun a coûté une journée.
+
+Les sept sont dans la vitrine, page « Principes de design ». Les lire avant
+d'écrire un écran ; chaque fiche de composant les applique ensuite à son cas
+particulier, dans sa section « Quand NE PAS l'utiliser ».
+
 ## Les trois règles qui comptent
 
 **1. Avant d'écrire un composant, lire `dist/catalog.json`.** Il liste tous les
