@@ -85,4 +85,15 @@ export {
   CommandSeparator,
 } from './components/command/command.web';
 
+export {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from './components/select/select.web';
+
 export { cn } from './components/_lib/cn';

@@ -471,6 +471,34 @@
       }
     },
     {
+      "name": "Select",
+      "statut": "beta",
+      "couche": "generique",
+      "role": "Choisir une valeur dans une liste fermée, sans quitter la ligne où on est.",
+      "mots_cles": [
+        "select",
+        "menu",
+        "liste",
+        "choix",
+        "deroulant",
+        "dropdown",
+        "action"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — les menus natifs des écarts et des champs à choix"
+        ]
+      },
+      "dossier": "components/select",
+      "fiche": "components/select/select.spec.md",
+      "fichiers": {
+        "web": "components/select/select.web.tsx"
+      }
+    },
+    {
       "name": "Sheet",
       "statut": "beta",
       "couche": "generique",

@@ -24,6 +24,7 @@ Une mécanique que n'importe quelle application aurait — bouton, modale, ongle
 | [IconButton](icon-button/icon-button.spec.md) | Déclencher une action représentée par une icône seule, sans perdre son nom accessible. | 🖥️ | stable |
 | [PhotoViewer](photo-viewer/photo-viewer.spec.md) | Regarder une photo en grand, et passer aux suivantes de la même série. | 🖥️ | beta |
 | [SegmentedTabs](segmented-tabs/segmented-tabs.spec.md) | Basculer entre deux ou trois vues d'un même écran, toutes également importantes. | 🖥️ | beta |
+| [Select](select/select.spec.md) | Choisir une valeur dans une liste fermée, sans quitter la ligne où on est. | 🖥️ | beta |
 | [Sheet](sheet/sheet.spec.md) | Un panneau qui entre par le bord pour une tâche annexe, sans quitter l'écran. | 🖥️ | beta |
 | [Toast](toast/toast.spec.md) | Annoncer sans quitter la page ce qui vient de réussir ou d'échouer. | 🖥️ | beta |
 
