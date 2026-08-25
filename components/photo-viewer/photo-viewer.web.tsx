@@ -83,7 +83,12 @@ export function PhotoViewer({ photos, index, onIndex, open, onOpenChange }: Phot
             'outline-none',
           )}
         >
-          <div className="flex max-w-full items-center gap-base">
+          {/* `flex-1 min-h-0` : la photo prend toute la hauteur que la légende
+              lui laisse, au lieu d'un plafond fixe. Sur une photo verticale —
+              cinquante-six des cinquante-sept d'un relevé — un plafond à 70 % de
+              l'écran laissait une bande vide en haut et en bas pendant que la
+              photo, elle, restait petite. */}
+          <div className="flex min-h-0 max-w-full flex-1 items-center gap-base">
             {nb > 1 ? (
               <Fleche sens="prec" onClick={() => deplacer(-1)} />
             ) : null}
@@ -97,10 +102,10 @@ export function PhotoViewer({ photos, index, onIndex, open, onOpenChange }: Phot
                 onError={() => setCassees((c) => ({ ...c, [url]: true }))}
                 // `contain` : ne rien rogner. Une photo de plaque de charge
                 // recadrée peut perdre le chiffre qu'on est venu lire.
-                className="max-h-[70vh] max-w-[76vw] rounded-md object-contain"
+                className="max-h-full max-w-[76vw] rounded-md object-contain"
               />
             ) : (
-              <div className="flex h-[70vh] max-h-[500px] w-[76vw] max-w-[760px] items-center justify-center rounded-md bg-grey-200 px-lg text-center text-body text-text-muted">
+              <div className="flex h-full max-h-[500px] w-[76vw] max-w-[760px] items-center justify-center rounded-md bg-grey-200 px-lg text-center text-body text-text-muted">
                 Photo indisponible — {courante.nom}
               </div>
             )}
@@ -108,7 +113,7 @@ export function PhotoViewer({ photos, index, onIndex, open, onOpenChange }: Phot
             {nb > 1 ? <Fleche sens="suiv" onClick={() => deplacer(1)} /> : null}
           </div>
 
-          <div className="max-w-[76vw] text-center text-text-on-dark">
+          <div className="max-w-[76vw] shrink-0 text-center text-text-on-dark">
             <Dialog.Title className="text-subhead font-semibold text-pretty">
               {courante.nom}
             </Dialog.Title>

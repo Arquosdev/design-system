@@ -69,7 +69,10 @@ const [vue, setVue] = React.useState<{ photos: PhotoVue[]; i: number } | null>(n
 ## Anatomie
 
 - Voile : `colors.brand` à 80 %
-- Photo : `object-contain`, 76 vw × 70 vh au plus, arrondi `radius.md`
+- Photo : `object-contain`, 76 vw de large au plus, et **toute la hauteur que
+  la légende lui laisse** — pas de plafond fixe. Arrondi `radius.md`. Les
+  photos de relevé sont verticales à 77 % : un plafond à 70 vh les laissait
+  petites entre deux bandes vides.
 - Flèches : 44 px, fond blanc à 15 % — la taille minimale d'une cible tactile
 - Légende : nom en `typography.subhead`, puis « 3/12 · Machinerie » en `small`
 - Croix : 36 px, en haut à droite
