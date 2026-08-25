@@ -27,7 +27,7 @@ export function DataTable({
       className={cn('overflow-hidden rounded-md border border-border-soft bg-bg', className)}
       {...props}
     >
-      <div className="flex items-baseline gap-md border-b border-border-soft bg-bg-muted px-base py-md">
+      <div className="flex items-baseline gap-md border-b border-border-soft bg-bg-subtle px-base py-md">
         <span className="text-small font-bold text-text">{titre}</span>
         {note ? <span className="text-caption text-text-subtle">{note}</span> : null}
       </div>

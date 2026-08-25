@@ -47,6 +47,8 @@ sur place. C'est lui qui rend la fiche modifiable sans formulaire séparé.
 | `schemas`    | `readonly { nom: string }[]`                | —          | Schémas expliquant **comment** la mesure se prend |
 | `onVoirSchemas` | `() => void`                             | —          | Ouvre ces schémas |
 | `repere`     | `boolean`                                   | `false`    | Désigne la ligne : la recherche vient d'y emmener |
+| `autre`      | `boolean`                                   | `false`    | Ajoute « Autre — saisir une valeur… » au menu, qui bascule en saisie libre |
+| `demandeOuverture` | `number`                              | —          | Rouvre l'éditeur depuis l'extérieur. C'est le **changement** de valeur qui ouvre |
 | `origine`    | `string`                                    | —          | Provenance de la valeur, en infobulle          |
 | `readOnly`   | `boolean`                                   | `false`    | Force la lecture seule                         |
 
@@ -95,6 +97,15 @@ import { FieldRow } from '@arquos/design-system/web';
   pour les écrans qui rendent leur propre menu (le tableau des remplacements).
 - **Valeur hors catalogue** : gardée en tête du menu, suffixée « · valeur
   actuelle ». La retirer la remplacerait en silence dès l'ouverture.
+- **« Autre »** : bascule le menu en saisie libre sans refermer la ligne. À
+  n'offrir que là où le service accepte une valeur hors liste — une marque
+  d'ascensoriste qui n'est pas au catalogue, par exemple.
+- **Rouverte de l'extérieur** (`demandeOuverture`) : la valeur dont ce champ
+  dépend vient de changer et celle-ci est périmée. On ne peut pas la vider — le
+  service refuse une valeur vide — donc on rouvre le menu, déjà filtré, pour que
+  le choix se fasse maintenant plutôt qu'il ne s'oublie.
+- **Multi-sélection** : le résumé liste les libellés retenus, pas leur nombre —
+  on relit ce qu'on vient de cocher sans reparcourir les pastilles.
 - **Reclic sur la valeur déjà retenue** : ferme sans écrire. Réenregistrer à
   l'identique coûterait un aller-retour et daterait la fiche d'une correction
   qui n'en est pas une.
