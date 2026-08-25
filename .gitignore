@@ -5,3 +5,7 @@ node_modules/
 # `dist/` EST committé : les apps installent ce repo directement depuis GitHub
 # (`github:Arquosdev/design-system#vX.Y.Z`), sans étape de build à l'installation.
 # Les formats dérivés doivent donc être présents dans le dépôt.
+
+# Vitrine Storybook, régénérée à chaque publication
+dist-vitrine/
+storybook-static/

@@ -1,6 +1,7 @@
 ---
 name: Sheet
 statut: beta
+couche: generique
 role: Un panneau qui entre par le bord pour une tâche annexe, sans quitter l'écran.
 mots_cles: [tiroir, panneau, drawer, sheet, lateral, completer, formulaire]
 plateformes: [web]

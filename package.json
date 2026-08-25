@@ -1,6 +1,6 @@
 {
   "name": "@arquos/design-system",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Un design system pensé pour les agents — les règles d'usage vivent dans le dépôt, pas dans les têtes. Tokens et composants partagés par les apps mobile et web d'Arquos.",
   "private": true,
   "main": "src/index.ts",
@@ -25,7 +25,9 @@
   "scripts": {
     "build": "node scripts/build-tokens.mjs && node scripts/build-catalog.mjs",
     "catalog": "node scripts/build-catalog.mjs",
-    "check": "node scripts/build-tokens.mjs --check && node scripts/build-catalog.mjs --check"
+    "check": "node scripts/build-tokens.mjs --check && node scripts/build-catalog.mjs --check",
+    "storybook": "storybook dev -p 6006",
+    "vitrine": "storybook build -o dist-vitrine"
   },
   "repository": {
     "type": "git",
@@ -44,5 +46,19 @@
     "cmdk": "^1.1.1",
     "radix-ui": "^1.6.7",
     "tailwind-merge": "^3.6.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-docs": "^10.5.10",
+    "@storybook/react-vite": "^10.5.10",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "@vitejs/plugin-react": "^6.1.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "storybook": "^10.5.10",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.2.2"
   }
 }

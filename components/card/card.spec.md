@@ -1,6 +1,7 @@
 ---
 name: Card
 statut: stable
+couche: generique
 role: Poser un groupe d'éléments dans une surface délimitée, avec un en-tête facultatif.
 mots_cles: [carte, surface, encart, groupe, bloc, panneau]
 plateformes: [web]

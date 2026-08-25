@@ -1,0 +1,25 @@
+/*
+  Le même habillage que les applications, et rien de plus.
+
+  Tailwind d'abord, puis nos tokens : `tokens.tailwind.css` déclare le `@theme`
+  qui donne `bg-primary`, `px-base`, `text-small`. Ce fichier est GÉNÉRÉ depuis
+  `src/*.ts` — la vitrine montre donc exactement les valeurs du dépôt, jamais une
+  copie qui aurait dérivé.
+*/
+/* DM Sans est la seule police de la marque. Ici on l'appelle chez Google — la
+   vitrine est un site public, pas le module embarqué dans Bubble, qui lui la
+   sert depuis son propre domaine à cause de la politique de sécurité. */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+@import 'tailwindcss';
+@import '../dist/tokens.tailwind.css';
+
+/* Les composants vivent dans `components/`, hors de ce dossier : sans cette
+   déclaration, Tailwind n'y cherche pas les classes et la vitrine sort nue. */
+@source '../components';
+@source '../stories';
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background: var(--color-bg);
+}

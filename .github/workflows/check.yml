@@ -15,6 +15,11 @@ jobs:
           # Node 24+ lit le TypeScript nativement — le script de build importe
           # directement les sources `src/*.ts` sans étape de compilation.
           node-version: '24'
+          cache: npm
       # Échoue si les fichiers générés ont divergé de leur source : une modif de
       # token ou de fiche composant doit être committée avec ses dérivés régénérés.
+      - run: npm ci
       - run: npm run check
+      # La vitrine casse dès qu'une story vise un composant qui a changé de
+      # props. Mieux vaut l'apprendre ici que devant une page publiée à moitié.
+      - run: npm run vitrine

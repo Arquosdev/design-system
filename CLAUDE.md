@@ -58,6 +58,41 @@ existent : `.arq-text-body`, `.arq-text-title`…
 **Ne jamais ajouter de nouvelle taille de police.** L'échelle a été calibrée sur
 l'usage réel ; toute taille supplémentaire est du drift.
 
+## Regarder le design system
+
+La vitrine Storybook publie chaque composant avec **sa fiche**, et les tokens
+avec leurs valeurs réelles :
+
+    https://arquosdev.github.io/design-system/
+
+En local : `npm run storybook`. Elle ne duplique rien — les pages lisent
+`components/<nom>/<nom>.spec.md` et `dist/tokens.json`. Une documentation
+recopiée à la main diverge au premier changement, et c'est alors la vitrine
+qu'on croit.
+
+**Ajouter un composant, c'est aussi lui écrire une story** dans
+`stories/<couche>/<nom>.stories.tsx`. La CI construit la vitrine : une story qui
+vise un composant dont les props ont changé fait échouer la PR.
+
+## Les deux couches
+
+Chaque fiche déclare une `couche`, et c'est ce qui range le dépôt comme la
+vitrine :
+
+- **`generique`** — une mécanique que n'importe quelle application aurait :
+  bouton, modale, onglets, palette de recherche. Elle vient de shadcn/Radix, ou
+  elle le pourrait. La toucher engage tout le monde.
+- **`metier`** — elle porte l'ascenseur : son vocabulaire, ses états, ses
+  règles. `FieldRow` sait qu'une valeur absente se dit « Non renseigné » ;
+  `PhotoTile` sait qu'une photo manquante est une information.
+
+Le doute se tranche ainsi : **une application de comptabilité en voudrait-elle
+telle quelle ?** Oui → `generique`.
+
+Ce n'est **pas** de l'atomic design, et c'est délibéré : classer par taille
+(atome, molécule, organisme) répond à une question que personne ne se pose en
+travaillant. Celle-ci se pose tous les jours.
+
 ## Les composants
 
 Chaque composant vit dans `components/<nom>/` :
@@ -81,10 +116,13 @@ constates une divergence non documentée dans la fiche, c'est un bug, pas une li
 1. **Chercher dans `dist/catalog.json`.** Le besoin y figure peut-être déjà.
 2. **Chercher chez shadcn/ui** — voir ci-dessous. C'est la règle posée par Thomas.
 3. Copier `components/_TEMPLATE.spec.md` vers `components/<nom>/<nom>.spec.md`, le remplir.
+   Y déclarer sa `couche` — voir « Les deux couches » plus haut.
 4. Écrire les implémentations des plateformes déclarées dans l'en-tête.
-5. `npm run catalog` — régénère `dist/catalog.json` et `components/README.md`.
+5. Écrire sa story dans `stories/<couche>/<nom>.stories.tsx`.
+6. `npm run catalog` — régénère `dist/catalog.json` et `components/README.md`.
 
-La CI refuse une plateforme déclarée sans implémentation, ou un catalogue non régénéré.
+La CI refuse une plateforme déclarée sans implémentation, une couche inconnue, un
+catalogue non régénéré, ou une vitrine qui ne construit plus.
 
 ## Partir de shadcn
 
@@ -138,3 +176,5 @@ composant, ce serait rouvrir le trou.
 - Référencer `palette.blue[500]` dans du code applicatif — utiliser `colors.primary`.
 - Ajouter une valeur intermédiaire à une échelle « parce qu'il manque 2px ».
 - Créer un composant sans avoir cherché dans `dist/catalog.json` d'abord.
+- Écrire de la documentation dans une story : elle vit dans la fiche, que la
+  story affiche. Deux textes divergent toujours.

@@ -1,6 +1,7 @@
 ---
 name: Gauge
 statut: beta
+couche: metier
 role: Montrer une proportion d'un coup d'œil, avec son chiffre écrit à côté.
 mots_cles: [jauge, anneau, donut, pourcentage, progression, taux, completude]
 plateformes: [web]

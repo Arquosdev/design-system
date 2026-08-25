@@ -1,6 +1,7 @@
 ---
 name: Toast
 statut: beta
+couche: generique
 role: Annoncer sans quitter la page ce qui vient de réussir ou d'échouer.
 mots_cles: [toast, notification, message, annonce, confirmation, echec, bandeau]
 plateformes: [web]

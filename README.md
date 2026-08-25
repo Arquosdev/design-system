@@ -7,6 +7,8 @@ Source de vérité unique pour le **design d'Arquos** : couleurs, typographie, e
 
 > 🤖 **Tu es un agent ?** Lis [`CLAUDE.md`](CLAUDE.md) — il dit quoi importer et comment choisir un token.
 
+> 👀 **Tu veux le regarder ?** [**La vitrine**](https://arquosdev.github.io/design-system/) — chaque composant avec sa fiche, les tokens avec leurs valeurs. En local : `npm run storybook`.
+
 ## Ce que « pensé pour les agents » veut dire ici
 
 Ce n'est pas une étiquette : c'est vérifiable, fichier par fichier.
@@ -14,7 +16,17 @@ Ce n'est pas une étiquette : c'est vérifiable, fichier par fichier.
 - **Chaque token porte sa description** dans `dist/tokens.json` — à quoi il sert, pas seulement sa valeur.
 - **Chaque composant a une fiche** (`components/<nom>/<nom>.spec.md`) avec une section **« Quand NE PAS l'utiliser »**. C'est elle qui évite les détournements : l'implémentation ne dit jamais dans quels cas elle est le mauvais choix.
 - **Le catalogue est lisible par une machine** (`dist/catalog.json`) : un agent répond à « existe-t-il déjà un composant pour ça ? » en lisant un seul fichier, sans parcourir le code.
-- **La CI refuse le drift** : un dérivé non régénéré, une plateforme déclarée sans implémentation, un catalogue périmé.
+- **La CI refuse le drift** : un dérivé non régénéré, une plateforme déclarée sans implémentation, un catalogue périmé, une vitrine qui ne construit plus.
+- **La vitrine ne duplique rien** : elle affiche les fiches et les tokens tels qu'ils sont dans le dépôt. Deux textes divergent toujours ; ici il n'y en a qu'un.
+
+## Deux couches, pas cinq niveaux
+
+Ce n'est **pas** de l'atomic design. Classer par taille — atome, molécule, organisme — répond à une question que personne ne se pose en travaillant. Chaque fiche déclare plutôt sa **couche** :
+
+- **Générique** — une mécanique que n'importe quelle application aurait : bouton, modale, onglets. Elle vient de shadcn/Radix, ou elle le pourrait.
+- **Métier** — elle porte l'ascenseur : son vocabulaire, ses états, ses règles.
+
+Le doute se tranche ainsi : *une application de comptabilité en voudrait-elle telle quelle ?* Oui → générique.
 
 Un développeur qui arrive y gagne exactement la même chose.
 

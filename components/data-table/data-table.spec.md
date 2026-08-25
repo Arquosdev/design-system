@@ -1,6 +1,7 @@
 ---
 name: DataTable
 statut: beta
+couche: metier
 role: Présenter des mesures en lignes et colonnes, quand la comparaison colonne par colonne est le sujet.
 mots_cles: [tableau, table, grille, cotes, mesures, colonnes, lignes]
 plateformes: [web]
