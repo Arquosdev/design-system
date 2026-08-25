@@ -78,6 +78,14 @@ export function ratio(a, b) {
  * classe de texte seule hérite d'un fond qu'on ne connaît qu'au call site, et
  * deviner ce fond produirait des alertes fausses — c'est ainsi qu'un contrôle
  * finit désactivé.
+ *
+ * CE QUE ÇA NE COUVRE PAS, et il faut le savoir plutôt que de croire le
+ * contraire : une paire répartie sur deux éléments. Un fond posé sur le parent
+ * et l'encre sur l'enfant échappent entièrement au contrôle — le cas existe
+ * dans la fiche (`bandeau-releve.tsx` pose `bg-blue-50` sur son div et
+ * `text-blue-700` sur un span à l'intérieur). Ce contrôle ferme la classe de
+ * défaut la plus fréquente, pas toutes. Le panneau d'accessibilité de la
+ * vitrine, lui, mesure le rendu réel et voit ces cas-là.
  */
 function pairesDe(source) {
   const trouvees = [];
