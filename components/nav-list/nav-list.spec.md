@@ -64,8 +64,14 @@ import { NavList } from '@arquos/design-system/web';
 ## Anatomie
 
 - Intitulé : `typography.caption` en gras, majuscules, `colors.textSubtle`
-- Entrée : hauteur libre, arrondi `radius.control`, texte `typography.small`
-- Entrée courante : fond `palette.blue[50]`, texte `palette.blue[700]` en gras
+- Entrée : hauteur libre, arrondi `radius.control`, retrait `spacing.md` de chaque
+  côté — le fond teinté est une pastille, et une pastille qui touche ses mots se
+  lit comme un défaut d'alignement. Texte `typography.small` en
+  **`fontWeight.medium`** — c'est un menu, ses mots se balaient du regard, ils ne
+  se lisent pas en phrase ; le normal les laissait maigres face aux titres
+- Entrée courante : fond `palette.blue[50]`, texte `palette.blue[700]` en
+  `fontWeight.semibold` — un échelon au-dessus des autres, et c'est ce contraste
+  qui dit où l'on est
 - Compteur : `typography.small`, `colors.textSubtle`, chiffres à chasse fixe —
   sans quoi les nombres dansent d'une ligne à l'autre
 

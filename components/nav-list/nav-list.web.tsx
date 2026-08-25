@@ -59,14 +59,14 @@ export function NavList({
           type="button"
           aria-expanded={deplie}
           onClick={() => setOuvert(!deplie)}
-          className="flex w-full items-center gap-sm rounded-control px-xs pb-sm text-text-subtle outline-none hover:text-text focus-visible:ring-2 focus-visible:ring-primary"
+          className="flex w-full items-center gap-sm rounded-control px-md pb-sm text-text-subtle outline-none hover:text-text focus-visible:ring-2 focus-visible:ring-primary"
         >
           <ChevronBas ouvert={deplie} />
           {intitule}
           <span className="shrink-0 tabular-nums text-small">{items.length}</span>
         </button>
       ) : (
-        <div className="flex px-xs pb-sm text-text-subtle">{intitule}</div>
+        <div className="flex px-md pb-sm text-text-subtle">{intitule}</div>
       )}
 
       <div className={cn('flex flex-col gap-xxs', !deplie && 'hidden')}>
@@ -82,12 +82,31 @@ export function NavList({
               disabled={item.desactive}
               onClick={() => onChoisir(item.cle)}
               className={cn(
-                'flex w-full items-center gap-sm rounded-control px-xs py-sm text-left text-small outline-none',
+                /*
+                  `px-md` et non `px-xs` : le fond teinté de l'entrée courante
+                  est une pastille, et une pastille qui touche ses mots se lit
+                  comme un défaut d'alignement. Quatre pixels ne suffisaient ni à
+                  gauche du libellé ni à droite du compteur.
+
+                  Les intitulés de groupe prennent le même retrait, sinon leur
+                  texte ne tombe plus sur celui des entrées.
+                */
+                'flex w-full items-center gap-sm rounded-control px-md py-sm text-left text-small outline-none',
                 'focus-visible:ring-2 focus-visible:ring-primary',
                 'disabled:pointer-events-none disabled:opacity-50',
+                /*
+                  Une entrée au repos est en `medium`, pas en normal. C'est un
+                  menu, pas du texte courant : ses mots se balaient du regard, ils
+                  ne se lisent pas en phrase. Le demi-échelon leur donne de quoi
+                  tenir contre les grands titres de la page.
+
+                  L'entrée courante garde `semibold` : un échelon la sépare
+                  toujours des autres, et c'est ce contraste — pas la graisse en
+                  soi — qui dit où l'on est.
+                */
                 actif
                   ? 'bg-blue-50 font-semibold text-blue-700'
-                  : 'text-text hover:bg-bg-muted',
+                  : 'font-medium text-text hover:bg-bg-muted',
               )}
             >
               <span className="flex-1">{item.label}</span>

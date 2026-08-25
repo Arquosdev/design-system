@@ -60,7 +60,13 @@ export function SegmentedTabs({
               // d'un onglet à l'autre quand les libellés sont inégaux.
               'flex flex-1 items-center justify-center gap-sm rounded-control px-sm py-sm text-small outline-none',
               'focus-visible:ring-2 focus-visible:ring-primary',
-              actif ? 'bg-bg font-semibold text-text shadow-card' : 'text-text-muted',
+              // Même règle que `NavList` : un segment au repos est en `medium`,
+              // le segment courant garde `semibold`. Les deux composants se
+              // touchent en haut du rail, un écart de graisse entre eux se
+              // verrait tout de suite.
+              actif
+                ? 'bg-bg font-semibold text-text shadow-card'
+                : 'font-medium text-text-muted',
             )}
           >
             <span>{segment.label}</span>
