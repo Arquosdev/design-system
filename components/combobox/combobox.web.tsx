@@ -1,17 +1,12 @@
 'use client';
 
 import * as React from 'react';
+import { Command as CommandPrimitive } from 'cmdk';
 
 import { cn } from '../_lib/cn';
 import { Icon } from '../icon/icon.web';
-import {
-  Command,
-  CommandEmpty,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '../command/command.web';
-import { Popover, PopoverContent, PopoverTrigger } from '../popover/popover.web';
+import { CommandEmpty, CommandItem, CommandList } from '../command/command.web';
+import { Popover, PopoverAnchor, PopoverContent } from '../popover/popover.web';
 
 export interface ComboboxOption {
   valeur: string;
@@ -23,86 +18,121 @@ export interface ComboboxProps {
   /** La valeur retenue. Une valeur hors catalogue s'affiche telle quelle. */
   valeur: string;
   onValeur: (valeur: string) => void;
-  /** Ce que la gâchette dit quand rien n'est retenu. */
+  /** Ce que le champ dit quand rien n'est retenu. */
   placeholder?: string;
-  /** Ce que le champ de recherche invite à taper. */
-  invite?: string;
-  /** Nomme la gâchette quand aucun libellé visible ne le fait. */
+  /** Nomme le champ quand aucun libellé visible ne le fait. */
   ariaLabel?: string;
-  /** Le champ s'ouvre-t-il ? */
   desactive?: boolean;
+  /** Le champ prend le focus dès qu'il paraît — il remplace une valeur. */
+  autoFocus?: boolean;
   className?: string;
 }
 
 /**
- * Le motif « combobox » de shadcn — `Popover` + `Command` — empaqueté.
+ * Un champ où l'on tape, et la liste qui se resserre dessous.
  *
- * shadcn le donne en recette à recopier ; on en fait un composant, parce qu'une
- * recette recopiée à dix endroits diverge à dix endroits, et que le seul choix
- * qui compte à l'appel est « quelle liste, quelle valeur ».
+ * **Un seul champ.** La première version en avait deux : une gâchette qu'on
+ * ouvrait, puis une barre de recherche qui apparaissait dedans. Deux gestes et
+ * deux boîtes pour choisir un mot — et la barre de recherche, empruntée à la
+ * palette ⌘K, était deux fois plus haute que le champ qui l'avait ouverte.
+ * C'est la forme que shadcn a fini par retenir aussi : `ComboboxInput` EST le
+ * champ.
  *
  * **C'est le menu des listes longues.** `Select` s'arrête vers la douzaine de
  * choix ; au-delà, faire défiler n'est plus choisir. Le modèle de machine en
- * compte trois cent soixante-seize : sans champ de recherche, la bonne valeur
- * est introuvable autrement qu'en la sachant déjà.
+ * compte trois cent soixante-seize : sans frappe, la bonne valeur est
+ * introuvable autrement qu'en la sachant déjà.
+ *
+ * L'entrée se fait sur la primitive `cmdk` plutôt que sur notre `CommandInput`,
+ * qui habille la palette plein écran et porte sa hauteur.
  */
 export function Combobox({
   options,
   valeur,
   onValeur,
-  placeholder = '— choisir —',
-  invite = 'Rechercher…',
+  placeholder = 'Rechercher…',
   ariaLabel,
   desactive = false,
+  autoFocus = false,
   className,
 }: ComboboxProps) {
   const [ouvert, setOuvert] = React.useState(false);
+  const [frappe, setFrappe] = React.useState('');
+  const champ = React.useRef<HTMLInputElement>(null);
+
   const retenue = options.find((o) => o.valeur === valeur);
+  const affiche = retenue?.libelle ?? valeur;
+
+  /* Ce qu'on voit dans le champ : la valeur retenue tant qu'on n'a rien tapé,
+     la frappe dès qu'on tape. Sans ça, ouvrir le champ effacerait sous les yeux
+     la valeur qu'on venait consulter. */
+  const contenu = ouvert ? frappe : affiche;
+
+  const fermer = () => {
+    setOuvert(false);
+    setFrappe('');
+  };
 
   return (
-    <Popover open={ouvert} onOpenChange={setOuvert}>
-      <PopoverTrigger
-        // Un `button` et non un `input` : on ne saisit pas ici, on ouvre. La
-        // frappe se fait dans la liste, où elle filtre.
-        type="button"
-        role="combobox"
-        aria-expanded={ouvert}
-        aria-label={ariaLabel}
-        disabled={desactive}
-        className={cn(
-          'flex h-[28px] w-full items-center justify-between gap-sm rounded-control',
-          'border border-border bg-bg px-xs text-left text-small font-medium text-text',
-          'outline-none transition-colors hover:bg-bg-muted',
-          'focus-visible:ring-2 focus-visible:ring-primary',
-          'disabled:pointer-events-none disabled:opacity-50',
-          className,
-        )}
-      >
-        <span className={cn('truncate', !valeur && 'font-normal text-text-subtle')}>
-          {/* Une valeur hors catalogue s'écrit telle quelle : la taire
-              reviendrait à effacer à l'écran ce que la base contient. */}
-          {retenue?.libelle || valeur || placeholder}
-        </span>
-        <Icon
-          role="deplier"
-          size="sm"
-          className={cn('shrink-0 text-text-subtle transition-transform', ouvert && 'rotate-180')}
-        />
-      </PopoverTrigger>
+    <CommandPrimitive
+      // Le filtrage est celui de cmdk, sur le libellé. Une liste de trois cents
+      // marques n'a pas besoin de plus : on tape le début du nom.
+      loop
+      className="w-full"
+      onKeyDown={(e) => {
+        if (e.key === 'Escape') fermer();
+      }}
+    >
+      <Popover open={ouvert && !desactive} onOpenChange={(o) => !o && fermer()}>
+        <PopoverAnchor asChild>
+          <div
+            className={cn(
+              'flex h-[32px] w-full items-center gap-sm rounded-control',
+              // Les mêmes traits que la gâchette de `Select`, au pixel : un
+              // champ à menu doit avoir la même tête, court ou long.
+              'border border-border bg-bg px-md shadow-card',
+              'focus-within:ring-2 focus-within:ring-primary',
+              desactive && 'pointer-events-none opacity-50',
+              className,
+            )}
+          >
+            <CommandPrimitive.Input
+              ref={champ}
+              autoFocus={autoFocus}
+              disabled={desactive}
+              value={contenu}
+              onValueChange={(v) => {
+                setFrappe(v);
+                setOuvert(true);
+              }}
+              onFocus={() => setOuvert(true)}
+              onMouseDown={() => setOuvert(true)}
+              placeholder={placeholder}
+              aria-label={ariaLabel}
+              className={cn(
+                'min-w-0 flex-1 bg-transparent text-small font-medium text-text outline-none',
+                'placeholder:font-normal placeholder:text-text-subtle',
+              )}
+            />
+            <Icon
+              role="deplier"
+              size="sm"
+              className={cn(
+                'shrink-0 text-text-subtle transition-transform',
+                ouvert && 'rotate-180',
+              )}
+            />
+          </div>
+        </PopoverAnchor>
 
-      <PopoverContent
-        className="w-[var(--radix-popover-trigger-width)] min-w-[220px] p-0"
-        // Le focus va au champ de recherche, pas à la première entrée : on
-        // ouvre une liste longue pour y taper, pas pour la parcourir.
-        onOpenAutoFocus={(e) => {
-          e.preventDefault();
-          const champ = (e.currentTarget as HTMLElement).querySelector('input');
-          champ?.focus();
-        }}
-      >
-        <Command>
-          <CommandInput placeholder={invite} />
-          <CommandList>
+        <PopoverContent
+          className="w-[var(--radix-popover-trigger-width)] min-w-[220px] p-0"
+          /* Le focus ne quitte jamais le champ : on tape pendant que la liste
+             se resserre. Sans ça, la première frappe partirait dans le vide. */
+          onOpenAutoFocus={(e) => e.preventDefault()}
+          onCloseAutoFocus={(e) => e.preventDefault()}
+        >
+          <CommandList className="max-h-[240px]">
             <CommandEmpty>Aucun choix ne correspond.</CommandEmpty>
             {options.map((o) => (
               <CommandItem
@@ -110,7 +140,7 @@ export function Combobox({
                 value={o.libelle}
                 onSelect={() => {
                   onValeur(o.valeur);
-                  setOuvert(false);
+                  fermer();
                 }}
                 className={cn(
                   o.valeur === valeur && 'bg-info-bg font-semibold text-on-info-bg',
@@ -120,9 +150,9 @@ export function Combobox({
               </CommandItem>
             ))}
           </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
+        </PopoverContent>
+      </Popover>
+    </CommandPrimitive>
   );
 }
 

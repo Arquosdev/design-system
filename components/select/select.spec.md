@@ -73,8 +73,11 @@ import {
 
 ## Anatomie
 
-- Gâchette : hauteur 28 px, largeur au contenu, arrondi `radius.control`, contour
-  `colors.border`, texte `typography.small` en `fontWeight.medium`
+- Gâchette : hauteur 32 px, largeur au contenu, arrondi `radius.control`, contour
+  `colors.border`, ombre `shadow.card`, retrait `spacing.md` de chaque côté —
+  le `px-3` de shadcn ; à quatre pixels le mot touchait son contour et le champ
+  se lisait comme une étiquette serrée. Texte `typography.small` en
+  `fontWeight.medium`
 - Caret : `Icon` `deplier` en `sm`, `colors.textSubtle`, pivoté de 180° à l'ouverture
 - Menu : arrondi `radius.md`, contour `colors.borderSoft`, ombre `shadow.pop`,
   jamais plus étroit que sa gâchette

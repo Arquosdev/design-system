@@ -43,7 +43,8 @@ export const Defaut: Story = {
 };
 
 /**
- * La gâchette s'ajuste à son contenu. C'est l'écart qu'on assume avec shadcn :
+ * La gâchette s'ajuste à son contenu. C'est le seul écart de largeur qu'on
+ * assume avec shadcn — le retrait, lui, est le sien (`px-3`) :
  * un menu de trois choix étiré sur un tiers d'écran promet une saisie longue là
  * où il n'y a qu'un mot à choisir. `w-full` la rend à qui la veut.
  */

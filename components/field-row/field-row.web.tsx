@@ -431,7 +431,8 @@ function Editeur({ kind, label, value, options, autre, onValider, onAnnuler }: E
               valeur={retenue}
               onValeur={prendre}
               ariaLabel={label}
-              invite={`Rechercher — ${label.toLowerCase()}`}
+              autoFocus
+              placeholder={`Rechercher — ${label.toLowerCase()}`}
               className="h-[30px] border-[1.5px] border-primary"
             />
           </div>

@@ -37,9 +37,11 @@ export const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      'flex h-[28px] w-fit items-center justify-between gap-sm rounded-control',
-      'border border-border bg-bg px-xs text-small font-medium text-text',
-      'outline-none transition-colors hover:bg-bg-muted',
+      'flex h-[32px] w-fit items-center justify-between gap-sm rounded-control',
+      // `px-md` comme le `px-3` de shadcn : à quatre pixels, le mot touchait
+      // son contour et le champ se lisait comme une étiquette serrée.
+      'border border-border bg-bg px-md text-small font-medium text-text',
+      'shadow-card outline-none transition-colors hover:bg-bg-muted',
       'focus-visible:ring-2 focus-visible:ring-primary',
       'disabled:pointer-events-none disabled:opacity-50',
       // Le caret pivote quand le menu s'ouvre — c'est lui qui dit que ce champ
@@ -108,7 +110,7 @@ export const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      'relative flex cursor-pointer items-center rounded-control px-sm py-xs',
+      'relative flex cursor-pointer items-center rounded-control px-md py-xs',
       'text-small text-text outline-none select-none',
       'data-[highlighted]:bg-bg-muted',
       // L'entrée retenue, au motif du rail : fond bleuté, demi-gras.
