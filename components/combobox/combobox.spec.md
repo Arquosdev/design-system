@@ -11,10 +11,16 @@ remplace:
 
 # Combobox
 
-Le motif « combobox » de shadcn — `Popover` + `Command` — empaqueté en un
-composant. shadcn le donne en recette à recopier ; on en fait un composant,
-parce qu'une recette recopiée à dix endroits diverge à dix endroits, et que le
-seul choix qui compte à l'appel est « quelle liste, quelle valeur ».
+**Un seul champ**, où l'on tape, et la liste qui se resserre dessous.
+
+La première version en avait deux : une gâchette qu'on ouvrait, puis une barre
+de recherche qui apparaissait dedans. Deux gestes et deux boîtes pour choisir un
+mot — et la barre, empruntée à la palette ⌘K, était deux fois plus haute que le
+champ qui l'avait ouverte. C'est la forme que shadcn a fini par retenir aussi :
+chez eux `ComboboxInput` EST le champ.
+
+L'entrée se fait sur la primitive `cmdk` plutôt que sur notre `CommandInput`,
+qui habille la palette plein écran et porte sa hauteur.
 
 ## Quand l'utiliser
 
@@ -46,23 +52,28 @@ seul choix qui compte à l'appel est « quelle liste, quelle valeur ».
 | `options`     | `{valeur, libelle}[]`         | —               | La liste |
 | `valeur`      | `string`                      | —               | Ce qui est retenu ; hors catalogue, s'affiche tel quel |
 | `onValeur`    | `(valeur: string) => void`    | —               | |
-| `placeholder` | `string`                      | `— choisir —`   | Quand rien n'est retenu |
-| `invite`      | `string`                      | `Rechercher…`   | Dans le champ de recherche |
+| `placeholder` | `string`                      | `Rechercher…`   | Quand rien n'est retenu |
+| `autoFocus`   | `boolean`                     | `false`         | Le champ prend le focus dès qu'il paraît |
 | `ariaLabel`   | `string`                      | —               | Quand aucun libellé visible ne nomme la gâchette |
 | `desactive`   | `boolean`                     | `false`         | |
 
 ## Anatomie
 
-- Gâchette : mêmes traits que celle de `Select` — 28 px, arrondi
-  `radius.control`, contour `colors.border` — pour qu'un champ à menu ait la
-  même tête, qu'il soit court ou long
-- Panneau : à la largeur de sa gâchette, 220 px au moins
-- Entrée retenue : fond `palette.blue[50]`, texte `palette.blue[700]` en demi-gras
+- Champ : mêmes traits que la gâchette de `Select`, au pixel — 32 px, arrondi
+  `radius.control`, contour `colors.border`, ombre `shadow.card`, retrait
+  `spacing.md` — pour qu'un champ à menu ait la même tête, court ou long
+- Caret à droite, pivoté quand la liste est ouverte
+- Liste : à la largeur du champ, 220 px au moins, **240 px de haut au plus** —
+  celle de la palette monte à 400, ce qui couvre un écran de fiche
+- Entrée retenue : `bg-info-bg` / `text-on-info-bg`, en demi-gras
 - Liste vide : « Aucun choix ne correspond. »
 
 ## États
 
-- **Ouvert** : le focus va au champ de recherche, pas à la première entrée. On
-  ouvre une liste de trois cents valeurs pour y taper, pas pour la parcourir.
-- **Valeur hors catalogue** : écrite telle quelle sur la gâchette. La taire
-  reviendrait à effacer à l'écran ce que la base contient.
+- **Au repos** : le champ montre la valeur retenue, comme un menu fermé.
+- **Ouvert** : la frappe remplace l'affichage, et le focus ne quitte jamais le
+  champ — la liste se resserre pendant qu'on tape. Ouvrir n'efface rien : tant
+  qu'on n'a pas tapé, la valeur d'avant reste écrite.
+- **Échap** : referme et rend la valeur d'avant.
+- **Valeur hors catalogue** : écrite telle quelle. La taire reviendrait à
+  effacer à l'écran ce que la base contient.
