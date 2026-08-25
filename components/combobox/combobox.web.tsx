@@ -113,7 +113,7 @@ export function Combobox({
                   setOuvert(false);
                 }}
                 className={cn(
-                  o.valeur === valeur && 'bg-blue-50 font-semibold text-blue-700',
+                  o.valeur === valeur && 'bg-info-bg font-semibold text-on-info-bg',
                 )}
               >
                 {o.libelle}

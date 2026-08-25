@@ -74,9 +74,15 @@
   --arq-color-accent: #FFA522;
   --arq-color-success: #17A679;
   --arq-color-success-bg: #DFF7F3;
+  --arq-color-on-success-bg: #0C7C59;
   --arq-color-danger: #BE3A37;
   --arq-color-danger-bg: #F1C0C1;
+  --arq-color-on-danger-bg: #943124;
   --arq-color-warning: #FFA522;
+  --arq-color-warning-bg: #FFF3DD;
+  --arq-color-on-warning-bg: #996315;
+  --arq-color-info-bg: #E1ECFA;
+  --arq-color-on-info-bg: #073B6F;
   --arq-color-bg: #FFFFFF;
   --arq-color-bg-subtle: #FCFDFE;
   --arq-color-bg-muted: #F6F7F9;

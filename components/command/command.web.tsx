@@ -138,7 +138,7 @@ export function CommandItem({
       data-slot="command-item"
       className={cn(
         'flex cursor-pointer items-center gap-base px-base py-sm text-small outline-none select-none',
-        'data-[selected=true]:bg-blue-50',
+        'data-[selected=true]:bg-info-bg',
         'data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50',
         className,
       )}

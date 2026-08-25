@@ -92,11 +92,23 @@ export const colors = {
   accent: core.orange, // highlight / attention
 
   // Status
+  //
+  // Chaque teinte de fond va par paire avec l'encre qui se pose dessus. Les
+  // deux se lisent ensemble et se changent ensemble : `successBg` seul ne dit
+  // pas quelle couleur de texte reste lisible, et c'est ainsi que le badge
+  // « Conforme » a vécu à 2,77 pour 1 — sous le seuil — sans que personne le
+  // voie. `scripts/check-contraste.mjs` vérifie désormais chaque paire.
   success: palette.green[600],
   successBg: palette.green[100],
+  onSuccessBg: palette.green[700], // 4,63 sur successBg
   danger: palette.red[500],
   dangerBg: palette.red[100],
+  onDangerBg: palette.red[600], // 4,79 sur dangerBg
   warning: palette.orange[500],
+  warningBg: palette.orange[50],
+  onWarningBg: palette.orange[700], // 4,61 sur warningBg
+  infoBg: palette.blue[50],
+  onInfoBg: palette.blue[700], // 9,43 sur infoBg
 
   // Neutrals
   bg: palette.white,

@@ -39,7 +39,7 @@ export const AccordionTrigger = React.forwardRef<
       className={cn(
         'group flex w-full items-center gap-sm border-b border-border-soft bg-bg-subtle',
         'px-base py-md text-left outline-none',
-        'focus-visible:ring-2 focus-visible:ring-primary focus-visible:-ring-offset-2',
+        'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
         className,
       )}
       {...props}

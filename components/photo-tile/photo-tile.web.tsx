@@ -52,7 +52,7 @@ export function PhotoTile({ nom, url, essentielle = false, onOuvrir, className }
         RAPPORT,
         essentielle
           ? 'border-danger bg-bg text-danger'
-          : 'border-border-soft bg-bg-muted text-text-subtle',
+          : 'border-border-soft bg-bg-muted text-text-muted',
       )}
     >
       Non prise

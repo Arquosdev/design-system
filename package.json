@@ -25,9 +25,10 @@
   "scripts": {
     "build": "node scripts/build-tokens.mjs && node scripts/build-catalog.mjs",
     "catalog": "node scripts/build-catalog.mjs",
-    "check": "node scripts/build-tokens.mjs --check && node scripts/build-catalog.mjs --check",
+    "check": "node scripts/build-tokens.mjs --check && node scripts/build-catalog.mjs --check && node scripts/check-contraste.mjs",
     "storybook": "storybook dev -p 6006",
-    "vitrine": "storybook build -o dist-vitrine"
+    "vitrine": "storybook build -o dist-vitrine",
+    "contraste": "node scripts/check-contraste.mjs"
   },
   "repository": {
     "type": "git",
@@ -35,10 +36,10 @@
   },
   "license": "UNLICENSED",
   "peerDependencies": {
-    "react": "^19",
-    "react-dom": "^19",
     "@phosphor-icons/react": "^2.1.10",
-    "phosphor-react-native": "^3.0.6"
+    "phosphor-react-native": "^3.0.6",
+    "react": "^19",
+    "react-dom": "^19"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.20",
@@ -51,6 +52,7 @@
   },
   "devDependencies": {
     "@phosphor-icons/react": "^2.1.10",
+    "@storybook/addon-a11y": "^10.5.10",
     "@storybook/addon-docs": "^10.5.10",
     "@storybook/react-vite": "^10.5.10",
     "@tailwindcss/vite": "^4.3.3",

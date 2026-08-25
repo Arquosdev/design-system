@@ -61,6 +61,21 @@ Les tokens s'écrivent **une fois** en TypeScript (`src/`) et se lisent dans **q
 
 `dist/` est régénéré par `npm run build` et **committé**. La CI (`npm run check`) refuse toute PR où il a divergé de `src/`.
 
+## Ce que la CI refuse
+
+`npm run check` enchaîne trois contrôles, et chacun est né d'un défaut réel :
+
+| Contrôle | Ce qu'il attrape |
+| --- | --- |
+| `build-tokens --check` | un `dist/` non régénéré après un changement de `src/` |
+| `build-catalog --check` | une plateforme déclarée sans implémentation, un catalogue périmé |
+| `check-contraste` | une paire texte/fond sous le seuil de lisibilité, un composant qui tape dans la palette brute |
+
+Le troisième est arrivé le 25/08/2026, après qu'un audit a trouvé le badge
+« Conforme » — le plus affiché du produit — à **2,77 pour 1** là où il en faut
+4,5. Il a immédiatement trouvé deux défauts que l'audit avait manqués. Un ratio
+ne se juge pas à l'œil.
+
 ## Comment l'utiliser dans une app
 
 ### Installation
@@ -177,6 +192,7 @@ dans `src/icons.ts` et visibles en un écran dans la vitrine
 ## État
 
 - **v1.13.0** (août 2026) — **Phosphor devient le jeu d'icônes officiel.** Composant `Icon`, 35 rôles dans `src/icons.ts`, tokens `iconSize` et `iconWeight`. Le web ne recopie plus de tracés à la main.
+- **v1.16.0** (août 2026) — **Les teintes d'état vont par paire** (`successBg`/`onSuccessBg`…), et la CI refuse une paire illisible ou un composant qui tape dans la palette brute. Corrige `Badge`, `FieldRow`, `PhotoTile` et le focus de `Accordion`, qui ne produisait aucun CSS.
 - **v1.1.0** (août 2026) — `FieldRow` : l'icône de type disparaît devant les libellés.
 - **v1.0.1** (août 2026) — `FieldRow` suit le renommage des variantes de `Button`.
 - **v1.0.0** (août 2026) — **Button, Card et Badge repris sur la base shadcn/ui.** Noms de variantes et de tailles alignés sur les leurs (`default`, `secondary`, `destructive`…), `Card` passe en composition. Le dépôt accepte `npx shadcn@latest add`. Rupture d'API assumée : voir `CLAUDE.md`.
