@@ -140,6 +140,34 @@
       }
     },
     {
+      "name": "Combobox",
+      "statut": "beta",
+      "couche": "generique",
+      "role": "Choisir dans une liste trop longue pour être parcourue, en la filtrant.",
+      "mots_cles": [
+        "combobox",
+        "recherche",
+        "autocompletion",
+        "liste",
+        "choix",
+        "marque",
+        "modele"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "public/fiche/index.html — les menus de marque et de modèle"
+        ]
+      },
+      "dossier": "components/combobox",
+      "fiche": "components/combobox/combobox.spec.md",
+      "fichiers": {
+        "web": "components/combobox/combobox.web.tsx"
+      }
+    },
+    {
       "name": "Command",
       "statut": "beta",
       "couche": "generique",
@@ -438,6 +466,30 @@
       "fiche": "components/photo-viewer/photo-viewer.spec.md",
       "fichiers": {
         "web": "components/photo-viewer/photo-viewer.web.tsx"
+      }
+    },
+    {
+      "name": "Popover",
+      "statut": "beta",
+      "couche": "generique",
+      "role": "Poser un petit panneau au-dessus de la page, ancré à ce qui l'a ouvert.",
+      "mots_cles": [
+        "popover",
+        "bulle",
+        "panneau",
+        "ancre",
+        "flottant"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": []
+      },
+      "dossier": "components/popover",
+      "fiche": "components/popover/popover.spec.md",
+      "fichiers": {
+        "web": "components/popover/popover.web.tsx"
       }
     },
     {
