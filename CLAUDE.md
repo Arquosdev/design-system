@@ -82,6 +82,26 @@ existent : `.arq-text-body`, `.arq-text-title`…
 **Ne jamais ajouter de nouvelle taille de police.** L'échelle a été calibrée sur
 l'usage réel ; toute taille supplémentaire est du drift.
 
+**Icônes** — le jeu officiel est **Phosphor**. Ne jamais dessiner une icône à la
+main, ne jamais importer Phosphor directement dans une app : passer par le
+**rôle**.
+
+```tsx
+import { Icon } from '@arquos/design-system/web';
+<Icon role="supprimer" size="sm" />        // ✅
+<Trash size={16} />                        // ❌ le dessin, pas le rôle
+```
+
+Les 35 rôles sont dans `src/icons.ts` (`icones`), avec les tailles (`iconSize`,
+défaut `md` = 18) et les graisses (`iconWeight`). Si le rôle manque, **l'ajouter
+là** — deux lignes dans `src/icons.ts`, une dans `components/icon/icon.web.tsx`.
+Le contourner en important Phosphor dans l'app, c'est ce qui a fait dessiner
+« rechercher » et « suivant » deux fois, différemment.
+
+Côté mobile, `Icon` n'existe pas encore : importer le dessin depuis
+`phosphor-react-native` en lisant son nom dans `icones`, et la taille dans
+`iconSize`.
+
 ## Regarder le design system
 
 La vitrine Storybook publie chaque composant avec **sa fiche**, et les tokens

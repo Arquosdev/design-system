@@ -113,6 +113,13 @@
   --arq-radius-3xl: 24px;
   --arq-radius-full: 9999px;
 
+  /* Icônes */
+  --arq-icon-xs: 14px;
+  --arq-icon-sm: 16px;
+  --arq-icon-md: 18px;
+  --arq-icon-lg: 22px;
+  --arq-icon-xl: 28px;
+
   /* Élévation */
   --arq-shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04);
   --arq-shadow-pop: 0 8px 24px rgba(0, 41, 91, 0.12);

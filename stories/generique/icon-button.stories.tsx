@@ -1,25 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
+import { Icon } from '../../components/icon/icon.web';
 import { IconButton } from '../../components/icon-button/icon-button.web';
 import specification from '../../components/icon-button/icon-button.spec.md?raw';
 import { choix, docsDe } from '../fiche';
 
-const Telechargement = () => (
-  <svg
-    width="14"
-    height="14"
-    viewBox="0 0 256 256"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="18"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M128 144V32" />
-    <path d="M88 104l40 40 40-40" />
-    <path d="M40 152v56a8 8 0 0 0 8 8h160a8 8 0 0 0 8-8v-56" />
-  </svg>
-);
+// Le dessin vient du vocabulaire, pas d'un tracé recopié : voir Générique/Icon.
+const Telechargement = () => <Icon role="telecharger" size="xs" />;
 
 const meta = {
   title: 'Générique/IconButton',

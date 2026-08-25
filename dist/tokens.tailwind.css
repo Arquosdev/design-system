@@ -153,6 +153,11 @@
   --font-weight-bold: 700;
 
   /* Élévation */
+  --size-icon-xs: 14px;
+  --size-icon-sm: 16px;
+  --size-icon-md: 18px;
+  --size-icon-lg: 22px;
+  --size-icon-xl: 28px;
   --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04);
   --shadow-pop: 0 8px 24px rgba(0, 41, 91, 0.12);
   --shadow-fab: 0 4px 12px rgba(13, 90, 183, 0.30);

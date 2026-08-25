@@ -24,6 +24,7 @@ import {
 import { spacing } from '../src/spacing.ts';
 import { radius } from '../src/radius.ts';
 import { shadow } from '../src/elevation.ts';
+import { iconSize, iconWeight, icones } from '../src/icons.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
@@ -76,6 +77,13 @@ const DESCRIPTIONS = {
     '4xl': 'Séparation très large.',
     '5xl': 'Respiration maximale — écrans vides, écrans de démarrage.',
   },
+  iconSize: {
+    xs: 'Tableaux denses, texte courant.',
+    sm: "À côté d'un libellé secondaire.",
+    md: 'Défaut — boutons, entrées de liste.',
+    lg: 'En-têtes, barre de navigation.',
+    xl: 'Écran vide, illustration légère.',
+  },
   radius: {
     none: 'Angles droits.',
     control: 'Pastilles et petits contrôles — hérité de l\'identité de marque.',
@@ -127,6 +135,11 @@ function buildCss() {
   section('Arrondis');
   for (const [key, value] of Object.entries(radius)) {
     lines.push(`  --${NS}-radius-${kebab(key)}: ${value}px;`);
+  }
+
+  section('Icônes');
+  for (const [key, value] of Object.entries(iconSize)) {
+    lines.push(`  --${NS}-icon-${kebab(key)}: ${value}px;`);
   }
 
   section('Élévation');
@@ -228,6 +241,21 @@ function buildJson() {
       $description: 'Arrondis. `md` (8px) est la référence.',
       ...group(radius, 'dimension', 'px', DESCRIPTIONS.radius),
     },
+    iconSize: {
+      $description:
+        "Tailles d'icône. `md` (18px) est le défaut. Le jeu d'icônes officiel est Phosphor : `@phosphor-icons/react` côté web, `phosphor-react-native` côté mobile.",
+      ...group(iconSize, 'dimension', 'px', DESCRIPTIONS.iconSize),
+    },
+    iconWeight: {
+      $description:
+        "Graisses Phosphor retenues. Le choix est sémantique : `actif` (fill) quand l'icône EST la chose, `default` (bold) quand elle accompagne un texte.",
+      ...group(iconWeight, 'other'),
+    },
+    icones: {
+      $description:
+        "Vocabulaire d'icônes d'Arquos : un rôle métier → le nom du dessin Phosphor. Passer par le rôle, jamais par le nom du dessin. Ajouter un rôle manquant dans src/icons.ts plutôt qu'importer Phosphor dans une app.",
+      ...group(icones, 'other'),
+    },
     shadow: {
       $description: 'Trois niveaux d\'élévation, chacun attaché à un usage précis.',
       ...group(shadow, 'shadow', '', DESCRIPTIONS.shadow),
@@ -326,6 +354,10 @@ function buildTailwind() {
   }
 
   theme.push('', '  /* Élévation */');
+  for (const [key, value] of Object.entries(iconSize)) {
+    push(`--size-icon-${kebab(key)}`, `${value}px`);
+  }
+
   for (const [key, value] of Object.entries(shadow)) {
     push(`--shadow-${kebab(key)}`, value);
   }
