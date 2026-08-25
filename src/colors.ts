@@ -100,6 +100,18 @@ export const colors = {
 
   // Neutrals
   bg: palette.white,
+  /**
+   * La surface d'un en-tête — de section, de tableau, du rail.
+   *
+   * Presque blanche, à peine tirée vers le bleu : elle détache l'en-tête de son
+   * contenu sans peser. `bgMuted` (le gris 50) le faisait, et l'écran entier
+   * paraissait grisé — c'est ce que la fiche actuelle emploie depuis toujours,
+   * on l'écrit enfin.
+   *
+   * Hors des rampes : cette teinte n'est pas un échelon de gris, c'est une
+   * nuance de blanc. La poser sur `grey[50]` la rendrait terne.
+   */
+  bgSubtle: '#FCFDFE',
   bgMuted: palette.grey[50],
   border: palette.grey[200],
   borderSoft: palette.grey[100], // séparateurs internes, bordures de carte

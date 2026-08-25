@@ -16,6 +16,14 @@ export interface FieldOption {
   label: string;
 }
 
+/**
+ * L'entrée « Autre » du menu.
+ *
+ * Ce n'est pas une valeur qu'on écrirait — aucun jeu d'options ne la porte —
+ * mais un marqueur : la choisir fait passer l'éditeur du menu à la saisie libre.
+ */
+const AUTRE = '__autre__';
+
 export interface FieldRowProps {
   label: string;
   value: string | string[] | null;
@@ -36,6 +44,17 @@ export interface FieldRowProps {
    */
   photos?: readonly { nom: string }[];
   onVoirPhotos?: () => void;
+  /**
+   * Le menu accepte-t-il une valeur hors liste ? Ajoute « Autre — saisir une
+   * valeur… » en pied de menu, qui bascule en saisie libre.
+   */
+  autre?: boolean;
+  /**
+   * Rouvrir l'éditeur depuis l'extérieur — la valeur dont ce champ dépend vient
+   * de changer, et celle-ci est périmée. Passer un nombre différent à chaque
+   * demande : c'est le CHANGEMENT qui ouvre, pas la valeur.
+   */
+  demandeOuverture?: number;
   /**
    * Les schémas qui expliquent COMMENT la mesure se prend — pas où elle a été
    * lue. Distincts des photos : sur site ils servent à mesurer, au bureau ils
@@ -117,12 +136,26 @@ export function FieldRow({
   onVoirPhotos,
   schemas,
   onVoirSchemas,
+  autre = false,
+  demandeOuverture,
   repere = false,
   readOnly = false,
   className,
 }: FieldRowProps) {
   const [enSaisie, setEnSaisie] = React.useState(false);
   const editable = Boolean(onSave) && !readOnly;
+
+  /*
+    Une demande d'ouverture venue de l'extérieur. Ajustée pendant le rendu et
+    non dans un effet : l'effet dessinerait d'abord la ligne fermée, et l'éditeur
+    apparaîtrait après coup — sur un champ qu'on vient de désigner, ce clignement
+    se voit.
+  */
+  const [derniereDemande, setDerniereDemande] = React.useState(demandeOuverture);
+  if (demandeOuverture !== derniereDemande) {
+    setDerniereDemande(demandeOuverture);
+    if (demandeOuverture !== undefined && editable) setEnSaisie(true);
+  }
   const estVide = value === null || value === '' || (Array.isArray(value) && value.length === 0);
 
   /*
@@ -177,6 +210,7 @@ export function FieldRow({
             label={label}
             value={value}
             options={options}
+            autre={autre}
             onValider={valider}
             onAnnuler={() => setEnSaisie(false)}
           />
@@ -328,11 +362,14 @@ interface EditeurProps {
   label: string;
   value: string | string[] | null;
   options: readonly FieldOption[];
+  autre?: boolean;
   onValider: (v: string | string[]) => void;
   onAnnuler: () => void;
 }
 
-function Editeur({ kind, label, value, options, onValider, onAnnuler }: EditeurProps) {
+function Editeur({ kind, label, value, options, autre, onValider, onAnnuler }: EditeurProps) {
+  // « Autre » bascule le menu en saisie libre, sans refermer la ligne.
+  const [libre, setLibre] = React.useState(false);
   if (kind === 'multi') {
     return (
       <EditeurMulti
@@ -345,8 +382,9 @@ function Editeur({ kind, label, value, options, onValider, onAnnuler }: EditeurP
     );
   }
 
-  if (kind === 'choice') {
+  if (kind === 'choice' && !libre) {
     const { choix, retenue } = menuDeChoix(value, options);
+    if (autre) choix.push({ value: AUTRE, label: 'Autre — saisir une valeur…' });
     return (
       <div className="flex flex-wrap items-center gap-sm">
         <select
@@ -357,7 +395,14 @@ function Editeur({ kind, label, value, options, onValider, onAnnuler }: EditeurP
           // geste veut dire. Réenregistrer à l'identique coûterait un
           // aller-retour et daterait la fiche d'une correction qui n'en est pas
           // une. (Un `select` natif n'émet alors rien — d'où « Annuler ».)
-          onChange={(e) => (e.target.value === retenue ? onAnnuler() : onValider(e.target.value))}
+          onChange={(e) => {
+            if (e.target.value === AUTRE) {
+              setLibre(true);
+              return;
+            }
+            if (e.target.value === retenue) onAnnuler();
+            else onValider(e.target.value);
+          }}
           onKeyDown={(e) => e.key === 'Escape' && onAnnuler()}
           className="h-[30px] min-w-0 flex-1 cursor-pointer rounded-control border-[1.5px] border-primary bg-bg px-xs text-small text-text outline-none"
         >
@@ -448,10 +493,16 @@ function EditeurMulti({
         <Button variant="secondary" size="sm" onClick={onAnnuler}>
           Annuler
         </Button>
+        {/* Les libellés retenus, pas leur nombre : on relit ce qu'on vient de
+            cocher sans reparcourir les pastilles. Et quand il n'en reste aucun,
+            on dit pourquoi ça ne partira pas — le service refuse une valeur
+            vide, la consolidation la repeuplerait au calcul suivant. */}
         <span className="text-caption text-text-subtle">
           {choisis.length === 0
-            ? 'Aucun choix'
-            : `${choisis.length} choix sélectionné${choisis.length > 1 ? 's' : ''}`}
+            ? 'Aucune valeur retenue — un champ ne peut pas être vidé depuis la fiche.'
+            : choisis
+                .map((v) => options.find((o) => o.value === v)?.label ?? v)
+                .join(' · ')}
         </span>
       </div>
     </div>

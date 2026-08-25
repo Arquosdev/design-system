@@ -46,6 +46,8 @@ const DESCRIPTIONS = {
     dangerBg: 'Fond des éléments en état de danger.',
     warning: 'État de vigilance — information à confirmer, écart non bloquant.',
     bg: 'Fond de page par défaut.',
+    bgSubtle:
+      "En-tête de section, de tableau, du rail — presque blanc. Détache l'en-tête de son contenu sans grisser l'écran.",
     bgMuted: 'Fond secondaire — sections, cartes posées sur le fond de page.',
     border: 'Bordures et séparateurs.',
     text: 'Texte courant.',
