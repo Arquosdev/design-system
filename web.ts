@@ -106,4 +106,14 @@ export {
   SelectValue,
 } from './components/select/select.web';
 
+// --- Formulaire ---------------------------------------------------------
+// Les primitives de saisie. `Select` et `Combobox` sont plus haut : ils
+// choisissent dans une liste, ils ne recueillent pas une frappe.
+export { Input } from './components/input/input.web';
+export { Textarea } from './components/textarea/textarea.web';
+export { Label } from './components/label/label.web';
+export { Checkbox } from './components/checkbox/checkbox.web';
+export { RadioGroup, RadioGroupItem } from './components/radio-group/radio-group.web';
+export { Switch } from './components/switch/switch.web';
+
 export { cn } from './components/_lib/cn';

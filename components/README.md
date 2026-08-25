@@ -18,16 +18,22 @@ Une mécanique que n'importe quelle application aurait — bouton, modale, ongle
 | [Badge](badge/badge.spec.md) | Poser une étiquette courte qui qualifie l'élément à côté duquel elle se trouve. | 🖥️ | stable |
 | [Button](button/button.spec.md) | Déclencher une action. Le poids visuel dit l'importance de l'action, pas sa nature. | 🖥️ | stable |
 | [Card](card/card.spec.md) | Poser un groupe d'éléments dans une surface délimitée, avec un en-tête facultatif. | 🖥️ | stable |
+| [Checkbox](checkbox/checkbox.spec.md) | Cocher une option indépendante, ou plusieurs, dans un formulaire qui se valide. | 🖥️ | stable |
 | [Combobox](combobox/combobox.spec.md) | Choisir dans une liste trop longue pour être parcourue, en la filtrant. | 🖥️ | beta |
 | [Command](command/command.spec.md) | Atteindre n'importe quoi dans un écran dense, en tapant son nom. | 🖥️ | beta |
 | [FilterChips](filter-chips/filter-chips.spec.md) | Restreindre une liste à une de ses parties, par une barre de puces. | 🖥️ | beta |
 | [Icon](icon/icon.spec.md) | Poser une icône du vocabulaire Arquos, désignée par son rôle et non par son dessin. | 🖥️ | stable |
 | [IconButton](icon-button/icon-button.spec.md) | Déclencher une action représentée par une icône seule, sans perdre son nom accessible. | 🖥️ | stable |
+| [Input](input/input.spec.md) | Recueillir une valeur courte tapée au clavier, dans un formulaire. | 🖥️ | stable |
+| [Label](label/label.spec.md) | Nommer un champ, et agrandir sa cible de clic à tout l'intitulé. | 🖥️ | stable |
 | [PhotoViewer](photo-viewer/photo-viewer.spec.md) | Regarder une photo en grand, et passer aux suivantes de la même série. | 🖥️ | beta |
 | [Popover](popover/popover.spec.md) | Poser un petit panneau au-dessus de la page, ancré à ce qui l'a ouvert. | 🖥️ | beta |
+| [RadioGroup](radio-group/radio-group.spec.md) | Choisir une seule option parmi quelques-unes, toutes visibles à la fois. | 🖥️ | stable |
 | [SegmentedTabs](segmented-tabs/segmented-tabs.spec.md) | Basculer entre deux ou trois vues d'un même écran, toutes également importantes. | 🖥️ | beta |
 | [Select](select/select.spec.md) | Choisir une valeur dans une liste fermée, sans quitter la ligne où on est. | 🖥️ | beta |
 | [Sheet](sheet/sheet.spec.md) | Un panneau qui entre par le bord pour une tâche annexe, sans quitter l'écran. | 🖥️ | beta |
+| [Switch](switch/switch.spec.md) | Basculer un réglage qui s'applique immédiatement. | 🖥️ | stable |
+| [Textarea](textarea/textarea.spec.md) | Recueillir un texte de plusieurs lignes — une observation, un commentaire. | 🖥️ | stable |
 | [Toast](toast/toast.spec.md) | Annoncer sans quitter la page ce qui vient de réussir ou d'échouer. | 🖥️ | beta |
 
 ## Métier

@@ -88,6 +88,7 @@ export const icones = {
 
   // -- Dire un état --------------------------------------------------------
   conforme: 'CheckCircle',
+  coche: 'Check', // la coche nue d'une case, sans son cercle
   ecart: 'Warning',
   bloquant: 'WarningOctagon',
   attention: 'WarningCircle',

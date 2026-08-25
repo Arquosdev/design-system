@@ -8,6 +8,7 @@ import {
   CaretLeft,
   CaretRight,
   CaretUp,
+  Check,
   CheckCircle,
   DotsThreeVertical,
   DownloadSimple,
@@ -65,6 +66,7 @@ const DESSINS: Record<IconRole, PhosphorIcon> = {
   arreter: Stop,
 
   conforme: CheckCircle,
+  coche: Check,
   ecart: Warning,
   bloquant: WarningOctagon,
   attention: WarningCircle,

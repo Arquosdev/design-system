@@ -140,6 +140,33 @@
       }
     },
     {
+      "name": "Checkbox",
+      "statut": "stable",
+      "couche": "generique",
+      "role": "Cocher une option indépendante, ou plusieurs, dans un formulaire qui se valide.",
+      "mots_cles": [
+        "case",
+        "cocher",
+        "checkbox",
+        "coche",
+        "option",
+        "multiple",
+        "selection"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/checkbox",
+      "fiche": "components/checkbox/checkbox.spec.md",
+      "fichiers": {
+        "web": "components/checkbox/checkbox.web.tsx"
+      }
+    },
+    {
       "name": "Combobox",
       "statut": "beta",
       "couche": "generique",
@@ -379,6 +406,59 @@
       }
     },
     {
+      "name": "Input",
+      "statut": "stable",
+      "couche": "generique",
+      "role": "Recueillir une valeur courte tapée au clavier, dans un formulaire.",
+      "mots_cles": [
+        "champ",
+        "saisie",
+        "input",
+        "texte",
+        "nombre",
+        "formulaire",
+        "taper"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/input",
+      "fiche": "components/input/input.spec.md",
+      "fichiers": {
+        "web": "components/input/input.web.tsx"
+      }
+    },
+    {
+      "name": "Label",
+      "statut": "stable",
+      "couche": "generique",
+      "role": "Nommer un champ, et agrandir sa cible de clic à tout l'intitulé.",
+      "mots_cles": [
+        "label",
+        "intitule",
+        "libelle",
+        "etiquette",
+        "champ",
+        "formulaire"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/label",
+      "fiche": "components/label/label.spec.md",
+      "fichiers": {
+        "web": "components/label/label.web.tsx"
+      }
+    },
+    {
       "name": "NavList",
       "statut": "beta",
       "couche": "metier",
@@ -490,6 +570,32 @@
       "fiche": "components/popover/popover.spec.md",
       "fichiers": {
         "web": "components/popover/popover.web.tsx"
+      }
+    },
+    {
+      "name": "RadioGroup",
+      "statut": "stable",
+      "couche": "generique",
+      "role": "Choisir une seule option parmi quelques-unes, toutes visibles à la fois.",
+      "mots_cles": [
+        "radio",
+        "choix",
+        "unique",
+        "option",
+        "exclusif",
+        "bouton radio"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/radio-group",
+      "fiche": "components/radio-group/radio-group.spec.md",
+      "fichiers": {
+        "web": "components/radio-group/radio-group.web.tsx"
       }
     },
     {
@@ -607,6 +713,60 @@
       "fiche": "components/stat-tile/stat-tile.spec.md",
       "fichiers": {
         "web": "components/stat-tile/stat-tile.web.tsx"
+      }
+    },
+    {
+      "name": "Switch",
+      "statut": "stable",
+      "couche": "generique",
+      "role": "Basculer un réglage qui s'applique immédiatement.",
+      "mots_cles": [
+        "interrupteur",
+        "switch",
+        "bascule",
+        "activer",
+        "desactiver",
+        "reglage",
+        "toggle"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/switch",
+      "fiche": "components/switch/switch.spec.md",
+      "fichiers": {
+        "web": "components/switch/switch.web.tsx"
+      }
+    },
+    {
+      "name": "Textarea",
+      "statut": "stable",
+      "couche": "generique",
+      "role": "Recueillir un texte de plusieurs lignes — une observation, un commentaire.",
+      "mots_cles": [
+        "textarea",
+        "commentaire",
+        "observation",
+        "texte",
+        "long",
+        "multiligne",
+        "note"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/textarea",
+      "fiche": "components/textarea/textarea.spec.md",
+      "fichiers": {
+        "web": "components/textarea/textarea.web.tsx"
       }
     },
     {
