@@ -118,6 +118,32 @@ Côté mobile, `Icon` n'existe pas encore : importer le dessin depuis
 `phosphor-react-native` en lisant son nom dans `icones`, et la taille dans
 `iconSize`.
 
+## Saisir une valeur : quel composant
+
+Six primitives, et le choix se fait sur **ce que la valeur est**, pas sur son
+apparence :
+
+| La valeur… | Prendre |
+| --- | --- |
+| se tape, courte | `Input` |
+| se rédige, longue | `Textarea` |
+| se choisit parmi 2 à 5 options visibles | `RadioGroup` |
+| se choisit parmi 6 à 20 | `Select` |
+| se cherche au-delà de 20 | `Combobox` |
+| est vraie ou fausse, validée plus tard | `Checkbox` |
+| est vraie ou fausse, **appliquée aussitôt** | `Switch` |
+
+Chaque champ prend un `Label` associé — par `htmlFor`, ou en l'enveloppant.
+
+**Le piège** : `Checkbox` et `Switch` ne sont pas interchangeables. Une case
+attend un « Enregistrer », un interrupteur s'applique en basculant. Poser un
+interrupteur dans un formulaire qui se valide promet un effet immédiat qui
+n'arrive pas — le produit a déjà porté ce défaut.
+
+**Modifier une valeur déjà affichée dans une fiche ne relève d'aucune des six** :
+c'est `FieldRow`, qui bascule la ligne en saisie, valide à la perte de focus et
+rend la valeur d'avant sur Échap.
+
 ## Regarder le design system
 
 La vitrine Storybook publie chaque composant avec **sa fiche**, et les tokens

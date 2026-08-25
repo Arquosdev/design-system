@@ -192,6 +192,7 @@ dans `src/icons.ts` et visibles en un écran dans la vitrine
 ## État
 
 - **v1.13.0** (août 2026) — **Phosphor devient le jeu d'icônes officiel.** Composant `Icon`, 35 rôles dans `src/icons.ts`, tokens `iconSize` et `iconWeight`. Le web ne recopie plus de tracés à la main.
+- **v1.17.0** (août 2026) — **Les six primitives de formulaire** : `Input`, `Textarea`, `Label`, `Checkbox`, `RadioGroup`, `Switch`. Reprises de shadcn, habillées aux tokens, coche en Phosphor.
 - **v1.16.0** (août 2026) — **Les teintes d'état vont par paire** (`successBg`/`onSuccessBg`…), et la CI refuse une paire illisible ou un composant qui tape dans la palette brute. Corrige `Badge`, `FieldRow`, `PhotoTile` et le focus de `Accordion`, qui ne produisait aucun CSS.
 - **v1.1.0** (août 2026) — `FieldRow` : l'icône de type disparaît devant les libellés.
 - **v1.0.1** (août 2026) — `FieldRow` suit le renommage des variantes de `Button`.
