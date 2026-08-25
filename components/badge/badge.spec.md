@@ -33,19 +33,27 @@ remplace:
 
 | Prop       | Type                                                                                    | Défaut    | Rôle     |
 | ---------- | --------------------------------------------------------------------------------------- | --------- | -------- |
-| `variant`  | `'default' \| 'secondary' \| 'destructive' \| 'outline' \| 'success' \| 'warning' \| 'muted'` | `'muted'` | Registre |
+| `variant`  | `'default' \| 'secondary' \| 'destructive' \| 'outline' \| 'success' \| 'warning' \| 'info' \| 'muted'` | `'muted'` | Registre |
 | `children` | `ReactNode`                                                                               | —         | Le mot   |
 
 **Choisir la variante :** `success` pour ce qui est conforme, `destructive` pour ce
-qui bloque, `warning` pour ce qui approche d'une limite, `secondary` pour un état
-neutre du parcours, `muted` pour une simple catégorie, `outline` pour une précision
-posée sur fond blanc.
+qui bloque, `warning` pour ce qui approche d'une limite, `info` pour une décision
+prise ou un renseignement neutre, `secondary` pour un état neutre du parcours,
+`muted` pour une simple catégorie, `outline` pour une précision posée sur fond blanc.
+
+**Fond clair ou fond plein ?** `success`, `destructive`, `warning`, `info` et
+`muted` posent un fond très clair et un texte de la même teinte en foncé : c'est
+ce qui les fait lire comme un **état**, quelque chose qui *est*. `default` et
+`secondary` sont pleins, et lisent comme un **bouton**, quelque chose sur quoi on
+*appuie*. Un badge en fond plein au bout d'une ligne de liste promet une action
+qui n'existe pas — la question s'est posée le 25/08/2026 sur l'action d'un écart,
+posée en `default` puis reprise en `info`.
 
 > **Base shadcn/ui.** Ses quatre variantes (`default`, `secondary`, `destructive`,
-> `outline`) sont conservées telles quelles. `success`, `warning` et `muted` s'y
-> ajoutent : une fiche d'équipement parle sans cesse de conformité et de vigilance,
-> et shadcn n'a rien pour ça. C'est l'extension que leur documentation invite à
-> faire, pas un fork.
+> `outline`) sont conservées telles quelles. `success`, `warning`, `info` et `muted`
+> s'y ajoutent : une fiche d'équipement parle sans cesse de conformité, de vigilance
+> et de décisions prises, et shadcn n'a rien pour ça. C'est l'extension que leur
+> documentation invite à faire, pas un fork.
 
 ## Exemples
 
@@ -54,6 +62,7 @@ import { Badge } from '@arquos/design-system/web';
 
 <Badge variant="success">Conforme</Badge>
 <Badge variant="destructive">Non conforme</Badge>
+<Badge variant="info">Réglages technicien</Badge>
 <Badge variant="outline">Échéance 18/09/2030</Badge>
 ```
 
