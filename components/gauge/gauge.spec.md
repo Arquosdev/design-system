@@ -35,6 +35,7 @@ remplace:
 | `label`   | `string`                              | —           | Ce que la proportion mesure    |
 | `taille`  | `number`                              | `64`        | Diamètre en pixels             |
 | `tone`    | `'success' \| 'warning' \| 'danger'`  | automatique | Force la couleur               |
+| `centre`   | `ReactNode` | —         | Ce qui se pose au creux de l'anneau — prévu pour un bouton |
 
 Sans `tone`, la couleur suit la valeur : rouge en dessous de 34, orange en
 dessous de 67, vert au-delà. **Elle ne porte jamais l'information seule** — le
@@ -50,6 +51,11 @@ import { Gauge } from '@arquos/design-system/web';
 ```
 
 ## Anatomie
+
+- Creux de l'anneau : libre par défaut, et c'est le seul endroit de la jauge
+  qui le soit. `centre` y pose un bouton — le taux dit combien on sait, le
+  creux ouvre le détail de ce qui manque. Pas un chiffre : il se confondrait
+  avec le pourcentage, à deux centimètres de lui.
 
 - Anneau : `7px` d'épaisseur, piste `colors.border`, arc coloré, extrémité arrondie
 - Départ à midi, sens horaire
