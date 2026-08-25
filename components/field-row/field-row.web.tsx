@@ -4,6 +4,14 @@ import * as React from 'react';
 
 import { cn } from '../_lib/cn';
 import { Button } from '../button/button.web';
+import { Combobox, SEUIL_RECHERCHE } from '../combobox/combobox.web';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../select/select.web';
 
 export type FieldKind = 'text' | 'number' | 'choice' | 'multi';
 export type FieldStatut = 'renseigne' | 'manquant' | 'a_verifier';
@@ -23,6 +31,13 @@ export interface FieldOption {
  * mais un marqueur : la choisir fait passer l'éditeur du menu à la saisie libre.
  */
 const AUTRE = '__autre__';
+
+/*
+  L'entrée « — choisir — » vaut la chaîne vide, et Radix la refuse sur une entrée
+  de menu : elle lui sert à dire « rien de retenu ». Une sentinelle donc, que
+  `prendre` retraduit — le service ne voit rien changer.
+*/
+const VIDE_CHOIX = '__vide__';
 
 export interface FieldRowProps {
   label: string;
@@ -72,9 +87,9 @@ export interface FieldRowProps {
 }
 
 const STATUTS: Record<FieldStatut, { texte: string; classe: string }> = {
-  renseigne: { texte: 'Renseigné', classe: 'bg-success-bg text-success' },
-  manquant: { texte: 'Manquant', classe: 'bg-danger-bg text-danger' },
-  a_verifier: { texte: 'À vérifier', classe: 'bg-orange-50 text-orange-700' },
+  renseigne: { texte: 'Renseigné', classe: 'bg-success-bg text-on-success-bg' },
+  manquant: { texte: 'Manquant', classe: 'bg-danger-bg text-on-danger-bg' },
+  a_verifier: { texte: 'À vérifier', classe: 'bg-warning-bg text-on-warning-bg' },
 };
 
 // Formulations reprises telles quelles du module actuel (index.html:4671) : le
@@ -385,33 +400,61 @@ function Editeur({ kind, label, value, options, autre, onValider, onAnnuler }: E
   if (kind === 'choice' && !libre) {
     const { choix, retenue } = menuDeChoix(value, options);
     if (autre) choix.push({ value: AUTRE, label: 'Autre — saisir une valeur…' });
+
+    /* Choisir la valeur, ou l'ouvrir en saisie libre. Le même geste pour les
+       deux menus, qui ne diffèrent que par la façon de trouver l'entrée. */
+    const prendre = (brut: string) => {
+      const v = brut === VIDE_CHOIX ? '' : brut;
+      if (v === AUTRE) {
+        setLibre(true);
+        return;
+      }
+      /* Reprendre la valeur déjà retenue ferme sans écrire : c'est ce que le
+         geste veut dire. Réenregistrer à l'identique coûterait un aller-retour
+         et daterait la fiche d'une correction qui n'en est pas une. */
+      if (v === retenue) onAnnuler();
+      else onValider(v);
+    };
+
     return (
-      <div className="flex flex-wrap items-center gap-sm">
-        <select
-          autoFocus
-          aria-label={label}
-          defaultValue={retenue}
-          // Recliquer la valeur déjà retenue ferme sans écrire : c'est ce que le
-          // geste veut dire. Réenregistrer à l'identique coûterait un
-          // aller-retour et daterait la fiche d'une correction qui n'en est pas
-          // une. (Un `select` natif n'émet alors rien — d'où « Annuler ».)
-          onChange={(e) => {
-            if (e.target.value === AUTRE) {
-              setLibre(true);
-              return;
-            }
-            if (e.target.value === retenue) onAnnuler();
-            else onValider(e.target.value);
-          }}
-          onKeyDown={(e) => e.key === 'Escape' && onAnnuler()}
-          className="h-[30px] min-w-0 flex-1 cursor-pointer rounded-control border-[1.5px] border-primary bg-bg px-xs text-small text-text outline-none"
-        >
-          {choix.map((o) => (
-            <option key={o.value} value={o.value}>
-              {o.label}
-            </option>
-          ))}
-        </select>
+      <div
+        className="flex flex-wrap items-center gap-sm"
+        onKeyDown={(e) => e.key === 'Escape' && onAnnuler()}
+      >
+        {choix.length > SEUIL_RECHERCHE ? (
+          /* Trois cent soixante-seize modèles de machine : sans champ de
+             recherche, la bonne valeur est introuvable autrement qu'en la
+             sachant déjà — et il faudrait la faire défiler pour la retrouver. */
+          <div className="min-w-0 flex-1">
+            <Combobox
+              options={choix.map((o) => ({ valeur: o.value, libelle: o.label }))}
+              valeur={retenue}
+              onValeur={prendre}
+              ariaLabel={label}
+              invite={`Rechercher — ${label.toLowerCase()}`}
+              className="h-[30px] border-[1.5px] border-primary"
+            />
+          </div>
+        ) : (
+          <div className="min-w-0 flex-1">
+            <Select value={retenue} onValueChange={prendre}>
+              <SelectTrigger
+                autoFocus
+                aria-label={label}
+                className="h-[30px] w-full border-[1.5px] border-primary"
+              >
+                <SelectValue placeholder="— choisir —" />
+              </SelectTrigger>
+              <SelectContent>
+                {choix.map((o) => (
+                  <SelectItem key={o.value} value={o.value || VIDE_CHOIX}>
+                    {o.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
         <Button variant="secondary" size="sm" onClick={onAnnuler}>
           Annuler
         </Button>

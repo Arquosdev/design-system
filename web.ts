@@ -85,6 +85,16 @@ export {
   CommandSeparator,
 } from './components/command/command.web';
 
+export { Combobox, SEUIL_RECHERCHE } from './components/combobox/combobox.web';
+export type { ComboboxOption, ComboboxProps } from './components/combobox/combobox.web';
+
+export {
+  Popover,
+  PopoverAnchor,
+  PopoverContent,
+  PopoverTrigger,
+} from './components/popover/popover.web';
+
 export {
   Select,
   SelectContent,

@@ -74,6 +74,10 @@ import { FieldRow } from '@arquos/design-system/web';
 
 ## Anatomie
 
+- Éditeur à choix : `Select` jusqu'à douze entrées, `Combobox` au-delà — c'est
+  la même gâchette dans les deux cas, seule la façon de trouver l'entrée change.
+  Le seuil vit dans `SEUIL_RECHERCHE`, et la raison dans la fiche de `Combobox`.
+
 - Grille deux colonnes : libellé sur `190px` (`typography.small`, `colors.textMuted`), gouttière `spacing.md`, puis la valeur
 - Valeur éditable : **soulignement pointillé** `1px` en `colors.textSubtle` — c'est le signal « ceci se corrige d'un clic »
 - Valeur non renseignée : le texte « Non renseigné » en `colors.textSubtle`, soulignement pâli en `colors.border`
