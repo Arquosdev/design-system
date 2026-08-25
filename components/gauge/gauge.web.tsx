@@ -8,6 +8,14 @@ export interface GaugeProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 
   label: string;
   taille?: number;
   tone?: 'success' | 'warning' | 'danger';
+  /**
+   * Ce qui se pose au CREUX de l'anneau — le seul endroit libre de la jauge.
+   *
+   * Prévu pour un bouton : le taux dit combien on sait, et le creux ouvre le
+   * détail de ce qui manque. Rien d'autre n'a sa place là — un chiffre s'y
+   * confondrait avec le pourcentage, à deux centimètres de lui.
+   */
+  centre?: React.ReactNode;
 }
 
 const TONS = {
@@ -23,7 +31,15 @@ function tonAutomatique(valeur: number): keyof typeof TONS {
   return 'success';
 }
 
-export function Gauge({ valeur, label, taille = 64, tone, className, ...props }: GaugeProps) {
+export function Gauge({
+  valeur,
+  label,
+  taille = 64,
+  tone,
+  centre,
+  className,
+  ...props
+}: GaugeProps) {
   const pct = Math.max(0, Math.min(100, Math.round(valeur)));
   const rayon = taille / 2 - 5;
   const circonference = 2 * Math.PI * rayon;
@@ -36,6 +52,7 @@ export function Gauge({ valeur, label, taille = 64, tone, className, ...props }:
       className={cn('flex items-center gap-md', className)}
       {...props}
     >
+      <div className="relative shrink-0" style={{ width: taille, height: taille }}>
       <svg width={taille} height={taille} viewBox={`0 0 ${taille} ${taille}`} aria-hidden="true">
         {/* La piste reste visible à 0 % : un cercle disparu se lit comme une
             panne d'affichage. */}
@@ -60,6 +77,14 @@ export function Gauge({ valeur, label, taille = 64, tone, className, ...props }:
           transform={`rotate(-90 ${taille / 2} ${taille / 2})`}
         />
       </svg>
+      {/* Centré par `inset-0 m-auto` : la taille de l'anneau est une propriété,
+          et un décalage calculé se déréglerait à la première autre taille. */}
+      {centre ? (
+        <div className="absolute inset-0 m-auto flex size-fit items-center justify-center">
+          {centre}
+        </div>
+      ) : null}
+      </div>
       <div>
         <div className="text-title font-bold text-text">{pct} %</div>
         <div className="text-caption text-text-muted">{label}</div>
