@@ -11,7 +11,16 @@ const meta = {
   args: { children: 'Résolu' },
   argTypes: {
     variant: choix(
-      ['default', 'secondary', 'destructive', 'outline', 'success', 'warning', 'muted'],
+      [
+        'default',
+        'secondary',
+        'destructive',
+        'outline',
+        'success',
+        'warning',
+        'info',
+        'muted',
+      ],
       "La variante dit un ÉTAT, pas une couleur qu'on aurait trouvée jolie.",
     ),
   },
@@ -23,9 +32,10 @@ type Story = StoryObj<typeof meta>;
 export const Defaut: Story = {};
 
 /**
- * `success`, `warning` et `muted` n'existent pas chez shadcn : le métier les
- * réclame — un composant est bon, moyen ou mauvais, et « sans objet » n'est pas
- * la même chose que « non renseigné ».
+ * `success`, `warning`, `info` et `muted` n'existent pas chez shadcn : le métier
+ * les réclame — un composant est bon, moyen ou mauvais, « sans objet » n'est pas
+ * la même chose que « non renseigné », et une décision prise n'est ni un succès
+ * ni une alerte.
  */
 export const Variantes: Story = {
   render: () => (
@@ -35,6 +45,7 @@ export const Variantes: Story = {
       <Badge variant="success">Bon</Badge>
       <Badge variant="warning">Moyen</Badge>
       <Badge variant="destructive">Mauvais</Badge>
+      <Badge variant="info">Réglages technicien</Badge>
       <Badge variant="muted">Sans objet</Badge>
       <Badge variant="outline">Contour</Badge>
     </div>
@@ -56,6 +67,34 @@ export const DansLaFiche: Story = {
           <Badge variant={variant as 'success'}>{texte}</Badge>
         </div>
       ))}
+    </div>
+  ),
+};
+
+/**
+ * **Fond clair ou fond plein ?** Les variantes à fond clair lisent comme un
+ * état — quelque chose qui *est*. `default` et `secondary` sont pleins et lisent
+ * comme un bouton — quelque chose sur quoi on *appuie*.
+ *
+ * Au bout d'une ligne de liste, la différence n'est pas décorative : un badge
+ * plein promet une action qui n'existe pas. C'est arrivé le 25/08/2026 sur
+ * l'action d'un écart, posée en `default` puis reprise en `info`.
+ */
+export const EtatOuBouton: Story = {
+  render: () => (
+    <div className="flex flex-col gap-md">
+      <div className="flex flex-wrap items-center gap-sm">
+        <span className="w-[150px] text-small text-text-muted">Lit comme un état</span>
+        <Badge variant="success">Bon</Badge>
+        <Badge variant="warning">Moyen</Badge>
+        <Badge variant="destructive">Mauvais</Badge>
+        <Badge variant="info">Travaux</Badge>
+      </div>
+      <div className="flex flex-wrap items-center gap-sm">
+        <span className="w-[150px] text-small text-text-muted">Lit comme un bouton</span>
+        <Badge>Par défaut</Badge>
+        <Badge variant="secondary">Secondaire</Badge>
+      </div>
     </div>
   ),
 };

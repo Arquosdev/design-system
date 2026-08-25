@@ -8,10 +8,16 @@ import { cn } from '../_lib/cn';
 /**
  * Base shadcn/ui (`new-york`), habillée aux tokens Arquos.
  *
- * Ses quatre variantes sont celles de shadcn. Deux s'y ajoutent — `success` et
- * `warning` — parce qu'une fiche d'équipement parle sans cesse de conformité et
- * de vigilance, et que shadcn n'a rien pour ça. C'est l'extension que leur
- * documentation invite à faire, pas un fork.
+ * Ses quatre variantes sont celles de shadcn. Trois s'y ajoutent — `success`,
+ * `warning` et `info` — parce qu'une fiche d'équipement parle sans cesse de
+ * conformité, de vigilance et de décisions prises, et que shadcn n'a rien pour
+ * ça. C'est l'extension que leur documentation invite à faire, pas un fork.
+ *
+ * Toutes les variantes ajoutées suivent le même principe : **un fond très clair
+ * et un texte de la même teinte en foncé**. C'est ce qui les fait lire comme un
+ * état — quelque chose qui *est*. `default` et `secondary`, eux, sont pleins :
+ * ils lisent comme un bouton, quelque chose sur quoi on *appuie*. Se tromper de
+ * famille fait promettre une action là où il n'y en a pas.
  */
 export const badgeVariants = cva(
   'inline-flex shrink-0 items-center rounded-control border px-xs py-xxs ' +
@@ -25,6 +31,7 @@ export const badgeVariants = cva(
         outline: 'border-border text-muted-foreground',
         success: 'border-transparent bg-success-bg text-success',
         warning: 'border-transparent bg-orange-50 text-orange-700',
+        info: 'border-transparent bg-blue-50 text-blue-700',
         muted: 'border-transparent bg-muted text-muted-foreground',
       },
     },
