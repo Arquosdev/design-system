@@ -13,7 +13,7 @@ const preview: Preview = {
       storySort: {
         order: [
           'Design system',
-          ['Introduction', 'Tokens'],
+          ['Introduction', 'Principes de design', 'Tokens'],
           'Générique',
           'Métier',
         ],
