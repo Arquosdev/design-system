@@ -6,16 +6,27 @@ typographie, espacements, arrondis) et les composants partagés. Les apps mobile
 
 ## Avant tout : les principes de design
 
-Sept règles qui tranchent les décisions d'écran — montrer ou masquer, proposer ou
-refuser. Elles sont nées de défauts réels du produit, pas d'un manuel, et la
-première prime toujours : **ne jamais montrer ce qui n'est pas**. Un « ✓
-Enregistré » sur une valeur qui ne part nulle part, un jeu de démonstration servi
-sur un vrai appareil, une case qu'on coche et qui n'écrit rien : le produit a
-porté ces trois défauts, et chacun a coûté une journée.
+Quatre principes disent **comment décider**, et ils sont les mêmes pour tout le
+monde — designer, développeur, agent :
 
-Les sept sont dans la vitrine, page « Principes de design ». Les lire avant
-d'écrire un écran ; chaque fiche de composant les applique ensuite à son cas
-particulier, dans sa section « Quand NE PAS l'utiliser ».
+1. **Au service de la tâche en cours** — l'écran sert la tâche du moment ; tout
+   le reste attend qu'on la lui demande.
+2. **Une friction à la mesure du risque** — autant de gestes que l'action est
+   difficile à défaire.
+3. **Simple pour celui qui s'en sert** — simple ne veut pas dire facile : c'est
+   le système qui prend la charge.
+4. **Réutiliser par défaut** — un motif déjà connu ne s'apprend pas deux fois.
+
+Ce que ça donne appliqué aux écrans d'Arquos est réuni dans les **règles
+d'écran** : sept règles nées de défauts réels du produit, à commencer par **ne
+jamais montrer ce qui n'est pas**. Un « ✓ Enregistré » sur une valeur qui ne part
+nulle part, un jeu de démonstration servi sur un vrai appareil, une case qu'on
+coche et qui n'écrit rien : le produit a porté ces trois défauts, et chacun a
+coûté une journée.
+
+Les deux pages sont dans la vitrine. Les lire avant d'écrire un écran ; chaque
+fiche de composant les décline ensuite dans sa section « Quand NE PAS
+l'utiliser ».
 
 ## Les trois règles qui comptent
 
