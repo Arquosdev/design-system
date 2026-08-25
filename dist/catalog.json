@@ -292,6 +292,33 @@
       }
     },
     {
+      "name": "Icon",
+      "statut": "stable",
+      "couche": "generique",
+      "role": "Poser une icône du vocabulaire Arquos, désignée par son rôle et non par son dessin.",
+      "mots_cles": [
+        "icone",
+        "icon",
+        "phosphor",
+        "pictogramme",
+        "symbole",
+        "svg",
+        "glyphe"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/icon",
+      "fiche": "components/icon/icon.spec.md",
+      "fichiers": {
+        "web": "components/icon/icon.web.tsx"
+      }
+    },
+    {
       "name": "IconButton",
       "statut": "stable",
       "couche": "generique",

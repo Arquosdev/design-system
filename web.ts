@@ -49,6 +49,7 @@ export {
   type FilterChip,
 } from './components/filter-chips/filter-chips.web';
 export { IconButton, type IconButtonProps } from './components/icon-button/icon-button.web';
+export { Icon, type IconProps } from './components/icon/icon.web';
 export {
   FieldRow,
   menuDeChoix,

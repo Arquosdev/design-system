@@ -19,6 +19,15 @@ export {
 export { spacing, type SpacingToken } from './spacing';
 export { radius, type RadiusToken } from './radius';
 export { shadow, shadowNative, type ShadowToken } from './elevation';
+export {
+  iconSize,
+  iconWeight,
+  icones,
+  type IconSizeToken,
+  type IconWeightToken,
+  type IconRole,
+  type IconName,
+} from './icons';
 
 import { palette, core, colors } from './colors';
 import {
@@ -33,6 +42,7 @@ import {
 import { spacing } from './spacing';
 import { radius } from './radius';
 import { shadow, shadowNative } from './elevation';
+import { iconSize, iconWeight, icones } from './icons';
 
 export const tokens = {
   palette,
@@ -49,4 +59,7 @@ export const tokens = {
   radius,
   shadow,
   shadowNative,
+  iconSize,
+  iconWeight,
+  icones,
 } as const;

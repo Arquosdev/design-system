@@ -49,6 +49,8 @@ Les tokens s'écrivent **une fois** en TypeScript (`src/`) et se lisent dans **q
 | `typography.ts` | `fontSize`, `fontWeight`, `lineHeight`, `letterSpacing`, `typography` (presets) |
 | `spacing.ts` | Échelle base-4 de `none` à `5xl` |
 | `radius.ts` | Arrondis de `none` à `full` (pill) |
+| `elevation.ts` | `shadow` (CSS) et `shadowNative` (React Native) |
+| `icons.ts` | `iconSize`, `iconWeight`, et `icones` — le vocabulaire Phosphor |
 
 | Généré (`dist/`) | Pour qui |
 |---|---|
@@ -139,6 +141,24 @@ Charger la feuille une fois, puis référencer les variables :
 <h2 class="arq-text-title">Titre de section</h2>
 ```
 
+## Les icônes
+
+Le jeu d'icônes officiel est **Phosphor**. Le design system n'en embarque aucun
+paquet : il déclare le **vocabulaire** — quel rôle métier correspond à quel
+dessin — et chaque app installe son rendu (`@phosphor-icons/react` pour le web,
+`phosphor-react-native` pour le mobile).
+
+```tsx
+import { Icon } from '@arquos/design-system/web';
+
+<Icon role="supprimer" size="sm" />
+```
+
+On passe toujours par le **rôle**, jamais par le nom du dessin : le jour où la
+corbeille devient autre chose, un seul fichier change. Les 35 rôles sont listés
+dans `src/icons.ts` et visibles en un écran dans la vitrine
+(**Générique → Icon → Le vocabulaire**).
+
 ## Faire évoluer le design system
 
 1. **Modifier un token** = modifier le fichier correspondant dans `src/`
@@ -156,6 +176,7 @@ Charger la feuille une fois, puis référencer les variables :
 
 ## État
 
+- **v1.13.0** (août 2026) — **Phosphor devient le jeu d'icônes officiel.** Composant `Icon`, 35 rôles dans `src/icons.ts`, tokens `iconSize` et `iconWeight`. Le web ne recopie plus de tracés à la main.
 - **v1.1.0** (août 2026) — `FieldRow` : l'icône de type disparaît devant les libellés.
 - **v1.0.1** (août 2026) — `FieldRow` suit le renommage des variantes de `Button`.
 - **v1.0.0** (août 2026) — **Button, Card et Badge repris sur la base shadcn/ui.** Noms de variantes et de tailles alignés sur les leurs (`default`, `secondary`, `destructive`…), `Card` passe en composition. Le dépôt accepte `npx shadcn@latest add`. Rupture d'API assumée : voir `CLAUDE.md`.

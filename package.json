@@ -1,6 +1,6 @@
 {
   "name": "@arquos/design-system",
-  "version": "1.12.0",
+  "version": "1.13.0",
   "description": "Un design system pensé pour les agents — les règles d'usage vivent dans le dépôt, pas dans les têtes. Tokens et composants partagés par les apps mobile et web d'Arquos.",
   "private": true,
   "main": "src/index.ts",
@@ -36,7 +36,9 @@
   "license": "UNLICENSED",
   "peerDependencies": {
     "react": "^19",
-    "react-dom": "^19"
+    "react-dom": "^19",
+    "@phosphor-icons/react": "^2.1.10",
+    "phosphor-react-native": "^3.0.6"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.20",
@@ -48,6 +50,7 @@
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
+    "@phosphor-icons/react": "^2.1.10",
     "@storybook/addon-docs": "^10.5.10",
     "@storybook/react-vite": "^10.5.10",
     "@tailwindcss/vite": "^4.3.3",
@@ -60,5 +63,13 @@
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
     "vite": "^8.2.2"
+  },
+  "peerDependenciesMeta": {
+    "@phosphor-icons/react": {
+      "optional": true
+    },
+    "phosphor-react-native": {
+      "optional": true
+    }
   }
 }
