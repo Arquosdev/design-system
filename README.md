@@ -9,7 +9,7 @@ Source de vérité unique pour le **design d'Arquos** : couleurs, typographie, e
 
 > 👀 **Tu veux le regarder ?** [**La vitrine**](https://arquosdev.github.io/design-system/) — chaque composant avec sa fiche, les tokens avec leurs valeurs. En local : `npm run storybook`.
 
-> 🧭 **Tu écris un écran ?** Commence par les [**principes de design**](https://arquosdev.github.io/design-system/?path=/docs/design-system-principes-de-design--docs) — sept règles qui tranchent, nées de défauts réels du produit. La première prime toujours : *ne jamais montrer ce qui n'est pas*.
+> 🧭 **Tu écris un écran ?** Commence par les [**principes de design**](https://arquosdev.github.io/design-system/?path=/docs/design-system-principes-de-design--docs) — quatre règles qui disent comment décider — puis les [**règles d'écran**](https://arquosdev.github.io/design-system/?path=/docs/design-system-r%C3%A8gles-d-%C3%A9cran--docs), qui disent ce que ça donne chez nous.
 
 ## Ce que « pensé pour les agents » veut dire ici
 
