@@ -59,8 +59,11 @@ import { SegmentedTabs } from '@arquos/design-system/web';
 ## Anatomie
 
 - Piste : fond `colors.bgMuted`, arrondi `radius.md`, `2px` de marge intérieure
-- Segment actif : fond `colors.bg`, ombre `shadow.card`, texte `colors.text` en gras
-- Segment inactif : transparent, texte `colors.textMuted`
+- Segment actif : fond `colors.bg`, ombre `shadow.card`, texte `colors.text` en
+  `fontWeight.semibold`
+- Segment inactif : transparent, texte `colors.textMuted` en `fontWeight.medium`
+  — même règle que `NavList`, les deux se touchent en haut du rail et un écart
+  de graisse entre eux se verrait
 - Compteur : même taille, `colors.primary` sur l'actif, `colors.textSubtle` sinon
 
 ## États
