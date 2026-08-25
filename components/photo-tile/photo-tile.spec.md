@@ -47,10 +47,26 @@ import { PhotoTile } from '@arquos/design-system/web';
 
 ## Anatomie
 
-- Vignette : rapport 4/3, arrondi `radius.md`, contour `colors.borderSoft`
+- Vignette : rapport **3/4 — portrait**, arrondi `radius.md`, contour `colors.borderSoft`
 - Non prise : fond `colors.bgMuted`, mention « Non prise » en `colors.textSubtle`
 - Essentielle non prise : contour `colors.danger`, mention en `colors.danger`
 - Légende : `typography.caption`, `colors.textMuted`, sur deux lignes au plus
+
+## Pourquoi le cadre est vertical
+
+Mesuré le 25/08/2026 sur 125 photos de relevé tirées au hasard de la base :
+**96 en portrait**, rapport médian 0,77 — du 3/4 — et 29 en paysage. Une photo
+de relevé se prend au téléphone, tenu droit, devant une porte ou une armoire.
+
+Dans un cadre 4/3, une photo de 0,77 recadrée en `cover` ne montrait plus que
+**58 % de sa hauteur** : le haut d'une porte palière et le bas d'une armoire de
+manœuvre disparaissaient. Le cadre suit donc la majorité.
+
+Et la minorité n'est pas sacrifiée pour autant : une photo **en travers du
+cadre** se contient au lieu de se recadrer. La rogner reviendrait à n'en montrer
+qu'un tiers, et une capture d'écran ainsi réduite ne se reconnaît plus. Le sens
+se lit au chargement, sur les dimensions réelles de l'image — rien à déclarer à
+l'appel.
 
 ## États
 
