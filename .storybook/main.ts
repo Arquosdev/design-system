@@ -11,7 +11,14 @@ import type { StorybookConfig } from '@storybook/react-vite';
  */
 const config: StorybookConfig = {
   stories: ['../stories/**/*.stories.@(ts|tsx)', '../stories/**/*.mdx'],
-  addons: ['@storybook/addon-docs'],
+  addons: [
+    '@storybook/addon-docs',
+    // Le panneau « Accessibility » de chaque story. Il regarde ce que le
+    // calcul de `npm run contraste` ne voit pas : rôles, libellés, ordre des
+    // titres, cibles tactiles. Les deux sont complémentaires — l'un tourne en
+    // CI sans navigateur, l'autre demande un œil mais couvre bien plus large.
+    '@storybook/addon-a11y',
+  ],
   framework: '@storybook/react-vite',
   viteFinal: async (vite) => ({
     ...vite,

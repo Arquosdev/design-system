@@ -521,7 +521,7 @@ function EditeurMulti({
                 'focus-visible:ring-2 focus-visible:ring-primary',
                 actif
                   ? 'bg-primary text-text-on-dark'
-                  : 'bg-bg-muted text-text-muted hover:bg-blue-50',
+                  : 'bg-bg-muted text-text-muted hover:bg-info-bg',
               )}
             >
               {o.label}

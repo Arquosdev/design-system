@@ -105,6 +105,9 @@ export function PhotoViewer({ photos, index, onIndex, open, onOpenChange }: Phot
                 className="max-h-full max-w-[76vw] rounded-md object-contain"
               />
             ) : (
+              // palette-brute-ok: plaque de remplacement posée sur le voile
+              // sombre de la visionneuse. Aucune surface sémantique ne
+              // convient — `bgMuted` disparaîtrait, `border` n'est pas un fond.
               <div className="flex h-full max-h-[500px] w-[76vw] max-w-[760px] items-center justify-center rounded-md bg-grey-200 px-lg text-center text-body text-text-muted">
                 Photo indisponible — {courante.nom}
               </div>

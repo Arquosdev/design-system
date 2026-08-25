@@ -105,7 +105,7 @@ export function NavList({
                   soi — qui dit où l'on est.
                 */
                 actif
-                  ? 'bg-blue-50 font-semibold text-blue-700'
+                  ? 'bg-info-bg font-semibold text-on-info-bg'
                   : 'font-medium text-text hover:bg-bg-muted',
               )}
             >

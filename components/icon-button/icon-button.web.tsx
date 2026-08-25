@@ -11,7 +11,7 @@ const iconButton = cva(
     variants: {
       variant: {
         outline: 'border border-border bg-bg text-text-muted hover:bg-bg-muted',
-        soft: 'bg-blue-50 text-blue-700 hover:opacity-80',
+        soft: 'bg-info-bg text-on-info-bg hover:opacity-80',
         ghost: 'bg-transparent text-text-muted hover:bg-bg-muted',
       },
       size: {

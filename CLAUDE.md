@@ -65,6 +65,22 @@ La CI (`npm run check`) refuse toute PR où `dist/` a divergé de `src/`.
 ## Choisir le bon token
 
 **Couleurs** — prendre dans `colors` (sémantique), jamais dans `palette` (ramps brutes).
+La CI le vérifie désormais (`npm run contraste`) : un `bg-blue-50` dans un
+composant fait échouer la PR.
+
+**Les teintes d'état vont par paire.** Un fond teinté et l'encre qui s'y pose se
+nomment ensemble, parce qu'ils se choisissent ensemble :
+
+| Fond | Encre | Pour dire |
+| --- | --- | --- |
+| `bg-success-bg` | `text-on-success-bg` | conforme, validé |
+| `bg-danger-bg` | `text-on-danger-bg` | bloquant, en erreur |
+| `bg-warning-bg` | `text-on-warning-bg` | à confirmer, non bloquant |
+| `bg-info-bg` | `text-on-info-bg` | retenu, renseigné, décidé |
+
+Ne **jamais** poser `text-success` sur `bg-success-bg` : c'est 2,77 pour 1, et le
+badge « Conforme » a vécu ainsi jusqu'au 25/08/2026. Le contrôle refuse la paire.
+
 `colors.primary` pour une action, `colors.danger` pour une erreur, `colors.textMuted`
 pour un libellé secondaire. Chaque token porte une description dans `dist/tokens.json` :
 la lire plutôt que de deviner d'après le nom.

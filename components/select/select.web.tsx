@@ -112,7 +112,7 @@ export const SelectItem = React.forwardRef<
       'text-small text-text outline-none select-none',
       'data-[highlighted]:bg-bg-muted',
       // L'entrée retenue, au motif du rail : fond bleuté, demi-gras.
-      'data-[state=checked]:bg-blue-50 data-[state=checked]:font-semibold data-[state=checked]:text-blue-700',
+      'data-[state=checked]:bg-info-bg data-[state=checked]:font-semibold data-[state=checked]:text-on-info-bg',
       'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
       className,
     )}

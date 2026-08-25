@@ -14,9 +14,15 @@
   --color-accent: #FFA522;
   --color-success: #17A679;
   --color-success-bg: #DFF7F3;
+  --color-on-success-bg: #0C7C59;
   --color-danger: #BE3A37;
   --color-danger-bg: #F1C0C1;
+  --color-on-danger-bg: #943124;
   --color-warning: #FFA522;
+  --color-warning-bg: #FFF3DD;
+  --color-on-warning-bg: #996315;
+  --color-info-bg: #E1ECFA;
+  --color-on-info-bg: #073B6F;
   --color-bg: #FFFFFF;
   --color-bg-subtle: #FCFDFE;
   --color-bg-muted: #F6F7F9;

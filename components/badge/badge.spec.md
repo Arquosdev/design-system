@@ -70,7 +70,7 @@ import { Badge } from '@arquos/design-system/web';
 
 - Padding `spacing.xs` horizontal, `spacing.xxs` vertical · Arrondi `radius.control`
 - Texte `typography.caption` en demi-gras
-- Fond teinté et texte de la couleur pleine, sauf `outline` : bordure `colors.border` sur fond blanc
+- Fond teinté et **l'encre appairée** — `bg-success-bg` va avec `text-on-success-bg`, jamais avec `text-success` (2,77 pour 1, sous le seuil). Sauf `outline` : bordure `colors.border` sur fond blanc.
 
 ## États
 
