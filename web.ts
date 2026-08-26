@@ -112,6 +112,19 @@ export {
   SelectValue,
 } from './components/select/select.web';
 
+// --- Attente, vide, condition ------------------------------------------
+// Trois composants remontés depuis le mobile, qui les avait et que le design
+// system n'avait pas. Voir CONVERGENCE.md — le premier mouvement va du mobile
+// vers le dépôt partagé, pas l'inverse.
+export { Skeleton, type SkeletonProps } from './components/skeleton/skeleton.web';
+export {
+  EmptyState,
+  EmptyStateErreur,
+  type EmptyStateProps,
+} from './components/empty-state/empty-state.web';
+export { Banner, type BannerProps, type BannerTon } from './components/banner/banner.web';
+export { Avatar, type AvatarProps } from './components/avatar/avatar.web';
+
 // --- Formulaire ---------------------------------------------------------
 // Les primitives de saisie. `Select` et `Combobox` sont plus haut : ils
 // choisissent dans une liste, ils ne recueillent pas une frappe.

@@ -37,6 +37,13 @@ export {
 } from '../components/field-row/field-row.logic';
 export { NON_PRISE, estEnTravers } from '../components/photo-tile/photo-tile.logic';
 export {
+  ECHECS,
+  REESSAYER,
+  natureDeLEchec,
+  type NatureDeLEchec,
+  type FormulationDEchec,
+} from '../components/empty-state/empty-state.logic';
+export {
   iconSize,
   iconWeight,
   icones,

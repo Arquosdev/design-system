@@ -75,13 +75,13 @@ Cinq concepts existent sur mobile et manquent au dépôt partagé. Pendant ce te
 le web les a réécrits à la main — le squelette de chargement neuf fois dans la
 seule fiche d'équipement.
 
-| À promouvoir depuis le mobile | Fichier |
-| --- | --- |
-| `Skeleton` | `components/Skeleton.tsx` |
-| `EmptyState` | `components/EmptyState.tsx` |
-| `OfflineBanner` | `components/OfflineBanner.tsx` |
-| `Avatar` | `components/Avatar.tsx` |
-| `SubmitOverlay` | `components/SubmitOverlay.tsx` |
+| Depuis le mobile | État | Ce qui est passé |
+| --- | --- | --- |
+| `Skeleton` | ✅ v1.20.0 | La brique générique. **Les huit squelettes d'écran restent dans l'app** : ils épousent une mise en page qui n'appartient pas au design system. |
+| `EmptyState` | ✅ v1.20.0 | Le composant **et sa décision** — hors-ligne ou erreur — qui passe en `empty-state.logic.ts`. |
+| `Avatar` | ✅ v1.20.0 | Tel quel, aux tokens près. |
+| `OfflineBanner` | ⚠️ partiellement | **Sa coque seulement**, sous le nom `Banner`. Sa plomberie — routeur, contexte de synchronisation, débounce de 1,5 s — appartient à l'app et y reste. |
+| `SubmitOverlay` | ❌ non | Un voile animé pour l'envoi d'un relevé. **Aucun écran web n'en a besoin** : le porter serait construire pour personne. À reprendre le jour où un envoi long existe côté web. |
 
 Ensuite seulement, et **composant par composant, quand le mobile en a besoin** :
 porter en `.native.tsx` ce que le mobile duplique déjà. Vouloir les 27 d'un coup,

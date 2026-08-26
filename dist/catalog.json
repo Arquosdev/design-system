@@ -44,6 +44,35 @@
       }
     },
     {
+      "name": "Avatar",
+      "statut": "stable",
+      "couche": "generique",
+      "role": "Représenter une personne par sa photo, ou à défaut par ses initiales.",
+      "mots_cles": [
+        "avatar",
+        "photo",
+        "initiales",
+        "profil",
+        "utilisateur",
+        "pastille",
+        "personne"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [],
+        "mobile": [
+          "components/Avatar.tsx"
+        ]
+      },
+      "dossier": "components/avatar",
+      "fiche": "components/avatar/avatar.spec.md",
+      "fichiers": {
+        "web": "components/avatar/avatar.web.tsx"
+      }
+    },
+    {
       "name": "Badge",
       "statut": "stable",
       "couche": "generique",
@@ -76,6 +105,36 @@
       "fiche": "components/badge/badge.spec.md",
       "fichiers": {
         "web": "components/badge/badge.web.tsx"
+      }
+    },
+    {
+      "name": "Banner",
+      "statut": "stable",
+      "couche": "generique",
+      "role": "Informer d'une condition qui dure, en haut d'une zone, sans interrompre.",
+      "mots_cles": [
+        "bandeau",
+        "banner",
+        "hors ligne",
+        "alerte",
+        "information",
+        "permanent",
+        "statut"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "src/app/fiche/sections/bandeau-releve.tsx",
+          "le bandeau de démonstration et celui de lecture seule"
+        ],
+        "mobile": []
+      },
+      "dossier": "components/banner",
+      "fiche": "components/banner/banner.spec.md",
+      "fichiers": {
+        "web": "components/banner/banner.web.tsx"
       }
     },
     {
@@ -258,6 +317,38 @@
       "fiche": "components/data-table/data-table.spec.md",
       "fichiers": {
         "web": "components/data-table/data-table.web.tsx"
+      }
+    },
+    {
+      "name": "EmptyState",
+      "statut": "stable",
+      "couche": "generique",
+      "role": "Dire pourquoi une zone est vide, et ce qu'on peut y faire.",
+      "mots_cles": [
+        "vide",
+        "empty",
+        "aucun",
+        "erreur",
+        "hors ligne",
+        "reessayer",
+        "rien"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "src/app/fiche/sections/documents.tsx — messages de liste vide écrits sur place"
+        ],
+        "mobile": [
+          "components/EmptyState.tsx"
+        ]
+      },
+      "dossier": "components/empty-state",
+      "fiche": "components/empty-state/empty-state.spec.md",
+      "fichiers": {
+        "web": "components/empty-state/empty-state.web.tsx",
+        "logique": "components/empty-state/empty-state.logic.ts"
       }
     },
     {
@@ -713,6 +804,37 @@
       "fiche": "components/sheet/sheet.spec.md",
       "fichiers": {
         "web": "components/sheet/sheet.web.tsx"
+      }
+    },
+    {
+      "name": "Skeleton",
+      "statut": "stable",
+      "couche": "generique",
+      "role": "Occuper la place de ce qui charge, pour que l'écran ne mente pas en paraissant vide.",
+      "mots_cles": [
+        "squelette",
+        "skeleton",
+        "chargement",
+        "attente",
+        "pulse",
+        "placeholder"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [
+          "src/app/fiche/sections/rail.tsx — SqueletteRail",
+          "et huit autres blocs écrits sur place"
+        ],
+        "mobile": [
+          "components/Skeleton.tsx"
+        ]
+      },
+      "dossier": "components/skeleton",
+      "fiche": "components/skeleton/skeleton.spec.md",
+      "fichiers": {
+        "web": "components/skeleton/skeleton.web.tsx"
       }
     },
     {
