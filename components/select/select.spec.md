@@ -7,6 +7,7 @@ mots_cles: [select, menu, liste, choix, deroulant, dropdown, action]
 plateformes: [web]
 remplace:
   web: [public/fiche/index.html — les menus natifs des écarts et des champs à choix]
+  mobile: [components/CategoryPickerModal.tsx, components/BrandModelPicker.tsx]
 ---
 
 # Select

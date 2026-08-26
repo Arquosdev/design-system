@@ -25,10 +25,11 @@
   "scripts": {
     "build": "node scripts/build-tokens.mjs && node scripts/build-catalog.mjs",
     "catalog": "node scripts/build-catalog.mjs",
-    "check": "node scripts/build-tokens.mjs --check && node scripts/build-catalog.mjs --check && node scripts/check-contraste.mjs",
+    "check": "tsc --noEmit && node scripts/build-tokens.mjs --check && node scripts/build-catalog.mjs --check && node scripts/check-contraste.mjs",
     "storybook": "storybook dev -p 6006",
     "vitrine": "storybook build -o dist-vitrine",
-    "contraste": "node scripts/check-contraste.mjs"
+    "contraste": "node scripts/check-contraste.mjs",
+    "types": "tsc --noEmit"
   },
   "repository": {
     "type": "git",

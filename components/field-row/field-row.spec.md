@@ -7,7 +7,7 @@ mots_cles: [champ, ligne, libelle, valeur, edition, inline, saisie, formulaire]
 plateformes: [web]
 remplace:
   web: [public/fiche/index.html — buildField(), markup recopié lignes 402/487/643/950]
-  mobile: [components/full-form/FormFieldRenderer.tsx]
+  mobile: [components/full-form/FormFieldRenderer.tsx, components/OptionRow.tsx]
 ---
 
 # FieldRow

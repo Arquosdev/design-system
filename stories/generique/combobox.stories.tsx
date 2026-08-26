@@ -17,6 +17,10 @@ const meta = {
   title: 'Générique/Combobox',
   component: Combobox,
   parameters: docsDe(specification),
+  // Chaque histoire rend son propre exemple, mais `StoryObj<typeof meta>` exige
+  // quand même les props obligatoires : sans ces valeurs par défaut, `tsc`
+  // refuse les histoires qui n'ont qu'un `render`.
+  args: { options: MARQUES, valeur: 'otis', onValeur: () => {} },
 } satisfies Meta<typeof Combobox>;
 
 export default meta;

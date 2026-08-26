@@ -8,7 +8,7 @@ plateformes: [web]
 remplace:
   web:
     - src/app/fiche/sections/completer.tsx — trois <input> écrits sur place
-  mobile: []
+  mobile: [components/Input.tsx, components/TextInputField.tsx, components/BufferedTextInputField.tsx, components/PhoneInputField.tsx]
 ---
 
 # Input

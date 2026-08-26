@@ -19,6 +19,23 @@ export {
 export { spacing, type SpacingToken } from './spacing';
 export { radius, type RadiusToken } from './radius';
 export { shadow, shadowNative, type ShadowToken } from './elevation';
+
+// --- Logique métier partagée -------------------------------------------
+// Ce que les composants métier savent de l'ascenseur, sans une ligne de React :
+// le vocabulaire et les règles, lisibles et testables des deux plateformes.
+export {
+  menuDeChoix,
+  texteDeValeur,
+  estVide,
+  VIDE,
+  TEXTE_STATUT,
+  TEXTE_SAUVEGARDE,
+  type FieldKind,
+  type FieldStatut,
+  type FieldSauvegarde,
+  type FieldOption,
+} from '../components/field-row/field-row.logic';
+export { NON_PRISE, estEnTravers } from '../components/photo-tile/photo-tile.logic';
 export {
   iconSize,
   iconWeight,

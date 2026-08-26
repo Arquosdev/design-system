@@ -7,6 +7,7 @@ mots_cles: [combobox, recherche, autocompletion, liste, choix, marque, modele]
 plateformes: [web]
 remplace:
   web: [public/fiche/index.html — les menus de marque et de modèle]
+  mobile: [components/EntityPickerField.tsx]
 ---
 
 # Combobox

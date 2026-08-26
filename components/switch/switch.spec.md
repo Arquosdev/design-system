@@ -7,7 +7,7 @@ mots_cles: [interrupteur, switch, bascule, activer, desactiver, reglage, toggle]
 plateformes: [web]
 remplace:
   web: []
-  mobile: []
+  mobile: [components/ResolvedToggle.tsx]
 ---
 
 # Switch

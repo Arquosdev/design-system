@@ -50,15 +50,21 @@ export {
 } from './components/filter-chips/filter-chips.web';
 export { IconButton, type IconButtonProps } from './components/icon-button/icon-button.web';
 export { Icon, type IconProps } from './components/icon/icon.web';
+export { FieldRow, type FieldRowProps } from './components/field-row/field-row.web';
+// La logique métier de FieldRow est aussi servie par le point d'entrée racine —
+// c'est la même source, deux portes : le mobile la prendra par la racine.
 export {
-  FieldRow,
   menuDeChoix,
-  type FieldRowProps,
+  texteDeValeur,
+  estVide,
+  VIDE,
+  TEXTE_STATUT,
+  TEXTE_SAUVEGARDE,
   type FieldKind,
   type FieldStatut,
   type FieldSauvegarde,
   type FieldOption,
-} from './components/field-row/field-row.web';
+} from './components/field-row/field-row.logic';
 
 export {
   Sheet,

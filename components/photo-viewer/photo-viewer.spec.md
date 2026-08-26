@@ -7,6 +7,7 @@ mots_cles: [visionneuse, lightbox, photo, galerie, plein ecran, agrandir, schema
 plateformes: [web]
 remplace:
   web: [public/fiche/index.html — lightbox]
+  mobile: [components/ZoomImageOverlay.tsx]
 ---
 
 # PhotoViewer

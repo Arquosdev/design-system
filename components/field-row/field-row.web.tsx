@@ -3,6 +3,17 @@
 import * as React from 'react';
 
 import { cn } from '../_lib/cn';
+import {
+  menuDeChoix,
+  texteDeValeur,
+  TEXTE_SAUVEGARDE,
+  TEXTE_STATUT,
+  VIDE,
+  type FieldKind,
+  type FieldOption,
+  type FieldSauvegarde,
+  type FieldStatut,
+} from './field-row.logic';
 import { Button } from '../button/button.web';
 import { Combobox, SEUIL_RECHERCHE } from '../combobox/combobox.web';
 import {
@@ -13,16 +24,9 @@ import {
   SelectValue,
 } from '../select/select.web';
 
-export type FieldKind = 'text' | 'number' | 'choice' | 'multi';
-export type FieldStatut = 'renseigne' | 'manquant' | 'a_verifier';
 
 /** Où en est l'enregistrement de la dernière correction, sur CETTE ligne. */
-export type FieldSauvegarde = 'encours' | 'ok' | 'echec';
 
-export interface FieldOption {
-  value: string;
-  label: string;
-}
 
 /**
  * L'entrée « Autre » du menu.
@@ -86,52 +90,23 @@ export interface FieldRowProps {
   className?: string;
 }
 
-const STATUTS: Record<FieldStatut, { texte: string; classe: string }> = {
-  renseigne: { texte: 'Renseigné', classe: 'bg-success-bg text-on-success-bg' },
-  manquant: { texte: 'Manquant', classe: 'bg-danger-bg text-on-danger-bg' },
-  a_verifier: { texte: 'À vérifier', classe: 'bg-warning-bg text-on-warning-bg' },
+// Les mots viennent de la logique partagée, les classes restent ici : le
+// vocabulaire converge entre web et mobile, l'habillage non.
+const CLASSE_STATUT: Record<FieldStatut, string> = {
+  renseigne: 'bg-success-bg text-on-success-bg',
+  manquant: 'bg-danger-bg text-on-danger-bg',
+  a_verifier: 'bg-warning-bg text-on-warning-bg',
 };
 
 // Formulations reprises telles quelles du module actuel (index.html:4671) : le
 // wording de la fiche ne change pas parce qu'on la réécrit.
-const SAUVEGARDES: Record<FieldSauvegarde, { texte: string; classe: string }> = {
-  encours: { texte: 'Enregistrement…', classe: 'text-text-subtle' },
-  ok: { texte: '✓ Enregistré', classe: 'text-success' },
-  echec: { texte: '⚠ Non enregistré', classe: 'text-danger' },
+const CLASSE_SAUVEGARDE: Record<FieldSauvegarde, string> = {
+  encours: 'text-text-subtle',
+  ok: 'text-success',
+  echec: 'text-danger',
 };
 
-/**
- * Une valeur absente s'annonce en toutes lettres. Un tiret laisse croire à une
- * donnée sans objet ; « Non renseigné » dit qu'il manque quelque chose, et reste
- * cliquable pour le combler.
- */
-const VIDE = 'Non renseigné';
 
-/**
- * Le menu d'un champ à choix, et la valeur qui doit y être cochée.
- *
- * La ligne affiche un **libellé** (« Moyen ») ; le menu manipule des **valeurs
- * en base** (`moyen`). Poser le libellé comme valeur du `select` ne correspond à
- * aucune option : le navigateur coche alors la première, et le menu s'ouvre en
- * annonçant « Bon » sur un composant qui est « Moyen ».
- *
- * Une valeur hors catalogue — une marque saisie à la main, un jeton qu'un relevé
- * a laissé — reste en tête du menu : la retirer reviendrait à la remplacer en
- * silence dès l'ouverture.
- */
-export function menuDeChoix(
-  value: string | string[] | null,
-  options: readonly FieldOption[],
-): { choix: FieldOption[]; retenue: string } {
-  const brut = typeof value === 'string' ? value : '';
-  const retenu = options.find((o) => o.value === brut || o.label === brut);
-  const choix: FieldOption[] = [];
-
-  if (!brut) choix.push({ value: '', label: '— choisir —' });
-  else if (!retenu) choix.push({ value: brut, label: `${brut} · valeur actuelle` });
-
-  return { choix: [...choix, ...options], retenue: retenu ? retenu.value : brut };
-}
 
 function afficher(value: string | string[] | null): string {
   if (Array.isArray(value)) return value.length ? value.join(', ') : VIDE;
@@ -294,10 +269,10 @@ export function FieldRow({
               <span
                 className={cn(
                   'shrink-0 rounded-control px-xs py-xxs text-caption font-semibold',
-                  STATUTS[statut].classe,
+                  CLASSE_STATUT[statut],
                 )}
               >
-                {STATUTS[statut].texte}
+                {TEXTE_STATUT[statut]}
               </span>
             ) : null}
             {sauvegarde ? (
@@ -308,10 +283,10 @@ export function FieldRow({
                 role="status"
                 className={cn(
                   'shrink-0 text-caption font-bold',
-                  SAUVEGARDES[sauvegarde].classe,
+                  CLASSE_SAUVEGARDE[sauvegarde],
                 )}
               >
-                {SAUVEGARDES[sauvegarde].texte}
+                {TEXTE_SAUVEGARDE[sauvegarde]}
               </span>
             ) : null}
           </div>

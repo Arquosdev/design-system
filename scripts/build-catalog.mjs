@@ -126,6 +126,14 @@ function collect() {
       fichiers[plateforme] = `components/${dir.name}/${dir.name}.${ext}`;
     }
 
+    // La logique métier, quand elle existe : c'est ce qu'un agent doit lire pour
+    // savoir ce que le composant sait de l'ascenseur, sans traverser du JSX.
+    // Voir CONVERGENCE.md — le vocabulaire converge entre plateformes, le rendu
+    // non.
+    if (existsSync(join(COMPONENTS, dir.name, `${dir.name}.logic.ts`))) {
+      fichiers.logique = `components/${dir.name}/${dir.name}.logic.ts`;
+    }
+
     entries.push({
       ...meta,
       dossier: `components/${dir.name}`,

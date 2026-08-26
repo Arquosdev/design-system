@@ -7,7 +7,7 @@ mots_cles: [label, intitule, libelle, etiquette, champ, formulaire]
 plateformes: [web]
 remplace:
   web: []
-  mobile: []
+  mobile: [components/FormField.tsx]
 ---
 
 # Label
