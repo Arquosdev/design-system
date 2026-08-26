@@ -14,7 +14,7 @@ import specification from '../../components/select/select.spec.md?raw';
 import { docsDe } from '../fiche';
 
 const meta = {
-  title: 'Générique/Select',
+  title: 'Composants/Générique/Select',
   component: Select,
   parameters: docsDe(specification),
 } satisfies Meta<typeof Select>;

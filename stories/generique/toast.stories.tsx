@@ -6,7 +6,7 @@ import specification from '../../components/toast/toast.spec.md?raw';
 import { docsDe } from '../fiche';
 
 const meta: Meta = {
-  title: 'Générique/Toast',
+  title: 'Composants/Générique/Toast',
   component: ToastProvider,
   parameters: { ...docsDe(specification), layout: 'centered' },
 };

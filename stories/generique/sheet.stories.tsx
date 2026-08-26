@@ -16,7 +16,7 @@ import specification from '../../components/sheet/sheet.spec.md?raw';
 import { docsDe } from '../fiche';
 
 const meta: Meta = {
-  title: 'Générique/Sheet',
+  title: 'Composants/Générique/Sheet',
   component: SheetContent,
   subcomponents: { SheetHeader, SheetTitle, SheetDescription, SheetBody, SheetFooter },
   parameters: { ...docsDe(specification), layout: 'centered' },

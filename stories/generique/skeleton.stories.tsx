@@ -5,7 +5,7 @@ import specification from '../../components/skeleton/skeleton.spec.md?raw';
 import { docsDe } from '../fiche';
 
 const meta = {
-  title: 'Générique/Skeleton',
+  title: 'Composants/Générique/Skeleton',
   component: Skeleton,
   parameters: docsDe(specification),
   args: { className: 'h-4 w-40' },

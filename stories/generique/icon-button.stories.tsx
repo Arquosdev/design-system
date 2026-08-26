@@ -9,7 +9,7 @@ import { choix, docsDe } from '../fiche';
 const Telechargement = () => <Icon role="telecharger" size="xs" />;
 
 const meta = {
-  title: 'Générique/IconButton',
+  title: 'Composants/Générique/IconButton',
   component: IconButton,
   parameters: docsDe(specification),
   args: { label: 'Télécharger le rapport', icon: <Telechargement /> },

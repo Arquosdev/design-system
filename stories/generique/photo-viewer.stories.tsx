@@ -7,7 +7,7 @@ import specification from '../../components/photo-viewer/photo-viewer.spec.md?ra
 import { docsDe } from '../fiche';
 
 const meta = {
-  title: 'Générique/PhotoViewer',
+  title: 'Composants/Générique/PhotoViewer',
   component: PhotoViewer,
   parameters: { ...docsDe(specification), layout: 'centered' },
 } satisfies Meta<typeof PhotoViewer>;

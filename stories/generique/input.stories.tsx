@@ -6,7 +6,7 @@ import specification from '../../components/input/input.spec.md?raw';
 import { docsDe } from '../fiche';
 
 const meta = {
-  title: 'Générique/Input',
+  title: 'Composants/Générique/Input',
   component: Input,
   parameters: docsDe(specification),
   args: { placeholder: 'ex. Hauteur libre sous linteau' },

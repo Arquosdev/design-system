@@ -5,7 +5,7 @@ import specification from '../../components/stat-tile/stat-tile.spec.md?raw';
 import { docsDe } from '../fiche';
 
 const meta = {
-  title: 'Métier/StatTile',
+  title: 'Composants/Métier/StatTile',
   component: StatTile,
   parameters: docsDe(specification),
   args: { label: 'Charge utile', valeur: '630', unite: 'kg' },

@@ -14,7 +14,7 @@ const MARQUES = [
 ].map((m) => ({ valeur: m.toLowerCase().replace(/ /g, '_'), libelle: m }));
 
 const meta = {
-  title: 'Générique/Combobox',
+  title: 'Composants/Générique/Combobox',
   component: Combobox,
   parameters: docsDe(specification),
   // Chaque histoire rend son propre exemple, mais `StoryObj<typeof meta>` exige

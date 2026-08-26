@@ -6,7 +6,7 @@ import specification from '../../components/field-row/field-row.spec.md?raw';
 import { choix, docsDe } from '../fiche';
 
 const meta = {
-  title: 'Métier/FieldRow',
+  title: 'Composants/Métier/FieldRow',
   component: FieldRow,
   parameters: docsDe(specification),
   args: { label: 'Charge utile (kg)', value: '630' },

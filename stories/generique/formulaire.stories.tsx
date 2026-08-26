@@ -18,7 +18,7 @@ import { Textarea } from '../../components/textarea/textarea.web';
  * ensemble.
  */
 const meta = {
-  title: 'Générique/Formulaire',
+  title: 'Composants/Générique/Formulaire',
   parameters: { layout: 'padded' },
 } satisfies Meta;
 

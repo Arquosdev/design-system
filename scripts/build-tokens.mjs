@@ -274,17 +274,20 @@ function buildJson() {
       ...group(radius, 'dimension', 'px', DESCRIPTIONS.radius),
     },
     duration: {
-    rapide: 'Un retour immédiat — survol, focus, opacité.',
-    normal: 'Une bascule visible — un chevron qui pivote, un onglet qui glisse.',
-    lent: 'Une surface qui entre ou sort — panneau, modale, feuille.',
-  },
-  layers: {
-    base: 'Le contenu de la page.',
-    panneau: "Une surface qui recouvre une partie de l'écran et reste manipulable. Passe SOUS `flottant`, parce qu'elle peut en contenir.",
-    flottant: "Menu, sélecteur, infobulle, popover — passe au-dessus de la surface qui l'a ouvert.",
-    pleinEcran: "Ce qui prend l'écran entier et suspend le reste — visionneuse, palette de recherche.",
-    notification: 'Ce qui doit rester visible quoi qu’il arrive.',
-  },
+      $description:
+        "Durées de transition. Au-delà de 300 ms une transition se remarque au lieu d'accompagner ; en deçà de 100 elle ne se voit pas.",
+      ...group(duration, 'duration', 'ms', DESCRIPTIONS.duration),
+    },
+    easing: {
+      $type: 'cubicBezier',
+      $value: easing,
+      $description: 'La courbe par défaut — sortie douce.',
+    },
+    layers: {
+      $description:
+        "Ordre d'empilement, nommé par intention. La règle qui tient l'échelle : un élément flottant passe au-dessus de la surface qui l'a ouvert, donc toute surface capable d'en contenir se place sous `flottant`.",
+      ...group(layers, 'number', '', DESCRIPTIONS.layers),
+    },
   iconSize: {
       $description:
         "Tailles d'icône. `md` (18px) est le défaut. Le jeu d'icônes officiel est Phosphor : `@phosphor-icons/react` côté web, `phosphor-react-native` côté mobile.",

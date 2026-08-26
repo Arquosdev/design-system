@@ -5,7 +5,7 @@ import specification from '../../components/textarea/textarea.spec.md?raw';
 import { docsDe } from '../fiche';
 
 const meta = {
-  title: 'Générique/Textarea',
+  title: 'Composants/Générique/Textarea',
   component: Textarea,
   parameters: docsDe(specification),
   args: { placeholder: 'Ce que le technicien a constaté sur place' },

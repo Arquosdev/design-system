@@ -6,7 +6,7 @@ import specification from '../../components/checkbox/checkbox.spec.md?raw';
 import { docsDe } from '../fiche';
 
 const meta = {
-  title: 'Générique/Checkbox',
+  title: 'Composants/Générique/Checkbox',
   component: Checkbox,
   parameters: docsDe(specification),
 } satisfies Meta<typeof Checkbox>;

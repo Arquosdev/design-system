@@ -5,7 +5,7 @@ import specification from '../../components/gauge/gauge.spec.md?raw';
 import { choix, docsDe } from '../fiche';
 
 const meta = {
-  title: 'Métier/Gauge',
+  title: 'Composants/Métier/Gauge',
   component: Gauge,
   parameters: docsDe(specification),
   args: { valeur: 82, label: 'Taux de connaissance' },

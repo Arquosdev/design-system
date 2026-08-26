@@ -6,7 +6,7 @@ import specification from '../../components/switch/switch.spec.md?raw';
 import { docsDe } from '../fiche';
 
 const meta = {
-  title: 'Générique/Switch',
+  title: 'Composants/Générique/Switch',
   component: Switch,
   parameters: docsDe(specification),
 } satisfies Meta<typeof Switch>;

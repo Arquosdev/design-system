@@ -5,7 +5,7 @@ import specification from '../../components/avatar/avatar.spec.md?raw';
 import { docsDe } from '../fiche';
 
 const meta = {
-  title: 'Générique/Avatar',
+  title: 'Composants/Générique/Avatar',
   component: Avatar,
   parameters: docsDe(specification),
   args: { initiales: 'TL', label: 'Thomas Lauzanne' },
