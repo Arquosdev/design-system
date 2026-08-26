@@ -199,6 +199,7 @@ dans `src/icons.ts` et visibles en un écran dans la vitrine
 ## État
 
 - **v1.13.0** (août 2026) — **Phosphor devient le jeu d'icônes officiel.** Composant `Icon`, 35 rôles dans `src/icons.ts`, tokens `iconSize` et `iconWeight`. Le web ne recopie plus de tracés à la main.
+- **v1.20.0** (août 2026) — **Quatre composants remontés du mobile** : `Skeleton`, `EmptyState`, `Banner`, `Avatar`. Le premier mouvement de la convergence va du mobile vers le dépôt.
 - **v1.19.0** (août 2026) — la CI refuse un numéro de version déjà publié. Deux collisions de tag en une journée ont livré des versions amputées.
 - **v1.18.0** (août 2026) — **Les fondations de la convergence** : `CONVERGENCE.md`, la logique métier dans `<nom>.logic.ts`, la correspondance mobile complétée (32 fichiers), et `tsc` branché sur la CI.
 - **v1.17.0** (août 2026) — **Les six primitives de formulaire** : `Input`, `Textarea`, `Label`, `Checkbox`, `RadioGroup`, `Switch`. Reprises de shadcn, habillées aux tokens, coche en Phosphor.
