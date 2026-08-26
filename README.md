@@ -7,6 +7,8 @@ Source de vérité unique pour le **design d'Arquos** : couleurs, typographie, e
 
 > 🤖 **Tu es un agent ?** Lis [`CLAUDE.md`](CLAUDE.md) — il dit quoi importer et comment choisir un token.
 
+> 🧭 **Tu ne connais pas encore les noms ?** [**Par où commencer**](https://arquosdev.github.io/design-system/?path=/story/design-system-par-o%C3%B9-commencer--chercher) — cherchez par ce que vous voulez *faire*. La recherche de Storybook ne lit pas les mots-clés des fiches ; cette page, si.
+
 > 👀 **Tu veux le regarder ?** [**La vitrine**](https://arquosdev.github.io/design-system/) — chaque composant avec sa fiche, les tokens avec leurs valeurs. En local : `npm run storybook`.
 
 > 🧭 **Tu écris un écran ?** Commence par les [**principes de design**](https://arquosdev.github.io/design-system/?path=/docs/design-system-principes-de-design--docs) — quatre règles qui disent comment décider — puis les [**règles d'écran**](https://arquosdev.github.io/design-system/?path=/docs/design-system-r%C3%A8gles-d-%C3%A9cran--docs), qui disent ce que ça donne chez nous.
@@ -207,6 +209,7 @@ dans `src/icons.ts` et visibles en un écran dans la vitrine
 ## État
 
 - **v1.13.0** (août 2026) — **Phosphor devient le jeu d'icônes officiel.** Composant `Icon`, 35 rôles dans `src/icons.ts`, tokens `iconSize` et `iconWeight`. Le web ne recopie plus de tracés à la main.
+- **v1.25.0** (août 2026) — Deux pages qui manquaient à la vitrine : **Par où commencer** (chercher par le besoin, pas par le nom) et **Un écran entier** (le système assemblé, avec du contenu réel).
 - **v1.24.0** (août 2026) — **Le contraste se mesure au rendu**, dans un vrai navigateur, sur les 97 stories. Il a trouvé 92 textes illisibles que le contrôle statique ne pouvait pas voir — dont `colors.success`, qui échouait dans ses deux rôles.
 - **v1.23.0** (août 2026) — **Tokens de mouvement et d'empilement.** Panneau, palette, menu et infobulle étaient tous à `z-50` : un menu ouvert dans un panneau passait devant ou derrière au hasard du DOM.
 - **v1.22.0** (août 2026) — `MIGRATION.md` : le registre de ce qu'une montée de version coûtera aux apps, tenu au fil de l'eau.

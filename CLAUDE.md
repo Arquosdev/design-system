@@ -201,6 +201,11 @@ En local : `npm run storybook`. Elle ne duplique rien — les pages lisent
 recopiée à la main diverge au premier changement, et c'est alors la vitrine
 qu'on croit.
 
+**Chercher un composant par le besoin** : la page « Par où commencer » de la
+vitrine interroge les rôles, les mots-clés et le vocabulaire d'icônes — ce que la
+recherche de Storybook ne fait pas. Elle lit `dist/catalog.json`, donc elle ne
+peut pas diverger. Un agent, lui, lit directement le catalogue.
+
 **Ajouter un composant, c'est aussi lui écrire une story** dans
 `stories/<couche>/<nom>.stories.tsx`. La CI construit la vitrine : une story qui
 vise un composant dont les props ont changé fait échouer la PR.

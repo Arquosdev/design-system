@@ -1,6 +1,6 @@
 {
   "name": "@arquos/design-system",
-  "version": "1.24.0",
+  "version": "1.25.0",
   "description": "Un design system pensé pour les agents — les règles d'usage vivent dans le dépôt, pas dans les têtes. Tokens et composants partagés par les apps mobile et web d'Arquos.",
   "private": true,
   "main": "src/index.ts",
