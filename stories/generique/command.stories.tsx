@@ -14,7 +14,7 @@ import specification from '../../components/command/command.spec.md?raw';
 import { docsDe } from '../fiche';
 
 const meta: Meta = {
-  title: 'Générique/Command',
+  title: 'Composants/Générique/Command',
   component: CommandDialog,
   subcomponents: { CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem },
   parameters: { ...docsDe(specification), layout: 'centered' },

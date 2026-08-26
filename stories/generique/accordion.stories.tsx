@@ -15,7 +15,7 @@ import { docsDe } from '../fiche';
   alors un `args` vide sur chacune, qui ne dirait rien à personne.
 */
 const meta: Meta = {
-  title: 'Générique/Accordion',
+  title: 'Composants/Générique/Accordion',
   component: Accordion,
   subcomponents: { AccordionItem, AccordionTrigger, AccordionContent },
   parameters: docsDe(specification),

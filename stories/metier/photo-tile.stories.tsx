@@ -21,7 +21,7 @@ const photo = (largeur: number, hauteur: number, fond: string, texte: string) =>
 const portrait = (fond: string, texte: string) => photo(1080, 1400, fond, texte);
 
 const meta = {
-  title: 'Métier/PhotoTile',
+  title: 'Composants/Métier/PhotoTile',
   component: PhotoTile,
   parameters: docsDe(specification),
   args: { nom: 'Façade de l’immeuble', url: portrait('#0D5AB7', 'Façade') },

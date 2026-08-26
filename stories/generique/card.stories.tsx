@@ -14,7 +14,7 @@ import specification from '../../components/card/card.spec.md?raw';
 import { docsDe } from '../fiche';
 
 const meta = {
-  title: 'Générique/Card',
+  title: 'Composants/Générique/Card',
   component: Card,
   subcomponents: { CardHeader, CardTitle, CardDescription, CardContent, CardList, CardFooter },
   parameters: docsDe(specification),

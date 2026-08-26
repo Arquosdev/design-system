@@ -5,7 +5,7 @@ import specification from '../../components/button/button.spec.md?raw';
 import { choix, docsDe } from '../fiche';
 
 const meta = {
-  title: 'Générique/Button',
+  title: 'Composants/Générique/Button',
   component: Button,
   parameters: docsDe(specification),
   args: { children: 'Enregistrer' },

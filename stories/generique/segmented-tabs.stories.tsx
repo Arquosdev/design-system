@@ -6,7 +6,7 @@ import specification from '../../components/segmented-tabs/segmented-tabs.spec.m
 import { docsDe } from '../fiche';
 
 const meta = {
-  title: 'Générique/SegmentedTabs',
+  title: 'Composants/Générique/SegmentedTabs',
   component: SegmentedTabs,
   parameters: docsDe(specification),
 } satisfies Meta<typeof SegmentedTabs>;

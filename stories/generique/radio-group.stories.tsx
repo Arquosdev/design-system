@@ -6,7 +6,7 @@ import specification from '../../components/radio-group/radio-group.spec.md?raw'
 import { docsDe } from '../fiche';
 
 const meta = {
-  title: 'Générique/RadioGroup',
+  title: 'Composants/Générique/RadioGroup',
   component: RadioGroup,
   parameters: docsDe(specification),
 } satisfies Meta<typeof RadioGroup>;

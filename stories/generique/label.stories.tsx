@@ -7,7 +7,7 @@ import specification from '../../components/label/label.spec.md?raw';
 import { docsDe } from '../fiche';
 
 const meta = {
-  title: 'Générique/Label',
+  title: 'Composants/Générique/Label',
   component: Label,
   parameters: docsDe(specification),
   args: { children: 'N° de série' },

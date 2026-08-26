@@ -6,7 +6,7 @@ import specification from '../../components/nav-list/nav-list.spec.md?raw';
 import { docsDe } from '../fiche';
 
 const meta = {
-  title: 'Métier/NavList',
+  title: 'Composants/Métier/NavList',
   component: NavList,
   parameters: docsDe(specification),
 } satisfies Meta<typeof NavList>;

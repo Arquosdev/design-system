@@ -5,7 +5,7 @@ import specification from '../../components/banner/banner.spec.md?raw';
 import { choix, docsDe } from '../fiche';
 
 const meta = {
-  title: 'Générique/Banner',
+  title: 'Composants/Générique/Banner',
   component: Banner,
   parameters: docsDe(specification),
   args: { children: 'Jeu de démonstration — aucune donnée réelle.', icone: 'information' as const },

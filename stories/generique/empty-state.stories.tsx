@@ -5,7 +5,7 @@ import specification from '../../components/empty-state/empty-state.spec.md?raw'
 import { docsDe } from '../fiche';
 
 const meta = {
-  title: 'Générique/EmptyState',
+  title: 'Composants/Générique/EmptyState',
   component: EmptyState,
   parameters: docsDe(specification),
   args: {

@@ -5,7 +5,7 @@ import specification from '../../components/data-table/data-table.spec.md?raw';
 import { docsDe } from '../fiche';
 
 const meta = {
-  title: 'Métier/DataTable',
+  title: 'Composants/Métier/DataTable',
   component: DataTable,
   parameters: docsDe(specification),
   args: {

@@ -206,8 +206,20 @@ vitrine interroge les rôles, les mots-clés et le vocabulaire d'icônes — ce 
 recherche de Storybook ne fait pas. Elle lit `dist/catalog.json`, donc elle ne
 peut pas diverger. Un agent, lui, lit directement le catalogue.
 
+La vitrine est rangée en quatre temps, sur le modèle d'Atlassian :
+
+| Section | Ce qu'on y trouve |
+| --- | --- |
+| **Prise en main** | Introduction, Installer, Par où commencer |
+| **Fondations** | Les règles de décision d'abord, les styles ensuite |
+| **Composants** | Générique, puis Métier |
+| **Modèles** | Le système assemblé dans un écran réel |
+
+Les fondations mettent les principes AVANT les couleurs : regarder une teinte
+avant de savoir ce qu'on veut dire, c'est choisir au hasard.
+
 **Ajouter un composant, c'est aussi lui écrire une story** dans
-`stories/<couche>/<nom>.stories.tsx`. La CI construit la vitrine : une story qui
+`stories/<couche>/<nom>.stories.tsx`, titrée `Composants/<Couche>/<Nom>`. La CI construit la vitrine : une story qui
 vise un composant dont les props ont changé fait échouer la PR.
 
 ## Le statut d'un composant

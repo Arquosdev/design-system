@@ -20,7 +20,7 @@ import { icones, type IconRole } from '../../src/icons';
  * y diverger.
  */
 const meta = {
-  title: 'Design system/Par où commencer',
+  title: 'Prise en main/Par où commencer',
   parameters: { layout: 'fullscreen' },
 } satisfies Meta;
 

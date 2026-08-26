@@ -9,9 +9,14 @@
 /* DM Sans est la seule police de la marque. Ici on l'appelle chez Google — la
    vitrine est un site public, pas le module embarqué dans Bubble, qui lui la
    sert depuis son propre domaine à cause de la politique de sécurité. */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;900&family=DM+Mono:wght@400;500&display=swap');
 @import 'tailwindcss';
 @import '../dist/tokens.tailwind.css';
+/* `tokens.css` en plus : il déclare les variables `--arq-*` que les encarts
+   Bubble emploient, et dont l'habillage des pages de documentation se sert plus
+   bas. La feuille Tailwind, elle, ne parle que le vocabulaire de son `@theme`.
+   Charger les deux, c'est montrer les deux sorties du même générateur. */
+@import '../dist/tokens.css';
 
 /* Les composants vivent dans `components/`, hors de ce dossier : sans cette
    déclaration, Tailwind n'y cherche pas les classes et la vitrine sort nue. */
@@ -22,4 +27,95 @@ body {
   font-family: var(--font-sans);
   color: var(--color-text);
   background: var(--color-bg);
+}
+
+/* ------------------------------------------------------------------ vitrine
+
+   L'habillage des pages de documentation. Le menu et la barre du haut sont
+   traités dans `manager.ts` ; ici c'est le contenu.
+
+   Storybook rend ses pages de doc avec sa propre typographie. Sans ces règles,
+   une fiche de composant se lit dans une police qui n'est pas celle du produit
+   — et la vitrine cesse de montrer ce qu'elle documente. */
+
+.sbdocs.sbdocs-wrapper {
+  background: var(--arq-color-bg);
+  padding: var(--arq-space-2xl) var(--arq-space-xl);
+}
+
+.sbdocs.sbdocs-content {
+  max-width: 860px;
+}
+
+.sbdocs h1,
+.sbdocs h2,
+.sbdocs h3 {
+  font-family: var(--arq-font-sans);
+  color: var(--arq-color-text);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.sbdocs h1 {
+  font-size: var(--arq-font-size-headline);
+  font-weight: 700;
+}
+
+/* Les titres de section prennent un filet : dans une fiche longue — « Quand NE
+   PAS l'utiliser », « Props », « États » — la hiérarchie se perd sans repère
+   horizontal. */
+.sbdocs h2 {
+  font-size: var(--arq-font-size-title);
+  font-weight: 700;
+  border-top: 1px solid var(--arq-color-border-soft);
+  padding-top: var(--arq-space-base);
+  margin-top: var(--arq-space-2xl);
+}
+
+.sbdocs h3 {
+  font-size: var(--arq-font-size-subhead);
+  font-weight: 600;
+}
+
+.sbdocs p,
+.sbdocs li {
+  font-family: var(--arq-font-sans);
+  color: var(--arq-color-text);
+  line-height: 1.62;
+}
+
+/* Les tableaux de props sont ce qu'on lit le plus : chasse fixe sur les valeurs,
+   en-têtes discrets, et un fond d'en-tête qui les détache sans grisonner. */
+.sbdocs table:not(.docblock-argstable) th {
+  background: var(--arq-color-bg-subtle);
+  font-size: var(--arq-font-size-caption);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--arq-color-text-muted);
+}
+
+.sbdocs table:not(.docblock-argstable) td,
+.sbdocs table:not(.docblock-argstable) th {
+  border-color: var(--arq-color-border-soft);
+  padding: 10px 14px;
+}
+
+.sbdocs code {
+  font-family: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.86em;
+  background: var(--arq-color-bg-muted);
+  border: 1px solid var(--arq-color-border-soft);
+  border-radius: 5px;
+  padding: 0.08em 0.34em;
+}
+
+/* Une citation en encadré sert, dans les fiches, à dire ce qui vient de shadcn
+   et ce qu'on en a changé. Le filet bleu la distingue du corps du texte. */
+.sbdocs blockquote {
+  border-left: 3px solid var(--arq-color-primary);
+  background: var(--arq-color-info-bg);
+  color: var(--arq-color-on-info-bg);
+  border-radius: 0 var(--arq-radius-md) var(--arq-radius-md) 0;
+  padding: var(--arq-space-md) var(--arq-space-base);
 }

@@ -6,7 +6,7 @@ import specification from '../../components/filter-chips/filter-chips.spec.md?ra
 import { docsDe } from '../fiche';
 
 const meta = {
-  title: 'Générique/FilterChips',
+  title: 'Composants/Générique/FilterChips',
   component: FilterChips,
   parameters: docsDe(specification),
 } satisfies Meta<typeof FilterChips>;

@@ -5,7 +5,7 @@ import specification from '../../components/badge/badge.spec.md?raw';
 import { choix, docsDe } from '../fiche';
 
 const meta = {
-  title: 'Générique/Badge',
+  title: 'Composants/Générique/Badge',
   component: Badge,
   parameters: docsDe(specification),
   args: { children: 'Résolu' },

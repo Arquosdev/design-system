@@ -1,0 +1,86 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Prise en main/Installer" />
+
+# Installer
+
+Le design system se consomme depuis GitHub, sans registre intermédiaire.
+
+```json
+{
+  "dependencies": {
+    "@arquos/design-system": "github:Arquosdev/design-system#v1.26.0"
+  }
+}
+```
+
+**Épingler un tag, jamais `#main`.** Un tag dit exactement ce qu'on reçoit ; une
+branche change sous les pieds. Les tags `v1.15.0` et `v1.18.0` sont à éviter :
+ils pointent à côté de `main`, séquelle de deux collisions de version.
+
+## Les tokens
+
+```ts
+import { colors, spacing, radius, typography } from '@arquos/design-system';
+```
+
+Ce point d'entrée ne dépend pas de React : il sert le web comme React Native.
+C'est aussi là que vit la **logique métier** partagée — le vocabulaire et les
+règles, sans une ligne de rendu.
+
+## Les composants web
+
+Trois lignes de CSS, puis les imports.
+
+```css
+@import 'tailwindcss';
+@import '@arquos/design-system/tokens.tailwind.css';
+@source '../../node_modules/@arquos/design-system';
+```
+
+```tsx
+import { Button, FieldRow, EmptyState } from '@arquos/design-system/web';
+```
+
+La troisième ligne CSS n'est pas facultative : sans elle, Tailwind ne cherche
+pas les classes dans le paquet et la page sort nue.
+
+**Les icônes demandent un paquet de plus**, selon la plateforme :
+
+```bash
+npm install @phosphor-icons/react   # web
+npm install phosphor-react-native   # mobile
+```
+
+## En développement local
+
+Si l'app référence le design system en `file:../design-system`, ajouter
+`install-links=true` au `.npmrc` de l'app. Sinon npm crée un lien symbolique, et
+Turbopack refuse un import CSS qui sort de la racine du projet.
+
+Après une mise à jour du design system, **vider `.next`** : Turbopack garde son
+balayage en cache, et les classes Tailwind nouvelles manquent en silence.
+
+## Sans Tailwind
+
+```html
+<link rel="stylesheet" href="/chemin/vers/tokens.css">
+```
+
+```css
+.carte {
+  background: var(--arq-color-bg);
+  padding: var(--arq-space-base);
+  border-radius: var(--arq-radius-md);
+}
+```
+
+C'est la voie employée par les encarts HTML embarqués dans Bubble.
+
+## Pour un agent
+
+`dist/catalog.json` répond à « existe-t-il déjà un composant pour ça ? » en un
+seul fichier. `dist/tokens.json` porte les valeurs **avec leur description** —
+la lire plutôt que de deviner d'après le nom.
+
+Et `CLAUDE.md` à la racine dit les règles : ce qu'on ne fait jamais, et pourquoi.
