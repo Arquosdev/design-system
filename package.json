@@ -1,6 +1,6 @@
 {
   "name": "@arquos/design-system",
-  "version": "1.23.0",
+  "version": "1.24.0",
   "description": "Un design system pensé pour les agents — les règles d'usage vivent dans le dépôt, pas dans les têtes. Tokens et composants partagés par les apps mobile et web d'Arquos.",
   "private": true,
   "main": "src/index.ts",
@@ -30,7 +30,8 @@
     "vitrine": "storybook build -o dist-vitrine",
     "contraste": "node scripts/check-contraste.mjs",
     "types": "tsc --noEmit",
-    "version-libre": "node scripts/check-version.mjs"
+    "version-libre": "node scripts/check-version.mjs",
+    "contraste-rendu": "node scripts/check-contraste-rendu.mjs"
   },
   "repository": {
     "type": "git",
@@ -61,6 +62,8 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",
     "@vitejs/plugin-react": "^6.1.0",
+    "axe-core": "^4.13.0",
+    "playwright": "^1.62.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "storybook": "^10.5.10",

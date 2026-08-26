@@ -83,6 +83,7 @@ Les tokens s'écrivent **une fois** en TypeScript (`src/`) et se lisent dans **q
 | `build-catalog --check` | une plateforme déclarée sans implémentation, un catalogue périmé |
 | `check-contraste` | une paire texte/fond sous le seuil de lisibilité, un composant qui tape dans la palette brute |
 | `check-version` | un numéro de version déjà publié sous un tag |
+| `check-contraste-rendu` | un texte illisible **au rendu** — il mesure le fond réellement peint, en remontant l'arbre, et voit donc ce que le contrôle statique ne peut pas voir |
 | `tsc --noEmit` | une erreur de typage — la CI ne le faisait pas avant août 2026 |
 
 Le troisième est arrivé le 25/08/2026, après qu'un audit a trouvé le badge
@@ -206,6 +207,7 @@ dans `src/icons.ts` et visibles en un écran dans la vitrine
 ## État
 
 - **v1.13.0** (août 2026) — **Phosphor devient le jeu d'icônes officiel.** Composant `Icon`, 35 rôles dans `src/icons.ts`, tokens `iconSize` et `iconWeight`. Le web ne recopie plus de tracés à la main.
+- **v1.24.0** (août 2026) — **Le contraste se mesure au rendu**, dans un vrai navigateur, sur les 97 stories. Il a trouvé 92 textes illisibles que le contrôle statique ne pouvait pas voir — dont `colors.success`, qui échouait dans ses deux rôles.
 - **v1.23.0** (août 2026) — **Tokens de mouvement et d'empilement.** Panneau, palette, menu et infobulle étaient tous à `z-50` : un menu ouvert dans un panneau passait devant ou derrière au hasard du DOM.
 - **v1.22.0** (août 2026) — `MIGRATION.md` : le registre de ce qu'une montée de version coûtera aux apps, tenu au fil de l'eau.
 - **v1.21.0** (août 2026) — **`textSubtle` n'est plus une couleur de texte** (3,14 sur blanc) : 21 usages repris. Et le design system cesse de dessiner ses icônes à la main — cinq tracés passent par le vocabulaire Phosphor.

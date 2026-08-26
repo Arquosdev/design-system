@@ -174,6 +174,21 @@ En revanche, **toute PR qui change une règle ou une API s'inscrit dans
 d'endroits sont concernés. Sans ce registre, la bascule groupée se fera à
 l'aveugle.
 
+## Deux contrôles de contraste, et pourquoi
+
+`npm run contraste` lit les **classes** : rapide, sans navigateur, il tourne à
+chaque `npm run check`. Mais il n'apparie que ce qui vit dans la même chaîne de
+classes.
+
+`npm run contraste-rendu` mesure le **rendu** : il ouvre chaque story dans
+Chrome et y lance la règle `color-contrast` d'axe, qui remonte l'arbre pour
+trouver le fond réellement peint. Il exige `npm run vitrine` d'abord.
+
+Le second voit ce que le premier ne peut pas voir : un fond sur le parent et une
+couleur sur l'enfant, une opacité qui mélange les teintes, une couleur posée par
+une animation. **Il a trouvé 92 textes illisibles le jour où il a été écrit**,
+dont `colors.success` qui échouait dans ses deux rôles à 3,1 pour 1.
+
 ## Regarder le design system
 
 La vitrine Storybook publie chaque composant avec **sa fiche**, et les tokens

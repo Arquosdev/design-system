@@ -73,7 +73,7 @@ export const Couleurs: Story = {
               />
               <div className="min-w-0">
                 <div className="text-small font-semibold text-text">{nom}</div>
-                <div className="text-caption tabular-nums text-text-subtle">{t.$value}</div>
+                <div className="text-caption tabular-nums text-text-muted">{t.$value}</div>
                 {t.$description ? (
                   <p className="mt-xxs text-pretty text-caption text-text-muted">{t.$description}</p>
                 ) : null}
@@ -121,7 +121,7 @@ export const Typographie: Story = {
             const preset = t as unknown as Record<string, string>;
             return (
               <div key={nom} className="border-b border-border-soft pb-base last:border-b-0">
-                <div className="text-caption tabular-nums text-text-subtle">
+                <div className="text-caption tabular-nums text-text-muted">
                   {nom} — {preset.fontSize ?? ''} / {preset.fontWeight ?? ''}
                 </div>
                 <div
@@ -156,7 +156,7 @@ export const EspacementsEtArrondis: Story = {
           {groupe('spacing').map(([nom, t]) => (
             <div key={nom} className="flex items-center gap-md">
               <span className="w-[64px] shrink-0 text-small text-text-muted">{nom}</span>
-              <span className="w-[64px] shrink-0 text-caption tabular-nums text-text-subtle">
+              <span className="w-[64px] shrink-0 text-caption tabular-nums text-text-muted">
                 {t.$value}
               </span>
               <span className="h-[14px] rounded-sm bg-primary" style={{ width: t.$value }} />
@@ -177,7 +177,7 @@ export const EspacementsEtArrondis: Story = {
                 style={{ borderRadius: t.$value }}
               />
               <span className="text-caption text-text-muted">{nom}</span>
-              <span className="text-caption tabular-nums text-text-subtle">{t.$value}</span>
+              <span className="text-caption tabular-nums text-text-muted">{t.$value}</span>
             </div>
           ))}
         </div>

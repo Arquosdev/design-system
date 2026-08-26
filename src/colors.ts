@@ -98,7 +98,17 @@ export const colors = {
   // pas quelle couleur de texte reste lisible, et c'est ainsi que le badge
   // « Conforme » a vécu à 2,77 pour 1 — sous le seuil — sans que personne le
   // voie. `scripts/check-contraste.mjs` vérifie désormais chaque paire.
-  success: palette.green[600],
+  /**
+   * Le vert de la réussite — **vert 700, pas 600.**
+   *
+   * Le 600 (#17A679) échouait dans ses deux rôles à 3,1 pour 1 : illisible en
+   * texte sur blanc, et illisible sous du texte blanc. Un token qui ne tient
+   * dans aucun de ses emplois n'est pas un token.
+   *
+   * Le 700 donne 5,19 dans les deux sens, ce qui le met au niveau de `danger`
+   * (5,45) — les deux états ont enfin le même poids.
+   */
+  success: palette.green[700],
   successBg: palette.green[100],
   onSuccessBg: palette.green[700], // 4,63 sur successBg
   danger: palette.red[500],

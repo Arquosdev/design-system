@@ -52,7 +52,7 @@ export const Largeur: Story = {
   render: () => (
     <div className="flex max-w-[420px] flex-col gap-md">
       <div>
-        <div className="mb-xxs text-caption text-text-subtle">Au contenu (défaut)</div>
+        <div className="mb-xxs text-caption text-text-muted">Au contenu (défaut)</div>
         <Select defaultValue="travaux">
           <SelectTrigger aria-label="Action">
             <SelectValue />
@@ -64,7 +64,7 @@ export const Largeur: Story = {
         </Select>
       </div>
       <div>
-        <div className="mb-xxs text-caption text-text-subtle">Pleine largeur</div>
+        <div className="mb-xxs text-caption text-text-muted">Pleine largeur</div>
         <Select defaultValue="travaux">
           <SelectTrigger aria-label="Action" className="w-full">
             <SelectValue />

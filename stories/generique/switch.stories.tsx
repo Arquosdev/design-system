@@ -25,7 +25,7 @@ export const DansUneListeDeReglages: Story = {
     <div className="flex w-[340px] flex-col gap-md">
       <Label className="justify-between font-normal">Afficher les champs vides<Switch /></Label>
       <Label className="justify-between font-normal">Mode expert<Switch defaultChecked /></Label>
-      <Label className="justify-between font-normal text-text-subtle">
+      <Label className="justify-between font-normal text-text-muted">
         Synchronisation automatique<Switch disabled />
       </Label>
     </div>
