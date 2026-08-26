@@ -27,6 +27,7 @@ import { shadow } from '../src/elevation.ts';
 import { iconSize, iconWeight, icones } from '../src/icons.ts';
 import { duration, easing } from '../src/motion.ts';
 import { layers } from '../src/layers.ts';
+import { borderWidth } from '../src/border.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
@@ -90,6 +91,10 @@ const DESCRIPTIONS = {
     rapide: 'Un retour immédiat — survol, focus, opacité.',
     normal: 'Une bascule visible — un chevron qui pivote, un onglet qui glisse.',
     lent: 'Une surface qui entre ou sort — panneau, modale, feuille.',
+  },
+  borderWidth: {
+    fin: 'Le trait courant — cartes, champs, séparateurs, tableaux.',
+    epais: "Ce qui est en cours d'édition ou retenu. Un demi-pixel suffit à le distinguer sans décaler la mise en page.",
   },
   layers: {
     base: 'Le contenu de la page.',
@@ -168,6 +173,11 @@ function buildCss() {
     lines.push(`  --${NS}-duration-${kebab(key)}: ${value}ms;`);
   }
   lines.push(`  --${NS}-easing: ${easing};`);
+
+  section('Bordures');
+  for (const [key, value] of Object.entries(borderWidth)) {
+    lines.push(`  --${NS}-border-${kebab(key)}: ${value}px;`);
+  }
 
   section('Empilement');
   for (const [key, value] of Object.entries(layers)) {
@@ -282,6 +292,11 @@ function buildJson() {
       $type: 'cubicBezier',
       $value: easing,
       $description: 'La courbe par défaut — sortie douce.',
+    },
+    borderWidth: {
+      $description:
+        "Épaisseurs de bordure. Deux valeurs, parce que le produit n'en emploie que deux. L'arrondi vit à part dans `radius`.",
+      ...group(borderWidth, 'dimension', 'px', DESCRIPTIONS.borderWidth),
     },
     layers: {
       $description:
@@ -409,6 +424,9 @@ function buildTailwind() {
     push(`--${NS}-duration-${kebab(key)}`, `${value}ms`);
   }
   push('--ease-arquos', easing);
+  for (const [key, value] of Object.entries(borderWidth)) {
+    push(`--${NS}-border-${kebab(key)}`, `${value}px`);
+  }
   for (const [key, value] of Object.entries(layers)) {
     push(`--${NS}-layer-${kebab(key)}`, String(value));
   }

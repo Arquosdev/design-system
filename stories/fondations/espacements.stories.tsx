@@ -13,7 +13,7 @@ export const EspacementsEtArrondis: Story = {
   name: 'Espacements et arrondis',
   render: () => (
     <Fondation
-      titre="Espacements et arrondis"
+      titre="Espacements, bordures et arrondis"
       quoi="Une échelle base 4 pour les distances, une échelle calibrée sur l'usage pour les angles. Ajouter une valeur intermédiaire « parce qu'il manque 2 px » est le premier pas du drift."
     >
       <Section
@@ -34,6 +34,24 @@ export const EspacementsEtArrondis: Story = {
       </Section>
 
       <Section
+        titre="Bordures"
+        quoi="Deux épaisseurs, parce que le produit n'en emploie que deux. `epais` dit qu'un champ est en cours de saisie — un demi-pixel suffit à le distinguer sans décaler la mise en page."
+      >
+        <div className="flex flex-wrap gap-lg">
+          {groupe('borderWidth').map(([nom, t]) => (
+            <div key={nom} className="flex flex-col items-center gap-xs">
+              <span
+                className="block size-[56px] rounded-md border-primary bg-bg"
+                style={{ borderStyle: 'solid', borderWidth: t.$value }}
+              />
+              <span className="text-caption text-text-muted">{nom}</span>
+              <span className="text-caption tabular-nums text-text-muted">{t.$value}</span>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section
         titre="Arrondis"
         quoi="`md` (8) est la référence : cartes, champs, boutons. `control` (5) vient de l'identité de marque. `full` uniquement sur un élément carré — pastille, avatar."
       >
@@ -41,7 +59,7 @@ export const EspacementsEtArrondis: Story = {
           {groupe('radius').map(([nom, t]) => (
             <div key={nom} className="flex flex-col items-center gap-xs">
               <span
-                className="size-[64px] border-[1.5px] border-primary bg-info-bg"
+                className="size-[64px] border-(length:--arq-border-epais) border-primary bg-info-bg"
                 style={{ borderRadius: t.$value }}
               />
               <span className="text-caption text-text-muted">{nom}</span>

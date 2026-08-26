@@ -21,6 +21,7 @@ export { radius, type RadiusToken } from './radius';
 export { shadow, shadowNative, type ShadowToken } from './elevation';
 export { duration, easing, type DurationToken } from './motion';
 export { layers, type LayerToken } from './layers';
+export { borderWidth, type BorderWidthToken } from './border';
 
 // --- Logique métier partagée -------------------------------------------
 // Ce que les composants métier savent de l'ascenseur, sans une ligne de React :
@@ -70,6 +71,7 @@ import { radius } from './radius';
 import { shadow, shadowNative } from './elevation';
 import { duration, easing } from './motion';
 import { layers } from './layers';
+import { borderWidth } from './border';
 import { iconSize, iconWeight, icones } from './icons';
 
 export const tokens = {
@@ -90,6 +92,7 @@ export const tokens = {
   duration,
   easing,
   layers,
+  borderWidth,
   iconSize,
   iconWeight,
   icones,

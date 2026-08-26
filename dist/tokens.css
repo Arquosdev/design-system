@@ -132,6 +132,10 @@
   --arq-duration-lent: 300ms;
   --arq-easing: cubic-bezier(0.2, 0, 0, 1);
 
+  /* Bordures */
+  --arq-border-fin: 1px;
+  --arq-border-epais: 1.5px;
+
   /* Empilement */
   --arq-layer-base: 0;
   --arq-layer-panneau: 50;

@@ -83,6 +83,10 @@ illisible en texte sur blanc, illisible sous du texte blanc. Les apps n'ont rien
 à faire — le vert s'assombrit tout seul — mais il faut le savoir en regardant
 l'écran après la bascule.
 
+**9. Les épaisseurs de bordure sont des tokens.**
+`border-(length:--arq-border-epais)`, pas `border-[1.5px]`. La fiche l'écrit à la
+main six fois.
+
 ## Un piège connu, à traiter pendant la bascule
 
 **Les survols perdent leur cran.** Les rampes brutes permettaient de monter d'un

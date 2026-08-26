@@ -29,6 +29,7 @@ Si le token ou le composant manque : ne pas l'inventer dans l'app, l'ajouter ici
 | Icône | un **rôle** (`<Icon role="supprimer" />`), jamais un dessin |
 | Empilement | `z-(--arq-layer-flottant)`, jamais `z-50` |
 | Durée | `duration-(--arq-duration-normal)`, jamais `duration-200` |
+| Bordure | `border-(length:--arq-border-epais)`, jamais `border-[1.5px]` |
 
 Chaque token porte une description dans `dist/tokens.json` : la lire plutôt que
 deviner d'après le nom. La page **Fondations → Tous les tokens** de la vitrine
