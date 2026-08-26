@@ -31,7 +31,7 @@ export const SheetContent = React.forwardRef<
   <SheetPrimitive.Portal>
     <SheetPrimitive.Overlay
       className={cn(
-        'fixed inset-0 z-50 bg-brand/35',
+        'fixed inset-0 z-(--arq-layer-panneau) bg-brand/35',
         'data-[state=open]:animate-voile-entree data-[state=closed]:animate-voile-sortie',
       )}
     />
@@ -39,7 +39,7 @@ export const SheetContent = React.forwardRef<
       ref={ref}
       data-side={side}
       className={cn(
-        'fixed inset-y-0 right-0 z-50 flex h-full w-[460px] max-w-[calc(100vw-32px)] flex-col',
+        'fixed inset-y-0 right-0 z-(--arq-layer-panneau) flex h-full w-[460px] max-w-[calc(100vw-32px)] flex-col',
         'border-l border-border-soft bg-bg shadow-pop outline-none',
         'data-[state=open]:animate-tiroir-entree data-[state=closed]:animate-tiroir-sortie',
         className,

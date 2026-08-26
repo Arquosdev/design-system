@@ -65,7 +65,7 @@ export function NavList({
           <Icon
             role="deplier"
             size="xs"
-            className={cn('transition-transform duration-200', deplie ? 'rotate-0' : '-rotate-90')}
+            className={cn('transition-transform duration-(--arq-duration-normal)', deplie ? 'rotate-0' : '-rotate-90')}
           />
           {intitule}
           <span className="shrink-0 tabular-nums text-small">{items.length}</span>

@@ -28,7 +28,7 @@ export const PopoverContent = React.forwardRef<
       align={align}
       sideOffset={sideOffset}
       className={cn(
-        'z-50 rounded-md border border-border-soft bg-bg p-base text-text shadow-pop outline-none',
+        'z-(--arq-layer-flottant) rounded-md border border-border-soft bg-bg p-base text-text shadow-pop outline-none',
         'data-[state=open]:animate-voile-entree data-[state=closed]:animate-voile-sortie',
         className,
       )}

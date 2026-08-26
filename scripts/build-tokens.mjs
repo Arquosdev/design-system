@@ -25,6 +25,8 @@ import { spacing } from '../src/spacing.ts';
 import { radius } from '../src/radius.ts';
 import { shadow } from '../src/elevation.ts';
 import { iconSize, iconWeight, icones } from '../src/icons.ts';
+import { duration, easing } from '../src/motion.ts';
+import { layers } from '../src/layers.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
@@ -83,6 +85,18 @@ const DESCRIPTIONS = {
     '3xl': 'Séparation large.',
     '4xl': 'Séparation très large.',
     '5xl': 'Respiration maximale — écrans vides, écrans de démarrage.',
+  },
+  duration: {
+    rapide: 'Un retour immédiat — survol, focus, opacité.',
+    normal: 'Une bascule visible — un chevron qui pivote, un onglet qui glisse.',
+    lent: 'Une surface qui entre ou sort — panneau, modale, feuille.',
+  },
+  layers: {
+    base: 'Le contenu de la page.',
+    panneau: "Une surface qui recouvre une partie de l'écran et reste manipulable. Passe SOUS `flottant`, parce qu'elle peut en contenir.",
+    flottant: "Menu, sélecteur, infobulle, popover — passe au-dessus de la surface qui l'a ouvert.",
+    pleinEcran: "Ce qui prend l'écran entier et suspend le reste — visionneuse, palette de recherche.",
+    notification: 'Ce qui doit rester visible quoi qu’il arrive.',
   },
   iconSize: {
     xs: 'Tableaux denses, texte courant.',
@@ -147,6 +161,17 @@ function buildCss() {
   section('Icônes');
   for (const [key, value] of Object.entries(iconSize)) {
     lines.push(`  --${NS}-icon-${kebab(key)}: ${value}px;`);
+  }
+
+  section('Mouvement');
+  for (const [key, value] of Object.entries(duration)) {
+    lines.push(`  --${NS}-duration-${kebab(key)}: ${value}ms;`);
+  }
+  lines.push(`  --${NS}-easing: ${easing};`);
+
+  section('Empilement');
+  for (const [key, value] of Object.entries(layers)) {
+    lines.push(`  --${NS}-layer-${kebab(key)}: ${value};`);
   }
 
   section('Élévation');
@@ -248,7 +273,19 @@ function buildJson() {
       $description: 'Arrondis. `md` (8px) est la référence.',
       ...group(radius, 'dimension', 'px', DESCRIPTIONS.radius),
     },
-    iconSize: {
+    duration: {
+    rapide: 'Un retour immédiat — survol, focus, opacité.',
+    normal: 'Une bascule visible — un chevron qui pivote, un onglet qui glisse.',
+    lent: 'Une surface qui entre ou sort — panneau, modale, feuille.',
+  },
+  layers: {
+    base: 'Le contenu de la page.',
+    panneau: "Une surface qui recouvre une partie de l'écran et reste manipulable. Passe SOUS `flottant`, parce qu'elle peut en contenir.",
+    flottant: "Menu, sélecteur, infobulle, popover — passe au-dessus de la surface qui l'a ouvert.",
+    pleinEcran: "Ce qui prend l'écran entier et suspend le reste — visionneuse, palette de recherche.",
+    notification: 'Ce qui doit rester visible quoi qu’il arrive.',
+  },
+  iconSize: {
       $description:
         "Tailles d'icône. `md` (18px) est le défaut. Le jeu d'icônes officiel est Phosphor : `@phosphor-icons/react` côté web, `phosphor-react-native` côté mobile.",
       ...group(iconSize, 'dimension', 'px', DESCRIPTIONS.iconSize),
@@ -363,6 +400,14 @@ function buildTailwind() {
   theme.push('', '  /* Élévation */');
   for (const [key, value] of Object.entries(iconSize)) {
     push(`--size-icon-${kebab(key)}`, `${value}px`);
+  }
+
+  for (const [key, value] of Object.entries(duration)) {
+    push(`--${NS}-duration-${kebab(key)}`, `${value}ms`);
+  }
+  push('--ease-arquos', easing);
+  for (const [key, value] of Object.entries(layers)) {
+    push(`--${NS}-layer-${kebab(key)}`, String(value));
   }
 
   for (const [key, value] of Object.entries(shadow)) {

@@ -69,6 +69,13 @@ du dessin.
 
 **5. Jamais une valeur de design en dur.** Ni hex, ni pixel, ni rayon.
 
+**6. L'empilement passe par un niveau nommé.** `z-(--arq-layer-flottant)`, pas
+`z-50`. Un nombre écrit à la main ne dit pas au-dessus de quoi il doit passer, et
+c'est ainsi que quatre composants se sont retrouvés au même niveau.
+
+**7. Les durées de transition sont des tokens.**
+`duration-(--arq-duration-normal)`, pas `duration-200`.
+
 ## Un piège connu, à traiter pendant la bascule
 
 **Les survols perdent leur cran.** Les rampes brutes permettaient de monter d'un

@@ -50,11 +50,11 @@ export function CommandDialog({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-brand/35" />
+        <Dialog.Overlay className="fixed inset-0 z-(--arq-layer-plein-ecran) bg-brand/35" />
         <Dialog.Content
           aria-describedby={undefined}
           className={cn(
-            'fixed top-[96px] left-1/2 z-50 w-[660px] max-w-[calc(100vw-32px)] -translate-x-1/2',
+            'fixed top-[96px] left-1/2 z-(--arq-layer-plein-ecran) w-[660px] max-w-[calc(100vw-32px)] -translate-x-1/2',
             'overflow-hidden rounded-lg bg-bg shadow-pop outline-none',
             className,
           )}

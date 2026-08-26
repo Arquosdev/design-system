@@ -97,7 +97,7 @@ export function ToastProvider({ children }: ToastProviderProps) {
               'pointer-events-auto flex max-w-[min(640px,calc(100vw-48px))] items-start gap-md',
               'rounded-control bg-text py-sm pr-sm pl-base text-small font-medium text-text-on-dark shadow-pop',
               'data-[state=closed]:opacity-0 data-[swipe=end]:opacity-0',
-              'transition-opacity duration-150',
+              'transition-opacity duration-(--arq-duration-rapide)',
             )}
           >
             <ToastPrimitive.Title className="text-pretty">{a.message}</ToastPrimitive.Title>
@@ -118,7 +118,7 @@ export function ToastProvider({ children }: ToastProviderProps) {
             une bande invisible au bas de l'écran avalerait les clics. */}
         <ToastPrimitive.Viewport
           className={cn(
-            'pointer-events-none fixed bottom-lg left-1/2 z-[70] flex -translate-x-1/2',
+            'pointer-events-none fixed bottom-lg left-1/2 z-(--arq-layer-notification) flex -translate-x-1/2',
             'flex-col-reverse items-center gap-sm outline-none',
           )}
         />

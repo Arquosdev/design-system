@@ -68,7 +68,7 @@ export const SelectContent = React.forwardRef<
       ref={ref}
       position={position}
       className={cn(
-        'relative z-50 max-h-[320px] min-w-[8rem] overflow-hidden rounded-md',
+        'relative z-(--arq-layer-flottant) max-h-[320px] min-w-[8rem] overflow-hidden rounded-md',
         'border border-border-soft bg-bg text-text shadow-pop',
         'data-[state=open]:animate-voile-entree data-[state=closed]:animate-voile-sortie',
         position === 'popper' && 'data-[side=bottom]:translate-y-xs data-[side=top]:-translate-y-xs',
