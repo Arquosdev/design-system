@@ -98,6 +98,25 @@ existent : `.arq-text-body`, `.arq-text-title`…
 **Ne jamais ajouter de nouvelle taille de police.** L'échelle a été calibrée sur
 l'usage réel ; toute taille supplémentaire est du drift.
 
+**Empilement** — jamais un `z-50` écrit à la main : il ne dit pas au-dessus de
+quoi il doit passer. Prendre un niveau nommé, `z-(--arq-layer-<nom>)` :
+
+| Niveau | Pour |
+| --- | --- |
+| `panneau` (50) | une surface qui recouvre une partie de l'écran et reste manipulable |
+| `flottant` (60) | menu, sélecteur, infobulle — **au-dessus de la surface qui l'a ouvert** |
+| `plein-ecran` (70) | visionneuse, palette de recherche |
+| `notification` (80) | ce qui doit rester visible quoi qu'il arrive |
+
+**La règle qui tient l'échelle** : toute surface capable de contenir un menu se
+place SOUS `flottant`. C'est ce qui manquait le 25/08/2026, quand panneau,
+palette, menu et infobulle étaient tous à `z-50` : un menu ouvert dans le panneau
+« Compléter » passait devant ou derrière selon l'ordre du DOM.
+
+**Mouvement** — `duration-(--arq-duration-rapide|normal|lent)` : 150 pour un
+retour immédiat, 200 pour une bascule visible, 300 pour une surface qui entre.
+Au-delà de 300 ms la transition se remarque au lieu d'accompagner.
+
 **Icônes** — le jeu officiel est **Phosphor**. Ne jamais dessiner une icône à la
 main, ne jamais importer Phosphor directement dans une app : passer par le
 **rôle**.

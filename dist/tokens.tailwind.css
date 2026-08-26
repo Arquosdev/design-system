@@ -164,6 +164,15 @@
   --size-icon-md: 18px;
   --size-icon-lg: 22px;
   --size-icon-xl: 28px;
+  --arq-duration-rapide: 150ms;
+  --arq-duration-normal: 200ms;
+  --arq-duration-lent: 300ms;
+  --ease-arquos: cubic-bezier(0.2, 0, 0, 1);
+  --arq-layer-base: 0;
+  --arq-layer-panneau: 50;
+  --arq-layer-flottant: 60;
+  --arq-layer-plein-ecran: 70;
+  --arq-layer-notification: 80;
   --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04);
   --shadow-pop: 0 8px 24px rgba(0, 41, 91, 0.12);
   --shadow-fab: 0 4px 12px rgba(13, 90, 183, 0.30);

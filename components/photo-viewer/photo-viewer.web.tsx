@@ -58,7 +58,7 @@ export function PhotoViewer({ photos, index, onIndex, open, onOpenChange }: Phot
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-[60] bg-brand/80" />
+        <Dialog.Overlay className="fixed inset-0 z-(--arq-layer-plein-ecran) bg-brand/80" />
         <Dialog.Content
           // Le titre porte le nom de la photo : c'est ce qu'un lecteur d'écran
           // doit entendre en arrivant, pas le mot « visionneuse ».
@@ -79,7 +79,7 @@ export function PhotoViewer({ photos, index, onIndex, open, onOpenChange }: Phot
             if (e.key === 'ArrowRight') deplacer(1);
           }}
           className={cn(
-            'fixed inset-0 z-[60] flex flex-col items-center justify-center gap-base p-lg',
+            'fixed inset-0 z-(--arq-layer-plein-ecran) flex flex-col items-center justify-center gap-base p-lg',
             'outline-none',
           )}
         >

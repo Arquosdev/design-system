@@ -51,7 +51,7 @@ export const AccordionTrigger = React.forwardRef<
       <Icon
         role="deplier"
         size="xs"
-        className="-rotate-90 text-text-muted transition-transform duration-200 group-data-[state=open]:rotate-0"
+        className="-rotate-90 text-text-muted transition-transform duration-(--arq-duration-normal) group-data-[state=open]:rotate-0"
       />
       <span className="text-small font-bold text-text">{titre}</span>
       {meta ? <span className="text-caption text-text-muted">{meta}</span> : null}

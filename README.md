@@ -61,6 +61,8 @@ Les tokens s'écrivent **une fois** en TypeScript (`src/`) et se lisent dans **q
 | `radius.ts` | Arrondis de `none` à `full` (pill) |
 | `elevation.ts` | `shadow` (CSS) et `shadowNative` (React Native) |
 | `icons.ts` | `iconSize`, `iconWeight`, et `icones` — le vocabulaire Phosphor |
+| `motion.ts` | `duration` et `easing` |
+| `layers.ts` | `layers` — l'ordre d'empilement, nommé par intention |
 
 | Généré (`dist/`) | Pour qui |
 |---|---|
@@ -204,6 +206,7 @@ dans `src/icons.ts` et visibles en un écran dans la vitrine
 ## État
 
 - **v1.13.0** (août 2026) — **Phosphor devient le jeu d'icônes officiel.** Composant `Icon`, 35 rôles dans `src/icons.ts`, tokens `iconSize` et `iconWeight`. Le web ne recopie plus de tracés à la main.
+- **v1.23.0** (août 2026) — **Tokens de mouvement et d'empilement.** Panneau, palette, menu et infobulle étaient tous à `z-50` : un menu ouvert dans un panneau passait devant ou derrière au hasard du DOM.
 - **v1.22.0** (août 2026) — `MIGRATION.md` : le registre de ce qu'une montée de version coûtera aux apps, tenu au fil de l'eau.
 - **v1.21.0** (août 2026) — **`textSubtle` n'est plus une couleur de texte** (3,14 sur blanc) : 21 usages repris. Et le design system cesse de dessiner ses icônes à la main — cinq tracés passent par le vocabulaire Phosphor.
 - **v1.20.0** (août 2026) — **Quatre composants remontés du mobile** : `Skeleton`, `EmptyState`, `Banner`, `Avatar`. Le premier mouvement de la convergence va du mobile vers le dépôt.
