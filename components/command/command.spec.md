@@ -7,6 +7,7 @@ mots_cles: [recherche, palette, commande, cmdk, raccourci, aller a, chercher]
 plateformes: [web]
 remplace:
   web: [public/fiche/index.html — palette ⌘K]
+  mobile: [components/SearchBar.tsx]
 ---
 
 # Command

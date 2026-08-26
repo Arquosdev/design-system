@@ -7,6 +7,7 @@ mots_cles: [filtre, puces, chips, section, zone, restreindre, categorie]
 plateformes: [web]
 remplace:
   web: [public/fiche/index.html — photoChips]
+  mobile: [components/ChoicePills.tsx]
 ---
 
 # FilterChips

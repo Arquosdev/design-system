@@ -56,6 +56,18 @@ Des exemples **copiables tels quels**, pas des fragments à compléter.
 <Button variant="primary" onClick={submit}>Soumettre le relevé</Button>
 ```
 
+## Logique partagée
+
+Si le composant porte du **métier** — un vocabulaire, un seuil, une règle de
+décision — cela vit dans `<nom>.logic.ts`, qui n'importe pas React. Le fichier
+de plateforme n'y garde que le rendu.
+
+Ce qui va dans la logique : les mots (« Non renseigné »), les seuils, les règles.
+Ce qui n'y va pas : les classes et les styles — ce sont des tokens.
+
+C'est ce partage qui empêche « Non renseigné » de devenir « — » sur l'autre
+plateforme. Voir `CONVERGENCE.md`.
+
 ## Anatomie
 
 Les tokens que le composant consomme, pour que sa modification reste prévisible :

@@ -186,6 +186,9 @@
       "remplace": {
         "web": [
           "public/fiche/index.html — les menus de marque et de modèle"
+        ],
+        "mobile": [
+          "components/EntityPickerField.tsx"
         ]
       },
       "dossier": "components/combobox",
@@ -214,6 +217,9 @@
       "remplace": {
         "web": [
           "public/fiche/index.html — palette ⌘K"
+        ],
+        "mobile": [
+          "components/SearchBar.tsx"
         ]
       },
       "dossier": "components/command",
@@ -278,13 +284,15 @@
           "markup recopié lignes 402/487/643/950"
         ],
         "mobile": [
-          "components/full-form/FormFieldRenderer.tsx"
+          "components/full-form/FormFieldRenderer.tsx",
+          "components/OptionRow.tsx"
         ]
       },
       "dossier": "components/field-row",
       "fiche": "components/field-row/field-row.spec.md",
       "fichiers": {
-        "web": "components/field-row/field-row.web.tsx"
+        "web": "components/field-row/field-row.web.tsx",
+        "logique": "components/field-row/field-row.logic.ts"
       }
     },
     {
@@ -307,6 +315,9 @@
       "remplace": {
         "web": [
           "public/fiche/index.html — photoChips"
+        ],
+        "mobile": [
+          "components/ChoicePills.tsx"
         ]
       },
       "dossier": "components/filter-chips",
@@ -424,7 +435,12 @@
       ],
       "remplace": {
         "web": [],
-        "mobile": []
+        "mobile": [
+          "components/Input.tsx",
+          "components/TextInputField.tsx",
+          "components/BufferedTextInputField.tsx",
+          "components/PhoneInputField.tsx"
+        ]
       },
       "dossier": "components/input",
       "fiche": "components/input/input.spec.md",
@@ -450,7 +466,9 @@
       ],
       "remplace": {
         "web": [],
-        "mobile": []
+        "mobile": [
+          "components/FormField.tsx"
+        ]
       },
       "dossier": "components/label",
       "fiche": "components/label/label.spec.md",
@@ -517,7 +535,8 @@
       "dossier": "components/photo-tile",
       "fiche": "components/photo-tile/photo-tile.spec.md",
       "fichiers": {
-        "web": "components/photo-tile/photo-tile.web.tsx"
+        "web": "components/photo-tile/photo-tile.web.tsx",
+        "logique": "components/photo-tile/photo-tile.logic.ts"
       }
     },
     {
@@ -540,6 +559,9 @@
       "remplace": {
         "web": [
           "public/fiche/index.html — lightbox"
+        ],
+        "mobile": [
+          "components/ZoomImageOverlay.tsx"
         ]
       },
       "dossier": "components/photo-viewer",
@@ -648,6 +670,10 @@
       "remplace": {
         "web": [
           "public/fiche/index.html — les menus natifs des écarts et des champs à choix"
+        ],
+        "mobile": [
+          "components/CategoryPickerModal.tsx",
+          "components/BrandModelPicker.tsx"
         ]
       },
       "dossier": "components/select",
@@ -676,6 +702,11 @@
       "remplace": {
         "web": [
           "public/fiche/index.html — panneau « Compléter »"
+        ],
+        "mobile": [
+          "components/PhotoActionSheet.tsx",
+          "components/ResumeSurveySheet.tsx",
+          "components/ProductIdentificationSheet.tsx"
         ]
       },
       "dossier": "components/sheet",
@@ -734,7 +765,9 @@
       ],
       "remplace": {
         "web": [],
-        "mobile": []
+        "mobile": [
+          "components/ResolvedToggle.tsx"
+        ]
       },
       "dossier": "components/switch",
       "fiche": "components/switch/switch.spec.md",

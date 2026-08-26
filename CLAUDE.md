@@ -186,8 +186,19 @@ Chaque composant vit dans `components/<nom>/` :
 | Fichier | Contenu |
 | --- | --- |
 | `<nom>.spec.md` | La fiche : rôle, **quand ne pas l'utiliser**, props, états, accessibilité |
+| `<nom>.logic.ts` | Le métier sans React : vocabulaire, seuils, règles |
 | `<nom>.web.tsx` | Implémentation web |
 | `<nom>.native.tsx` | Implémentation React Native |
+
+**Le métier ne s'écrit pas dans une implémentation.** Un mot, un seuil, une règle
+de décision vont dans `<nom>.logic.ts` — sans React, donc lisibles et testables
+sans navigateur ni simulateur. C'est ce qui empêche « Non renseigné » de devenir
+« — » sur l'autre plateforme. Les classes et les styles restent, eux, dans le
+fichier de plateforme.
+
+Où l'on va exactement — ce qui converge, ce qui a le droit de diverger, et par
+quoi l'on commence — est écrit dans **`CONVERGENCE.md`**. Le lire avant de
+proposer un composant natif.
 
 **Lire la fiche avant l'implémentation.** Elle contient la section « Quand NE PAS
 l'utiliser », qui est ce qui évite les détournements — l'implémentation ne le dit pas.

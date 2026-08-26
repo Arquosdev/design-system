@@ -3,6 +3,7 @@
 import * as React from 'react';
 
 import { cn } from '../_lib/cn';
+import { NON_PRISE } from './photo-tile.logic';
 
 export interface PhotoTileProps {
   nom: string;
@@ -55,7 +56,7 @@ export function PhotoTile({ nom, url, essentielle = false, onOuvrir, className }
           : 'border-border-soft bg-bg-muted text-text-muted',
       )}
     >
-      Non prise
+      {NON_PRISE}
     </div>
   ) : (
     // eslint-disable-next-line @next/next/no-img-element -- photos servies par
