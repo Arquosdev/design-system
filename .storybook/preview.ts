@@ -30,6 +30,7 @@ const preview: Preview = {
             'Élévation',
             'Mouvement',
             'Empilement',
+            'Tous les tokens',
           ],
           'Composants',
           ['Générique', 'Métier'],

@@ -129,6 +129,7 @@ couleur posée par une animation. Il a trouvé 92 textes illisibles le jour de s
 
 ## État
 
+- **v1.30.0** (août 2026) — **Tous les tokens** : la table de référence, 90 entrées avec leurs trois façons de se nommer — TypeScript, classe Tailwind, variable CSS.
 - **v1.29.0** (août 2026) — Le logo et le favicon Arquos dans la vitrine. Pages « Principes » et « Règles d'écran » resserrées de 40 %, sections `Anatomie` réduites à ce que le code ne dit pas.
 - **v1.28.0** (août 2026) — Documentation resserrée : l'essentiel, sans les récits.
 - **v1.27.0** — La vitrine change de plan : Prise en main → Fondations → Composants → Patterns, sur le modèle d'Atlassian. Quatre fondations qui manquaient, une page « Installer », l'interface habillée aux tokens.

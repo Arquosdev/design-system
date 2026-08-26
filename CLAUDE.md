@@ -31,7 +31,9 @@ Si le token ou le composant manque : ne pas l'inventer dans l'app, l'ajouter ici
 | Durée | `duration-(--arq-duration-normal)`, jamais `duration-200` |
 
 Chaque token porte une description dans `dist/tokens.json` : la lire plutôt que
-deviner d'après le nom.
+deviner d'après le nom. La page **Fondations → Tous les tokens** de la vitrine
+donne les 90 entrées avec leurs trois écritures — TypeScript, classe Tailwind,
+variable CSS.
 
 **Trois pièges de couleur.**
 
