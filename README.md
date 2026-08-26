@@ -32,6 +32,11 @@ Le doute se tranche ainsi : *une application de comptabilité en voudrait-elle t
 
 Un développeur qui arrive y gagne exactement la même chose.
 
+> 🚚 **Monter une app ?** [`MIGRATION.md`](MIGRATION.md) — ce qui casse (rien à
+> ce jour), ce qu'il faut reprendre, et combien d'endroits sont concernés. Les
+> apps restent volontairement sur leur version le temps que la base se
+> construise ; la bascule se fera d'un coup.
+
 > 📱 **Web et mobile ?** [`CONVERGENCE.md`](CONVERGENCE.md) dit ce qui converge
 > (tokens, noms, logique métier), ce qui a le droit de diverger (interactions,
 > densité, navigation), et où l'on en est vraiment — **27 composants web, 0
@@ -199,6 +204,7 @@ dans `src/icons.ts` et visibles en un écran dans la vitrine
 ## État
 
 - **v1.13.0** (août 2026) — **Phosphor devient le jeu d'icônes officiel.** Composant `Icon`, 35 rôles dans `src/icons.ts`, tokens `iconSize` et `iconWeight`. Le web ne recopie plus de tracés à la main.
+- **v1.22.0** (août 2026) — `MIGRATION.md` : le registre de ce qu'une montée de version coûtera aux apps, tenu au fil de l'eau.
 - **v1.21.0** (août 2026) — **`textSubtle` n'est plus une couleur de texte** (3,14 sur blanc) : 21 usages repris. Et le design system cesse de dessiner ses icônes à la main — cinq tracés passent par le vocabulaire Phosphor.
 - **v1.20.0** (août 2026) — **Quatre composants remontés du mobile** : `Skeleton`, `EmptyState`, `Banner`, `Avatar`. Le premier mouvement de la convergence va du mobile vers le dépôt.
 - **v1.19.0** (août 2026) — la CI refuse un numéro de version déjà publié. Deux collisions de tag en une journée ont livré des versions amputées.
