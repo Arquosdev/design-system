@@ -15,22 +15,15 @@ remplace:
 
 ## Quand l'utiliser
 
-- Pendant qu'une zone charge, quand on **sait déjà la forme** de ce qui va
-  arriver : une liste de lignes, une carte, un rail de rubriques.
-- Sur un premier affichage, jamais sur un rafraîchissement : recharger une liste
-  déjà lue en la remplaçant par des blocs gris fait clignoter l'écran et perdre
-  le fil.
+- Pendant qu'une zone charge, quand on **sait déjà la forme** de ce qui va arriver : une liste de lignes, une carte, un rail de rubriques.
+- Sur un premier affichage, jamais sur un rafraîchissement : recharger une liste déjà lue en la remplaçant par des blocs gris fait clignoter l'écran et perdre le fil.
 
 ## Quand NE PAS l'utiliser
 
-- **Quand on ne sait pas ce qui arrive** → un simple texte d'attente. Un
-  squelette promet une forme ; s'il en arrive une autre, l'écran a menti.
-- **Pour un chargement de moins de 300 ms.** Le squelette apparaît et disparaît :
-  on voit un clignotement, pas une attente.
-- **Pour une zone vide après chargement** → `EmptyState`. Un squelette qui ne
-  se remplit jamais laisse croire à une panne.
-- **Pour une action en cours** (envoi, enregistrement) → l'état du bouton, ou un
-  `Toast`. Le squelette dit qu'on attend une **donnée**, pas un effet.
+- **Quand on ne sait pas ce qui arrive** → un simple texte d'attente. Un squelette promet une forme ; s'il en arrive une autre, l'écran a menti.
+- **Pour un chargement de moins de 300 ms.** Le squelette apparaît et disparaît : on voit un clignotement, pas une attente.
+- **Pour une zone vide après chargement** → `EmptyState`. Un squelette qui ne se remplit jamais laisse croire à une panne.
+- **Pour une action en cours** (envoi, enregistrement) → l'état du bouton, ou un `Toast`. Le squelette dit qu'on attend une **donnée**, pas un effet.
 
 ## Props
 
@@ -59,11 +52,6 @@ liste de relevés, fiche d'équipement, formulaire. Ils épousent une mise en pa
 qui n'appartient pas au design system : ils se composent sur place, à partir de
 cette brique.
 
-## Anatomie
-
-- Fond `colors.bgMuted` · Arrondi `radius.sm`, ou plein rond
-- Pulsation continue, sans à-coup
-
 ## États
 
 Aucun. Le squelette pulse tant qu'il est monté, et disparaît quand la donnée
@@ -71,9 +59,6 @@ arrive. Il n'a pas d'état d'échec : c'est `EmptyState` qui le dit.
 
 ## Accessibilité
 
-- Le bloc porte `aria-hidden` : un lecteur d'écran n'a rien à annoncer d'une
-  forme qui attend.
-- **C'est la zone qui charge qui doit porter `aria-busy="true"`**, pas le
-  squelette. Sans cela, un lecteur d'écran annonce un contenu vide sans dire
-  qu'il arrive.
+- Le bloc porte `aria-hidden` : un lecteur d'écran n'a rien à annoncer d'une forme qui attend.
+- **C'est la zone qui charge qui doit porter `aria-busy="true"`**, pas le squelette.
 - La pulsation suit `prefers-reduced-motion` via l'utilitaire `animate-pulse`.

@@ -19,19 +19,14 @@ lecteurs d'écran. Tout cela se réécrit mal à la main.
 
 ## Quand l'utiliser
 
-- **Agrandir une photo de relevé** depuis une vignette : la valeur qu'on vient
-  lire est souvent illisible en 4/3.
-- **Une série** qu'on parcourt : les photos d'une zone, les photos sources d'un
-  champ, les planches de schéma d'un composant.
+- **Agrandir une photo de relevé** depuis une vignette : la valeur qu'on vient lire est souvent illisible en 4/3.
+- **Une série** qu'on parcourt : les photos d'une zone, les photos sources d'un champ, les planches de schéma d'un composant.
 
 ## Quand NE PAS l'utiliser
 
-- **Pour une seule image décorative** → une balise `img`. La visionneuse suppose
-  qu'on vient examiner quelque chose.
-- **Pour un document** (PDF, rapport) → un aperçu dédié. Elle ne sait afficher
-  qu'une image.
-- **Pour choisir parmi des images** → une grille de `PhotoTile`. Ici on regarde,
-  on ne sélectionne pas.
+- **Pour une seule image décorative** → une balise `img`. La visionneuse suppose qu'on vient examiner quelque chose.
+- **Pour un document** (PDF, rapport) → un aperçu dédié. Elle ne sait afficher qu'une image.
+- **Pour choisir parmi des images** → une grille de `PhotoTile`. Ici on regarde, on ne sélectionne pas.
 
 ## Props
 
@@ -69,14 +64,8 @@ const [vue, setVue] = React.useState<{ photos: PhotoVue[]; i: number } | null>(n
 
 ## Anatomie
 
-- Voile : `colors.brand` à 80 %
-- Photo : `object-contain`, 76 vw de large au plus, et **toute la hauteur que
-  la légende lui laisse** — pas de plafond fixe. Arrondi `radius.md`. Les
-  photos de relevé sont verticales à 77 % : un plafond à 70 vh les laissait
-  petites entre deux bandes vides.
+- Photo : `object-contain`, 76 vw de large au plus, et **toute la hauteur que la légende lui laisse** — pas de plafond fixe. Arrondi `radius.md`. Les photos de relevé sont verticales à 77 % : un plafond à 70 vh les laissait petites entre deux bandes vides.
 - Flèches : 44 px, fond blanc à 15 % — la taille minimale d'une cible tactile
-- Légende : nom en `typography.subhead`, puis « 3/12 · Machinerie » en `small`
-- Croix : 36 px, en haut à droite
 
 ## États
 
@@ -89,7 +78,4 @@ const [vue, setVue] = React.useState<{ photos: PhotoVue[]; i: number } | null>(n
 
 - Les flèches ← et → parcourent la série.
 - Échap ferme, et le focus revient sur la vignette d'où l'on venait.
-- Le titre du dialogue est le nom de la photo, jamais « visionneuse » : c'est ce
-  qu'un lecteur d'écran doit annoncer en arrivant.
-- `object-contain` plutôt qu'un fond en `cover` : rien n'est rogné, et l'image
-  reste une vraie `img` avec son texte alternatif.
+- Le titre du dialogue est le nom de la photo, jamais « visionneuse » : c'est ce qu'un lecteur d'écran doit annoncer en arrivant.

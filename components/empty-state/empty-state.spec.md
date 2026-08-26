@@ -71,12 +71,7 @@ réécrite avec d'autres mots.
 
 ## Anatomie
 
-- Icône en `iconSize.xl`, graisse pleine, dans un carré de 60 px `bgMuted`,
-  arrondi `radius.md` — l'icône nue au milieu du vide se lit comme un défaut
-  d'affichage
-- Titre `typography.subhead` en `colors.text` · Conseil `typography.body` en
-  `colors.textMuted`, borné à 46 caractères de large
-- Le bouton, quand il y en a un, est un `Button` ordinaire
+- Icône en `iconSize.xl`, graisse pleine, dans un carré de 60 px `bgMuted`, arrondi `radius.md` — l'icône nue au milieu du vide se lit comme un défaut d'affichage
 
 ## États
 

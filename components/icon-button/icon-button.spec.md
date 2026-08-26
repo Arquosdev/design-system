@@ -53,13 +53,6 @@ import { IconButton } from '@arquos/design-system/web';
 Le libellé nomme **la cible**, pas seulement le geste : « Télécharger le carnet
 d'entretien » vaut mieux que « Télécharger », répété quinze fois dans une liste.
 
-## Anatomie
-
-- Carré : `sm` 30px, `md` 36px · Arrondi : `radius.control`
-- `outline` : fond `colors.bg`, bordure `colors.border`, icône `colors.textMuted`
-- `soft` : fond `palette.blue[50]`, icône `palette.blue[700]`
-- `ghost` : transparent, icône `colors.textMuted`
-
 ## États
 
 - **Survol** : fond `colors.bgMuted` (`outline`, `ghost`) ou opacité 0.8 (`soft`).

@@ -17,21 +17,15 @@ le ToggleGroup de shadcn.
 
 ## Quand l'utiliser
 
-- **Restreindre une longue liste** à une de ses parties : les 57 photos d'un
-  équipement, ramenées aux 18 de la cabine.
-- Quand les parties sont **connues et peu nombreuses** (deux à une dizaine) et
-  qu'on veut les voir toutes d'un coup d'œil.
+- **Restreindre une longue liste** à une de ses parties : les 57 photos d'un équipement, ramenées aux 18 de la cabine.
+- Quand les parties sont **connues et peu nombreuses** (deux à une dizaine) et qu'on veut les voir toutes d'un coup d'œil.
 
 ## Quand NE PAS l'utiliser
 
-- **Pour naviguer entre des écrans** → `SegmentedTabs` ou `NavList`. Un filtre
-  restreint ce qu'on regarde ; il ne change pas de page.
-- **Pour un choix qui écrit** (l'état d'un composant, l'action sur un écart) →
-  `FieldRow` en `kind="choice"`. Une puce filtre, elle n'enregistre rien.
-- **Au-delà d'une dizaine de valeurs** → un menu ou une recherche. Une barre qui
-  passe à la ligne trois fois ne se lit plus.
-- **Pour cumuler plusieurs filtres** : le groupe est à choix unique par
-  construction.
+- **Pour naviguer entre des écrans** → `SegmentedTabs` ou `NavList`. Un filtre restreint ce qu'on regarde ; il ne change pas de page.
+- **Pour un choix qui écrit** (l'état d'un composant, l'action sur un écart) → `FieldRow` en `kind="choice"`. Une puce filtre, elle n'enregistre rien.
+- **Au-delà d'une dizaine de valeurs** → un menu ou une recherche. Une barre qui passe à la ligne trois fois ne se lit plus.
+- **Pour cumuler plusieurs filtres** : le groupe est à choix unique par construction.
 
 ## Props
 
@@ -65,10 +59,7 @@ import { FilterChips } from '@arquos/design-system/web';
 
 ## Anatomie
 
-- Puce : 32 px de haut, arrondi `radius.control`, contour `colors.border`
-- Active : contour `colors.primary`, fond `palette.blue[50]`, texte
-  `palette.blue[700]` — le bleu doux d'une action secondaire chez Arquos
-- Compteur : même taille, graisse normale, opacité 70 %
+- Active : contour `colors.primary`, fond `palette.blue[50]`, texte `palette.blue[700]` — le bleu doux d'une action secondaire chez Arquos
 
 ## États
 
@@ -79,9 +70,6 @@ import { FilterChips } from '@arquos/design-system/web';
 
 ## Accessibilité
 
-- Radix rend la barre en `role="radiogroup"` et chaque puce en `role="radio"` :
-  un seul arrêt de tabulation pour le groupe, les flèches passent d'une puce à
-  l'autre. Sur huit puces, huit arrêts seraient huit obstacles avant le contenu.
+- Radix rend la barre en `role="radiogroup"` et chaque puce en `role="radio"` : un seul arrêt de tabulation pour le groupe, les flèches passent d'une puce à l'autre.
 - L'état actif est porté par `aria-checked`, pas par la seule couleur.
-- `label` nomme le groupe : sans lui, un lecteur d'écran annonce une rangée de
-  boutons sans dire ce qu'ils filtrent.
+- `label` nomme le groupe : sans lui, un lecteur d'écran annonce une rangée de boutons sans dire ce qu'ils filtrent.

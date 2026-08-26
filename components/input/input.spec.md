@@ -55,9 +55,7 @@ Toutes celles de `<input>`, rien n'est intercepté.
 ## Anatomie
 
 - Hauteur **36 px**, la même que `Button` : les deux s'alignent côte à côte.
-- Arrondi `radius.control` · bordure `colors.border` · texte `typography.small`
-- Focus : bordure `primary` + anneau de 2 px, la convention du dépôt — et non
-  l'anneau translucide de shadcn.
+- Focus : bordure `primary` + anneau de 2 px, la convention du dépôt — et non l'anneau translucide de shadcn.
 
 ## États
 

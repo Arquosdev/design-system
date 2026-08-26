@@ -25,12 +25,9 @@ de la fiche : c'est lui qui la rend modifiable sans formulaire séparé.
 
 ## Quand NE PAS l'utiliser
 
-- **Une donnée qui ne sera jamais corrigée** → un simple libellé/valeur. Rendre
-  éditable ce qui ne doit pas l'être invite à l'erreur.
-- **Saisir plusieurs champs d'un coup** → un formulaire avec un bouton unique.
-  L'édition en place sert à corriger, pas à remplir.
-- **Une valeur dérivée d'un calcul** → sans édition. Sur la fiche consolidée, une
-  écriture serait effacée à la prochaine consolidation.
+- **Une donnée qui ne sera jamais corrigée** → un simple libellé/valeur. Rendre éditable ce qui ne doit pas l'être invite à l'erreur.
+- **Saisir plusieurs champs d'un coup** → un formulaire avec un bouton unique. L'édition en place sert à corriger, pas à remplir.
+- **Une valeur dérivée d'un calcul** → sans édition. Sur la fiche consolidée, une écriture serait effacée à la prochaine consolidation.
 
 ## Props
 
@@ -64,12 +61,7 @@ de la fiche : c'est lui qui la rend modifiable sans formulaire séparé.
 
 ## Anatomie
 
-- Grille deux colonnes : libellé sur `190px` (`typography.small`,
-  `colors.textMuted`), gouttière `spacing.md`, puis la valeur.
-- Valeur éditable : **soulignement pointillé** en `colors.textSubtle` — le signal
-  « ceci se corrige d'un clic ».
-- Éditeur à choix : `Select` jusqu'à douze entrées, `Combobox` au-delà. Le seuil
-  vit dans `SEUIL_RECHERCHE`.
+- Valeur éditable : **soulignement pointillé** en `colors.textSubtle` — le signal « ceci se corrige d'un clic ».
 
 ## États
 
@@ -95,9 +87,6 @@ de la fiche : c'est lui qui la rend modifiable sans formulaire séparé.
 
 ## Accessibilité
 
-- La valeur cliquable porte `role="button"` et `tabIndex=0` ; Entrée et Espace
-  ouvrent la saisie.
+- La valeur cliquable porte `role="button"` et `tabIndex=0` ; Entrée et Espace ouvrent la saisie.
 - Chaque éditeur reçoit un `aria-label` repris du libellé.
-- Les deux pictos portent en `aria-label` ce qu'ils ouvrent, jamais « voir » : la
-  photo dit **où** la valeur a été lue, le schéma **comment** la mesure se prend.
-- Le retour d'enregistrement est un `role="status"`, pas une alerte.
+- Les deux pictos portent en `aria-label` ce qu'ils ouvrent, jamais « voir » : la photo dit **où** la valeur a été lue, le schéma **comment** la mesure se prend.

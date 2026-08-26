@@ -4,112 +4,76 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Principes de design
 
-Les principes de design permettent à chacun — designer, développeur, agent — de
-prendre les décisions de la même manière, quelle que soit la personne qui
-décide. C'est ce qui donne au produit sa cohérence : non pas des écrans qui se
-ressemblent, mais des écrans pensés avec le même point de vue.
-
-Ils sont au nombre de quatre.
+Quatre principes pour que designer, développeur et agent décident de la même
+manière. Ce qui donne au produit sa cohérence, ce ne sont pas des écrans qui se
+ressemblent : c'est des écrans pensés avec le même point de vue.
 
 ---
 
 ## Au service de la tâche en cours
 
-Ancrer chaque décision sur ce que la personne est venue faire. Elle doit pouvoir
-l'accomplir sans être noyée sous ce qui ne la concerne pas.
+> L'écran sert la tâche du moment. Tout le reste attend qu'on la lui demande.
 
 Une fiche équipement porte huit cents champs. Personne ne vient les lire : on
-vient vérifier une charge utile avant un devis, retrouver la marque d'un
-limiteur, comprendre pourquoi un composant est marqué à remplacer. L'écran doit
-servir cette question-là.
+vient vérifier une charge utile, retrouver la marque d'un limiteur, comprendre
+pourquoi un composant est à remplacer.
 
-C'est pour ça que les champs vides sont masqués par défaut — sur un appareil peu
-renseigné, ils noient les quelques valeurs utiles. Que la recherche ⌘K existe :
-taper « charge » est plus court que parcourir neuf rubriques. Que choisir un
-relevé **retire** de la fiche ce qu'il n'apporte pas, au lieu de le laisser
-traîner en gris.
-
-> L'écran sert la tâche du moment. Tout le reste attend qu'on la lui demande.
+D'où les champs vides masqués par défaut, la recherche ⌘K, et le fait que
+choisir un relevé **retire** de la fiche ce qu'il n'apporte pas au lieu de le
+laisser en gris.
 
 ---
 
 ## Une friction à la mesure du risque
 
-Plus une action est difficile à défaire, plus elle doit demander de gestes. Et
-inversement : une action anodine ne doit rien demander du tout.
-
-Corriger une valeur se fait d'un clic, sur place, sans confirmation. Le risque
-est faible, l'erreur se répare en recorrigeant, et demander « êtes-vous sûr ? »
-cent fois par jour ne protège de rien — on finit par cliquer sans lire.
-
-Retirer une donnée complémentaire, non. Elle ne se répare pas depuis la fiche :
-une fois effacée, plus personne ne peut la remettre sans passer par Bubble. Le
-premier clic **arme** donc le bouton, le second confirme. Sur le bouton même,
-pas dans une boîte de dialogue — celles-là se congédient sans lire.
-
-Résoudre un écart est entre les deux : le geste est simple, mais le service
-propage la décision aux autres constats du même écart. On recharge donc la fiche
-pour que la personne **voie** ce que son geste a fait ailleurs.
-
 > Autant de gestes que l'action est difficile à défaire.
+
+Corriger une valeur : un clic, sans confirmation. L'erreur se répare en
+recorrigeant, et demander « êtes-vous sûr ? » cent fois par jour ne protège de
+rien — on finit par cliquer sans lire.
+
+Retirer une donnée complémentaire : deux clics. Elle ne se répare pas depuis la
+fiche. Le premier **arme** le bouton, le second confirme — sur le bouton même,
+pas dans une boîte de dialogue, qu'on congédie sans lire.
 
 ---
 
 ## Simple pour celui qui s'en sert
 
-Une solution simple n'est pas une solution sans complexité. C'est une solution
-où la complexité a été prise en charge par le système plutôt que laissée à la
-personne. Cela nous coûte plus de travail, et c'est le but.
-
-Un exemple. Sur un champ à choix, la base stocke un jeton (`blocage`) et l'écran
-doit afficher un libellé (« Blocage »). La solution facile est de traduire à
-l'écran ; on l'a fait, à trois endroits, et il a suffi qu'un chemin l'oublie pour
-que le jeton technique reste affiché. La solution simple pour l'utilisateur est
-que **le service rende ce qu'il vient d'écrire** — il sait, lui — et que l'écran
-adopte sa réponse. Plus de traduction à répéter, donc plus d'endroit où l'oublier.
-
-Autre exemple : la fiche arrive en deux vagues. La solution facile serait
-d'attendre la seconde. On affiche la première dès qu'elle arrive, et on gère
-l'arrivée du reste — la personne voit sa fiche en une seconde au lieu de cinq,
-et ne sait rien de ce qui se passe derrière.
-
 > Simple ne veut pas dire facile : c'est le système qui prend la charge.
+
+Sur un champ à choix, la base stocke un jeton (`blocage`) et l'écran doit
+afficher un libellé (« Blocage »). Le facile est de traduire à l'écran — on l'a
+fait à trois endroits, et il a suffi qu'un chemin l'oublie pour que le jeton
+technique s'affiche.
+
+Le simple pour l'utilisateur est que **le service rende ce qu'il vient
+d'écrire**, et que l'écran adopte sa réponse. Plus de traduction à répéter, donc
+plus d'endroit où l'oublier.
 
 ---
 
 ## Réutiliser par défaut
 
-Les mêmes motifs d'un bout à l'autre du produit, pour que la personne retrouve
-partout ce qu'elle a appris une fois. Réutiliser réduit la divergence, et une
-divergence se paie toujours en surprise.
-
-Concrètement : avant d'écrire un composant, on lit le catalogue ; s'il y figure,
-on réutilise. Avant d'en créer un, on cherche chez shadcn — un composant écrit de
-zéro là où shadcn en a un, c'est du travail perdu et un comportement clavier de
-moins. Et à l'intérieur du produit, dix-sept écrans faits de groupes de champs
-partagent une seule coquille : corriger une valeur a exactement la même tête sur
-« Client & immeuble » et sur la fiche d'un limiteur de vitesse.
-
-C'est aussi pour cela que le vocabulaire vient du métier et non de nous. « Écart
-», « relevé consolidé », « à remplacer » ont un sens précis chez les techniciens.
-Les reformuler créerait deux vocabulaires pour une seule chose.
-
 > Un motif déjà connu ne s'apprend pas deux fois.
+
+Avant d'écrire un composant, lire le catalogue. Avant d'en créer un, chercher
+chez shadcn — un composant écrit de zéro là où shadcn en a un, c'est du travail
+perdu et un comportement clavier de moins.
+
+Le vocabulaire aussi vient du métier, pas de nous : « écart », « relevé
+consolidé », « à remplacer » ont un sens précis chez les techniciens. Les
+reformuler créerait deux vocabulaires pour une seule chose.
 
 ---
 
-## Et concrètement ?
+Ces principes disent **comment décider**. Ce qu'ils donnent appliqués aux écrans
+d'Arquos est réuni dans les
+[**règles d'écran**](?path=/docs/fondations-règles-d-écran--docs), et chaque
+fiche de composant les décline dans « Quand NE PAS l'utiliser ».
 
-Ces quatre principes disent **comment décider**. Ce qu'ils donnent une fois
-appliqués aux écrans d'Arquos — quoi afficher quand une valeur manque, où poser
-le retour d'un enregistrement, quand retirer plutôt qu'estomper — est réuni dans
-les [**règles d'écran**](?path=/docs/design-system-règles-d-écran--docs), et
-chaque fiche de composant les décline dans sa section « Quand NE PAS
-l'utiliser ».
-
-<p style={{ marginTop: '2.5rem', fontSize: '0.85rem', opacity: 0.7 }}>
-  Ces quatre principes reprennent ceux du design system de Grafana
-  (<a href="https://developers.grafana.com/ui/latest/index.html?path=/docs/docs-overview-design-principles--docs">
-  Grafana UI — Design Principles</a>), dont la formulation nous a paru juste. Les
-  exemples et le texte sont ceux d'Arquos.
+<p style={{ marginTop: '2rem', fontSize: '0.85rem', opacity: 0.7 }}>
+  Formulation reprise du design system de{' '}
+  <a href="https://developers.grafana.com/ui/latest/index.html?path=/docs/docs-overview-design-principles--docs">Grafana</a>.
+  Les exemples sont ceux d'Arquos.
 </p>

@@ -4,160 +4,117 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Règles d'écran
 
-Les [principes de design](?path=/docs/design-system-principes-de-design--docs)
-disent **comment décider**. Ces sept règles disent ce que ça donne une fois
-appliqué aux écrans d'Arquos.
-
-Aucune n'est déduite d'un manuel : chacune est née d'un défaut réel, constaté
-dans le produit, et coûteux à réparer. C'est ce qui les rend utilisables.
+Les [principes](?path=/docs/fondations-principes-de-design--docs) disent
+**comment décider**. Ces sept règles disent ce que ça donne sur les écrans
+d'Arquos. Aucune n'est déduite d'un manuel : chacune est née d'un défaut réel.
 
 ---
 
 ## 1. Ne jamais montrer ce qui n'est pas
 
-Celle-ci prime sur les six autres. Un écran d'Arquos sert à décider de travaux
-sur un appareil : ce qu'il affiche est cru, et engage de l'argent.
-
-Le produit a porté plusieurs fois le même défaut, sous des formes différentes.
-Une case « à remplacer » qu'on cochait, qui se voyait, et qui n'écrivait rien —
-oubliée au rechargement suivant. Un « ✓ Enregistré » affiché sur un champ dont
-la correction ne partait nulle part. Douze documents de démonstration présentés
-à l'identique sur tous les appareils. Un menu d'état qui s'ouvrait sur « Bon »
-alors que le composant était « Moyen ».
-
-Chaque fois, l'écran avait l'air de fonctionner. C'est ce qui rend le défaut
-grave : personne ne le signale, et la donnée fausse se propage.
-
-On n'affiche donc pas une confirmation qu'on n'a pas obtenue. On n'offre pas une
-saisie que le service refusera. On ne remplit pas un écran avec un jeu de
-démonstration parce qu'il paraîtrait vide autrement. Et quand une correction
-échoue, la valeur d'avant **revient sous les yeux** de la personne, avec la
-raison.
-
 > Un écran qui ment une fois n'est plus cru ensuite — y compris quand il dit vrai.
+
+Celle-ci prime sur les six autres : ce qu'un écran d'Arquos affiche engage des
+travaux.
+
+Le produit a porté le même défaut sous quatre formes — une case « à remplacer »
+qui n'écrivait rien, un « ✓ Enregistré » sur une correction qui ne partait nulle
+part, des documents de démonstration servis sur un vrai appareil, un menu ouvert
+sur « Bon » quand le composant était « Moyen ». **Chaque fois, l'écran avait
+l'air de fonctionner** — donc personne ne le signalait.
+
+Donc : pas de confirmation qu'on n'a pas obtenue, pas de saisie que le service
+refusera, pas de jeu de démonstration pour combler un vide. Et quand une
+correction échoue, la valeur d'avant revient sous les yeux, avec la raison.
 
 ---
 
 ## 2. Un vide se nomme
 
-Un tiret ne dit rien. Pire : il laisse croire à une donnée sans objet, alors
-qu'il s'agit souvent d'une information qui manque et qu'on pourrait ajouter.
-
-Une valeur absente s'écrit donc **« Non renseigné »**, en toutes lettres, et
-reste cliquable pour la combler. Une photo qui n'a pas été prise garde son
-emplacement dans la grille : c'est ainsi qu'on sait ce qui reste à faire. Un
-relevé qui n'apporte aucune cote le dit — « Ce relevé n'apporte aucune cote »
-plutôt qu'un « 0 cote sur 0, en 0 zone » qui ne veut rien dire.
-
-Et quand un tiret est le bon signe — parce qu'il n'y a réellement rien à décider
-à cet endroit — il **explique pourquoi** au survol : « Décision commune aux deux
-faces : elle se prend sur la face 1 ».
-
 > Dire ce qui manque, et dire pourquoi quand il ne manque pas.
+
+Un tiret laisse croire à une donnée sans objet, alors qu'il s'agit souvent d'une
+information qui manque et qu'on pourrait ajouter.
+
+Une valeur absente s'écrit **« Non renseigné »** et reste cliquable. Une photo
+non prise garde son emplacement — c'est ainsi qu'on sait ce qui reste à faire.
+Et quand un tiret est le bon signe, il explique pourquoi au survol : « Décision
+commune aux deux faces ».
 
 ---
 
 ## 3. Montrer n'est pas permettre
 
-Un écran qui affiche là où le précédent laissait décider n'est pas équivalent,
-même s'il présente exactement les mêmes données. C'est la leçon de la réécriture
-de la fiche équipement : les neuf rubriques s'affichaient, et pourtant rien
-n'était fini — parce qu'on ne pouvait plus résoudre un écart, ni marquer un
-composant à remplacer.
-
-Le corollaire compte autant. Quand on décide **volontairement** de ne pas
-permettre — l'étude de sécurité ne s'écrit que depuis le mobile, c'est une règle
-métier — on ne pose pas un contrôle inerte pour faire joli. On l'enlève, ou on
-dit pourquoi. Un bouton qui ne fait rien apprend à ne plus cliquer.
-
-De même, une rubrique qu'un relevé n'alimente pas n'est pas cliquable : mieux
-vaut un menu qui refuse d'y aller qu'une rubrique ouverte et vide.
-
 > Ce qu'on peut faire fait partie de ce qu'on montre.
+
+Un écran qui affiche là où le précédent laissait décider n'est pas équivalent,
+mêmes données comprises. C'est la leçon de la réécriture de la fiche : les neuf
+rubriques s'affichaient, et pourtant rien n'était fini — on ne pouvait plus
+résoudre un écart.
+
+Corollaire : quand on décide **volontairement** de ne pas permettre, on ne pose
+pas un contrôle inerte. On l'enlève, ou on dit pourquoi. Un bouton qui ne fait
+rien apprend à ne plus cliquer.
 
 ---
 
 ## 4. Le retour appartient au geste
 
-Quand une action réussit ou échoue, la réponse s'affiche **là où l'action a eu
-lieu** — pas ailleurs.
-
-Corriger une valeur affiche « Enregistrement… » puis « ✓ Enregistré » ou
-« ⚠ Non enregistré » **sur cette ligne**. Un bandeau en bas d'écran ne dirait
-pas *quel* champ a échoué, et sur une rubrique de cent lignes c'est la seule
-chose qui compte. Dans un tableau étroit, le retour se réduit à son signe (…, ✓,
-⚠) plutôt que de déplacer les colonnes pendant qu'on les regarde ; la phrase
-complète reste dans l'infobulle.
-
-Le bandeau garde son rôle : porter ce que la ligne ne peut pas dire — le message
-du service quand il refuse, par exemple. Une confirmation se lit d'un œil et
-s'efface en deux secondes ; un refus reste douze secondes, parce qu'il faut avoir
-le temps de le lire.
-
 > La réponse se lit là où la question a été posée.
+
+Corriger une valeur affiche « Enregistrement… » puis « ✓ Enregistré » **sur cette
+ligne**. Un bandeau en bas d'écran ne dirait pas *quel* champ a échoué — sur cent
+lignes, c'est la seule chose qui compte.
+
+Le bandeau garde son rôle : porter ce que la ligne ne peut pas dire. Une
+confirmation s'efface en deux secondes, un refus reste douze — il faut le temps
+de le lire.
 
 ---
 
 ## 5. Retirer plutôt qu'estomper
 
-Quand une partie de l'écran sort du périmètre de ce qu'on regarde, on la retire.
-On ne la grise pas, on ne la met pas à trente pour cent d'opacité.
+> Ce qu'on laisse à l'écran, on le donne à lire.
 
-C'est le choix fait pour le mode relevé : filtrer la fiche sur un relevé daté
-**sort** les champs qu'il n'apporte pas, et fait disparaître les groupes qui n'en
-gardent aucun. Un champ atténué reste lu — on le déchiffre, et on conclut que le
-relevé en parle. L'atténuation économise un remaniement de mise en page au prix
-d'un malentendu.
+Filtrer la fiche sur un relevé daté **sort** les champs qu'il n'apporte pas. Un
+champ atténué reste lu : on le déchiffre, et on conclut à tort que le relevé en
+parle.
 
 L'exception est le repère : quand la recherche emmène sur un champ, la ligne
-s'allume brièvement et son libellé se souligne. Là, la couleur ne dit pas un
-état, elle dit « c'est ici » — et elle s'efface.
-
-> Ce qu'on laisse à l'écran, on le donne à lire.
+s'allume brièvement. Là, la couleur ne dit pas un état — elle dit « c'est ici »,
+et elle s'efface.
 
 ---
 
 ## 6. Les mots sont ceux du métier
 
-Le vocabulaire vient du produit existant, pas de nous. « Écart », « constat »,
-« relevé consolidé », « à remplacer », « points statués » : ces mots ont un sens
-précis chez les techniciens et dans Bubble, et les reformuler crée deux
-vocabulaires pour une seule chose.
-
-Cela vaut jusque dans les détails d'écriture. La fiche dit « Afficher 2 champs
-vides » sans article, mais « Masquer les 2 champs vides » avec : l'asymétrie est
-volontaire, on la garde. Réécrire un écran n'est pas l'occasion de réécrire ses
-mots.
-
-Ce qu'on corrige, en revanche, ce sont les fautes : « 1 non conformes » devient
-« 1 non conforme ». Une pastille qu'on lit cent fois par jour ne doit pas fauter.
-
 > On réécrit le code, pas le vocabulaire.
+
+« Écart », « constat », « relevé consolidé », « à remplacer » ont un sens précis
+chez les techniciens et dans Bubble. Les reformuler créerait deux vocabulaires
+pour une seule chose.
+
+Jusque dans les détails : la fiche dit « Afficher 2 champs vides » sans article
+et « Masquer les 2 champs vides » avec. L'asymétrie est volontaire, on la garde.
+Ce qu'on corrige, ce sont les fautes — « 1 non conformes » devient « 1 non
+conforme ».
 
 ---
 
 ## 7. Le clavier fait partie du produit
 
-La fiche s'utilise au bureau, toute la journée, sur des écrans denses. Le clavier
-y est plus rapide que la souris, et ce qui le sert sert aussi les lecteurs
-d'écran.
+> Un comportement clavier réécrit est un comportement clavier perdu.
 
-C'est la raison de fond pour laquelle on part de shadcn et des primitives Radix
-plutôt que d'écrire nos propres modales et menus : elles apportent le piège à
-focus, la fermeture par Échap, le retour du focus à l'endroit d'où l'on vient, et
-la navigation aux flèches. Réécrire tout cela à la main, c'est le réécrire moins
-bien.
+La fiche s'utilise au bureau toute la journée sur des écrans denses. C'est la
+raison de fond du choix de shadcn et des primitives Radix : piège à focus,
+fermeture par Échap, retour du focus, navigation aux flèches.
 
 Ce qui ne s'obtient pas gratuitement se pose explicitement : un bouton sans texte
-**exige** son nom accessible — sans lui, c'est la seule chose qu'un lecteur
-d'écran pourrait annoncer, et il n'y a rien. Un état actif ne se dit jamais par
-la seule couleur. Une barre de huit puces ne fait qu'un seul arrêt de tabulation,
-sinon ce sont huit obstacles avant d'atteindre le contenu.
-
-> Un comportement clavier réécrit est un comportement clavier perdu.
+**exige** son nom accessible ; un état actif ne se dit jamais par la seule
+couleur ; une barre de huit puces ne fait qu'un arrêt de tabulation.
 
 ---
 
-Quand une de ces règles empêche de faire ce que le métier demande, ce n'est pas
-le métier qui a tort : c'est qu'elle est mal formulée, ou qu'il en manque une. Le
-dire plutôt que de la contourner en silence.
+Quand une règle empêche de faire ce que le métier demande, ce n'est pas le métier
+qui a tort : c'est qu'elle est mal formulée, ou qu'il en manque une. Le dire
+plutôt que la contourner en silence.

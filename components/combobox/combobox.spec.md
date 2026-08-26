@@ -54,14 +54,8 @@ qui habille la palette plein écran et porte sa hauteur.
 
 ## Anatomie
 
-- Champ : mêmes traits que la gâchette de `Select`, au pixel — 32 px, arrondi
-  `radius.control`, contour `colors.border`, ombre `shadow.card`, retrait
-  `spacing.md` — pour qu'un champ à menu ait la même tête, court ou long
-- Caret à droite, pivoté quand la liste est ouverte
-- Liste : à la largeur du champ, 220 px au moins, **240 px de haut au plus** —
-  celle de la palette monte à 400, ce qui couvre un écran de fiche
-- Entrée retenue : `bg-info-bg` / `text-on-info-bg`, en demi-gras
-- Liste vide : « Aucun choix ne correspond. »
+- Champ : mêmes traits que la gâchette de `Select`, au pixel — 32 px, arrondi `radius.control`, contour `colors.border`, ombre `shadow.card`, retrait `spacing.md` — pour qu'un champ à menu ait la même tête, court ou long
+- Liste : à la largeur du champ, 220 px au moins, **240 px de haut au plus** — celle de la palette monte à 400, ce qui couvre un écran de fiche
 
 ## États
 

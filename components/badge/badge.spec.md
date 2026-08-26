@@ -18,19 +18,14 @@ remplace:
 
 ## Quand l'utiliser
 
-- Qualifier un élément d'un mot : un état (« Soumis »), une échéance
-  (« Échéance 18/09/2030 »), une nature (« EDL »).
+- Qualifier un élément d'un mot : un état (« Soumis »), une échéance (« Échéance 18/09/2030 »), une nature (« EDL »).
 - Signaler ce qui demande attention dans une liste longue.
 
 ## Quand NE PAS l'utiliser
 
-- **Pour une action** → `Button`. Un badge cliquable est une source de confusion :
-  rien ne le distingue d'un badge décoratif.
-- **Pour un texte de plus de trois mots.** Au-delà, ce n'est plus une étiquette,
-  c'est une phrase : la mettre dans le corps du texte.
-- **Pour porter la seule information de couleur.** Un badge rouge sans mot n'est
-  lisible ni par un daltonien, ni par un lecteur d'écran. Le mot d'abord, la
-  couleur ensuite.
+- **Pour une action** → `Button`. Un badge cliquable est une source de confusion : rien ne le distingue d'un badge décoratif.
+- **Pour un texte de plus de trois mots.** Au-delà, ce n'est plus une étiquette, c'est une phrase : la mettre dans le corps du texte.
+- **Pour porter la seule information de couleur.** Un badge rouge sans mot n'est lisible ni par un daltonien, ni par un lecteur d'écran. Le mot d'abord, la couleur ensuite.
 - **En rafale.** Trois badges sur une même ligne ne hiérarchisent plus rien.
 
 ## Props
@@ -68,8 +63,6 @@ import { Badge } from '@arquos/design-system/web';
 
 ## Anatomie
 
-- Padding `spacing.xs` horizontal, `spacing.xxs` vertical · Arrondi `radius.control`
-- Texte `typography.caption` en demi-gras
 - Fond teinté et **l'encre appairée** — `bg-success-bg` va avec `text-on-success-bg`, jamais avec `text-success` (2,77 pour 1, sous le seuil). Sauf `outline` : bordure `colors.border` sur fond blanc.
 
 ## États
@@ -79,7 +72,5 @@ focus. S'il en faut un, c'est que ce devait être un bouton.
 
 ## Accessibilité
 
-- Le badge est du texte dans un `<span>` : il est lu tel quel, sans `role`. shadcn
-  rend un `<div>` ; un bloc casserait l'alignement à côté d'un libellé.
-- Le contraste est vérifié sur le fond blanc de la fiche. Ne pas poser un badge
-  sur une surface teintée, le rapport n'y tient plus.
+- Le badge est du texte dans un `<span>` : il est lu tel quel, sans `role`.
+- Le contraste est vérifié sur le fond blanc de la fiche.

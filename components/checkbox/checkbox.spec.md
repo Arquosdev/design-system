@@ -54,11 +54,7 @@ import { Checkbox, Label } from '@arquos/design-system/web';
 
 ## Anatomie
 
-- Carré de **18 px**, arrondi `radius.sm`
-- Décochée : bordure `colors.border` sur fond `colors.bg`
-- Cochée : fond `colors.primary`, coche `colors.textOnDark`
-- La coche vient du vocabulaire d'icônes (`role="coche"`), **pas de Lucide** —
-  shadcn livre ses composants avec Lucide, le jeu officiel d'Arquos est Phosphor
+- La coche vient du vocabulaire d'icônes (`role="coche"`), **pas de Lucide** — shadcn livre ses composants avec Lucide, le jeu officiel d'Arquos est Phosphor
 
 ## États
 

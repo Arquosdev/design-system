@@ -45,9 +45,6 @@ import { Textarea, Label } from '@arquos/design-system/web';
 
 ## Anatomie
 
-- Hauteur minimale 64 px, puis **le champ grandit avec son contenu**
-  (`field-sizing-content`)
-- Arrondi `radius.control` · Bordure `colors.border` · Texte `typography.small`
 - Focus et erreur identiques à `Input` — les deux champs ne divergent pas
 
 ## États
