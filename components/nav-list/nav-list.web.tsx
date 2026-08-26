@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 
+import { Icon } from '../icon/icon.web';
 import { cn } from '../_lib/cn';
 
 export interface NavItem {
@@ -59,14 +60,18 @@ export function NavList({
           type="button"
           aria-expanded={deplie}
           onClick={() => setOuvert(!deplie)}
-          className="flex w-full items-center gap-sm rounded-control px-md pb-sm text-text-subtle outline-none hover:text-text focus-visible:ring-2 focus-visible:ring-primary"
+          className="flex w-full items-center gap-sm rounded-control px-md pb-sm text-text-muted outline-none hover:text-text focus-visible:ring-2 focus-visible:ring-primary"
         >
-          <ChevronBas ouvert={deplie} />
+          <Icon
+            role="deplier"
+            size="xs"
+            className={cn('transition-transform duration-200', deplie ? 'rotate-0' : '-rotate-90')}
+          />
           {intitule}
           <span className="shrink-0 tabular-nums text-small">{items.length}</span>
         </button>
       ) : (
-        <div className="flex px-md pb-sm text-text-subtle">{intitule}</div>
+        <div className="flex px-md pb-sm text-text-muted">{intitule}</div>
       )}
 
       <div className={cn('flex flex-col gap-xxs', !deplie && 'hidden')}>
@@ -112,7 +117,16 @@ export function NavList({
               <span className="flex-1">{item.label}</span>
               {item.compteur !== undefined && item.compteur !== '' ? (
                 // Chasse fixe : sans elle les nombres dansent d'une ligne à l'autre.
-                <span className="shrink-0 tabular-nums text-small text-text-subtle">
+                // Sur la ligne courante, le compteur prend l'encre appairée du
+                // fond `infoBg` : `textMuted` y tombe à 4,47 — juste sous le
+                // seuil. Le fond est sur le parent et la couleur sur l'enfant,
+                // donc le contrôle de contraste ne peut pas le voir.
+                <span
+                  className={cn(
+                    'shrink-0 tabular-nums text-small',
+                    actif ? 'text-on-info-bg' : 'text-text-muted',
+                  )}
+                >
                   {item.compteur}
                 </span>
               ) : null}
@@ -124,24 +138,3 @@ export function NavList({
   );
 }
 
-function ChevronBas({ ouvert }: { ouvert: boolean }) {
-  return (
-    <svg
-      width="11"
-      height="11"
-      viewBox="0 0 256 256"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="22"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className={cn(
-        'shrink-0 transition-transform duration-200',
-        ouvert ? 'rotate-0' : '-rotate-90',
-      )}
-    >
-      <path d="M48 96l80 80 80-80" />
-    </svg>
-  );
-}

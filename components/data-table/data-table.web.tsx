@@ -29,14 +29,14 @@ export function DataTable({
     >
       <div className="flex items-baseline gap-md border-b border-border-soft bg-bg-subtle px-base py-md">
         <span className="text-small font-bold text-text">{titre}</span>
-        {note ? <span className="text-caption text-text-subtle">{note}</span> : null}
+        {note ? <span className="text-caption text-text-muted">{note}</span> : null}
       </div>
 
       {/* Le défilement vit ici, jamais sur la page : des cotes comprimées
           deviennent illisibles, et une cote mal lue est une cote fausse. */}
       <div className="overflow-x-auto px-base py-md">
         {lignes.length === 0 ? (
-          <p className="text-small text-text-subtle">Aucune mesure relevée.</p>
+          <p className="text-small text-text-muted">Aucune mesure relevée.</p>
         ) : (
           <table className="w-full border-collapse text-left">
             <thead>
@@ -45,7 +45,7 @@ export function DataTable({
                   <th
                     key={colonne}
                     scope="col"
-                    className="whitespace-nowrap px-sm pb-sm text-caption font-bold tracking-wide text-text-subtle uppercase first:pl-0"
+                    className="whitespace-nowrap px-sm pb-sm text-caption font-bold tracking-wide text-text-muted uppercase first:pl-0"
                   >
                     {colonne}
                   </th>
@@ -63,7 +63,7 @@ export function DataTable({
                         key={colonne}
                         className={cn(
                           'whitespace-nowrap px-sm py-sm text-small first:pl-0',
-                          absente ? 'text-text-subtle' : 'text-text',
+                          absente ? 'text-text-muted' : 'text-text',
                         )}
                       >
                         {absente ? VIDE : valeur}

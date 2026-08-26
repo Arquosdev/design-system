@@ -143,9 +143,24 @@ function paletteBrute(source) {
   return fautes;
 }
 
+/**
+ * Les marques de réserve posées en `textSubtle`.
+ *
+ * WCAG traite le texte d'un `placeholder` comme du texte : il lui faut 4,5, et
+ * `textSubtle` est à 3,14 sur blanc. C'est le cas qu'on croit décoratif et qui
+ * ne l'est pas — sept composants le portaient avant le 25/08/2026.
+ *
+ * Le contrôle est étroit à dessein : il ne vise que ce motif exact, qu'on sait
+ * faux à coup sûr, plutôt que de deviner un fond hérité et de crier pour rien.
+ */
+function reservesTropClaires(source) {
+  return [...source.matchAll(/placeholder:text-text-subtle/g)].map(() => 'placeholder:text-text-subtle');
+}
+
 const liste = process.argv.includes('--liste');
 const echecs = [];
 const brutes = [];
+const reserves = [];
 let controlees = 0;
 
 for (const nom of readdirSync(COMPONENTS).filter((n) => !n.startsWith('_'))) {
@@ -165,6 +180,7 @@ for (const nom of readdirSync(COMPONENTS).filter((n) => !n.startsWith('_'))) {
   }
 
   for (const faute of paletteBrute(source)) brutes.push({ nom, ...faute });
+  for (const classe of reservesTropClaires(source)) reserves.push({ nom, classe });
 }
 
 if (echecs.length) {
@@ -186,6 +202,16 @@ if (brutes.length) {
     `\n  Prendre un token sémantique (\`bg-info-bg\`, \`text-on-success-bg\`…),\n` +
       `  ou l'ajouter dans src/colors.ts s'il manque. En dernier recours, écrire\n` +
       `  \`palette-brute-ok:\` et la raison en commentaire au-dessus de la ligne.\n`,
+  );
+  process.exit(1);
+}
+
+if (reserves.length) {
+  console.error(`\n✗ ${reserves.length} marque(s) de réserve en \`textSubtle\` :\n`);
+  for (const r of reserves) console.error(`  ${r.nom}.web.tsx — ${r.classe}`);
+  console.error(
+    `\n  Une marque de réserve est du texte pour WCAG : il lui faut 4,5, et\n` +
+      `  \`textSubtle\` est à 3,14 sur blanc. Prendre \`placeholder:text-text-muted\`.\n`,
   );
   process.exit(1);
 }

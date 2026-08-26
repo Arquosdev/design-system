@@ -54,7 +54,7 @@ export const CardDescription = React.forwardRef<
   HTMLSpanElement,
   React.ComponentPropsWithoutRef<'span'>
 >(({ className, ...props }, ref) => (
-  <span ref={ref} className={cn('text-caption text-text-subtle', className)} {...props} />
+  <span ref={ref} className={cn('text-caption text-text-muted', className)} {...props} />
 ));
 CardDescription.displayName = 'CardDescription';
 

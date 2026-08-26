@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Command as CommandPrimitive } from 'cmdk';
 import { Dialog } from 'radix-ui';
 
+import { Icon } from '../icon/icon.web';
 import { cn } from '../_lib/cn';
 
 /*
@@ -72,12 +73,12 @@ export function CommandInput({
 }: React.ComponentProps<typeof CommandPrimitive.Input>) {
   return (
     <div className="flex items-center gap-md border-b border-border-soft px-base">
-      <IconeLoupe />
+      <Icon role="rechercher" size="sm" className="text-text-muted" />
       <CommandPrimitive.Input
         data-slot="command-input"
         className={cn(
           'h-[52px] w-full bg-transparent text-subhead font-normal text-text outline-none',
-          'placeholder:text-text-subtle',
+          'placeholder:text-text-muted',
           className,
         )}
         {...props}
@@ -121,7 +122,7 @@ export function CommandGroup({
         '[&_[cmdk-group-heading]]:px-base [&_[cmdk-group-heading]]:pt-md [&_[cmdk-group-heading]]:pb-xxs',
         '[&_[cmdk-group-heading]]:text-caption [&_[cmdk-group-heading]]:font-bold',
         '[&_[cmdk-group-heading]]:tracking-wide [&_[cmdk-group-heading]]:uppercase',
-        '[&_[cmdk-group-heading]]:text-text-subtle',
+        '[&_[cmdk-group-heading]]:text-text-muted',
         className,
       )}
       {...props}
@@ -160,22 +161,3 @@ export function CommandSeparator({
   );
 }
 
-function IconeLoupe() {
-  return (
-    <svg
-      width="17"
-      height="17"
-      viewBox="0 0 256 256"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="20"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className="shrink-0 text-text-subtle"
-    >
-      <path d="M116 116m-68 0a68 68 0 1 0 136 0a68 68 0 1 0-136 0" />
-      <path d="M164 164l52 52" />
-    </svg>
-  );
-}

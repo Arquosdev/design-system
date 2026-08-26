@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 
+import { Icon } from '../icon/icon.web';
 import { cn } from '../_lib/cn';
 import {
   menuDeChoix,
@@ -101,7 +102,7 @@ const CLASSE_STATUT: Record<FieldStatut, string> = {
 // Formulations reprises telles quelles du module actuel (index.html:4671) : le
 // wording de la fiche ne change pas parce qu'on la réécrit.
 const CLASSE_SAUVEGARDE: Record<FieldSauvegarde, string> = {
-  encours: 'text-text-subtle',
+  encours: 'text-text-muted',
   ok: 'text-success',
   echec: 'text-danger',
 };
@@ -226,7 +227,7 @@ export function FieldRow({
                 // le champ est vide, pour ne pas attirer l'œil sur un manque.
                 editable && 'cursor-text border-b border-dashed pb-px outline-none focus-visible:ring-2 focus-visible:ring-primary',
                 estVide
-                  ? 'text-text-subtle border-border'
+                  ? 'text-text-muted border-border'
                   : 'text-text border-text-subtle',
               )}
             >
@@ -247,7 +248,7 @@ export function FieldRow({
                   'focus-visible:ring-2 focus-visible:ring-primary',
                 )}
               >
-                <IconePhoto />
+                <Icon role="photo" size="xs" />
               </button>
             ) : null}
             {onVoirSchemas && schemas && schemas.length > 0 ? (
@@ -262,7 +263,7 @@ export function FieldRow({
                   'focus-visible:ring-2 focus-visible:ring-primary',
                 )}
               >
-                <IconeSchema />
+                <Icon role="mesure" size="xs" />
               </button>
             ) : null}
             {statut ? (
@@ -306,43 +307,6 @@ function libellePhotos(photos: readonly { nom: string }[]): string {
 function libelleSchemas(schemas: readonly { nom: string }[]): string {
   if (schemas.length === 1) return `Schéma de mesure — ${schemas[0].nom}`;
   return `${schemas.length} schémas de mesure · ${schemas.map((p) => p.nom).join(' · ')}`;
-}
-
-function IconeSchema() {
-  return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 16 16"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      aria-hidden="true"
-    >
-      <path d="M2 12.5h12" />
-      <path d="M2 11v3M14 11v3" />
-      <rect x="3.5" y="2" width="9" height="6.5" rx="1" />
-    </svg>
-  );
-}
-
-function IconePhoto() {
-  return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 16 16"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      aria-hidden="true"
-    >
-      <rect x="1.5" y="3.5" width="13" height="10" rx="1.5" />
-      <circle cx="8" cy="8.5" r="2.5" />
-      <path d="M5 3.5l1-1.5h4l1 1.5" />
-    </svg>
-  );
 }
 
 // ------------------------------------------------------------------ éditeurs
@@ -516,7 +480,7 @@ function EditeurMulti({
             cocher sans reparcourir les pastilles. Et quand il n'en reste aucun,
             on dit pourquoi ça ne partira pas — le service refuse une valeur
             vide, la consolidation la repeuplerait au calcul suivant. */}
-        <span className="text-caption text-text-subtle">
+        <span className="text-caption text-text-muted">
           {choisis.length === 0
             ? 'Aucune valeur retenue — un champ ne peut pas être vidé depuis la fiche.'
             : choisis
