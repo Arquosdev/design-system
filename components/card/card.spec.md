@@ -43,10 +43,7 @@ Une carte s'assemble, elle ne se configure pas par props — comme chez shadcn.
 | `CardList`        | Le contenu **sans** padding, pour une liste qui touche les bords |
 | `CardFooter`      | Un pied séparé par un filet                                     |
 
-> **Base shadcn/ui.** Un extrait de leur documentation fonctionne tel quel.
-> `CardHeader` s'écarte du leur sur un point : il pose la barre teintée de la
-> fiche Arquos au lieu d'un simple bloc espacé. `CardList` n'existe pas chez eux
-> — la fiche en a besoin partout.
+> **Base shadcn/ui.** Un extrait de leur documentation fonctionne tel quel. `CardHeader` s'écarte du leur sur un point : il pose la barre teintée de la fiche Arquos au lieu d'un simple bloc espacé.
 
 ## Exemples
 

@@ -25,7 +25,7 @@ import { Skeleton } from '../../components/skeleton/skeleton.web';
  * qui révèle les défauts d'espacement qu'aucune histoire isolée ne montre.
  */
 const meta = {
-  title: 'Modèles/Un écran entier',
+  title: 'Patterns/Un écran entier',
   parameters: { layout: 'fullscreen' },
 } satisfies Meta;
 

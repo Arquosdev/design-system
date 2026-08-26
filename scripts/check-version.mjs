@@ -1,19 +1,13 @@
-// Refuse une version déjà publiée sous un tag.
+// Refuse un numéro de version déjà publié sous un tag.
 //
 //   node scripts/check-version.mjs
 //
-// Pourquoi ce script existe : deux fois en une journée, deux sessions ont
-// bumpé la version en parallèle vers le même numéro. Le tag s'est retrouvé posé
-// sur le premier commit arrivé, `main` a gardé le même numéro avec un contenu
-// différent, et une app qui épinglait ce tag recevait un design system amputé
-// du travail de l'autre — sans que rien ne le signale.
+// Deux fois le 25/08/2026, deux branches ont bumpé vers le même numéro : le tag
+// s'est posé sur la première fusionnée, et l'app qui l'épinglait recevait un
+// design system amputé.
 //
-// C'est arrivé à v1.15.0, puis à v1.18.0. Le coût est invisible et différé :
-// on ne s'en aperçoit qu'en cherchant pourquoi un correctif « déjà livré »
-// n'est pas là.
-//
-// La règle : une PR qui touche le dépôt propose un numéro **qui n'a pas encore
-// de tag**. Le tag se pose ensuite sur `main`, une fois fusionné.
+// La règle : une PR propose un numéro qui n'a pas encore de tag. Le tag se pose
+// ensuite sur `main`.
 
 import { readFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';

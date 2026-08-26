@@ -50,12 +50,7 @@ import { PhotoTile } from '@arquos/design-system/web';
 - Vignette : rapport **3/4 — portrait**, arrondi `radius.md`, contour `colors.borderSoft`
 - Non prise : fond `colors.bgMuted`, mention « Non prise » en `colors.textSubtle`
 - Essentielle non prise : contour `colors.danger`, mention en `colors.danger`
-- Légende : `typography.caption`, `colors.textMuted`, sur deux lignes au plus
-
-## Pourquoi le cadre est vertical
-
-Mesuré le 25/08/2026 sur 125 photos de relevé tirées au hasard de la base :
-**96 en portrait**, rapport médian 0,77 — du 3/4 — et 29 en paysage. Une photo
+- Légende : `typography.caption`, `colors.Une photo
 de relevé se prend au téléphone, tenu droit, devant une porte ou une armoire.
 
 Dans un cadre 4/3, une photo de 0,77 recadrée en `cover` ne montrait plus que

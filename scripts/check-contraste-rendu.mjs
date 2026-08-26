@@ -2,29 +2,15 @@
 //
 //   npm run vitrine && node scripts/check-contraste-rendu.mjs
 //
-// Pourquoi ce second contrôle, alors que `check-contraste.mjs` existe déjà :
-// celui-là lit les classes Tailwind, et n'apparie donc que ce qui vit dans la
-// MÊME chaîne de classes. Un fond posé sur le parent et une couleur sur
-// l'enfant lui échappent entièrement.
+// Complète `check-contraste.mjs`, qui lit les classes et manque donc les paires
+// réparties sur deux éléments, les opacités et les couleurs posées par une
+// animation. Trois défauts sont passés par cet angle mort en une journée.
 //
-// Ce n'était pas théorique. En une seule journée, le 25/08/2026, trois défauts
-// sont passés par là :
+// Chaque story s'ouvre dans Chrome et reçoit la règle `color-contrast` d'axe,
+// qui remonte l'arbre pour trouver le fond réellement peint.
 //
-//   • l'icône d'EmptyState, 2,93 pour 1 sur son carré gris
-//   • le compteur de la ligne courante du rail, 4,47 sur son fond bleu
-//   • le bandeau de relevé de la fiche, une paire répartie sur deux éléments
-//
-// Les trois ont été trouvés à l'œil, parce que quelqu'un regardait. Ce script
-// remplace ce quelqu'un.
-//
-// Il ouvre chaque story dans un vrai navigateur et y lance la règle
-// `color-contrast` d'axe, qui remonte l'arbre pour trouver le fond réellement
-// peint. C'est exactement ce que le contrôle statique ne sait pas faire.
-//
-// Une seule règle est activée, et c'est délibéré : axe en signale des dizaines
-// d'autres qui n'ont pas de sens sur un composant isolé — pas de repère de
-// page, pas de titre de niveau 1. Un contrôle qui crie pour rien finit
-// désactivé.
+// Une seule règle est activée : les dizaines d'autres n'ont pas de sens sur un
+// composant isolé, et un contrôle qui crie pour rien finit désactivé.
 
 import { readFileSync, existsSync } from 'node:fs';
 import { createServer } from 'node:http';

@@ -33,7 +33,7 @@ const preview: Preview = {
           ],
           'Composants',
           ['Générique', 'Métier'],
-          'Modèles',
+          'Patterns',
         ],
       },
     },

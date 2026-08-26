@@ -1,16 +1,14 @@
-// Vérifie que chaque paire texte/fond posée par un composant reste lisible.
+// Vérifie que chaque paire texte/fond posée par un composant reste lisible, et
+// qu'aucun composant ne tape dans la palette brute.
 //
 //   node scripts/check-contraste.mjs [--liste]
 //
-// Pourquoi ce script existe : le 25/08/2026, la variante `success` de `Badge`
-// — le badge le plus affiché du produit — posait du vert 600 sur du vert 100,
-// soit 2,77 pour 1. Il en faut 4,5. Personne ne l'avait vu, parce que rien ne
-// regardait. Un ratio ne se juge pas à l'œil : il se calcule.
+// Un ratio ne se juge pas à l'œil : la variante `success` de `Badge` a vécu à
+// 2,77 pour 1 sans que personne le voie.
 //
-// Le contrôle lit les classes Tailwind des composants, les traduit en tokens,
-// et refuse toute paire sous le seuil. Il ne remplace pas un test
-// d'accessibilité complet (rôles, libellés, clavier) — il ferme la classe de
-// défaut la plus grave et la plus silencieuse.
+// LIMITE : le contrôle n'apparie que ce qui vit dans la MÊME chaîne de classes.
+// Un fond sur le parent et une couleur sur l'enfant lui échappent —
+// `check-contraste-rendu.mjs` les voit, lui.
 
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
