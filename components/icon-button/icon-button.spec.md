@@ -7,7 +7,9 @@ mots_cles: [bouton, icone, action, telecharger, editer, fermer, supprimer]
 plateformes: [web]
 remplace:
   web: [public/fiche/index.html — boutons carrés recopiés inline]
-  mobile: [components/IconButton.tsx, components/RowEditButton.tsx]
+  mobile:
+    - components/IconButton.tsx
+    - components/RowEditButton.tsx
 ---
 
 # IconButton

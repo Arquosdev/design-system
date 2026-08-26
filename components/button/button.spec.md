@@ -7,7 +7,9 @@ mots_cles: [bouton, action, cta, valider, enregistrer, annuler]
 plateformes: [web]
 remplace:
   web: [public/fiche/index.html — boutons inline recopiés 13 fois]
-  mobile: [components/Button.tsx, components/AddNewButton.tsx]
+  mobile:
+    - components/Button.tsx
+    - components/AddNewButton.tsx
 ---
 
 # Button

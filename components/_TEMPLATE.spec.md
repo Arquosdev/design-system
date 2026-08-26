@@ -2,7 +2,19 @@
 # Métadonnées lues par le catalogue (`npm run catalog`). Garder les clés telles
 # quelles : c'est ce qu'un agent parcourt pour trouver le bon composant.
 name: NomDuComposant
-statut: stable # stable | beta | déprécié
+# stable  = l'API est arrêtée. La changer casse une app, donc ça passe par
+#           MIGRATION.md et une version mineure au moins.
+# beta    = l'API peut encore bouger sans préavis. C'est l'état par défaut d'un
+#           composant neuf, et il n'y a aucune honte à y rester.
+# déprécié = ne plus l'employer. La fiche dit par quoi le remplacer.
+#
+# QUAND PASSER DE beta À stable — les deux conditions, pas une :
+#   1. une app le consomme en production
+#   2. son API n'a pas bougé depuis deux versions du design system
+#
+# Promouvoir plus tôt, c'est promettre une stabilité qu'on n'a pas encore
+# éprouvée ; ne jamais promouvoir, c'est vider le champ de son sens.
+statut: beta # stable | beta | déprécié
 # generique = une mécanique que n'importe quelle application aurait (bouton,
 # modale, onglets) — elle vient de shadcn/Radix, ou elle le pourrait.
 # metier = elle porte l'ascenseur : son vocabulaire, ses états, ses règles.

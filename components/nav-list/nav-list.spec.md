@@ -6,7 +6,8 @@ role: Lister les rubriques d'un écran, avec ce que chacune contient, et dire la
 mots_cles: [navigation, menu, rail, rubriques, sections, sommaire, compteur]
 plateformes: [web]
 remplace:
-  web: [public/fiche/index.html — navFiche / navComp, boutons recopiés inline]
+  web:
+    - public/fiche/index.html — navFiche / navComp, boutons recopiés inline
   mobile: [components/full-form/RubriqueNav.tsx]
 ---
 

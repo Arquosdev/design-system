@@ -6,8 +6,12 @@ role: Poser une étiquette courte qui qualifie l'élément à côté duquel elle
 mots_cles: [badge, pastille, etiquette, statut, tag, echeance, compteur]
 plateformes: [web]
 remplace:
-  web: [public/fiche/index.html — badge(sev, size), pastilles recopiées inline]
-  mobile: [components/Tag.tsx, components/StatusPill.tsx, components/OpportunityTypePill.tsx]
+  web:
+    - public/fiche/index.html — badge(sev, size), pastilles recopiées inline
+  mobile:
+    - components/Tag.tsx
+    - components/StatusPill.tsx
+    - components/OpportunityTypePill.tsx
 ---
 
 # Badge

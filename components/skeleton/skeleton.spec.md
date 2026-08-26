@@ -6,7 +6,8 @@ role: Occuper la place de ce qui charge, pour que l'écran ne mente pas en parai
 mots_cles: [squelette, skeleton, chargement, attente, pulse, placeholder]
 plateformes: [web]
 remplace:
-  web: [src/app/fiche/sections/rail.tsx — SqueletteRail, et huit autres blocs écrits sur place]
+  web:
+    - src/app/fiche/sections/rail.tsx — SqueletteRail, et huit autres blocs écrits sur place
   mobile: [components/Skeleton.tsx]
 ---
 

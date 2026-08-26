@@ -6,7 +6,8 @@ role: Grouper des champs sous un titre pliable, pour qu'une page longue reste pa
 mots_cles: [accordeon, groupe, section, plier, deplier, replier]
 plateformes: [web]
 remplace:
-  web: [public/fiche/index.html — motif recopié aux lignes 411, 496, 991]
+  web:
+    - public/fiche/index.html — motif recopié aux lignes 411, 496, 991
   mobile: [components/full-form/RubriqueBlock.tsx]
 ---
 
