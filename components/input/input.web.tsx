@@ -23,7 +23,7 @@ export function Input({ className, type, ...props }: React.ComponentProps<'input
       className={cn(
         'h-9 w-full min-w-0 rounded-control border border-border bg-bg px-sm text-small text-text',
         'outline-none transition-colors',
-        'placeholder:text-text-subtle',
+        'placeholder:text-text-muted',
         'selection:bg-primary selection:text-text-on-dark',
         'focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary',
         // `disabled` retire le pointeur : un champ grisé qui garde le curseur

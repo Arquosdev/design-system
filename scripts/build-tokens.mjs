@@ -59,7 +59,8 @@ const DESCRIPTIONS = {
     border: 'Bordures et séparateurs.',
     text: 'Texte courant.',
     textMuted: 'Texte secondaire — libellés, métadonnées.',
-    textSubtle: 'Texte tertiaire — placeholders, texte désactivé.',
+    textSubtle:
+      "Gris le plus clair — JAMAIS pour du texte (3,14 pour 1 sur blanc, il en faut 4,5). Réservé aux icônes, chevrons et bordures. Pour un texte discret, prendre `textMuted`.",
     textOnDark: 'Texte posé sur une surface foncée (brand, primary).',
     black: 'Noir pur — overlays, ombres. Éviter pour du texte, préférer `text`.',
     borderSoft: 'Bordure discrète — séparateurs internes, contour de carte.',

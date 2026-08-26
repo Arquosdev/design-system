@@ -3,6 +3,7 @@
 import * as React from 'react';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 
+import { Icon } from '../icon/icon.web';
 import { cn } from '../_lib/cn';
 
 export const Accordion = AccordionPrimitive.Root;
@@ -44,9 +45,16 @@ export const AccordionTrigger = React.forwardRef<
       )}
       {...props}
     >
-      <ChevronBas />
+      {/* Replié le chevron pointe de côté, déplié vers le bas — le
+          comportement de la fiche. Pivoter de 180° mettrait une pointe vers le
+          haut, qui se lit « remonter » plutôt que « ouvert ». */}
+      <Icon
+        role="deplier"
+        size="xs"
+        className="-rotate-90 text-text-muted transition-transform duration-200 group-data-[state=open]:rotate-0"
+      />
       <span className="text-small font-bold text-text">{titre}</span>
-      {meta ? <span className="text-caption text-text-subtle">{meta}</span> : null}
+      {meta ? <span className="text-caption text-text-muted">{meta}</span> : null}
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ));
@@ -68,24 +76,3 @@ export const AccordionContent = React.forwardRef<
 ));
 AccordionContent.displayName = 'AccordionContent';
 
-function ChevronBas() {
-  return (
-    <svg
-      width="12"
-      height="12"
-      viewBox="0 0 256 256"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="22"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      // Replié le chevron pointe de côté, déplié il pointe vers le bas — le
-      // comportement de la fiche actuelle. Le faire pivoter de 180° mettrait
-      // une pointe vers le haut, qui se lit « remonter » plutôt que « ouvert ».
-      className="shrink-0 -rotate-90 text-text-muted transition-transform duration-200 group-data-[state=open]:rotate-0"
-    >
-      <path d="M48 96l80 80 80-80" />
-    </svg>
-  );
-}

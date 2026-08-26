@@ -111,7 +111,7 @@ export function Combobox({
               aria-label={ariaLabel}
               className={cn(
                 'min-w-0 flex-1 bg-transparent text-small font-medium text-text outline-none',
-                'placeholder:font-normal placeholder:text-text-subtle',
+                'placeholder:font-normal placeholder:text-text-muted',
               )}
             />
             <Icon

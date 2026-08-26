@@ -22,7 +22,7 @@ export function StatTile({ label, valeur, unite, detail, className, ...props }: 
         <span
           className={cn(
             'text-headline font-bold break-words',
-            vide ? 'text-text-subtle' : 'text-text',
+            vide ? 'text-text-muted' : 'text-text',
           )}
         >
           {vide ? '—' : valeur}
@@ -30,7 +30,7 @@ export function StatTile({ label, valeur, unite, detail, className, ...props }: 
         {/* Une unité sans nombre devant ne veut rien dire. */}
         {unite && !vide ? <span className="text-small text-text-muted">{unite}</span> : null}
       </div>
-      {detail ? <div className="mt-xxs text-caption text-text-subtle">{detail}</div> : null}
+      {detail ? <div className="mt-xxs text-caption text-text-muted">{detail}</div> : null}
     </div>
   );
 }

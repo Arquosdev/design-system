@@ -74,7 +74,7 @@ export function SegmentedTabs({
               <span
                 className={cn(
                   'tabular-nums',
-                  actif ? 'font-semibold text-primary' : 'text-text-subtle',
+                  actif ? 'font-semibold text-primary' : 'text-text-muted',
                 )}
               >
                 {segment.compteur}

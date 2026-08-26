@@ -129,6 +129,18 @@ export const colors = {
   borderSoft: palette.grey[100], // séparateurs internes, bordures de carte
   text: palette.grey[800],
   textMuted: palette.grey[500],
+  /**
+   * Gris le plus clair — **jamais pour du texte.**
+   *
+   * 3,14 pour 1 sur blanc : au-dessus du seuil des éléments non textuels (3),
+   * en dessous de celui du texte (4,5). Il vaut pour une icône, un chevron, une
+   * bordure. Pour un texte discret — un compteur, une légende, une marque de
+   * réserve — prendre `textMuted`, qui est à 5,34.
+   *
+   * Vingt et un usages textuels ont été repris le 25/08/2026, dont toutes les
+   * marques de réserve : WCAG les traite comme du texte, et c'est justement
+   * celles qu'on croit décoratives.
+   */
   textSubtle: palette.grey[400],
   textOnDark: palette.white,
   black: palette.black,
