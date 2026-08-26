@@ -15,18 +15,14 @@ remplace:
 
 ## Quand l'utiliser
 
-- Naviguer entre les rubriques d'un même objet — les sections d'une fiche
-  équipement, les rubriques d'un formulaire long.
+- Naviguer entre les rubriques d'un même objet — les sections d'une fiche équipement, les rubriques d'un formulaire long.
 - Quand le compteur de chaque rubrique aide à décider où aller.
 
 ## Quand NE PAS l'utiliser
 
-- **Pour naviguer entre des pages** → des liens. Ce composant rend des boutons :
-  il change ce qu'on regarde, pas l'adresse.
-- **Pour deux ou trois entrées** → des onglets. Un rail vertical pour trois
-  rubriques prend de la largeur sans rien organiser.
-- **Pour une liste de données** (des relevés, des équipements) → une liste ou des
-  cartes. Ici, chaque entrée est une destination, pas un enregistrement.
+- **Pour naviguer entre des pages** → des liens. Ce composant rend des boutons : il change ce qu'on regarde, pas l'adresse.
+- **Pour deux ou trois entrées** → des onglets. Un rail vertical pour trois rubriques prend de la largeur sans rien organiser.
+- **Pour une liste de données** (des relevés, des équipements) → une liste ou des cartes. Ici, chaque entrée est une destination, pas un enregistrement.
 
 ## Props
 
@@ -64,17 +60,9 @@ import { NavList } from '@arquos/design-system/web';
 
 ## Anatomie
 
-- Intitulé : `typography.caption` en gras, majuscules, `colors.textSubtle`
-- Entrée : hauteur libre, arrondi `radius.control`, retrait `spacing.md` de chaque
-  côté — le fond teinté est une pastille, et une pastille qui touche ses mots se
-  lit comme un défaut d'alignement. Texte `typography.small` en
-  **`fontWeight.medium`** — c'est un menu, ses mots se balaient du regard, ils ne
-  se lisent pas en phrase ; le normal les laissait maigres face aux titres
-- Entrée courante : fond `palette.blue[50]`, texte `palette.blue[700]` en
-  `fontWeight.semibold` — un échelon au-dessus des autres, et c'est ce contraste
-  qui dit où l'on est
-- Compteur : `typography.small`, `colors.textSubtle`, chiffres à chasse fixe —
-  sans quoi les nombres dansent d'une ligne à l'autre
+- Entrée : hauteur libre, arrondi `radius.control`, retrait `spacing.md` de chaque côté — le fond teinté est une pastille, et une pastille qui touche ses mots se lit comme un défaut d'alignement. Texte `typography.small` en **`fontWeight.medium`** — c'est un menu, ses mots se balaient du regard, ils ne se lisent pas en phrase ; le normal les laissait maigres face aux titres
+- Entrée courante : fond `palette.blue[50]`, texte `palette.blue[700]` en `fontWeight.semibold` — un échelon au-dessus des autres, et c'est ce contraste qui dit où l'on est
+- Compteur : `typography.small`, `colors.textSubtle`, chiffres à chasse fixe — sans quoi les nombres dansent d'une ligne à l'autre
 
 ## États
 
@@ -90,7 +78,5 @@ import { NavList } from '@arquos/design-system/web';
 
 ## Accessibilité
 
-- Un `<nav>` avec `aria-label`, et `aria-current="page"` sur l'entrée ouverte :
-  c'est ce qui permet à un lecteur d'écran d'annoncer où l'on se trouve.
-- Le compteur est lu à la suite du libellé. Lui donner un libellé accessible
-  quand le chiffre seul serait ambigu.
+- Un `<nav>` avec `aria-label`, et `aria-current="page"` sur l'entrée ouverte : c'est ce qui permet à un lecteur d'écran d'annoncer où l'on se trouve.
+- Le compteur est lu à la suite du libellé.

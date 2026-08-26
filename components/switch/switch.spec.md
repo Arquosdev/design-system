@@ -51,10 +51,7 @@ import { Switch, Label } from '@arquos/design-system/web';
 
 ## Anatomie
 
-- Piste de 36 × 20 px, arrondi `radius.full` · Bouton de 16 px
-- Éteint : piste `colors.border` · Allumé : piste `colors.primary`
-- Le bouton porte `shadow.card`, ce qui le détache de la piste dans les deux
-  états
+- Le bouton porte `shadow.card`, ce qui le détache de la piste dans les deux états
 
 ## États
 

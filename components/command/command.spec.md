@@ -26,20 +26,14 @@ Deux écarts assumés :
 
 ## Quand l'utiliser
 
-- **Un écran trop dense pour être parcouru** : la fiche équipement porte plus de
-  quatre cents champs répartis sur neuf rubriques. Les faire défiler pour en
-  trouver un est plus long que de taper « charge ».
-- Quand la destination est **connue de celui qui cherche** : il sait ce qu'il
-  veut, il ne veut pas naviguer.
+- **Un écran trop dense pour être parcouru** : la fiche équipement porte plus de quatre cents champs répartis sur neuf rubriques.
+- Quand la destination est **connue de celui qui cherche** : il sait ce qu'il veut, il ne veut pas naviguer.
 
 ## Quand NE PAS l'utiliser
 
-- **Pour choisir une valeur dans un champ** → `FieldRow` en `kind="choice"`.
-  La palette navigue ; elle n'enregistre rien.
-- **Pour filtrer une liste affichée** → `FilterChips`. Le filtre restreint ce
-  qu'on voit, la palette emmène ailleurs.
-- **Pour un menu de moins d'une dizaine d'entrées** → `NavList`. Ouvrir une
-  boîte de recherche pour neuf rubriques est un détour.
+- **Pour choisir une valeur dans un champ** → `FieldRow` en `kind="choice"`. La palette navigue ; elle n'enregistre rien.
+- **Pour filtrer une liste affichée** → `FilterChips`. Le filtre restreint ce qu'on voit, la palette emmène ailleurs.
+- **Pour un menu de moins d'une dizaine d'entrées** → `NavList`. Ouvrir une boîte de recherche pour neuf rubriques est un détour.
 
 ## Props
 
@@ -82,14 +76,6 @@ import {
 quoi on veut pouvoir chercher — libellé **et** valeur — sinon taper « OTIS » ne
 trouvera pas le champ « Marque ».
 
-## Anatomie
-
-- Panneau : 660 px, à 96 px du haut, arrondi `radius.lg`, ombre `shadow.pop`
-- Voile : `colors.brand` à 35 %
-- Champ de saisie : 52 px, `typography.subhead`, loupe à gauche
-- Titre de groupe : `typography.caption`, gras, majuscules, `colors.textSubtle`
-- Entrée survolée ou sélectionnée : fond `palette.blue[50]`
-
 ## États
 
 - **Aucun résultat** : `CommandEmpty` dit « Aucun champ ne correspond ». Une
@@ -99,8 +85,6 @@ trouvera pas le champ « Marque ».
 
 ## Accessibilité
 
-- `cmdk` pose la sémantique `combobox` / `listbox` : flèches, Entrée, et
-  l'entrée courante annoncée à mesure.
+- `cmdk` pose la sémantique `combobox` / `listbox` : flèches, Entrée, et l'entrée courante annoncée à mesure.
 - Échap ferme, et le focus revient d'où il venait.
-- Le raccourci d'ouverture appartient à l'écran, pas au composant : c'est lui
-  qui sait si ⌘K est libre chez lui.
+- Le raccourci d'ouverture appartient à l'écran, pas au composant : c'est lui qui sait si ⌘K est libre chez lui.

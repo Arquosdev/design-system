@@ -48,9 +48,6 @@ import { PhotoTile } from '@arquos/design-system/web';
 ## Anatomie
 
 - Vignette : rapport **3/4 — portrait**, arrondi `radius.md`, contour `colors.borderSoft`
-- Non prise : fond `colors.bgMuted`, mention « Non prise » en `colors.textSubtle`
-- Essentielle non prise : contour `colors.danger`, mention en `colors.danger`
-- Légende : `typography.caption`, `colors.Une photo
 de relevé se prend au téléphone, tenu droit, devant une porte ou une armoire.
 
 Dans un cadre 4/3, une photo de 0,77 recadrée en `cover` ne montrait plus que

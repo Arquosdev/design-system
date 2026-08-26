@@ -46,12 +46,6 @@ import { Avatar } from '@arquos/design-system/web';
 <Avatar initiales="OM" photo={url} label="Ombeline M." className="size-8" />
 ```
 
-## Anatomie
-
-- Rond de 44 px par défaut · Fond `colors.infoBg` · Lettres `colors.primary` en
-  demi-gras, `typography.body`
-- La photo se pose en couverture, recadrée
-
 ## États
 
 | État | Ce qu'il donne |

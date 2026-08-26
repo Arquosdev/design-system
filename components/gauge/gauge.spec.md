@@ -14,18 +14,14 @@ remplace:
 
 ## Quand l'utiliser
 
-- Une proportion qu'on veut saisir sans lire : un taux de complétude, une
-  couverture, un avancement.
+- Une proportion qu'on veut saisir sans lire : un taux de complétude, une couverture, un avancement.
 - Quand la valeur exacte compte aussi — elle est toujours écrite.
 
 ## Quand NE PAS l'utiliser
 
-- **Pour un nombre qui n'est pas une proportion** (57 photos) → `StatTile`. Un
-  anneau suppose un tout, et 57 ne se rapporte à rien.
-- **En série.** Cinq anneaux côte à côte se comparent moins bien que cinq
-  barres — l'œil compare mal des angles.
-- **Pour une progression en cours** (un envoi, un calcul) → une barre de
-  progression, qui dit qu'on attend.
+- **Pour un nombre qui n'est pas une proportion** (57 photos) → `StatTile`. Un anneau suppose un tout, et 57 ne se rapporte à rien.
+- **En série.** Cinq anneaux côte à côte se comparent moins bien que cinq barres — l'œil compare mal des angles.
+- **Pour une progression en cours** (un envoi, un calcul) → une barre de progression, qui dit qu'on attend.
 
 ## Props
 
@@ -71,6 +67,5 @@ import { Gauge } from '@arquos/design-system/web';
 
 ## Accessibilité
 
-- `role="img"` avec un `aria-label` qui dit la valeur et ce qu'elle mesure :
-  « Taux de connaissance : 100 % ». Le dessin seul n'est pas lisible.
+- `role="img"` avec un `aria-label` qui dit la valeur et ce qu'elle mesure : « Taux de connaissance : 100 % ».
 - Le pourcentage est du texte, pas une image — il reste lu et sélectionnable.

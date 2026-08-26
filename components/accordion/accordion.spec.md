@@ -57,12 +57,6 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent }
 </Accordion>
 ```
 
-## Anatomie
-
-- Contour : `1px` `colors.borderSoft`, arrondi `radius.md`
-- En-tête : fond `colors.bgMuted`, titre `typography.small` en gras, méta `typography.caption` en `colors.textSubtle`
-- Chevron : pointe de côté replié (`-90°`), vers le bas déplié (`0°`)
-
 ## États
 
 - **Ouvert / fermé** : le chevron pivote d'un quart de tour, le contenu s'anime en hauteur.

@@ -46,12 +46,6 @@ import { Label, Input, Checkbox } from '@arquos/design-system/web';
 </Label>
 ```
 
-## Anatomie
-
-- Texte `typography.small` en demi-gras, couleur `colors.text`
-- `flex` avec `gap-sm` : le champ enveloppé s'aligne sans réglage
-- Suit l'état désactivé du champ voisin (`peer-disabled`)
-
 ## États
 
 Aucun état propre. Il s'éteint avec le champ qu'il nomme, jamais seul.

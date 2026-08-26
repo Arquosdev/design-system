@@ -45,10 +45,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@arquos/design-system/w
 
 ## Anatomie
 
-- Panneau : arrondi `radius.md`, contour `colors.borderSoft`, fond `colors.bg`,
-  ombre `shadow.pop`, retrait `spacing.base`
-- Aligné au bord de son déclencheur, 4 px en dessous — Radix le retourne
-  au-dessus quand la place manque
+- Aligné au bord de son déclencheur, 4 px en dessous — Radix le retourne au-dessus quand la place manque
 
 ## Accessibilité
 

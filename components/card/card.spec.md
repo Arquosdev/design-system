@@ -66,12 +66,6 @@ import { Card, CardHeader, CardTitle, CardDescription, CardList }
 </Card>
 ```
 
-## Anatomie
-
-- Contour : `1px` `colors.borderSoft`, arrondi `radius.md`, fond `colors.bg`
-- En-tête : fond `colors.bgMuted`, titre `typography.small` en gras, méta `typography.caption` en `colors.textSubtle`
-- Contenu : padding `spacing.base` avec `CardContent`, aucun avec `CardList`
-
 ## États
 
 - **Sans en-tête** : la carte n'affiche que son contour.

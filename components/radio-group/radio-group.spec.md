@@ -59,14 +59,6 @@ import { RadioGroup, RadioGroupItem, Label } from '@arquos/design-system/web';
 </RadioGroup>
 ```
 
-## Anatomie
-
-- Cercle de **18 px**, bordure `colors.border`, fond `colors.bg`
-- Coché : bordure `primary` et point plein de 8 px en `primary`
-- Le point est **dessiné en CSS**, pas importé : un cercle de 8 px n'a besoin
-  d'aucune icône, et en importer une le rendrait flou
-- Écart entre options : `spacing.sm`
-
 ## États
 
 | État | Ce qu'il donne |

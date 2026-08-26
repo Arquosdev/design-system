@@ -25,19 +25,15 @@ sur `tw-animate-css`, une dépendance de plus pour quatre keyframes.
 
 ## Quand l'utiliser
 
-- **Une tâche annexe qui a besoin de place** : remplir les dix champs vides
-  d'une rubrique sans perdre de vue celle qu'on quitte.
-- Quand **le contexte derrière compte** : le panneau laisse voir l'écran, une
-  page entière le remplacerait.
+- **Une tâche annexe qui a besoin de place** : remplir les dix champs vides d'une rubrique sans perdre de vue celle qu'on quitte.
+- Quand **le contexte derrière compte** : le panneau laisse voir l'écran, une page entière le remplacerait.
 
 ## Quand NE PAS l'utiliser
 
-- **Pour une décision courte** (confirmer, choisir parmi trois) → une boîte de
-  dialogue centrée. Un panneau de 460 px pour une phrase est disproportionné.
+- **Pour une décision courte** (confirmer, choisir parmi trois) → une boîte de dialogue centrée. Un panneau de 460 px pour une phrase est disproportionné.
 - **Pour une information passagère** → `Toast`.
 - **Pour regarder une image** → `PhotoViewer`.
-- **Pour du contenu principal** : ce qu'on consulte souvent mérite une rubrique,
-  pas un tiroir qu'il faut rouvrir à chaque fois.
+- **Pour du contenu principal** : ce qu'on consulte souvent mérite une rubrique, pas un tiroir qu'il faut rouvrir à chaque fois.
 
 ## Props
 
@@ -78,13 +74,6 @@ import {
 </Sheet>;
 ```
 
-## Anatomie
-
-- Panneau : 460 px, pleine hauteur, entrant par la droite, ombre `shadow.pop`
-- Voile : `colors.brand` à 35 %
-- En-tête et pied : séparés par un filet `colors.borderSoft`, fixes
-- Entrée 260 ms, sortie 200 ms
-
 ## États
 
 - **Fermeture** : Échap, clic sur le voile, ou la croix. L'animation de sortie
@@ -95,9 +84,6 @@ import {
 
 ## Accessibilité
 
-- Radix pose le rôle `dialog`, le piège à focus, Échap, et masque le reste de la
-  page aux lecteurs d'écran.
-- `SheetTitle` est **obligatoire** : sans lui, Radix avertit en console et le
-  panneau s'annonce sans nom. Le masquer visuellement reste possible (`sr-only`).
-- Le focus revient d'où il venait à la fermeture — un `SheetTrigger` le garantit ;
-  sans trigger, c'est à l'appelant de le rendre.
+- Radix pose le rôle `dialog`, le piège à focus, Échap, et masque le reste de la page aux lecteurs d'écran.
+- `SheetTitle` est **obligatoire** : sans lui, Radix avertit en console et le panneau s'annonce sans nom.
+- Le focus revient d'où il venait à la fermeture — un `SheetTrigger` le garantit ; sans trigger, c'est à l'appelant de le rendre.

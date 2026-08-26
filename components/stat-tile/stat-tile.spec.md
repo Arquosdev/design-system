@@ -45,13 +45,6 @@ import { StatTile } from '@arquos/design-system/web';
 <StatTile label="Machinerie" valeur="Haute" detail="gaine maçonnée" />
 ```
 
-## Anatomie
-
-- Carte : contour `colors.borderSoft`, arrondi `radius.md`, padding `spacing.base`
-- Label : `typography.caption`, `colors.textMuted`
-- Valeur : `typography.headline` en gras, `colors.text` · unité en `typography.small`
-- Détail : `typography.caption`, `colors.textSubtle`
-
 ## États
 
 - **Valeur absente** : afficher « — » en `colors.textSubtle`, et masquer l'unité.

@@ -24,15 +24,12 @@ d'un coup.
 
 - Accompagner un libellé d'un signe qui le rend repérable en balayage.
 - Dire un état d'un coup d'œil dans une liste longue.
-- Remplacer un mot quand la place manque — dans un `IconButton`, un en-tête de
-  colonne.
+- Remplacer un mot quand la place manque — dans un `IconButton`, un en-tête de colonne.
 
 ## Quand NE PAS l'utiliser
 
-- **Une icône hors du vocabulaire.** Ne pas importer Phosphor dans une app pour
-  contourner la liste : ajouter le rôle dans `src/icons.ts`, c'est trois lignes.
-- **Porter seule une information de risque.** Un triangle orange sans mot n'est
-  lisible ni par un daltonien, ni en balayage.
+- **Une icône hors du vocabulaire.** Ne pas importer Phosphor dans une app pour contourner la liste : ajouter le rôle dans `src/icons.ts`, c'est trois lignes.
+- **Porter seule une information de risque.** Un triangle orange sans mot n'est lisible ni par un daltonien, ni en balayage.
 - **Un logo, une marque, un schéma d'ascenseur.** Ce sont des images.
 - **Décorer.** La quatrième icône d'un écran est presque toujours de trop.
 
@@ -64,9 +61,7 @@ Ajouter un rôle : deux lignes dans `src/icons.ts`, une dans `icon.web.tsx`.
 
 ## Anatomie
 
-- Couleur **héritée** (`currentColor`) : elle se règle sur le parent, ce qui
-  permet à la même icône de suivre un texte muté ou un bouton primaire.
-- `shrink-0` posé d'office : une icône ne se comprime pas dans un flex.
+- Couleur **héritée** (`currentColor`) : elle se règle sur le parent, ce qui permet à la même icône de suivre un texte muté ou un bouton primaire.
 
 ## États
 
@@ -75,7 +70,7 @@ d'un état à elle est un bouton déguisé → `IconButton`.
 
 ## Accessibilité
 
-- Sans `label` : `aria-hidden` et `focusable="false"`. C'est le défaut.
+- Sans `label` : `aria-hidden` et `focusable="false"`.
 - Avec `label` : `role="img"` et `aria-label`.
 - La taille de cible tactile concerne le parent cliquable, pas l'icône.
 

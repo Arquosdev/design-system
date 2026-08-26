@@ -17,15 +17,13 @@ remplace:
 ## Quand l'utiliser
 
 - Déclencher une action sur la page : « Compléter », « Enregistrer », « Annuler ».
-- Une seule action `primary` par zone de l'écran. Au-delà, l'œil ne sait plus où aller.
+- Une seule action `primary` par zone de l'écran.
 
 ## Quand NE PAS l'utiliser
 
 - **Pour naviguer vers une autre page** → utiliser un lien. Un bouton agit, un lien déplace.
-- **Pour une action portée par une icône seule** → `IconButton` (à venir), qui impose
-  un libellé accessible.
-- **Pour basculer un état visible** (afficher/masquer, plié/déplié) → utiliser le
-  composant qui porte cet état (`Accordion`), pas un bouton nu.
+- **Pour une action portée par une icône seule** → `IconButton` (à venir), qui impose un libellé accessible.
+- **Pour basculer un état visible** (afficher/masquer, plié/déplié) → utiliser le composant qui porte cet état (`Accordion`), pas un bouton nu.
 
 ## Props
 
@@ -59,13 +57,6 @@ import { Button } from '@arquos/design-system/web';
 <Button variant="destructive" onClick={supprimer}>Supprimer le constat</Button>
 ```
 
-## Anatomie
-
-- Fond : `default` → `colors.primary` · `secondary` → `palette.blue[50]` · `outline` → `colors.bg` bordé · `ghost` et `link` → transparent · `destructive` → `colors.danger`
-- Texte : `default`/`destructive` → `colors.textOnDark` · `secondary` → `palette.blue[700]` · `outline`/`ghost` → `colors.textMuted`
-- Hauteur : `sm` 30px, `default` 36px, `lg` 44px · Arrondi : `radius.control`
-- Anneau de focus : `colors.primary`
-
 ## États
 
 - **Survol** : la couleur de fond s'assombrit (`/90`, `/80`), comme chez shadcn.
@@ -76,5 +67,5 @@ import { Button } from '@arquos/design-system/web';
 ## Accessibilité
 
 - Rend un `<button type="button">` : ne soumet pas de formulaire par accident.
-- Cible tactile d'au moins 36px en hauteur (`default`). Réserver `sm` au pointeur.
+- Cible tactile d'au moins 36px en hauteur (`default`).
 - Un bouton sans texte visible doit recevoir un `aria-label`.

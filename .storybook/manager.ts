@@ -1,4 +1,9 @@
 import { addons } from 'storybook/manager-api';
+
+// Importé plutôt qu'écrit en dur : Vite en fait une URL qui respecte le chemin
+// de publication. La vitrine vit sous /design-system/ sur GitHub Pages, où un
+// chemin absolu pointerait à côté.
+import logo from './arquos.svg';
 import { create } from 'storybook/theming';
 
 import { colors, palette } from '../src/colors';
@@ -19,6 +24,7 @@ const theme = create({
   base: 'light',
 
   brandTitle: 'Arquos — design system',
+  brandImage: logo,
   brandUrl: 'https://github.com/Arquosdev/design-system',
   brandTarget: '_self',
 

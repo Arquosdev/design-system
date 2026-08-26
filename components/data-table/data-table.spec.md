@@ -53,9 +53,6 @@ import { DataTable } from '@arquos/design-system/web';
 
 ## Anatomie
 
-- Carte : contour `colors.borderSoft`, arrondi `radius.md`
-- En-tête de carte : fond `colors.bgMuted`, titre en gras, note en `colors.textSubtle`
-- En-têtes de colonne : `typography.caption` en gras, majuscules, `colors.textSubtle`
 - Cellules : `typography.small`, `colors.text` ; une valeur absente s'affiche « — » en `colors.textSubtle`
 - Le tableau défile horizontalement dans sa carte, la page jamais
 

@@ -11,6 +11,9 @@ import type { StorybookConfig } from '@storybook/react-vite';
  */
 const config: StorybookConfig = {
   stories: ['../stories/**/*.stories.@(ts|tsx)', '../stories/**/*.mdx'],
+  // Le favicon d'Arquos remplace celui de Storybook : la vitrine est un onglet
+  // qu'on garde ouvert, et l'icône est ce qui permet de le retrouver.
+  staticDirs: ['./public'],
   addons: [
     '@storybook/addon-docs',
     // Le panneau « Accessibility » de chaque story. Il regarde ce que le
