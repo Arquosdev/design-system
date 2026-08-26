@@ -52,7 +52,7 @@ Les tokens s'écrivent **une fois** en TypeScript (`src/`) et se lisent dans
 | `spacing.ts` · `radius.ts` | échelle base 4 · arrondis |
 | `elevation.ts` | `shadow` (CSS) et `shadowNative` (React Native) |
 | `icons.ts` | `iconSize`, `iconWeight`, `icones` — le vocabulaire Phosphor |
-| `motion.ts` · `layers.ts` | durées et courbe · ordre d'empilement |
+| `motion.ts` · `layers.ts` · `border.ts` | durées et courbe · empilement · épaisseurs de bordure |
 
 | Généré | Pour qui |
 | --- | --- |
@@ -129,6 +129,7 @@ couleur posée par une animation. Il a trouvé 92 textes illisibles le jour de s
 
 ## État
 
+- **v1.31.0** (août 2026) — **Les épaisseurs de bordure deviennent des tokens.** `border-[1.5px]` était écrit à la main douze fois, dont six dans la fiche.
 - **v1.30.0** (août 2026) — **Tous les tokens** : la table de référence, 90 entrées avec leurs trois façons de se nommer — TypeScript, classe Tailwind, variable CSS.
 - **v1.29.0** (août 2026) — Le logo et le favicon Arquos dans la vitrine. Pages « Principes » et « Règles d'écran » resserrées de 40 %, sections `Anatomie` réduites à ce que le code ne dit pas.
 - **v1.28.0** (août 2026) — Documentation resserrée : l'essentiel, sans les récits.

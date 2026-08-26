@@ -168,6 +168,8 @@
   --arq-duration-normal: 200ms;
   --arq-duration-lent: 300ms;
   --ease-arquos: cubic-bezier(0.2, 0, 0, 1);
+  --arq-border-fin: 1px;
+  --arq-border-epais: 1.5px;
   --arq-layer-base: 0;
   --arq-layer-panneau: 50;
   --arq-layer-flottant: 60;

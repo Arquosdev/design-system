@@ -94,7 +94,7 @@ const FAMILLES: {
     css: (n) => `--arq-radius-${kebab(n)}`,
     apercu: (v) => (
       <span
-        className="block size-[26px] border-[1.5px] border-primary bg-info-bg"
+        className="block size-[26px] border-(length:--arq-border-epais) border-primary bg-info-bg"
         style={{ borderRadius: v }}
       />
     ),
@@ -119,6 +119,19 @@ const FAMILLES: {
     css: (n) => `--arq-shadow-${kebab(n)}`,
     apercu: (v) => (
       <span className="block size-[26px] rounded-md bg-bg" style={{ boxShadow: v }} />
+    ),
+  },
+  {
+    groupe: 'borderWidth',
+    titre: 'Bordure',
+    ts: (n) => `borderWidth.${n}`,
+    tailwind: (n) => `border-(length:--arq-border-${kebab(n)})`,
+    css: (n) => `--arq-border-${kebab(n)}`,
+    apercu: (v) => (
+      <span
+        className="block size-[26px] rounded-sm border-primary"
+        style={{ borderStyle: 'solid', borderWidth: v }}
+      />
     ),
   },
   {

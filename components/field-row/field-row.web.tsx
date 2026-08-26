@@ -372,7 +372,7 @@ function Editeur({ kind, label, value, options, autre, onValider, onAnnuler }: E
               ariaLabel={label}
               autoFocus
               placeholder={`Rechercher — ${label.toLowerCase()}`}
-              className="h-[30px] border-[1.5px] border-primary"
+              className="h-[30px] border-(length:--arq-border-epais) border-primary"
             />
           </div>
         ) : (
@@ -381,7 +381,7 @@ function Editeur({ kind, label, value, options, autre, onValider, onAnnuler }: E
               <SelectTrigger
                 autoFocus
                 aria-label={label}
-                className="h-[30px] w-full border-[1.5px] border-primary"
+                className="h-[30px] w-full border-(length:--arq-border-epais) border-primary"
               >
                 <SelectValue placeholder="— choisir —" />
               </SelectTrigger>
@@ -415,7 +415,7 @@ function Editeur({ kind, label, value, options, autre, onValider, onAnnuler }: E
       // Valider à la perte de focus : le réflexe est de cliquer ailleurs, pas
       // d'appuyer sur Entrée. Sans ça, la saisie est silencieusement perdue.
       onBlur={(e) => onValider(e.currentTarget.value)}
-      className="h-[30px] w-full rounded-control border-[1.5px] border-primary px-sm text-small text-text outline-none"
+      className="h-[30px] w-full rounded-control border-(length:--arq-border-epais) border-primary px-sm text-small text-text outline-none"
     />
   );
 }
@@ -445,7 +445,7 @@ function EditeurMulti({
       role="group"
       aria-label={label}
       onKeyDown={(e) => e.key === 'Escape' && onAnnuler()}
-      className="rounded-control border-[1.5px] border-primary bg-bg p-sm"
+      className="rounded-control border-(length:--arq-border-epais) border-primary bg-bg p-sm"
     >
       <div className="flex flex-wrap gap-xs">
         {options.map((o) => {
