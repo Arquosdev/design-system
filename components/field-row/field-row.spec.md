@@ -6,8 +6,11 @@ role: Afficher un champ en lecture, et le passer en saisie d'un clic sans quitte
 mots_cles: [champ, ligne, libelle, valeur, edition, inline, saisie, formulaire]
 plateformes: [web]
 remplace:
-  web: [public/fiche/index.html — buildField(), markup recopié lignes 402/487/643/950]
-  mobile: [components/full-form/FormFieldRenderer.tsx, components/OptionRow.tsx]
+  web:
+    - public/fiche/index.html — buildField(), markup recopié lignes 402/487/643/950
+  mobile:
+    - components/full-form/FormFieldRenderer.tsx
+    - components/OptionRow.tsx
 ---
 
 # FieldRow

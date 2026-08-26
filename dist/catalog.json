@@ -28,11 +28,7 @@
         "web"
       ],
       "remplace": {
-        "web": [
-          "public/fiche/index.html — motif recopié aux lignes 411",
-          "496",
-          "991"
-        ],
+        "web": [],
         "mobile": [
           "components/full-form/RubriqueBlock.tsx"
         ]
@@ -90,16 +86,8 @@
         "web"
       ],
       "remplace": {
-        "web": [
-          "public/fiche/index.html — badge(sev",
-          "size)",
-          "pastilles recopiées inline"
-        ],
-        "mobile": [
-          "components/Tag.tsx",
-          "components/StatusPill.tsx",
-          "components/OpportunityTypePill.tsx"
-        ]
+        "web": [],
+        "mobile": []
       },
       "dossier": "components/badge",
       "fiche": "components/badge/badge.spec.md",
@@ -125,10 +113,7 @@
         "web"
       ],
       "remplace": {
-        "web": [
-          "src/app/fiche/sections/bandeau-releve.tsx",
-          "le bandeau de démonstration et celui de lecture seule"
-        ],
+        "web": [],
         "mobile": []
       },
       "dossier": "components/banner",
@@ -157,10 +142,7 @@
         "web": [
           "public/fiche/index.html — boutons inline recopiés 13 fois"
         ],
-        "mobile": [
-          "components/Button.tsx",
-          "components/AddNewButton.tsx"
-        ]
+        "mobile": []
       },
       "dossier": "components/button",
       "fiche": "components/button/button.spec.md",
@@ -305,10 +287,7 @@
         "web"
       ],
       "remplace": {
-        "web": [
-          "public/fiche/index.html — levelTables",
-          "grille recopiée inline"
-        ],
+        "web": [],
         "mobile": [
           "components/full-form/NiveauxTable.tsx"
         ]
@@ -370,14 +349,8 @@
         "web"
       ],
       "remplace": {
-        "web": [
-          "public/fiche/index.html — buildField()",
-          "markup recopié lignes 402/487/643/950"
-        ],
-        "mobile": [
-          "components/full-form/FormFieldRenderer.tsx",
-          "components/OptionRow.tsx"
-        ]
+        "web": [],
+        "mobile": []
       },
       "dossier": "components/field-row",
       "fiche": "components/field-row/field-row.spec.md",
@@ -496,10 +469,7 @@
         "web": [
           "public/fiche/index.html — boutons carrés recopiés inline"
         ],
-        "mobile": [
-          "components/IconButton.tsx",
-          "components/RowEditButton.tsx"
-        ]
+        "mobile": []
       },
       "dossier": "components/icon-button",
       "fiche": "components/icon-button/icon-button.spec.md",
@@ -526,12 +496,7 @@
       ],
       "remplace": {
         "web": [],
-        "mobile": [
-          "components/Input.tsx",
-          "components/TextInputField.tsx",
-          "components/BufferedTextInputField.tsx",
-          "components/PhoneInputField.tsx"
-        ]
+        "mobile": []
       },
       "dossier": "components/input",
       "fiche": "components/input/input.spec.md",
@@ -585,10 +550,7 @@
         "web"
       ],
       "remplace": {
-        "web": [
-          "public/fiche/index.html — navFiche / navComp",
-          "boutons recopiés inline"
-        ],
+        "web": [],
         "mobile": [
           "components/full-form/RubriqueNav.tsx"
         ]
@@ -762,10 +724,7 @@
         "web": [
           "public/fiche/index.html — les menus natifs des écarts et des champs à choix"
         ],
-        "mobile": [
-          "components/CategoryPickerModal.tsx",
-          "components/BrandModelPicker.tsx"
-        ]
+        "mobile": []
       },
       "dossier": "components/select",
       "fiche": "components/select/select.spec.md",
@@ -794,11 +753,7 @@
         "web": [
           "public/fiche/index.html — panneau « Compléter »"
         ],
-        "mobile": [
-          "components/PhotoActionSheet.tsx",
-          "components/ResumeSurveySheet.tsx",
-          "components/ProductIdentificationSheet.tsx"
-        ]
+        "mobile": []
       },
       "dossier": "components/sheet",
       "fiche": "components/sheet/sheet.spec.md",
@@ -823,10 +778,7 @@
         "web"
       ],
       "remplace": {
-        "web": [
-          "src/app/fiche/sections/rail.tsx — SqueletteRail",
-          "et huit autres blocs écrits sur place"
-        ],
+        "web": [],
         "mobile": [
           "components/Skeleton.tsx"
         ]

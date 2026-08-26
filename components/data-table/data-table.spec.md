@@ -6,7 +6,8 @@ role: Présenter des mesures en lignes et colonnes, quand la comparaison colonne
 mots_cles: [tableau, table, grille, cotes, mesures, colonnes, lignes]
 plateformes: [web]
 remplace:
-  web: [public/fiche/index.html — levelTables, grille recopiée inline]
+  web:
+    - public/fiche/index.html — levelTables, grille recopiée inline
   mobile: [components/full-form/NiveauxTable.tsx]
 ---
 

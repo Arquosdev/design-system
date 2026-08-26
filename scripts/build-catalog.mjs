@@ -15,6 +15,17 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+
+/**
+ * Où vivent les apps, quand elles sont là.
+ *
+ * Chemins voisins : le poste de développement les a, la CI non. Le contrôle des
+ * chemins de `remplace` s'adapte — voir plus bas.
+ */
+const REPOS = {
+  mobile: join(ROOT, '..', 'myarquos-mobile'),
+  web: join(ROOT, '..', 'fiche-equipement'),
+};
 const COMPONENTS = join(ROOT, 'components');
 const DIST = join(ROOT, 'dist');
 
@@ -124,6 +135,33 @@ function collect() {
         );
       }
       fichiers[plateforme] = `components/${dir.name}/${dir.name}.${ext}`;
+    }
+
+    // Les fichiers d'app que le composant remplace : vérifiés s'ils sont
+    // atteignables, ignorés sinon.
+    //
+    // Le champ `remplace` sert à répondre à « ce composant existe-t-il déjà
+    // ailleurs, sous un autre nom ? » — c'est ce qui a permis de cartographier
+    // 32 fichiers du mobile. Une carte fausse est pire qu'une carte absente :
+    // elle envoie chercher un fichier qui n'est plus là.
+    //
+    // Les dépôts d'app ne sont pas toujours présents (la CI ne cloue que
+    // celui-ci). On ne vérifie donc QUE ce qu'on peut voir, et on se tait sur
+    // le reste plutôt que de bloquer sur une absence qui n'est pas une faute.
+    for (const [plateforme, chemins] of Object.entries(meta.remplace ?? {})) {
+      const depot = REPOS[plateforme];
+      if (!depot || !existsSync(depot)) continue;
+      for (const brut of chemins) {
+        // Les entrées portent parfois une précision après un tiret cadratin :
+        // « components/Button.tsx — la variante pleine ».
+        const chemin = String(brut).split('—')[0].trim();
+        if (!chemin || chemin.includes(' ')) continue;
+        if (!existsSync(join(depot, chemin))) {
+          throw new Error(
+            `${spec} : remplace.${plateforme} cite « ${chemin} », introuvable dans ${depot}`,
+          );
+        }
+      }
     }
 
     // La logique métier, quand elle existe : c'est ce qu'un agent doit lire pour

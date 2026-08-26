@@ -87,6 +87,7 @@ Les tokens s'écrivent **une fois** en TypeScript (`src/`) et se lisent dans **q
 | `check-version` | un numéro de version déjà publié sous un tag |
 | `check-contraste-rendu` | un texte illisible **au rendu** — il mesure le fond réellement peint, en remontant l'arbre, et voit donc ce que le contrôle statique ne peut pas voir |
 | `tsc --noEmit` | une erreur de typage — la CI ne le faisait pas avant août 2026 |
+| `npm test` | une règle métier cassée — les `<nom>.logic.ts` sont testés sans navigateur |
 
 Le troisième est arrivé le 25/08/2026, après qu'un audit a trouvé le badge
 « Conforme » — le plus affiché du produit — à **2,77 pour 1** là où il en faut
@@ -209,6 +210,7 @@ dans `src/icons.ts` et visibles en un écran dans la vitrine
 ## État
 
 - **v1.13.0** (août 2026) — **Phosphor devient le jeu d'icônes officiel.** Composant `Icon`, 35 rôles dans `src/icons.ts`, tokens `iconSize` et `iconWeight`. Le web ne recopie plus de tracés à la main.
+- **v1.26.0** (août 2026) — **22 tests sur la logique métier**, un statut de composant enfin défini, et les chemins de `remplace` vérifiés — ce qui a révélé 14 entrées fantômes créées par des virgules.
 - **v1.25.0** (août 2026) — Deux pages qui manquaient à la vitrine : **Par où commencer** (chercher par le besoin, pas par le nom) et **Un écran entier** (le système assemblé, avec du contenu réel).
 - **v1.24.0** (août 2026) — **Le contraste se mesure au rendu**, dans un vrai navigateur, sur les 97 stories. Il a trouvé 92 textes illisibles que le contrôle statique ne pouvait pas voir — dont `colors.success`, qui échouait dans ses deux rôles.
 - **v1.23.0** (août 2026) — **Tokens de mouvement et d'empilement.** Panneau, palette, menu et infobulle étaient tous à `z-50` : un menu ouvert dans un panneau passait devant ou derrière au hasard du DOM.

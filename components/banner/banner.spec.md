@@ -6,7 +6,9 @@ role: Informer d'une condition qui dure, en haut d'une zone, sans interrompre.
 mots_cles: [bandeau, banner, hors ligne, alerte, information, permanent, statut]
 plateformes: [web]
 remplace:
-  web: [src/app/fiche/sections/bandeau-releve.tsx, le bandeau de démonstration et celui de lecture seule]
+  web:
+    - src/app/fiche/sections/bandeau-releve.tsx
+    - le bandeau de démonstration et celui de lecture seule
   mobile: []
 ---
 

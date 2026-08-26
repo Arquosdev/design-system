@@ -7,7 +7,10 @@ mots_cles: [tiroir, panneau, drawer, sheet, lateral, completer, formulaire]
 plateformes: [web]
 remplace:
   web: [public/fiche/index.html — panneau « Compléter »]
-  mobile: [components/PhotoActionSheet.tsx, components/ResumeSurveySheet.tsx, components/ProductIdentificationSheet.tsx]
+  mobile:
+    - components/PhotoActionSheet.tsx
+    - components/ResumeSurveySheet.tsx
+    - components/ProductIdentificationSheet.tsx
 ---
 
 # Sheet

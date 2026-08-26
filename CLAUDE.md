@@ -210,6 +210,22 @@ peut pas diverger. Un agent, lui, lit directement le catalogue.
 `stories/<couche>/<nom>.stories.tsx`. La CI construit la vitrine : une story qui
 vise un composant dont les props ont changé fait échouer la PR.
 
+## Le statut d'un composant
+
+| Statut | Ce que ça engage |
+| --- | --- |
+| `stable` | L'API est arrêtée. La changer casse une app : ça passe par `MIGRATION.md`. |
+| `beta` | L'API peut encore bouger sans préavis. **C'est l'état par défaut d'un composant neuf.** |
+| `déprécié` | Ne plus l'employer ; la fiche dit par quoi le remplacer. |
+
+**Passer de `beta` à `stable` demande les deux conditions** : une app le consomme
+en production, ET son API n'a pas bougé depuis deux versions du design system.
+
+Ne pas promouvoir par confort. Au 26/08/2026, quinze composants sur trente et un
+sont `beta` — et c'est exact : ils ont deux jours. Un champ qu'on remplit à la
+légère ne renseigne plus personne, et c'est `dist/catalog.json` que les agents
+lisent en premier.
+
 ## Les deux couches
 
 Chaque fiche déclare une `couche`, et c'est ce qui range le dépôt comme la
