@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Les tags sont nécessaires : `check-version` refuse un numéro déjà
+          # publié, et sans historique il ne peut rien affirmer.
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           # Node 24+ lit le TypeScript nativement — le script de build importe

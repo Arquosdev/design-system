@@ -75,6 +75,8 @@ Les tokens s'écrivent **une fois** en TypeScript (`src/`) et se lisent dans **q
 | `build-tokens --check` | un `dist/` non régénéré après un changement de `src/` |
 | `build-catalog --check` | une plateforme déclarée sans implémentation, un catalogue périmé |
 | `check-contraste` | une paire texte/fond sous le seuil de lisibilité, un composant qui tape dans la palette brute |
+| `check-version` | un numéro de version déjà publié sous un tag |
+| `tsc --noEmit` | une erreur de typage — la CI ne le faisait pas avant août 2026 |
 
 Le troisième est arrivé le 25/08/2026, après qu'un audit a trouvé le badge
 « Conforme » — le plus affiché du produit — à **2,77 pour 1** là où il en faut
@@ -197,6 +199,7 @@ dans `src/icons.ts` et visibles en un écran dans la vitrine
 ## État
 
 - **v1.13.0** (août 2026) — **Phosphor devient le jeu d'icônes officiel.** Composant `Icon`, 35 rôles dans `src/icons.ts`, tokens `iconSize` et `iconWeight`. Le web ne recopie plus de tracés à la main.
+- **v1.19.0** (août 2026) — la CI refuse un numéro de version déjà publié. Deux collisions de tag en une journée ont livré des versions amputées.
 - **v1.18.0** (août 2026) — **Les fondations de la convergence** : `CONVERGENCE.md`, la logique métier dans `<nom>.logic.ts`, la correspondance mobile complétée (32 fichiers), et `tsc` branché sur la CI.
 - **v1.17.0** (août 2026) — **Les six primitives de formulaire** : `Input`, `Textarea`, `Label`, `Checkbox`, `RadioGroup`, `Switch`. Reprises de shadcn, habillées aux tokens, coche en Phosphor.
 - **v1.16.0** (août 2026) — **Les teintes d'état vont par paire** (`successBg`/`onSuccessBg`…), et la CI refuse une paire illisible ou un composant qui tape dans la palette brute. Corrige `Badge`, `FieldRow`, `PhotoTile` et le focus de `Accordion`, qui ne produisait aucun CSS.
