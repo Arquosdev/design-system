@@ -77,7 +77,7 @@ export const Defaut: Story = {
                         className={
                           c.valeur
                             ? 'shrink-0 font-semibold text-text-muted'
-                            : 'shrink-0 text-text-subtle'
+                            : 'shrink-0 text-text-muted'
                         }
                       >
                         {c.valeur || 'Non renseigné'}

@@ -61,7 +61,7 @@ export const LeVocabulaire: Story = {
               >
                 <Icon role={role} size="lg" className="text-text" />
                 <code className="break-all text-caption font-semibold text-text">{role}</code>
-                <code className="text-caption text-text-subtle">{icones[role]}</code>
+                <code className="text-caption text-text-muted">{icones[role]}</code>
               </div>
             ))}
           </div>

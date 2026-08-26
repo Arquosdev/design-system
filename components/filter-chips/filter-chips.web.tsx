@@ -54,7 +54,10 @@ export function FilterChips({ chips, value, onValueChange, label, className }: F
         >
           {chip.label}
           {chip.compteur !== undefined ? (
-            <span className="ml-xs font-normal opacity-70">{chip.compteur}</span>
+            // Pas d'`opacity` : elle mélange la couleur au fond et fait tomber
+            // le compteur à 2,9 pour 1. La graisse suffit à le mettre en retrait,
+            // et elle ne coûte rien à la lisibilité.
+            <span className="ml-xs font-normal">{chip.compteur}</span>
           ) : null}
         </ToggleGroup.Item>
       ))}

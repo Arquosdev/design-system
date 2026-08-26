@@ -12,7 +12,7 @@
   --color-primary-dark: #073B6F;
   --color-brand: #00295B;
   --color-accent: #FFA522;
-  --color-success: #17A679;
+  --color-success: #0C7C59;
   --color-success-bg: #DFF7F3;
   --color-on-success-bg: #0C7C59;
   --color-danger: #BE3A37;
@@ -197,7 +197,7 @@
   --accent-foreground: #073B6F;
   --destructive: #BE3A37;
   --destructive-foreground: #FFFFFF;
-  --success: #17A679;
+  --success: #0C7C59;
   --success-foreground: #FFFFFF;
   --warning: #FFA522;
   --warning-foreground: #232B2F;
@@ -266,8 +266,8 @@
     100% { background-color: transparent; }
   }
   @keyframes repere-libelle {
-    0%, 38% { text-decoration-color: #0D5AB7; }
-    100% { text-decoration-color: transparent; }
+    0%, 38% { text-decoration-color: #0D5AB7; color: #073B6F; }
+    100% { text-decoration-color: transparent; color: #5D6D79; }
   }
 }
 
@@ -301,8 +301,8 @@
       100% { background-color: transparent; }
     }
     @keyframes repere-libelle {
-      0%, 80% { text-decoration-color: #0D5AB7; }
-      100% { text-decoration-color: transparent; }
+      0%, 80% { text-decoration-color: #0D5AB7; color: #073B6F; }
+      100% { text-decoration-color: transparent; color: #5D6D79; }
     }
   }
 }

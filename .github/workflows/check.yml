@@ -27,3 +27,11 @@ jobs:
       # La vitrine casse dès qu'une story vise un composant qui a changé de
       # props. Mieux vaut l'apprendre ici que devant une page publiée à moitié.
       - run: npm run vitrine
+      # Le second contrôle de contraste : celui-ci mesure le RENDU, pas les
+      # classes. Il voit ce que le contrôle statique ne peut pas voir — un fond
+      # posé sur le parent et une couleur sur l'enfant. Trois défauts sont passés
+      # par cet angle mort en une seule journée.
+      #
+      # Chrome est déjà présent sur le runner : le script le prend plutôt que de
+      # télécharger 150 Mo de chromium à chaque exécution.
+      - run: npm run contraste-rendu

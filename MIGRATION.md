@@ -13,7 +13,7 @@ qu'elle coûtera. C'est ce que ce fichier note.
 
 | | Depuis v0.1.0 |
 | --- | --- |
-| Valeurs de token modifiées | **0** |
+| Valeurs de token modifiées | **1** — `colors.success`, voir la règle 8 |
 | Tokens retirés | **0** |
 | Exports retirés du point d'entrée web | **0** |
 
@@ -75,6 +75,13 @@ c'est ainsi que quatre composants se sont retrouvés au même niveau.
 
 **7. Les durées de transition sont des tokens.**
 `duration-(--arq-duration-normal)`, pas `duration-200`.
+
+**8. `colors.success` a changé de valeur** — vert 600 → vert 700
+(`#17A679` → `#0C7C59`). **C'est la première et seule valeur de token modifiée
+depuis la v0.1.0.** L'ancienne échouait dans ses deux rôles à 3,1 pour 1 :
+illisible en texte sur blanc, illisible sous du texte blanc. Les apps n'ont rien
+à faire — le vert s'assombrit tout seul — mais il faut le savoir en regardant
+l'écran après la bascule.
 
 ## Un piège connu, à traiter pendant la bascule
 
