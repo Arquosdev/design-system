@@ -103,10 +103,25 @@ sont un `Sheet`.
 La convergence n'est donc pas un projet neuf : c'est la **réconciliation de
 choses qui existent déjà en double**.
 
+## La stratégie : la base d'abord, la bascule ensuite
+
+**On ne touche pas aux apps pendant que le design system se construit.** Elles
+restent sur leur version épinglée, et l'on applique toutes les mises à jour d'un
+coup quand la base est solide. C'est une décision de Thomas, prise le 25/08/2026.
+
+Ce que ça implique, et qui n'est pas gratuit : une bascule groupée se fait à
+l'aveugle si personne ne note, au fil de l'eau, ce qu'elle coûtera.
+**`MIGRATION.md` tient ce registre** — ce qui casse (rien, à ce jour), ce qu'il
+faudra reprendre, et combien d'endroits sont concernés dans chaque app.
+
+Toute PR qui change une règle ou une API doit l'y inscrire. Sans ça, le registre
+ment au moment où l'on en a besoin.
+
 ## Ce qui reste ouvert
 
-- **Le mobile épingle une vieille version.** Tant qu'il n'est pas remonté, il ne
-  reçoit ni les ombres, ni le vocabulaire d'icônes, ni les paires d'état.
+- **Le mobile épingle la v0.1.0** — vingt versions en arrière, mais l'écart est
+  purement additif : rien n'a changé de valeur, rien n'a été retiré. La montée
+  est donc sans risque le jour où on la fera.
 - **Aucun composant `.native.tsx` n'existe encore.** Ce document dit où l'on va,
   pas où l'on est.
 - **Les survols n'ont pas d'équivalent tactile.** Les paires sémantiques n'ont

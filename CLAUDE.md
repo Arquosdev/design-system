@@ -144,6 +144,17 @@ n'arrive pas — le produit a déjà porté ce défaut.
 c'est `FieldRow`, qui bascule la ligne en saisie, valide à la perte de focus et
 rend la valeur d'avant sur Échap.
 
+## Les apps ne bougent pas — mais le registre, si
+
+Les apps (`mobile`, `fiche-equipement`) restent volontairement sur leur version
+épinglée le temps que la base se construise. **Ne pas proposer de les mettre à
+jour**, ni de reprendre leur code : la bascule se fera d'un coup, plus tard.
+
+En revanche, **toute PR qui change une règle ou une API s'inscrit dans
+`MIGRATION.md`** — ce qu'elle casse, ce qu'il faudra reprendre, et combien
+d'endroits sont concernés. Sans ce registre, la bascule groupée se fera à
+l'aveugle.
+
 ## Regarder le design system
 
 La vitrine Storybook publie chaque composant avec **sa fiche**, et les tokens
