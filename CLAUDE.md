@@ -1,355 +1,193 @@
-# Design system Arquos — mode d'emploi pour les agents
+# Design system Arquos — pour les agents
 
-Ce repo est la **source de vérité unique** du design Arquos : les tokens (couleurs,
-typographie, espacements, arrondis) et les composants partagés. Les apps mobile
-(`Arquosdev/mobile`) et web (`Arquosdev/fiche-equipement`) le consomment.
+Source de vérité unique du design : tokens et composants partagés. Consommé par
+`Arquosdev/mobile` et `Arquosdev/fiche-equipement`.
 
-## Avant tout : les principes de design
+## Les cinq règles
 
-Quatre principes disent **comment décider**, et ils sont les mêmes pour tout le
-monde — designer, développeur, agent :
+1. **Chercher dans `dist/catalog.json` avant d'écrire un composant.** Le rôle
+   cherché y figure peut-être.
+2. **Chercher chez shadcn/ui avant d'en créer un.** Voir « Partir de shadcn ».
+3. **Jamais une valeur de design en dur.** Ni `#0D5AB7`, ni `16px`, ni `z-50`,
+   ni `duration-200`. Toujours un token.
+4. **Jamais la palette brute dans un composant.** `colors.primary`, pas
+   `palette.blue[500]`. La CI le refuse.
+5. **Ne pas mettre les apps à jour.** Elles restent sur leur version le temps
+   que la base se construise ; la bascule se fera d'un coup. Toute PR qui change
+   une règle ou une API s'inscrit dans `MIGRATION.md`.
 
-1. **Au service de la tâche en cours** — l'écran sert la tâche du moment ; tout
-   le reste attend qu'on la lui demande.
-2. **Une friction à la mesure du risque** — autant de gestes que l'action est
-   difficile à défaire.
-3. **Simple pour celui qui s'en sert** — simple ne veut pas dire facile : c'est
-   le système qui prend la charge.
-4. **Réutiliser par défaut** — un motif déjà connu ne s'apprend pas deux fois.
+Si le token ou le composant manque : ne pas l'inventer dans l'app, l'ajouter ici.
 
-Ce que ça donne appliqué aux écrans d'Arquos est réuni dans les **règles
-d'écran** : sept règles nées de défauts réels du produit, à commencer par **ne
-jamais montrer ce qui n'est pas**. Un « ✓ Enregistré » sur une valeur qui ne part
-nulle part, un jeu de démonstration servi sur un vrai appareil, une case qu'on
-coche et qui n'écrit rien : le produit a porté ces trois défauts, et chacun a
-coûté une journée.
+## Choisir un token
 
-Les deux pages sont dans la vitrine. Les lire avant d'écrire un écran ; chaque
-fiche de composant les décline ensuite dans sa section « Quand NE PAS
-l'utiliser ».
+| | |
+| --- | --- |
+| Couleur | `colors.*` — jamais `palette.*` |
+| Espacement | base 4 ; `base` (16) par défaut, `sm` (8) entre proches |
+| Arrondi | `md` (8) ; `full` seulement sur un carré |
+| Typographie | les préréglages (`typography.body`), jamais recombiner |
+| Icône | un **rôle** (`<Icon role="supprimer" />`), jamais un dessin |
+| Empilement | `z-(--arq-layer-flottant)`, jamais `z-50` |
+| Durée | `duration-(--arq-duration-normal)`, jamais `duration-200` |
 
-## Les trois règles qui comptent
+Chaque token porte une description dans `dist/tokens.json` : la lire plutôt que
+deviner d'après le nom.
 
-**1. Avant d'écrire un composant, lire `dist/catalog.json`.** Il liste tous les
-composants existants avec leur rôle et leurs mots-clés. Si le besoin y figure déjà,
-réutiliser — ne pas réécrire une variante locale.
+**Trois pièges de couleur.**
 
-**2. Avant de créer un composant, chercher chez shadcn/ui.** Voir la section
-« Partir de shadcn » plus bas. Un composant écrit de zéro là où shadcn en a un est
-du travail perdu, et un comportement clavier de moins.
+- `textSubtle` **n'est pas une couleur de texte** (3,14 sur blanc). Icônes,
+  chevrons, bordures. Pour un texte discret : `textMuted` (5,34).
+- **Les teintes d'état vont par paire** : `bg-success-bg` avec
+  `text-on-success-bg`. Jamais `text-success` dessus (2,77). Idem `danger`,
+  `warning`, `info`.
+- **Ne jamais ajouter de taille de police.** L'échelle est calibrée sur l'usage.
 
-**3. Ne jamais écrire une valeur de design en dur.** Pas de `#0D5AB7`, pas de
-`padding: 16px`, pas de `borderRadius: 8`. Toujours un token.
+**Empilement — la règle qui tient l'échelle** : un élément flottant passe
+au-dessus de la surface qui l'a ouvert. Toute surface pouvant contenir un menu se
+place donc sous `flottant`.
 
-Si le token ou le composant dont tu as besoin n'existe pas : ne l'invente pas dans
-l'app. Ouvre le sujet — soit l'existant convient, soit il faut l'ajouter ici.
-
-## Où sont les tokens
-
-| Tu écris du…            | Tu importes…                                         |
-| ----------------------- | ---------------------------------------------------- |
-| TypeScript / React Native | `import { colors, spacing, radius, typography } from '@arquos/design-system'` |
-| CSS / HTML (web, Bubble) | `dist/tokens.css` → variables `var(--arq-color-primary)` |
-| Autre outil / analyse    | `dist/tokens.json` (format W3C Design Tokens, avec descriptions) |
-
-`dist/` est **généré**. La source est `src/*.ts`.
+| | | |
+| --- | --- | --- |
+| `panneau` | 50 | panneau latéral, tiroir |
+| `flottant` | 60 | menu, sélecteur, infobulle |
+| `plein-ecran` | 70 | visionneuse, palette |
+| `notification` | 80 | ce qui reste visible quoi qu'il arrive |
 
 ## Modifier un token
 
-1. Éditer le fichier concerné dans `src/` (`colors.ts`, `typography.ts`, `spacing.ts`, `radius.ts`).
-2. Lancer `npm run build` — régénère `dist/tokens.css` et `dist/tokens.json`.
-3. Committer `src/` **et** `dist/` ensemble.
-
-La CI (`npm run check`) refuse toute PR où `dist/` a divergé de `src/`.
-
-## Choisir le bon token
-
-**Couleurs** — prendre dans `colors` (sémantique), jamais dans `palette` (ramps brutes).
-La CI le vérifie désormais (`npm run contraste`) : un `bg-blue-50` dans un
-composant fait échouer la PR.
-
-**Les teintes d'état vont par paire.** Un fond teinté et l'encre qui s'y pose se
-nomment ensemble, parce qu'ils se choisissent ensemble :
-
-| Fond | Encre | Pour dire |
-| --- | --- | --- |
-| `bg-success-bg` | `text-on-success-bg` | conforme, validé |
-| `bg-danger-bg` | `text-on-danger-bg` | bloquant, en erreur |
-| `bg-warning-bg` | `text-on-warning-bg` | à confirmer, non bloquant |
-| `bg-info-bg` | `text-on-info-bg` | retenu, renseigné, décidé |
-
-Ne **jamais** poser `text-success` sur `bg-success-bg` : c'est 2,77 pour 1, et le
-badge « Conforme » a vécu ainsi jusqu'au 25/08/2026. Le contrôle refuse la paire.
-
-`colors.primary` pour une action, `colors.danger` pour une erreur, `colors.textMuted`
-pour un libellé secondaire. Chaque token porte une description dans `dist/tokens.json` :
-la lire plutôt que de deviner d'après le nom.
-
-**Espacements** — échelle base 4. `spacing.base` (16) est le padding par défaut d'une
-carte ou d'un formulaire. `spacing.sm` (8) pour l'écart entre éléments proches.
-
-**Arrondis** — `radius.md` (8) est la référence pour cartes, champs et boutons.
-`radius.full` uniquement sur un élément carré (pastille, avatar).
-
-**Typographie** — utiliser les presets (`typography.body`, `typography.title`…) plutôt
-que de recombiner taille + graisse + interligne. Côté web, les classes équivalentes
-existent : `.arq-text-body`, `.arq-text-title`…
-
-**Ne jamais ajouter de nouvelle taille de police.** L'échelle a été calibrée sur
-l'usage réel ; toute taille supplémentaire est du drift.
-
-**Empilement** — jamais un `z-50` écrit à la main : il ne dit pas au-dessus de
-quoi il doit passer. Prendre un niveau nommé, `z-(--arq-layer-<nom>)` :
-
-| Niveau | Pour |
-| --- | --- |
-| `panneau` (50) | une surface qui recouvre une partie de l'écran et reste manipulable |
-| `flottant` (60) | menu, sélecteur, infobulle — **au-dessus de la surface qui l'a ouvert** |
-| `plein-ecran` (70) | visionneuse, palette de recherche |
-| `notification` (80) | ce qui doit rester visible quoi qu'il arrive |
-
-**La règle qui tient l'échelle** : toute surface capable de contenir un menu se
-place SOUS `flottant`. C'est ce qui manquait le 25/08/2026, quand panneau,
-palette, menu et infobulle étaient tous à `z-50` : un menu ouvert dans le panneau
-« Compléter » passait devant ou derrière selon l'ordre du DOM.
-
-**Mouvement** — `duration-(--arq-duration-rapide|normal|lent)` : 150 pour un
-retour immédiat, 200 pour une bascule visible, 300 pour une surface qui entre.
-Au-delà de 300 ms la transition se remarque au lieu d'accompagner.
-
-**Icônes** — le jeu officiel est **Phosphor**. Ne jamais dessiner une icône à la
-main, ne jamais importer Phosphor directement dans une app : passer par le
-**rôle**.
-
-```tsx
-import { Icon } from '@arquos/design-system/web';
-<Icon role="supprimer" size="sm" />        // ✅
-<Trash size={16} />                        // ❌ le dessin, pas le rôle
-```
-
-Les 35 rôles sont dans `src/icons.ts` (`icones`), avec les tailles (`iconSize`,
-défaut `md` = 18) et les graisses (`iconWeight`). Si le rôle manque, **l'ajouter
-là** — deux lignes dans `src/icons.ts`, une dans `components/icon/icon.web.tsx`.
-Le contourner en important Phosphor dans l'app, c'est ce qui a fait dessiner
-« rechercher » et « suivant » deux fois, différemment.
-
-Côté mobile, `Icon` n'existe pas encore : importer le dessin depuis
-`phosphor-react-native` en lisant son nom dans `icones`, et la taille dans
-`iconSize`.
+1. Éditer `src/<fichier>.ts`
+2. `npm run build` — régénère `dist/`
+3. Prendre un **numéro de version libre** (la CI refuse un numéro déjà taggé)
+4. Committer `src/` et `dist/` ensemble
 
 ## Saisir une valeur : quel composant
-
-Six primitives, et le choix se fait sur **ce que la valeur est**, pas sur son
-apparence :
 
 | La valeur… | Prendre |
 | --- | --- |
 | se tape, courte | `Input` |
 | se rédige, longue | `Textarea` |
-| se choisit parmi 2 à 5 options visibles | `RadioGroup` |
-| se choisit parmi 6 à 20 | `Select` |
-| se cherche au-delà de 20 | `Combobox` |
-| est vraie ou fausse, validée plus tard | `Checkbox` |
-| est vraie ou fausse, **appliquée aussitôt** | `Switch` |
+| se choisit parmi 2 à 5 visibles | `RadioGroup` |
+| parmi 6 à 20 | `Select` |
+| au-delà de 20 | `Combobox` |
+| vraie/fausse, validée plus tard | `Checkbox` |
+| vraie/fausse, **appliquée aussitôt** | `Switch` |
+| **déjà affichée dans une fiche** | `FieldRow` |
 
-Chaque champ prend un `Label` associé — par `htmlFor`, ou en l'enveloppant.
+`Checkbox` et `Switch` ne sont pas interchangeables : la case attend un
+« Enregistrer », l'interrupteur s'applique en basculant.
 
-**Le piège** : `Checkbox` et `Switch` ne sont pas interchangeables. Une case
-attend un « Enregistrer », un interrupteur s'applique en basculant. Poser un
-interrupteur dans un formulaire qui se valide promet un effet immédiat qui
-n'arrive pas — le produit a déjà porté ce défaut.
-
-**Modifier une valeur déjà affichée dans une fiche ne relève d'aucune des six** :
-c'est `FieldRow`, qui bascule la ligne en saisie, valide à la perte de focus et
-rend la valeur d'avant sur Échap.
-
-## Les apps ne bougent pas — mais le registre, si
-
-Les apps (`mobile`, `fiche-equipement`) restent volontairement sur leur version
-épinglée le temps que la base se construise. **Ne pas proposer de les mettre à
-jour**, ni de reprendre leur code : la bascule se fera d'un coup, plus tard.
-
-En revanche, **toute PR qui change une règle ou une API s'inscrit dans
-`MIGRATION.md`** — ce qu'elle casse, ce qu'il faudra reprendre, et combien
-d'endroits sont concernés. Sans ce registre, la bascule groupée se fera à
-l'aveugle.
-
-## Deux contrôles de contraste, et pourquoi
-
-`npm run contraste` lit les **classes** : rapide, sans navigateur, il tourne à
-chaque `npm run check`. Mais il n'apparie que ce qui vit dans la même chaîne de
-classes.
-
-`npm run contraste-rendu` mesure le **rendu** : il ouvre chaque story dans
-Chrome et y lance la règle `color-contrast` d'axe, qui remonte l'arbre pour
-trouver le fond réellement peint. Il exige `npm run vitrine` d'abord.
-
-Le second voit ce que le premier ne peut pas voir : un fond sur le parent et une
-couleur sur l'enfant, une opacité qui mélange les teintes, une couleur posée par
-une animation. **Il a trouvé 92 textes illisibles le jour où il a été écrit**,
-dont `colors.success` qui échouait dans ses deux rôles à 3,1 pour 1.
-
-## Regarder le design system
-
-La vitrine Storybook publie chaque composant avec **sa fiche**, et les tokens
-avec leurs valeurs réelles :
-
-    https://arquosdev.github.io/design-system/
-
-En local : `npm run storybook`. Elle ne duplique rien — les pages lisent
-`components/<nom>/<nom>.spec.md` et `dist/tokens.json`. Une documentation
-recopiée à la main diverge au premier changement, et c'est alors la vitrine
-qu'on croit.
-
-**Chercher un composant par le besoin** : la page « Par où commencer » de la
-vitrine interroge les rôles, les mots-clés et le vocabulaire d'icônes — ce que la
-recherche de Storybook ne fait pas. Elle lit `dist/catalog.json`, donc elle ne
-peut pas diverger. Un agent, lui, lit directement le catalogue.
-
-La vitrine est rangée en quatre temps, sur le modèle d'Atlassian :
-
-| Section | Ce qu'on y trouve |
-| --- | --- |
-| **Prise en main** | Introduction, Installer, Par où commencer |
-| **Fondations** | Les règles de décision d'abord, les styles ensuite |
-| **Composants** | Générique, puis Métier |
-| **Modèles** | Le système assemblé dans un écran réel |
-
-Les fondations mettent les principes AVANT les couleurs : regarder une teinte
-avant de savoir ce qu'on veut dire, c'est choisir au hasard.
-
-**Ajouter un composant, c'est aussi lui écrire une story** dans
-`stories/<couche>/<nom>.stories.tsx`, titrée `Composants/<Couche>/<Nom>`. La CI construit la vitrine : une story qui
-vise un composant dont les props ont changé fait échouer la PR.
-
-## Le statut d'un composant
-
-| Statut | Ce que ça engage |
-| --- | --- |
-| `stable` | L'API est arrêtée. La changer casse une app : ça passe par `MIGRATION.md`. |
-| `beta` | L'API peut encore bouger sans préavis. **C'est l'état par défaut d'un composant neuf.** |
-| `déprécié` | Ne plus l'employer ; la fiche dit par quoi le remplacer. |
-
-**Passer de `beta` à `stable` demande les deux conditions** : une app le consomme
-en production, ET son API n'a pas bougé depuis deux versions du design system.
-
-Ne pas promouvoir par confort. Au 26/08/2026, quinze composants sur trente et un
-sont `beta` — et c'est exact : ils ont deux jours. Un champ qu'on remplit à la
-légère ne renseigne plus personne, et c'est `dist/catalog.json` que les agents
-lisent en premier.
-
-## Les deux couches
-
-Chaque fiche déclare une `couche`, et c'est ce qui range le dépôt comme la
-vitrine :
-
-- **`generique`** — une mécanique que n'importe quelle application aurait :
-  bouton, modale, onglets, palette de recherche. Elle vient de shadcn/Radix, ou
-  elle le pourrait. La toucher engage tout le monde.
-- **`metier`** — elle porte l'ascenseur : son vocabulaire, ses états, ses
-  règles. `FieldRow` sait qu'une valeur absente se dit « Non renseigné » ;
-  `PhotoTile` sait qu'une photo manquante est une information.
-
-Le doute se tranche ainsi : **une application de comptabilité en voudrait-elle
-telle quelle ?** Oui → `generique`.
-
-Ce n'est **pas** de l'atomic design, et c'est délibéré : classer par taille
-(atome, molécule, organisme) répond à une question que personne ne se pose en
-travaillant. Celle-ci se pose tous les jours.
-
-## Les composants
-
-Chaque composant vit dans `components/<nom>/` :
+## Anatomie d'un composant
 
 | Fichier | Contenu |
 | --- | --- |
-| `<nom>.spec.md` | La fiche : rôle, **quand ne pas l'utiliser**, props, états, accessibilité |
+| `<nom>.spec.md` | La fiche : rôle, **quand NE PAS l'utiliser**, props, états, accessibilité |
 | `<nom>.logic.ts` | Le métier sans React : vocabulaire, seuils, règles |
 | `<nom>.web.tsx` | Implémentation web |
 | `<nom>.native.tsx` | Implémentation React Native |
 
+**Lire la fiche avant l'implémentation** : elle seule dit quand le composant est
+le mauvais choix.
+
 **Le métier ne s'écrit pas dans une implémentation.** Un mot, un seuil, une règle
-de décision vont dans `<nom>.logic.ts` — sans React, donc lisibles et testables
-sans navigateur ni simulateur. C'est ce qui empêche « Non renseigné » de devenir
-« — » sur l'autre plateforme. Les classes et les styles restent, eux, dans le
-fichier de plateforme.
-
-Où l'on va exactement — ce qui converge, ce qui a le droit de diverger, et par
-quoi l'on commence — est écrit dans **`CONVERGENCE.md`**. Le lire avant de
-proposer un composant natif.
-
-**Lire la fiche avant l'implémentation.** Elle contient la section « Quand NE PAS
-l'utiliser », qui est ce qui évite les détournements — l'implémentation ne le dit pas.
-
-Web et mobile partagent **les mêmes noms de props et les mêmes valeurs**. Si tu
-constates une divergence non documentée dans la fiche, c'est un bug, pas une liberté.
+vont dans `<nom>.logic.ts` — testable sans navigateur. Les classes et styles
+restent côté plateforme. Voir `CONVERGENCE.md`.
 
 ### Ajouter un composant
 
-**Toujours dans cet ordre.**
+1. Chercher dans `dist/catalog.json`
+2. Chercher chez shadcn/ui
+3. Copier `components/_TEMPLATE.spec.md`, le remplir, déclarer sa `couche`
+4. Écrire les implémentations des plateformes déclarées
+5. Écrire sa story : `stories/<couche>/<nom>.stories.tsx`, titrée
+   `Composants/<Couche>/<Nom>`
+6. Tester la logique si elle existe : `<nom>.logic.test.ts`
+7. `npm run catalog`
 
-1. **Chercher dans `dist/catalog.json`.** Le besoin y figure peut-être déjà.
-2. **Chercher chez shadcn/ui** — voir ci-dessous. C'est la règle posée par Thomas.
-3. Copier `components/_TEMPLATE.spec.md` vers `components/<nom>/<nom>.spec.md`, le remplir.
-   Y déclarer sa `couche` — voir « Les deux couches » plus haut.
-4. Écrire les implémentations des plateformes déclarées dans l'en-tête.
-5. Écrire sa story dans `stories/<couche>/<nom>.stories.tsx`.
-6. `npm run catalog` — régénère `dist/catalog.json` et `components/README.md`.
+### Statut
 
-La CI refuse une plateforme déclarée sans implémentation, une couche inconnue, un
-catalogue non régénéré, ou une vitrine qui ne construit plus.
+| | |
+| --- | --- |
+| `stable` | API arrêtée. La changer passe par `MIGRATION.md`. |
+| `beta` | L'API peut bouger. **État par défaut d'un composant neuf.** |
+| `déprécié` | La fiche dit par quoi le remplacer. |
+
+**Passer à `stable` demande les deux** : consommé en production, ET API stable
+depuis deux versions. Ne pas promouvoir par confort.
+
+### Les deux couches
+
+- **`generique`** — une mécanique que n'importe quelle application aurait. Vient
+  de shadcn/Radix, ou pourrait.
+- **`metier`** — porte l'ascenseur : son vocabulaire, ses états, ses règles.
+
+Le doute se tranche ainsi : **une application de comptabilité en voudrait-elle
+telle quelle ?** Oui → `generique`.
+
+Ce n'est pas de l'atomic design, et c'est délibéré : classer par taille répond à
+une question que personne ne se pose en travaillant.
 
 ## Partir de shadcn
-
-Le dépôt est configuré pour le CLI shadcn (`components.json`, alias `@/`) :
 
 ```bash
 npx shadcn@latest add <composant>
 ```
 
-Il écrit dans `components/ui/` et résout `cn` vers `components/_lib/cn`. Déplacer
-ensuite le fichier dans `components/<nom>/<nom>.web.tsx`, l'habiller aux tokens, et
-lui écrire sa fiche.
+Écrit dans `components/ui/`. Déplacer vers `components/<nom>/<nom>.web.tsx`,
+habiller aux tokens, écrire la fiche.
 
-**Ce qu'on garde de shadcn, systématiquement :**
+**Garder** : les noms de variantes et de tailles (`default`, `secondary`,
+`outline`, `ghost`, `destructive`, `link` ; `default`, `sm`, `lg`, `icon`), la
+composition plutôt que les props de configuration, les primitives Radix.
 
-- **Les noms de variantes et de tailles** — `default`, `secondary`, `outline`,
-  `ghost`, `destructive`, `link` ; `default`, `sm`, `lg`, `icon`. C'est ce qui permet
-  de coller un extrait de leur documentation sans le retoucher.
-- **La composition** plutôt que les props de configuration : `Card` + `CardHeader` +
-  `CardContent`, pas `<Card titre=… />`.
-- **Les primitives Radix** qu'il embarque, pour tout ce qui touche au clavier et aux
-  lecteurs d'écran : modale, menu, infobulle, sélecteur, accordéon.
+**Changer** : les couleurs, qui viennent des tokens. `tokens.tailwind.css`
+traduit leur vocabulaire une seule fois — ne jamais le redéfinir dans une app.
 
-**Ce qu'on change :** les couleurs, qui viennent des tokens. `tokens.tailwind.css`
-traduit le vocabulaire shadcn (`--primary`, `--secondary`, `--ring`…) vers les tokens
-Arquos, **une seule fois**. Ne jamais redéfinir ces variables dans une app.
+**Ajouter** : les variantes que le métier réclame. Étendre la `cva`, pas forker.
 
-**Ce qu'on ajoute :** les variantes que shadcn n'a pas et que le métier réclame —
-`success` et `warning` sur `Badge`, par exemple. Étendre la `cva`, ne pas forker.
+**Remplacer les icônes Lucide par le vocabulaire Phosphor.**
 
-**Quand shadcn n'a rien :** `FieldRow`, `PhotoTile`, `Gauge`, `StatTile`, `NavList`,
-`DataTable` sont écrits de zéro — ils portent le métier ascenseur, pas une mécanique
-générique. Le dire dans la fiche du composant, pour que le suivant ne cherche pas.
+## Ce que la CI refuse
 
-## Un piège à connaître : les classes `text-*`
+`npm run check` : types, numéro de version, dérivés non régénérés, catalogue
+périmé, chemins de `remplace` cassés, paire de couleurs illisible, palette brute,
+tests. Puis `npm run vitrine` et `npm run contraste-rendu`, qui mesure le
+contraste dans un vrai navigateur.
 
-Tailwind utilise le préfixe `text-` pour **deux choses** : la taille et la
-couleur. `tailwind-merge`, qui dédoublonne les classes dans `cn()`, ne connaît
-pas nos noms — sans configuration il range `text-small` et `text-text-on-dark`
-dans le même groupe et ne garde que le dernier. La couleur disparaît, en
-silence : on obtient du texte sombre sur un fond foncé.
+**Deux contrôles de contraste, et il faut savoir lequel voit quoi.**
+`contraste` lit les classes — rapide, mais n'apparie que ce qui vit dans la même
+chaîne. `contraste-rendu` mesure le rendu et voit ce que l'autre ne peut pas :
+fond sur le parent, opacité, couleur posée par une animation.
 
-`components/_lib/cn.ts` lui déclare donc la liste de nos tailles, dérivée de
-`src/typography.ts`. Rien à faire pour ajouter un préréglage : il est repris
-automatiquement. Mais **ne pas remplacer `cn()` par un simple `clsx`** dans un
-composant, ce serait rouvrir le trou.
+## La vitrine
+
+<https://arquosdev.github.io/design-system/> · en local `npm run storybook`
+
+| Section | Contenu |
+| --- | --- |
+| **Prise en main** | Introduction, Installer, Par où commencer |
+| **Fondations** | Les règles de décision d'abord, les styles ensuite |
+| **Composants** | Générique, puis Métier |
+| **Patterns** | Le système assemblé dans un écran réel |
+
+Elle ne duplique rien : les pages lisent `components/<nom>/<nom>.spec.md` et
+`dist/tokens.json`.
+
+Un agent cherche dans `dist/catalog.json` ; la page « Par où commencer » offre la
+même recherche aux humains.
+
+## Un piège : les classes `text-*`
+
+Tailwind emploie `text-` pour la taille **et** la couleur. `tailwind-merge` ne
+connaît pas nos noms : sans configuration il range `text-small` et
+`text-text-on-dark` dans le même groupe et ne garde que le dernier — la couleur
+disparaît en silence.
+
+`components/_lib/cn.ts` lui déclare nos tailles. **Ne jamais remplacer `cn()` par
+`clsx`** dans un composant.
 
 ## À ne pas faire
 
-- Éditer `dist/` ou `components/README.md` à la main — le prochain build écrase tout.
-- Référencer `palette.blue[500]` dans du code applicatif — utiliser `colors.primary`.
-- Ajouter une valeur intermédiaire à une échelle « parce qu'il manque 2px ».
-- Créer un composant sans avoir cherché dans `dist/catalog.json` d'abord.
-- Écrire de la documentation dans une story : elle vit dans la fiche, que la
-  story affiche. Deux textes divergent toujours.
+- Éditer `dist/` ou `components/README.md` à la main
+- Ajouter une valeur intermédiaire à une échelle « parce qu'il manque 2 px »
+- Écrire de la documentation dans une story : elle vit dans la fiche
+- Mettre les apps à jour

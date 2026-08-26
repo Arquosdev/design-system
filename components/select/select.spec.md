@@ -35,10 +35,7 @@ Les noms exportés et la composition sont ceux de shadcn ; la primitive est Radi
 
 ## Trois écarts avec shadcn, tous assumés
 
-**La gâchette s'ajuste à son contenu.** Celle de shadcn prend toute la largeur.
-Dans une fiche, un menu de trois choix étiré sur un tiers d'écran promet une
-saisie longue là où il n'y a qu'un mot à choisir — c'est ce qui a fait reprendre
-la carte d'écart le 25/08/2026. `className="w-full"` rend la pleine largeur à qui
+**La gâchette s'ajuste à son contenu.** Celle de shadcn prend toute la largeur.`className="w-full"` rend la pleine largeur à qui
 la veut.
 
 **L'entrée retenue se teinte au lieu de porter une coche.** shadcn met un `Check`

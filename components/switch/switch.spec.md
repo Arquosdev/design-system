@@ -19,17 +19,11 @@ remplace:
 
 ## Quand NE PAS l'utiliser
 
-- **Dans un formulaire qui se valide** → `Checkbox`. C'est la distinction qui
-  compte, et elle n'est pas cosmétique : un interrupteur promet un effet
-  immédiat. Posé au milieu de champs qui attendent « Enregistrer », il fait
-  croire que le réglage est déjà pris.
+- **Dans un formulaire qui se valide** → `Checkbox`. C'est la distinction qui compte, et elle n'est pas cosmétique : un interrupteur promet un effet immédiat.
 - **Pour une action** → `Button`. « Lancer la synchronisation » est une action,
   pas un état ; un interrupteur qui déclenche puis revient tout seul est un
   bouton mal déguisé.
-- **Quand la bascule peut échouer.** Un interrupteur affirme le nouvel état
-  aussitôt. Si l'écriture peut être refusée, il faut soit attendre la réponse,
-  soit revenir en arrière visiblement — sinon l'écran ment. C'est la première
-  règle d'écran du dépôt : **ne jamais montrer ce qui n'est pas**.
+- **Quand la bascule peut échouer.** Un interrupteur affirme le nouvel état aussitôt. Si l'écriture peut être refusée, il faut soit attendre la réponse, soit revenir en arrière visiblement — sinon l'écran ment.
 - **Sans intitulé.** Un interrupteur seul ne dit ni ce qu'il commande, ni ce que
   veut dire « activé ».
 

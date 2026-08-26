@@ -21,10 +21,7 @@ remplace:
 
 ## Quand NE PAS l'utiliser
 
-- **Pour un effet immédiat** → `Switch`. Une case attend un « Enregistrer » ;
-  l'interrupteur s'applique en basculant. Confondre les deux promet un
-  enregistrement qui n'a pas lieu — le produit a déjà porté ce défaut, une case
-  qu'on cochait et qui n'écrivait rien.
+- **Pour un effet immédiat** → `Switch`. Une case attend un « Enregistrer » ; l'interrupteur s'applique en basculant.
 - **Pour un choix unique** → `RadioGroup`. Deux cases dont une seule peut être
   vraie laissent l'utilisateur les cocher toutes les deux.
 - **Pour filtrer une liste** → `FilterChips`. Les puces montrent le filtre actif

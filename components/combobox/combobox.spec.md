@@ -38,13 +38,7 @@ qui habille la palette plein écran et porte sa hauteur.
   composant choisit une valeur dans UN champ.
 - **Quand la valeur peut être hors liste** — une marque qu'aucun catalogue ne
   connaît : il faut alors doubler d'une saisie libre, comme le fait `FieldRow`
-  avec son entrée « Autre ».
-
-## Le seuil
-
-`SEUIL_RECHERCHE` vaut **12**, mesuré sur la fiche équipement le 25/08/2026 :
-206 champs à menu en ont douze ou moins, les sept autres montent à 50, 114,
-376. Entre les deux il n'y a personne — la frontière peut donc être franche.
+  avec son entrée « Autre ».Entre les deux il n'y a personne — la frontière peut donc être franche.
 
 ## Props
 

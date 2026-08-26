@@ -49,11 +49,7 @@ prise ou un renseignement neutre, `secondary` pour un état neutre du parcours,
 `muted` posent un fond très clair et un texte de la même teinte en foncé : c'est
 ce qui les fait lire comme un **état**, quelque chose qui *est*. `default` et
 `secondary` sont pleins, et lisent comme un **bouton**, quelque chose sur quoi on
-*appuie*. Un badge en fond plein au bout d'une ligne de liste promet une action
-qui n'existe pas — la question s'est posée le 25/08/2026 sur l'action d'un écart,
-posée en `default` puis reprise en `info`.
-
-> **Base shadcn/ui.** Ses quatre variantes (`default`, `secondary`, `destructive`,
+*appuie*.> **Base shadcn/ui.** Ses quatre variantes (`default`, `secondary`, `destructive`,
 > `outline`) sont conservées telles quelles. `success`, `warning`, `info` et `muted`
 > s'y ajoutent : une fiche d'équipement parle sans cesse de conformité, de vigilance
 > et de décisions prises, et shadcn n'a rien pour ça. C'est l'extension que leur

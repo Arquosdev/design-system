@@ -21,8 +21,7 @@ remplace:
 
 ## Quand NE PAS l'utiliser
 
-- **Pour naviguer vers une autre page** → utiliser un lien. Un bouton agit, un lien
-  déplace. Un agent qui se trompe ici casse le clic-droit, le Cmd+clic et le lecteur d'écran.
+- **Pour naviguer vers une autre page** → utiliser un lien. Un bouton agit, un lien déplace.
 - **Pour une action portée par une icône seule** → `IconButton` (à venir), qui impose
   un libellé accessible.
 - **Pour basculer un état visible** (afficher/masquer, plié/déplié) → utiliser le
@@ -46,9 +45,7 @@ action de second plan posée sur fond blanc, `ghost` pour une action discrète e
 ligne, `destructive` pour une action irréversible, `link` pour ce qui se comporte comme
 un lien sans en être un.
 
-> **Base shadcn/ui.** Les noms de variantes et de tailles sont ceux de shadcn : un
-> extrait de leur documentation se colle sans retouche. Seules les couleurs changent,
-> et elles viennent des tokens.
+> **Base shadcn/ui.** Les noms de variantes et de tailles sont ceux de shadcn : un extrait de leur documentation se colle sans retouche. Seules les couleurs changent, et elles viennent des tokens.
 
 ## Exemples
 
