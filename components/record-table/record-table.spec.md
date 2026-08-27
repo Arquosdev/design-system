@@ -89,14 +89,28 @@ const [choisis, setChoisis] = React.useState<Set<string>>(new Set());
 
 ## Anatomie
 
-- En-tête : `colors.bgSubtle`, `typography.small` en `medium`, `colors.textMuted`
+- En-tête : `colors.bgSubtle`, `typography.caption` en `bold`, en **majuscules**
+  avec `.5px` d'interlettrage, `colors.textMuted`. Les capitales font la
+  différence de nature entre le nom d'une colonne et une valeur : sur vingt-cinq
+  lignes de texte à la même graisse, l'œil ne retrouve plus la ligne d'en-tête.
+- En-tête collé en haut (`sticky top-0`) : le tableau défile, ses en-têtes non.
+  Sans cela on lit une valeur sans savoir de quelle colonne elle vient dès la
+  dixième ligne.
 - Ligne : fond `colors.bg`, séparateur `colors.borderSoft`, survol `colors.bgMuted`
 - Ligne cochée : `colors.infoBg` — la même teinte que la barre d'actions qu'elle
   alimente, pour qu'on voie d'où vient le décompte
-- Cellule : `spacing.md` horizontal, `spacing.sm` vertical
-- Identité : `colors.primary`, en `medium`
+- Cellule : `spacing.md` horizontal, `10px` vertical
+- Case à cocher : colonne de `40px`, dont `spacing.xl` de marge à gauche ; la
+  colonne d'identité se cale donc à `left: 40px` quand elle se fige
+- Dernière colonne : `spacing.xl` à droite, pour que la valeur ne touche pas le
+  bord de l'écran
+- Identité : `colors.primary`, en `semibold`
 - Colonne numérique : alignée à droite, chiffres à chasse fixe — sans quoi les
   nombres dansent d'une ligne à l'autre
+
+Le tableau utilise `border-separate` et porte ses traits sur les cellules, non
+sur les lignes : en `border-collapse`, une cellule figée perd sa bordure au
+défilement.
 
 ## États
 

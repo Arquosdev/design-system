@@ -93,9 +93,16 @@ export function RecordTable<T>({
     selection.onChange(s);
   }
 
-  // La case et l'identité restent en place quand les colonnes défilent.
-  const colleCase = 'sticky left-0 z-10';
-  const colleIdentite = cn('sticky z-10', selection ? 'left-11' : 'left-0');
+  // La case et l'identité restent en place quand les colonnes défilent, et
+  // l'en-tête quand on défile verticalement. Les deux se croisent au coin haut
+  // gauche : il lui faut un cran de plus, sinon une cellule passe par-dessus.
+  const colleCase = 'sticky left-0 z-20';
+  const colleIdentite = cn('sticky z-20', selection ? 'left-10' : 'left-0');
+
+  // Les en-têtes : petites capitales, sur le fond discret, collées en haut.
+  const styleEntete =
+    'sticky top-0 z-30 border-b border-border-soft bg-bg-subtle px-md py-sm ' +
+    'text-caption font-bold tracking-[.5px] whitespace-nowrap text-text-muted uppercase';
 
   // Rendu, pas composant : un sous-composant défini dans le corps du parent
   // change d'identité à chaque rendu, et React remonte alors tout l'en-tête —
@@ -122,12 +129,15 @@ export function RecordTable<T>({
   }
 
   return (
-    <div className={cn('overflow-x-auto', className)}>
-      <table className="w-max min-w-full border-collapse text-small">
+    <div className={cn('min-h-0 flex-1 overflow-auto', className)}>
+      <table className="w-max min-w-full border-separate border-spacing-0 text-left text-small">
         <thead>
-          <tr className="border-b border-border bg-bg-subtle">
+          <tr>
             {selection && (
-              <th scope="col" className={cn(colleCase, 'w-11 bg-bg-subtle px-md py-sm')}>
+              <th
+                scope="col"
+                className={cn(colleCase, styleEntete, 'z-40 w-10 py-sm pr-0 pl-xl')}
+              >
                 <Checkbox
                   checked={toutes}
                   onCheckedChange={() =>
@@ -139,10 +149,7 @@ export function RecordTable<T>({
             )}
             <th
               scope="col"
-              className={cn(
-                colleIdentite,
-                'bg-bg-subtle px-md py-sm text-left font-medium whitespace-nowrap text-text-muted',
-              )}
+              className={cn(colleIdentite, styleEntete, 'z-40')}
               aria-sort={
                 tri?.etat?.cle === 'identite'
                   ? tri.etat.sens === 'croissant'
@@ -153,14 +160,15 @@ export function RecordTable<T>({
             >
               {entete('identite', identite.entete)}
             </th>
-            {colonnes.map((c) => (
+            {colonnes.map((c, i) => (
               <th
                 key={c.cle}
                 scope="col"
                 style={c.largeur ? { minWidth: c.largeur } : undefined}
                 className={cn(
-                  'px-md py-sm font-medium whitespace-nowrap text-text-muted',
-                  c.numerique ? 'text-right' : 'text-left',
+                  styleEntete,
+                  c.numerique && 'text-right',
+                  i === colonnes.length - 1 && 'pr-xl',
                 )}
                 aria-sort={
                   tri?.etat?.cle === c.cle
@@ -182,12 +190,9 @@ export function RecordTable<T>({
             const coche = selection?.valeurs.has(cle) ?? false;
             const fond = coche ? 'bg-info-bg' : 'bg-bg';
             return (
-              <tr
-                key={cle}
-                className={cn('border-b border-border-soft', fond, !coche && 'hover:bg-bg-muted')}
-              >
+              <tr key={cle} className={cn(fond, !coche && 'hover:bg-bg-muted')}>
                 {selection && (
-                  <td className={cn(colleCase, fond, 'px-md py-sm')}>
+                  <td className={cn(colleCase, fond, 'border-b border-border-soft py-0 pr-0 pl-xl')}>
                     <Checkbox
                       checked={coche}
                       onCheckedChange={() => basculer(cle)}
@@ -195,25 +200,32 @@ export function RecordTable<T>({
                     />
                   </td>
                 )}
-                <td className={cn(colleIdentite, fond, 'px-md py-sm whitespace-nowrap')}>
+                <td
+                  className={cn(
+                    colleIdentite,
+                    fond,
+                    'border-b border-border-soft px-md py-[10px] font-semibold whitespace-nowrap',
+                  )}
+                >
                   {onOuvrir ? (
                     <button
                       type="button"
                       onClick={() => onOuvrir(ligne)}
-                      className="rounded-control font-medium text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                      className="rounded-control text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                     >
                       {identite.rendu(ligne)}
                     </button>
                   ) : (
-                    <span className="font-medium">{identite.rendu(ligne)}</span>
+                    <span>{identite.rendu(ligne)}</span>
                   )}
                 </td>
-                {colonnes.map((c) => (
+                {colonnes.map((c, i) => (
                   <td
                     key={c.cle}
                     className={cn(
-                      'px-md py-sm whitespace-nowrap',
+                      'border-b border-border-soft px-md py-[10px] whitespace-nowrap',
                       c.numerique && 'text-right tabular-nums',
+                      i === colonnes.length - 1 && 'pr-xl',
                     )}
                   >
                     {c.rendu(ligne)}
