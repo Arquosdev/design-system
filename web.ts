@@ -27,6 +27,20 @@ export {
 } from './components/card/card.web';
 export { DataTable, type DataTableProps } from './components/data-table/data-table.web';
 export { Gauge, type GaugeProps } from './components/gauge/gauge.web';
+export { Meter, type MeterProps } from './components/meter/meter.web';
+export {
+  RecordTable,
+  type RecordTableProps,
+  type ColonneRecord,
+} from './components/record-table/record-table.web';
+export {
+  comparer,
+  libellePagination,
+  libelleSelection,
+  triSuivant,
+  type EtatTri,
+  type SensTri,
+} from './components/record-table/record-table.logic';
 export { StatTile, type StatTileProps } from './components/stat-tile/stat-tile.web';
 export { PhotoTile, type PhotoTileProps } from './components/photo-tile/photo-tile.web';
 export {

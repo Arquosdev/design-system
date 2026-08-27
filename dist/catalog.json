@@ -533,6 +533,34 @@
       }
     },
     {
+      "name": "Meter",
+      "statut": "beta",
+      "couche": "generique",
+      "role": "Montrer une proportion dans une série, quand plusieurs valeurs se comparent ligne à ligne.",
+      "mots_cles": [
+        "barre",
+        "proportion",
+        "pourcentage",
+        "taux",
+        "jauge",
+        "série",
+        "colonne",
+        "progression"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/meter",
+      "fiche": "components/meter/meter.spec.md",
+      "fichiers": {
+        "web": "components/meter/meter.web.tsx"
+      }
+    },
+    {
       "name": "NavList",
       "statut": "beta",
       "couche": "metier",
@@ -671,6 +699,37 @@
       "fiche": "components/radio-group/radio-group.spec.md",
       "fichiers": {
         "web": "components/radio-group/radio-group.web.tsx"
+      }
+    },
+    {
+      "name": "RecordTable",
+      "statut": "beta",
+      "couche": "generique",
+      "role": "Parcourir une collection d'enregistrements, en comparer quelques attributs, en sélectionner plusieurs et en ouvrir un.",
+      "mots_cles": [
+        "liste",
+        "listing",
+        "tableau",
+        "collection",
+        "sélection",
+        "tri",
+        "colonnes",
+        "équipements",
+        "affaires",
+        "relevés"
+      ],
+      "plateformes": [
+        "web"
+      ],
+      "remplace": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/record-table",
+      "fiche": "components/record-table/record-table.spec.md",
+      "fichiers": {
+        "web": "components/record-table/record-table.web.tsx",
+        "logique": "components/record-table/record-table.logic.ts"
       }
     },
     {

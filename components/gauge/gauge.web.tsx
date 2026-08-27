@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { cn } from '../_lib/cn';
+import { borner, tonProportion } from '../_lib/proportion';
 
 export interface GaugeProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 'role'> {
   /** De 0 à 100. Borné plutôt que de dessiner un arc aberrant. */
@@ -24,13 +25,6 @@ const TONS = {
   danger: 'var(--color-danger)',
 } as const;
 
-/** Sans `tone`, la couleur suit la valeur — mais le chiffre reste toujours écrit. */
-function tonAutomatique(valeur: number): keyof typeof TONS {
-  if (valeur < 34) return 'danger';
-  if (valeur < 67) return 'warning';
-  return 'success';
-}
-
 export function Gauge({
   valeur,
   label,
@@ -40,10 +34,10 @@ export function Gauge({
   className,
   ...props
 }: GaugeProps) {
-  const pct = Math.max(0, Math.min(100, Math.round(valeur)));
+  const pct = borner(valeur);
   const rayon = taille / 2 - 5;
   const circonference = 2 * Math.PI * rayon;
-  const couleur = TONS[tone ?? tonAutomatique(pct)];
+  const couleur = TONS[tone ?? tonProportion(pct)];
 
   return (
     <div
