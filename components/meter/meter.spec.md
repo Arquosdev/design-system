@@ -7,7 +7,7 @@ mots_cles: [barre, proportion, pourcentage, taux, jauge, série, colonne, progre
 plateformes: [web]
 remplace:
   web:
-    - app-web/components/liste/barre-taux.tsx
+    - web/components/liste/barre-taux.tsx
   mobile: []
 ---
 

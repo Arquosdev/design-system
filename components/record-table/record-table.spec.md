@@ -7,7 +7,7 @@ mots_cles: [liste, listing, tableau, collection, sélection, tri, colonnes, équ
 plateformes: [web]
 remplace:
   web:
-    - app-web/components/liste/table-liste.tsx
+    - web/components/liste/table-liste.tsx
   mobile: []
 ---
 
