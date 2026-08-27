@@ -4,7 +4,7 @@
 // même chose ne doivent pas la colorer différemment. Un taux de connaissance de
 // 40 % est « à compléter » dans un anneau comme dans une barre.
 
-export type TonProportion = 'success' | 'warning' | 'danger';
+export type ProportionTone = 'success' | 'warning' | 'danger';
 
 /**
  * Les deux frontières, en pourcentage.
@@ -12,16 +12,16 @@ export type TonProportion = 'success' | 'warning' | 'danger';
  * Sous `alerte`, la donnée est trop lacunaire pour décider ; entre les deux,
  * elle se complète ; au-dessus de `bon`, elle porte.
  */
-export const SEUILS_PROPORTION = { alerte: 34, bon: 67 } as const;
+export const PROPORTION_THRESHOLDS = { alerte: 34, bon: 67 } as const;
 
 /** Sans ton imposé, la couleur suit la valeur — mais le chiffre reste toujours écrit. */
-export function tonProportion(valeur: number): TonProportion {
-  if (valeur < SEUILS_PROPORTION.alerte) return 'danger';
-  if (valeur < SEUILS_PROPORTION.bon) return 'warning';
+export function proportionTone(value: number): ProportionTone {
+  if (value < PROPORTION_THRESHOLDS.alerte) return 'danger';
+  if (value < PROPORTION_THRESHOLDS.bon) return 'warning';
   return 'success';
 }
 
 /** Borné plutôt que de dessiner une barre ou un arc aberrant. */
-export function borner(valeur: number): number {
-  return Math.max(0, Math.min(100, Math.round(valeur)));
+export function borner(value: number): number {
+  return Math.max(0, Math.min(100, Math.round(value)));
 }

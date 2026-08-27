@@ -18,34 +18,34 @@ type Groupe = Record<string, Token>;
    le générateur pourrait enrichir demain. */
 const table = tokens as unknown as Record<string, Groupe>;
 
-export const groupe = (nom: string): [string, Token][] =>
-  Object.entries(table[nom] ?? {}).filter(([cle]) => !cle.startsWith('$'));
+export const group = (name: string): [string, Token][] =>
+  Object.entries(table[name] ?? {}).filter(([id]) => !id.startsWith('$'));
 
 /** Ce que le générateur a écrit en tête d'un groupe — sa raison d'être. */
-export const propos = (nom: string): string | undefined =>
-  (table[nom] as unknown as { $description?: string })?.$description;
+export const propos = (name: string): string | undefined =>
+  (table[name] as unknown as { $description?: string })?.$description;
 
 /** Une rampe de la palette : `palette.blue` porte ses neuf nuances. */
-export const rampe = (nom: string): [string, Token][] => {
-  const p = (table.palette as unknown as Record<string, Groupe>)?.[nom];
-  return p ? Object.entries(p).filter(([cle]) => !cle.startsWith('$')) : [];
+export const rampe = (name: string): [string, Token][] => {
+  const p = (table.palette as unknown as Record<string, Groupe>)?.[name];
+  return p ? Object.entries(p).filter(([id]) => !id.startsWith('$')) : [];
 };
 
 /** L'en-tête d'une page de fondation : ce que c'est, et ce que ça engage. */
 export function Fondation({
-  titre,
-  quoi,
+  title,
+  what,
   children,
 }: {
-  titre: string;
-  quoi: string;
+  title: string;
+  what: string;
   children: React.ReactNode;
 }) {
   return (
     <div className="mx-auto max-w-[980px] p-xl">
       <header className="mb-xl border-b border-border-soft pb-lg">
-        <h1 className="text-title font-bold tracking-tight text-text">{titre}</h1>
-        <p className="mt-sm max-w-[68ch] text-pretty text-body text-text-muted">{quoi}</p>
+        <h1 className="text-title font-bold tracking-tight text-text">{title}</h1>
+        <p className="mt-sm max-w-[68ch] text-pretty text-body text-text-muted">{what}</p>
       </header>
       {children}
     </div>
@@ -54,19 +54,19 @@ export function Fondation({
 
 /** Une section à l'intérieur d'une fondation. */
 export function Section({
-  titre,
-  quoi,
+  title,
+  what,
   children,
 }: {
-  titre: string;
-  quoi?: string;
+  title: string;
+  what?: string;
   children: React.ReactNode;
 }) {
   return (
     <section className="mb-2xl last:mb-0">
-      <h2 className="text-subhead font-semibold text-text">{titre}</h2>
-      {quoi ? (
-        <p className="mt-xs mb-base max-w-[68ch] text-pretty text-small text-text-muted">{quoi}</p>
+      <h2 className="text-subhead font-semibold text-text">{title}</h2>
+      {what ? (
+        <p className="mt-xs mb-base max-w-[68ch] text-pretty text-small text-text-muted">{what}</p>
       ) : (
         <div className="mb-base" />
       )}

@@ -1,11 +1,11 @@
 ---
 name: Button
-statut: stable
-couche: generique
+status: stable
+layer: generique
 role: Déclencher une action. Le poids visuel dit l'importance de l'action, pas sa nature.
-mots_cles: [bouton, action, cta, valider, enregistrer, annuler]
-plateformes: [web]
-remplace:
+keywords: [bouton, action, cta, valider, enregistrer, annuler]
+platforms: [web]
+replaces:
   web: [public/fiche/index.html — boutons inline recopiés 13 fois]
   mobile:
     - components/Button.tsx
@@ -51,10 +51,10 @@ un lien sans en être un.
 import { Button } from '@arquos/design-system/web';
 
 <Button onClick={completer}>Compléter</Button>
-<Button variant="secondary" onClick={annuler}>Annuler</Button>
-<Button variant="ghost" size="sm" onClick={voirVides}>Afficher les champs vides</Button>
-<Button variant="outline" onClick={ajouter}>Ajouter un document</Button>
-<Button variant="destructive" onClick={supprimer}>Supprimer le constat</Button>
+<Button variant="secondary" onClick={annuler}>Cancel</Button>
+<Button variant="ghost" size="sm" onClick={voirVides}>Afficher les champs empties</Button>
+<Button variant="outline" onClick={add}>Ajouter un document</Button>
+<Button variant="destructive" onClick={delete}>Supprimer le constat</Button>
 ```
 
 ## États

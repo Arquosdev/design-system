@@ -1,11 +1,11 @@
 ---
 name: SegmentedTabs
-statut: beta
-couche: generique
+status: beta
+layer: generique
 role: Basculer entre deux ou trois vues d'un même écran, toutes également importantes.
-mots_cles: [onglets, segments, bascule, tabs, vues, selecteur]
-plateformes: [web]
-remplace:
+keywords: [onglets, segments, bascule, tabs, vues, selecteur]
+platforms: [web]
+replaces:
   web: [public/fiche/index.html — bascule Fiche / Composants du rail]
   mobile: [components/SegmentedTabs.tsx]
 ---
@@ -34,11 +34,11 @@ remplace:
 | Prop        | Type                      | Défaut | Rôle                                    |
 | ----------- | ------------------------- | ------ | --------------------------------------- |
 | `segments`  | `Segment[]`               | —      | Deux ou trois entrées                    |
-| `valeur`    | `string`                  | —      | La clé du segment actif                  |
-| `onChanger` | `(cle: string) => void`   | —      | Appelé au changement                     |
+| `value`    | `string`                  | —      | La clé du segment actif                  |
+| `onChange` | `(id: string) => void`   | —      | Appelé au changement                     |
 | `ariaLabel` | `string`                  | —      | Ce que le groupe sépare, pour l'annoncer |
 
-`Segment` : `{ cle, label, compteur? }`. Le compteur suit le libellé, en retrait.
+`Segment` : `{ id, label, count? }`. Le compteur suit le libellé, en retrait.
 
 ## Exemples
 
@@ -47,11 +47,11 @@ import { SegmentedTabs } from '@arquos/design-system/web';
 
 <SegmentedTabs
   ariaLabel="Contenu du rail"
-  valeur={onglet}
-  onChanger={setOnglet}
+  value={onglet}
+  onChange={setOnglet}
   segments={[
-    { cle: 'fiche', label: 'Fiche', compteur: 9 },
-    { cle: 'composants', label: 'Composants', compteur: 18 },
+    { id: 'specFile', label: 'Fiche', count: 9 },
+    { id: 'composants', label: 'Composants', count: 18 },
   ]}
 />
 ```

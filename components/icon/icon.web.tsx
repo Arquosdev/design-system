@@ -47,47 +47,47 @@ import { cn } from '../_lib/cn';
 // le même dessin dans tout le produit.
 //
 // Les clés doivent couvrir `IconRole` — TypeScript le vérifie via `Record`.
-const DESSINS: Record<IconRole, PhosphorIcon> = {
-  suivant: CaretRight,
-  precedent: CaretLeft,
-  deplier: CaretDown,
-  replier: CaretUp,
-  aller: ArrowRight,
-  fermer: X,
+const GLYPHS: Record<IconRole, PhosphorIcon> = {
+  next: CaretRight,
+  previous: CaretLeft,
+  expand: CaretDown,
+  collapse: CaretUp,
+  go: ArrowRight,
+  close: X,
 
-  rechercher: MagnifyingGlass,
-  ajouter: Plus,
-  modifier: PencilSimple,
-  supprimer: Trash,
-  telecharger: DownloadSimple,
-  filtrer: Sliders,
-  plusDActions: DotsThreeVertical,
-  dicter: Microphone,
-  arreter: Stop,
+  search: MagnifyingGlass,
+  add: Plus,
+  edit: PencilSimple,
+  delete: Trash,
+  download: DownloadSimple,
+  filter: Sliders,
+  moreActions: DotsThreeVertical,
+  dictate: Microphone,
+  stop: Stop,
 
-  conforme: CheckCircle,
-  coche: Check,
-  ecart: Warning,
-  bloquant: WarningOctagon,
-  attention: WarningCircle,
-  information: Info,
-  sansObjet: MinusCircle,
-  horsLigne: WifiSlash,
-  synchronisation: Lightning,
-  synchronisationSuspendue: LightningSlash,
+  compliant: CheckCircle,
+  check: Check,
+  discrepancy: Warning,
+  blocking: WarningOctagon,
+  warning: WarningCircle,
+  info: Info,
+  notApplicable: MinusCircle,
+  offline: WifiSlash,
+  sync: Lightning,
+  syncPaused: LightningSlash,
 
   photo: ImageSquare,
   photos: Images,
-  prendreUnePhoto: Camera,
-  photoIndisponible: CameraSlash,
-  changerDeCamera: CameraRotate,
+  takePhoto: Camera,
+  photoUnavailable: CameraSlash,
+  switchCamera: CameraRotate,
 
   document: FileText,
-  etiquette: Tag,
-  securite: ShieldCheck,
-  intervention: Wrench,
-  mesure: Ruler,
-  assistanceIA: Sparkle,
+  tag: Tag,
+  safety: ShieldCheck,
+  maintenance: Wrench,
+  measure: Ruler,
+  aiAssist: Sparkle,
 };
 
 export interface IconProps extends Omit<React.SVGProps<SVGSVGElement>, 'role' | 'ref'> {
@@ -121,9 +121,9 @@ export function Icon({
   className,
   ...props
 }: IconProps) {
-  const Dessin = DESSINS[role];
+  const Glyph = GLYPHS[role];
   return (
-    <Dessin
+    <Glyph
       size={iconSize[size]}
       weight={iconWeight[weight]}
       className={cn('shrink-0', className)}

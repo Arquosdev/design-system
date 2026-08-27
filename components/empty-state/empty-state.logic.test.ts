@@ -1,7 +1,7 @@
 import { strictEqual } from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { ECHECS, natureDeLEchec } from './empty-state.logic.ts';
+import { FAILURES, failureKind } from './empty-state.logic.ts';
 
 describe('natureDeLEchec', () => {
   /**
@@ -17,13 +17,13 @@ describe('natureDeLEchec', () => {
       'The device is offline',
       'network request failed',
     ]) {
-      strictEqual(natureDeLEchec(new Error(message)), 'hors-ligne', `échoue sur « ${message} »`);
+      strictEqual(failureKind(new Error(message)), 'offline', `échoue sur « ${message} »`);
     }
   });
 
   it('range tout le reste dans « inconnu »', () => {
-    strictEqual(natureDeLEchec(new Error('500 Internal Server Error')), 'inconnu');
-    strictEqual(natureDeLEchec(new Error('Jeton expiré')), 'inconnu');
+    strictEqual(failureKind(new Error('500 Internal Server Error')), 'unknown');
+    strictEqual(failureKind(new Error('Jeton expiré')), 'unknown');
   });
 
   /**
@@ -32,27 +32,27 @@ describe('natureDeLEchec', () => {
    * enverrait attendre un réseau qui n’est pas en cause.
    */
   it('ne se laisse pas prendre par une valeur qui n’est pas une erreur', () => {
-    strictEqual(natureDeLEchec(null), 'inconnu');
-    strictEqual(natureDeLEchec(undefined), 'inconnu');
-    strictEqual(natureDeLEchec({ code: 500 }), 'inconnu');
+    strictEqual(failureKind(null), 'unknown');
+    strictEqual(failureKind(undefined), 'unknown');
+    strictEqual(failureKind({ code: 500 }), 'unknown');
   });
 
   it('accepte une erreur passée sous forme de texte', () => {
-    strictEqual(natureDeLEchec('Failed to fetch'), 'hors-ligne');
+    strictEqual(failureKind('Failed to fetch'), 'offline');
   });
 });
 
 describe('ECHECS', () => {
   it('donne à chaque cas une icône, un titre et un conseil', () => {
-    for (const [nature, f] of Object.entries(ECHECS)) {
-      strictEqual(typeof f.icone, 'string', nature);
-      strictEqual(f.titre.length > 0, true, nature);
-      strictEqual(f.conseil.length > 0, true, nature);
+    for (const [nature, f] of Object.entries(FAILURES)) {
+      strictEqual(typeof f.icon, 'string', nature);
+      strictEqual(f.title.length > 0, true, nature);
+      strictEqual(f.hint.length > 0, true, nature);
     }
   });
 
   it('ne dit pas la même chose dans les deux cas — sinon la distinction ne sert à rien', () => {
-    strictEqual(ECHECS['hors-ligne'].titre === ECHECS.inconnu.titre, false);
-    strictEqual(ECHECS['hors-ligne'].icone === ECHECS.inconnu.icone, false);
+    strictEqual(FAILURES['offline'].title === FAILURES.unknown.title, false);
+    strictEqual(FAILURES['offline'].icon === FAILURES.unknown.icon, false);
   });
 });

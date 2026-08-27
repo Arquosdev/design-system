@@ -51,9 +51,9 @@ export interface ButtonProps
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, type, ...props }, ref) => {
-    const Composant = asChild ? Slot : 'button';
+    const Component = asChild ? Slot : 'button';
     return (
-      <Composant
+      <Component
         ref={ref}
         // Sans ça, un bouton dans un formulaire le soumet au clic — la cause la
         // plus fréquente de « la page se recharge toute seule ». shadcn ne le

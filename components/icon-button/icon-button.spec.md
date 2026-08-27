@@ -1,11 +1,11 @@
 ---
 name: IconButton
-statut: stable
-couche: generique
+status: stable
+layer: generique
 role: Déclencher une action représentée par une icône seule, sans perdre son nom accessible.
-mots_cles: [bouton, icone, action, telecharger, editer, fermer, supprimer]
-plateformes: [web]
-remplace:
+keywords: [bouton, icone, action, telecharger, editer, fermer, supprimer]
+platforms: [web]
+replaces:
   web: [public/fiche/index.html — boutons carrés recopiés inline]
   mobile:
     - components/IconButton.tsx
@@ -46,8 +46,8 @@ pas de nom accessible est muet pour un lecteur d'écran.
 ```tsx
 import { IconButton } from '@arquos/design-system/web';
 
-<IconButton label={`Télécharger ${doc.nom}`} icon={<IconeTelechargement />} onClick={telecharger} />
-<IconButton label="Corriger cette ligne" icon={<IconeCrayon />} variant="ghost" size="sm" />
+<IconButton label={`Télécharger ${doc.name}`} icon={<IconeTelechargement />} onClick={download} />
+<IconButton label="Corriger cette row" icon={<IconeCrayon />} variant="ghost" size="sm" />
 ```
 
 Le libellé nomme **la cible**, pas seulement le geste : « Télécharger le carnet

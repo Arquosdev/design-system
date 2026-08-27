@@ -6,7 +6,7 @@ import { Input } from '../../components/input/input.web';
 import { Badge } from '../../components/badge/badge.web';
 import { EmptyState } from '../../components/empty-state/empty-state.web';
 import { Icon } from '../../components/icon/icon.web';
-import { icones, type IconRole } from '../../src/icons';
+import { icons, type IconRole } from '../../src/icons';
 
 /**
  * **La page à ouvrir quand on ne connaît pas encore les noms.**
@@ -27,12 +27,12 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-interface Composant {
+interface Component {
   name: string;
   role: string;
-  couche: string;
-  statut: string;
-  mots_cles: string[];
+  layer: string;
+  status: string;
+  keywords: string[];
   dossier: string;
 }
 
@@ -43,17 +43,17 @@ const nu = (s: string) =>
 export const Chercher: Story = {
   render: function Index() {
     const [q, setQ] = React.useState('');
-    const composants = catalogue.composants as Composant[];
+    const composants = catalogue.composants as Component[];
 
     const filtres = React.useMemo(() => {
       const terme = nu(q.trim());
       if (!terme) return composants;
       return composants.filter((c) =>
-        nu([c.name, c.role, ...(c.mots_cles ?? [])].join(' ')).includes(terme),
+        nu([c.name, c.role, ...(c.keywords ?? [])].join(' ')).includes(terme),
       );
     }, [q, composants]);
 
-    const parCouche = (couche: string) => filtres.filter((c) => c.couche === couche);
+    const parCouche = (layer: string) => filtres.filter((c) => c.layer === layer);
 
     // Les 35 rôles d'icône sont le vocabulaire « je veux faire X » le plus riche
     // du dépôt, et il ne vit pas dans les mots-clés des fiches. Sans ça,
@@ -61,7 +61,7 @@ export const Chercher: Story = {
     const rolesTrouves = React.useMemo(() => {
       const terme = nu(q.trim());
       if (!terme) return [] as IconRole[];
-      return (Object.keys(icones) as IconRole[]).filter((r) => nu(r).includes(terme));
+      return (Object.keys(icons) as IconRole[]).filter((r) => nu(r).includes(terme));
     }, [q]);
 
     return (
@@ -70,7 +70,7 @@ export const Chercher: Story = {
           <h1 className="text-title font-bold tracking-tight text-text">Par où commencer</h1>
           <p className="max-w-[62ch] text-body text-text-muted">
             Cherchez par ce que vous voulez <strong className="text-text">faire</strong>, pas par le
-            nom du composant. « supprimer », « vide », « attente », « choisir » — les mots-clés des
+            name du composant. « delete », « empty », « attente », « choisir » — les mots-clés des
             fiches sont interrogés ici, ce que la recherche de Storybook ne fait pas.
           </p>
         </header>
@@ -104,33 +104,33 @@ export const Chercher: Story = {
 
         {filtres.length === 0 && rolesTrouves.length === 0 ? (
           <EmptyState
-            icone="rechercher"
-            titre="Aucun composant pour ce besoin"
-            conseil="Essayez un mot plus général — « liste », « saisie », « état ». S’il n’existe vraiment rien, c’est peut-être un composant à créer."
+            icon="search"
+            title="Aucun composant pour ce besoin"
+            hint="Essayez un mot plus général — « liste », « saisie », « état ». S’il n’existe vraiment rien, c’est peut-être un composant à créer."
           />
         ) : filtres.length ? (
           <>
             <p className="text-caption text-text-muted">
               {filtres.length} composant{filtres.length > 1 ? 's' : ''} sur {composants.length}
             </p>
-            {(['generique', 'metier'] as const).map((couche) =>
-              parCouche(couche).length ? (
-                <section key={couche} className="flex flex-col gap-sm">
+            {(['generique', 'metier'] as const).map((layer) =>
+              parCouche(layer).length ? (
+                <section key={layer} className="flex flex-col gap-sm">
                   <h2 className="text-caption font-bold uppercase tracking-wide text-text-muted">
-                    {couche === 'generique' ? 'Générique' : 'Métier'}
+                    {layer === 'generique' ? 'Générique' : 'Métier'}
                   </h2>
                   <ul className="flex flex-col divide-y divide-border-soft rounded-md border border-border-soft">
-                    {parCouche(couche).map((c) => (
+                    {parCouche(layer).map((c) => (
                       <li key={c.name} className="flex flex-col gap-xxs p-base">
                         <div className="flex flex-wrap items-baseline gap-sm">
                           <span className="text-body font-semibold text-text">{c.name}</span>
-                          {c.statut !== 'stable' ? (
-                            <Badge variant="warning">{c.statut}</Badge>
+                          {c.status !== 'stable' ? (
+                            <Badge variant="warning">{c.status}</Badge>
                           ) : null}
                         </div>
                         <p className="text-small text-text-muted">{c.role}</p>
                         <p className="text-caption text-text-muted">
-                          {(c.mots_cles ?? []).join(' · ')}
+                          {(c.keywords ?? []).join(' · ')}
                         </p>
                       </li>
                     ))}

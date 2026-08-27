@@ -1,11 +1,11 @@
 ---
 name: Checkbox
-statut: stable
-couche: generique
+status: stable
+layer: generique
 role: Cocher une option indépendante, ou plusieurs, dans un formulaire qui se valide.
-mots_cles: [case, cocher, checkbox, coche, option, multiple, selection]
-plateformes: [web]
-remplace:
+keywords: [case, cocher, checkbox, coche, option, multiple, selection]
+platforms: [web]
+replaces:
   web: []
   mobile: []
 ---
@@ -45,7 +45,7 @@ Celles de `Checkbox.Root` de Radix.
 ```tsx
 import { Checkbox, Label } from '@arquos/design-system/web';
 
-// L'intitulé enveloppe la case : toute la ligne devient cliquable.
+// L'intitulé enveloppe la case : toute la row devient cliquable.
 <Label className="gap-sm">
   <Checkbox defaultChecked />
   Machinerie accessible sans clé
@@ -54,7 +54,7 @@ import { Checkbox, Label } from '@arquos/design-system/web';
 
 ## Anatomie
 
-- La coche vient du vocabulaire d'icônes (`role="coche"`), **pas de Lucide** — shadcn livre ses composants avec Lucide, le jeu officiel d'Arquos est Phosphor
+- La coche vient du vocabulaire d'icônes (`role="check"`), **pas de Lucide** — shadcn livre ses composants avec Lucide, le jeu officiel d'Arquos est Phosphor
 
 ## États
 

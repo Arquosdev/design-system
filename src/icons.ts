@@ -42,9 +42,9 @@ export const iconWeight = {
   /** Le trait courant — l'icône accompagne un libellé ou une action. */
   default: 'bold',
   /** L'icône est elle-même l'objet : pastille d'état, onglet sélectionné. */
-  actif: 'fill',
+  active: 'fill',
   /** Trait fin — décor discret, jamais porteur d'information seule. */
-  discret: 'regular',
+  subtle: 'regular',
 } as const;
 
 /**
@@ -66,57 +66,57 @@ export const iconWeight = {
  *   import { MagnifyingGlass } from '@phosphor-icons/react';   // web
  *   import { MagnifyingGlass } from 'phosphor-react-native';   // mobile
  */
-export const icones = {
+export const icons = {
   // -- Se déplacer ---------------------------------------------------------
-  suivant: 'CaretRight',
-  precedent: 'CaretLeft',
-  deplier: 'CaretDown',
-  replier: 'CaretUp',
-  aller: 'ArrowRight',
-  fermer: 'X',
+  next: 'CaretRight',
+  previous: 'CaretLeft',
+  expand: 'CaretDown',
+  collapse: 'CaretUp',
+  go: 'ArrowRight',
+  close: 'X',
 
   // -- Agir ----------------------------------------------------------------
-  rechercher: 'MagnifyingGlass',
-  ajouter: 'Plus',
-  modifier: 'PencilSimple',
-  supprimer: 'Trash',
-  telecharger: 'DownloadSimple',
-  filtrer: 'Sliders',
-  plusDActions: 'DotsThreeVertical',
-  dicter: 'Microphone',
-  arreter: 'Stop',
+  search: 'MagnifyingGlass',
+  add: 'Plus',
+  edit: 'PencilSimple',
+  delete: 'Trash',
+  download: 'DownloadSimple',
+  filter: 'Sliders',
+  moreActions: 'DotsThreeVertical',
+  dictate: 'Microphone',
+  stop: 'Stop',
 
   // -- Dire un état --------------------------------------------------------
-  conforme: 'CheckCircle',
-  coche: 'Check', // la coche nue d'une case, sans son cercle
-  ecart: 'Warning',
-  bloquant: 'WarningOctagon',
-  attention: 'WarningCircle',
-  information: 'Info',
-  sansObjet: 'MinusCircle',
-  horsLigne: 'WifiSlash',
-  synchronisation: 'Lightning',
-  synchronisationSuspendue: 'LightningSlash',
+  compliant: 'CheckCircle',
+  check: 'Check', // la coche nue d'une case, sans son cercle
+  discrepancy: 'Warning',
+  blocking: 'WarningOctagon',
+  warning: 'WarningCircle',
+  info: 'Info',
+  notApplicable: 'MinusCircle',
+  offline: 'WifiSlash',
+  sync: 'Lightning',
+  syncPaused: 'LightningSlash',
 
   // -- Photos --------------------------------------------------------------
   photo: 'ImageSquare',
   photos: 'Images',
-  prendreUnePhoto: 'Camera',
-  photoIndisponible: 'CameraSlash',
-  changerDeCamera: 'CameraRotate',
+  takePhoto: 'Camera',
+  photoUnavailable: 'CameraSlash',
+  switchCamera: 'CameraRotate',
 
   // -- Le métier -----------------------------------------------------------
   document: 'FileText',
-  etiquette: 'Tag',
-  securite: 'ShieldCheck',
-  intervention: 'Wrench',
-  mesure: 'Ruler',
-  assistanceIA: 'Sparkle',
+  tag: 'Tag',
+  safety: 'ShieldCheck',
+  maintenance: 'Wrench',
+  measure: 'Ruler',
+  aiAssist: 'Sparkle',
 } as const;
 
 export type IconSizeToken = keyof typeof iconSize;
 export type IconWeightToken = keyof typeof iconWeight;
-/** Un rôle du vocabulaire — `'supprimer'`, `'ecart'`… */
-export type IconRole = keyof typeof icones;
+/** Un rôle du vocabulaire — `'delete'`, `'discrepancy'`… */
+export type IconRole = keyof typeof icons;
 /** Le nom Phosphor correspondant — `'Trash'`, `'Warning'`… */
-export type IconName = (typeof icones)[IconRole];
+export type IconName = (typeof icons)[IconRole];

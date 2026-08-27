@@ -1,7 +1,7 @@
 # Design system Arquos — pour les agents
 
 Source de vérité unique du design : tokens et composants partagés. Consommé par
-`Arquosdev/mobile` et `Arquosdev/fiche-equipement`.
+`Arquosdev/mobile` et `Arquosdev/specFile-equipement`.
 
 ## Les cinq règles
 
@@ -26,7 +26,7 @@ Si le token ou le composant manque : ne pas l'inventer dans l'app, l'ajouter ici
 | Espacement | base 4 ; `base` (16) par défaut, `sm` (8) entre proches |
 | Arrondi | `md` (8) ; `full` seulement sur un carré |
 | Typographie | les préréglages (`typography.body`), jamais recombiner |
-| Icône | un **rôle** (`<Icon role="supprimer" />`), jamais un dessin |
+| Icône | un **rôle** (`<Icon role="delete" />`), jamais un dessin |
 | Empilement | `z-(--arq-layer-flottant)`, jamais `z-50` |
 | Durée | `duration-(--arq-duration-normal)`, jamais `duration-200` |
 | Bordure | `border-(length:--arq-border-epais)`, jamais `border-[1.5px]` |
@@ -83,27 +83,27 @@ place donc sous `flottant`.
 
 | Fichier | Contenu |
 | --- | --- |
-| `<nom>.spec.md` | La fiche : rôle, **quand NE PAS l'utiliser**, props, états, accessibilité |
-| `<nom>.logic.ts` | Le métier sans React : vocabulaire, seuils, règles |
-| `<nom>.web.tsx` | Implémentation web |
-| `<nom>.native.tsx` | Implémentation React Native |
+| `<name>.spec.md` | La fiche : rôle, **quand NE PAS l'utiliser**, props, états, accessibilité |
+| `<name>.logic.ts` | Le métier sans React : vocabulaire, seuils, règles |
+| `<name>.web.tsx` | Implémentation web |
+| `<name>.native.tsx` | Implémentation React Native |
 
 **Lire la fiche avant l'implémentation** : elle seule dit quand le composant est
 le mauvais choix.
 
 **Le métier ne s'écrit pas dans une implémentation.** Un mot, un seuil, une règle
-vont dans `<nom>.logic.ts` — testable sans navigateur. Les classes et styles
+vont dans `<name>.logic.ts` — testable sans navigateur. Les classes et styles
 restent côté plateforme. Voir `CONVERGENCE.md`.
 
 ### Ajouter un composant
 
 1. Chercher dans `dist/catalog.json`
 2. Chercher chez shadcn/ui
-3. Copier `components/_TEMPLATE.spec.md`, le remplir, déclarer sa `couche`
+3. Copier `components/_TEMPLATE.spec.md`, le remplir, déclarer sa `layer`
 4. Écrire les implémentations des plateformes déclarées
-5. Écrire sa story : `stories/<couche>/<nom>.stories.tsx`, titrée
+5. Écrire sa story : `stories/<layer>/<name>.stories.tsx`, titrée
    `Composants/<Couche>/<Nom>`
-6. Tester la logique si elle existe : `<nom>.logic.test.ts`
+6. Tester la logique si elle existe : `<name>.logic.test.ts`
 7. `npm run catalog`
 
 ### Statut
@@ -135,7 +135,7 @@ une question que personne ne se pose en travaillant.
 npx shadcn@latest add <composant>
 ```
 
-Écrit dans `components/ui/`. Déplacer vers `components/<nom>/<nom>.web.tsx`,
+Écrit dans `components/ui/`. Déplacer vers `components/<name>/<name>.web.tsx`,
 habiller aux tokens, écrire la fiche.
 
 **Garder** : les noms de variantes et de tailles (`default`, `secondary`,
@@ -152,13 +152,13 @@ traduit leur vocabulaire une seule fois — ne jamais le redéfinir dans une app
 ## Ce que la CI refuse
 
 `npm run check` : types, numéro de version, dérivés non régénérés, catalogue
-périmé, chemins de `remplace` cassés, paire de couleurs illisible, palette brute,
-tests. Puis `npm run vitrine` et `npm run contraste-rendu`, qui mesure le
+périmé, chemins de `replaces` cassés, paire de couleurs illisible, palette brute,
+tests. Puis `npm run vitrine` et `npm run contraste-render`, qui mesure le
 contraste dans un vrai navigateur.
 
 **Deux contrôles de contraste, et il faut savoir lequel voit quoi.**
 `contraste` lit les classes — rapide, mais n'apparie que ce qui vit dans la même
-chaîne. `contraste-rendu` mesure le rendu et voit ce que l'autre ne peut pas :
+chaîne. `contraste-render` mesure le rendu et voit ce que l'autre ne peut pas :
 fond sur le parent, opacité, couleur posée par une animation.
 
 ## La vitrine
@@ -172,7 +172,7 @@ fond sur le parent, opacité, couleur posée par une animation.
 | **Composants** | Générique, puis Métier |
 | **Patterns** | Le système assemblé dans un écran réel |
 
-Elle ne duplique rien : les pages lisent `components/<nom>/<nom>.spec.md` et
+Elle ne duplique rien : les pages lisent `components/<name>/<name>.spec.md` et
 `dist/tokens.json`.
 
 Un agent cherche dans `dist/catalog.json` ; la page « Par où commencer » offre la
@@ -194,3 +194,27 @@ disparaît en silence.
 - Ajouter une valeur intermédiaire à une échelle « parce qu'il manque 2 px »
 - Écrire de la documentation dans une story : elle vit dans la fiche
 - Mettre les apps à jour
+
+## Nommage : anglais pour l'API, français pour la prose
+
+Depuis la `v2.0.0`, la frontière n'est pas « technique / métier », c'est **qui
+lit** :
+
+| Lu par une machine ou un développeur | Lu comme de la prose |
+| --- | --- |
+| props, types, exports, rôles d'icônes | libellés affichés |
+| clés de front-matter des specs | commentaires du code |
+| valeurs d'API (`'asc'`, `'filled'`) | corps des specs, noms de stories |
+| **anglais** | **français** |
+
+Donc `<Meter value={62} label="Taux de connaissance" />` : `value` et `label`
+sont des props, « Taux de connaissance » est ce que l'utilisateur lit. Et
+`NOT_FILLED` vaut « Non renseigné ».
+
+Les noms de stories restent français parce que Storybook les affiche tels quels
+dans sa barre latérale : « Avec son intitulé », « Dans la fiche » sont des
+libellés de documentation, pas des identifiants.
+
+Voir `MIGRATION.md` pour la table de correspondance, et
+`web/docs/decisions/0003-anglais-pour-le-code-francais-pour-l-ecran.md` pour le
+raisonnement.

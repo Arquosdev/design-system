@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Button } from '../../components/button/button.web';
 import specification from '../../components/button/button.spec.md?raw';
-import { choix, docsDe } from '../fiche';
+import { choices, docsDe } from '../fiche';
 
 const meta = {
   title: 'Composants/Générique/Button',
@@ -10,11 +10,11 @@ const meta = {
   parameters: docsDe(specification),
   args: { children: 'Enregistrer' },
   argTypes: {
-    variant: choix(
+    variant: choices(
       ['default', 'secondary', 'outline', 'ghost', 'destructive', 'link'],
       "Le poids visuel dit l'importance de l'action, pas sa nature.",
     ),
-    size: choix(['default', 'sm', 'lg', 'icon'], 'Les tailles de shadcn.'),
+    size: choices(['default', 'sm', 'lg', 'icon'], 'Les tailles de shadcn.'),
   },
 } satisfies Meta<typeof Button>;
 
@@ -35,10 +35,10 @@ export const Defaut: Story = {};
 export const Variantes: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-md">
-      <Button>Enregistrer</Button>
+      <Button>Save</Button>
       <Button variant="secondary">Compléter</Button>
-      <Button variant="outline">Annuler</Button>
-      <Button variant="ghost">Afficher les champs vides</Button>
+      <Button variant="outline">Cancel</Button>
+      <Button variant="ghost">Afficher les champs empties</Button>
       <Button variant="destructive">Supprimer</Button>
       <Button variant="link">En savoir plus</Button>
     </div>

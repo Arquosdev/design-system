@@ -1,11 +1,11 @@
 ---
 name: FieldRow
-statut: beta
-couche: metier
+status: beta
+layer: metier
 role: Afficher un champ en lecture, et le passer en saisie d'un clic sans quitter la page.
-mots_cles: [champ, ligne, libelle, valeur, edition, inline, saisie, formulaire]
-plateformes: [web]
-remplace:
+keywords: [champ, ligne, libelle, valeur, edition, inline, saisie, formulaire]
+platforms: [web]
+replaces:
   web:
     - public/fiche/index.html — buildField(), markup recopié lignes 402/487/643/950
   mobile:
@@ -38,16 +38,16 @@ de la fiche : c'est lui qui la rend modifiable sans formulaire séparé.
 | `kind`       | `'text' \| 'number' \| 'choice' \| 'multi'` | `'text'`   | Détermine l'éditeur qui s'ouvre à la saisie    |
 | `options`    | `{ value: string; label: string }[]`        | `[]`       | Requis pour `choice` et `multi`                |
 | `onSave`     | `(v: string \| string[]) => void`           | —          | Appelé à la validation. Absent = lecture seule |
-| `statut`     | `'renseigne' \| 'manquant' \| 'a_verifier'` | —          | Pastille affichée à droite de la valeur        |
-| `sauvegarde` | `'encours' \| 'ok' \| 'echec'`              | —          | Retour d'enregistrement, à côté de la valeur   |
-| `photos`     | `readonly { nom: string }[]`                | —          | Photos qui justifient la valeur — la plaque où elle a été lue |
-| `onVoirPhotos` | `() => void`                              | —          | Ouvre ces photos. Le picto n'existe que si les deux sont fournis |
-| `schemas`    | `readonly { nom: string }[]`                | —          | Schémas expliquant **comment** la mesure se prend |
-| `onVoirSchemas` | `() => void`                             | —          | Ouvre ces schémas |
-| `repere`     | `boolean`                                   | `false`    | Désigne la ligne : la recherche vient d'y emmener |
-| `autre`      | `boolean`                                   | `false`    | Ajoute « Autre — saisir une valeur… » au menu, qui bascule en saisie libre |
-| `demandeOuverture` | `number`                              | —          | Rouvre l'éditeur depuis l'extérieur. C'est le **changement** de valeur qui ouvre |
-| `origine`    | `string`                                    | —          | Provenance de la valeur, en infobulle          |
+| `status`     | `'filled' \| 'missing' \| 'to_check'` | —          | Pastille affichée à droite de la valeur        |
+| `save` | `'saving' \| 'ok' \| 'error'`              | —          | Retour d'enregistrement, à côté de la valeur   |
+| `photos`     | `readonly { name: string }[]`                | —          | Photos qui justifient la valeur — la plaque où elle a été lue |
+| `onViewPhotos` | `() => void`                              | —          | Ouvre ces photos. Le picto n'existe que si les deux sont fournis |
+| `schematics`    | `readonly { name: string }[]`                | —          | Schémas expliquant **comment** la mesure se prend |
+| `onViewSchematics` | `() => void`                             | —          | Ouvre ces schémas |
+| `landmark`     | `boolean`                                   | `false`    | Désigne la ligne : la recherche vient d'y emmener |
+| `other`      | `boolean`                                   | `false`    | Ajoute « Autre — saisir une valeur… » au menu, qui bascule en saisie libre |
+| `requestOpen` | `number`                              | —          | Rouvre l'éditeur depuis l'extérieur. C'est le **changement** de valeur qui ouvre |
+| `origin`    | `string`                                    | —          | Provenance de la valeur, en infobulle          |
 | `readOnly`   | `boolean`                                   | `false`    | Force la lecture seule                         |
 
 ## Exemple
@@ -71,13 +71,13 @@ de la fiche : c'est lui qui la rend modifiable sans formulaire séparé.
   actuelle ». La retirer la remplacerait en silence.
 - **« Autre »** : bascule le menu en saisie libre. À n'offrir que là où le
   service accepte une valeur hors liste.
-- **Rouverte de l'extérieur** (`demandeOuverture`) : la valeur dont ce champ
+- **Rouverte de l'extérieur** (`requestOpen`) : la valeur dont ce champ
   dépend a changé. On ne peut pas la vider — le service refuse le vide — donc on
   rouvre le menu pour que le choix se fasse maintenant.
 - **Multi-sélection** : le résumé liste les libellés, pas leur nombre.
 - **Reclic sur la valeur déjà retenue** : ferme sans écrire. Réenregistrer à
   l'identique daterait la fiche d'une correction qui n'en est pas une.
-- **Désignée** (`repere`) : défile **une seule fois**, le fond s'allume puis
+- **Désignée** (`landmark`) : défile **une seule fois**, le fond s'allume puis
   s'efface, le libellé se souligne. Redéfiler à chaque rendu empêcherait de
   bouger la page à la main.
 - **Enregistrement** : « Enregistrement… », puis « ✓ Enregistré » ou

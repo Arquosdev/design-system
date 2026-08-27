@@ -15,16 +15,16 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 function Banc() {
-  const { annoncer } = useToast();
+  const { announce } = useToast();
   return (
     <div className="flex gap-md">
-      <Button onClick={() => annoncer('Document poussé vers le téléchargement.')}>
+      <Button onClick={() => announce('Document poussé vers le téléchargement.')}>
         Une confirmation
       </Button>
       <Button
         variant="destructive"
         onClick={() =>
-          annoncer("Ce champ est verrouillé par l’agence.", { ton: 'echec' })
+          announce("Ce champ est verrouillé par l’agence.", { tone: 'error' })
         }
       >
         Un refus

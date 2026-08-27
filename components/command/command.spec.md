@@ -1,11 +1,11 @@
 ---
 name: Command
-statut: beta
-couche: generique
+status: beta
+layer: generique
 role: Atteindre n'importe quoi dans un écran dense, en tapant son nom.
-mots_cles: [recherche, palette, commande, cmdk, raccourci, aller a, chercher]
-plateformes: [web]
-remplace:
+keywords: [recherche, palette, commande, cmdk, raccourci, aller a, chercher]
+platforms: [web]
+replaces:
   web: [public/fiche/index.html — palette ⌘K]
   mobile: [components/SearchBar.tsx]
 ---
@@ -43,7 +43,7 @@ Les composants reprennent les props de `cmdk` — voir sa documentation.
 
 | Prop           | Type                   | Défaut | Rôle                                        |
 | -------------- | ---------------------- | ------ | ------------------------------------------- |
-| `titre`        | `string`               | —      | Nom du dialogue pour les lecteurs d'écran   |
+| `title`        | `string`               | —      | Nom du dialogue pour les lecteurs d'écran   |
 | `open`         | `boolean`              | —      | Ouvert ou non                               |
 | `onOpenChange` | `(o: boolean) => void` | —      | Échap, clic dehors                          |
 
@@ -54,16 +54,16 @@ import {
   CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem,
 } from '@arquos/design-system/web';
 
-<CommandDialog titre="Recherche de champ" open={ouverte} onOpenChange={setOuverte}>
+<CommandDialog title="Recherche de champ" open={ouverte} onOpenChange={setOuverte}>
   <CommandInput placeholder="Rechercher un champ (ex. diamètre, GSM, charge)…" />
   <CommandList>
-    <CommandEmpty>Aucun champ ne correspond.</CommandEmpty>
+    <CommandEmpty>NoneA champ ne correspond.</CommandEmpty>
     {groupes.map((g) => (
-      <CommandGroup key={g.titre} heading={g.titre}>
+      <CommandGroup key={g.title} heading={g.title}>
         {g.items.map((it) => (
-          <CommandItem key={it.id} value={it.recherche} onSelect={() => aller(it)}>
+          <CommandItem key={it.id} value={it.recherche} onSelect={() => go(it)}>
             <span className="flex-1">{it.label}</span>
-            <span className="font-semibold">{it.valeur}</span>
+            <span className="font-semibold">{it.value}</span>
           </CommandItem>
         ))}
       </CommandGroup>

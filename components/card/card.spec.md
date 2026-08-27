@@ -1,11 +1,11 @@
 ---
 name: Card
-statut: stable
-couche: generique
+status: stable
+layer: generique
 role: Poser un groupe d'éléments dans une surface délimitée, avec un en-tête facultatif.
-mots_cles: [carte, surface, encart, groupe, bloc, panneau]
-plateformes: [web]
-remplace:
+keywords: [carte, surface, encart, groupe, bloc, panneau]
+platforms: [web]
+replaces:
   web: [public/fiche/index.html — sections bordées recopiées inline]
   mobile: [components/Card.tsx]
 ---

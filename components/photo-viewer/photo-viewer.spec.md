@@ -1,11 +1,11 @@
 ---
 name: PhotoViewer
-statut: beta
-couche: generique
+status: beta
+layer: generique
 role: Regarder une photo en grand, et passer aux suivantes de la même série.
-mots_cles: [visionneuse, lightbox, photo, galerie, plein ecran, agrandir, schema]
-plateformes: [web]
-remplace:
+keywords: [visionneuse, lightbox, photo, galerie, plein ecran, agrandir, schema]
+platforms: [web]
+replaces:
   web: [public/fiche/index.html — lightbox]
   mobile: [components/ZoomImageOverlay.tsx]
 ---
@@ -32,13 +32,13 @@ lecteurs d'écran. Tout cela se réécrit mal à la main.
 
 | Prop           | Type                        | Défaut | Rôle                                    |
 | -------------- | --------------------------- | ------ | --------------------------------------- |
-| `photos`       | `readonly PhotoVue[]`       | —      | La série parcourue                      |
+| `photos`       | `readonly PhotoView[]`       | —      | La série parcourue                      |
 | `index`        | `number`                    | —      | Laquelle est affichée                   |
 | `onIndex`      | `(i: number) => void`       | —      | L'appelant garde la main sur la position |
 | `open`         | `boolean`                   | —      | Ouverte ou non                          |
 | `onOpenChange` | `(o: boolean) => void`      | —      | Fermeture par Échap, clic dehors, croix |
 
-`PhotoVue` : `{ nom: string; url?: string; zone?: string }`. `nom` est la
+`PhotoView` : `{ name: string; url?: string; zone?: string }`. `name` est la
 légende **et** le texte alternatif ; `zone` dit d'où elle vient.
 
 L'indice est piloté par l'appelant, pas gardé à l'intérieur : c'est lui qui sait
@@ -49,9 +49,9 @@ quelle série il vient d'ouvrir et sur quelle photo.
 ```tsx
 import { PhotoViewer, PhotoTile } from '@arquos/design-system/web';
 
-const [vue, setVue] = React.useState<{ photos: PhotoVue[]; i: number } | null>(null);
+const [vue, setVue] = React.useState<{ photos: PhotoView[]; i: number } | null>(null);
 
-<PhotoTile nom={p.nom} url={p.url} onOuvrir={() => setVue({ photos: zone.items, i: n })} />
+<PhotoTile name={p.name} url={p.url} onOpen={() => setVue({ photos: zone.items, i: n })} />
 
 <PhotoViewer
   photos={vue?.photos ?? []}

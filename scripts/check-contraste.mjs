@@ -107,7 +107,7 @@ function seuilPour(source) {
   const grosse = new Set(
     Object.entries(fontSize)
       .filter(([, px]) => px >= 24)
-      .map(([nom]) => `text-${nom.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()}`),
+      .map(([name]) => `text-${name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()}`),
   );
   return [...grosse].some((c) => source.includes(c)) ? SEUIL_GROS : SEUIL_TEXTE;
 }
@@ -125,17 +125,17 @@ function seuilPour(source) {
  * rare ; une règle sans échappatoire finit désactivée.
  */
 function paletteBrute(source) {
-  const lignes = source.split('\n');
+  const rows = source.split('\n');
   const fautes = [];
-  lignes.forEach((ligne, i) => {
-    const autorisee = lignes
+  rows.forEach((row, i) => {
+    const autorisee = rows
       .slice(Math.max(0, i - 4), i)
       .some((l) => l.includes('palette-brute-ok:'));
     if (autorisee) return;
-    for (const [, classe] of ligne.matchAll(
+    for (const [, classe] of row.matchAll(
       /\b((?:bg|text|border)-(?:blue|marine|orange|green|red|grey)-\d{2,3})\b/g,
     )) {
-      fautes.push({ ligne: i + 1, classe });
+      fautes.push({ row: i + 1, classe });
     }
   });
   return fautes;
@@ -155,14 +155,14 @@ function reservesTropClaires(source) {
   return [...source.matchAll(/placeholder:text-text-subtle/g)].map(() => 'placeholder:text-text-subtle');
 }
 
-const liste = process.argv.includes('--liste');
+const list = process.argv.includes('--liste');
 const echecs = [];
 const brutes = [];
 const reserves = [];
 let controlees = 0;
 
-for (const nom of readdirSync(COMPONENTS).filter((n) => !n.startsWith('_'))) {
-  const fichier = join(COMPONENTS, nom, `${nom}.web.tsx`);
+for (const name of readdirSync(COMPONENTS).filter((n) => !n.startsWith('_'))) {
+  const fichier = join(COMPONENTS, name, `${name}.web.tsx`);
   if (!existsSync(fichier)) continue;
 
   const source = readFileSync(fichier, 'utf8');
@@ -171,20 +171,20 @@ for (const nom of readdirSync(COMPONENTS).filter((n) => !n.startsWith('_'))) {
   for (const paire of pairesDe(source)) {
     controlees++;
     const r = ratio(paire.texte, paire.fond);
-    if (liste) {
-      console.log(`  ${r >= seuil ? '✓' : '✗'} ${nom.padEnd(15)} ${paire.classes.padEnd(46)} ${r.toFixed(2)}`);
+    if (list) {
+      console.log(`  ${r >= seuil ? '✓' : '✗'} ${name.padEnd(15)} ${paire.classes.padEnd(46)} ${r.toFixed(2)}`);
     }
-    if (r < seuil) echecs.push({ nom, ...paire, r, seuil });
+    if (r < seuil) echecs.push({ name, ...paire, r, seuil });
   }
 
-  for (const faute of paletteBrute(source)) brutes.push({ nom, ...faute });
-  for (const classe of reservesTropClaires(source)) reserves.push({ nom, classe });
+  for (const faute of paletteBrute(source)) brutes.push({ name, ...faute });
+  for (const classe of reservesTropClaires(source)) reserves.push({ name, classe });
 }
 
 if (echecs.length) {
   console.error(`\n✗ ${echecs.length} paire(s) sous le seuil de lisibilité :\n`);
   for (const e of echecs) {
-    console.error(`  ${e.nom} — ${e.classes}`);
+    console.error(`  ${e.name} — ${e.classes}`);
     console.error(`    ${e.texte} sur ${e.fond} : ${e.r.toFixed(2)} pour 1, il en faut ${e.seuil}`);
     console.error(`    Prendre un cran plus foncé dans la rampe, le fond ne bouge pas.\n`);
   }
@@ -194,7 +194,7 @@ if (echecs.length) {
 if (brutes.length) {
   console.error(`\n✗ ${brutes.length} usage(s) de la palette brute dans un composant :\n`);
   for (const b of brutes) {
-    console.error(`  ${b.nom}.web.tsx:${b.ligne} — ${b.classe}`);
+    console.error(`  ${b.name}.web.tsx:${b.row} — ${b.classe}`);
   }
   console.error(
     `\n  Prendre un token sémantique (\`bg-info-bg\`, \`text-on-success-bg\`…),\n` +
@@ -206,7 +206,7 @@ if (brutes.length) {
 
 if (reserves.length) {
   console.error(`\n✗ ${reserves.length} marque(s) de réserve en \`textSubtle\` :\n`);
-  for (const r of reserves) console.error(`  ${r.nom}.web.tsx — ${r.classe}`);
+  for (const r of reserves) console.error(`  ${r.name}.web.tsx — ${r.classe}`);
   console.error(
     `\n  Une marque de réserve est du texte pour WCAG : il lui faut 4,5, et\n` +
       `  \`textSubtle\` est à 3,14 sur blanc. Prendre \`placeholder:text-text-muted\`.\n`,

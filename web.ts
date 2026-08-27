@@ -31,29 +31,29 @@ export { Meter, type MeterProps } from './components/meter/meter.web';
 export {
   RecordTable,
   type RecordTableProps,
-  type ColonneRecord,
+  type RecordColumn,
 } from './components/record-table/record-table.web';
 export {
-  comparer,
-  libellePagination,
-  libelleSelection,
-  triSuivant,
-  type EtatTri,
-  type SensTri,
+  compare,
+  paginationLabel,
+  selectionLabel,
+  nextSort,
+  type SortState,
+  type SortDirection,
 } from './components/record-table/record-table.logic';
 export { StatTile, type StatTileProps } from './components/stat-tile/stat-tile.web';
 export { PhotoTile, type PhotoTileProps } from './components/photo-tile/photo-tile.web';
 export {
   PhotoViewer,
   type PhotoViewerProps,
-  type PhotoVue,
+  type PhotoView,
 } from './components/photo-viewer/photo-viewer.web';
 export {
   ToastProvider,
   useToast,
   type ToastProviderProps,
-  type ToastContexte,
-  type ToastTon,
+  type ToastContext,
+  type ToastTone,
 } from './components/toast/toast.web';
 export { SegmentedTabs, type SegmentedTabsProps, type Segment } from './components/segmented-tabs/segmented-tabs.web';
 export { NavList, type NavListProps, type NavItem } from './components/nav-list/nav-list.web';
@@ -68,15 +68,15 @@ export { FieldRow, type FieldRowProps } from './components/field-row/field-row.w
 // La logique métier de FieldRow est aussi servie par le point d'entrée racine —
 // c'est la même source, deux portes : le mobile la prendra par la racine.
 export {
-  menuDeChoix,
-  texteDeValeur,
-  estVide,
-  VIDE,
-  TEXTE_STATUT,
-  TEXTE_SAUVEGARDE,
+  choiceMenu,
+  valueText,
+  isEmpty,
+  EMPTY,
+  STATUS_TEXT,
+  SAVE_TEXT,
   type FieldKind,
-  type FieldStatut,
-  type FieldSauvegarde,
+  type FieldStatus,
+  type FieldSave,
   type FieldOption,
 } from './components/field-row/field-row.logic';
 
@@ -105,7 +105,7 @@ export {
   CommandSeparator,
 } from './components/command/command.web';
 
-export { Combobox, SEUIL_RECHERCHE } from './components/combobox/combobox.web';
+export { Combobox, SEARCH_THRESHOLD } from './components/combobox/combobox.web';
 export type { ComboboxOption, ComboboxProps } from './components/combobox/combobox.web';
 
 export {
@@ -133,10 +133,10 @@ export {
 export { Skeleton, type SkeletonProps } from './components/skeleton/skeleton.web';
 export {
   EmptyState,
-  EmptyStateErreur,
+  EmptyStateError,
   type EmptyStateProps,
 } from './components/empty-state/empty-state.web';
-export { Banner, type BannerProps, type BannerTon } from './components/banner/banner.web';
+export { Banner, type BannerProps, type BannerTone } from './components/banner/banner.web';
 export { Avatar, type AvatarProps } from './components/avatar/avatar.web';
 
 // --- Formulaire ---------------------------------------------------------

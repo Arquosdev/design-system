@@ -3,10 +3,10 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Icon } from '../../components/icon/icon.web';
 import { IconButton } from '../../components/icon-button/icon-button.web';
 import specification from '../../components/icon-button/icon-button.spec.md?raw';
-import { choix, docsDe } from '../fiche';
+import { choices, docsDe } from '../fiche';
 
 // Le dessin vient du vocabulaire, pas d'un tracé recopié : voir Générique/Icon.
-const Telechargement = () => <Icon role="telecharger" size="xs" />;
+const Telechargement = () => <Icon role="download" size="xs" />;
 
 const meta = {
   title: 'Composants/Générique/IconButton',
@@ -14,8 +14,8 @@ const meta = {
   parameters: docsDe(specification),
   args: { label: 'Télécharger le rapport', icon: <Telechargement /> },
   argTypes: {
-    variant: choix(['outline', 'soft', 'ghost'], 'Le poids visuel du bouton.'),
-    size: choix(['sm', 'md'], '30 px ou 36 px.'),
+    variant: choices(['outline', 'soft', 'ghost'], 'Le poids visuel du bouton.'),
+    size: choices(['sm', 'md'], '30 px ou 36 px.'),
   },
 } satisfies Meta<typeof IconButton>;
 

@@ -33,15 +33,15 @@ export function Command({
 }
 
 export function CommandDialog({
-  titre,
+  title,
   open,
   onOpenChange,
   children,
   className,
-  ...commande
+  ...command
 }: {
   /** Nom du dialogue pour les lecteurs d'écran. Jamais affiché. */
-  titre: string;
+  title: string;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   children: React.ReactNode;
@@ -59,8 +59,8 @@ export function CommandDialog({
             className,
           )}
         >
-          <Dialog.Title className="sr-only">{titre}</Dialog.Title>
-          <Command {...commande}>{children}</Command>
+          <Dialog.Title className="sr-only">{title}</Dialog.Title>
+          <Command {...command}>{children}</Command>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
@@ -73,7 +73,7 @@ export function CommandInput({
 }: React.ComponentProps<typeof CommandPrimitive.Input>) {
   return (
     <div className="flex items-center gap-md border-b border-border-soft px-base">
-      <Icon role="rechercher" size="sm" className="text-text-muted" />
+      <Icon role="search" size="sm" className="text-text-muted" />
       <CommandPrimitive.Input
         data-slot="command-input"
         className={cn(

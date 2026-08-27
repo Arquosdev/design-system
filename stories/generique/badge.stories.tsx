@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Badge } from '../../components/badge/badge.web';
 import specification from '../../components/badge/badge.spec.md?raw';
-import { choix, docsDe } from '../fiche';
+import { choices, docsDe } from '../fiche';
 
 const meta = {
   title: 'Composants/Générique/Badge',
@@ -10,7 +10,7 @@ const meta = {
   parameters: docsDe(specification),
   args: { children: 'Résolu' },
   argTypes: {
-    variant: choix(
+    variant: choices(
       [
         'default',
         'secondary',
@@ -61,9 +61,9 @@ export const DansLaFiche: Story = {
         ['Armoire de manœuvre', 'warning', 'Moyen'],
         ['Cabine', 'destructive', 'Mauvais'],
         ['Contrepoids', 'muted', 'Non renseigné'],
-      ].map(([nom, variant, texte]) => (
-        <div key={nom} className="flex items-center justify-between gap-md">
-          <span className="text-small text-text">{nom}</span>
+      ].map(([name, variant, texte]) => (
+        <div key={name} className="flex items-center justify-between gap-md">
+          <span className="text-small text-text">{name}</span>
           <Badge variant={variant as 'success'}>{texte}</Badge>
         </div>
       ))}

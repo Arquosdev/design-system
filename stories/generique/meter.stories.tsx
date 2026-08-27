@@ -8,7 +8,7 @@ const meta = {
   title: 'Composants/Générique/Meter',
   component: Meter,
   parameters: docsDe(specification),
-  args: { valeur: 41, label: 'Taux de connaissance' },
+  args: { value: 41, label: 'Taux de connaissance' },
 } satisfies Meta<typeof Meter>;
 
 export default meta;
@@ -44,7 +44,7 @@ export const EnSerie: Story = {
           <tr key={e.numero} className="border-b border-border-soft">
             <td className="py-sm pr-xl whitespace-nowrap">{e.numero}</td>
             <td className="py-sm">
-              <Meter valeur={e.taux} label="Taux de connaissance" />
+              <Meter value={e.taux} label="Taux de connaissance" />
             </td>
           </tr>
         ))}
@@ -64,9 +64,9 @@ export const Bornes: Story = {
   },
   render: () => (
     <div className="flex flex-col gap-sm">
-      <Meter valeur={0} label="Taux de connaissance" />
-      <Meter valeur={100} label="Taux de connaissance" />
-      <Meter valeur={140} label="Valeur hors bornes" />
+      <Meter value={0} label="Taux de connaissance" />
+      <Meter value={100} label="Taux de connaissance" />
+      <Meter value={140} label="Valeur hors bornes" />
     </div>
   ),
 };

@@ -28,7 +28,7 @@ Trois choses convergent, et une troisième n'avait nulle part où vivre jusqu'ic
 | --- | --- |
 | Les valeurs — couleurs, typo, espacements, arrondis, icônes | `src/*.ts` |
 | Les **noms** — de composants comme de props | l'en-tête de chaque fiche |
-| La **logique métier** — le vocabulaire et les règles | `<nom>.logic.ts` |
+| La **logique métier** — le vocabulaire et les règles | `<name>.logic.ts` |
 
 Ce qui diverge, et qui a le droit de diverger : **les interactions, la densité,
 la navigation**. Un design system mobile qui copie les motifs web donne une app
@@ -47,18 +47,18 @@ La règle exacte est donc :
 
 ## La logique métier, enfin chez elle
 
-Un fichier `<nom>.logic.ts` à côté des implémentations, qui **n'importe pas
+Un fichier `<name>.logic.ts` à côté des implémentations, qui **n'importe pas
 React**. Il porte le vocabulaire et les règles ; le rendu reste dans le fichier
 de plateforme.
 
 ```
 components/field-row/
-  field-row.logic.ts   ← « Non renseigné », les statuts, menuDeChoix()
+  field-row.logic.ts   ← « Non renseigné », les statuts, choiceMenu()
   field-row.web.tsx    ← les classes Tailwind
   field-row.native.tsx ← les styles React Native (à venir)
 ```
 
-Ce qui se gagne : `menuDeChoix()` était déjà une fonction pure, enfermée dans un
+Ce qui se gagne : `choiceMenu()` était déjà une fonction pure, enfermée dans un
 fichier `.web.tsx`. Les règles deviennent lisibles et testables **sans navigateur
 ni simulateur**, et « Non renseigné » ne peut plus devenir « — » d'un côté.
 
@@ -90,7 +90,7 @@ c'est des mois pour un bénéfice qui n'arrive qu'à la fin.
 ## La correspondance, aujourd'hui
 
 Chaque fiche déclare dans son en-tête les fichiers mobiles que le composant
-absorbe (`remplace.mobile`). **32 fichiers y sont cartographiés**, tous vérifiés
+absorbe (`replaces.mobile`). **32 fichiers y sont cartographiés**, tous vérifiés
 présents. `dist/catalog.json` les expose : un agent lit la correspondance sans
 ouvrir un seul fichier.
 

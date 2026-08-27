@@ -5,9 +5,9 @@ import { Dialog } from 'radix-ui';
 
 import { cn } from '../_lib/cn';
 
-export interface PhotoVue {
+export interface PhotoView {
   /** Ce que la photo montre — sert de légende ET de texte alternatif. */
-  nom: string;
+  name: string;
   /** Absent = la photo n'existe pas ou n'est pas affichable. */
   url?: string;
   /** D'où elle vient : « Machinerie », « Schéma de mesure · A14 »… */
@@ -15,7 +15,7 @@ export interface PhotoVue {
 }
 
 export interface PhotoViewerProps {
-  photos: readonly PhotoVue[];
+  photos: readonly PhotoView[];
   /** L'indice affiché. Piloté par l'appelant, pour qu'il sache où on en est. */
   index: number;
   onIndex: (index: number) => void;
@@ -32,12 +32,12 @@ export interface PhotoViewerProps {
  */
 export function PhotoViewer({ photos, index, onIndex, open, onOpenChange }: PhotoViewerProps) {
   const nb = photos.length;
-  const courante = photos[index];
+  const current = photos[index];
 
   // Une URL qui ne charge pas retombe sur le cadre « photo indisponible ».
   // L'icône brisée du navigateur laisserait croire à une panne du module.
-  const [cassees, setCassees] = React.useState<Record<string, true>>({});
-  const url = courante?.url && !cassees[courante.url] ? courante.url : '';
+  const [broken, setBroken] = React.useState<Record<string, true>>({});
+  const url = current?.url && !broken[current.url] ? current.url : '';
 
   const deplacer = React.useCallback(
     (d: number) => nb > 1 && onIndex((index + d + nb) % nb),
@@ -51,9 +51,9 @@ export function PhotoViewer({ photos, index, onIndex, open, onOpenChange }: Phot
    * elle s'ouvre depuis n'importe laquelle de sept vignettes. Sans ça, le focus
    * retombe sur le corps de la page et la tabulation repart du rail.
    */
-  const origine = React.useRef<HTMLElement | null>(null);
+  const origin = React.useRef<HTMLElement | null>(null);
 
-  if (!courante) return null;
+  if (!current) return null;
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
@@ -66,13 +66,13 @@ export function PhotoViewer({ photos, index, onIndex, open, onOpenChange }: Phot
           // Radix n'a pas encore déplacé le focus quand cet événement part :
           // `activeElement`, c'est encore la vignette cliquée.
           onOpenAutoFocus={() => {
-            origine.current = document.activeElement as HTMLElement | null;
+            origin.current = document.activeElement as HTMLElement | null;
           }}
           onCloseAutoFocus={(e) => {
             // Couper la reprise de Radix — elle viserait un `Trigger` absent —
             // et rendre le focus nous-mêmes.
             e.preventDefault();
-            origine.current?.focus();
+            origin.current?.focus();
           }}
           onKeyDown={(e) => {
             if (e.key === 'ArrowLeft') deplacer(-1);
@@ -90,7 +90,7 @@ export function PhotoViewer({ photos, index, onIndex, open, onOpenChange }: Phot
               photo, elle, restait petite. */}
           <div className="flex min-h-0 max-w-full flex-1 items-center gap-base">
             {nb > 1 ? (
-              <Fleche sens="prec" onClick={() => deplacer(-1)} />
+              <Arrow direction="prec" onClick={() => deplacer(-1)} />
             ) : null}
 
             {url ? (
@@ -98,8 +98,8 @@ export function PhotoViewer({ photos, index, onIndex, open, onOpenChange }: Phot
               // servies par un stockage externe, hors de l'optimiseur d'images.
               <img
                 src={url}
-                alt={courante.nom}
-                onError={() => setCassees((c) => ({ ...c, [url]: true }))}
+                alt={current.name}
+                onError={() => setBroken((c) => ({ ...c, [url]: true }))}
                 // `contain` : ne rien rogner. Une photo de plaque de charge
                 // recadrée peut perdre le chiffre qu'on est venu lire.
                 className="max-h-full max-w-[76vw] rounded-md object-contain"
@@ -109,21 +109,21 @@ export function PhotoViewer({ photos, index, onIndex, open, onOpenChange }: Phot
               // sombre de la visionneuse. Aucune surface sémantique ne
               // convient — `bgMuted` disparaîtrait, `border` n'est pas un fond.
               <div className="flex h-full max-h-[500px] w-[76vw] max-w-[760px] items-center justify-center rounded-md bg-grey-200 px-lg text-center text-body text-text-muted">
-                Photo indisponible — {courante.nom}
+                Photo indisponible — {current.name}
               </div>
             )}
 
-            {nb > 1 ? <Fleche sens="suiv" onClick={() => deplacer(1)} /> : null}
+            {nb > 1 ? <Arrow direction="suiv" onClick={() => deplacer(1)} /> : null}
           </div>
 
           <div className="max-w-[76vw] shrink-0 text-center text-text-on-dark">
             <Dialog.Title className="text-subhead font-semibold text-pretty">
-              {courante.nom}
+              {current.name}
             </Dialog.Title>
             <p className="mt-xxs text-small opacity-75">
               {nb > 1 ? `${index + 1}/${nb}` : null}
-              {nb > 1 && courante.zone ? ' · ' : null}
-              {courante.zone}
+              {nb > 1 && current.zone ? ' · ' : null}
+              {current.zone}
             </p>
           </div>
 
@@ -142,18 +142,18 @@ export function PhotoViewer({ photos, index, onIndex, open, onOpenChange }: Phot
   );
 }
 
-function Fleche({ sens, onClick }: { sens: 'prec' | 'suiv'; onClick: () => void }) {
+function Arrow({ direction, onClick }: { direction: 'prec' | 'suiv'; onClick: () => void }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      aria-label={sens === 'prec' ? 'Photo précédente' : 'Photo suivante'}
+      aria-label={direction === 'prec' ? 'Photo précédente' : 'Photo suivante'}
       className={cn(
         'size-[44px] shrink-0 rounded-control bg-white/15 text-subhead text-text-on-dark',
         'outline-none hover:bg-white/25 focus-visible:ring-2 focus-visible:ring-white',
       )}
     >
-      {sens === 'prec' ? '‹' : '›'}
+      {direction === 'prec' ? '‹' : '›'}
     </button>
   );
 }

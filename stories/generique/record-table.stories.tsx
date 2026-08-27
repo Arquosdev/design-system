@@ -5,7 +5,7 @@ import { Badge } from '../../components/badge/badge.web';
 import { EmptyState } from '../../components/empty-state/empty-state.web';
 import { Meter } from '../../components/meter/meter.web';
 import { RecordTable } from '../../components/record-table/record-table.web';
-import type { EtatTri } from '../../components/record-table/record-table.logic';
+import type { SortState } from '../../components/record-table/record-table.logic';
 import specification from '../../components/record-table/record-table.spec.md?raw';
 import { docsDe } from '../fiche';
 
@@ -28,33 +28,33 @@ const PARC: Equipement[] = [
   { id: '5', numero: '53 A 0144 01', type: 'Élévateur', adresse: '7 Rue Haute, Saint-Berthevin', contrat: 'Hors parc', technicien: null, annee: 2014, taux: 8 },
 ];
 
-const NON_RENSEIGNE = <span className="text-text-muted">Non renseigné</span>;
+const NOT_FILLED = <span className="text-text-muted">Non renseigné</span>;
 
-const COLONNES = [
-  { cle: 'type', entete: 'Type', rendu: (e: Equipement) => e.type, valeur: (e: Equipement) => e.type },
-  { cle: 'adresse', entete: 'Adresse', largeur: '16rem', rendu: (e: Equipement) => e.adresse, valeur: (e: Equipement) => e.adresse },
+const COLUMNS = [
+  { id: 'type', header: 'Type', render: (e: Equipement) => e.type, value: (e: Equipement) => e.type },
+  { id: 'adresse', header: 'Adresse', width: '16rem', render: (e: Equipement) => e.adresse, value: (e: Equipement) => e.adresse },
   {
-    cle: 'contrat',
-    entete: 'Contrat',
-    rendu: (e: Equipement) =>
+    id: 'contrat',
+    header: 'Contrat',
+    render: (e: Equipement) =>
       e.contrat === 'Parc' ? <Badge variant="info">Parc</Badge> : <Badge variant="muted">Hors parc</Badge>,
-    valeur: (e: Equipement) => e.contrat,
+    value: (e: Equipement) => e.contrat,
   },
-  { cle: 'technicien', entete: 'Technicien', rendu: (e: Equipement) => e.technicien ?? NON_RENSEIGNE, valeur: (e: Equipement) => e.technicien },
-  { cle: 'annee', entete: 'Année', numerique: true, rendu: (e: Equipement) => e.annee ?? NON_RENSEIGNE, valeur: (e: Equipement) => e.annee },
+  { id: 'technicien', header: 'Technicien', render: (e: Equipement) => e.technicien ?? NOT_FILLED, value: (e: Equipement) => e.technicien },
+  { id: 'annee', header: 'Année', numeric: true, render: (e: Equipement) => e.annee ?? NOT_FILLED, value: (e: Equipement) => e.annee },
   {
-    cle: 'taux',
-    entete: 'Taux de connaissance',
-    largeur: '11rem',
-    rendu: (e: Equipement) => <Meter valeur={e.taux} label="Taux de connaissance" />,
-    valeur: (e: Equipement) => e.taux,
+    id: 'taux',
+    header: 'Taux de connaissance',
+    width: '11rem',
+    render: (e: Equipement) => <Meter value={e.taux} label="Taux de connaissance" />,
+    value: (e: Equipement) => e.taux,
   },
 ];
 
-const IDENTITE = {
-  entete: "N° d'équipement",
-  rendu: (e: Equipement) => e.numero,
-  valeur: (e: Equipement) => e.numero,
+const IDENTITY = {
+  header: "N° d'équipement",
+  render: (e: Equipement) => e.numero,
+  value: (e: Equipement) => e.numero,
 };
 
 const meta = {
@@ -62,10 +62,10 @@ const meta = {
   component: RecordTable,
   parameters: { ...docsDe(specification), layout: 'padded' },
   args: {
-    lignes: PARC,
-    colonnes: COLONNES,
-    cleDe: (e: Equipement) => e.id,
-    identite: IDENTITE,
+    rows: PARC,
+    columns: COLUMNS,
+    rowKey: (e: Equipement) => e.id,
+    identity: IDENTITY,
   },
 } satisfies Meta<typeof RecordTable<Equipement>>;
 
@@ -73,20 +73,20 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 function Demo({ avecSelection = true }: { avecSelection?: boolean }) {
-  const [tri, setTri] = React.useState<EtatTri | null>(null);
-  const [choisis, setChoisis] = React.useState<Set<string>>(new Set());
+  const [sort, setTri] = React.useState<SortState | null>(null);
+  const [chosen, setChosen] = React.useState<Set<string>>(new Set());
 
   return (
     <RecordTable<Equipement>
-      lignes={PARC}
-      colonnes={COLONNES}
-      cleDe={(e) => e.id}
-      identite={IDENTITE}
-      onOuvrir={() => {}}
-      tri={{ etat: tri, onChange: setTri }}
+      rows={PARC}
+      columns={COLUMNS}
+      rowKey={(e) => e.id}
+      identity={IDENTITY}
+      onOpen={() => {}}
+      sort={{ state: sort, onChange: setTri }}
       selection={
         avecSelection
-          ? { valeurs: choisis, onChange: setChoisis, nom: 'équipement' }
+          ? { values: chosen, onChange: setChosen, name: 'équipement' }
           : undefined
       }
     />
@@ -128,15 +128,15 @@ export const Vide: Story = {
   },
   render: () => (
     <RecordTable<Equipement>
-      lignes={[]}
-      colonnes={COLONNES}
-      cleDe={(e) => e.id}
-      identite={IDENTITE}
-      vide={
+      rows={[]}
+      columns={COLUMNS}
+      rowKey={(e) => e.id}
+      identity={IDENTITY}
+      empty={
         <EmptyState
-          icone="filtrer"
-          titre="Aucun équipement ne correspond"
-          conseil="Trois filtres sont actifs. En retirer un élargira la recherche."
+          icon="filter"
+          title="Aucun équipement ne correspond"
+          hint="Trois filtres sont actifs. En retirer un élargira la recherche."
         />
       }
     />

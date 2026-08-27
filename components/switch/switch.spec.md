@@ -1,11 +1,11 @@
 ---
 name: Switch
-statut: stable
-couche: generique
+status: stable
+layer: generique
 role: Basculer un réglage qui s'applique immédiatement.
-mots_cles: [interrupteur, switch, bascule, activer, desactiver, reglage, toggle]
-plateformes: [web]
-remplace:
+keywords: [interrupteur, switch, bascule, activer, desactiver, reglage, toggle]
+platforms: [web]
+replaces:
   web: []
   mobile: [components/ResolvedToggle.tsx]
 ---
@@ -44,8 +44,8 @@ Celles de `Switch.Root` de Radix.
 import { Switch, Label } from '@arquos/design-system/web';
 
 <Label className="justify-between">
-  Afficher les champs vides
-  <Switch checked={vides} onCheckedChange={setVides} />
+  Afficher les champs empties
+  <Switch checked={empties} onCheckedChange={setVides} />
 </Label>
 ```
 

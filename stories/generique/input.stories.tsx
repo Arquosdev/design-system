@@ -21,7 +21,7 @@ export const Defaut: Story = { render: (a) => <Input {...a} className="w-[320px]
 export const AvecSonIntitule: Story = {
   render: () => (
     <div className="flex w-[320px] flex-col gap-xs">
-      <Label htmlFor="i-1">Hauteur libre sous linteau</Label>
+      <Label htmlFor="i-1">Height libre sous linteau</Label>
       <Input id="i-1" type="number" placeholder="en mm" />
     </div>
   ),

@@ -1,11 +1,11 @@
 ---
 name: RecordTable
-statut: beta
-couche: generique
+status: beta
+layer: generique
 role: Parcourir une collection d'enregistrements, en comparer quelques attributs, en sélectionner plusieurs et en ouvrir un.
-mots_cles: [liste, listing, tableau, collection, sélection, tri, colonnes, équipements, affaires, relevés]
-plateformes: [web]
-remplace:
+keywords: [liste, listing, tableau, collection, sélection, tri, colonnes, équipements, affaires, relevés]
+platforms: [web]
+replaces:
   web:
     - web/components/liste/table-liste.tsx
   mobile: []
@@ -39,37 +39,37 @@ toutes.
 
 | Prop        | Type                                   | Défaut | Rôle                                                     |
 | ----------- | -------------------------------------- | ------ | -------------------------------------------------------- |
-| `lignes`    | `readonly T[]`                         | —      | Les enregistrements                                       |
-| `colonnes`  | `readonly ColonneRecord<T>[]`          | —      | Les colonnes défilantes, dans l'ordre                     |
-| `cleDe`     | `(ligne: T) => string`                 | —      | L'identifiant stable d'une ligne                          |
-| `identite`  | `{ entete, rendu, valeur? }`           | —      | La colonne qui nomme la ligne ; elle reste visible        |
-| `onOuvrir`  | `(ligne: T) => void`                   | —      | Sans lui, l'identité ne devient pas cliquable             |
-| `selection` | `{ valeurs, onChange, nom, pluriel? }` | —      | Sans elle, pas de colonne de cases                        |
-| `tri`       | `{ etat, onChange }`                   | —      | Sans lui, les en-têtes ne sont pas cliquables             |
-| `vide`      | `ReactNode`                            | —      | Ce qui remplace le tableau quand il n'y a aucune ligne    |
+| `rows`    | `readonly T[]`                         | —      | Les enregistrements                                       |
+| `columns`  | `readonly RecordColumn<T>[]`          | —      | Les colonnes défilantes, dans l'ordre                     |
+| `rowKey`     | `(row: T) => string`                 | —      | L'identifiant stable d'une ligne                          |
+| `identity`  | `{ header, render, value? }`           | —      | La colonne qui nomme la ligne ; elle reste visible        |
+| `onOpen`  | `(row: T) => void`                   | —      | Sans lui, l'identité ne devient pas cliquable             |
+| `selection` | `{ values, onChange, name, plural? }` | —      | Sans elle, pas de colonne de cases                        |
+| `sort`       | `{ state, onChange }`                   | —      | Sans lui, les en-têtes ne sont pas cliquables             |
+| `empty`      | `ReactNode`                            | —      | Ce qui remplace le tableau quand il n'y a aucune ligne    |
 
-`ColonneRecord<T>` : `{ cle, entete, rendu, valeur?, largeur?, numerique?, triable? }`.
-`rendu` produit la cellule ; `valeur` dit sur quoi trier quand ce n'est pas ce
+`RecordColumn<T>` : `{ id, header, render, value?, width?, numeric?, sortable? }`.
+`render` produit la cellule ; `value` dit sur quoi trier quand ce n'est pas ce
 qui s'affiche — une pastille « Parc » se trie sur le texte, pas sur le nœud.
 
 ## Exemples
 
 ```tsx
-import { RecordTable, type EtatTri } from '@arquos/design-system/web';
+import { RecordTable, type SortState } from '@arquos/design-system/web';
 
-const [tri, setTri] = React.useState<EtatTri | null>(null);
-const [choisis, setChoisis] = React.useState<Set<string>>(new Set());
+const [sort, setTri] = React.useState<SortState | null>(null);
+const [chosen, setChosen] = React.useState<Set<string>>(new Set());
 
 <RecordTable
-  lignes={equipements}
-  cleDe={(e) => e.id}
-  identite={{ entete: "N° d'équipement", rendu: (e) => e.numero, valeur: (e) => e.numero }}
-  onOuvrir={(e) => router.push(`/equipements/${e.id}`)}
-  selection={{ valeurs: choisis, onChange: setChoisis, nom: 'équipement' }}
-  tri={{ etat: tri, onChange: setTri }}
-  colonnes={[
-    { cle: 'type', entete: 'Type', rendu: (e) => e.type },
-    { cle: 'annee', entete: 'Année', numerique: true, rendu: (e) => e.annee ?? 'Non renseigné', valeur: (e) => e.annee },
+  rows={equipements}
+  rowKey={(e) => e.id}
+  identity={{ header: "N° d'équipement", render: (e) => e.numero, value: (e) => e.numero }}
+  onOpen={(e) => router.push(`/equipements/${e.id}`)}
+  selection={{ values: chosen, onChange: setChosen, name: 'équipement' }}
+  sort={{ state: sort, onChange: setTri }}
+  columns={[
+    { id: 'type', header: 'Type', render: (e) => e.type },
+    { id: 'annee', header: 'Année', numeric: true, render: (e) => e.annee ?? 'Non renseigné', value: (e) => e.annee },
   ]}
 />
 ```
@@ -114,7 +114,7 @@ défilement.
 
 ## États
 
-- **Aucune ligne** : passer un `EmptyState` en `vide`. Un tableau vide avec ses
+- **Aucune ligne** : passer un `EmptyState` en `empty`. Un tableau vide avec ses
   en-têtes laisse croire à un filtre mal réglé plutôt qu'à une liste vide.
 - **Beaucoup de colonnes** : le tableau défile horizontalement, la page jamais.
   La case et l'identité restent en place — sans cela, on ne sait plus ce qui est

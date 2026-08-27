@@ -24,11 +24,11 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const CHAMPS = [
-  { groupe: 'Données techniques · Données techniques générales', label: 'Charge utile', valeur: '300' },
-  { groupe: 'Données techniques · Données techniques générales', label: 'Vitesse (m/s)', valeur: '1' },
-  { groupe: 'Données techniques · Module GSM', label: 'Marque module GSM', valeur: 'SCHINDLER' },
-  { groupe: 'Machine · Machine', label: 'Diamètre poulie (mm)', valeur: '' },
-  { groupe: 'Machine · Machine', label: 'Marque', valeur: 'ORONA' },
+  { group: 'Données techniques · Données techniques générales', label: 'Charge utile', value: '300' },
+  { group: 'Données techniques · Données techniques générales', label: 'Vitesse (m/s)', value: '1' },
+  { group: 'Données techniques · Module GSM', label: 'Marque module GSM', value: 'SCHINDLER' },
+  { group: 'Machine · Machine', label: 'Diamètre poulie (mm)', value: '' },
+  { group: 'Machine · Machine', label: 'Marque', value: 'ORONA' },
 ];
 
 /**
@@ -44,17 +44,17 @@ export const Defaut: Story = {
     const retenus = q
       ? CHAMPS.filter(
           (c) =>
-            c.label.toLowerCase().includes(q) || c.valeur.toLowerCase().includes(q),
+            c.label.toLowerCase().includes(q) || c.value.toLowerCase().includes(q),
         )
       : CHAMPS;
 
-    const groupes = [...new Set(retenus.map((c) => c.groupe))];
+    const groupes = [...new Set(retenus.map((c) => c.group))];
 
     return (
       <>
         <Button onClick={() => setOuverte(true)}>Rechercher un champ (⌘K)</Button>
         <CommandDialog
-          titre="Recherche de champ"
+          title="Recherche de champ"
           open={ouverte}
           onOpenChange={setOuverte}
           shouldFilter={false}
@@ -65,22 +65,22 @@ export const Defaut: Story = {
             placeholder="Rechercher un champ (ex. diamètre, GSM, charge)…"
           />
           <CommandList>
-            <CommandEmpty>Aucun champ ne correspond.</CommandEmpty>
+            <CommandEmpty>NoneA champ ne correspond.</CommandEmpty>
             {groupes.map((g) => (
               <CommandGroup key={g} heading={g}>
                 {retenus
-                  .filter((c) => c.groupe === g)
+                  .filter((c) => c.group === g)
                   .map((c) => (
                     <CommandItem key={c.label} value={c.label} onSelect={() => setOuverte(false)}>
                       <span className="min-w-0 flex-1 truncate">{c.label}</span>
                       <span
                         className={
-                          c.valeur
+                          c.value
                             ? 'shrink-0 font-semibold text-text-muted'
                             : 'shrink-0 text-text-muted'
                         }
                       >
-                        {c.valeur || 'Non renseigné'}
+                        {c.value || 'Non renseigné'}
                       </span>
                     </CommandItem>
                   ))}

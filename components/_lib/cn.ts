@@ -11,8 +11,8 @@ import { typography } from '../../src/typography';
  * par oublier un préréglage, et l'oubli est invisible — la classe de couleur
  * disparaîtrait en silence sur les composants qui l'emploient.
  */
-const TAILLES_DE_TEXTE = Object.keys(typography).map((nom) =>
-  nom.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase(),
+const TEXT_SIZES = Object.keys(typography).map((name) =>
+  name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase(),
 );
 
 /**
@@ -25,7 +25,7 @@ const TAILLES_DE_TEXTE = Object.keys(typography).map((nom) =>
 const twMerge = extendTailwindMerge({
   override: {
     classGroups: {
-      'font-size': [{ text: TAILLES_DE_TEXTE }],
+      'font-size': [{ text: TEXT_SIZES }],
     },
   },
 });

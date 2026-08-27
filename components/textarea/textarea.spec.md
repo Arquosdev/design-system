@@ -1,11 +1,11 @@
 ---
 name: Textarea
-statut: stable
-couche: generique
+status: stable
+layer: generique
 role: Recueillir un texte de plusieurs lignes — une observation, un commentaire.
-mots_cles: [textarea, commentaire, observation, texte, long, multiligne, note]
-plateformes: [web]
-remplace:
+keywords: [textarea, commentaire, observation, texte, long, multiligne, note]
+platforms: [web]
+replaces:
   web: []
   mobile: []
 ---

@@ -4,18 +4,18 @@ import { Icon } from '../icon/icon.web';
 import { cn } from '../_lib/cn';
 import type { IconRole } from '../../src/icons';
 
-export type BannerTon = 'info' | 'attention' | 'danger';
+export type BannerTone = 'info' | 'warning' | 'danger';
 
 export interface BannerProps extends React.ComponentProps<'div'> {
-  ton?: BannerTon;
-  icone?: IconRole;
+  tone?: BannerTone;
+  icon?: IconRole;
   /** Ce que la personne peut faire — un lien, un bouton. */
   action?: React.ReactNode;
 }
 
-const TONS: Record<BannerTon, string> = {
+const TONES: Record<BannerTone, string> = {
   info: 'bg-info-bg text-on-info-bg',
-  attention: 'bg-warning-bg text-on-warning-bg',
+  warning: 'bg-warning-bg text-on-warning-bg',
   danger: 'bg-danger-bg text-on-danger-bg',
 };
 
@@ -31,8 +31,8 @@ const TONS: Record<BannerTon, string> = {
  * contexte réseau, ses délais et ses règles.
  */
 export function Banner({
-  ton = 'info',
-  icone,
+  tone = 'info',
+  icon,
   action,
   className,
   children,
@@ -43,12 +43,12 @@ export function Banner({
       role="status"
       className={cn(
         'flex w-full items-center gap-sm px-base py-sm text-small font-medium',
-        TONS[ton],
+        TONES[tone],
         className,
       )}
       {...props}
     >
-      {icone ? <Icon role={icone} size="sm" /> : null}
+      {icon ? <Icon role={icon} size="sm" /> : null}
       <span className="min-w-0 flex-1">{children}</span>
       {action}
     </div>

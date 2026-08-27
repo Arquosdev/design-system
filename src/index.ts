@@ -27,29 +27,29 @@ export { borderWidth, type BorderWidthToken } from './border';
 // Ce que les composants métier savent de l'ascenseur, sans une ligne de React :
 // le vocabulaire et les règles, lisibles et testables des deux plateformes.
 export {
-  menuDeChoix,
-  texteDeValeur,
-  estVide,
-  VIDE,
-  TEXTE_STATUT,
-  TEXTE_SAUVEGARDE,
+  choiceMenu,
+  valueText,
+  isEmpty,
+  EMPTY,
+  STATUS_TEXT,
+  SAVE_TEXT,
   type FieldKind,
-  type FieldStatut,
-  type FieldSauvegarde,
+  type FieldStatus,
+  type FieldSave,
   type FieldOption,
 } from '../components/field-row/field-row.logic';
-export { NON_PRISE, estEnTravers } from '../components/photo-tile/photo-tile.logic';
+export { NOT_TAKEN, estEnTravers } from '../components/photo-tile/photo-tile.logic';
 export {
-  ECHECS,
-  REESSAYER,
-  natureDeLEchec,
-  type NatureDeLEchec,
-  type FormulationDEchec,
+  FAILURES,
+  RETRY,
+  failureKind,
+  type FailureKind,
+  type FailureWording,
 } from '../components/empty-state/empty-state.logic';
 export {
   iconSize,
   iconWeight,
-  icones,
+  icons,
   type IconSizeToken,
   type IconWeightToken,
   type IconRole,
@@ -72,7 +72,7 @@ import { shadow, shadowNative } from './elevation';
 import { duration, easing } from './motion';
 import { layers } from './layers';
 import { borderWidth } from './border';
-import { iconSize, iconWeight, icones } from './icons';
+import { iconSize, iconWeight, icons } from './icons';
 
 export const tokens = {
   palette,
@@ -95,5 +95,5 @@ export const tokens = {
   borderWidth,
   iconSize,
   iconWeight,
-  icones,
+  icons,
 } as const;

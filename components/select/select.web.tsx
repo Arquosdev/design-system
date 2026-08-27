@@ -53,7 +53,7 @@ export const SelectTrigger = React.forwardRef<
   >
     {children}
     <SelectPrimitive.Icon asChild>
-      <Icon role="deplier" size="sm" className="transition-transform" />
+      <Icon role="expand" size="sm" className="transition-transform" />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ));

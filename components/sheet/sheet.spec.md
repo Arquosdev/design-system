@@ -1,11 +1,11 @@
 ---
 name: Sheet
-statut: beta
-couche: generique
+status: beta
+layer: generique
 role: Un panneau qui entre par le bord pour une tâche annexe, sans quitter l'écran.
-mots_cles: [tiroir, panneau, drawer, sheet, lateral, completer, formulaire]
-plateformes: [web]
-remplace:
+keywords: [tiroir, panneau, drawer, sheet, lateral, completer, formulaire]
+platforms: [web]
+replaces:
   web: [public/fiche/index.html — panneau « Compléter »]
   mobile:
     - components/PhotoActionSheet.tsx
@@ -63,12 +63,12 @@ import {
         <SheetTitle>Compléter — Machine</SheetTitle>
         <SheetCloseButton />
       </div>
-      <SheetDescription>4 à renseigner sur cette section uniquement.</SheetDescription>
+      <SheetDescription>4 à fill sur cette section uniquement.</SheetDescription>
     </SheetHeader>
     <SheetBody>{/* les champs */}</SheetBody>
     <SheetFooter>
       <span className="text-small text-text-muted">2 sur 4 remplis</span>
-      <Button onClick={enregistrer}>Enregistrer</Button>
+      <Button onClick={enregistrer}>Save</Button>
     </SheetFooter>
   </SheetContent>
 </Sheet>;

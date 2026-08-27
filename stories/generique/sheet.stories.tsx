@@ -44,7 +44,7 @@ export const Defaut: Story = {
                 <SheetCloseButton />
               </div>
               <SheetDescription>
-                4 champs à renseigner sur cette section uniquement.
+                4 champs à fill sur cette section uniquement.
               </SheetDescription>
             </SheetHeader>
             <SheetBody className="flex flex-col gap-base">
@@ -61,9 +61,9 @@ export const Defaut: Story = {
               <span className="text-small text-text-muted">0 renseigné</span>
               <div className="flex gap-sm">
                 <Button variant="outline" onClick={() => setOuvert(false)}>
-                  Annuler
+                  Cancel
                 </Button>
-                <Button onClick={() => setOuvert(false)}>Enregistrer</Button>
+                <Button onClick={() => setOuvert(false)}>Save</Button>
               </div>
             </SheetFooter>
           </SheetContent>

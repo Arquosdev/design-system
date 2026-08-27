@@ -24,7 +24,7 @@ import {
 import { spacing } from '../src/spacing.ts';
 import { radius } from '../src/radius.ts';
 import { shadow } from '../src/elevation.ts';
-import { iconSize, iconWeight, icones } from '../src/icons.ts';
+import { iconSize, iconWeight, icons } from '../src/icons.ts';
 import { duration, easing } from '../src/motion.ts';
 import { layers } from '../src/layers.ts';
 import { borderWidth } from '../src/border.ts';
@@ -313,10 +313,10 @@ function buildJson() {
         "Graisses Phosphor retenues. Le choix est sémantique : `actif` (fill) quand l'icône EST la chose, `default` (bold) quand elle accompagne un texte.",
       ...group(iconWeight, 'other'),
     },
-    icones: {
+    icons: {
       $description:
         "Vocabulaire d'icônes d'Arquos : un rôle métier → le nom du dessin Phosphor. Passer par le rôle, jamais par le nom du dessin. Ajouter un rôle manquant dans src/icons.ts plutôt qu'importer Phosphor dans une app.",
-      ...group(icones, 'other'),
+      ...group(icons, 'other'),
     },
     shadow: {
       $description: 'Trois niveaux d\'élévation, chacun attaché à un usage précis.',

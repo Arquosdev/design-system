@@ -1,11 +1,11 @@
 ---
 name: Icon
-statut: stable
-couche: generique
+status: stable
+layer: generique
 role: Poser une icône du vocabulaire Arquos, désignée par son rôle et non par son dessin.
-mots_cles: [icone, icon, phosphor, pictogramme, symbole, svg, glyphe]
-plateformes: [web]
-remplace:
+keywords: [icone, icon, phosphor, pictogramme, symbole, svg, glyphe]
+platforms: [web]
+replaces:
   web:
     - src/app/fiche/sections/rail.tsx — IconeLoupe, tracé Phosphor recopié à la main
     - src/app/fiche/sections/documents.tsx — IconeTelechargement, idem
@@ -39,10 +39,10 @@ d'un coup.
 | --- | --- | --- |
 | `role` | — | Le rôle métier, pas le nom du dessin |
 | `size` | `'md'` | `xs` 14 · `sm` 16 · `md` 18 · `lg` 22 · `xl` 28 |
-| `weight` | `'default'` | `default` bold · `actif` fill · `discret` regular |
+| `weight` | `'default'` | `default` bold · `active` fill · `subtle` regular |
 | `label` | — | Ce que l'icône dit, **quand elle le dit seule** |
 
-**La graisse est sémantique** : `actif` quand l'icône *est* la chose — pastille
+**La graisse est sémantique** : `active` quand l'icône *est* la chose — pastille
 d'état, onglet sélectionné ; `default` quand elle accompagne un texte.
 
 **`label` se laisse vide la plupart du temps.** Si un texte voisin dit déjà la
@@ -52,9 +52,9 @@ chose, l'icône est décorative et se masque aux lecteurs d'écran. Dans un
 ## Exemple
 
 ```tsx
-<Icon role="rechercher" size="sm" />                          {/* décorative */}
-<Icon role="ecart" weight="actif" label="Écart relevé" />      {/* elle parle seule */}
-<IconButton label="Supprimer" icon={<Icon role="supprimer" size="sm" />} />
+<Icon role="search" size="sm" />                          {/* décorative */}
+<Icon role="discrepancy" weight="active" label="Écart relevé" />      {/* elle parle seule */}
+<IconButton label="Supprimer" icon={<Icon role="delete" size="sm" />} />
 ```
 
 Ajouter un rôle : deux lignes dans `src/icons.ts`, une dans `icon.web.tsx`.
@@ -83,7 +83,7 @@ npm install @phosphor-icons/react   # web
 npm install phosphor-react-native   # mobile
 ```
 
-Côté mobile, `Icon` n'existe pas encore : lire le nom du dessin dans `icones` et
+Côté mobile, `Icon` n'existe pas encore : lire le nom du dessin dans `icons` et
 la taille dans `iconSize`.
 
 Le vocabulaire complet est dans la vitrine : **Fondations → Icônes**.

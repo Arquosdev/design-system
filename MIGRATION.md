@@ -1,5 +1,58 @@
 # Monter une app vers la version courante
 
+## v2.0.0 — l'API passe à l'anglais
+
+**Celle-ci casse.** C'est la première, et elle est délibérée : jusqu'à la
+`v1.32.1` l'API était en français (`lignes`, `colonnes`, `entete`, `rendu`)
+au-dessus d'une base de données en anglais, ce qui obligeait à traduire à chaque
+frontière. Voir `web/docs/decisions/0003-anglais-pour-le-code-francais-pour-l-ecran.md`.
+
+La règle est désormais : **anglais pour ce qu'une machine lit** (props, types,
+exports, rôles d'icônes, clés de métadonnées), **français pour ce qui se lit
+comme de la prose** (libellés affichés, commentaires, specs, noms de stories).
+
+### Qui doit bouger, et quand
+
+| App | Épingle | Effet |
+| --- | --- | --- |
+| `web` | `file:../design-system` | migrée en même temps que ce changement |
+| `fiche-equipement` | `github:…#v1.18.0` | **rien ne bouge** tant que l'épingle ne change pas |
+| `mobile` | `github:…#v0.1.0` | **rien ne bouge** |
+| `back-office` | `github:…#main` | déclare la dépendance sans l'utiliser : sans effet |
+
+Aucune app en production ne casse aujourd'hui. Le coût est reporté au jour où
+`fiche-equipement` (17 fichiers) et `mobile` (1 fichier) changeront d'épingle.
+
+### Table de correspondance
+
+| Avant | Après |
+| --- | --- |
+| `lignes` · `colonnes` · `ligne` | `rows` · `columns` · `row` |
+| `cleDe` · `cle` | `rowKey` · `id` |
+| `identite` · `entete` · `rendu` | `identity` · `header` · `render` |
+| `valeur` · `valeurs` | `value` · `values` |
+| `largeur` · `numerique` · `triable` | `width` · `numeric` · `sortable` |
+| `tri` · `etat` · `sens` | `sort` · `state` · `direction` |
+| `'croissant'` · `'decroissant'` | `'asc'` · `'desc'` |
+| `onOuvrir` · `onChanger` · `onChoisir` | `onOpen` · `onChange` · `onChoose` |
+| `nom` · `pluriel` · `libelle` | `name` · `plural` · `label` |
+| `ton` · `titre` · `compteur` · `taille` | `tone` · `title` · `count` · `size` |
+| `vide` · `actif` · `icone` | `empty` · `active` · `icon` |
+| `ColonneRecord` · `EtatTri` · `SensTri` | `RecordColumn` · `SortState` · `SortDirection` |
+| `libelleSelection` · `libellePagination` | `selectionLabel` · `paginationLabel` |
+| `triSuivant` · `comparer` | `nextSort` · `compare` |
+| `EmptyStateErreur` | `EmptyStateError` |
+| `BannerTon` · `ToastTon` · `ToastContexte` | `BannerTone` · `ToastTone` · `ToastContext` |
+| `FieldStatut` · `FieldSauvegarde` | `FieldStatus` · `FieldSave` |
+| `'renseigne'` · `'manquant'` · `'a_verifier'` | `'filled'` · `'missing'` · `'to_check'` |
+| `icones` et ses rôles (`supprimer`, `ecart`…) | `icons` (`delete`, `discrepancy`…) |
+| front-matter `statut` · `couche` · `mots_cles` | `status` · `layer` · `keywords` |
+
+Les **libellés affichés restent en français** : `NOT_TAKEN` vaut toujours
+« Non prise », et les noms de stories (« Avec son intitulé », « Dans la fiche »)
+n'ont pas bougé.
+
+
 Ce document existe parce que la stratégie est **la base d'abord, la bascule
 ensuite** : on ne touche pas aux apps pendant que le design system se construit,
 et on applique tout d'un coup quand il est solide.
@@ -7,9 +60,9 @@ et on applique tout d'un coup quand il est solide.
 Une bascule groupée se fait à l'aveugle si personne n'a noté, au fil de l'eau, ce
 qu'elle coûtera. C'est ce que ce fichier note.
 
-## La bonne nouvelle, mesurée
+## Jusqu'à la v1.32.1 : rien ne cassait
 
-**Rien ne casse.** Vérifié tag par tag depuis la `v0.1.0` :
+Vérifié tag par tag depuis la `v0.1.0`, et toujours vrai **entre ces versions** :
 
 | | Depuis v0.1.0 |
 | --- | --- |
@@ -28,7 +81,7 @@ existant, qui continue de fonctionner en restant à côté.
 
 Compté sur `main` de chaque dépôt, le 25/08/2026.
 
-### `fiche-equipement` — épinglée en v1.18.0
+### `specFile-equipement` — épinglée en v1.18.0
 
 | À reprendre | Combien | Pourquoi |
 | --- | --- | --- |
@@ -43,7 +96,7 @@ Compté sur `main` de chaque dépôt, le 25/08/2026.
 | --- | --- | --- |
 | `palette.grey[400]` | **54** | C'est `textSubtle` : à réserver aux icônes et bordures |
 | Couleurs écrites en dur | **46** | La règle du dépôt |
-| Imports directs de Phosphor | **60 fichiers** | Passer par le rôle (`icones.supprimer`), pas par le dessin |
+| Imports directs de Phosphor | **60 fichiers** | Passer par le rôle (`icons.delete`), pas par le dessin |
 
 Le mobile ne consomme que les **tokens** — aucun composant. Sa montée de version
 est donc sans risque : elle lui ouvre `shadow`, `shadowNative`, `fontFamilyNative`
@@ -64,7 +117,7 @@ Les marques de réserve comptent comme du texte.
 devront suivre.
 
 **4. Jamais une icône dessinée à la main.** Passer par le rôle —
-`<Icon role="supprimer" />`, `icones.supprimer` côté mobile — et non par le nom
+`<Icon role="delete" />`, `icons.delete` côté mobile — et non par le nom
 du dessin.
 
 **5. Jamais une valeur de design en dur.** Ni hex, ni pixel, ni rayon.
@@ -108,7 +161,7 @@ trois défauts sont passés par là en une seule journée. Pendant la bascule,
 
 | App | Épinglée | Écart |
 | --- | --- | --- |
-| `fiche-equipement` | `v1.18.0` | 3 versions, purement additives |
+| `specFile-equipement` | `v1.18.0` | 3 versions, purement additives |
 | `myarquos-mobile` | `v0.1.0` | 20 versions, purement additives |
 
 Mettre à jour se fait en une ligne dans `package.json`, puis `npm install` :

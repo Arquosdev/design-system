@@ -1,11 +1,11 @@
 ---
 name: Banner
-statut: stable
-couche: generique
+status: stable
+layer: generique
 role: Informer d'une condition qui dure, en haut d'une zone, sans interrompre.
-mots_cles: [bandeau, banner, hors ligne, alerte, information, permanent, statut]
-plateformes: [web]
-remplace:
+keywords: [bandeau, banner, hors ligne, alerte, information, permanent, statut]
+platforms: [web]
+replaces:
   web:
     - src/app/fiche/sections/bandeau-releve.tsx
     - le bandeau de démonstration et celui de lecture seule
@@ -37,13 +37,13 @@ remplace:
 
 | Prop | Type | Défaut | Rôle |
 | --- | --- | --- | --- |
-| `ton` | `'info' \| 'attention' \| 'danger'` | `'info'` | Le registre |
-| `icone` | `IconRole` | — | Un rôle du vocabulaire, facultatif |
+| `tone` | `'info' \| 'warning' \| 'danger'` | `'info'` | Le registre |
+| `icon` | `IconRole` | — | Un rôle du vocabulaire, facultatif |
 | `action` | `ReactNode` | — | Ce qu'on peut faire — un lien, un bouton |
 | `children` | `ReactNode` | — | Le message |
 
 **Choisir le ton** : `info` pour une condition neutre qu'il faut connaître
-(démonstration, lecture seule), `attention` pour ce qui dégrade sans bloquer
+(démonstration, lecture seule), `warning` pour ce qui dégrade sans bloquer
 (hors ligne, envoi en attente), `danger` pour ce qui empêche.
 
 ## Exemples
@@ -51,11 +51,11 @@ remplace:
 ```tsx
 import { Banner } from '@arquos/design-system/web';
 
-<Banner ton="attention" icone="horsLigne">
-  Hors ligne — les modifications partiront à la reconnexion.
+<Banner tone="warning" icon="offline">
+  Hors row — les modifications partiront à la reconnexion.
 </Banner>
 
-<Banner icone="information" action={<a href="?equipment=…">Ouvrir un appareil</a>}>
+<Banner icon="info" action={<a href="?equipment=…">Ouvrir un appareil</a>}>
   Jeu de démonstration — aucune donnée réelle.
 </Banner>
 ```

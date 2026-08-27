@@ -1,11 +1,11 @@
 ---
 name: Meter
-statut: beta
-couche: generique
+status: beta
+layer: generique
 role: Montrer une proportion dans une série, quand plusieurs valeurs se comparent ligne à ligne.
-mots_cles: [barre, proportion, pourcentage, taux, jauge, série, colonne, progression]
-plateformes: [web]
-remplace:
+keywords: [barre, proportion, pourcentage, taux, jauge, série, colonne, progression]
+platforms: [web]
+replaces:
   web:
     - web/components/liste/barre-taux.tsx
   mobile: []
@@ -33,25 +33,25 @@ remplace:
 
 | Prop      | Type                                     | Défaut | Rôle                                                        |
 | --------- | ---------------------------------------- | ------ | ----------------------------------------------------------- |
-| `valeur`  | `number`                                 | —      | De 0 à 100, borné                                            |
+| `value`  | `number`                                 | —      | De 0 à 100, borné                                            |
 | `label`   | `string`                                 | —      | Ce que la proportion mesure ; lu avec la valeur              |
-| `ton`     | `'success' \| 'warning' \| 'danger'`     | auto   | Sans lui, la couleur suit la valeur                          |
-| `largeur` | `number`                                 | `64`   | Largeur de la barre, en pixels                               |
-| `chiffre` | `boolean`                                | `true` | Le pourcentage écrit à côté                                  |
+| `tone`     | `'success' \| 'warning' \| 'danger'`     | auto   | Sans lui, la couleur suit la valeur                          |
+| `width` | `number`                                 | `64`   | Largeur de la barre, en pixels                               |
+| `figure` | `boolean`                                | `true` | Le pourcentage écrit à côté                                  |
 
 ## Exemples
 
 ```tsx
 import { Meter } from '@arquos/design-system/web';
 
-<Meter valeur={41} label="Taux de connaissance" />
+<Meter value={41} label="Taux de connaissance" />
 ```
 
-Dans une colonne, garder la même `largeur` sur toutes les lignes : c'est ce qui
+Dans une colonne, garder la même `width` sur toutes les lignes : c'est ce qui
 rend la série comparable.
 
 ```tsx
-<Meter valeur={equipement.taux} label="Taux de connaissance" largeur={64} />
+<Meter value={equipement.taux} label="Taux de connaissance" width={64} />
 ```
 
 ## Logique partagée
@@ -76,7 +76,7 @@ Sous 34 % `danger`, sous 67 % `warning`, au-dessus `success`.
 - **0 %** : la piste seule, et le chiffre qui dit zéro. Une barre vide sans
   chiffre laisse croire à une donnée absente, alors qu'elle est mesurée.
 - **Valeur hors bornes** : bornée à 0 ou 100 plutôt que de déborder de la piste.
-- **Colonne étroite** : réduire `largeur`, jamais la hauteur — une barre plus
+- **Colonne étroite** : réduire `width`, jamais la hauteur — une barre plus
   fine que 4 px disparaît à l'impression et sur un écran mat.
 
 ## Accessibilité
@@ -86,5 +86,5 @@ valeur : « Taux de connaissance : 41 % ». Le chiffre visible est `aria-hidden`
 sans quoi un lecteur d'écran l'annoncerait deux fois.
 
 La couleur ne dit jamais l'état à elle seule : le chiffre est écrit à côté. Le
-masquer avec `chiffre={false}` ne se justifie que dans une cellule où la valeur
+masquer avec `figure={false}` ne se justifie que dans une cellule où la valeur
 est déjà écrite ailleurs sur la même ligne.

@@ -2,18 +2,18 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Icon } from '../../components/icon/icon.web';
 import specification from '../../components/icon/icon.spec.md?raw';
-import { icones, type IconRole } from '../../src/icons';
-import { choix, docsDe } from '../fiche';
+import { icons, type IconRole } from '../../src/icons';
+import { choices, docsDe } from '../fiche';
 
 const meta = {
   title: 'Composants/Générique/Icon',
   component: Icon,
   parameters: docsDe(specification),
-  args: { role: 'rechercher' as IconRole },
+  args: { role: 'search' as IconRole },
   argTypes: {
-    role: choix(Object.keys(icones), 'Le rôle métier — pas le nom du dessin.'),
-    size: choix(['xs', 'sm', 'md', 'lg', 'xl'], '14, 16, 18, 22 ou 28 px.'),
-    weight: choix(['default', 'actif', 'discret'], 'bold, fill ou regular.'),
+    role: choices(Object.keys(icons), 'Le rôle métier — pas le nom du dessin.'),
+    size: choices(['xs', 'sm', 'md', 'lg', 'xl'], '14, 16, 18, 22 ou 28 px.'),
+    weight: choices(['default', 'active', 'subtle'], 'bold, fill ou regular.'),
   },
 } satisfies Meta<typeof Icon>;
 
@@ -38,10 +38,10 @@ export const LaCouleurEstHeritee: Story = {
         ['text-primary', 'Action'],
         ['text-danger', 'Écart bloquant'],
         ['text-success', 'Conforme'],
-      ].map(([classe, libelle]) => (
+      ].map(([classe, label]) => (
         <p key={classe} className={`flex items-center gap-sm text-body ${classe}`}>
-          <Icon role="ecart" />
-          {libelle}
+          <Icon role="discrepancy" />
+          {label}
         </p>
       ))}
     </div>
@@ -57,12 +57,12 @@ export const QuandElleParleSeule: Story = {
   render: () => (
     <div className="flex items-center gap-xl">
       <span className="flex items-center gap-sm text-body text-text">
-        <Icon role="ecart" />
+        <Icon role="discrepancy" />
         Écart relevé
         <code className="text-caption text-text-muted">décorative</code>
       </span>
       <span className="flex items-center gap-sm">
-        <Icon role="ecart" label="Écart relevé" className="text-danger" />
+        <Icon role="discrepancy" label="Écart relevé" className="text-danger" />
         <code className="text-caption text-text-muted">avec label</code>
       </span>
     </div>

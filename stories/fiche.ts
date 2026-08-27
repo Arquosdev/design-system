@@ -5,7 +5,7 @@
  * quel. Une documentation recopiée à la main diverge de la fiche au premier
  * changement — et c'est alors la vitrine qu'on croit, pas le dépôt.
  */
-export function fiche(markdown: string): string {
+export function specFile(markdown: string): string {
   return (
     markdown
       // L'en-tête YAML sert au catalogue, pas au lecteur : il liste des
@@ -21,7 +21,7 @@ export function fiche(markdown: string): string {
 
 /** Les paramètres de page communs à tous les composants. */
 export function docsDe(markdown: string) {
-  return { docs: { description: { component: fiche(markdown) } } };
+  return { docs: { description: { component: specFile(markdown) } } };
 }
 
 /**
@@ -31,9 +31,9 @@ export function docsDe(markdown: string) {
  * variantes, qui sont justement ce qu'on vient voir, n'apparaîtraient pas. On
  * les déclare donc, une fois, à côté de la liste qui fait foi dans le composant.
  */
-export const choix = (valeurs: readonly string[], description: string) => ({
+export const choices = (values: readonly string[], description: string) => ({
   control: { type: 'select' as const },
-  options: valeurs,
+  options: values,
   description,
-  table: { type: { summary: valeurs.join(' | ') } },
+  table: { type: { summary: values.join(' | ') } },
 });

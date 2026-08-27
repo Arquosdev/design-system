@@ -1,11 +1,11 @@
 ---
 name: Select
-statut: beta
-couche: generique
+status: beta
+layer: generique
 role: Choisir une valeur dans une liste fermée, sans quitter la ligne où on est.
-mots_cles: [select, menu, liste, choix, deroulant, dropdown, action]
-plateformes: [web]
-remplace:
+keywords: [select, menu, liste, choix, deroulant, dropdown, action]
+platforms: [web]
+replaces:
   web: [public/fiche/index.html — les menus natifs des écarts et des champs à choix]
   mobile:
     - components/CategoryPickerModal.tsx
@@ -39,12 +39,12 @@ Les noms exportés et la composition sont ceux de shadcn ; la primitive est Radi
 la veut.
 
 **L'entrée retenue se teinte au lieu de porter une coche.** shadcn met un `Check`
-à droite ; notre vocabulaire d'icônes n'a pas de coche nue — il a `conforme`, qui
+à droite ; notre vocabulaire d'icônes n'a pas de coche nue — il a `compliant`, qui
 veut dire « conforme » et non « celui-ci ». Le fond bleuté et le demi-gras sont
 ce que `NavList` emploie déjà pour dire « vous êtes ici ». Le jour où une coche
 nue entrera au vocabulaire, elle pourra reprendre sa place.
 
-**Le caret vient de `Icon`** (`role="deplier"`), et pivote à l'ouverture : c'est
+**Le caret vient de `Icon`** (`role="expand"`), et pivote à l'ouverture : c'est
 lui qui dit que ce champ en cache d'autres.
 
 ## Exemples
@@ -58,12 +58,12 @@ import {
   SelectValue,
 } from '@arquos/design-system/web';
 
-<Select value={valeur} onValueChange={setValeur}>
+<Select value={value} onValueChange={setValue}>
   <SelectTrigger aria-label="Action à mener">
-    <SelectValue placeholder="Aucune action" />
+    <SelectValue placeholder="NoneB action" />
   </SelectTrigger>
   <SelectContent>
-    <SelectItem value="">Aucune action</SelectItem>
+    <SelectItem value="">NoneB action</SelectItem>
     <SelectItem value="r_glages_technicien">Réglages technicien</SelectItem>
     <SelectItem value="r_parations">Réparations</SelectItem>
     <SelectItem value="travaux">Travaux</SelectItem>

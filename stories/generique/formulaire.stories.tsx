@@ -40,7 +40,7 @@ export const UnFormulaireEntier: Story = {
         onSubmit={(e) => e.preventDefault()}
       >
         <div className="flex flex-col gap-xs">
-          <Label htmlFor="f-libelle">Ce qu’on mesure</Label>
+          <Label htmlFor="f-libelle">Ce qu’on measure</Label>
           <Input id="f-libelle" placeholder="ex. Hauteur libre sous linteau" />
         </div>
 
@@ -59,7 +59,7 @@ export const UnFormulaireEntier: Story = {
               <RadioGroupItem value="hydraulique" /> Hydraulique
             </Label>
             <Label className="gap-sm font-normal">
-              <RadioGroupItem value="inconnu" /> Non déterminé
+              <RadioGroupItem value="unknown" /> Non déterminé
             </Label>
           </RadioGroup>
         </fieldset>
@@ -78,14 +78,14 @@ export const UnFormulaireEntier: Story = {
             « Enregistrer ». Les mélanger ferait croire que le réglage est pris
             avec le reste. */}
         <div className="flex gap-sm border-t border-border-soft pt-base">
-          <Button type="submit">Enregistrer</Button>
+          <Button type="submit">Save</Button>
           <Button type="button" variant="secondary">
-            Annuler
+            Cancel
           </Button>
         </div>
 
         <Label className="justify-between font-normal text-text-muted">
-          Afficher les champs vides
+          Afficher les champs empties
           <Switch checked={immediat} onCheckedChange={setImmediat} />
         </Label>
       </form>
@@ -118,10 +118,10 @@ export const MemeHauteurQueLeBouton: Story = {
 export const EnErreur: Story = {
   render: () => (
     <div className="flex max-w-[360px] flex-col gap-xs">
-      <Label htmlFor="f-err">Hauteur libre sous linteau</Label>
+      <Label htmlFor="f-err">Height libre sous linteau</Label>
       <Input id="f-err" defaultValue="35000" aria-invalid aria-describedby="f-err-msg" />
       <p id="f-err-msg" className="text-caption text-danger">
-        Au-delà de 3 000 mm, vérifier la mesure — la valeur est probablement en dixièmes.
+        Au-delà de 3 000 mm, vérifier la measure — la value est probablement en dixièmes.
       </p>
     </div>
   ),
@@ -152,27 +152,27 @@ export const Desactive: Story = {
  */
 export const CasePartielle: Story = {
   render: function Partielle() {
-    const [etats, setEtats] = React.useState([true, false, false]);
-    const tout = etats.every(Boolean);
-    const rien = etats.every((e) => !e);
+    const [states, setStates] = React.useState([true, false, false]);
+    const tout = states.every(Boolean);
+    const rien = states.every((e) => !e);
     const noms = ['Cuvette', 'Gaine', 'Machinerie'];
     return (
       <div className="flex flex-col gap-sm">
         <Label className="gap-sm">
           <Checkbox
             checked={tout ? true : rien ? false : 'indeterminate'}
-            onCheckedChange={(v) => setEtats(etats.map(() => v === true))}
+            onCheckedChange={(v) => setStates(states.map(() => v === true))}
           />
           Toutes les zones
         </Label>
         <div className="ml-lg flex flex-col gap-sm">
-          {noms.map((nom, i) => (
-            <Label key={nom} className="gap-sm font-normal">
+          {noms.map((name, i) => (
+            <Label key={name} className="gap-sm font-normal">
               <Checkbox
-                checked={etats[i]}
-                onCheckedChange={(v) => setEtats(etats.map((e, j) => (j === i ? v === true : e)))}
+                checked={states[i]}
+                onCheckedChange={(v) => setStates(states.map((e, j) => (j === i ? v === true : e)))}
               />
-              {nom}
+              {name}
             </Label>
           ))}
         </div>
