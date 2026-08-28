@@ -114,7 +114,10 @@ export function RecordTable<T>({
       <button
         type="button"
         onClick={() => sort.onChange(nextSort(sort.state, id))}
-        className="inline-flex items-center gap-xxs rounded-control hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        // `uppercase` explicite : un bouton n'hérite pas de `text-transform`,
+        // et les en-têtes triables s'affichaient en casse normale à côté des
+        // non triables, en capitales.
+        className="inline-flex items-center gap-xxs rounded-control uppercase hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
       >
         {label}
         {active && (
