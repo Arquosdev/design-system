@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import { Checkbox } from '../checkbox/checkbox.web';
 import { Icon } from '../icon/icon.web';
+import type { IconRole } from '../../src/icons';
 import { cn } from '../_lib/cn';
 import {
   compare,
@@ -24,6 +25,15 @@ export interface RecordColumn<T> {
   /** Aligne à droite et met les chiffres à chasse fixe. */
   numeric?: boolean;
   sortable?: boolean;
+  /**
+   * La nature de ce qu'on va lire, dite par une icône dans l'en-tête.
+   *
+   * Un tableau du produit peut proposer près de cinq cents colonnes, presque
+   * toutes techniques : « Course » avec une règle est une mesure, « Marque
+   * machine » avec un A est du texte. On le sait avant d'avoir lu la première
+   * cellule. Les rôles `field*` sont là pour ça.
+   */
+  icon?: IconRole;
 }
 
 export interface RecordTableProps<T> {
@@ -38,6 +48,8 @@ export interface RecordTableProps<T> {
     header: string;
     render: (row: T) => React.ReactNode;
     value?: (row: T) => string | number;
+    /** La nature de la colonne d'identité, comme pour les autres. */
+    icon?: IconRole;
   };
   /** Ouvrir un enregistrement. Sans lui, l'identité ne devient pas cliquable. */
   onOpen?: (row: T) => void;
@@ -191,8 +203,16 @@ export function RecordTable<T>({
   // Rendu, pas composant : un sous-composant défini dans le corps du parent
   // change d'identité à chaque rendu, et React remonte alors tout l'en-tête —
   // le focus se perd au premier tri, et le bouton cliqué n'est plus le même.
-  function header(id: string, label: React.ReactNode) {
-    if (!sort) return label;
+  function header(id: string, label: React.ReactNode, icone?: IconRole) {
+    const contenu = icone ? (
+      <>
+        <Icon role={icone} aria-hidden className="size-3.5 shrink-0 text-text-subtle" />
+        <span className="truncate">{label}</span>
+      </>
+    ) : (
+      label
+    );
+    if (!sort) return <span className="inline-flex items-center gap-xs">{contenu}</span>;
     const active = sort.state?.column === id;
     return (
       <button
@@ -201,9 +221,9 @@ export function RecordTable<T>({
         // `uppercase` explicite : un bouton n'hérite pas de `text-transform`,
         // et les en-têtes triables s'affichaient en casse normale à côté des
         // non triables, en capitales.
-        className="inline-flex items-center gap-xxs rounded-control uppercase hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        className="inline-flex max-w-full items-center gap-xs rounded-control uppercase hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
       >
-        {label}
+        {contenu}
         {active && (
           <Icon
             role={sort.state!.direction === 'asc' ? 'collapse' : 'expand'}
@@ -255,7 +275,7 @@ export function RecordTable<T>({
                   : undefined
               }
             >
-              {header('identity', identity.header)}
+              {header('identity', identity.header, identity.icon)}
               {poignee('identity', widths?.identity)}
             </th>
             {columns.map((c, i) => (
@@ -283,7 +303,14 @@ export function RecordTable<T>({
                 }
               >
                 <span className="block overflow-hidden text-ellipsis">
-                  {c.sortable === false ? c.header : header(c.id, c.header)}
+                  {c.sortable === false
+                    ? <span className="inline-flex items-center gap-xs">
+                        {c.icon
+                          ? <Icon role={c.icon} aria-hidden className="size-3.5 shrink-0 text-text-subtle" />
+                          : null}
+                        <span className="truncate">{c.header}</span>
+                      </span>
+                    : header(c.id, c.header, c.icon)}
                 </span>
                 {poignee(c.id, widths?.[c.id])}
               </th>

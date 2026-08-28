@@ -123,6 +123,23 @@ export const icons = {
   maintenance: 'Wrench',
   measure: 'Ruler',
   aiAssist: 'Sparkle',
+
+  // -- La nature d'une colonne ---------------------------------------------
+  //
+  // Un tableau du produit peut proposer près de cinq cents colonnes, presque
+  // toutes techniques. L'icône de l'en-tête dit ce qu'on va lire avant même
+  // d'avoir lu : « Course » avec une règle est une mesure, « Marque machine »
+  // avec un A est du texte. C'est ce que fait Attio, et c'est ce qui manque
+  // quand une liste n'est qu'une grille de gris.
+  fieldText: 'TextAa',
+  fieldNumber: 'Hash',
+  fieldDate: 'Calendar',
+  fieldChoice: 'CaretCircleDown',
+  fieldLink: 'LinkSimple',
+  fieldPerson: 'User',
+  fieldGauge: 'ChartBar',
+  fieldPlace: 'MapPin',
+  fieldYesNo: 'ToggleLeft',
 } as const;
 
 export type IconSizeToken = keyof typeof iconSize;
