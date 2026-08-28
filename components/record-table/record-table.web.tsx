@@ -55,6 +55,15 @@ export interface RecordTableProps<T> {
   };
   /** Ce qui s'affiche quand il n'y a aucune ligne. Un `EmptyState`, en général. */
   empty?: React.ReactNode;
+  /**
+   * Les largeurs réglées à la main, par identifiant de colonne, en pixels.
+   *
+   * Le composant ne les retient pas : elles appartiennent à l'écran, qui sait
+   * où les ranger — dans l'URL, dans une vue enregistrée. Un tableau qui
+   * oublierait ses largeurs à chaque changement de page n'aurait rien réglé.
+   */
+  widths?: Record<string, number>;
+  onWidths?: (w: Record<string, number>) => void;
   className?: string;
 }
 
@@ -67,6 +76,8 @@ export function RecordTable<T>({
   selection,
   sort,
   empty,
+  widths,
+  onWidths,
   className,
 }: RecordTableProps<T>) {
   const sorted = React.useMemo(() => {
@@ -93,6 +104,37 @@ export function RecordTable<T>({
     selection.onChange(s);
   }
 
+  /**
+   * Dès qu'une largeur est réglée, la mise en page passe en `fixed`.
+   *
+   * En `auto`, une largeur n'est qu'une suggestion : le tableau redistribue
+   * l'espace disponible, et rétrécir une colonne ne la rapproche pas de la
+   * suivante — le geste semble ne rien faire. En `fixed`, chaque colonne prend
+   * exactement ce qu'on lui donne, ce qui oblige à en donner à toutes.
+   */
+  const regle = widths && Object.keys(widths).length > 0;
+  const LARGEUR_PAR_DEFAUT = 160;
+  const LARGEUR_CASE = 40;
+  const enPixels = (v?: string) => {
+    if (!v) return undefined;
+    const rem = /^([\d.]+)rem$/.exec(v);
+    if (rem) return Math.round(Number(rem[1]) * 16);
+    const px = /^([\d.]+)px$/.exec(v);
+    return px ? Math.round(Number(px[1])) : undefined;
+  };
+  const largeurNum = (id: string, indice?: string) =>
+    widths?.[id] ?? enPixels(indice) ?? LARGEUR_PAR_DEFAUT;
+  const largeurDe = (id: string, indice?: string) =>
+    regle ? `${largeurNum(id, indice)}px` : indice;
+
+  // En mise en page fixe, le tableau doit avoir une largeur définie : sur une
+  // largeur `max-content`, le navigateur ignore les colonnes qu'on lui donne.
+  const largeurTable = regle
+    ? (selection ? LARGEUR_CASE : 0)
+      + largeurNum('identity')
+      + columns.reduce((t, c) => t + largeurNum(c.id, c.width), 0)
+    : undefined;
+
   // La case et l'identité restent en place quand les colonnes défilent, et
   // l'en-tête quand on défile verticalement. Les deux se croisent au coin haut
   // gauche : il lui faut un cran de plus, sinon une cellule passe par-dessus.
@@ -103,6 +145,48 @@ export function RecordTable<T>({
   const headerStyle =
     'sticky top-0 z-30 border-b border-border-soft bg-bg-subtle px-md py-sm ' +
     'text-caption font-bold tracking-[.5px] whitespace-nowrap text-text-muted uppercase';
+
+  /**
+   * La poignée de redimensionnement, au bord droit d'un en-tête.
+   *
+   * On suit le pointeur plutôt que d'écouter le survol : une fois la poignée
+   * saisie, le curseur sort largement de la colonne, et un `mouseleave`
+   * interromprait le geste au premier écart.
+   */
+  function poignee(id: string, largeurActuelle?: number) {
+    if (!onWidths) return null;
+    return (
+      <span
+        role="separator"
+        aria-label="Régler la largeur de la colonne"
+        onMouseDown={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const th = (e.currentTarget.parentElement as HTMLElement | null);
+          const depart = e.clientX;
+          const initiale = largeurActuelle ?? th?.getBoundingClientRect().width ?? 120;
+          const bouger = (m: MouseEvent) => {
+            // Un plancher : une colonne réduite à zéro ne se rattrape plus.
+            const l = Math.max(64, Math.round(initiale + m.clientX - depart));
+            onWidths({ ...widths, [id]: l });
+          };
+          const lacher = () => {
+            document.removeEventListener('mousemove', bouger);
+            document.removeEventListener('mouseup', lacher);
+          };
+          document.addEventListener('mousemove', bouger);
+          document.addEventListener('mouseup', lacher);
+        }}
+        onDoubleClick={() => {
+          // Double-clic : la colonne reprend sa largeur naturelle.
+          const reste = { ...widths };
+          delete reste[id];
+          onWidths(reste);
+        }}
+        className="absolute inset-y-0 right-0 w-[5px] cursor-col-resize hover:bg-primary/40"
+      />
+    );
+  }
 
   // Rendu, pas composant : un sous-composant défini dans le corps du parent
   // change d'identité à chaque rendu, et React remonte alors tout l'en-tête —
@@ -133,7 +217,13 @@ export function RecordTable<T>({
 
   return (
     <div className={cn('min-h-0 flex-1 overflow-auto', className)}>
-      <table className="w-max min-w-full border-separate border-spacing-0 text-left text-small">
+      <table
+        style={largeurTable ? { width: largeurTable } : undefined}
+        className={cn(
+          'border-separate border-spacing-0 text-left text-small',
+          regle ? 'table-fixed' : 'w-max min-w-full',
+        )}
+      >
         <thead>
           <tr>
             {selection && (
@@ -152,7 +242,8 @@ export function RecordTable<T>({
             )}
             <th
               scope="col"
-              className={cn(stickyIdentity, headerStyle, 'z-40')}
+              style={regle ? { width: largeurDe('identity') } : undefined}
+              className={cn(stickyIdentity, headerStyle, 'relative z-40')}
               aria-sort={
                 sort?.state?.column === 'identity'
                   ? sort.state.direction === 'asc'
@@ -162,14 +253,22 @@ export function RecordTable<T>({
               }
             >
               {header('identity', identity.header)}
+              {poignee('identity', widths?.identity)}
             </th>
             {columns.map((c, i) => (
               <th
                 key={c.id}
                 scope="col"
-                style={c.width ? { minWidth: c.width } : undefined}
+                style={
+                  regle
+                    ? { width: largeurDe(c.id, c.width) }
+                    : c.width
+                      ? { minWidth: c.width }
+                      : undefined
+                }
                 className={cn(
                   headerStyle,
+                  'relative',
                   c.numeric && 'text-right',
                   i === columns.length - 1 && 'pr-xl',
                 )}
@@ -181,7 +280,10 @@ export function RecordTable<T>({
                     : undefined
                 }
               >
-                {c.sortable === false ? c.header : header(c.id, c.header)}
+                <span className="block overflow-hidden text-ellipsis">
+                  {c.sortable === false ? c.header : header(c.id, c.header)}
+                </span>
+                {poignee(c.id, widths?.[c.id])}
               </th>
             ))}
           </tr>
@@ -231,7 +333,11 @@ export function RecordTable<T>({
                       i === columns.length - 1 && 'pr-xl',
                     )}
                   >
-                    {c.render(row)}
+                    {regle ? (
+                      <span className="block overflow-hidden text-ellipsis">{c.render(row)}</span>
+                    ) : (
+                      c.render(row)
+                    )}
                   </td>
                 ))}
               </tr>
