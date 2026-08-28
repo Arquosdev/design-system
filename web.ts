@@ -163,4 +163,6 @@ export {
   ActiveFilters, type ActiveFilter, type ActiveFiltersProps,
 } from './components/active-filters/active-filters.web';
 
+export { PageHeader, type PageHeaderProps } from './components/page-header/page-header.web';
+
 export { cn } from './components/_lib/cn';

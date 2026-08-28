@@ -642,6 +642,32 @@
       }
     },
     {
+      "name": "PageHeader",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Dire en haut d'un écran d'où l'on vient, ce qu'on regarde et ce qu'on peut en faire.",
+      "keywords": [
+        "en-tête",
+        "titre",
+        "fil d'Ariane",
+        "navigation",
+        "retour",
+        "écran"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/page-header",
+      "specFile": "components/page-header/page-header.spec.md",
+      "fichiers": {
+        "web": "components/page-header/page-header.web.tsx"
+      }
+    },
+    {
       "name": "PhotoTile",
       "status": "beta",
       "layer": "metier",

@@ -32,6 +32,7 @@ Une mécanique que n'importe quelle application aurait — bouton, modale, ongle
 | [Input](input/input.spec.md) | Recueillir une valeur courte tapée au clavier, dans un formulaire. | 🖥️ | stable |
 | [Label](label/label.spec.md) | Nommer un champ, et agrandir sa cible de clic à tout l'intitulé. | 🖥️ | stable |
 | [Meter](meter/meter.spec.md) | Montrer une proportion dans une série, quand plusieurs valeurs se comparent ligne à ligne. | 🖥️ | beta |
+| [PageHeader](page-header/page-header.spec.md) | Dire en haut d'un écran d'où l'on vient, ce qu'on regarde et ce qu'on peut en faire. | 🖥️ | beta |
 | [PhotoViewer](photo-viewer/photo-viewer.spec.md) | Regarder une photo en grand, et passer aux suivantes de la même série. | 🖥️ | beta |
 | [Popover](popover/popover.spec.md) | Poser un petit panneau au-dessus de la page, ancré à ce qui l'a ouvert. | 🖥️ | beta |
 | [RadioGroup](radio-group/radio-group.spec.md) | Choisir une seule option parmi quelques-unes, toutes visibles à la fois. | 🖥️ | stable |
