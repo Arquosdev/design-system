@@ -313,7 +313,9 @@ export function RecordTable<T>({
                     <Checkbox
                       checked={check}
                       onCheckedChange={() => toggle(id)}
-                      aria-label={`Sélectionner ${id}`}
+                      // Le nom de la ligne, pas sa clé : un lecteur d'écran qui
+                      // annonce « Sélectionner 84b01673-fa05… » ne dit rien.
+                      aria-label={`Sélectionner ${identity.value?.(row) ?? id}`}
                     />
                   </td>
                 )}
