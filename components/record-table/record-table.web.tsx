@@ -243,7 +243,10 @@ export function RecordTable<T>({
             <th
               scope="col"
               style={regle ? { width: largeurDe('identity') } : undefined}
-              className={cn(stickyIdentity, headerStyle, 'relative z-40')}
+              // Pas de `relative` ici : `sticky` sert déjà de repère aux
+              // enfants positionnés, et les deux classes se disputeraient — la
+              // dernière gagne, et l'en-tête cesserait de coller au défilement.
+              className={cn(stickyIdentity, headerStyle, 'z-40')}
               aria-sort={
                 sort?.state?.column === 'identity'
                   ? sort.state.direction === 'asc'
@@ -268,7 +271,6 @@ export function RecordTable<T>({
                 }
                 className={cn(
                   headerStyle,
-                  'relative',
                   c.numeric && 'text-right',
                   i === columns.length - 1 && 'pr-xl',
                 )}
@@ -295,9 +297,19 @@ export function RecordTable<T>({
             const check = selection?.values.has(id) ?? false;
             const fond = check ? 'bg-info-bg' : 'bg-bg';
             return (
-              <tr key={id} className={cn(fond, !check && 'hover:bg-bg-muted')}>
+              // `group` : les cellules figées portent leur propre fond opaque, sans
+              // quoi le contenu défilant passerait dessous. Ce fond recouvre le
+              // survol de la ligne, et seule une partie du tableau grisait.
+              <tr key={id} className={cn('group', fond, !check && 'hover:bg-bg-muted')}>
                 {selection && (
-                  <td className={cn(stickyBox, fond, 'border-b border-border-soft py-0 pr-0 pl-xl')}>
+                  <td
+                    className={cn(
+                      stickyBox,
+                      fond,
+                      !check && 'group-hover:bg-bg-muted',
+                      'border-b border-border-soft py-0 pr-0 pl-xl',
+                    )}
+                  >
                     <Checkbox
                       checked={check}
                       onCheckedChange={() => toggle(id)}
@@ -309,6 +321,7 @@ export function RecordTable<T>({
                   className={cn(
                     stickyIdentity,
                     fond,
+                    !check && 'group-hover:bg-bg-muted',
                     'border-b border-border-soft px-md py-[10px] font-semibold whitespace-nowrap',
                   )}
                 >

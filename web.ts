@@ -149,4 +149,18 @@ export { Checkbox } from './components/checkbox/checkbox.web';
 export { RadioGroup, RadioGroupItem } from './components/radio-group/radio-group.web';
 export { Switch } from './components/switch/switch.web';
 
+// --- Composer une liste ---------------------------------------------------
+// Écrits d'abord dans l'app, puis remontés ici : ils n'ont rien de propre aux
+// équipements, et la liste des affaires en aura besoin à l'identique.
+export { Drawer, DrawerSection, type DrawerProps } from './components/drawer/drawer.web';
+export {
+  Toolbar, ToolButton, ToolbarSpacer, type ToolButtonProps,
+} from './components/toolbar/toolbar.web';
+export {
+  SelectionBar, SelectionAction, type SelectionActionProps,
+} from './components/selection-bar/selection-bar.web';
+export {
+  ActiveFilters, type ActiveFilter, type ActiveFiltersProps,
+} from './components/active-filters/active-filters.web';
+
 export { cn } from './components/_lib/cn';

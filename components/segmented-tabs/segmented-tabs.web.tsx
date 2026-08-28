@@ -2,12 +2,17 @@
 
 import * as React from 'react';
 
+import { Icon } from '../icon/icon.web';
+import { type IconRole } from '../../src/icons';
 import { cn } from '../_lib/cn';
 
 export interface Segment {
   id: string;
   label: string;
   count?: number | string;
+  /** Un dessin devant le libellé, quand le mot seul ne suffit pas à distinguer
+   *  deux vues — « Liste » et « Carte » se lisent mieux avec. */
+  icon?: IconRole;
 }
 
 export interface SegmentedTabsProps {
@@ -69,6 +74,7 @@ export function SegmentedTabs({
                 : 'font-medium text-text-muted',
             )}
           >
+            {segment.icon && <Icon role={segment.icon} className="size-4 shrink-0" aria-hidden />}
             <span>{segment.label}</span>
             {segment.count !== undefined && segment.count !== '' ? (
               <span

@@ -40,6 +40,31 @@
       }
     },
     {
+      "name": "ActiveFilters",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Montrer ce qui restreint la liste, et permettre de le défaire d'un clic.",
+      "keywords": [
+        "filtres",
+        "actifs",
+        "pastilles",
+        "retirer",
+        "liste"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/active-filters",
+      "specFile": "components/active-filters/active-filters.spec.md",
+      "fichiers": {
+        "web": "components/active-filters/active-filters.web.tsx"
+      }
+    },
+    {
       "name": "Avatar",
       "status": "stable",
       "layer": "generique",
@@ -296,6 +321,33 @@
       "specFile": "components/data-table/data-table.spec.md",
       "fichiers": {
         "web": "components/data-table/data-table.web.tsx"
+      }
+    },
+    {
+      "name": "Drawer",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Ouvrir un panneau latéral pour régler ce qu'on regarde, sans quitter l'écran.",
+      "keywords": [
+        "tiroir",
+        "panneau",
+        "filtres",
+        "colonnes",
+        "réglages",
+        "latéral",
+        "drawer"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/drawer",
+      "specFile": "components/drawer/drawer.spec.md",
+      "fichiers": {
+        "web": "components/drawer/drawer.web.tsx"
       }
     },
     {
@@ -792,6 +844,32 @@
       }
     },
     {
+      "name": "SelectionBar",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Offrir en bas de liste ce qu'on peut faire des enregistrements cochés.",
+      "keywords": [
+        "sélection",
+        "actions",
+        "masse",
+        "cochés",
+        "barre",
+        "liste"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/selection-bar",
+      "specFile": "components/selection-bar/selection-bar.spec.md",
+      "fichiers": {
+        "web": "components/selection-bar/selection-bar.web.tsx"
+      }
+    },
+    {
       "name": "Sheet",
       "status": "beta",
       "layer": "generique",
@@ -961,6 +1039,33 @@
       "specFile": "components/toast/toast.spec.md",
       "fichiers": {
         "web": "components/toast/toast.web.tsx"
+      }
+    },
+    {
+      "name": "Toolbar",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Réunir au-dessus d'une liste ce qu'on peut lui faire — filtrer, composer, exporter, changer de vue.",
+      "keywords": [
+        "barre",
+        "outils",
+        "actions",
+        "liste",
+        "filtres",
+        "colonnes",
+        "export"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/toolbar",
+      "specFile": "components/toolbar/toolbar.spec.md",
+      "fichiers": {
+        "web": "components/toolbar/toolbar.web.tsx"
       }
     }
   ]

@@ -15,6 +15,7 @@ Une mécanique que n'importe quelle application aurait — bouton, modale, ongle
 | Composant | Rôle | Plateformes | Statut |
 | --- | --- | --- | --- |
 | [Accordion](accordion/accordion.spec.md) | Grouper des champs sous un titre pliable, pour qu'une page longue reste parcourable. | 🖥️ | stable |
+| [ActiveFilters](active-filters/active-filters.spec.md) | Montrer ce qui restreint la liste, et permettre de le défaire d'un clic. | 🖥️ | beta |
 | [Avatar](avatar/avatar.spec.md) | Représenter une personne par sa photo, ou à défaut par ses initiales. | 🖥️ | stable |
 | [Badge](badge/badge.spec.md) | Poser une étiquette courte qui qualifie l'élément à côté duquel elle se trouve. | 🖥️ | stable |
 | [Banner](banner/banner.spec.md) | Informer d'une condition qui dure, en haut d'une zone, sans interrompre. | 🖥️ | stable |
@@ -23,6 +24,7 @@ Une mécanique que n'importe quelle application aurait — bouton, modale, ongle
 | [Checkbox](checkbox/checkbox.spec.md) | Cocher une option indépendante, ou plusieurs, dans un formulaire qui se valide. | 🖥️ | stable |
 | [Combobox](combobox/combobox.spec.md) | Choisir dans une liste trop longue pour être parcourue, en la filtrant. | 🖥️ | beta |
 | [Command](command/command.spec.md) | Atteindre n'importe quoi dans un écran dense, en tapant son nom. | 🖥️ | beta |
+| [Drawer](drawer/drawer.spec.md) | Ouvrir un panneau latéral pour régler ce qu'on regarde, sans quitter l'écran. | 🖥️ | beta |
 | [EmptyState](empty-state/empty-state.spec.md) | Dire pourquoi une zone est vide, et ce qu'on peut y faire. | 🖥️ | stable |
 | [FilterChips](filter-chips/filter-chips.spec.md) | Restreindre une liste à une de ses parties, par une barre de puces. | 🖥️ | beta |
 | [Icon](icon/icon.spec.md) | Poser une icône du vocabulaire Arquos, désignée par son rôle et non par son dessin. | 🖥️ | stable |
@@ -36,11 +38,13 @@ Une mécanique que n'importe quelle application aurait — bouton, modale, ongle
 | [RecordTable](record-table/record-table.spec.md) | Parcourir une collection d'enregistrements, en comparer quelques attributs, en sélectionner plusieurs et en ouvrir un. | 🖥️ | beta |
 | [SegmentedTabs](segmented-tabs/segmented-tabs.spec.md) | Basculer entre deux ou trois vues d'un même écran, toutes également importantes. | 🖥️ | beta |
 | [Select](select/select.spec.md) | Choisir une valeur dans une liste fermée, sans quitter la ligne où on est. | 🖥️ | beta |
+| [SelectionBar](selection-bar/selection-bar.spec.md) | Offrir en bas de liste ce qu'on peut faire des enregistrements cochés. | 🖥️ | beta |
 | [Sheet](sheet/sheet.spec.md) | Un panneau qui entre par le bord pour une tâche annexe, sans quitter l'écran. | 🖥️ | beta |
 | [Skeleton](skeleton/skeleton.spec.md) | Occuper la place de ce qui charge, pour que l'écran ne mente pas en paraissant vide. | 🖥️ | stable |
 | [Switch](switch/switch.spec.md) | Basculer un réglage qui s'applique immédiatement. | 🖥️ | stable |
 | [Textarea](textarea/textarea.spec.md) | Recueillir un texte de plusieurs lignes — une observation, un commentaire. | 🖥️ | stable |
 | [Toast](toast/toast.spec.md) | Annoncer sans quitter la page ce qui vient de réussir ou d'échouer. | 🖥️ | beta |
+| [Toolbar](toolbar/toolbar.spec.md) | Réunir au-dessus d'une liste ce qu'on peut lui faire — filtrer, composer, exporter, changer de vue. | 🖥️ | beta |
 
 ## Métier
 
