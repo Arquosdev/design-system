@@ -14,7 +14,7 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { colors, palette } from '../src/colors.ts';
+import { colors, palette, tagPalette } from '../src/colors.ts';
 import { fontSize } from '../src/typography.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -214,5 +214,26 @@ if (reserves.length) {
   process.exit(1);
 }
 
+// Les teintes catégorielles ne passent pas par des classes Tailwind : `Tag`
+// les pose en style inline, parce que le libellé décide de la teinte au
+// rendu. Elles se vérifient donc ici, à la source.
+const tagsFaibles = [];
+for (const [nom, { bg, ink }] of Object.entries(tagPalette)) {
+  const surFond = ratio(ink, bg);
+  const surBlanc = ratio(ink, '#FFFFFF');
+  if (surFond < SEUIL_TEXTE || surBlanc < SEUIL_TEXTE) {
+    tagsFaibles.push({ nom, surFond, surBlanc });
+  }
+}
+if (tagsFaibles.length) {
+  console.error(`\n✗ ${tagsFaibles.length} teinte(s) de \`tagPalette\` sous le seuil :\n`);
+  for (const t of tagsFaibles) {
+    console.error(`  ${t.nom} — ${t.surFond.toFixed(2)} sur son fond, ${t.surBlanc.toFixed(2)} sur blanc`);
+  }
+  console.error('\n  Assombrir l\'encre : le fond doit rester très clair.\n');
+  process.exit(1);
+}
+
 console.log(`✓ contraste : ${controlees} paire(s) au-dessus du seuil`);
+console.log(`✓ teintes catégorielles : ${Object.keys(tagPalette).length} paire(s) lisibles`);
 console.log('✓ palette : aucun composant ne tape dans les rampes brutes');

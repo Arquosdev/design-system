@@ -156,4 +156,56 @@ export const colors = {
   black: palette.black,
 } as const;
 
+/**
+ * Les teintes catégorielles.
+ *
+ * Elles ne veulent RIEN dire. Un « Monte-charge » n'est ni bon ni mauvais : la
+ * couleur sert à distinguer une valeur d'une autre d'un coup d'œil, pas à la
+ * juger. C'est pour ça qu'elles vivent à part des teintes de statut : si
+ * « Ascenseur » pouvait tomber en vert, une pastille verte cesserait de vouloir
+ * dire « conforme ».
+ *
+ * Dix paires, chacune un fond très clair et son encre. Toutes au-dessus de 4,6
+ * pour 1 sur leur fond ET de 4,5 sur blanc — vérifiées par
+ * `scripts/check-contraste.mjs`, comme les paires de statut.
+ */
+export const tagPalette = {
+  blue:   { bg: '#E5EEFA', ink: '#2962AE' },
+  teal:   { bg: '#E5F9FA', ink: '#1E7A80' },
+  green:  { bg: '#E5FAF3', ink: '#1D7C59' },
+  lime:   { bg: '#EEFAE5', ink: '#437C1D' },
+  amber:  { bg: '#FAF3E5', ink: '#8C6521' },
+  orange: { bg: '#FAEEE5', ink: '#A15726' },
+  red:    { bg: '#FAE6E5', ink: '#AE2D29' },
+  pink:   { bg: '#FAE5EE', ink: '#AE295E' },
+  purple: { bg: '#F0E5FA', ink: '#7029AE' },
+  indigo: { bg: '#E6E5FA', ink: '#3229AE' },
+  /**
+   * La teinte neutre. Elle n'entre pas dans le tirage automatique : on la
+   * choisit, pour la valeur qui domine une colonne. Sur un parc où huit
+   * appareils sur dix sont des ascenseurs, une couleur vive sur la valeur la
+   * plus fréquente ne distingue rien — elle sature la colonne.
+   */
+  slate:  { bg: '#EFF1F4', ink: '#4D5B66' },
+} as const;
+
+export type TagTone = keyof typeof tagPalette;
+
+// `slate` est hors tirage : elle se choisit, elle ne se tombe pas dessus.
+export const TAG_TONES = (Object.keys(tagPalette) as TagTone[]).filter((t) => t !== 'slate');
+
+/**
+ * La teinte d'une valeur.
+ *
+ * Le même libellé reçoit toujours la même couleur, dans toute l'application :
+ * « Ascenseur » est du même bleu dans la liste, dans la fiche et dans un
+ * export d'écran. Un hachage plutôt qu'une table à tenir à jour — le
+ * référentiel des types compte des dizaines de valeurs et bouge sans nous.
+ */
+export function tagTone(valeur: string): TagTone {
+  let h = 0;
+  for (let i = 0; i < valeur.length; i++) h = (h * 31 + valeur.charCodeAt(i)) | 0;
+  return TAG_TONES[Math.abs(h) % TAG_TONES.length];
+}
+
 export type ColorToken = keyof typeof colors;

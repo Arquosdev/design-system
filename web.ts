@@ -16,6 +16,8 @@ export {
   AccordionContent,
 } from './components/accordion/accordion.web';
 export { Badge, badgeVariants, type BadgeProps } from './components/badge/badge.web';
+export { Tag, type TagProps } from './components/tag/tag.web';
+export { tagPalette, tagTone, TAG_TONES, type TagTone } from './src/colors';
 export {
   Card,
   CardHeader,

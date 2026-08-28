@@ -5,7 +5,10 @@
 // Pour avoir tous les tokens d'un coup :
 //   import { tokens } from '@arquos/design-system';
 
-export { palette, core, colors, type ColorToken } from './colors';
+export {
+  palette, core, colors, tagPalette, tagTone, TAG_TONES,
+  type ColorToken, type TagTone,
+} from './colors';
 export {
   fontFamily,
   fontFamilyNative,

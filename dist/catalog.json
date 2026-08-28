@@ -1013,6 +1013,30 @@
       }
     },
     {
+      "name": "Tag",
+      "status": "stable",
+      "layer": "generique",
+      "role": "Distinguer une valeur de référentiel par sa couleur, sans la juger.",
+      "keywords": [
+        "tag",
+        "pastille",
+        "valeur",
+        "categorie",
+        "type",
+        "nature",
+        "role",
+        "couleur"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "dossier": "components/tag",
+      "specFile": "components/tag/tag.spec.md",
+      "fichiers": {
+        "web": "components/tag/tag.web.tsx"
+      }
+    },
+    {
       "name": "Textarea",
       "status": "stable",
       "layer": "generique",

@@ -43,6 +43,7 @@ Une mécanique que n'importe quelle application aurait — bouton, modale, ongle
 | [Sheet](sheet/sheet.spec.md) | Un panneau qui entre par le bord pour une tâche annexe, sans quitter l'écran. | 🖥️ | beta |
 | [Skeleton](skeleton/skeleton.spec.md) | Occuper la place de ce qui charge, pour que l'écran ne mente pas en paraissant vide. | 🖥️ | stable |
 | [Switch](switch/switch.spec.md) | Basculer un réglage qui s'applique immédiatement. | 🖥️ | stable |
+| [Tag](tag/tag.spec.md) | Distinguer une valeur de référentiel par sa couleur, sans la juger. | 🖥️ | stable |
 | [Textarea](textarea/textarea.spec.md) | Recueillir un texte de plusieurs lignes — une observation, un commentaire. | 🖥️ | stable |
 | [Toast](toast/toast.spec.md) | Annoncer sans quitter la page ce qui vient de réussir ou d'échouer. | 🖥️ | beta |
 | [Toolbar](toolbar/toolbar.spec.md) | Réunir au-dessus d'une liste ce qu'on peut lui faire — filtrer, composer, exporter, changer de vue. | 🖥️ | beta |
