@@ -105,6 +105,17 @@ export const icons = {
   photoUnavailable: 'CameraSlash',
   switchCamera: 'CameraRotate',
 
+  // -- Composer un tableau -------------------------------------------------
+  columns: 'Columns',
+  reorder: 'DotsSixVertical',
+  sortNeutral: 'ArrowsDownUp',
+  lock: 'LockSimple',
+  bookmark: 'BookmarkSimple',
+  list: 'Rows',
+  map: 'MapTrifold',
+  pdf: 'FilePdf',
+  csv: 'FileCsv',
+
   // -- Le métier -----------------------------------------------------------
   document: 'FileText',
   tag: 'Tag',
