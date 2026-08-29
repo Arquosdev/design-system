@@ -124,6 +124,35 @@ export const icons = {
   measure: 'Ruler',
   aiAssist: 'Sparkle',
 
+  // -- Les objets du produit -----------------------------------------------
+  //
+  // La navigation d'un produit qui porte douze objets a besoin d'une icône par
+  // objet : c'est elle qu'on vise du coin de l'œil, et c'est la seule chose qui
+  // reste quand le rail est réduit. Le vocabulaire n'en avait aucune, et l'app
+  // web posait des classes Phosphor à la main — exactement la dérive que ce
+  // fichier existe pour empêcher.
+  //
+  // Un rôle par objet, même quand deux partagent un dessin : « secteur » et
+  // « carte » sont la même carte dépliée aujourd'hui, et rien n'oblige à ce
+  // qu'ils le restent. Passer par le rôle laisse la possibilité de les séparer
+  // sans toucher aux écrans.
+  survey: 'ClipboardText',
+  equipment: 'Elevator',
+  building: 'Buildings',
+  client: 'Briefcase',
+  contact: 'User',
+  supplier: 'Truck',
+  sector: 'MapTrifold',
+  technician: 'Wrench',
+  deal: 'Handshake',
+  contract: 'FileText',
+  quote: 'Receipt',
+  // Trois entrées de navigation qui ne sont pas des objets : une campagne de
+  // relevés, un import de données, une sollicitation envoyée à un fournisseur.
+  campaign: 'Crosshair',
+  import: 'UploadSimple',
+  request: 'PaperPlaneTilt',
+
   // -- La nature d'une colonne ---------------------------------------------
   //
   // Un tableau du produit peut proposer près de cinq cents colonnes, presque
