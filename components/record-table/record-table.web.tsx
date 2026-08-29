@@ -133,7 +133,20 @@ export function RecordTable<T>({
    */
   const regle = widths && Object.keys(widths).length > 0;
   const LARGEUR_PAR_DEFAUT = 160;
-  const LARGEUR_CASE = 40;
+  /*
+    La largeur RÉELLE de la colonne des cases, et non celle qu'on souhaite.
+
+    Elle valait 40 pendant que la colonne en mesurait 42 — vingt-quatre pixels
+    de retrait à gauche plus la case de dix-huit. Le décalage de la colonne
+    d'identité, lui, était écrit `left-10`, soit 40 : les deux colonnes figées
+    se chevauchaient donc de deux pixels dès qu'on défilait, et l'identité
+    passait par-dessus les cases.
+
+    Une seule valeur, posée sur la cellule ET sur le décalage : les deux ne
+    peuvent plus diverger. Changer le retrait de la case oblige à changer ce
+    nombre, et le test le dit.
+  */
+  const LARGEUR_CASE = 42;
   const enPixels = (v?: string) => {
     if (!v) return undefined;
     const rem = /^([\d.]+)rem$/.exec(v);
@@ -157,8 +170,19 @@ export function RecordTable<T>({
   // La case et l'identité restent en place quand les colonnes défilent, et
   // l'en-tête quand on défile verticalement. Les deux se croisent au coin haut
   // gauche : il lui faut un cran de plus, sinon une cellule passe par-dessus.
+  /*
+    Les deux colonnes figées, et l'ordre de leurs plans.
+
+    La case passe AU-DESSUS de l'identité : elles ne se recouvrent plus, mais
+    si un arrondi de sous-pixel les faisait se toucher, c'est la case qui doit
+    gagner — l'identité qui déborde sur la case est ce que l'œil attrape.
+    Toutes deux restent au-dessus des colonnes qui défilent, dont le plan est
+    automatique.
+  */
   const stickyBox = 'sticky left-0 z-20';
-  const stickyIdentity = cn('sticky z-20', selection ? 'left-10' : 'left-0');
+  const stickyIdentity = 'sticky z-10';
+  // Le décalage vient du même nombre que la largeur : voir `LARGEUR_CASE`.
+  const decalageIdentite = { left: selection ? LARGEUR_CASE : 0 };
 
   // Les en-têtes : petites capitales, sur le fond discret, collées en haut.
   const headerStyle =
@@ -256,7 +280,8 @@ export function RecordTable<T>({
             {selection && (
               <th
                 scope="col"
-                className={cn(stickyBox, headerStyle, 'z-40 w-10 py-sm pr-0 pl-xl')}
+                style={{ width: LARGEUR_CASE }}
+                className={cn(stickyBox, headerStyle, 'z-40 py-sm pr-0 pl-xl')}
               >
                 <Checkbox
                   checked={allChecked}
@@ -269,7 +294,10 @@ export function RecordTable<T>({
             )}
             <th
               scope="col"
-              style={regle ? { width: largeurDe('identity') } : undefined}
+              style={{
+                ...decalageIdentite,
+                ...(regle ? { width: largeurDe('identity') } : {}),
+              }}
               // Pas de `relative` ici : `sticky` sert déjà de repère aux
               // enfants positionnés, et les deux classes se disputeraient — la
               // dernière gagne, et l'en-tête cesserait de coller au défilement.
@@ -337,6 +365,7 @@ export function RecordTable<T>({
               <tr key={id} className={cn('group', fond, !check && 'hover:bg-bg-muted')}>
                 {selection && (
                   <td
+                    style={{ width: LARGEUR_CASE }}
                     className={cn(
                       stickyBox,
                       fond,
@@ -354,6 +383,7 @@ export function RecordTable<T>({
                   </td>
                 )}
                 <td
+                  style={decalageIdentite}
                   className={cn(
                     stickyIdentity,
                     fond,
