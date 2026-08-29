@@ -39,6 +39,26 @@ Deux écarts assumés :
 
 Les composants reprennent les props de `cmdk` — voir sa documentation.
 
+`Command` :
+
+| Prop   | Type                  | Défaut      | Rôle |
+| ------ | --------------------- | ----------- | ---- |
+| `size` | `'default' \| 'sm'`   | `'default'` | La palette, ou un menu |
+
+**`size` se pose UNE FOIS sur `Command` et descend à ses pièces** — entrée,
+liste, vide, groupe, entrées — par un contexte. La poser cellule par cellule
+laisserait une entrée de palette au-dessus d'une liste de menu.
+
+`default` est la palette ⌘K : six cent soixante pixels de large, une entrée de
+cinquante-deux pixels, du texte de sous-titre, des retraits de seize, une liste
+qui monte à quatre cents. `sm` est un menu de deux à trois cents pixels : entrée
+de trente-six, texte courant, retraits de douze, liste bornée à deux cent
+quarante.
+
+**Quand prendre `sm`** : dès que ces pièces vivent dans un `PopoverContent`
+plutôt qu'en plein écran. À la taille par défaut, l'invite de recherche se coupe
+et dix lignes remplissent la hauteur de l'écran.
+
 `CommandDialog` :
 
 | Prop           | Type                   | Défaut | Rôle                                        |

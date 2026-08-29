@@ -110,6 +110,7 @@ export {
   CommandItem,
   CommandSeparator,
 } from './components/command/command.web';
+export type { CommandSize } from './components/command/command.web';
 
 export { Combobox, SEARCH_THRESHOLD } from './components/combobox/combobox.web';
 export type { ComboboxOption, ComboboxProps } from './components/combobox/combobox.web';

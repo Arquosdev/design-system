@@ -161,12 +161,19 @@ export function CommandGroup({
   className,
   ...props
 }: React.ComponentProps<typeof CommandPrimitive.Group>) {
+  const taille = React.useContext(TailleCommand);
   return (
     <CommandPrimitive.Group
       data-slot="command-group"
       className={cn(
         'overflow-hidden text-text',
-        '[&_[cmdk-group-heading]]:px-base [&_[cmdk-group-heading]]:pt-md [&_[cmdk-group-heading]]:pb-xxs',
+        /* L'intitulé suit la taille comme le reste : à `sm`, il était retiré
+           de seize pixels pendant que ses propres entrées l'étaient de douze,
+           et il ajoutait de la respiration en haut d'un menu dont tout le
+           propos est de ne pas respirer. */
+        taille === 'sm'
+          ? '[&_[cmdk-group-heading]]:px-md [&_[cmdk-group-heading]]:pt-sm [&_[cmdk-group-heading]]:pb-xxs'
+          : '[&_[cmdk-group-heading]]:px-base [&_[cmdk-group-heading]]:pt-md [&_[cmdk-group-heading]]:pb-xxs',
         '[&_[cmdk-group-heading]]:text-caption [&_[cmdk-group-heading]]:font-bold',
         '[&_[cmdk-group-heading]]:tracking-wide [&_[cmdk-group-heading]]:uppercase',
         '[&_[cmdk-group-heading]]:text-text-muted',

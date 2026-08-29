@@ -1,5 +1,23 @@
 # Monter une app vers la version courante
 
+## v2.10.0 — `Command` a deux tailles
+
+**Celle-ci ne casse rien** : `size` vaut `default` si on ne la pose pas, et
+`default` est exactement ce que ces pièces faisaient jusqu'ici. Rien à changer
+dans une app qui monte.
+
+Ce qui s'ouvre : `<Command size="sm">` habille un menu au lieu d'une palette.
+Entrée de trente-six pixels au lieu de cinquante-deux, texte courant au lieu du
+sous-titre, retraits de douze au lieu de seize, liste bornée à deux cent
+quarante au lieu de quatre cents. La taille descend aux pièces par un contexte :
+on la pose sur `Command`, pas sur chacune.
+
+**À prendre dès que ces pièces vivent dans un `PopoverContent`.** À la taille
+par défaut, l'invite de recherche se coupe dans une boîte de deux cent
+quatre-vingts pixels et dix lignes remplissent l'écran. `Combobox` avait déjà
+rencontré ce mur et l'avait contourné en s'adressant directement à `cmdk` ; ce
+contournement peut maintenant se remplacer par la taille déclarée.
+
 ## v2.0.0 — l'API passe à l'anglais
 
 **Celle-ci casse.** C'est la première, et elle est délibérée : jusqu'à la
