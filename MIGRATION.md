@@ -1,5 +1,23 @@
 # Monter une app vers la version courante
 
+## v2.10.2 — quand une largeur est réglée, c'est la colonne qui décide
+
+**Rien à changer**, et une app qui monte y gagne : le texte d'une cellule suit
+enfin la largeur de sa colonne.
+
+`RecordTable` enveloppe le contenu d'une cellule dans une boîte à points de
+suite dès qu'une largeur est réglée, et cette boîte suivait bien la colonne. Le
+rendu de cellule, lui, gardait le plafond qu'il se donne pour l'autre état —
+celui où le tableau est en mise en page automatique et où, sans plafond, une
+valeur très longue étirerait la colonne. Résultat : le texte se coupait au même
+endroit à toute largeur. Mesuré sur une liste d'équipements, colonne portée à
+566 pixels : l'enveloppe suivait à 542, le texte restait borné à 240, avec trois
+cents pixels de blanc derrière lui.
+
+L'enveloppe ramène maintenant son contenu à sa propre largeur. Le plafond du
+rendu garde donc son rôle en mise en page automatique, et cesse de commander dès
+qu'une colonne a une largeur à elle.
+
 ## v2.10.1 — la case à cocher est au milieu de sa ligne
 
 **Rien à changer** : c'est une correction d'affichage dans `RecordTable`.

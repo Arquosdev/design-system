@@ -513,7 +513,28 @@ export function RecordTable<T>({
                     )}
                   >
                     {regle ? (
-                      <span className="block overflow-hidden text-ellipsis">{c.render(row)}</span>
+                      /*
+                        `[&>*]:max-w-full` : quand une largeur est réglée, c'est
+                        la COLONNE qui décide, et rien à l'intérieur.
+
+                        Un rendu de cellule doit borner son contenu par lui-même
+                        tant que le tableau est en mise en page automatique,
+                        sinon une valeur très longue étire la colonne. Ce plafond
+                        restait ensuite en place, et le texte se coupait au même
+                        endroit quelle que soit la largeur : mesuré sur une
+                        colonne portée à 566 pixels, l'enveloppe suivait à 542 et
+                        le texte restait borné à 240, avec trois cents pixels de
+                        blanc derrière.
+
+                        Le ramener à la largeur de l'enveloppe le laisse à sa
+                        place dans l'autre état, et rend la troncature à la
+                        colonne dans celui-ci. `max-w-full` et non `max-w-none` :
+                        c'est l'enfant qui porte `truncate`, donc c'est lui qui
+                        doit connaître sa borne pour poser les points de suite.
+                      */
+                      <span className="block overflow-hidden text-ellipsis [&>*]:max-w-full">
+                        {c.render(row)}
+                      </span>
                     ) : (
                       c.render(row)
                     )}

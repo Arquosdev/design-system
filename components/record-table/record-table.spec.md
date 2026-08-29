@@ -99,7 +99,11 @@ const [chosen, setChosen] = React.useState<Set<string>>(new Set());
 - Ligne : fond `colors.bg`, séparateur `colors.borderSoft`, survol `colors.bgMuted`
 - Ligne cochée : `colors.infoBg` — la même teinte que la barre d'actions qu'elle
   alimente, pour qu'on voie d'où vient le décompte
-- Cellule : `spacing.md` horizontal, `10px` vertical
+- Cellule : `spacing.md` horizontal, `10px` vertical. Dès qu'une largeur est
+  réglée, le contenu est enveloppé dans une boîte à points de suite qui **borne
+  ce qu'elle contient à sa propre largeur** : un plafond posé par un rendu de
+  cellule vaut pour la mise en page automatique, il ne commande plus une colonne
+  qui a sa largeur
 - Case à cocher : colonne de `40px`, dont `spacing.xl` de marge à gauche ; la
   colonne d'identité se cale donc à `left: 40px` quand elle se fige. **En bloc,
   pas en ligne** : posée en ligne, elle suit la ligne de base du texte de sa
