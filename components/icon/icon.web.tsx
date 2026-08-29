@@ -189,6 +189,18 @@ export function Icon({
     <Glyph
       size={iconSize[size]}
       weight={iconWeight[weight]}
+      /*
+        Le rôle est écrit dans le DOM, et ce n'est pas décoratif.
+
+        Le dessin seul ne se distingue pas : Phosphor rend un `svg` nu, sans
+        classe ni marqueur, si bien qu'un harnais ne peut pas dire si un bouton
+        porte trois points ou un chevron. Un test qui cherchait les trois points
+        passait donc au vert alors qu'ils étaient là — il ne mesurait rien.
+
+        Un attribut de données ne change rien au rendu et rend l'intention
+        lisible, ce qui est exactement ce qu'un rôle d'icône veut dire.
+      */
+      data-role={role}
       className={cn('shrink-0', className)}
       {...(label
         ? { role: 'img', 'aria-label': label }
