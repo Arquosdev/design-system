@@ -249,12 +249,41 @@ export function RecordTable<T>({
           e.stopPropagation();
           const th = (e.currentTarget.parentElement as HTMLElement | null);
           const depart = e.clientX;
-          const initiale = largeurActuelle ?? th?.getBoundingClientRect().width ?? 120;
-          let dernier: Record<string, number> = { ...widths, [id]: initiale };
+
+          /*
+            On fige la largeur RENDUE de TOUTES les colonnes, pas seulement de
+            celle qu'on tire.
+
+            Sans cela, le bord décrochait du curseur dès le premier pixel.
+            La cause n'était pas la formule — elle part bien de la largeur
+            saisie au `mousedown` — mais un changement de MISE EN PAGE : tant
+            qu'aucune largeur n'est réglée, le tableau est en `w-max min-w-full`
+            et ses colonnes s'étirent pour remplir la place ; à la première
+            largeur posée il bascule en `table-fixed`, et toutes les autres
+            colonnes retombent d'un coup sur leur largeur déclarée ou sur les
+            cent soixante par défaut. Le tableau se réagence sous la main, et le
+            bord qu'on tient part avec lui.
+
+            En relevant l'existant d'abord, la bascule ne change plus rien à
+            l'écran : seule la colonne tirée bouge.
+          */
+          const base: Record<string, number> = { ...widths };
+          const entete = th?.parentElement;
+          if (entete) {
+            for (const cellule of entete.querySelectorAll('th[data-colonne]')) {
+              const cle = (cellule as HTMLElement).dataset.colonne!;
+              if (base[cle] === undefined) {
+                base[cle] = Math.round(cellule.getBoundingClientRect().width);
+              }
+            }
+          }
+
+          const initiale = largeurActuelle ?? base[id] ?? th?.getBoundingClientRect().width ?? 120;
+          let dernier: Record<string, number> = { ...base, [id]: initiale };
           const bouger = (m: MouseEvent) => {
             // Un plancher : une colonne réduite à zéro ne se rattrape plus.
             const l = Math.max(64, Math.round(initiale + m.clientX - depart));
-            dernier = { ...widths, [id]: l };
+            dernier = { ...base, [id]: l };
             // Pendant le geste, la largeur reste ICI : prévenir l'appelant à
             // chaque mouvement lui ferait recharger son écran soixante fois par
             // seconde.
@@ -352,6 +381,7 @@ export function RecordTable<T>({
             )}
             <th
               scope="col"
+              data-colonne="identity"
               style={{
                 ...decalageIdentite,
                 ...(regle ? { width: largeurDe('identity') } : {}),
@@ -375,6 +405,7 @@ export function RecordTable<T>({
               <th
                 key={c.id}
                 scope="col"
+                data-colonne={c.id}
                 style={
                   regle
                     ? { width: largeurDe(c.id, c.width) }
