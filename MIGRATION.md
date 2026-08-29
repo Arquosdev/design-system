@@ -1,5 +1,16 @@
 # Monter une app vers la version courante
 
+## v2.10.3 — un bouton se reconnaît
+
+**Rien à changer.** `Button` porte `data-arq="button"`, ce qui permet à un test
+de dire si un bouton vient d'ici ou s'il a été redessiné à la main.
+
+Écrit après un vert trompeur : un test comparait la hauteur, le rayon et le
+corps de deux boutons pour vérifier qu'ils étaient les mêmes, et un bouton
+recopié à la main passait, ses valeurs étant tirées des mêmes tokens. Il
+divergeait pourtant dès qu'on le survolait ou le désactivait, états qu'une
+mesure statique ne prend pas.
+
 ## v2.10.2 — quand une largeur est réglée, c'est la colonne qui décide
 
 **Rien à changer**, et une app qui monte y gagne : le texte d'une cellule suit

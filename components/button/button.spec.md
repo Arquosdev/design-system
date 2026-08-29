@@ -14,6 +14,11 @@ replaces:
 
 # Button
 
+Chaque bouton porte `data-arq="button"`. C'est de quoi reconnaître, depuis un
+test, un bouton d'ici d'un bouton redessiné à la main : comparer des pixels ne
+suffit pas, une copie tirée des mêmes tokens mesure pareil et diverge au premier
+état, survol ou désactivé.
+
 ## Quand l'utiliser
 
 - Déclencher une action sur la page : « Compléter », « Enregistrer », « Annuler ».

@@ -59,6 +59,14 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         // plus fréquente de « la page se recharge toute seule ». shadcn ne le
         // pose pas ; c'est notre seul écart de comportement, et il est voulu.
         type={asChild ? undefined : (type ?? 'button')}
+        /*
+          De quoi reconnaître un bouton du design system d'un bouton redessiné à
+          la main. Un test qui compare des pixels ne fait pas la différence : un
+          bouton recopié avec les bonnes valeurs passe, et se met à diverger au
+          premier état — survol, désactivé — que la mesure ne prend pas. Même
+          raison que `data-role` sur `Icon` et `data-colonne` sur `RecordTable`.
+        */
+        data-arq="button"
         className={cn(buttonVariants({ variant, size }), className)}
         {...props}
       />
