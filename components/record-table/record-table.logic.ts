@@ -49,14 +49,27 @@ export function compare(a: unknown, b: unknown, direction: SortDirection): numbe
 }
 
 /**
- * Le décompte d'une sélection, accordé.
+ * Le décompte d'une sélection, accordé en nombre ET EN GENRE.
  *
  * `nom` est le singulier de ce qui est listé (« équipement », « affaire »).
- * Le pluriel est régulier ; les rares exceptions se passent en second argument.
+ * Le pluriel est régulier ; les rares exceptions se passent en argument — le
+ * devis n'a pas de pluriel à lui, et « deviss » se lisait sous la pagination.
+ *
+ * **Le genre ne se devine pas d'un mot français**, et il ne se déduit pas non
+ * plus du pluriel : le participe s'accorde avec le nom, et la fonction ne
+ * connaissait que le mot. Elle rendait « 3 affaires sélectionnés ». Qui appelle
+ * connaît le genre de ce qu'il liste ; qui ne le passe pas garde le masculin,
+ * qui est le cas le plus fréquent.
  */
-export function selectionLabel(nombre: number, name: string, plural?: string): string {
-  if (nombre <= 1) return `${nombre} ${name} sélectionné`;
-  return `${nombre} ${plural ?? `${name}s`} sélectionnés`;
+export function selectionLabel(
+  nombre: number,
+  name: string,
+  plural?: string,
+  feminine = false,
+): string {
+  const accord = feminine ? 'e' : '';
+  if (nombre <= 1) return `${nombre} ${name} sélectionné${accord}`;
+  return `${nombre} ${plural ?? `${name}s`} sélectionné${accord}s`;
 }
 
 /** Ce qu'on annonce sous une liste paginée. */

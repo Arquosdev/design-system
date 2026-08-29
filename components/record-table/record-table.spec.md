@@ -44,7 +44,7 @@ toutes.
 | `rowKey`     | `(row: T) => string`                 | —      | L'identifiant stable d'une ligne                          |
 | `identity`  | `{ header, render, value? }`           | —      | La colonne qui nomme la ligne ; elle reste visible        |
 | `onOpen`  | `(row: T) => void`                   | —      | Sans lui, l'identité ne devient pas cliquable             |
-| `selection` | `{ values, onChange, name, plural? }` | —      | Sans elle, pas de colonne de cases                        |
+| `selection` | `{ values, onChange, name, plural?, feminine? }` | — | Sans elle, pas de colonne de cases. `feminine` accorde le décompte : « 3 affaires sélectionnées » |
 | `sort`       | `{ state, onChange }`                   | —      | Sans lui, les en-têtes ne sont pas cliquables             |
 | `empty`      | `ReactNode`                            | —      | Ce qui remplace le tableau quand il n'y a aucune ligne    |
 

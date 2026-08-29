@@ -60,6 +60,8 @@ export interface RecordTableProps<T> {
     /** Le singulier de ce qui est listé, pour le décompte : « équipement ». */
     name: string;
     plural?: string;
+    /** Le genre de ce qui est listé : « 3 affaires sélectionnéEs ». */
+    feminine?: boolean;
   };
   sort?: {
     state: SortState | null;
@@ -395,7 +397,7 @@ export function RecordTable<T>({
 
       {selection && checkedCount > 0 && (
         <p className="sr-only" aria-live="polite">
-          {selectionLabel(checkedCount, selection.name, selection.plural)}
+          {selectionLabel(checkedCount, selection.name, selection.plural, selection.feminine)}
         </p>
       )}
     </div>

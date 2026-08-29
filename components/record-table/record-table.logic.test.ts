@@ -65,6 +65,22 @@ describe('libelleSelection', () => {
   it('dit « sélectionné », jamais « retenu »', () => {
     strictEqual(selectionLabel(2, 'écart').includes('retenu'), false);
   });
+
+  it('accorde en genre, pas seulement en nombre', () => {
+    /*
+      Le participe s'accorde avec le nom, et le genre ne se devine pas d'un mot
+      français. La fonction rendait « 3 affaires sélectionnés ».
+    */
+    strictEqual(selectionLabel(1, 'affaire', undefined, true), '1 affaire sélectionnée');
+    strictEqual(selectionLabel(3, 'affaire', undefined, true), '3 affaires sélectionnées');
+    // Sans genre, le masculin : c'est le cas le plus fréquent.
+    strictEqual(selectionLabel(3, 'écart'), '3 écarts sélectionnés');
+    // Le pluriel irrégulier et le genre se combinent.
+    strictEqual(
+      selectionLabel(2, 'sollicitation', 'sollicitations', true),
+      '2 sollicitations sélectionnées',
+    );
+  });
 });
 
 describe('libellePagination', () => {
