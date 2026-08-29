@@ -131,7 +131,37 @@ export function RecordTable<T>({
    * suivante — le geste semble ne rien faire. En `fixed`, chaque colonne prend
    * exactement ce qu'on lui donne, ce qui oblige à en donner à toutes.
    */
-  const regle = widths && Object.keys(widths).length > 0;
+  /*
+    Les largeurs PENDANT le glissement, tant que l'appelant n'a pas rattrapé.
+
+    `onWidths` était appelé à chaque mouvement de souris. L'écran des
+    Équipements y écrit l'URL : un glissement de vingt-quatre pas déclenchait
+    vingt-quatre navigations, donc vingt-quatre requêtes sur trente et un mille
+    lignes. Sur une vraie machine, la souris en émet bien davantage, l'interface
+    n'a plus le temps de peindre, et le glissement paraît ne rien faire — c'est
+    exactement ce que Louis a vu.
+
+    On garde donc la largeur ici le temps du geste, et on ne prévient l'appelant
+    qu'au relâchement. `enCours` s'efface quand ce qu'il porte revient par les
+    props : jusque-là, l'effacer ferait clignoter la colonne à son ancienne
+    largeur le temps d'une image.
+  */
+  const [enCours, setEnCours] = React.useState<Record<string, number> | null>(null);
+
+  const memesLargeurs = (a: Record<string, number>, b?: Record<string, number>) => {
+    const cles = Object.keys(a);
+    return !!b
+      && cles.length === Object.keys(b).length
+      && cles.every((k) => a[k] === b[k]);
+  };
+
+  React.useEffect(() => {
+    if (enCours && memesLargeurs(enCours, widths)) setEnCours(null);
+  });
+
+  const largeurs = enCours ?? widths;
+
+  const regle = largeurs && Object.keys(largeurs).length > 0;
   const LARGEUR_PAR_DEFAUT = 160;
   /*
     La largeur RÉELLE de la colonne des cases, et non celle qu'on souhaite.
@@ -155,7 +185,7 @@ export function RecordTable<T>({
     return px ? Math.round(Number(px[1])) : undefined;
   };
   const largeurNum = (id: string, indice?: string) =>
-    widths?.[id] ?? enPixels(indice) ?? LARGEUR_PAR_DEFAUT;
+    largeurs?.[id] ?? enPixels(indice) ?? LARGEUR_PAR_DEFAUT;
   const largeurDe = (id: string, indice?: string) =>
     regle ? `${largeurNum(id, indice)}px` : indice;
 
@@ -208,14 +238,22 @@ export function RecordTable<T>({
           const th = (e.currentTarget.parentElement as HTMLElement | null);
           const depart = e.clientX;
           const initiale = largeurActuelle ?? th?.getBoundingClientRect().width ?? 120;
+          let dernier: Record<string, number> = { ...widths, [id]: initiale };
           const bouger = (m: MouseEvent) => {
             // Un plancher : une colonne réduite à zéro ne se rattrape plus.
             const l = Math.max(64, Math.round(initiale + m.clientX - depart));
-            onWidths({ ...widths, [id]: l });
+            dernier = { ...widths, [id]: l };
+            // Pendant le geste, la largeur reste ICI : prévenir l'appelant à
+            // chaque mouvement lui ferait recharger son écran soixante fois par
+            // seconde.
+            setEnCours(dernier);
           };
           const lacher = () => {
             document.removeEventListener('mousemove', bouger);
             document.removeEventListener('mouseup', lacher);
+            // Une seule fois, au relâchement : c'est là que la largeur devient
+            // une décision, et non plus un geste en cours.
+            onWidths(dernier);
           };
           document.addEventListener('mousemove', bouger);
           document.addEventListener('mouseup', lacher);
@@ -224,6 +262,7 @@ export function RecordTable<T>({
           // Double-clic : la colonne reprend sa largeur naturelle.
           const reste = { ...widths };
           delete reste[id];
+          setEnCours(reste);
           onWidths(reste);
         }}
         className="absolute inset-y-0 right-0 w-[5px] cursor-col-resize hover:bg-primary/40"
