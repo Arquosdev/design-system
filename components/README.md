@@ -59,6 +59,7 @@ Elle porte l'ascenseur : son vocabulaire, ses états, ses règles. shadcn n'a ri
 | [Gauge](gauge/gauge.spec.md) | Montrer une proportion d'un coup d'œil, avec son chiffre écrit à côté. | 🖥️ | beta |
 | [NavList](nav-list/nav-list.spec.md) | Lister les rubriques d'un écran, avec ce que chacune contient, et dire laquelle est ouverte. | 🖥️ | beta |
 | [PhotoTile](photo-tile/photo-tile.spec.md) | Montrer une photo attendue — prise ou non — avec ce qu'elle est censée montrer. | 🖥️ | beta |
+| [RecordLayout](record-layout/record-layout.spec.md) | Poser la fiche d'un objet — deux colonnes, chacune avec son propre défilement. | 🖥️ | beta |
 | [StatTile](stat-tile/stat-tile.spec.md) | Mettre en avant une mesure d'identité, celle qu'on veut lire sans chercher. | 🖥️ | beta |
 
 ## Ajouter un composant

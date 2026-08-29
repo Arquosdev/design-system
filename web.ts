@@ -60,6 +60,10 @@ export {
 export { SegmentedTabs, type SegmentedTabsProps, type Segment } from './components/segmented-tabs/segmented-tabs.web';
 export { NavList, type NavListProps, type NavItem } from './components/nav-list/nav-list.web';
 export {
+  RecordLayout, RecordRail, RecordRailSkeleton, RecordZone,
+  type RecordLayoutProps, type RecordRailProps, type RecordZoneProps,
+} from './components/record-layout/record-layout.web';
+export {
   FilterChips,
   type FilterChipsProps,
   type FilterChip,

@@ -780,6 +780,32 @@
       }
     },
     {
+      "name": "RecordLayout",
+      "status": "beta",
+      "layer": "metier",
+      "role": "Poser la fiche d'un objet — deux colonnes, chacune avec son propre défilement.",
+      "keywords": [
+        "fiche",
+        "gabarit",
+        "rail",
+        "rubriques",
+        "deux colonnes",
+        "defilement",
+        "sommaire"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": []
+      },
+      "dossier": "components/record-layout",
+      "specFile": "components/record-layout/record-layout.spec.md",
+      "fichiers": {
+        "web": "components/record-layout/record-layout.web.tsx"
+      }
+    },
+    {
       "name": "RecordTable",
       "status": "beta",
       "layer": "generique",
