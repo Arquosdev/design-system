@@ -105,7 +105,12 @@ export function RecordTable<T>({
   if (rows.length === 0 && empty) return <>{empty}</>;
 
   const keys = sorted.map(rowKey);
-  const allChecked = keys.length > 0 && keys.every((c) => selection!.values.has(c));
+  // `selection` est optionnelle — « sans elle, pas de colonne de cases », dit
+  // la fiche — et elle est gardée partout ailleurs. Ici elle ne l'était pas :
+  // un tableau sans sélection plantait dès la première ligne. Trouvé par la
+  // rubrique de collection d'une fiche, premier appelant à s'en passer.
+  const allChecked =
+    selection !== undefined && keys.length > 0 && keys.every((c) => selection.values.has(c));
   const checkedCount = selection ? keys.filter((c) => selection.values.has(c)).length : 0;
 
   function toggle(id: string) {
