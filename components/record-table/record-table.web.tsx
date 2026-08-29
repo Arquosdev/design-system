@@ -211,12 +211,24 @@ export function RecordTable<T>({
   */
   const stickyBox = 'sticky left-0 z-20';
   const stickyIdentity = 'sticky z-10';
+  /*
+    Ces deux plans servent DEUX FOIS : dans le corps et dans l'en-tête. C'est
+    ce qui rend l'ordre vrai partout plutôt qu'à un seul endroit.
+
+    Il a fallu pour cela que l'en-tête soit son PROPRE contexte d'empilement
+    (voir `thead` plus bas). Sans lui, ses deux cellules figées portaient un
+    `z-40` commun — posé pour passer devant le corps — et `cn`, qui est un
+    `tailwind-merge`, écrasait le z-20 et le z-10 : les deux se retrouvaient au
+    même plan, et c'est l'identité, plus tard dans le DOM, qui gagnait. Le
+    recouvrement corrigé dans le corps le 29/08/2026 restait donc entier dans
+    l'en-tête, où rien ne le mesurait.
+  */
   // Le décalage vient du même nombre que la largeur : voir `LARGEUR_CASE`.
   const decalageIdentite = { left: selection ? LARGEUR_CASE : 0 };
 
   // Les en-têtes : petites capitales, sur le fond discret, collées en haut.
   const headerStyle =
-    'sticky top-0 z-30 border-b border-border-soft bg-bg-subtle px-md py-sm ' +
+    'sticky top-0 border-b border-border-soft bg-bg-subtle px-md py-sm ' +
     'text-caption font-bold tracking-[.5px] whitespace-nowrap text-text-muted uppercase';
 
   /**
@@ -314,13 +326,20 @@ export function RecordTable<T>({
           regle ? 'table-fixed' : 'w-max min-w-full',
         )}
       >
-        <thead>
+        {/*
+          L'en-tête passe devant le corps ICI, une fois, plutôt que cellule par
+          cellule. `relative z-30` en fait un contexte d'empilement : ce qu'il
+          contient s'ordonne entre soi, et l'ensemble reste au-dessus des
+          lignes qui défilent dessous. Les plans des cellules figées redeviennent
+          ainsi les mêmes que dans le corps.
+        */}
+        <thead className="relative z-30">
           <tr>
             {selection && (
               <th
                 scope="col"
                 style={{ width: LARGEUR_CASE }}
-                className={cn(stickyBox, headerStyle, 'z-40 py-sm pr-0 pl-xl')}
+                className={cn(stickyBox, headerStyle, 'py-sm pr-0 pl-xl')}
               >
                 <Checkbox
                   checked={allChecked}
@@ -340,7 +359,7 @@ export function RecordTable<T>({
               // Pas de `relative` ici : `sticky` sert déjà de repère aux
               // enfants positionnés, et les deux classes se disputeraient — la
               // dernière gagne, et l'en-tête cesserait de coller au défilement.
-              className={cn(stickyIdentity, headerStyle, 'z-40')}
+              className={cn(stickyIdentity, headerStyle)}
               aria-sort={
                 sort?.state?.column === 'identity'
                   ? sort.state.direction === 'asc'
