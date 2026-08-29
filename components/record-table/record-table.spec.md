@@ -101,7 +101,10 @@ const [chosen, setChosen] = React.useState<Set<string>>(new Set());
   alimente, pour qu'on voie d'où vient le décompte
 - Cellule : `spacing.md` horizontal, `10px` vertical
 - Case à cocher : colonne de `40px`, dont `spacing.xl` de marge à gauche ; la
-  colonne d'identité se cale donc à `left: 40px` quand elle se fige
+  colonne d'identité se cale donc à `left: 40px` quand elle se fige. **En bloc,
+  pas en ligne** : posée en ligne, elle suit la ligne de base du texte de sa
+  cellule et flotte trois pixels au-dessus du milieu de la ligne, ce qui se voit
+  sur vingt-cinq lignes d'affilée
 - Dernière colonne : `spacing.xl` à droite, pour que la valeur ne touche pas le
   bord de l'écran
 - Identité : `colors.primary`, en `semibold`

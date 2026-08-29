@@ -1,5 +1,18 @@
 # Monter une app vers la version courante
 
+## v2.10.1 — la case à cocher est au milieu de sa ligne
+
+**Rien à changer** : c'est une correction d'affichage dans `RecordTable`.
+
+La case était posée en élément EN LIGNE, donc sur la ligne de base du texte de
+sa cellule et non au milieu de celle-ci. Mesuré sur une liste de trente et un
+mille appareils : centre de la ligne à 241 pixels, centre de la case à 238. Trois
+pixels qu'on ne voit pas sur une ligne et qu'on voit sur vingt-cinq.
+
+Le pixel qui reste après correction est la bordure basse de la ligne, comptée
+dans sa boîte mais pas dans la zone où son contenu se centre. Le supprimer
+demanderait de décaler la case vers le bas, c'est-à-dire de la décentrer.
+
 ## v2.10.0 — `Command` a deux tailles
 
 **Celle-ci ne casse rien** : `size` vaut `default` si on ne la pose pas, et

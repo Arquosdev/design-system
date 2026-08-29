@@ -370,7 +370,16 @@ export function RecordTable<T>({
                 style={{ width: LARGEUR_CASE }}
                 className={cn(stickyBox, headerStyle, 'py-sm pr-0 pl-xl')}
               >
+                {/*
+                  `block` : la case est un élément EN LIGNE, donc posée sur la
+                  ligne de base du texte de sa cellule. La cellule est bien
+                  centrée, mais la case flotte trois pixels au-dessus de son
+                  milieu — mesuré : centre de ligne à 241, centre de case à 238.
+                  En bloc, il n'y a plus de ligne de base à suivre et la cellule
+                  la centre pour de bon.
+                */}
                 <Checkbox
+                  className="block"
                   checked={allChecked}
                   onCheckedChange={() =>
                     selection.onChange(allChecked ? new Set() : new Set(keys))
@@ -462,7 +471,9 @@ export function RecordTable<T>({
                       'border-b border-border-soft py-0 pr-0 pl-xl',
                     )}
                   >
+                    {/* `block` : voir la case de l'en-tête, même raison. */}
                     <Checkbox
+                      className="block"
                       checked={check}
                       onCheckedChange={() => toggle(id)}
                       // Le nom de la ligne, pas sa clé : un lecteur d'écran qui
