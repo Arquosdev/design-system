@@ -102,7 +102,7 @@ export function CommandInput({
     <div
       className={cn(
         'flex items-center border-b border-border-soft',
-        taille === 'sm' ? 'gap-sm px-md' : 'gap-md px-base',
+        taille === 'sm' ? 'gap-sm px-sm' : 'gap-md px-base',
       )}
     >
       <Icon role="search" size="sm" className="shrink-0 text-text-muted" />
@@ -133,9 +133,23 @@ export function CommandList({
       data-slot="command-list"
       className={cn(
         'scroll-py-sm overflow-x-hidden overflow-y-auto py-xs',
-        // Un menu ne monte pas à quatre cents pixels : dix agences y
-        // rempliraient l'écran.
-        taille === 'sm' ? 'max-h-[240px]' : 'max-h-[400px]',
+        /*
+          Un menu ne monte pas à quatre cents pixels : dix agences y
+          rempliraient l'écran.
+
+          **Et la borne tombe sur un nombre entier de lignes.** Une entrée
+          coupée en deux se lit comme un défaut, même quand elle sert d'indice
+          de défilement : Louis l'a signalé le 30/08/2026 sur le sélecteur
+          d'agence.
+
+          Le compte, mesuré dans le navigateur plutôt que déduit : une entrée
+          fait 23,59 px et la liste porte 4 px de marge en haut comme en bas.
+          Onze entières valent donc 267,5 px, arrondis à 268. La hauteur d'une
+          entrée n'étant pas un entier, l'alignement est juste au pixel près et
+          non exact — il se refera le jour où le design system portera une
+          échelle de hauteur de contrôle (lot 27).
+        */
+        taille === 'sm' ? 'max-h-[268px]' : 'max-h-[400px]',
         className,
       )}
       {...props}
@@ -150,7 +164,7 @@ export function CommandEmpty(props: React.ComponentProps<typeof CommandPrimitive
       data-slot="command-empty"
       className={cn(
         'text-center text-small text-text-muted',
-        taille === 'sm' ? 'px-md py-md' : 'px-base py-xl',
+        taille === 'sm' ? 'px-sm py-sm' : 'px-base py-xl',
       )}
       {...props}
     />
@@ -172,7 +186,7 @@ export function CommandGroup({
            et il ajoutait de la respiration en haut d'un menu dont tout le
            propos est de ne pas respirer. */
         taille === 'sm'
-          ? '[&_[cmdk-group-heading]]:px-md [&_[cmdk-group-heading]]:pt-sm [&_[cmdk-group-heading]]:pb-xxs'
+          ? '[&_[cmdk-group-heading]]:px-sm [&_[cmdk-group-heading]]:pt-xs [&_[cmdk-group-heading]]:pb-xxs'
           : '[&_[cmdk-group-heading]]:px-base [&_[cmdk-group-heading]]:pt-md [&_[cmdk-group-heading]]:pb-xxs',
         '[&_[cmdk-group-heading]]:text-caption [&_[cmdk-group-heading]]:font-bold',
         '[&_[cmdk-group-heading]]:tracking-wide [&_[cmdk-group-heading]]:uppercase',
@@ -194,7 +208,7 @@ export function CommandItem({
       data-slot="command-item"
       className={cn(
         'flex cursor-pointer items-center text-small outline-none select-none',
-        taille === 'sm' ? 'gap-sm px-md py-xs' : 'gap-base px-base py-sm',
+        taille === 'sm' ? 'gap-sm px-sm py-xxs' : 'gap-base px-base py-sm',
         'data-[selected=true]:bg-info-bg',
         'data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50',
         className,
