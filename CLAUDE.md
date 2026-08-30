@@ -153,8 +153,8 @@ traduit leur vocabulaire une seule fois — ne jamais le redéfinir dans une app
 
 `npm run check` : types, numéro de version, dérivés non régénérés, catalogue
 périmé, chemins de `replaces` cassés, paire de couleurs illisible, palette brute,
-tests. Puis `npm run vitrine` et `npm run contraste-render`, qui mesure le
-contraste dans un vrai navigateur.
+**libellé anglais dans ce qui s'affiche**, tests. Puis `npm run vitrine` et
+`npm run contraste-render`, qui mesure le contraste dans un vrai navigateur.
 
 **Deux contrôles de contraste, et il faut savoir lequel voit quoi.**
 `contraste` lit les classes — rapide, mais n'apparie que ce qui vit dans la même
@@ -210,6 +210,19 @@ lit** :
 Donc `<Meter value={62} label="Taux de connaissance" />` : `value` et `label`
 sont des props, « Taux de connaissance » est ce que l'utilisateur lit. Et
 `NOT_FILLED` vaut « Non renseigné ».
+
+**La règle est tenue par `check-francais.mjs`, et elle ne l'était pas.** Un
+renommage automatique a traduit vingt-deux libellés dans le sens interdit :
+« Enregistrer » est devenu « Save » et « Annuler » « Cancel » dans l'éditeur de
+`FieldRow`, « Aucune mesure relevée. » est devenu « NoneB measure relevée. »
+dans `DataTable`. Quatre d'entre eux étaient dans du code livré, et personne ne
+l'a vu pendant six mois : un libellé ne casse rien, il se lit.
+
+Le contrôle porte sur le TEXTE QUE LE RENDU AFFICHE — ce qui vit entre deux
+balises — et jamais sur un nom de prop ni une valeur d'attribut, qui s'écrivent
+en anglais à bon droit. Sa liste de mots est fermée, et c'est ce qui la rend
+utilisable : reconnaître « de l'anglais » se tromperait sur « Machine »,
+« Type », « Options », qui s'écrivent pareil dans les deux langues.
 
 Les noms de stories restent français parce que Storybook les affiche tels quels
 dans sa barre latérale : « Avec son intitulé », « Dans la fiche » sont des

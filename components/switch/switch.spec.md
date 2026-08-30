@@ -44,8 +44,8 @@ Celles de `Switch.Root` de Radix.
 import { Switch, Label } from '@arquos/design-system/web';
 
 <Label className="justify-between">
-  Afficher les champs empties
-  <Switch checked={empties} onCheckedChange={setVides} />
+  Afficher les champs vides
+  <Switch checked={vides} onCheckedChange={setVides} />
 </Label>
 ```
 

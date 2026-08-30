@@ -396,7 +396,7 @@ function Editor({ kind, label, value, options, other, onValider, onAnnuler }: Ed
           </div>
         )}
         <Button variant="secondary" size="sm" onClick={onAnnuler}>
-          Cancel
+          Annuler
         </Button>
       </div>
     );
@@ -471,10 +471,10 @@ function MultiEditor({
       </div>
       <div className="mt-sm flex flex-wrap items-center gap-sm">
         <Button size="sm" onClick={() => onValider(chosen)}>
-          Save
+          Enregistrer
         </Button>
         <Button variant="secondary" size="sm" onClick={onAnnuler}>
-          Cancel
+          Annuler
         </Button>
         {/* Les libellés retenus, pas leur nombre : on relit ce qu'on vient de
             cocher sans reparcourir les pastilles. Et quand il n'en reste aucun,

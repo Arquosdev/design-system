@@ -61,9 +61,9 @@ export const Defaut: Story = {
               <span className="text-small text-text-muted">0 renseigné</span>
               <div className="flex gap-sm">
                 <Button variant="outline" onClick={() => setOuvert(false)}>
-                  Cancel
+                  Annuler
                 </Button>
-                <Button onClick={() => setOuvert(false)}>Save</Button>
+                <Button onClick={() => setOuvert(false)}>Enregistrer</Button>
               </div>
             </SheetFooter>
           </SheetContent>

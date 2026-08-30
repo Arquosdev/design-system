@@ -68,7 +68,7 @@ import {
     <SheetBody>{/* les champs */}</SheetBody>
     <SheetFooter>
       <span className="text-small text-text-muted">2 sur 4 remplis</span>
-      <Button onClick={enregistrer}>Save</Button>
+      <Button onClick={enregistrer}>Enregistrer</Button>
     </SheetFooter>
   </SheetContent>
 </Sheet>;

@@ -40,7 +40,7 @@ export const UnFormulaireEntier: Story = {
         onSubmit={(e) => e.preventDefault()}
       >
         <div className="flex flex-col gap-xs">
-          <Label htmlFor="f-libelle">Ce qu’on measure</Label>
+          <Label htmlFor="f-libelle">Ce qu’on mesure</Label>
           <Input id="f-libelle" placeholder="ex. Hauteur libre sous linteau" />
         </div>
 
@@ -78,14 +78,14 @@ export const UnFormulaireEntier: Story = {
             « Enregistrer ». Les mélanger ferait croire que le réglage est pris
             avec le reste. */}
         <div className="flex gap-sm border-t border-border-soft pt-base">
-          <Button type="submit">Save</Button>
+          <Button type="submit">Enregistrer</Button>
           <Button type="button" variant="secondary">
-            Cancel
+            Annuler
           </Button>
         </div>
 
         <Label className="justify-between font-normal text-text-muted">
-          Afficher les champs empties
+          Afficher les champs vides
           <Switch checked={immediat} onCheckedChange={setImmediat} />
         </Label>
       </form>
@@ -121,7 +121,7 @@ export const EnErreur: Story = {
       <Label htmlFor="f-err">Height libre sous linteau</Label>
       <Input id="f-err" defaultValue="35000" aria-invalid aria-describedby="f-err-msg" />
       <p id="f-err-msg" className="text-caption text-danger">
-        Au-delà de 3 000 mm, vérifier la measure — la value est probablement en dixièmes.
+        Au-delà de 3 000 mm, vérifier la mesure — la valeur est probablement en dixièmes.
       </p>
     </div>
   ),

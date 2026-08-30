@@ -23,7 +23,7 @@ export const Defaut: Story = {};
 export const DansUneListeDeReglages: Story = {
   render: () => (
     <div className="flex w-[340px] flex-col gap-md">
-      <Label className="justify-between font-normal">Afficher les champs empties<Switch /></Label>
+      <Label className="justify-between font-normal">Afficher les champs vides<Switch /></Label>
       <Label className="justify-between font-normal">Mode expert<Switch defaultChecked /></Label>
       <Label className="justify-between font-normal text-text-muted">
         Synchronisation automatique<Switch disabled />

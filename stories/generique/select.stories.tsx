@@ -32,7 +32,7 @@ export const Defaut: Story = {
           <SelectValue placeholder="Aucune action" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="aucune">NoneB action</SelectItem>
+          <SelectItem value="aucune">Aucune action</SelectItem>
           <SelectItem value="r_glages_technicien">Réglages technicien</SelectItem>
           <SelectItem value="r_parations">Réparations</SelectItem>
           <SelectItem value="travaux">Travaux</SelectItem>

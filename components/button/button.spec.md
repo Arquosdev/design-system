@@ -56,8 +56,8 @@ un lien sans en être un.
 import { Button } from '@arquos/design-system/web';
 
 <Button onClick={completer}>Compléter</Button>
-<Button variant="secondary" onClick={annuler}>Cancel</Button>
-<Button variant="ghost" size="sm" onClick={voirVides}>Afficher les champs empties</Button>
+<Button variant="secondary" onClick={annuler}>Annuler</Button>
+<Button variant="ghost" size="sm" onClick={voirVides}>Afficher les champs vides</Button>
 <Button variant="outline" onClick={add}>Ajouter un document</Button>
 <Button variant="destructive" onClick={delete}>Supprimer le constat</Button>
 ```

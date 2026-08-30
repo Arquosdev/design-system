@@ -35,10 +35,10 @@ export const Defaut: Story = {};
 export const Variantes: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-md">
-      <Button>Save</Button>
+      <Button>Enregistrer</Button>
       <Button variant="secondary">Compléter</Button>
-      <Button variant="outline">Cancel</Button>
-      <Button variant="ghost">Afficher les champs empties</Button>
+      <Button variant="outline">Annuler</Button>
+      <Button variant="ghost">Afficher les champs vides</Button>
       <Button variant="destructive">Supprimer</Button>
       <Button variant="link">En savoir plus</Button>
     </div>

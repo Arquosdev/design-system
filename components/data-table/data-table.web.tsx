@@ -36,7 +36,7 @@ export function DataTable({
           deviennent illisibles, et une cote mal lue est une cote fausse. */}
       <div className="overflow-x-auto px-base py-md">
         {rows.length === 0 ? (
-          <p className="text-small text-text-muted">NoneB measure relevée.</p>
+          <p className="text-small text-text-muted">Aucune mesure relevée.</p>
         ) : (
           <table className="w-full border-collapse text-left">
             <thead>

@@ -60,10 +60,10 @@ import {
 
 <Select value={value} onValueChange={setValue}>
   <SelectTrigger aria-label="Action à mener">
-    <SelectValue placeholder="NoneB action" />
+    <SelectValue placeholder="Aucune action" />
   </SelectTrigger>
   <SelectContent>
-    <SelectItem value="">NoneB action</SelectItem>
+    <SelectItem value="">Aucune action</SelectItem>
     <SelectItem value="r_glages_technicien">Réglages technicien</SelectItem>
     <SelectItem value="r_parations">Réparations</SelectItem>
     <SelectItem value="travaux">Travaux</SelectItem>
