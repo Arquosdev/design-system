@@ -21,7 +21,9 @@ export interface GaugeProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 
 
 const TONES = {
   success: 'var(--color-success)',
-  warning: 'var(--color-accent)',
+  // `warning` et non `accent` : celui-ci valait du bleu pâle depuis que le
+  // pont shadcn le redéfinissait, et cette jauge-ci alerte.
+  warning: 'var(--color-warning)',
   danger: 'var(--color-danger)',
 } as const;
 

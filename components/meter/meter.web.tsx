@@ -7,7 +7,8 @@ import { borner, proportionTone, type ProportionTone } from '../_lib/proportion'
 
 const TONES: Record<ProportionTone, string> = {
   success: 'bg-success',
-  warning: 'bg-accent',
+  // `warning` et non `accent` : voir la note de `Gauge`, même défaut.
+  warning: 'bg-warning',
   danger: 'bg-danger',
 };
 

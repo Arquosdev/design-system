@@ -43,7 +43,7 @@ const DESCRIPTIONS = {
     primary: 'Accent interactif principal — CTA, liens, état actif.',
     primaryDark: 'Variante foncée de primary — état pressé, survol.',
     brand: 'Surface de marque dominante — en-têtes, blocs héros.',
-    accent: "Mise en avant, attention — à réserver aux éléments qui doivent capter l'œil.",
+    highlight: "Mise en avant — à réserver aux éléments qui doivent capter l'œil. Distinct de `warning`, qui alerte.",
     success: 'État de réussite — validation, conformité, synchronisation terminée.',
     successBg: 'Fond des éléments en état de réussite (pastilles, bandeaux).',
     onSuccessBg: "L'encre à poser sur `successBg`, et nulle part ailleurs. `success` seul n'y est pas lisible (2,77 pour 1).",
@@ -462,7 +462,7 @@ function buildTailwind() {
        déclarent en variantes supplémentaires, comme shadcn invite à le faire. */
     ['--success', colors.success],
     ['--success-foreground', colors.textOnDark],
-    ['--warning', colors.accent],
+    ['--warning', colors.warning],
     ['--warning-foreground', colors.text],
     ['--border', colors.border],
     ['--input', colors.border],

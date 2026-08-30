@@ -89,7 +89,23 @@ export const colors = {
   primary: core.blue, // main interactive accent (CTAs, links, active state)
   primaryDark: palette.blue[700],
   brand: core.marine, // dominant brand surface (headers, hero blocks)
-  accent: core.orange, // highlight / attention
+  /**
+   * L'orange d'attention — **`highlight` et non `accent`.**
+   *
+   * Il s'appelait `accent`, et ce nom entrait en collision avec celui de
+   * shadcn, dont l'`accent` est la surface d'un état actif discret (bleu 50).
+   * Les deux se retrouvaient sur `--color-accent` dans le même fichier généré,
+   * le bleu gagnait, et l'orange devenait inatteignable par son nom.
+   *
+   * Ce n'était pas cosmétique : `Gauge` et `Meter` demandaient
+   * `var(--color-accent)` pour leur état d'alerte et recevaient du bleu pâle.
+   * Ils demandent maintenant `warning`, qui est ce qu'ils veulent dire.
+   *
+   * La valeur est celle de `warning` aujourd'hui. Les deux noms restent
+   * distincts parce que les intentions le sont — alerter n'est pas mettre en
+   * avant — et c'est à Louis de décider où `highlight` sert.
+   */
+  highlight: core.orange,
 
   // Status
   //
