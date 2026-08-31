@@ -75,7 +75,7 @@ L'enveloppe :
 - Fond : `colors.bg`
 - Hauteur : 36 px, la même que `Input` et que `Button`
 
-Le bouton, carré de 36 px, séparé par un filet `border.color` :
+Le bouton, carré, séparé par un filet `border.color` :
 
 - Encre : `colors.textMuted`, `colors.text` au survol
 - Fond au survol : `colors.bgMuted`
@@ -110,7 +110,10 @@ quelqu'un sur un poste partagé, la fois suivante, sans qu'il l'ait demandé.
   pour que la tabulation aille droit au bouton suivant du formulaire ; la
   bascule est le seul moyen de relire ce qu'on a tapé, et la retirer du clavier
   la réserverait à la souris.
-- Cible de 36 × 36 px : en dessous des 44 pt d'une cible tactile. Le composant
-  est déclaré `web` seulement, et une implémentation mobile devra l'agrandir.
+- Cible de 34 × 34 px — le creux de l'enveloppe, bordure déduite. En dessous
+  des 44 pt d'une cible tactile : le composant est déclaré `web` seulement, et
+  une implémentation mobile devra l'agrandir. Le côté vient de `aspect-square`
+  et non d'une largeur écrite en dur, qui donnait un bouton plus large que haut
+  de deux pixels.
 - L'anneau de mise au point du bouton est tourné vers l'intérieur : posé dehors,
   il serait coupé par l'enveloppe et deviendrait invisible au clavier.

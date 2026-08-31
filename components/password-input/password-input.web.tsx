@@ -89,7 +89,14 @@ export function PasswordInput({ className, disabled, ...props }: PasswordInputPr
         aria-pressed={revealed}
         aria-label={passwordToggleLabel(revealed)}
         className={cn(
-          'flex w-9 shrink-0 items-center justify-center border-l border-border',
+          /*
+            **`aspect-square` et non `w-9`.** L'enveloppe fait 36 px bordure
+            comprise, donc son creux en fait 34 : une largeur de 36 écrite en dur
+            donnait un bouton de 36 × 34, plus large que haut de deux pixels.
+            L'aspect suit la hauteur qu'on lui donne, quelle que soit celle du
+            champ.
+          */
+          'flex aspect-square shrink-0 items-center justify-center border-l border-border',
           'text-text-muted transition-colors',
           'hover:bg-bg-muted hover:text-text',
           // L'anneau est vers l'INTÉRIEUR : posé dehors, il serait coupé par le
