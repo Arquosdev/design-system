@@ -150,6 +150,14 @@ export { Avatar, type AvatarProps } from './components/avatar/avatar.web';
 // Les primitives de saisie. `Select` et `Combobox` sont plus haut : ils
 // choisissent dans une liste, ils ne recueillent pas une frappe.
 export { Input } from './components/input/input.web';
+export {
+  PasswordInput,
+  type PasswordInputProps,
+} from './components/password-input/password-input.web';
+export {
+  passwordToggleLabel,
+  passwordToggleLabels,
+} from './components/password-input/password-input.logic';
 export { Textarea } from './components/textarea/textarea.web';
 export { Label } from './components/label/label.web';
 export { Checkbox } from './components/checkbox/checkbox.web';

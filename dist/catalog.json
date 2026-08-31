@@ -668,6 +668,34 @@
       }
     },
     {
+      "name": "PasswordInput",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Recueillir un mot de passe, avec une bascule masqué / en clair.",
+      "keywords": [
+        "mot de passe",
+        "password",
+        "connexion",
+        "login",
+        "oeil",
+        "masquer",
+        "afficher"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/password-input",
+      "specFile": "components/password-input/password-input.spec.md",
+      "fichiers": {
+        "web": "components/password-input/password-input.web.tsx",
+        "logique": "components/password-input/password-input.logic.ts"
+      }
+    },
+    {
       "name": "PhotoTile",
       "status": "beta",
       "layer": "metier",

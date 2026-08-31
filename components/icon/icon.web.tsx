@@ -29,6 +29,8 @@ import {
   DotsSixVertical,
   DotsThreeVertical,
   DownloadSimple,
+  Eye,
+  EyeSlash,
   FileCsv,
   FilePdf,
   FileText,
@@ -70,9 +72,14 @@ import {
 import { iconSize, iconWeight, type IconRole } from '../../src/icons';
 import { cn } from '../_lib/cn';
 
-// Le vocabulaire de `src/icons.ts` résolu en composants. Les 35 dessins sont
+// Le vocabulaire de `src/icons.ts` résolu en composants. Les dessins sont
 // importés ici et nulle part ailleurs : c'est ce qui garantit qu'un rôle donne
 // le même dessin dans tout le produit.
+//
+// **Le compte a été retiré de ce commentaire le 31/08/2026** : il disait « les
+// 35 dessins » alors qu’il y en avait 65, et il n'avait aucune raison de rester
+// juste — un rôle s'ajoute sans que personne pense à recompter. `Record` le
+// vérifie, lui, à chaque compilation.
 //
 // Les clés doivent couvrir `IconRole` — TypeScript le vérifie via `Record`.
 const GLYPHS: Record<IconRole, PhosphorIcon> = {
@@ -92,6 +99,8 @@ const GLYPHS: Record<IconRole, PhosphorIcon> = {
   moreActions: DotsThreeVertical,
   dictate: Microphone,
   stop: Stop,
+  revealPassword: Eye,
+  hidePassword: EyeSlash,
 
   compliant: CheckCircle,
   check: Check,

@@ -85,6 +85,19 @@ export const icons = {
   moreActions: 'DotsThreeVertical',
   dictate: 'Microphone',
   stop: 'Stop',
+  /*
+    Afficher ou masquer un mot de passe. **DEUX rôles pour une seule bascule**,
+    et c'est délibéré : une icône d'œil unique est ambiguë dans les deux sens —
+    personne ne sait si elle décrit l'état courant ou l'action à venir. Deux
+    rôles obligent l'appelant à choisir lequel il montre, et le nom dit
+    l'ACTION, comme partout ailleurs dans ce vocabulaire (`delete`, `download`).
+
+    Ajoutés le 31/08/2026 : la page de connexion de l'app Bubble porte cette
+    icône depuis toujours, et l'app web la contournait par un lien « Afficher »
+    faute de rôle.
+  */
+  revealPassword: 'Eye',
+  hidePassword: 'EyeSlash',
 
   // -- Dire un état --------------------------------------------------------
   compliant: 'CheckCircle',

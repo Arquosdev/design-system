@@ -44,6 +44,19 @@ const INTERDITS = [
   'Save', 'Cancel', 'Delete', 'Close', 'Search', 'None[A-Z]?', 'Add', 'Edit',
   'Remove', 'Submit', 'Confirm', 'Apply', 'Reset', 'Back', 'Next', 'Previous',
   'Loading', 'Retry', 'Yes', 'empties', 'measure', 'measures',
+  /*
+    « Height » a été ajouté le 31/08/2026, et il était déjà dans le dépôt :
+    trois libellés disaient « Height libre sous linteau » là où « Hauteur » avait
+    été écrit — la fiche d'`Input` et deux stories. Même renommage automatique
+    que les vingt-deux autres, même invisibilité : un libellé ne casse rien, il
+    se lit.
+
+    Il appartient bien à cette liste FERMÉE, qui n'admet que les mots sans
+    homographe français : « height » ne s'écrit pas comme « hauteur ». C'est
+    « width », son voisin, qui n'y est PAS — le mot désigne aussi une prop de
+    largeur dans du code, et l'y mettre rendrait des faux positifs.
+  */
+  'Height', 'height',
 ];
 const MOTIF = new RegExp(`\\b(${INTERDITS.join('|')})\\b`);
 

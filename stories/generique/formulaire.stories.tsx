@@ -118,7 +118,7 @@ export const MemeHauteurQueLeBouton: Story = {
 export const EnErreur: Story = {
   render: () => (
     <div className="flex max-w-[360px] flex-col gap-xs">
-      <Label htmlFor="f-err">Height libre sous linteau</Label>
+      <Label htmlFor="f-err">Hauteur libre sous linteau</Label>
       <Input id="f-err" defaultValue="35000" aria-invalid aria-describedby="f-err-msg" />
       <p id="f-err-msg" className="text-caption text-danger">
         Au-delà de 3 000 mm, vérifier la mesure — la valeur est probablement en dixièmes.
