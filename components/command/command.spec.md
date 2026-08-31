@@ -77,7 +77,7 @@ import {
 <CommandDialog title="Recherche de champ" open={ouverte} onOpenChange={setOuverte}>
   <CommandInput placeholder="Rechercher un champ (ex. diamètre, GSM, charge)…" />
   <CommandList>
-    <CommandEmpty>NoneA champ ne correspond.</CommandEmpty>
+    <CommandEmpty>Aucun champ ne correspond.</CommandEmpty>
     {groupes.map((g) => (
       <CommandGroup key={g.title} heading={g.title}>
         {g.items.map((it) => (

@@ -133,7 +133,7 @@ export function Combobox({
           onCloseAutoFocus={(e) => e.preventDefault()}
         >
           <CommandList className="max-h-[240px]">
-            <CommandEmpty>NoneA choices ne correspond.</CommandEmpty>
+            <CommandEmpty>Aucun choix ne correspond.</CommandEmpty>
             {options.map((o) => (
               <CommandItem
                 key={o.value}

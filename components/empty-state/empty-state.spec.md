@@ -50,7 +50,7 @@ import { EmptyState, EmptyStateError } from '@arquos/design-system/web';
 
 <EmptyState
   icon="document"
-  title="NoneA document"
+  title="Aucun document"
   hint="Les pièces jointes au relevé apparaîtront ici."
 />
 

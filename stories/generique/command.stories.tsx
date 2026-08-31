@@ -65,7 +65,7 @@ export const Defaut: Story = {
             placeholder="Rechercher un champ (ex. diamètre, GSM, charge)…"
           />
           <CommandList>
-            <CommandEmpty>NoneA champ ne correspond.</CommandEmpty>
+            <CommandEmpty>Aucun champ ne correspond.</CommandEmpty>
             {groupes.map((g) => (
               <CommandGroup key={g} heading={g}>
                 {retenus

@@ -27,17 +27,68 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
   « Type », « Attributs » ou « Options », qui s'écrivent pareil dans les deux
   langues. Ces mots-ci n'ont pas d'homographe français.
 */
+/*
+  `None[A-Z]?` et non `None` seul : la seule entrée de cette liste qui soit un
+  motif plutôt qu'un mot, et elle l'est pour une raison mesurée.
+
+  Le renommage automatique n'a pas écrit « None », il a NUMÉROTÉ ses
+  occurrences — « NoneB measure relevée. » dans `DataTable`, chassée par la
+  v2.10.4, et « NoneA choices ne correspond. » dans `Combobox`, restée jusqu'au
+  31/08/2026. Or `\bNone\b` ne voit ni l'une ni l'autre : la frontière de mot
+  qu'il exige après « None » n'existe pas devant une lettre. Le garde portait
+  donc `NoneB` en dur, ce qui l'a rendu aveugle à `NoneA` — et l'aurait rendu
+  aveugle à `NoneC`. La forme du renommage se déclare une fois plutôt que de
+  s'énumérer à chaque fois qu'on en trouve une de plus.
+*/
 const INTERDITS = [
-  'Save', 'Cancel', 'Delete', 'Close', 'Search', 'None', 'NoneB', 'Add', 'Edit',
+  'Save', 'Cancel', 'Delete', 'Close', 'Search', 'None[A-Z]?', 'Add', 'Edit',
   'Remove', 'Submit', 'Confirm', 'Apply', 'Reset', 'Back', 'Next', 'Previous',
   'Loading', 'Retry', 'Yes', 'empties', 'measure', 'measures',
 ];
 const MOTIF = new RegExp(`\\b(${INTERDITS.join('|')})\\b`);
 
-/** Le texte que le rendu affiche : ce qui vit entre deux balises. */
+/*
+  Les PROPS QUI PORTENT DE LA PROSE.
+
+  Fermée, comme `INTERDITS`, et pour la même raison : la plupart des attributs
+  s'écrivent en anglais à bon droit — `value`, `name`, `variant`, `tone`,
+  `icon`, `role`, `className` ne sont pas des libellés, ce sont des clés. Seuls
+  ceux-ci s'affichent tels quels à un utilisateur.
+
+  **Sans eux, le garde était aveugle à un quart de ce qu'il cherchait.** Il ne
+  lisait que le texte entre deux balises, et `title="NoneA document"` sur la
+  fiche d'`EmptyState` lui a échappé — trouvé le 31/08/2026, en même temps que
+  les deux « NoneA champ » du `Command`. Un attribut est le second endroit où un
+  libellé vit, et le renommage automatique n'a pas fait la différence.
+*/
+const PROPS_DE_PROSE = [
+  'title', 'label', 'placeholder', 'hint', 'detail', 'description',
+  'unit', 'libelle', 'entete', 'vide', 'phrase', 'sansNom', 'texte',
+];
+
+/*
+  Le texte que le rendu affiche, aux DEUX endroits où il vit : entre deux
+  balises, et dans la valeur d'un attribut de prose.
+
+  **Ce découpage reste un découpage de texte, et il faut savoir ce qu'il rate.**
+  Le jumeau de ce script dans le dépôt web lit l'arbre syntaxique, ce qui lui
+  fait voir le JSX niché dans une expression. **Sa méthode ne se recopie PAS
+  telle quelle ici, contrairement à ce qu'annonçait la documentation** : ce
+  dépôt est sur TypeScript 7, dont le paquet n'expose que `version` et
+  `versionMajorMinor` — il n'y a plus d'API de compilateur à appeler. Mesuré le
+  31/08/2026 : `ts.ScriptTarget` y vaut `undefined`. Porter la méthode
+  demanderait un analyseur en dépendance, ce qui est un choix à faire, pas un
+  copier-coller.
+*/
 function textesRendus(source) {
   const textes = [];
   for (const t of source.matchAll(/>([^<>{}]+)</g)) {
+    const brut = t[1].trim();
+    if (brut) textes.push(brut);
+  }
+  // Les attributs de prose, dont la valeur est une chaîne littérale.
+  const attributs = new RegExp(`\\b(?:${PROPS_DE_PROSE.join('|')})=\\{?["'\`]([^"'\`]+)["'\`]`, 'g');
+  for (const t of source.matchAll(attributs)) {
     const brut = t[1].trim();
     if (brut) textes.push(brut);
   }
