@@ -22,7 +22,7 @@
   --color-warning-bg: #FFF3DD;
   --color-on-warning-bg: #996315;
   --color-info-bg: #E1ECFA;
-  --color-on-info-bg: #073B6F;
+  --color-on-info-bg: #0D5AB7;
   --color-bg: #FFFFFF;
   --color-bg-subtle: #FCFDFE;
   --color-bg-muted: #F6F7F9;
@@ -192,11 +192,11 @@
   --primary: #0D5AB7;
   --primary-foreground: #FFFFFF;
   --secondary: #E1ECFA;
-  --secondary-foreground: #073B6F;
+  --secondary-foreground: #0D5AB7;
   --muted: #F6F7F9;
   --muted-foreground: #5D6D79;
   --accent: #E1ECFA;
-  --accent-foreground: #073B6F;
+  --accent-foreground: #0D5AB7;
   --destructive: #BE3A37;
   --destructive-foreground: #FFFFFF;
   --success: #0C7C59;
@@ -268,7 +268,7 @@
     100% { background-color: transparent; }
   }
   @keyframes repere-libelle {
-    0%, 38% { text-decoration-color: #0D5AB7; color: #073B6F; }
+    0%, 38% { text-decoration-color: #0D5AB7; color: #0D5AB7; }
     100% { text-decoration-color: transparent; color: #5D6D79; }
   }
 }
@@ -303,7 +303,7 @@
       100% { background-color: transparent; }
     }
     @keyframes repere-libelle {
-      0%, 80% { text-decoration-color: #0D5AB7; color: #073B6F; }
+      0%, 80% { text-decoration-color: #0D5AB7; color: #0D5AB7; }
       100% { text-decoration-color: transparent; color: #5D6D79; }
     }
   }

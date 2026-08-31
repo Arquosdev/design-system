@@ -449,12 +449,32 @@ function buildTailwind() {
     /* Chez Arquos, une action secondaire est le bleu doux, pas un gris. On
        aligne le vocabulaire shadcn dessus plutôt que de forker ses composants :
        un `variant="secondary"` collé depuis leur site sort ainsi juste. */
+    /*
+       **L'encre d'un état sélectionné est `primary`, la couleur de la marque.**
+
+       Louis, le 31/08/2026 : « je veux que le bouton secondaire ait un bleu
+       pâle en fond et un bleu vif, la couleur principale, celle utilisée pour
+       le fond des boutons principaux, pour le texte. » Ce qui se lisait comme
+       un bleu neutre plus sombre doit se lire comme la marque.
+
+       C'était `blue[700]` (#073B6F), qui donne 9,43 de contraste sur le bleu
+       pâle. `primary` (#0D5AB7) en donne **5,56** : au-dessus du seuil AA de
+       4,5, en dessous de AAA. Le renoncement est assumé et mesuré, il n'est pas
+       subi — `npm run check` le vérifie à chaque passage.
+    */
     ['--secondary', palette.blue[50]],
-    ['--secondary-foreground', palette.blue[700]],
+    ['--secondary-foreground', colors.primary],
     ['--muted', colors.bgMuted],
     ['--muted-foreground', colors.textMuted],
     ['--accent', palette.blue[50]], // survol / état actif discret, pas l'orange
-    ['--accent-foreground', colors.primaryDark],
+    /*
+       La même encre que `secondary-foreground`, et pour la même raison : c'est
+       le même état, vu par deux vocabulaires. **`check-contraste.mjs` mesurait
+       déjà `primary` ici** pendant que le build émettait `primaryDark` — les
+       deux disaient donc deux choses, et le contrôle validait une valeur qui
+       n'était pas celle qui sortait.
+    */
+    ['--accent-foreground', colors.primary],
     ['--destructive', colors.danger],
     ['--destructive-foreground', colors.textOnDark],
     /* Hors vocabulaire shadcn, mais indispensables ici : une fiche d'équipement

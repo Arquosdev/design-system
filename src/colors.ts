@@ -134,7 +134,27 @@ export const colors = {
   warningBg: palette.orange[50],
   onWarningBg: palette.orange[700], // 4,61 sur warningBg
   infoBg: palette.blue[50],
-  onInfoBg: palette.blue[700], // 9,43 sur infoBg
+  /*
+     **L'encre d'un état sélectionné est celle de la marque.**
+
+     Louis, le 31/08/2026 : « je veux que le bouton secondaire ait un bleu pâle
+     en fond et un bleu vif, la couleur principale, celle utilisée pour le fond
+     des boutons principaux, pour le texte. » L'état actif doit se lire comme
+     la marque, pas comme un bleu neutre plus sombre.
+
+     `blue[700]` donnait 9,43 de contraste sur `infoBg`, `primary` en donne
+     **5,56** : au-dessus du seuil AA de 4,5, en dessous de AAA. Le renoncement
+     est mesuré et assumé, pas subi.
+
+     **Ce que ce jeton emporte, parce qu'il sert à dix composants.** Sept
+     portent bien un état sélectionné — la liste de navigation, la barre
+     d'outils, les filtres actifs, le combobox, le select, le bouton d'icône
+     doux, les pastilles de filtre. **Deux ne le portent pas** : le bandeau et
+     la pastille d'information, qui changent donc d'encre eux aussi. C'est le
+     prix d'une paire de teinte unique, et il vaut mieux le dire que de
+     découvrir un bandeau repeint.
+  */
+  onInfoBg: core.blue, // 5,56 sur infoBg — la couleur de la marque
 
   // Neutrals
   bg: palette.white,
