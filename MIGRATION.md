@@ -1,5 +1,52 @@
 # Monter une app vers la version courante
 
+## v2.14.0 — le menu d'un `Combobox` a la densité d'un menu
+
+**Ça se voit, et c'est ce que Louis demandait.** Les entrées d'un `Combobox`
+passent de 35,6 à 24 pixels de haut, et sa liste de 240 à 248.
+
+Louis, le 30/08/2026 : « je les trouve grossiers, avec un padding de tous les
+côtés inutile ».
+
+**La cause.** `Command` a deux tailles depuis la v2.10.0, et `sm` est la densité
+d'un menu. Mais `Combobox` s'adresse directement à la primitive `cmdk` — il lui
+faut son propre champ et son propre ancrage — donc il n'héritait de rien : ses
+entrées, son état vide et ses intitulés rendaient à la densité de la PALETTE ⌘K.
+La taille existait, il ne la déclarait pas. Le commentaire de `Command`
+annonçait que ce contournement disparaîtrait « le jour où quelqu'un y
+reviendra » ; `CommandSizeProvider` est ce jour.
+
+**Et la liste ne coupe plus d'entrée en deux.** Une entrée valait 23,59 px — une
+ligne de `small` plus ses deux `xxs` — donc aucun multiple n'était entier et la
+borne restait approchée quoi qu'on écrive. L'entrée porte maintenant
+`min-h-[24px]` (`min-`, pour qu'un libellé qui passe à la ligne puisse grandir),
+et le compte se pose :
+
+| | |
+| --- | --- |
+| `Combobox` | 10 × 24 + 4 + 4 = **248** |
+| `Command size="sm"` | 11 × 24 + 4 + 4 = **272** (valait 268) |
+
+Mesuré au rendu sur une liste de vingt et une marques : hauteur d'entrée 24,000,
+liste 248, contenu 512, **dix entières visibles, reste 0,000**.
+
+**Nouvel export** : `CommandSizeProvider`, pour déclarer la taille sans passer
+par `Command`. À n'employer que dans ce cas — quiconque peut poser `<Command
+size="sm">` doit le poser.
+
+**Aussi dans cette version, deux points de documentation du lot 27 :**
+
+- **`FieldRow` dit qu'il suppose une pile.** Son filet se retire avec
+  `last:border-b-0`, ce qui désigne le bas de la colonne DROITE dans une grille à
+  deux colonnes — le bas de la gauche gardait son filet et se lisait comme un
+  champ manquant. Le composant ne peut pas deviner le nombre de colonnes ; sa
+  fiche donne maintenant la classe que la grille doit poser.
+- **Une huitième règle d'écran : « le bleu vif dit ceci se clique ».** Cinq
+  familles piochaient dans le bleu sans qu'aucune ne dise ce qu'elle signifie —
+  `bg-primary`, `text-primary`, `border-primary`, `bg-primary-dark`,
+  `bg-brand/80`. Chacune a maintenant sa phrase, et la prose posée sur `infoBg`
+  prend `textOnInfoBg`, le marine, qui ne promet pas un clic.
+
 ## v2.13.0 — les contrôles d'une même barre rendent la même hauteur
 
 **Celle-ci se voit.** `Select`, `Combobox`, `FilterChips` et `ActiveFilters`

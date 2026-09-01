@@ -115,6 +115,37 @@ couleur ; une barre de huit puces ne fait qu'un arrêt de tabulation.
 
 ---
 
+## 8. Le bleu vif dit « ceci se clique »
+
+> Une couleur qui veut dire quatre choses ne veut plus rien dire.
+
+Louis, le 01/09/2026, devant un bandeau « Votre session a expiré » écrit en
+`primary` : « bizarre je pensais que dans le design system le bleu indiquait le
+cliquable ». Il avait raison, et c'était déjà la règle — elle n'était juste
+écrite nulle part.
+
+Cinq familles pioch(ai)ent dans le bleu, et chacune veut dire une chose :
+
+| | |
+| --- | --- |
+| `bg-primary` | **la surface de L'action.** Une plaque bleue pleine se clique. Une seule par zone d'écran. |
+| `text-primary` | **une encre qui se clique** sans plaque sous elle : un lien, un bouton `ghost`, une action en fin de ligne. |
+| `border-primary` | **ce qui est retenu ou en cours de saisie** — le contour d'un champ ouvert, d'une pastille de filtre active. Le contour dit « celui-ci », pas « cliquez ». |
+| `bg-primary-dark` | **un état passager** de la surface d'action : survol, appui. Jamais un état au repos. |
+| `bg-info-bg` + `text-on-info-bg` | **l'état sélectionné.** La paire, toujours. Son encre vaut `primary`, et c'est l'exception assumée du 31/08/2026 : l'état actif porte la couleur de la marque. |
+
+Ce qui **n'est pas** dans la liste ne prend pas de bleu vif. En particulier la
+prose : un bandeau, une pastille d'information, un texte posé sur `infoBg`
+prennent `textOnInfoBg`, le marine. Il monte le contraste de 5,56 à 9,43 et,
+surtout, il ne promet pas un clic qui n'existe pas.
+
+Et `brand` est une **surface**, pas une encre : elle habille un en-tête ou un
+bloc héros. Une opacité posée dessus — `bg-brand/80` — est un accident, pas une
+nuance : elle produit une couleur qu'aucun jeton ne nomme et qu'aucun contrôle
+de contraste ne sait mesurer.
+
+---
+
 Quand une règle empêche de faire ce que le métier demande, ce n'est pas le métier
 qui a tort : c'est qu'elle est mal formulée, ou qu'il en manque une. Le dire
 plutôt que la contourner en silence.

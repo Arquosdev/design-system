@@ -63,6 +63,28 @@ de la fiche : c'est lui qui la rend modifiable sans formulaire séparé.
 
 - Valeur éditable : **soulignement pointillé** en `colors.textSubtle` — le signal « ceci se corrige d'un clic ».
 
+## `FieldRow` suppose une pile, et l'écran doit le savoir
+
+Chaque ligne porte son filet, et le retire avec `last:border-b-0` : le bas de la
+pile ne se souligne pas.
+
+**Dans une grille à deux colonnes, ce `last:` désigne le bas de la colonne
+DROITE.** Le bas de la gauche garde son filet, et la ligne orpheline donne
+l'impression qu'un champ manque dessous. Louis l'a signalé le 30/08/2026.
+
+Le composant ne peut pas le deviner : le nombre de colonnes est une décision de
+l'écran, prise dans une classe qu'il ne lit pas. C'est donc à la grille de le
+dire — deux colonnes, deux derniers enfants :
+
+```tsx
+<div className="grid gap-x-lg lg:grid-cols-2 lg:[&>*:nth-last-child(-n+2)]:border-b-0">
+  {champs.map((c) => <FieldRow key={c.cle} {...c} />)}
+</div>
+```
+
+À trois colonnes, `-n+3`. La règle vaut pour tout empilement où le dernier
+enfant du DOM n'est pas le dernier de chaque colonne.
+
 ## États
 
 - **Vide** : « Non renseigné », jamais un tiret — qui laisserait croire à une

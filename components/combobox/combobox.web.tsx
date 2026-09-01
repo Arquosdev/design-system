@@ -5,7 +5,12 @@ import { Command as CommandPrimitive } from 'cmdk';
 
 import { cn } from '../_lib/cn';
 import { Icon } from '../icon/icon.web';
-import { CommandEmpty, CommandItem, CommandList } from '../command/command.web';
+import {
+  CommandEmpty,
+  CommandItem,
+  CommandList,
+  CommandSizeProvider,
+} from '../command/command.web';
 import { Popover, PopoverAnchor, PopoverContent } from '../popover/popover.web';
 
 export interface ComboboxOption {
@@ -132,24 +137,43 @@ export function Combobox({
           onOpenAutoFocus={(e) => e.preventDefault()}
           onCloseAutoFocus={(e) => e.preventDefault()}
         >
-          <CommandList className="max-h-[240px]">
-            <CommandEmpty>Aucun choix ne correspond.</CommandEmpty>
-            {options.map((o) => (
-              <CommandItem
-                key={o.value}
-                value={o.label}
-                onSelect={() => {
-                  onValue(o.value);
-                  close();
-                }}
-                className={cn(
-                  o.value === value && 'bg-info-bg font-semibold text-on-info-bg',
-                )}
-              >
-                {o.label}
-              </CommandItem>
-            ))}
-          </CommandList>
+          {/*
+            **La densité d'un MENU, pas celle de la palette.** Sans ce
+            fournisseur, `CommandItem` et `CommandEmpty` héritaient de la taille
+            par défaut : entrées de 35,6 px, retraits de seize, état vide à
+            `px-base py-xl` pour une ligne de texte. Louis, le 30/08/2026 : « je
+            les trouve grossiers, avec un padding de tous les côtés inutile ».
+
+            Ce composant s'adresse directement à `cmdk` — il lui faut son champ
+            et son ancrage — donc il ne pouvait pas hériter de la taille par
+            `Command`. Il la déclare.
+          */}
+          <CommandSizeProvider size="sm">
+            {/*
+              **Dix entières, et pas neuf et demie.** La borne valait 240 pour des
+              entrées de 35,6 : elle en coupait une en deux au bas du sélecteur
+              d'agence, et un demi-glyphe se lit comme un défaut même quand il
+              sert d'indice de défilement. 10 × 24 + 4 + 4 = 248.
+            */}
+            <CommandList className="max-h-[248px]">
+              <CommandEmpty>Aucun choix ne correspond.</CommandEmpty>
+              {options.map((o) => (
+                <CommandItem
+                  key={o.value}
+                  value={o.label}
+                  onSelect={() => {
+                    onValue(o.value);
+                    close();
+                  }}
+                  className={cn(
+                    o.value === value && 'bg-info-bg font-semibold text-on-info-bg',
+                  )}
+                >
+                  {o.label}
+                </CommandItem>
+              ))}
+            </CommandList>
+          </CommandSizeProvider>
         </PopoverContent>
       </Popover>
     </CommandPrimitive>

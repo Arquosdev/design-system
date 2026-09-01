@@ -81,3 +81,30 @@ export const HorsCatalogue: Story = {
     );
   },
 };
+
+/**
+ * **Une liste qui déborde, et qui ne coupe pas d'entrée en deux.**
+ *
+ * C'est le cas du sélecteur d'agence, celui que Louis ouvre en premier. La liste
+ * est bornée à dix entrées — 10 × 24 px, plus quatre de marge en haut et en bas
+ * — donc ce qu'on voit du bord est une entrée entière, jamais un demi-glyphe.
+ *
+ * Et les entrées ont la densité d'un MENU : elles héritaient de celle de la
+ * palette ⌘K, trente-six pixels de haut pour un mot.
+ */
+export const ListeQuiDeborde: Story = {
+  render: function Rendu() {
+    const [value, setValue] = React.useState('');
+    return (
+      <div className="h-[420px] w-[280px]">
+        <Combobox
+          options={MARQUES}
+          value={value}
+          onValue={setValue}
+          ariaLabel="Marque machine"
+          placeholder="Rechercher une marque"
+        />
+      </div>
+    );
+  },
+};

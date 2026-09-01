@@ -178,6 +178,16 @@ export function FieldRow({
       ref={landmark ? amener : undefined}
       className={cn(
         'grid grid-cols-[190px_1fr] items-start gap-md py-sm',
+        /*
+          Le filet, et le `last:` qui le retire en bas de la pile.
+
+          **`last:` désigne le dernier enfant du DOM**, donc le bas de la colonne
+          DROITE dans une grille à deux colonnes : le bas de la gauche garde son
+          filet et se lit comme un champ manquant. Le composant ne peut pas le
+          deviner, le nombre de colonnes est une décision de l'écran — c'est à la
+          grille de poser `[&>*:nth-last-child(-n+2)]:border-b-0`. Dit dans la
+          fiche, section « `FieldRow` suppose une pile ».
+        */
         'border-b border-border-soft last:border-b-0',
         // Marges négatives compensées : le fond du repère doit déborder de la
         // colonne, sinon il s'arrête au ras du libellé et se lit comme un défaut.

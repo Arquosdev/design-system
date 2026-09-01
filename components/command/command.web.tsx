@@ -41,6 +41,28 @@ export type CommandSize = 'default' | 'sm';
 
 const TailleCommand = React.createContext<CommandSize>('default');
 
+/**
+ * Déclarer la taille sans passer par `Command`.
+ *
+ * `Combobox` s'adresse directement à la primitive `cmdk` — il lui faut son
+ * propre champ de saisie et son propre ancrage — donc il ne pouvait pas hériter
+ * de la taille, et ses entrées rendaient à la densité de la PALETTE : trente-six
+ * pixels de haut, retraits de seize. C'est ce que Louis a vu le 30/08/2026 :
+ * « je les trouve grossiers, avec un padding de tous les côtés inutile ».
+ *
+ * Le commentaire ci-dessus annonçait que le contournement disparaîtrait « le
+ * jour où quelqu'un y reviendra ». C'est ce jour.
+ */
+export function CommandSizeProvider({
+  size,
+  children,
+}: {
+  size: CommandSize;
+  children: React.ReactNode;
+}) {
+  return <TailleCommand.Provider value={size}>{children}</TailleCommand.Provider>;
+}
+
 export function Command({
   className,
   size = 'default',
@@ -142,14 +164,13 @@ export function CommandList({
           de défilement : Louis l'a signalé le 30/08/2026 sur le sélecteur
           d'agence.
 
-          Le compte, mesuré dans le navigateur plutôt que déduit : une entrée
-          fait 23,59 px et la liste porte 4 px de marge en haut comme en bas.
-          Onze entières valent donc 267,5 px, arrondis à 268. La hauteur d'une
-          entrée n'étant pas un entier, l'alignement est juste au pixel près et
-          non exact — il se refera le jour où le design system portera une
-          échelle de hauteur de contrôle (lot 27).
+          **Et il tombe EXACTEMENT, plus au pixel près.** L'entrée valait 23,59 px
+          — la hauteur d'une ligne de `small`, plus quatre — donc aucun multiple
+          n'était entier et la borne restait approchée. Elle porte maintenant une
+          hauteur minimale de 24, et le compte se pose : 11 × 24 + 4 + 4 en haut
+          et en bas = 272.
         */
-        taille === 'sm' ? 'max-h-[268px]' : 'max-h-[400px]',
+        taille === 'sm' ? 'max-h-[272px]' : 'max-h-[400px]',
         className,
       )}
       {...props}
@@ -208,7 +229,13 @@ export function CommandItem({
       data-slot="command-item"
       className={cn(
         'flex cursor-pointer items-center text-small outline-none select-none',
-        taille === 'sm' ? 'gap-sm px-sm py-xxs' : 'gap-base px-base py-sm',
+        /*
+          `min-h` et non `h` : une entrée dont le libellé passe à la ligne doit
+          grandir. Vingt-quatre est la hauteur naturelle d'une ligne de `small`
+          plus ses deux `xxs`, arrondie au pixel — ce qui rend la borne de la
+          liste exactement divisible, et donc jamais coupée en deux.
+        */
+        taille === 'sm' ? 'min-h-[24px] gap-sm px-sm py-xxs' : 'gap-base px-base py-sm',
         'data-[selected=true]:bg-info-bg',
         'data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50',
         className,
