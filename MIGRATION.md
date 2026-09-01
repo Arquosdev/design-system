@@ -80,6 +80,12 @@ signé, avec un renvoi au lot 27.
 
 Le 32 n'était pas une quatrième taille, c'était l'anomalie. Il disparaît.
 
+**TRANCHÉ PAR LOUIS LE 01/09/2026.** Le lot 27.1 disait « il arbitrera sur
+pièces », parce que ces quatre pixels repeignent tous les sélecteurs du produit
+et que personne ne le lui avait décrit. La pièce lui a été montrée — une barre
+de cinq contrôles alignés, capture `08-barre-alignee.png` — et il a répondu :
+« je suis ok aussi ». **La question est close, ne pas la rouvrir.**
+
 **Une échelle, trois valeurs** — `src/control.ts`, ce sont les trois tailles de
 `Button`, qui étaient déjà l'échelle de fait :
 
