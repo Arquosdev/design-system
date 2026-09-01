@@ -25,7 +25,7 @@ AccordionItem.displayName = 'AccordionItem';
 
 export interface AccordionTriggerProps
   extends Omit<React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>, 'children'> {
-  titre: string;
+  title: string;
   /** Compteur ou précision affichée à droite du titre (« 4 champs renseignés »). */
   meta?: string;
 }
@@ -33,7 +33,7 @@ export interface AccordionTriggerProps
 export const AccordionTrigger = React.forwardRef<
   React.ComponentRef<typeof AccordionPrimitive.Trigger>,
   AccordionTriggerProps
->(({ className, titre, meta, ...props }, ref) => (
+>(({ className, title, meta, ...props }, ref) => (
   <AccordionPrimitive.Header className="flex">
     <AccordionPrimitive.Trigger
       ref={ref}
@@ -49,11 +49,11 @@ export const AccordionTrigger = React.forwardRef<
           comportement de la fiche. Pivoter de 180° mettrait une pointe vers le
           haut, qui se lit « remonter » plutôt que « ouvert ». */}
       <Icon
-        role="deplier"
+        role="expand"
         size="xs"
         className="-rotate-90 text-text-muted transition-transform duration-(--arq-duration-normal) group-data-[state=open]:rotate-0"
       />
-      <span className="text-small font-bold text-text">{titre}</span>
+      <span className="text-small font-bold text-text">{title}</span>
       {meta ? <span className="text-caption text-text-muted">{meta}</span> : null}
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>

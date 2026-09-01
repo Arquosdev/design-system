@@ -31,7 +31,7 @@ export const LesDeuxFacons: Story = {
         <Input id="l-1" placeholder="N° de série" />
       </div>
       <Label className="gap-sm font-normal">
-        <Checkbox /> Par enveloppement — toute la ligne est cliquable
+        <Checkbox /> Par enveloppement — toute la row est cliquable
       </Label>
     </div>
   ),

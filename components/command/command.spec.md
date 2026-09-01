@@ -1,11 +1,11 @@
 ---
 name: Command
-statut: beta
-couche: generique
+status: beta
+layer: generique
 role: Atteindre n'importe quoi dans un écran dense, en tapant son nom.
-mots_cles: [recherche, palette, commande, cmdk, raccourci, aller a, chercher]
-plateformes: [web]
-remplace:
+keywords: [recherche, palette, commande, cmdk, raccourci, aller a, chercher]
+platforms: [web]
+replaces:
   web: [public/fiche/index.html — palette ⌘K]
   mobile: [components/SearchBar.tsx]
 ---
@@ -39,11 +39,31 @@ Deux écarts assumés :
 
 Les composants reprennent les props de `cmdk` — voir sa documentation.
 
+`Command` :
+
+| Prop   | Type                  | Défaut      | Rôle |
+| ------ | --------------------- | ----------- | ---- |
+| `size` | `'default' \| 'sm'`   | `'default'` | La palette, ou un menu |
+
+**`size` se pose UNE FOIS sur `Command` et descend à ses pièces** — entrée,
+liste, vide, groupe, entrées — par un contexte. La poser cellule par cellule
+laisserait une entrée de palette au-dessus d'une liste de menu.
+
+`default` est la palette ⌘K : six cent soixante pixels de large, une entrée de
+cinquante-deux pixels, du texte de sous-titre, des retraits de seize, une liste
+qui monte à quatre cents. `sm` est un menu de deux à trois cents pixels : entrée
+de trente-six, texte courant, retraits de douze, liste bornée à deux cent
+quarante.
+
+**Quand prendre `sm`** : dès que ces pièces vivent dans un `PopoverContent`
+plutôt qu'en plein écran. À la taille par défaut, l'invite de recherche se coupe
+et dix lignes remplissent la hauteur de l'écran.
+
 `CommandDialog` :
 
 | Prop           | Type                   | Défaut | Rôle                                        |
 | -------------- | ---------------------- | ------ | ------------------------------------------- |
-| `titre`        | `string`               | —      | Nom du dialogue pour les lecteurs d'écran   |
+| `title`        | `string`               | —      | Nom du dialogue pour les lecteurs d'écran   |
 | `open`         | `boolean`              | —      | Ouvert ou non                               |
 | `onOpenChange` | `(o: boolean) => void` | —      | Échap, clic dehors                          |
 
@@ -54,16 +74,16 @@ import {
   CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem,
 } from '@arquos/design-system/web';
 
-<CommandDialog titre="Recherche de champ" open={ouverte} onOpenChange={setOuverte}>
+<CommandDialog title="Recherche de champ" open={ouverte} onOpenChange={setOuverte}>
   <CommandInput placeholder="Rechercher un champ (ex. diamètre, GSM, charge)…" />
   <CommandList>
     <CommandEmpty>Aucun champ ne correspond.</CommandEmpty>
     {groupes.map((g) => (
-      <CommandGroup key={g.titre} heading={g.titre}>
+      <CommandGroup key={g.title} heading={g.title}>
         {g.items.map((it) => (
-          <CommandItem key={it.id} value={it.recherche} onSelect={() => aller(it)}>
+          <CommandItem key={it.id} value={it.recherche} onSelect={() => go(it)}>
             <span className="flex-1">{it.label}</span>
-            <span className="font-semibold">{it.valeur}</span>
+            <span className="font-semibold">{it.value}</span>
           </CommandItem>
         ))}
       </CommandGroup>

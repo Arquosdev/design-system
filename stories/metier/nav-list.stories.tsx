@@ -15,25 +15,25 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const RUBRIQUES = [
-  { cle: 'overview', label: "Vue d'ensemble" },
-  { cle: 'photos', label: 'Photos', compteur: 57 },
-  { cle: 'tech', label: 'Données techniques', compteur: 88 },
-  { cle: 'general', label: 'Client & immeuble', compteur: 23 },
-  { cle: 'cotes', label: 'Cotes', compteur: 215 },
-  { cle: 'etats', label: 'États & remplacements', compteur: '7 à rempl.' },
-  { cle: 'ecarts', label: 'Écarts', compteur: 4 },
-  { cle: 'eds', label: 'Étude de sécurité', compteur: '1 NC' },
-  { cle: 'docs', label: 'Documents' },
+  { id: 'overview', label: "Vue d'ensemble" },
+  { id: 'photos', label: 'Photos', count: 57 },
+  { id: 'tech', label: 'Données techniques', count: 88 },
+  { id: 'general', label: 'Client & immeuble', count: 23 },
+  { id: 'cotes', label: 'Cotes', count: 215 },
+  { id: 'etats', label: 'États & remplacements', count: '7 à rempl.' },
+  { id: 'ecarts', label: 'Écarts', count: 4 },
+  { id: 'eds', label: 'Étude de sécurité', count: '1 NC' },
+  { id: 'docs', label: 'Documents' },
 ];
 
 /** Le rail de la fiche équipement. Le compteur dit ce que contient la rubrique. */
 export const Defaut: Story = {
-  args: { items: RUBRIQUES, courant: 'tech', onChoisir: () => {} },
+  args: { items: RUBRIQUES, current: 'tech', onChoose: () => {} },
   render: function Rendu(args) {
-    const [courant, setCourant] = React.useState(args.courant);
+    const [current, setCurrent] = React.useState(args.current);
     return (
       <div className="w-[268px] rounded-md bg-bg-muted p-base">
-        <NavList {...args} courant={courant} onChoisir={setCourant} />
+        <NavList {...args} current={current} onChoose={setCurrent} />
       </div>
     );
   },
@@ -46,9 +46,9 @@ export const Defaut: Story = {
 export const CompteursInconnus: Story = {
   ...Defaut,
   args: {
-    courant: 'overview',
-    onChoisir: () => {},
-    items: RUBRIQUES.map((r) => ({ ...r, compteur: r.compteur === undefined ? undefined : '…' })),
+    current: 'overview',
+    onChoose: () => {},
+    items: RUBRIQUES.map((r) => ({ ...r, count: r.count === undefined ? undefined : '…' })),
   },
 };
 
@@ -59,15 +59,15 @@ export const CompteursInconnus: Story = {
 export const RubriquesHorsPerimetre: Story = {
   ...Defaut,
   args: {
-    courant: 'tech',
-    onChoisir: () => {},
+    current: 'tech',
+    onChoose: () => {},
     items: [
-      { cle: 'overview', label: "Vue d'ensemble" },
-      { cle: 'photos', label: 'Photos', compteur: 57 },
-      { cle: 'tech', label: 'Données techniques', compteur: '+62' },
-      { cle: 'general', label: 'Client & immeuble', compteur: '—', desactive: true },
-      { cle: 'cotes', label: 'Cotes', compteur: '+194' },
-      { cle: 'eds', label: 'Étude de sécurité', compteur: '—', desactive: true },
+      { id: 'overview', label: "Vue d'ensemble" },
+      { id: 'photos', label: 'Photos', count: 57 },
+      { id: 'tech', label: 'Données techniques', count: '+62' },
+      { id: 'general', label: 'Client & immeuble', count: '—', disabled: true },
+      { id: 'cotes', label: 'Cotes', count: '+194' },
+      { id: 'eds', label: 'Étude de sécurité', count: '—', disabled: true },
     ],
   },
 };
@@ -76,15 +76,15 @@ export const RubriquesHorsPerimetre: Story = {
 export const Repliable: Story = {
   ...Defaut,
   args: {
-    titre: 'Composants',
-    repliable: true,
-    courant: 'c:machine',
-    onChoisir: () => {},
+    title: 'Composants',
+    collapsible: true,
+    current: 'c:machine',
+    onChoose: () => {},
     items: [
-      { cle: 'c:machine', label: 'Machine', compteur: 152 },
-      { cle: 'c:armoire', label: 'Armoire de manœuvre', compteur: 33 },
-      { cle: 'c:cabine', label: 'Cabine', compteur: 43 },
-      { cle: 'c:limiteur', label: 'Limiteur de vitesse', compteur: 27 },
+      { id: 'c:machine', label: 'Machine', count: 152 },
+      { id: 'c:armoire', label: 'Armoire de manœuvre', count: 33 },
+      { id: 'c:cabine', label: 'Cabine', count: 43 },
+      { id: 'c:limiteur', label: 'Limiteur de vitesse', count: 27 },
     ],
   },
 };

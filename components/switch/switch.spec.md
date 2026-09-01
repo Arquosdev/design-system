@@ -1,11 +1,11 @@
 ---
 name: Switch
-statut: stable
-couche: generique
+status: stable
+layer: generique
 role: Basculer un réglage qui s'applique immédiatement.
-mots_cles: [interrupteur, switch, bascule, activer, desactiver, reglage, toggle]
-plateformes: [web]
-remplace:
+keywords: [interrupteur, switch, bascule, activer, desactiver, reglage, toggle]
+platforms: [web]
+replaces:
   web: []
   mobile: [components/ResolvedToggle.tsx]
 ---

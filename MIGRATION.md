@@ -1,5 +1,224 @@
 # Monter une app vers la version courante
 
+## v2.13.0 — les contrôles d'une même barre rendent la même hauteur
+
+**Celle-ci se voit.** `Select`, `Combobox`, `FilterChips` et `ActiveFilters`
+passent de 32 à 36 pixels de haut. Une app qui monte verra tous ses sélecteurs et
+toutes ses pastilles de filtre grandir de quatre pixels.
+
+**Pourquoi.** `Select` rendait 32, `IconButton` 36 ou 30, `Button` 36, 30 ou 44.
+Aucune taille de bouton ne tombait sur celle d'un sélecteur : trois contrôles
+côte à côte sur une barre de filtres ne pouvaient donc PAS s'aligner sans qu'un
+écran écrive une hauteur à la main. C'est ce que la pagination de `web` fait
+depuis le 30/08/2026 — un `size-[32px]` posé sur deux `IconButton`, assumé et
+signé, avec un renvoi au lot 27.
+
+Le 32 n'était pas une quatrième taille, c'était l'anomalie. Il disparaît.
+
+**Une échelle, trois valeurs** — `src/control.ts`, ce sont les trois tailles de
+`Button`, qui étaient déjà l'échelle de fait :
+
+| | | |
+| --- | --- | --- |
+| `sm` | 30 | l'action discrète — fin de ligne, barre de sélection, éditeur en place |
+| `md` | **36** | **la référence** — bouton, sélecteur, ligne de titre qui vaut un bouton |
+| `lg` | 44 | la cible tactile confortable |
+
+S'écrit `h-(--arq-control-md)`, comme `z-(--arq-layer-flottant)` et
+`duration-(--arq-duration-normal)`. Dix-huit hauteurs écrites en dur dans les
+composants ont été remplacées, dont les sept `36px` que la tâche 14.10 relevait :
+`Button`, `IconButton`, le bouton de recherche de `RecordRail`, son squelette, la
+ligne de titre de `PageHeader`.
+
+**Ce qui disparaît côté `web` le jour de la bascule** : le `size-[32px]` des deux
+`IconButton` de la pagination. Ils s'alignent maintenant tout seuls.
+
+**Ce qui NE bouge pas** : les tailles de surface — l'avatar (44), les boutons de
+la visionneuse de photo (36 et 44), la largeur d'une feuille. Ce ne sont pas des
+contrôles posés sur une barre, et les faire suivre une échelle de hauteur de
+contrôle serait leur donner une règle qui ne les concerne pas.
+
+## v2.12.0 — un bouton non cliquable le dit, et peut dire pourquoi
+
+**Rien à changer** : `disabled` fait ce qu'il faisait. Ce qui s'ouvre est une
+autre façon d'être indisponible, `inactive`, à prendre partout où une raison
+existe.
+
+Louis, le 01/09/2026, sur le bouton « Nouvel équipement » d'une liste sans
+agence choisie : « il me paraît bizarre dans le format, on dirait que c'est un
+bouton qui est cliquable. Est-ce qu'il ne faudrait pas un état de bouton non
+cliquable […] en grisé ».
+
+**Deux défauts, et le second ne se voyait pas.**
+
+`disabled` pose `pointer-events-none` : le bouton ne reçoit ni survol ni focus,
+donc il ne peut PAS porter d'infobulle ni ouvrir de `Popover`. La seule façon
+d'apprendre pourquoi le geste est impossible était de le tenter — et il ne se
+passait rien.
+
+Et `opacity-50` gardait la couleur de la variante. Mesuré au rendu, dans Chrome :
+libellé blanc sur du bleu fondu, **2,34 pour 1** ; libellé d'un `outline` fondu
+sur blanc, **2,06**. Deux fois sous le seuil de 4,5 — et invisibles des deux
+contrôles du dépôt, ce qui explique que personne ne l'ait vu : le lecteur de
+classes ne sait pas fondre une opacité, et **axe exempte du contraste tout ce qui
+porte `disabled` ou `aria-disabled`**.
+
+**Ce que fait `inactive`.**
+
+```tsx
+// La raison en infobulle, quand le bouton est seul.
+<Button inactive inactiveReason="Choisissez une agence pour créer un équipement">
+  Nouvel équipement
+</Button>
+
+// La raison déjà écrite à l'écran : pas d'`inactiveReason`, elle serait lue deux fois.
+<Button inactive>Nouveau client</Button>
+```
+
+- `aria-disabled` et non `disabled` : le bouton reste dans l'ordre de tabulation,
+  reçoit le survol, et peut donc déclencher un `Popover` d'explication ;
+- le clic est avalé par le composant — un `onClick` posé dessus ne part pas, et
+  l'appelant n'a rien à se rappeler ;
+- une plaque grise pleine, **la même pour les six variantes**. C'est ce que Louis
+  demande : un bouton indisponible doit cesser de ressembler à la variante qu'il
+  était, sinon il continue de promettre son geste.
+
+`IconButton` porte le même état, avec la même surface. Son infobulle devient
+« nom — raison » : le nom reste devant, sans texte visible la raison seule
+laisserait chercher de quel bouton il s'agit.
+
+**Deux jetons neufs**, `inactiveBg` (gris 100) et `onInactiveBg` (gris 600) —
+`bg-inactive-bg` et `text-on-inactive-bg`. Mesurés : **5,99 pour 1**.
+
+**Et un contrôle de plus, parce que la mesure manquait.**
+`scripts/check-contraste.mjs` apparie maintenant les couples de jetons À LA
+SOURCE — `successBg`/`onSuccessBg`, `infoBg`/`onInfoBg`, `inactiveBg`/
+`onInactiveBg`… — et non plus seulement ce qu'une chaîne de classes écrit d'un
+bloc. C'est le seul endroit d'où l'état inactif est visible : le rendu ne l'est
+pas, axe l'exempte.
+
+L'exception de `onInfoBg` — l'encre de l'état sélectionné vaut `primary`, voulu
+par Louis le 31/08/2026 — est mesurée par ce contrôle, pas défaite : 5,56, au-
+dessus du seuil.
+
+**À prendre côté `web`** : `components/create-without-agency.tsx` passe de
+`<Button variant="outline" disabled>` à `<Button inactive>`. La phrase visible
+reste, sans `inactiveReason`. La bascule se fait avec le reste des apps, pas
+avant.
+
+## v2.10.3 — un bouton se reconnaît
+
+**Rien à changer.** `Button` porte `data-arq="button"`, ce qui permet à un test
+de dire si un bouton vient d'ici ou s'il a été redessiné à la main.
+
+Écrit après un vert trompeur : un test comparait la hauteur, le rayon et le
+corps de deux boutons pour vérifier qu'ils étaient les mêmes, et un bouton
+recopié à la main passait, ses valeurs étant tirées des mêmes tokens. Il
+divergeait pourtant dès qu'on le survolait ou le désactivait, états qu'une
+mesure statique ne prend pas.
+
+## v2.10.2 — quand une largeur est réglée, c'est la colonne qui décide
+
+**Rien à changer**, et une app qui monte y gagne : le texte d'une cellule suit
+enfin la largeur de sa colonne.
+
+`RecordTable` enveloppe le contenu d'une cellule dans une boîte à points de
+suite dès qu'une largeur est réglée, et cette boîte suivait bien la colonne. Le
+rendu de cellule, lui, gardait le plafond qu'il se donne pour l'autre état —
+celui où le tableau est en mise en page automatique et où, sans plafond, une
+valeur très longue étirerait la colonne. Résultat : le texte se coupait au même
+endroit à toute largeur. Mesuré sur une liste d'équipements, colonne portée à
+566 pixels : l'enveloppe suivait à 542, le texte restait borné à 240, avec trois
+cents pixels de blanc derrière lui.
+
+L'enveloppe ramène maintenant son contenu à sa propre largeur. Le plafond du
+rendu garde donc son rôle en mise en page automatique, et cesse de commander dès
+qu'une colonne a une largeur à elle.
+
+## v2.10.1 — la case à cocher est au milieu de sa ligne
+
+**Rien à changer** : c'est une correction d'affichage dans `RecordTable`.
+
+La case était posée en élément EN LIGNE, donc sur la ligne de base du texte de
+sa cellule et non au milieu de celle-ci. Mesuré sur une liste de trente et un
+mille appareils : centre de la ligne à 241 pixels, centre de la case à 238. Trois
+pixels qu'on ne voit pas sur une ligne et qu'on voit sur vingt-cinq.
+
+Le pixel qui reste après correction est la bordure basse de la ligne, comptée
+dans sa boîte mais pas dans la zone où son contenu se centre. Le supprimer
+demanderait de décaler la case vers le bas, c'est-à-dire de la décentrer.
+
+## v2.10.0 — `Command` a deux tailles
+
+**Celle-ci ne casse rien** : `size` vaut `default` si on ne la pose pas, et
+`default` est exactement ce que ces pièces faisaient jusqu'ici. Rien à changer
+dans une app qui monte.
+
+Ce qui s'ouvre : `<Command size="sm">` habille un menu au lieu d'une palette.
+Entrée de trente-six pixels au lieu de cinquante-deux, texte courant au lieu du
+sous-titre, retraits de douze au lieu de seize, liste bornée à deux cent
+quarante au lieu de quatre cents. La taille descend aux pièces par un contexte :
+on la pose sur `Command`, pas sur chacune.
+
+**À prendre dès que ces pièces vivent dans un `PopoverContent`.** À la taille
+par défaut, l'invite de recherche se coupe dans une boîte de deux cent
+quatre-vingts pixels et dix lignes remplissent l'écran. `Combobox` avait déjà
+rencontré ce mur et l'avait contourné en s'adressant directement à `cmdk` ; ce
+contournement peut maintenant se remplacer par la taille déclarée.
+
+## v2.0.0 — l'API passe à l'anglais
+
+**Celle-ci casse.** C'est la première, et elle est délibérée : jusqu'à la
+`v1.32.1` l'API était en français (`lignes`, `colonnes`, `entete`, `rendu`)
+au-dessus d'une base de données en anglais, ce qui obligeait à traduire à chaque
+frontière. Voir `web/docs/decisions/0003-anglais-pour-le-code-francais-pour-l-ecran.md`.
+
+La règle est désormais : **anglais pour ce qu'une machine lit** (props, types,
+exports, rôles d'icônes, clés de métadonnées), **français pour ce qui se lit
+comme de la prose** (libellés affichés, commentaires, specs, noms de stories).
+
+### Qui doit bouger, et quand
+
+| App | Épingle | Effet |
+| --- | --- | --- |
+| `web` | `file:../design-system` | migrée en même temps que ce changement |
+| `fiche-equipement` | `github:…#v1.18.0` | **rien ne bouge** tant que l'épingle ne change pas |
+| `mobile` | `github:…#v0.1.0` | **rien ne bouge** |
+| `back-office` | `github:…#main` | déclare la dépendance sans l'utiliser : sans effet |
+
+Aucune app en production ne casse aujourd'hui. Le coût est reporté au jour où
+`fiche-equipement` (17 fichiers) et `mobile` (1 fichier) changeront d'épingle.
+
+### Table de correspondance
+
+| Avant | Après |
+| --- | --- |
+| `lignes` · `colonnes` · `ligne` | `rows` · `columns` · `row` |
+| `cleDe` · `cle` | `rowKey` · `id` |
+| `identite` · `entete` · `rendu` | `identity` · `header` · `render` |
+| `valeur` · `valeurs` | `value` · `values` |
+| `largeur` · `numerique` · `triable` | `width` · `numeric` · `sortable` |
+| `tri` · `etat` · `sens` | `sort` · `state` · `direction` |
+| `'croissant'` · `'decroissant'` | `'asc'` · `'desc'` |
+| `onOuvrir` · `onChanger` · `onChoisir` | `onOpen` · `onChange` · `onChoose` |
+| `nom` · `pluriel` · `libelle` | `name` · `plural` · `label` |
+| `ton` · `titre` · `compteur` · `taille` | `tone` · `title` · `count` · `size` |
+| `vide` · `actif` · `icone` | `empty` · `active` · `icon` |
+| `ColonneRecord` · `EtatTri` · `SensTri` | `RecordColumn` · `SortState` · `SortDirection` |
+| `libelleSelection` · `libellePagination` | `selectionLabel` · `paginationLabel` |
+| `triSuivant` · `comparer` | `nextSort` · `compare` |
+| `EmptyStateErreur` | `EmptyStateError` |
+| `BannerTon` · `ToastTon` · `ToastContexte` | `BannerTone` · `ToastTone` · `ToastContext` |
+| `FieldStatut` · `FieldSauvegarde` | `FieldStatus` · `FieldSave` |
+| `'renseigne'` · `'manquant'` · `'a_verifier'` | `'filled'` · `'missing'` · `'to_check'` |
+| `icones` et ses rôles (`supprimer`, `ecart`…) | `icons` (`delete`, `discrepancy`…) |
+| front-matter `statut` · `couche` · `mots_cles` | `status` · `layer` · `keywords` |
+
+Les **libellés affichés restent en français** : `NOT_TAKEN` vaut toujours
+« Non prise », et les noms de stories (« Avec son intitulé », « Dans la fiche »)
+n'ont pas bougé.
+
+
 Ce document existe parce que la stratégie est **la base d'abord, la bascule
 ensuite** : on ne touche pas aux apps pendant que le design system se construit,
 et on applique tout d'un coup quand il est solide.
@@ -7,9 +226,9 @@ et on applique tout d'un coup quand il est solide.
 Une bascule groupée se fait à l'aveugle si personne n'a noté, au fil de l'eau, ce
 qu'elle coûtera. C'est ce que ce fichier note.
 
-## La bonne nouvelle, mesurée
+## Jusqu'à la v1.32.1 : rien ne cassait
 
-**Rien ne casse.** Vérifié tag par tag depuis la `v0.1.0` :
+Vérifié tag par tag depuis la `v0.1.0`, et toujours vrai **entre ces versions** :
 
 | | Depuis v0.1.0 |
 | --- | --- |
@@ -28,7 +247,7 @@ existant, qui continue de fonctionner en restant à côté.
 
 Compté sur `main` de chaque dépôt, le 25/08/2026.
 
-### `fiche-equipement` — épinglée en v1.18.0
+### `specFile-equipement` — épinglée en v1.18.0
 
 | À reprendre | Combien | Pourquoi |
 | --- | --- | --- |
@@ -43,7 +262,7 @@ Compté sur `main` de chaque dépôt, le 25/08/2026.
 | --- | --- | --- |
 | `palette.grey[400]` | **54** | C'est `textSubtle` : à réserver aux icônes et bordures |
 | Couleurs écrites en dur | **46** | La règle du dépôt |
-| Imports directs de Phosphor | **60 fichiers** | Passer par le rôle (`icones.supprimer`), pas par le dessin |
+| Imports directs de Phosphor | **60 fichiers** | Passer par le rôle (`icons.delete`), pas par le dessin |
 
 Le mobile ne consomme que les **tokens** — aucun composant. Sa montée de version
 est donc sans risque : elle lui ouvre `shadow`, `shadowNative`, `fontFamilyNative`
@@ -64,7 +283,7 @@ Les marques de réserve comptent comme du texte.
 devront suivre.
 
 **4. Jamais une icône dessinée à la main.** Passer par le rôle —
-`<Icon role="supprimer" />`, `icones.supprimer` côté mobile — et non par le nom
+`<Icon role="delete" />`, `icons.delete` côté mobile — et non par le nom
 du dessin.
 
 **5. Jamais une valeur de design en dur.** Ni hex, ni pixel, ni rayon.
@@ -108,7 +327,7 @@ trois défauts sont passés par là en une seule journée. Pendant la bascule,
 
 | App | Épinglée | Écart |
 | --- | --- | --- |
-| `fiche-equipement` | `v1.18.0` | 3 versions, purement additives |
+| `specFile-equipement` | `v1.18.0` | 3 versions, purement additives |
 | `myarquos-mobile` | `v0.1.0` | 20 versions, purement additives |
 
 Mettre à jour se fait en une ligne dans `package.json`, puis `npm install` :

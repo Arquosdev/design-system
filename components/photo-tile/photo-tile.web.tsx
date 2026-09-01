@@ -3,14 +3,14 @@
 import * as React from 'react';
 
 import { cn } from '../_lib/cn';
-import { NON_PRISE } from './photo-tile.logic';
+import { NOT_TAKEN } from './photo-tile.logic';
 
 export interface PhotoTileProps {
-  nom: string;
+  name: string;
   /** Absent = emplacement non pris. */
   url?: string;
-  essentielle?: boolean;
-  onOuvrir?: () => void;
+  essential?: boolean;
+  onOpen?: () => void;
   className?: string;
 }
 
@@ -26,12 +26,12 @@ export interface PhotoTileProps {
  * centrale : 42 % de la hauteur passait à la trappe, coupant le haut d'une porte
  * palière et le bas d'une armoire de manœuvre. On retourne le cadre.
  */
-const RAPPORT = 'aspect-[3/4]';
+const ASPECT = 'aspect-[3/4]';
 
-export function PhotoTile({ nom, url, essentielle = false, onOuvrir, className }: PhotoTileProps) {
+export function PhotoTile({ name, url, essential = false, onOpen, className }: PhotoTileProps) {
   // Une image cassée retombe sur « non prise » : l'icône brisée du navigateur
   // ne dit rien d'utile, et laisse croire à une panne plutôt qu'à un manque.
-  const [cassee, setCassee] = React.useState(false);
+  const [broken, setBroken] = React.useState(false);
   /*
     Le sens de la photo, lu à son chargement.
 
@@ -44,35 +44,35 @@ export function PhotoTile({ nom, url, essentielle = false, onOuvrir, className }
     quarts des vignettes ne changent donc jamais d'avis après coup.
   */
   const [enTravers, setEnTravers] = React.useState(false);
-  const absente = !url || cassee;
+  const missing = !url || broken;
 
-  const vignette = absente ? (
+  const thumbnail = missing ? (
     <div
       className={cn(
         'flex w-full items-center justify-center rounded-md border text-caption',
-        RAPPORT,
-        essentielle
+        ASPECT,
+        essential
           ? 'border-danger bg-bg text-danger'
           : 'border-border-soft bg-bg-muted text-text-muted',
       )}
     >
-      {NON_PRISE}
+      {NOT_TAKEN}
     </div>
   ) : (
     // eslint-disable-next-line @next/next/no-img-element -- photos servies par
     // un stockage externe, hors des domaines de l'optimiseur d'images.
     <img
       src={url}
-      alt={nom}
+      alt={name}
       loading="lazy"
-      onError={() => setCassee(true)}
+      onError={() => setBroken(true)}
       onLoad={(e) => {
         const img = e.currentTarget;
         setEnTravers(img.naturalWidth > img.naturalHeight);
       }}
       className={cn(
         'w-full rounded-md border border-border-soft',
-        RAPPORT,
+        ASPECT,
         // Le fond ne se voit que sous une photo contenue, dans les deux bandes
         // que le cadre laisse libres. Sans lui, elles seraient blanches et la
         // vignette paraîtrait plus petite qu'elle n'est.
@@ -81,13 +81,13 @@ export function PhotoTile({ nom, url, essentielle = false, onOuvrir, className }
     />
   );
 
-  const legende = <span className="mt-xxs line-clamp-2 text-caption text-text-muted">{nom}</span>;
+  const caption = <span className="mt-xxs line-clamp-2 text-caption text-text-muted">{name}</span>;
 
-  if (!onOuvrir || absente) {
+  if (!onOpen || missing) {
     return (
       <figure className={cn('flex flex-col', className)}>
-        {vignette}
-        <figcaption className="flex flex-col">{legende}</figcaption>
+        {thumbnail}
+        <figcaption className="flex flex-col">{caption}</figcaption>
       </figure>
     );
   }
@@ -95,15 +95,15 @@ export function PhotoTile({ nom, url, essentielle = false, onOuvrir, className }
   return (
     <button
       type="button"
-      onClick={onOuvrir}
-      aria-label={`Agrandir : ${nom}`}
+      onClick={onOpen}
+      aria-label={`Agrandir : ${name}`}
       className={cn(
         'flex flex-col text-left outline-none hover:opacity-80 focus-visible:ring-2 focus-visible:ring-primary',
         className,
       )}
     >
-      {vignette}
-      {legende}
+      {thumbnail}
+      {caption}
     </button>
   );
 }

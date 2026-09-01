@@ -8,7 +8,7 @@ const meta = {
   title: 'Composants/Générique/Avatar',
   component: Avatar,
   parameters: docsDe(specification),
-  args: { initiales: 'TL', label: 'Thomas Lauzanne' },
+  args: { initials: 'TL', label: 'Thomas Lauzanne' },
 } satisfies Meta<typeof Avatar>;
 
 export default meta;
@@ -22,16 +22,16 @@ export const Defaut: Story = {};
  * et non exceptionnel. Les initiales restent, au lieu d'une bulle vide.
  */
 export const PhotoCassee: Story = {
-  args: { photo: 'https://exemple.invalide/photo.jpg', initiales: 'OM', label: 'Ombeline M.' },
+  args: { photo: 'https://exemple.invalide/photo.jpg', initials: 'OM', label: 'Ombeline M.' },
 };
 
 /** La taille se règle en classes, pas en prop. */
 export const Tailles: Story = {
   render: () => (
     <div className="flex items-center gap-base">
-      <Avatar initiales="TL" label="Thomas Lauzanne" className="size-6 text-caption" />
-      <Avatar initiales="TL" label="Thomas Lauzanne" className="size-8 text-small" />
-      <Avatar initiales="TL" label="Thomas Lauzanne" />
+      <Avatar initials="TL" label="Thomas Lauzanne" className="size-6 text-caption" />
+      <Avatar initials="TL" label="Thomas Lauzanne" className="size-8 text-small" />
+      <Avatar initials="TL" label="Thomas Lauzanne" />
     </div>
   ),
 };

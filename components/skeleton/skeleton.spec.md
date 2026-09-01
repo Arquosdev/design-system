@@ -1,11 +1,11 @@
 ---
 name: Skeleton
-statut: stable
-couche: generique
+status: stable
+layer: generique
 role: Occuper la place de ce qui charge, pour que l'écran ne mente pas en paraissant vide.
-mots_cles: [squelette, skeleton, chargement, attente, pulse, placeholder]
-plateformes: [web]
-remplace:
+keywords: [squelette, skeleton, chargement, attente, pulse, placeholder]
+platforms: [web]
+replaces:
   web:
     - src/app/fiche/sections/rail.tsx — SqueletteRail, et huit autres blocs écrits sur place
   mobile: [components/Skeleton.tsx]
@@ -29,7 +29,7 @@ remplace:
 
 | Prop | Type | Défaut | Rôle |
 | --- | --- | --- | --- |
-| `rond` | `boolean` | `false` | Bloc circulaire — pastille, avatar |
+| `round` | `boolean` | `false` | Bloc circulaire — pastille, avatar |
 | `className` | `string` | — | La **taille se donne ici** : `h-4 w-32` |
 
 Le composant n'a ni `width` ni `height` : la taille est une affaire de mise en
@@ -40,9 +40,9 @@ page, et la donner en classes permet de la rendre responsive sans nouvelle prop.
 ```tsx
 import { Skeleton } from '@arquos/design-system/web';
 
-// une ligne de rail en attente
+// une row de rail en attente
 <div className="flex items-center gap-sm">
-  <Skeleton rond className="size-4" />
+  <Skeleton round className="size-4" />
   <Skeleton className="h-4 w-40" />
 </div>
 ```

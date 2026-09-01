@@ -1,11 +1,11 @@
 ---
 name: NavList
-statut: beta
-couche: metier
+status: beta
+layer: metier
 role: Lister les rubriques d'un écran, avec ce que chacune contient, et dire laquelle est ouverte.
-mots_cles: [navigation, menu, rail, rubriques, sections, sommaire, compteur]
-plateformes: [web]
-remplace:
+keywords: [navigation, menu, rail, rubriques, sections, sommaire, compteur]
+platforms: [web]
+replaces:
   web:
     - public/fiche/index.html — navFiche / navComp, boutons recopiés inline
   mobile: [components/full-form/RubriqueNav.tsx]
@@ -28,16 +28,16 @@ remplace:
 
 | Prop        | Type                        | Défaut | Rôle                                       |
 | ----------- | --------------------------- | ------ | ------------------------------------------ |
-| `titre`     | `string`                    | —      | Intitulé du groupe. À omettre quand ce qui précède le dit déjà |
+| `title`     | `string`                    | —      | Intitulé du groupe. À omettre quand ce qui précède le dit déjà |
 | `items`     | `NavItem[]`                  | —      | Les rubriques                               |
-| `courant`   | `string`                    | —      | La clé de la rubrique ouverte               |
-| `onChoisir` | `(cle: string) => void`      | —      | Appelé au clic sur une rubrique             |
-| `repliable` | `boolean`                    | `false`| Rend l'intitulé cliquable, pour replier le groupe |
-| `ouvertParDefaut` | `boolean`              | `true` | Ouvert au premier rendu                     |
+| `current`   | `string`                    | —      | La clé de la rubrique ouverte               |
+| `onChoose` | `(id: string) => void`      | —      | Appelé au clic sur une rubrique             |
+| `collapsible` | `boolean`                    | `false`| Rend l'intitulé cliquable, pour replier le groupe |
+| `defaultOpen` | `boolean`              | `true` | Ouvert au premier rendu                     |
 
-`NavItem` : `{ cle, label, compteur?, desactive? }`.
+`NavItem` : `{ id, label, count?, disabled? }`.
 
-**`compteur` accepte une chaîne, pas seulement un nombre.** Tant que les données
+**`count` accepte une chaîne, pas seulement un nombre.** Tant que les données
 ne sont pas toutes arrivées, passer `'…'` dit qu'on ne sait pas encore ; `0`
 affirmerait qu'il n'y a rien, ce qui serait faux.
 
@@ -47,13 +47,13 @@ affirmerait qu'il n'y a rien, ce qui serait faux.
 import { NavList } from '@arquos/design-system/web';
 
 <NavList
-  titre="Fiche"
-  courant={rubrique}
-  onChoisir={setRubrique}
+  title="Fiche"
+  current={rubrique}
+  onChoose={setRubrique}
   items={[
-    { cle: 'overview', label: "Vue d'ensemble" },
-    { cle: 'tech', label: 'Données techniques', compteur: 88 },
-    { cle: 'docs', label: 'Documents', compteur: '…' },
+    { id: 'overview', label: "Vue d'ensemble" },
+    { id: 'tech', label: 'Données techniques', count: 88 },
+    { id: 'docs', label: 'Documents', count: '…' },
   ]}
 />
 ```

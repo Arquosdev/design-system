@@ -1,11 +1,11 @@
 ---
 name: Avatar
-statut: stable
-couche: generique
+status: stable
+layer: generique
 role: Représenter une personne par sa photo, ou à défaut par ses initiales.
-mots_cles: [avatar, photo, initiales, profil, utilisateur, pastille, personne]
-plateformes: [web]
-remplace:
+keywords: [avatar, photo, initiales, profil, utilisateur, pastille, personne]
+platforms: [web]
+replaces:
   web: []
   mobile: [components/Avatar.tsx]
 ---
@@ -32,7 +32,7 @@ remplace:
 
 | Prop | Type | Rôle |
 | --- | --- | --- |
-| `initiales` | `string` | Une ou deux lettres — au-delà elles ne se lisent plus |
+| `initials` | `string` | Une ou deux lettres — au-delà elles ne se lisent plus |
 | `photo` | `string` | L'URL. Facultative, et faillible |
 | `label` | `string` | Le nom, pour que la pastille ne soit pas muette |
 | `className` | `string` | La taille se règle ici : `size-8`, `size-[32px]` |
@@ -42,8 +42,8 @@ remplace:
 ```tsx
 import { Avatar } from '@arquos/design-system/web';
 
-<Avatar initiales="TL" label="Thomas Lauzanne" />
-<Avatar initiales="OM" photo={url} label="Ombeline M." className="size-8" />
+<Avatar initials="TL" label="Thomas Lauzanne" />
+<Avatar initials="OM" photo={url} label="Ombeline M." className="size-8" />
 ```
 
 ## États

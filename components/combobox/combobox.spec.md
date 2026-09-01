@@ -1,11 +1,11 @@
 ---
 name: Combobox
-statut: beta
-couche: generique
+status: beta
+layer: generique
 role: Choisir dans une liste trop longue pour être parcourue, en la filtrant.
-mots_cles: [combobox, recherche, autocompletion, liste, choix, marque, modele]
-plateformes: [web]
-remplace:
+keywords: [combobox, recherche, autocompletion, liste, choix, marque, modele]
+platforms: [web]
+replaces:
   web: [public/fiche/index.html — les menus de marque et de modèle]
   mobile: [components/EntityPickerField.tsx]
 ---
@@ -44,13 +44,13 @@ qui habille la palette plein écran et porte sa hauteur.
 
 | Prop          | Type                          | Défaut          | Rôle |
 | ------------- | ----------------------------- | --------------- | ---- |
-| `options`     | `{valeur, libelle}[]`         | —               | La liste |
-| `valeur`      | `string`                      | —               | Ce qui est retenu ; hors catalogue, s'affiche tel quel |
-| `onValeur`    | `(valeur: string) => void`    | —               | |
+| `options`     | `{value, label}[]`         | —               | La liste |
+| `value`      | `string`                      | —               | Ce qui est retenu ; hors catalogue, s'affiche tel quel |
+| `onValue`    | `(value: string) => void`    | —               | |
 | `placeholder` | `string`                      | `Rechercher…`   | Quand rien n'est retenu |
 | `autoFocus`   | `boolean`                     | `false`         | Le champ prend le focus dès qu'il paraît |
 | `ariaLabel`   | `string`                      | —               | Quand aucun libellé visible ne nomme la gâchette |
-| `desactive`   | `boolean`                     | `false`         | |
+| `disabled`   | `boolean`                     | `false`         | |
 
 ## Anatomie
 

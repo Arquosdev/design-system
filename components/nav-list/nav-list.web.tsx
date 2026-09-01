@@ -6,14 +6,14 @@ import { Icon } from '../icon/icon.web';
 import { cn } from '../_lib/cn';
 
 export interface NavItem {
-  cle: string;
+  id: string;
   label: string;
   /**
    * Ce que contient la rubrique. Une chaîne est acceptée pour pouvoir dire
    * « … » tant qu'on ne sait pas — `0` affirmerait qu'il n'y a rien.
    */
-  compteur?: number | string;
-  desactive?: boolean;
+  count?: number | string;
+  disabled?: boolean;
 }
 
 export interface NavListProps {
@@ -21,71 +21,71 @@ export interface NavListProps {
    * Intitulé du groupe. À omettre quand ce qui précède le dit déjà — un onglet
    * « Composants » suivi d'un intitulé « COMPOSANTS » ne fait que répéter.
    */
-  titre?: string;
+  title?: string;
   items: readonly NavItem[];
-  courant?: string;
-  onChoisir: (cle: string) => void;
+  current?: string;
+  onChoose: (id: string) => void;
   /** Rend l'intitulé cliquable, pour replier le groupe. */
-  repliable?: boolean;
+  collapsible?: boolean;
   /** Ouvert au premier rendu. Sans effet si le groupe n'est pas repliable. */
-  ouvertParDefaut?: boolean;
+  defaultOpen?: boolean;
   className?: string;
 }
 
 export function NavList({
-  titre,
+  title,
   items,
-  courant,
-  onChoisir,
-  repliable = false,
-  ouvertParDefaut = true,
+  current,
+  onChoose,
+  collapsible = false,
+  defaultOpen = true,
   className,
 }: NavListProps) {
-  const [ouvert, setOuvert] = React.useState(ouvertParDefaut);
+  const [ouvert, setOuvert] = React.useState(defaultOpen);
   // Un groupe replié qui contient la rubrique ouverte la cacherait : on le
   // laisse déplié tant qu'elle est dedans.
-  const contientCourant = items.some((i) => i.cle === courant);
-  const deplie = !repliable || ouvert || contientCourant;
+  const containsCurrent = items.some((i) => i.id === current);
+  const expanded = !collapsible || ouvert || containsCurrent;
 
-  const intitule = (
+  const heading = (
     <span className="flex-1 text-left text-caption font-bold tracking-wide uppercase">
-      {titre}
+      {title}
     </span>
   );
 
   return (
     <div className={cn('shrink-0', className)}>
-      {!titre ? null : repliable ? (
+      {!title ? null : collapsible ? (
         <button
           type="button"
-          aria-expanded={deplie}
-          onClick={() => setOuvert(!deplie)}
+          aria-expanded={expanded}
+          onClick={() => setOuvert(!expanded)}
           className="flex w-full items-center gap-sm rounded-control px-md pb-sm text-text-muted outline-none hover:text-text focus-visible:ring-2 focus-visible:ring-primary"
         >
           <Icon
-            role="deplier"
+            role="expand"
             size="xs"
-            className={cn('transition-transform duration-(--arq-duration-normal)', deplie ? 'rotate-0' : '-rotate-90')}
+            className={cn('transition-transform duration-(--arq-duration-normal)', expanded ? 'rotate-0' : '-rotate-90')}
           />
-          {intitule}
+          {heading}
           <span className="shrink-0 tabular-nums text-small">{items.length}</span>
         </button>
       ) : (
-        <div className="flex px-md pb-sm text-text-muted">{intitule}</div>
+        <div className="flex px-md pb-sm text-text-muted">{heading}</div>
       )}
 
-      <div className={cn('flex flex-col gap-xxs', !deplie && 'hidden')}>
+      <div className={cn('flex flex-col gap-xxs', !expanded && 'hidden')}>
         {items.map((item) => {
-          const actif = item.cle === courant;
+          const active = item.id === current;
           return (
             <button
-              key={item.cle}
+              key={item.id}
               type="button"
               // `aria-current` en plus du fond teinté : la couleur seule ne dit
               // rien à un lecteur d'écran.
-              aria-current={actif ? 'page' : undefined}
-              disabled={item.desactive}
-              onClick={() => onChoisir(item.cle)}
+              aria-current={active ? 'page' : undefined}
+              disabled={item.disabled}
+              onClick={() => onChoose(item.id)}
               className={cn(
                 /*
                   `px-md` et non `px-xs` : le fond teinté de l'entrée courante
@@ -109,13 +109,13 @@ export function NavList({
                   toujours des autres, et c'est ce contraste — pas la graisse en
                   soi — qui dit où l'on est.
                 */
-                actif
+                active
                   ? 'bg-info-bg font-semibold text-on-info-bg'
                   : 'font-medium text-text hover:bg-bg-muted',
               )}
             >
               <span className="flex-1">{item.label}</span>
-              {item.compteur !== undefined && item.compteur !== '' ? (
+              {item.count !== undefined && item.count !== '' ? (
                 // Chasse fixe : sans elle les nombres dansent d'une ligne à l'autre.
                 // Sur la ligne courante, le compteur prend l'encre appairée du
                 // fond `infoBg` : `textMuted` y tombe à 4,47 — juste sous le
@@ -124,10 +124,10 @@ export function NavList({
                 <span
                   className={cn(
                     'shrink-0 tabular-nums text-small',
-                    actif ? 'text-on-info-bg' : 'text-text-muted',
+                    active ? 'text-on-info-bg' : 'text-text-muted',
                   )}
                 >
-                  {item.compteur}
+                  {item.count}
                 </span>
               ) : null}
             </button>

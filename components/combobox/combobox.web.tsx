@@ -9,20 +9,20 @@ import { CommandEmpty, CommandItem, CommandList } from '../command/command.web';
 import { Popover, PopoverAnchor, PopoverContent } from '../popover/popover.web';
 
 export interface ComboboxOption {
-  valeur: string;
-  libelle: string;
+  value: string;
+  label: string;
 }
 
 export interface ComboboxProps {
   options: readonly ComboboxOption[];
   /** La valeur retenue. Une valeur hors catalogue s'affiche telle quelle. */
-  valeur: string;
-  onValeur: (valeur: string) => void;
+  value: string;
+  onValue: (value: string) => void;
   /** Ce que le champ dit quand rien n'est retenu. */
   placeholder?: string;
   /** Nomme le champ quand aucun libellé visible ne le fait. */
   ariaLabel?: string;
-  desactive?: boolean;
+  disabled?: boolean;
   /** Le champ prend le focus dès qu'il paraît — il remplace une valeur. */
   autoFocus?: boolean;
   className?: string;
@@ -48,11 +48,11 @@ export interface ComboboxProps {
  */
 export function Combobox({
   options,
-  valeur,
-  onValeur,
+  value,
+  onValue,
   placeholder = 'Rechercher…',
   ariaLabel,
-  desactive = false,
+  disabled = false,
   autoFocus = false,
   className,
 }: ComboboxProps) {
@@ -60,15 +60,15 @@ export function Combobox({
   const [frappe, setFrappe] = React.useState('');
   const champ = React.useRef<HTMLInputElement>(null);
 
-  const retenue = options.find((o) => o.valeur === valeur);
-  const affiche = retenue?.libelle ?? valeur;
+  const chosen = options.find((o) => o.value === value);
+  const affiche = chosen?.label ?? value;
 
   /* Ce qu'on voit dans le champ : la valeur retenue tant qu'on n'a rien tapé,
      la frappe dès qu'on tape. Sans ça, ouvrir le champ effacerait sous les yeux
      la valeur qu'on venait consulter. */
   const contenu = ouvert ? frappe : affiche;
 
-  const fermer = () => {
+  const close = () => {
     setOuvert(false);
     setFrappe('');
   };
@@ -80,26 +80,26 @@ export function Combobox({
       loop
       className="w-full"
       onKeyDown={(e) => {
-        if (e.key === 'Escape') fermer();
+        if (e.key === 'Escape') close();
       }}
     >
-      <Popover open={ouvert && !desactive} onOpenChange={(o) => !o && fermer()}>
+      <Popover open={ouvert && !disabled} onOpenChange={(o) => !o && close()}>
         <PopoverAnchor asChild>
           <div
             className={cn(
-              'flex h-[32px] w-full items-center gap-sm rounded-control',
+              'flex h-(--arq-control-md) w-full items-center gap-sm rounded-control',
               // Les mêmes traits que la gâchette de `Select`, au pixel : un
               // champ à menu doit avoir la même tête, court ou long.
               'border border-border bg-bg px-md shadow-card',
               'focus-within:ring-2 focus-within:ring-primary',
-              desactive && 'pointer-events-none opacity-50',
+              disabled && 'pointer-events-none opacity-50',
               className,
             )}
           >
             <CommandPrimitive.Input
               ref={champ}
               autoFocus={autoFocus}
-              disabled={desactive}
+              disabled={disabled}
               value={contenu}
               onValueChange={(v) => {
                 setFrappe(v);
@@ -115,7 +115,7 @@ export function Combobox({
               )}
             />
             <Icon
-              role="deplier"
+              role="expand"
               size="sm"
               className={cn(
                 'shrink-0 text-text-subtle transition-transform',
@@ -136,17 +136,17 @@ export function Combobox({
             <CommandEmpty>Aucun choix ne correspond.</CommandEmpty>
             {options.map((o) => (
               <CommandItem
-                key={o.valeur}
-                value={o.libelle}
+                key={o.value}
+                value={o.label}
                 onSelect={() => {
-                  onValeur(o.valeur);
-                  fermer();
+                  onValue(o.value);
+                  close();
                 }}
                 className={cn(
-                  o.valeur === valeur && 'bg-info-bg font-semibold text-on-info-bg',
+                  o.value === value && 'bg-info-bg font-semibold text-on-info-bg',
                 )}
               >
-                {o.libelle}
+                {o.label}
               </CommandItem>
             ))}
           </CommandList>
@@ -164,4 +164,4 @@ export function Combobox({
  * cinquante, cent quatorze, trois cent soixante-seize. Entre les deux il n'y a
  * personne, et la frontière peut donc être franche.
  */
-export const SEUIL_RECHERCHE = 12;
+export const SEARCH_THRESHOLD = 12;

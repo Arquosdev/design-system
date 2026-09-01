@@ -9,9 +9,9 @@ const meta = {
   component: DataTable,
   parameters: docsDe(specification),
   args: {
-    titre: 'Cotes des portes palières',
-    colonnes: ['Niveau', 'Passage libre', 'Hauteur', 'Type'],
-    lignes: [
+    title: 'Cotes des portes palières',
+    columns: ['Niveau', 'Passage libre', 'Hauteur', 'Type'],
+    rows: [
       ['RDC', '800 mm', '2 000 mm', 'Coulissante 2 vantaux'],
       ['1er', '800 mm', '2 000 mm', 'Coulissante 2 vantaux'],
       ['2e', '750 mm', '2 000 mm', 'Coulissante 1 vantail'],

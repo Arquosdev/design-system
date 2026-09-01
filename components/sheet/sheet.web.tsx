@@ -108,7 +108,7 @@ export function SheetCloseButton({ className }: { className?: string }) {
     <SheetPrimitive.Close
       aria-label="Fermer"
       className={cn(
-        'size-[30px] shrink-0 rounded-control bg-bg-muted text-text-muted outline-none',
+        'size-(--arq-control-sm) shrink-0 rounded-control bg-bg-muted text-text-muted outline-none',
         'hover:opacity-70 focus-visible:ring-2 focus-visible:ring-primary',
         className,
       )}

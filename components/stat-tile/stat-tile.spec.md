@@ -1,11 +1,11 @@
 ---
 name: StatTile
-statut: beta
-couche: metier
+status: beta
+layer: metier
 role: Mettre en avant une mesure d'identité, celle qu'on veut lire sans chercher.
-mots_cles: [tuile, chiffre, mesure, statistique, identite, carte, valeur]
-plateformes: [web]
-remplace:
+keywords: [tuile, chiffre, mesure, statistique, identite, carte, valeur]
+platforms: [web]
+replaces:
   web: [public/fiche/index.html — grille .arq-tuiles]
   mobile: [components/KnowledgeRateCard.tsx]
 ---
@@ -32,8 +32,8 @@ remplace:
 | Prop     | Type     | Défaut | Rôle                                           |
 | -------- | -------- | ------ | ---------------------------------------------- |
 | `label`  | `string` | —      | Ce que la mesure désigne                        |
-| `valeur` | `string` | —      | La mesure. Vide = « — »                         |
-| `unite`  | `string` | —      | Affichée après la valeur, en plus petit         |
+| `value` | `string` | —      | La mesure. Vide = « — »                         |
+| `unit`  | `string` | —      | Affichée après la valeur, en plus petit         |
 | `detail` | `string` | —      | Précision sous la mesure (« 4 personnes »)      |
 
 ## Exemples
@@ -41,8 +41,8 @@ remplace:
 ```tsx
 import { StatTile } from '@arquos/design-system/web';
 
-<StatTile label="Charge" valeur="300" unite="kg" detail="4 personnes" />
-<StatTile label="Machinerie" valeur="Haute" detail="gaine maçonnée" />
+<StatTile label="Charge" value="300" unit="kg" detail="4 personnes" />
+<StatTile label="Machinerie" value="Haute" detail="gaine maçonnée" />
 ```
 
 ## États

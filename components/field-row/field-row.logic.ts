@@ -9,8 +9,8 @@
 // ni simulateur.
 
 export type FieldKind = 'text' | 'number' | 'choice' | 'multi';
-export type FieldStatut = 'renseigne' | 'manquant' | 'a_verifier';
-export type FieldSauvegarde = 'encours' | 'ok' | 'echec';
+export type FieldStatus = 'filled' | 'missing' | 'to_check';
+export type FieldSave = 'saving' | 'ok' | 'error';
 export interface FieldOption {
   value: string;
   label: string;
@@ -24,13 +24,13 @@ export interface FieldOption {
  * métier, pas cosmétique : un relevé où l'on ne sait pas n'est pas un relevé
  * où il n'y a rien à savoir.
  */
-export const VIDE = 'Non renseigné';
+export const EMPTY = 'Non renseigné';
 
 /** Ce que chaque statut de champ s'appelle. Les mots, pas la couleur. */
-export const TEXTE_STATUT: Record<FieldStatut, string> = {
-  renseigne: 'Renseigné',
-  manquant: 'Manquant',
-  a_verifier: 'À vérifier',
+export const STATUS_TEXT: Record<FieldStatus, string> = {
+  filled: 'Renseigné',
+  missing: 'Manquant',
+  to_check: 'À vérifier',
 };
 
 /**
@@ -39,10 +39,10 @@ export const TEXTE_STATUT: Record<FieldStatut, string> = {
  * Formulations reprises telles quelles du module Bubble (index.html:4671) : le
  * vocabulaire de la fiche ne change pas parce qu'on la réécrit.
  */
-export const TEXTE_SAUVEGARDE: Record<FieldSauvegarde, string> = {
-  encours: 'Enregistrement…',
+export const SAVE_TEXT: Record<FieldSave, string> = {
+  saving: 'Enregistrement…',
   ok: '✓ Enregistré',
-  echec: '⚠ Non enregistré',
+  error: '⚠ Non enregistré',
 };
 
 /**
@@ -57,19 +57,19 @@ export const TEXTE_SAUVEGARDE: Record<FieldSauvegarde, string> = {
  * a laissé — reste en tête du menu : la retirer reviendrait à la remplacer en
  * silence dès l'ouverture.
  */
-export function menuDeChoix(
+export function choiceMenu(
   value: string | string[] | null,
   options: readonly FieldOption[],
-): { choix: FieldOption[]; retenue: string } {
+): { choices: FieldOption[]; chosen: string } {
   const brut = typeof value === 'string' ? value : '';
   const retenu = options.find((o) => o.value === brut || o.label === brut);
-  const choix: FieldOption[] = [];
+  const choices: FieldOption[] = [];
 
-  if (!brut) choix.push({ value: '', label: '— choisir —' });
-  if (brut && !retenu) choix.push({ value: brut, label: brut });
-  choix.push(...options);
+  if (!brut) choices.push({ value: '', label: '— choisir —' });
+  if (brut && !retenu) choices.push({ value: brut, label: brut });
+  choices.push(...options);
 
-  return { choix, retenue: retenu ? retenu.value : brut };
+  return { choices, chosen: retenu ? retenu.value : brut };
 }
 
 /**
@@ -79,13 +79,13 @@ export function menuDeChoix(
  * chaque endroit qui affiche un champ — c'est ainsi qu'un écran finit par
  * afficher un tiret quand les autres disent « Non renseigné ».
  */
-export function texteDeValeur(value: string | string[] | null | undefined): string {
-  if (Array.isArray(value)) return value.length ? value.join(', ') : VIDE;
+export function valueText(value: string | string[] | null | undefined): string {
+  if (Array.isArray(value)) return value.length ? value.join(', ') : EMPTY;
   const t = (value ?? '').trim();
-  return t === '' ? VIDE : t;
+  return t === '' ? EMPTY : t;
 }
 
 /** Vrai quand la valeur est à combler — ce qui rend la ligne cliquable. */
-export function estVide(value: string | string[] | null | undefined): boolean {
-  return texteDeValeur(value) === VIDE;
+export function isEmpty(value: string | string[] | null | undefined): boolean {
+  return valueText(value) === EMPTY;
 }

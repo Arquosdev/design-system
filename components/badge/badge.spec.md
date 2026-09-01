@@ -1,11 +1,11 @@
 ---
 name: Badge
-statut: stable
-couche: generique
+status: stable
+layer: generique
 role: Poser une étiquette courte qui qualifie l'élément à côté duquel elle se trouve.
-mots_cles: [badge, pastille, etiquette, statut, tag, echeance, compteur]
-plateformes: [web]
-remplace:
+keywords: [badge, pastille, etiquette, statut, tag, echeance, compteur]
+platforms: [web]
+replaces:
   web:
     - public/fiche/index.html — badge(sev, size), pastilles recopiées inline
   mobile:
@@ -56,7 +56,7 @@ ce qui les fait lire comme un **état**, quelque chose qui *est*. `default` et
 import { Badge } from '@arquos/design-system/web';
 
 <Badge variant="success">Conforme</Badge>
-<Badge variant="destructive">Non conforme</Badge>
+<Badge variant="destructive">Non compliant</Badge>
 <Badge variant="info">Réglages technicien</Badge>
 <Badge variant="outline">Échéance 18/09/2030</Badge>
 ```

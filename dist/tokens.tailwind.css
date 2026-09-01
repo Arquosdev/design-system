@@ -11,7 +11,7 @@
   --color-primary: #0D5AB7;
   --color-primary-dark: #073B6F;
   --color-brand: #00295B;
-  --color-accent: #FFA522;
+  --color-highlight: #FFA522;
   --color-success: #0C7C59;
   --color-success-bg: #DFF7F3;
   --color-on-success-bg: #0C7C59;
@@ -22,7 +22,9 @@
   --color-warning-bg: #FFF3DD;
   --color-on-warning-bg: #996315;
   --color-info-bg: #E1ECFA;
-  --color-on-info-bg: #073B6F;
+  --color-on-info-bg: #0D5AB7;
+  --color-inactive-bg: #EAEEF1;
+  --color-on-inactive-bg: #4D5B66;
   --color-bg: #FFFFFF;
   --color-bg-subtle: #FCFDFE;
   --color-bg-muted: #F6F7F9;
@@ -32,6 +34,7 @@
   --color-text-muted: #5D6D79;
   --color-text-subtle: #8094A3;
   --color-text-on-dark: #FFFFFF;
+  --color-text-on-info-bg: #073B6F;
   --color-black: #000000;
 
   /* Palette — pour les cas que le sémantique ne couvre pas */
@@ -168,6 +171,9 @@
   --arq-duration-normal: 200ms;
   --arq-duration-lent: 300ms;
   --ease-arquos: cubic-bezier(0.2, 0, 0, 1);
+  --arq-control-sm: 30px;
+  --arq-control-md: 36px;
+  --arq-control-lg: 44px;
   --arq-border-fin: 1px;
   --arq-border-epais: 1.5px;
   --arq-layer-base: 0;
@@ -192,11 +198,11 @@
   --primary: #0D5AB7;
   --primary-foreground: #FFFFFF;
   --secondary: #E1ECFA;
-  --secondary-foreground: #073B6F;
+  --secondary-foreground: #0D5AB7;
   --muted: #F6F7F9;
   --muted-foreground: #5D6D79;
   --accent: #E1ECFA;
-  --accent-foreground: #073B6F;
+  --accent-foreground: #0D5AB7;
   --destructive: #BE3A37;
   --destructive-foreground: #FFFFFF;
   --success: #0C7C59;
@@ -268,7 +274,7 @@
     100% { background-color: transparent; }
   }
   @keyframes repere-libelle {
-    0%, 38% { text-decoration-color: #0D5AB7; color: #073B6F; }
+    0%, 38% { text-decoration-color: #0D5AB7; color: #0D5AB7; }
     100% { text-decoration-color: transparent; color: #5D6D79; }
   }
 }
@@ -303,7 +309,7 @@
       100% { background-color: transparent; }
     }
     @keyframes repere-libelle {
-      0%, 80% { text-decoration-color: #0D5AB7; color: #073B6F; }
+      0%, 80% { text-decoration-color: #0D5AB7; color: #0D5AB7; }
       100% { text-decoration-color: transparent; color: #5D6D79; }
     }
   }

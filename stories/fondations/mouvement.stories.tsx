@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import * as React from 'react';
 
-import { Fondation, Section, groupe } from '../atelier';
+import { Fondation, Section, group } from '../atelier';
 
 const meta: Meta = {
   title: 'Fondations/Mouvement',
@@ -16,12 +16,12 @@ export const Mouvement: Story = {
     const [parti, setParti] = React.useState(false);
     return (
       <Fondation
-        titre="Mouvement"
-        quoi="Trois durées, chacune attachée à ce qu'elle accompagne. Au-delà de 300 ms une transition se remarque au lieu d'accompagner ; en deçà de 100 elle ne se voit pas et vaut autant que rien."
+        title="Mouvement"
+        what="Trois durées, chacune attachée à ce qu'elle accompagne. Au-delà de 300 ms une transition se remarque au lieu d'accompagner ; en deçà de 100 elle ne se voit pas et vaut autant que rien."
       >
         <Section
-          titre="Les trois durées"
-          quoi="Cliquez pour les comparer côte à côte — c'est le seul moyen de sentir la différence, qu'aucun chiffre ne rend."
+          title="Les trois durées"
+          what="Cliquez pour les comparer côte à côte — c'est le seul moyen de sentir la différence, qu'aucun chiffre ne rend."
         >
           <button
             type="button"
@@ -31,9 +31,9 @@ export const Mouvement: Story = {
             {parti ? 'Revenir' : 'Lancer'}
           </button>
           <div className="flex flex-col gap-md">
-            {groupe('duration').map(([nom, t]) => (
-              <div key={nom} className="flex items-center gap-md">
-                <span className="w-[80px] shrink-0 text-small text-text-muted">{nom}</span>
+            {group('duration').map(([name, t]) => (
+              <div key={name} className="flex items-center gap-md">
+                <span className="w-[80px] shrink-0 text-small text-text-muted">{name}</span>
                 <span className="w-[64px] shrink-0 text-caption tabular-nums text-text-muted">
                   {t.$value}
                 </span>
@@ -50,24 +50,24 @@ export const Mouvement: Story = {
             ))}
           </div>
           <div className="mt-md flex flex-col gap-xxs">
-            {groupe('duration').map(([nom, t]) => (
-              <p key={nom} className="text-caption text-text-muted">
-                <code className="font-semibold text-text">{nom}</code> — {t.$description}
+            {group('duration').map(([name, t]) => (
+              <p key={name} className="text-caption text-text-muted">
+                <code className="font-semibold text-text">{name}</code> — {t.$description}
               </p>
             ))}
           </div>
         </Section>
 
         <Section
-          titre="La courbe"
-          quoi="Une seule, et une sortie douce : le mouvement démarre franchement et s'arrête sans à-coup, ce qui se lit comme « posé » plutôt que « stoppé »."
+          title="La courbe"
+          what="Une seule, et une sortie douce : le mouvement démarre franchement et s'arrête sans à-coup, ce qui se lit comme « posé » plutôt que « stoppé »."
         >
           <code className="text-small text-text">cubic-bezier(0.2, 0, 0, 1)</code>
         </Section>
 
         <Section
-          titre="Le mouvement réduit n'est pas une option"
-          quoi="Un utilisateur qui l'a demandé au système ne doit pas subir d'animation. Les utilitaires Tailwind employés par le dépôt le respectent d'eux-mêmes ; une animation écrite à la main doit le faire explicitement."
+          title="Le mouvement réduit n'est pas une option"
+          what="Un utilisateur qui l'a demandé au système ne doit pas subir d'animation. Les utilitaires Tailwind employés par le dépôt le respectent d'eux-mêmes ; une animation écrite à la main doit le faire explicitement."
         >
           <pre className="overflow-x-auto rounded-md border border-border-soft bg-bg-muted p-base text-caption text-text">
 {`@media (prefers-reduced-motion: reduce) {

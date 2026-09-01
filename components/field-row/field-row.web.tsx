@@ -5,18 +5,18 @@ import * as React from 'react';
 import { Icon } from '../icon/icon.web';
 import { cn } from '../_lib/cn';
 import {
-  menuDeChoix,
-  texteDeValeur,
-  TEXTE_SAUVEGARDE,
-  TEXTE_STATUT,
-  VIDE,
+  choiceMenu,
+  valueText,
+  SAVE_TEXT,
+  STATUS_TEXT,
+  EMPTY,
   type FieldKind,
   type FieldOption,
-  type FieldSauvegarde,
-  type FieldStatut,
+  type FieldSave,
+  type FieldStatus,
 } from './field-row.logic';
 import { Button } from '../button/button.web';
-import { Combobox, SEUIL_RECHERCHE } from '../combobox/combobox.web';
+import { Combobox, SEARCH_THRESHOLD } from '../combobox/combobox.web';
 import {
   Select,
   SelectContent,
@@ -35,83 +35,83 @@ import {
  * Ce n'est pas une valeur qu'on écrirait — aucun jeu d'options ne la porte —
  * mais un marqueur : la choisir fait passer l'éditeur du menu à la saisie libre.
  */
-const AUTRE = '__autre__';
+const OTHER = '__autre__';
 
 /*
   L'entrée « — choisir — » vaut la chaîne vide, et Radix la refuse sur une entrée
   de menu : elle lui sert à dire « rien de retenu ». Une sentinelle donc, que
   `prendre` retraduit — le service ne voit rien changer.
 */
-const VIDE_CHOIX = '__vide__';
+const EMPTY_CHOICE = '__vide__';
 
 export interface FieldRowProps {
   label: string;
   value: string | string[] | null;
   kind?: FieldKind;
   options?: readonly FieldOption[];
-  onSave?: (valeur: string | string[]) => void;
-  statut?: FieldStatut;
+  onSave?: (value: string | string[]) => void;
+  status?: FieldStatus;
   /**
    * Le retour d'enregistrement, à côté de la valeur. Il appartient à la ligne :
    * un bandeau en bas d'écran ne dirait pas QUEL champ a échoué.
    */
-  sauvegarde?: FieldSauvegarde;
+  save?: FieldSave;
   /** Provenance de la valeur, affichée en infobulle (ex. « Relevé du 12/03 »). */
-  origine?: string;
+  origin?: string;
   /**
    * Les photos qui justifient la valeur — la plaque où elle a été lue.
    * Sert au libellé du bouton ; l'ouverture appartient à l'appelant.
    */
-  photos?: readonly { nom: string }[];
-  onVoirPhotos?: () => void;
+  photos?: readonly { name: string }[];
+  onViewPhotos?: () => void;
   /**
    * Le menu accepte-t-il une valeur hors liste ? Ajoute « Autre — saisir une
    * valeur… » en pied de menu, qui bascule en saisie libre.
    */
-  autre?: boolean;
+  other?: boolean;
   /**
    * Rouvrir l'éditeur depuis l'extérieur — la valeur dont ce champ dépend vient
    * de changer, et celle-ci est périmée. Passer un nombre différent à chaque
    * demande : c'est le CHANGEMENT qui ouvre, pas la valeur.
    */
-  demandeOuverture?: number;
+  requestOpen?: number;
   /**
    * Les schémas qui expliquent COMMENT la mesure se prend — pas où elle a été
    * lue. Distincts des photos : sur site ils servent à mesurer, au bureau ils
    * expliquent une valeur déjà relevée.
    */
-  schemas?: readonly { nom: string }[];
-  onVoirSchemas?: () => void;
+  schematics?: readonly { name: string }[];
+  onViewSchematics?: () => void;
   /**
    * Désigne la ligne : la recherche vient d'y emmener. Elle défile sous les
    * yeux une fois, puis le repère s'efface.
    */
-  repere?: boolean;
+  landmark?: boolean;
   readOnly?: boolean;
   className?: string;
 }
 
 // Les mots viennent de la logique partagée, les classes restent ici : le
 // vocabulaire converge entre web et mobile, l'habillage non.
-const CLASSE_STATUT: Record<FieldStatut, string> = {
-  renseigne: 'bg-success-bg text-on-success-bg',
-  manquant: 'bg-danger-bg text-on-danger-bg',
-  a_verifier: 'bg-warning-bg text-on-warning-bg',
+const STATUS_CLASS: Record<FieldStatus, string> = {
+  filled: 'bg-success-bg text-on-success-bg',
+  missing: 'bg-danger-bg text-on-danger-bg',
+  to_check: 'bg-warning-bg text-on-warning-bg',
 };
 
 // Formulations reprises telles quelles du module actuel (index.html:4671) : le
 // wording de la fiche ne change pas parce qu'on la réécrit.
-const CLASSE_SAUVEGARDE: Record<FieldSauvegarde, string> = {
-  encours: 'text-text-muted',
+const SAVE_CLASS: Record<FieldSave, string> = {
+  saving: 'text-text-muted',
   ok: 'text-success',
-  echec: 'text-danger',
+  error: 'text-danger',
 };
 
 
 
 function afficher(value: string | string[] | null): string {
-  if (Array.isArray(value)) return value.length ? value.join(', ') : VIDE;
-  return value && value.trim() !== '' ? value : VIDE;
+  if (Array.isArray(value)) return value.length ? value.join(', ') : EMPTY;
+  return value && value.trim() !== '' ? value : EMPTY;
 }
 
 export function FieldRow({
@@ -120,16 +120,16 @@ export function FieldRow({
   kind = 'text',
   options = [],
   onSave,
-  statut,
-  sauvegarde,
-  origine,
+  status,
+  save,
+  origin,
   photos,
-  onVoirPhotos,
-  schemas,
-  onVoirSchemas,
-  autre = false,
-  demandeOuverture,
-  repere = false,
+  onViewPhotos,
+  schematics,
+  onViewSchematics,
+  other = false,
+  requestOpen,
+  landmark = false,
   readOnly = false,
   className,
 }: FieldRowProps) {
@@ -142,12 +142,12 @@ export function FieldRow({
     apparaîtrait après coup — sur un champ qu'on vient de désigner, ce clignement
     se voit.
   */
-  const [derniereDemande, setDerniereDemande] = React.useState(demandeOuverture);
-  if (demandeOuverture !== derniereDemande) {
-    setDerniereDemande(demandeOuverture);
-    if (demandeOuverture !== undefined && editable) setEnSaisie(true);
+  const [derniereDemande, setDerniereDemande] = React.useState(requestOpen);
+  if (requestOpen !== derniereDemande) {
+    setDerniereDemande(requestOpen);
+    if (requestOpen !== undefined && editable) setEnSaisie(true);
   }
-  const estVide = value === null || value === '' || (Array.isArray(value) && value.length === 0);
+  const isEmpty = value === null || value === '' || (Array.isArray(value) && value.length === 0);
 
   /*
     Amener la ligne sous les yeux — UNE fois. Sans ça, la recherche change
@@ -164,31 +164,31 @@ export function FieldRow({
     el.scrollIntoView({ block: 'center', behavior: 'smooth' });
   }, []);
   React.useEffect(() => {
-    if (!repere) deja.current = false;
-  }, [repere]);
+    if (!landmark) deja.current = false;
+  }, [landmark]);
 
   const ouvrir = () => editable && setEnSaisie(true);
-  const valider = (valeur: string | string[]) => {
-    onSave?.(valeur);
+  const valider = (value: string | string[]) => {
+    onSave?.(value);
     setEnSaisie(false);
   };
 
   return (
     <div
-      ref={repere ? amener : undefined}
+      ref={landmark ? amener : undefined}
       className={cn(
         'grid grid-cols-[190px_1fr] items-start gap-md py-sm',
         'border-b border-border-soft last:border-b-0',
         // Marges négatives compensées : le fond du repère doit déborder de la
         // colonne, sinon il s'arrête au ras du libellé et se lit comme un défaut.
-        repere && '-mx-sm animate-repere rounded-control px-sm',
+        landmark && '-mx-sm animate-repere rounded-control px-sm',
         className,
       )}
     >
       <span
         className={cn(
           'min-w-0 pt-xxs text-small break-words text-text-muted',
-          repere && 'animate-repere-libelle underline decoration-transparent decoration-2 underline-offset-4',
+          landmark && 'animate-repere-libelle underline decoration-transparent decoration-2 underline-offset-4',
         )}
       >
         {label}
@@ -196,12 +196,12 @@ export function FieldRow({
 
       <div className="min-w-0">
         {enSaisie ? (
-          <Editeur
+          <Editor
             kind={kind}
             label={label}
             value={value}
             options={options}
-            autre={autre}
+            other={other}
             onValider={valider}
             onAnnuler={() => setEnSaisie(false)}
           />
@@ -210,7 +210,7 @@ export function FieldRow({
             <span
               role={editable ? 'button' : undefined}
               tabIndex={editable ? 0 : undefined}
-              title={origine}
+              title={origin}
               onClick={ouvrir}
               onKeyDown={(e) => {
                 if (!editable) return;
@@ -226,22 +226,22 @@ export function FieldRow({
                 // modifiable d'une donnée figée. Il pâlit avec la valeur quand
                 // le champ est vide, pour ne pas attirer l'œil sur un manque.
                 editable && 'cursor-text border-b border-dashed pb-px outline-none focus-visible:ring-2 focus-visible:ring-primary',
-                estVide
+                isEmpty
                   ? 'text-text-muted border-border'
                   : 'text-text border-text-subtle',
               )}
             >
               {afficher(value)}
             </span>
-            {onVoirPhotos && photos && photos.length > 0 ? (
+            {onViewPhotos && photos && photos.length > 0 ? (
               // Discret par construction : rien à l'écran tant qu'on ne le
               // cherche pas. La photo explique la valeur, elle ne la remplace
               // pas — l'imposer encombrerait une rubrique de cent lignes.
               <button
                 type="button"
-                onClick={onVoirPhotos}
-                aria-label={libellePhotos(photos)}
-                title={libellePhotos(photos)}
+                onClick={onViewPhotos}
+                aria-label={photosLabel(photos)}
+                title={photosLabel(photos)}
                 className={cn(
                   'inline-flex size-[24px] shrink-0 items-center justify-center rounded-control',
                   'text-text-subtle outline-none hover:bg-bg-muted hover:text-text-muted',
@@ -251,32 +251,32 @@ export function FieldRow({
                 <Icon role="photo" size="xs" />
               </button>
             ) : null}
-            {onVoirSchemas && schemas && schemas.length > 0 ? (
+            {onViewSchematics && schematics && schematics.length > 0 ? (
               <button
                 type="button"
-                onClick={onVoirSchemas}
-                aria-label={libelleSchemas(schemas)}
-                title={libelleSchemas(schemas)}
+                onClick={onViewSchematics}
+                aria-label={schematicsLabel(schematics)}
+                title={schematicsLabel(schematics)}
                 className={cn(
                   'inline-flex size-[24px] shrink-0 items-center justify-center rounded-control',
                   'text-text-subtle outline-none hover:bg-bg-muted hover:text-text-muted',
                   'focus-visible:ring-2 focus-visible:ring-primary',
                 )}
               >
-                <Icon role="mesure" size="xs" />
+                <Icon role="measure" size="xs" />
               </button>
             ) : null}
-            {statut ? (
+            {status ? (
               <span
                 className={cn(
                   'shrink-0 rounded-control px-xs py-xxs text-caption font-semibold',
-                  CLASSE_STATUT[statut],
+                  STATUS_CLASS[status],
                 )}
               >
-                {TEXTE_STATUT[statut]}
+                {STATUS_TEXT[status]}
               </span>
             ) : null}
-            {sauvegarde ? (
+            {save ? (
               // `status` et non `alert` : l'échec est déjà visible — la valeur
               // d'avant est revenue sous les yeux de l'utilisateur. Interrompre
               // le lecteur d'écran une deuxième fois n'apporterait rien.
@@ -284,10 +284,10 @@ export function FieldRow({
                 role="status"
                 className={cn(
                   'shrink-0 text-caption font-bold',
-                  CLASSE_SAUVEGARDE[sauvegarde],
+                  SAVE_CLASS[save],
                 )}
               >
-                {TEXTE_SAUVEGARDE[sauvegarde]}
+                {SAVE_TEXT[save]}
               </span>
             ) : null}
           </div>
@@ -298,35 +298,35 @@ export function FieldRow({
 }
 
 /** « Photo source — Plaque de charge », ou « 3 photos sources · A · B · C ». */
-function libellePhotos(photos: readonly { nom: string }[]): string {
-  if (photos.length === 1) return `Photo source — ${photos[0].nom}`;
-  return `${photos.length} photos sources · ${photos.map((p) => p.nom).join(' · ')}`;
+function photosLabel(photos: readonly { name: string }[]): string {
+  if (photos.length === 1) return `Photo source — ${photos[0].name}`;
+  return `${photos.length} photos sources · ${photos.map((p) => p.name).join(' · ')}`;
 }
 
 /** « Schéma de mesure — MA2LV », ou « 3 schémas de mesure · A · B · C ». */
-function libelleSchemas(schemas: readonly { nom: string }[]): string {
-  if (schemas.length === 1) return `Schéma de mesure — ${schemas[0].nom}`;
-  return `${schemas.length} schémas de mesure · ${schemas.map((p) => p.nom).join(' · ')}`;
+function schematicsLabel(schematics: readonly { name: string }[]): string {
+  if (schematics.length === 1) return `Schéma de mesure — ${schematics[0].name}`;
+  return `${schematics.length} schémas de mesure · ${schematics.map((p) => p.name).join(' · ')}`;
 }
 
 // ------------------------------------------------------------------ éditeurs
 
-interface EditeurProps {
+interface EditorProps {
   kind: FieldKind;
   label: string;
   value: string | string[] | null;
   options: readonly FieldOption[];
-  autre?: boolean;
+  other?: boolean;
   onValider: (v: string | string[]) => void;
   onAnnuler: () => void;
 }
 
-function Editeur({ kind, label, value, options, autre, onValider, onAnnuler }: EditeurProps) {
+function Editor({ kind, label, value, options, other, onValider, onAnnuler }: EditorProps) {
   // « Autre » bascule le menu en saisie libre, sans refermer la ligne.
   const [libre, setLibre] = React.useState(false);
   if (kind === 'multi') {
     return (
-      <EditeurMulti
+      <MultiEditor
         label={label}
         value={Array.isArray(value) ? value : []}
         options={options}
@@ -337,21 +337,21 @@ function Editeur({ kind, label, value, options, autre, onValider, onAnnuler }: E
   }
 
   if (kind === 'choice' && !libre) {
-    const { choix, retenue } = menuDeChoix(value, options);
-    if (autre) choix.push({ value: AUTRE, label: 'Autre — saisir une valeur…' });
+    const { choices, chosen } = choiceMenu(value, options);
+    if (other) choices.push({ value: OTHER, label: 'Autre — saisir une valeur…' });
 
     /* Choisir la valeur, ou l'ouvrir en saisie libre. Le même geste pour les
        deux menus, qui ne diffèrent que par la façon de trouver l'entrée. */
     const prendre = (brut: string) => {
-      const v = brut === VIDE_CHOIX ? '' : brut;
-      if (v === AUTRE) {
+      const v = brut === EMPTY_CHOICE ? '' : brut;
+      if (v === OTHER) {
         setLibre(true);
         return;
       }
       /* Reprendre la valeur déjà retenue ferme sans écrire : c'est ce que le
          geste veut dire. Réenregistrer à l'identique coûterait un aller-retour
          et daterait la fiche d'une correction qui n'en est pas une. */
-      if (v === retenue) onAnnuler();
+      if (v === chosen) onAnnuler();
       else onValider(v);
     };
 
@@ -360,34 +360,34 @@ function Editeur({ kind, label, value, options, autre, onValider, onAnnuler }: E
         className="flex flex-wrap items-center gap-sm"
         onKeyDown={(e) => e.key === 'Escape' && onAnnuler()}
       >
-        {choix.length > SEUIL_RECHERCHE ? (
+        {choices.length > SEARCH_THRESHOLD ? (
           /* Trois cent soixante-seize modèles de machine : sans champ de
              recherche, la bonne valeur est introuvable autrement qu'en la
              sachant déjà — et il faudrait la faire défiler pour la retrouver. */
           <div className="min-w-0 flex-1">
             <Combobox
-              options={choix.map((o) => ({ valeur: o.value, libelle: o.label }))}
-              valeur={retenue}
-              onValeur={prendre}
+              options={choices.map((o) => ({ value: o.value, label: o.label }))}
+              value={chosen}
+              onValue={prendre}
               ariaLabel={label}
               autoFocus
               placeholder={`Rechercher — ${label.toLowerCase()}`}
-              className="h-[30px] border-(length:--arq-border-epais) border-primary"
+              className="h-(--arq-control-sm) border-(length:--arq-border-epais) border-primary"
             />
           </div>
         ) : (
           <div className="min-w-0 flex-1">
-            <Select value={retenue} onValueChange={prendre}>
+            <Select value={chosen} onValueChange={prendre}>
               <SelectTrigger
                 autoFocus
                 aria-label={label}
-                className="h-[30px] w-full border-(length:--arq-border-epais) border-primary"
+                className="h-(--arq-control-sm) w-full border-(length:--arq-border-epais) border-primary"
               >
                 <SelectValue placeholder="— choisir —" />
               </SelectTrigger>
               <SelectContent>
-                {choix.map((o) => (
-                  <SelectItem key={o.value} value={o.value || VIDE_CHOIX}>
+                {choices.map((o) => (
+                  <SelectItem key={o.value} value={o.value || EMPTY_CHOICE}>
                     {o.label}
                   </SelectItem>
                 ))}
@@ -415,12 +415,12 @@ function Editeur({ kind, label, value, options, autre, onValider, onAnnuler }: E
       // Valider à la perte de focus : le réflexe est de cliquer ailleurs, pas
       // d'appuyer sur Entrée. Sans ça, la saisie est silencieusement perdue.
       onBlur={(e) => onValider(e.currentTarget.value)}
-      className="h-[30px] w-full rounded-control border-(length:--arq-border-epais) border-primary px-sm text-small text-text outline-none"
+      className="h-(--arq-control-sm) w-full rounded-control border-(length:--arq-border-epais) border-primary px-sm text-small text-text outline-none"
     />
   );
 }
 
-function EditeurMulti({
+function MultiEditor({
   label,
   value,
   options,
@@ -433,11 +433,11 @@ function EditeurMulti({
   onValider: (v: string[]) => void;
   onAnnuler: () => void;
 }) {
-  const [choisis, setChoisis] = React.useState<string[]>(value);
+  const [chosen, setChosen] = React.useState<string[]>(value);
 
-  const basculer = (v: string) =>
-    setChoisis((actuels) =>
-      actuels.includes(v) ? actuels.filter((x) => x !== v) : [...actuels, v],
+  const toggle = (v: string) =>
+    setChosen((current) =>
+      current.includes(v) ? current.filter((x) => x !== v) : [...current, v],
     );
 
   return (
@@ -449,17 +449,17 @@ function EditeurMulti({
     >
       <div className="flex flex-wrap gap-xs">
         {options.map((o) => {
-          const actif = choisis.includes(o.value);
+          const active = chosen.includes(o.value);
           return (
             <button
               key={o.value}
               type="button"
-              aria-pressed={actif}
-              onClick={() => basculer(o.value)}
+              aria-pressed={active}
+              onClick={() => toggle(o.value)}
               className={cn(
                 'rounded-control px-sm py-xxs text-caption font-semibold outline-none',
                 'focus-visible:ring-2 focus-visible:ring-primary',
-                actif
+                active
                   ? 'bg-primary text-text-on-dark'
                   : 'bg-bg-muted text-text-muted hover:bg-info-bg',
               )}
@@ -470,7 +470,7 @@ function EditeurMulti({
         })}
       </div>
       <div className="mt-sm flex flex-wrap items-center gap-sm">
-        <Button size="sm" onClick={() => onValider(choisis)}>
+        <Button size="sm" onClick={() => onValider(chosen)}>
           Enregistrer
         </Button>
         <Button variant="secondary" size="sm" onClick={onAnnuler}>
@@ -481,9 +481,9 @@ function EditeurMulti({
             on dit pourquoi ça ne partira pas — le service refuse une valeur
             vide, la consolidation la repeuplerait au calcul suivant. */}
         <span className="text-caption text-text-muted">
-          {choisis.length === 0
+          {chosen.length === 0
             ? 'Aucune valeur retenue — un champ ne peut pas être vidé depuis la fiche.'
-            : choisis
+            : chosen
                 .map((v) => options.find((o) => o.value === v)?.label ?? v)
                 .join(' · ')}
         </span>

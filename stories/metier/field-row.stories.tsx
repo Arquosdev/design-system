@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { FieldRow } from '../../components/field-row/field-row.web';
 import specification from '../../components/field-row/field-row.spec.md?raw';
-import { choix, docsDe } from '../fiche';
+import { choices, docsDe } from '../fiche';
 
 const meta = {
   title: 'Composants/Métier/FieldRow',
@@ -11,10 +11,10 @@ const meta = {
   parameters: docsDe(specification),
   args: { label: 'Charge utile (kg)', value: '630' },
   argTypes: {
-    kind: choix(['text', 'number', 'choice', 'multi'], "L'éditeur qui s'ouvre au clic."),
-    statut: choix(['renseigne', 'manquant', 'a_verifier'], "L'état de la DONNÉE."),
-    sauvegarde: choix(
-      ['encours', 'ok', 'echec'],
+    kind: choices(['text', 'number', 'choice', 'multi'], "L'éditeur qui s'ouvre au clic."),
+    status: choices(['filled', 'missing', 'to_check'], "L'état de la DONNÉE."),
+    save: choices(
+      ['saving', 'ok', 'error'],
       "Où en est l'ENREGISTREMENT de la dernière correction.",
     ),
   },
@@ -26,10 +26,10 @@ type Story = StoryObj<typeof meta>;
 /** Cliquer la valeur ouvre la saisie, sans quitter la page. */
 export const Defaut: Story = {
   render: function Rendu(args) {
-    const [valeur, setValeur] = React.useState(args.value);
+    const [value, setValue] = React.useState(args.value);
     return (
       <div className="max-w-[520px]">
-        <FieldRow {...args} value={valeur} onSave={(v) => setValeur(v)} />
+        <FieldRow {...args} value={value} onSave={(v) => setValue(v)} />
       </div>
     );
   },
@@ -85,9 +85,9 @@ export const ChoixMultiple: Story = {
 export const Enregistrement: Story = {
   render: () => (
     <div className="max-w-[520px]">
-      <FieldRow label="Charge utile (kg)" value="630" onSave={() => {}} sauvegarde="encours" />
-      <FieldRow label="Vitesse (m/s)" value="1" onSave={() => {}} sauvegarde="ok" />
-      <FieldRow label="Marque" value="ORONA" onSave={() => {}} sauvegarde="echec" />
+      <FieldRow label="Charge utile (kg)" value="630" onSave={() => {}} save="saving" />
+      <FieldRow label="Vitesse (m/s)" value="1" onSave={() => {}} save="ok" />
+      <FieldRow label="Marque" value="ORONA" onSave={() => {}} save="error" />
     </div>
   ),
 };
@@ -104,19 +104,19 @@ export const PhotoEtSchema: Story = {
         label="Charge utile (kg)"
         value="630"
         onSave={() => {}}
-        photos={[{ nom: 'Plaque de charge' }, { nom: 'Boîte à boutons cabine' }]}
-        onVoirPhotos={() => {}}
+        photos={[{ name: 'Plaque de charge' }, { name: 'Boîte à boutons cabine' }]}
+        onViewPhotos={() => {}}
       />
       <FieldRow
         label="Réservation adhérence (mm)"
         value="1 250"
         onSave={() => {}}
-        schemas={[{ nom: 'MA2RCT SCH RESERVATION ADHERENCE' }]}
-        onVoirSchemas={() => {}}
+        schematics={[{ name: 'MA2RCT SCH RESERVATION ADHERENCE' }]}
+        onViewSchematics={() => {}}
       />
     </div>
   ),
 };
 
 /** La recherche vient d'y emmener : la ligne défile sous les yeux et s'allume. */
-export const Designee: Story = { args: { label: 'Module GSM', value: 'Oui', repere: true } };
+export const Designee: Story = { args: { label: 'Module GSM', value: 'Oui', landmark: true } };

@@ -1,11 +1,11 @@
 ---
 name: Input
-statut: stable
-couche: generique
+status: stable
+layer: generique
 role: Recueillir une valeur courte tapée au clavier, dans un formulaire.
-mots_cles: [champ, saisie, input, texte, nombre, formulaire, taper]
-plateformes: [web]
-remplace:
+keywords: [champ, saisie, input, texte, nombre, formulaire, taper]
+platforms: [web]
+replaces:
   web:
     - src/app/fiche/sections/completer.tsx — trois <input> écrits sur place
   mobile:

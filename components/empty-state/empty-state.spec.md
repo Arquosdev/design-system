@@ -1,11 +1,11 @@
 ---
 name: EmptyState
-statut: stable
-couche: generique
+status: stable
+layer: generique
 role: Dire pourquoi une zone est vide, et ce qu'on peut y faire.
-mots_cles: [vide, empty, aucun, erreur, hors ligne, reessayer, rien]
-plateformes: [web]
-remplace:
+keywords: [vide, empty, aucun, erreur, hors ligne, reessayer, rien]
+platforms: [web]
+replaces:
   web: [src/app/fiche/sections/documents.tsx — messages de liste vide écrits sur place]
   mobile: [components/EmptyState.tsx]
 ---
@@ -15,7 +15,7 @@ remplace:
 ## Quand l'utiliser
 
 - Une liste qui n'a rien à montrer : aucun document, aucun écart, aucun relevé.
-- Un chargement qui a échoué — via `EmptyStateErreur`, qui lit l'erreur et
+- Un chargement qui a échoué — via `EmptyStateError`, qui lit l'erreur et
   choisit ses mots.
 - Un filtre qui ne ramène rien : dire que le filtre est en cause, pas la donnée.
 
@@ -29,40 +29,40 @@ remplace:
 - **Sans conseil.** « Aucun résultat » seul laisse devant un mur. Ce qui aide,
   c'est ce qu'on peut faire ensuite — élargir le filtre, ajouter, réessayer.
 - **Avec un bouton qui ne marchera pas.** Hors ligne, un « Réessayer » qui
-  échouera aussitôt use la patience ; c'est exactement ce que `EmptyStateErreur`
+  échouera aussitôt use la patience ; c'est exactement ce que `EmptyStateError`
   évite en distinguant les deux cas.
 
 ## Props
 
 | Prop | Type | Rôle |
 | --- | --- | --- |
-| `icone` | `IconRole` | Un rôle du vocabulaire, pas un dessin |
-| `titre` | `string` | Ce qui se passe, en trois mots |
-| `conseil` | `string` | Ce qu'il faut comprendre, et si possible quoi faire |
+| `icon` | `IconRole` | Un rôle du vocabulaire, pas un dessin |
+| `title` | `string` | Ce qui se passe, en trois mots |
+| `hint` | `string` | Ce qu'il faut comprendre, et si possible quoi faire |
 | `actionLabel` + `onAction` | `string` + `() => void` | Les deux ou aucun |
 
-`EmptyStateErreur` prend `erreur` et `onReessayer`, et se débrouille du reste.
+`EmptyStateError` prend `error` et `onReessayer`, et se débrouille du reste.
 
 ## Exemples
 
 ```tsx
-import { EmptyState, EmptyStateErreur } from '@arquos/design-system/web';
+import { EmptyState, EmptyStateError } from '@arquos/design-system/web';
 
 <EmptyState
-  icone="document"
-  titre="Aucun document"
-  conseil="Les pièces jointes au relevé apparaîtront ici."
+  icon="document"
+  title="Aucun document"
+  hint="Les pièces jointes au relevé apparaîtront ici."
 />
 
-// l'erreur choisit ses propres mots
-<EmptyStateErreur erreur={erreur} onReessayer={recharger} />
+// l'error choisit ses propres mots
+<EmptyStateError error={error} onReessayer={recharger} />
 ```
 
 ## Logique partagée
 
 `empty-state.logic.ts` porte la **décision** et les **mots** :
-`natureDeLEchec()` répond à « réessayer maintenant a-t-il une chance de
-marcher ? », et `ECHECS` donne l'icône, le titre et le conseil de chaque cas.
+`failureKind()` répond à « réessayer maintenant a-t-il une chance de
+marcher ? », et `FAILURES` donne l'icône, le titre et le conseil de chaque cas.
 
 Distinguer hors-ligne du reste n'est pas un raffinement : dans une gaine sans
 réseau, un message générique enverrait le technicien appuyer en boucle. Le

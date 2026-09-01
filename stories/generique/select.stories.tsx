@@ -25,9 +25,9 @@ type Story = StoryObj<typeof meta>;
 /** Le menu d'action d'un écart — trois choix, plus « aucune ». */
 export const Defaut: Story = {
   render: function Rendu() {
-    const [valeur, setValeur] = React.useState('r_parations');
+    const [value, setValue] = React.useState('r_parations');
     return (
-      <Select value={valeur} onValueChange={setValeur}>
+      <Select value={value} onValueChange={setValue}>
         <SelectTrigger aria-label="Action à mener">
           <SelectValue placeholder="Aucune action" />
         </SelectTrigger>
@@ -64,7 +64,7 @@ export const Largeur: Story = {
         </Select>
       </div>
       <div>
-        <div className="mb-xxs text-caption text-text-muted">Pleine largeur</div>
+        <div className="mb-xxs text-caption text-text-muted">Pleine width</div>
         <Select defaultValue="travaux">
           <SelectTrigger aria-label="Action" className="w-full">
             <SelectValue />

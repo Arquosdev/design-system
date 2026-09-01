@@ -16,16 +16,16 @@ type Story = StoryObj<typeof meta>;
 type Brut = { $value?: unknown; $description?: string; [k: string]: unknown };
 const table = tokens as unknown as Record<string, Brut>;
 
-interface Ligne {
-  groupe: string;
-  nom: string;
-  valeur: string;
+interface Row {
+  group: string;
+  name: string;
+  value: string;
   description?: string;
   /** Comment le nommer dans chaque vocabulaire. */
   ts: string;
   tailwind?: string;
   css?: string;
-  apercu?: React.ReactNode;
+  preview?: React.ReactNode;
 }
 
 /** `titleLarge` → `title-large`, comme le générateur. */
@@ -38,18 +38,18 @@ const kebab = (s: string) => s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCas
  * et `text-success-bg` n'existe comme idée nulle part. Une table de référence qui
  * suggère la mauvaise combinaison enseigne le défaut.
  */
-function classesDeCouleur(nom: string): string {
-  const k = kebab(nom);
-  if (/^on[A-Z]/.test(nom)) return `text-${k}`; // encre d'une teinte de fond
-  if (/Bg$/.test(nom) || /^bg/.test(nom)) return `bg-${k}`; // fond seulement
-  if (/^text/.test(nom)) return `text-${k}`;
-  if (/^border/.test(nom)) return `border-${k}`;
+function classesDeCouleur(name: string): string {
+  const k = kebab(name);
+  if (/^on[A-Z]/.test(name)) return `text-${k}`; // encre d'une teinte de fond
+  if (/Bg$/.test(name) || /^bg/.test(name)) return `bg-${k}`; // fond seulement
+  if (/^text/.test(name)) return `text-${k}`;
+  if (/^border/.test(name)) return `border-${k}`;
   // Couleurs pleines : fond avec du texte clair, ou texte sur fond clair.
   return `bg-${k} · text-${k}`;
 }
 
-const entrees = (groupe: string) =>
-  Object.entries(table[groupe] ?? {}).filter(([c]) => !c.startsWith('$'));
+const entrees = (group: string) =>
+  Object.entries(table[group] ?? {}).filter(([c]) => !c.startsWith('$'));
 
 /**
  * Chaque famille dit comment se nomme un de ses tokens dans les trois
@@ -58,20 +58,20 @@ const entrees = (groupe: string) =>
  * Tailwind et `--arq-color-on-success-bg` en CSS.
  */
 const FAMILLES: {
-  groupe: string;
-  titre: string;
+  group: string;
+  title: string;
   ts: (n: string) => string;
   tailwind?: (n: string) => string;
   css?: (n: string) => string;
-  apercu?: (v: string) => React.ReactNode;
+  preview?: (v: string) => React.ReactNode;
 }[] = [
   {
-    groupe: 'color',
-    titre: 'Couleur',
+    group: 'color',
+    title: 'Couleur',
     ts: (n) => `colors.${n}`,
     tailwind: classesDeCouleur,
     css: (n) => `--arq-color-${kebab(n)}`,
-    apercu: (v) => (
+    preview: (v) => (
       <span
         className="block size-[26px] rounded-control border border-border-soft"
         style={{ background: v }}
@@ -79,20 +79,20 @@ const FAMILLES: {
     ),
   },
   {
-    groupe: 'spacing',
-    titre: 'Espacement',
+    group: 'spacing',
+    title: 'Espacement',
     ts: (n) => `spacing.${n}`,
     tailwind: (n) => `p-${kebab(n)} · gap-${kebab(n)}`,
     css: (n) => `--arq-space-${kebab(n)}`,
-    apercu: (v) => <span className="block h-[10px] rounded-sm bg-primary" style={{ width: v }} />,
+    preview: (v) => <span className="block h-[10px] rounded-sm bg-primary" style={{ width: v }} />,
   },
   {
-    groupe: 'radius',
-    titre: 'Arrondi',
+    group: 'radius',
+    title: 'Arrondi',
     ts: (n) => `radius.${n}`,
     tailwind: (n) => `rounded-${kebab(n)}`,
     css: (n) => `--arq-radius-${kebab(n)}`,
-    apercu: (v) => (
+    preview: (v) => (
       <span
         className="block size-[26px] border-(length:--arq-border-epais) border-primary bg-info-bg"
         style={{ borderRadius: v }}
@@ -100,34 +100,34 @@ const FAMILLES: {
     ),
   },
   {
-    groupe: 'fontSize',
-    titre: 'Taille de police',
+    group: 'fontSize',
+    title: 'Taille de police',
     ts: (n) => `fontSize.${n}`,
     tailwind: (n) => `text-${kebab(n)}`,
     css: (n) => `--arq-font-size-${kebab(n)}`,
-    apercu: (v) => (
+    preview: (v) => (
       <span className="leading-none text-text" style={{ fontSize: v }}>
         Aa
       </span>
     ),
   },
   {
-    groupe: 'shadow',
-    titre: 'Élévation',
+    group: 'shadow',
+    title: 'Élévation',
     ts: (n) => `shadow.${n}`,
     tailwind: (n) => `shadow-${kebab(n)}`,
     css: (n) => `--arq-shadow-${kebab(n)}`,
-    apercu: (v) => (
+    preview: (v) => (
       <span className="block size-[26px] rounded-md bg-bg" style={{ boxShadow: v }} />
     ),
   },
   {
-    groupe: 'borderWidth',
-    titre: 'Bordure',
+    group: 'borderWidth',
+    title: 'Bordure',
     ts: (n) => `borderWidth.${n}`,
     tailwind: (n) => `border-(length:--arq-border-${kebab(n)})`,
     css: (n) => `--arq-border-${kebab(n)}`,
-    apercu: (v) => (
+    preview: (v) => (
       <span
         className="block size-[26px] rounded-sm border-primary"
         style={{ borderStyle: 'solid', borderWidth: v }}
@@ -135,48 +135,61 @@ const FAMILLES: {
     ),
   },
   {
-    groupe: 'iconSize',
-    titre: 'Taille d’icône',
+    group: 'controlHeight',
+    title: 'Hauteur de contrôle',
+    ts: (n) => `controlHeight.${n}`,
+    tailwind: (n) => `h-(--arq-control-${kebab(n)})`,
+    css: (n) => `--arq-control-${kebab(n)}`,
+    preview: (v) => (
+      <span
+        className="block w-[26px] rounded-control border border-border bg-bg-muted"
+        style={{ height: v }}
+      />
+    ),
+  },
+  {
+    group: 'iconSize',
+    title: 'Taille d’icône',
     ts: (n) => `iconSize.${n}`,
     tailwind: (n) => `size-icon-${kebab(n)}`,
     css: (n) => `--arq-icon-${kebab(n)}`,
   },
   {
-    groupe: 'duration',
-    titre: 'Durée',
+    group: 'duration',
+    title: 'Durée',
     ts: (n) => `duration.${n}`,
     tailwind: (n) => `duration-(--arq-duration-${kebab(n)})`,
     css: (n) => `--arq-duration-${kebab(n)}`,
   },
   {
-    groupe: 'layers',
-    titre: 'Empilement',
+    group: 'layers',
+    title: 'Empilement',
     ts: (n) => `layers.${n}`,
     tailwind: (n) => `z-(--arq-layer-${kebab(n)})`,
     css: (n) => `--arq-layer-${kebab(n)}`,
   },
-  { groupe: 'fontWeight', titre: 'Graisse', ts: (n) => `fontWeight.${n}` },
-  { groupe: 'lineHeight', titre: 'Interligne', ts: (n) => `lineHeight.${n}` },
-  { groupe: 'letterSpacing', titre: 'Approche', ts: (n) => `letterSpacing.${n}` },
-  { groupe: 'iconWeight', titre: 'Graisse d’icône', ts: (n) => `iconWeight.${n}` },
-  { groupe: 'core', titre: 'Couleurs de marque', ts: (n) => `core.${n}`,
-    apercu: (v) => (
+  { group: 'fontWeight', title: 'Graisse', ts: (n) => `fontWeight.${n}` },
+  { group: 'lineHeight', title: 'Interligne', ts: (n) => `lineHeight.${n}` },
+  { group: 'letterSpacing', title: 'Approche', ts: (n) => `letterSpacing.${n}` },
+  { group: 'iconWeight', title: 'Graisse d’icône', ts: (n) => `iconWeight.${n}` },
+  { group: 'core', title: 'Couleurs de marque', ts: (n) => `core.${n}`,
+    preview: (v) => (
       <span className="block size-[26px] rounded-control border border-border-soft" style={{ background: v }} />
     ) },
 ];
 
-const LIGNES: Ligne[] = FAMILLES.flatMap((f) =>
-  entrees(f.groupe).map(([nom, t]) => {
-    const valeur = String((t as Brut).$value ?? '');
+const ROWS: Row[] = FAMILLES.flatMap((f) =>
+  entrees(f.group).map(([name, t]) => {
+    const value = String((t as Brut).$value ?? '');
     return {
-      groupe: f.titre,
-      nom,
-      valeur,
+      group: f.title,
+      name,
+      value,
       description: (t as Brut).$description,
-      ts: f.ts(nom),
-      tailwind: f.tailwind?.(nom),
-      css: f.css?.(nom),
-      apercu: f.apercu?.(valeur),
+      ts: f.ts(name),
+      tailwind: f.tailwind?.(name),
+      css: f.css?.(name),
+      preview: f.preview?.(value),
     };
   }),
 );
@@ -188,22 +201,22 @@ export const TousLesTokens: Story = {
   render: function Page() {
     const [q, setQ] = React.useState('');
 
-    const filtrees = React.useMemo(() => {
+    const filtered = React.useMemo(() => {
       const terme = nu(q.trim());
-      if (!terme) return LIGNES;
-      return LIGNES.filter((l) =>
-        nu([l.nom, l.valeur, l.groupe, l.ts, l.tailwind, l.css, l.description].join(' ')).includes(
+      if (!terme) return ROWS;
+      return ROWS.filter((l) =>
+        nu([l.name, l.value, l.group, l.ts, l.tailwind, l.css, l.description].join(' ')).includes(
           terme,
         ),
       );
     }, [q]);
 
-    const groupes = [...new Set(filtrees.map((l) => l.groupe))];
+    const groupes = [...new Set(filtered.map((l) => l.group))];
 
     return (
       <Fondation
-        titre="Tous les tokens"
-        quoi="La table de référence : chaque token avec sa valeur et ses trois façons de se nommer — TypeScript, classe Tailwind, variable CSS. Les autres pages de fondations enseignent ; celle-ci sert à chercher."
+        title="Tous les tokens"
+        what="La table de référence : chaque token avec sa valeur et ses trois façons de se nommer — TypeScript, classe Tailwind, variable CSS. Les autres pages de fondations enseignent ; celle-ci sert à chercher."
       >
         <Input
           value={q}
@@ -219,12 +232,12 @@ export const TousLesTokens: Story = {
           <strong className="text-text">Les teintes d’état vont par paire.</strong>{' '}
           <code>bg-danger-bg</code> se pose avec <code>text-on-danger-bg</code>, jamais avec{' '}
           <code>text-danger</code> — qui donne 3,39 pour 1. Pour <code>warning</code>, l’écart est
-          pire encore : 1,79. La colonne « Comment l’écrire » ne propose donc que les utilitaires
-          qui ont un sens pour chaque token.
+          pire encore : 1,79. La column « Comment l’écrire » ne propose donc que les utilitaires
+          qui ont un direction pour chaque token.
         </p>
 
         <p className="mb-lg text-caption text-text-muted">
-          {filtrees.length} token{filtrees.length > 1 ? 's' : ''} sur {LIGNES.length} · lus dans{' '}
+          {filtered.length} token{filtered.length > 1 ? 's' : ''} sur {ROWS.length} · lus dans{' '}
           <code>dist/tokens.json</code>, généré depuis <code>src/*.ts</code>
         </p>
 
@@ -250,13 +263,13 @@ export const TousLesTokens: Story = {
                   </tr>
                 </thead>
                 <tbody>
-                  {filtrees
-                    .filter((l) => l.groupe === g)
+                  {filtered
+                    .filter((l) => l.group === g)
                     .map((l) => (
                       <tr key={l.ts} className="border-t border-border-soft align-top">
-                        <td className="px-sm py-sm">{l.apercu}</td>
+                        <td className="px-sm py-sm">{l.preview}</td>
                         <td className="px-sm py-sm">
-                          <div className="font-semibold text-text">{l.nom}</div>
+                          <div className="font-semibold text-text">{l.name}</div>
                           {l.description ? (
                             <p className="mt-xxs max-w-[46ch] text-pretty text-caption text-text-muted">
                               {l.description}
@@ -264,7 +277,7 @@ export const TousLesTokens: Story = {
                           ) : null}
                         </td>
                         <td className="whitespace-nowrap px-sm py-sm tabular-nums text-text-muted">
-                          {l.valeur}
+                          {l.value}
                         </td>
                         <td className="px-sm py-sm">
                           <div className="flex flex-col gap-xxs text-caption">

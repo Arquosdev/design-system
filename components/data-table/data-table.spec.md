@@ -1,11 +1,11 @@
 ---
 name: DataTable
-statut: beta
-couche: metier
+status: beta
+layer: metier
 role: Présenter des mesures en lignes et colonnes, quand la comparaison colonne par colonne est le sujet.
-mots_cles: [tableau, table, grille, cotes, mesures, colonnes, lignes]
-plateformes: [web]
-remplace:
+keywords: [tableau, table, grille, cotes, mesures, colonnes, lignes]
+platforms: [web]
+replaces:
   web:
     - public/fiche/index.html — levelTables, grille recopiée inline
   mobile: [components/full-form/NiveauxTable.tsx]
@@ -33,10 +33,10 @@ remplace:
 
 | Prop       | Type         | Défaut | Rôle                                              |
 | ---------- | ------------ | ------ | ------------------------------------------------- |
-| `titre`    | `string`     | —      | En-tête du tableau                                 |
+| `title`    | `string`     | —      | En-tête du tableau                                 |
 | `note`     | `string`     | —      | Précision affichée à côté du titre (« cotes en mm ») |
-| `colonnes` | `string[]`   | —      | Les en-têtes, dans l'ordre                         |
-| `lignes`   | `string[][]` | —      | Les valeurs. Chaque ligne suit l'ordre des colonnes |
+| `columns` | `string[]`   | —      | Les en-têtes, dans l'ordre                         |
+| `rows`   | `string[][]` | —      | Les valeurs. Chaque ligne suit l'ordre des colonnes |
 
 ## Exemples
 
@@ -44,10 +44,10 @@ remplace:
 import { DataTable } from '@arquos/design-system/web';
 
 <DataTable
-  titre="Baies palières"
+  title="Baies palières"
   note="Les cotes sont en mm"
-  colonnes={['Niveau', 'Côte B', 'Côte HSL']}
-  lignes={[['5', '300', '—']]}
+  columns={['Niveau', 'Côte B', 'Côte HSL']}
+  rows={[['5', '300', '—']]}
 />
 ```
 

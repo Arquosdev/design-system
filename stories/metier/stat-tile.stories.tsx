@@ -8,7 +8,7 @@ const meta = {
   title: 'Composants/Métier/StatTile',
   component: StatTile,
   parameters: docsDe(specification),
-  args: { label: 'Charge utile', valeur: '630', unite: 'kg' },
+  args: { label: 'Charge utile', value: '630', unit: 'kg' },
 } satisfies Meta<typeof StatTile>;
 
 export default meta;
@@ -24,12 +24,12 @@ export const Defaut: Story = {};
 export const RangeeDIdentite: Story = {
   render: () => (
     <div className="grid max-w-[720px] grid-cols-3 gap-md">
-      <StatTile label="Charge utile" valeur="630" unite="kg" />
-      <StatTile label="Niveaux desservis" valeur="7" detail="RDC à 6e" />
-      <StatTile label="Vitesse" valeur="1,00" unite="m/s" />
-      <StatTile label="Faces de service" valeur="2" detail="Traversant" />
-      <StatTile label="Machinerie" valeur="Haute" />
-      <StatTile label="Télé-alarme" valeur="Oui" detail="GSM 4G" />
+      <StatTile label="Charge utile" value="630" unit="kg" />
+      <StatTile label="Niveaux desservis" value="7" detail="RDC à 6e" />
+      <StatTile label="Vitesse" value="1,00" unit="m/s" />
+      <StatTile label="Faces de service" value="2" detail="Traversant" />
+      <StatTile label="Machinerie" value="Haute" />
+      <StatTile label="Télé-alarme" value="Oui" detail="GSM 4G" />
     </div>
   ),
 };

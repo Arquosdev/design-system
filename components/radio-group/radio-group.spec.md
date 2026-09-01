@@ -1,11 +1,11 @@
 ---
 name: RadioGroup
-statut: stable
-couche: generique
+status: stable
+layer: generique
 role: Choisir une seule option parmi quelques-unes, toutes visibles à la fois.
-mots_cles: [radio, choix, unique, option, exclusif, bouton radio]
-plateformes: [web]
-remplace:
+keywords: [radio, choix, unique, option, exclusif, bouton radio]
+platforms: [web]
+replaces:
   web: []
   mobile: []
 ---
@@ -54,7 +54,7 @@ import { RadioGroup, RadioGroupItem, Label } from '@arquos/design-system/web';
     <RadioGroupItem value="hydraulique" /> Hydraulique
   </Label>
   <Label className="gap-sm">
-    <RadioGroupItem value="inconnu" /> Non déterminé
+    <RadioGroupItem value="unknown" /> Non déterminé
   </Label>
 </RadioGroup>
 ```

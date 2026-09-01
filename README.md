@@ -51,7 +51,7 @@ Les tokens s'écrivent **une fois** en TypeScript (`src/`) et se lisent dans
 | `typography.ts` | tailles, graisses, interlignes, préréglages |
 | `spacing.ts` · `radius.ts` | échelle base 4 · arrondis |
 | `elevation.ts` | `shadow` (CSS) et `shadowNative` (React Native) |
-| `icons.ts` | `iconSize`, `iconWeight`, `icones` — le vocabulaire Phosphor |
+| `icons.ts` | `iconSize`, `iconWeight`, `icons` — le vocabulaire Phosphor |
 | `motion.ts` · `layers.ts` · `border.ts` | durées et courbe · empilement · épaisseurs de bordure |
 
 | Généré | Pour qui |
@@ -104,10 +104,10 @@ local, le sans-Tailwind, les pièges de cache.
 | `tsc --noEmit` | une erreur de typage |
 | `check-version` | un numéro de version déjà publié sous un tag |
 | `build-tokens --check` | un `dist/` non régénéré |
-| `build-catalog --check` | une plateforme sans implémentation, un chemin de `remplace` cassé |
+| `build-catalog --check` | une plateforme sans implémentation, un chemin de `replaces` cassé |
 | `check-contraste` | une paire texte/fond illisible, une palette brute |
 | `npm test` | une règle métier cassée |
-| `check-contraste-rendu` | un texte illisible **au rendu** — il mesure le fond réellement peint |
+| `check-contraste-render` | un texte illisible **au rendu** — il mesure le fond réellement peint |
 
 Le dernier voit ce que le statique ne peut pas : fond sur le parent, opacité,
 couleur posée par une animation. Il a trouvé 92 textes illisibles le jour de son
@@ -134,13 +134,13 @@ couleur posée par une animation. Il a trouvé 92 textes illisibles le jour de s
 - **v1.29.0** (août 2026) — Le logo et le favicon Arquos dans la vitrine. Pages « Principes » et « Règles d'écran » resserrées de 40 %, sections `Anatomie` réduites à ce que le code ne dit pas.
 - **v1.28.0** (août 2026) — Documentation resserrée : l'essentiel, sans les récits.
 - **v1.27.0** — La vitrine change de plan : Prise en main → Fondations → Composants → Patterns, sur le modèle d'Atlassian. Quatre fondations qui manquaient, une page « Installer », l'interface habillée aux tokens.
-- **v1.26.0** — 22 tests sur la logique métier, un statut de composant défini, les chemins de `remplace` vérifiés.
+- **v1.26.0** — 22 tests sur la logique métier, un statut de composant défini, les chemins de `replaces` vérifiés.
 - **v1.24.0** — Le contraste se mesure au rendu, dans un vrai navigateur.
 - **v1.23.0** — Tokens de mouvement et d'empilement.
 - **v1.22.0** — `MIGRATION.md` : le registre de ce qu'une montée coûtera.
 - **v1.21.0** — `textSubtle` n'est plus une couleur de texte ; plus une seule icône dessinée à la main.
 - **v1.20.0** — `Skeleton`, `EmptyState`, `Banner`, `Avatar` remontés du mobile.
-- **v1.18.0** — Les fondations de la convergence : `CONVERGENCE.md`, la logique métier dans `<nom>.logic.ts`.
+- **v1.18.0** — Les fondations de la convergence : `CONVERGENCE.md`, la logique métier dans `<name>.logic.ts`.
 - **v1.17.0** — Les six primitives de formulaire.
 - **v1.16.0** — Les teintes d'état vont par paire ; la CI refuse une couleur illisible.
 - **v1.13.0** — Phosphor devient le jeu d'icônes officiel.

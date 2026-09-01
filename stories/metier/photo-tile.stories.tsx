@@ -8,12 +8,12 @@ import { docsDe } from '../fiche';
  * Une fausse photo aux dimensions demandées. Le rapport compte plus que le
  * dessin : c'est lui qui décide si la vignette recadre ou contient.
  */
-const photo = (largeur: number, hauteur: number, fond: string, texte: string) =>
+const photo = (width: number, height: number, fond: string, texte: string) =>
   'data:image/svg+xml;utf8,' +
   encodeURIComponent(
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${largeur}" height="${hauteur}">` +
-      `<rect width="${largeur}" height="${hauteur}" fill="${fond}"/>` +
-      `<text x="${largeur / 2}" y="${hauteur / 2}" font-family="sans-serif" font-size="${Math.round(Math.min(largeur, hauteur) / 8)}" fill="#ffffff" text-anchor="middle">${texte}</text>` +
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
+      `<rect width="${width}" height="${height}" fill="${fond}"/>` +
+      `<text x="${width / 2}" y="${height / 2}" font-family="sans-serif" font-size="${Math.round(Math.min(width, height) / 8)}" fill="#ffffff" text-anchor="middle">${texte}</text>` +
       `</svg>`,
   );
 
@@ -24,7 +24,7 @@ const meta = {
   title: 'Composants/Métier/PhotoTile',
   component: PhotoTile,
   parameters: docsDe(specification),
-  args: { nom: 'Façade de l’immeuble', url: portrait('#0D5AB7', 'Façade') },
+  args: { name: 'Façade de l’immeuble', url: portrait('#0D5AB7', 'Façade') },
 } satisfies Meta<typeof PhotoTile>;
 
 export default meta;
@@ -40,7 +40,7 @@ export const NonPrise: Story = { args: { url: undefined } };
 
 /** Essentielle et non prise : c'est un manque, pas un vide. */
 export const EssentielleManquante: Story = {
-  args: { nom: 'Plaque de charge', url: undefined, essentielle: true },
+  args: { name: 'Plaque de charge', url: undefined, essential: true },
 };
 
 /**
@@ -49,23 +49,23 @@ export const EssentielleManquante: Story = {
  * rognées aux deux tiers, elles ne se reconnaîtraient plus.
  */
 export const EnTravers: Story = {
-  args: { nom: 'Rapport de contrôle', url: photo(1600, 740, '#00295B', 'Paysage') },
+  args: { name: 'Rapport de contrôle', url: photo(1600, 740, '#00295B', 'Paysage') },
 };
 
 /** Une grille de zone, telle que la rubrique Photos la rend. */
 export const Grille: Story = {
   render: () => (
     <div className="grid max-w-[760px] grid-cols-6 gap-md">
-      <PhotoTile nom="Façade de l’immeuble" url={portrait('#0D5AB7', 'Façade')} onOuvrir={() => {}} />
-      <PhotoTile nom="Accès à l’ascenseur" url={portrait('#00295B', 'Accès')} onOuvrir={() => {}} />
-      <PhotoTile nom="Porte palière niveau principal" url={portrait('#3B6DA7', 'Porte')} onOuvrir={() => {}} />
+      <PhotoTile name="Façade de l’immeuble" url={portrait('#0D5AB7', 'Façade')} onOpen={() => {}} />
+      <PhotoTile name="Accès à l’ascenseur" url={portrait('#00295B', 'Accès')} onOpen={() => {}} />
+      <PhotoTile name="Porte palière niveau principal" url={portrait('#3B6DA7', 'Porte')} onOpen={() => {}} />
       <PhotoTile
-        nom="Rapport de contrôle"
+        name="Rapport de contrôle"
         url={photo(1600, 740, '#6B7280', 'Paysage')}
-        onOuvrir={() => {}}
+        onOpen={() => {}}
       />
-      <PhotoTile nom="Plaque de charge" essentielle />
-      <PhotoTile nom="Toit de cabine" />
+      <PhotoTile name="Plaque de charge" essential />
+      <PhotoTile name="Toit de cabine" />
     </div>
   ),
 };

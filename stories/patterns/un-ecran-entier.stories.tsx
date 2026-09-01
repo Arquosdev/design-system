@@ -33,24 +33,24 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const RUBRIQUES = [
-  { cle: 'ensemble', label: "Vue d'ensemble" },
-  { cle: 'photos', label: 'Photos', compteur: 42 },
-  { cle: 'technique', label: 'Données techniques', compteur: 18 },
-  { cle: 'client', label: 'Client & immeuble', compteur: 9 },
-  { cle: 'cotes', label: 'Cotes', compteur: 24 },
-  { cle: 'ecarts', label: 'Écarts', compteur: 4 },
-  { cle: 'securite', label: 'Étude de sécurité', compteur: '1 NC' },
-  { cle: 'documents', label: 'Documents', compteur: 12 },
+  { id: 'ensemble', label: "Vue d'ensemble" },
+  { id: 'photos', label: 'Photos', count: 42 },
+  { id: 'technique', label: 'Données techniques', count: 18 },
+  { id: 'client', label: 'Client & immeuble', count: 9 },
+  { id: 'cotes', label: 'Cotes', count: 24 },
+  { id: 'ecarts', label: 'Écarts', count: 4 },
+  { id: 'safety', label: 'Étude de sécurité', count: '1 NC' },
+  { id: 'documents', label: 'Documents', count: 12 },
 ];
 
 export const FicheDEquipement: Story = {
   render: function Ecran() {
-    const [onglet, setOnglet] = React.useState('fiche');
+    const [onglet, setOnglet] = React.useState('specFile');
     const [rubrique, setRubrique] = React.useState('client');
 
     return (
       <div className="flex h-[760px] flex-col bg-bg">
-        <Banner icone="information">
+        <Banner icon="info">
           Jeu de démonstration — aucune donnée réelle.
         </Banner>
 
@@ -61,21 +61,21 @@ export const FicheDEquipement: Story = {
               type="button"
               className="flex h-[36px] shrink-0 items-center gap-sm rounded-control border border-border bg-bg px-md text-left text-small text-text-muted outline-none hover:bg-bg-muted focus-visible:ring-2 focus-visible:ring-primary"
             >
-              <Icon role="rechercher" size="sm" />
+              <Icon role="search" size="sm" />
               <span className="min-w-0 flex-1 truncate">Rechercher un champ</span>
             </button>
 
             <SegmentedTabs
               ariaLabel="Contenu du rail"
-              valeur={onglet}
-              onChanger={setOnglet}
+              value={onglet}
+              onChange={setOnglet}
               segments={[
-                { cle: 'fiche', label: 'Fiche', compteur: 8 },
-                { cle: 'composants', label: 'Composants', compteur: 15 },
+                { id: 'specFile', label: 'Fiche', count: 8 },
+                { id: 'composants', label: 'Composants', count: 15 },
               ]}
             />
 
-            <NavList items={RUBRIQUES} courant={rubrique} onChoisir={setRubrique} />
+            <NavList items={RUBRIQUES} current={rubrique} onChoose={setRubrique} />
           </aside>
 
           <main className="min-w-0 flex-1 overflow-y-auto p-xl">
@@ -99,17 +99,17 @@ export const FicheDEquipement: Story = {
                   <FieldRow label="Immeuble" value="Imm. 1 Rue Max Fauchon" />
                   <FieldRow label="Adresse" value="1 rue Max Fauchon, 29200 Brest" />
                   <FieldRow label="Cage / desserte" value="Hall d’entrée" />
-                  <FieldRow label="Accès machinerie" value="Toiture — clé 3B" statut="a_verifier" />
+                  <FieldRow label="Accès machinerie" value="Toiture — clé 3B" status="to_check" />
                   <FieldRow label="Nombre de logements" value="48" />
                   <FieldRow label="Gardien sur site" value={null} />
                 </CardContent>
               </Card>
 
               <DataTable
-                titre="Baies palières"
+                title="Baies palières"
                 note="Les cotes sont en mm."
-                colonnes={['Niveau', 'Largeur', 'Hauteur', 'Retombée']}
-                lignes={[
+                columns={['Niveau', 'Largeur', 'Hauteur', 'Retombée']}
+                rows={[
                   ['Rez-de-chaussée', '900', '2000', '340'],
                   ['Niveau 1', '900', '2000', '340'],
                   ['Niveau 2', '900', '2000', ''],

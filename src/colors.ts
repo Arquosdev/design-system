@@ -89,7 +89,23 @@ export const colors = {
   primary: core.blue, // main interactive accent (CTAs, links, active state)
   primaryDark: palette.blue[700],
   brand: core.marine, // dominant brand surface (headers, hero blocks)
-  accent: core.orange, // highlight / attention
+  /**
+   * L'orange d'attention — **`highlight` et non `accent`.**
+   *
+   * Il s'appelait `accent`, et ce nom entrait en collision avec celui de
+   * shadcn, dont l'`accent` est la surface d'un état actif discret (bleu 50).
+   * Les deux se retrouvaient sur `--color-accent` dans le même fichier généré,
+   * le bleu gagnait, et l'orange devenait inatteignable par son nom.
+   *
+   * Ce n'était pas cosmétique : `Gauge` et `Meter` demandaient
+   * `var(--color-accent)` pour leur état d'alerte et recevaient du bleu pâle.
+   * Ils demandent maintenant `warning`, qui est ce qu'ils veulent dire.
+   *
+   * La valeur est celle de `warning` aujourd'hui. Les deux noms restent
+   * distincts parce que les intentions le sont — alerter n'est pas mettre en
+   * avant — et c'est à Louis de décider où `highlight` sert.
+   */
+  highlight: core.orange,
 
   // Status
   //
@@ -118,7 +134,57 @@ export const colors = {
   warningBg: palette.orange[50],
   onWarningBg: palette.orange[700], // 4,61 sur warningBg
   infoBg: palette.blue[50],
-  onInfoBg: palette.blue[700], // 9,43 sur infoBg
+  /*
+     **L'encre d'un état sélectionné est celle de la marque.**
+
+     Louis, le 31/08/2026 : « je veux que le bouton secondaire ait un bleu pâle
+     en fond et un bleu vif, la couleur principale, celle utilisée pour le fond
+     des boutons principaux, pour le texte. » L'état actif doit se lire comme
+     la marque, pas comme un bleu neutre plus sombre.
+
+     `blue[700]` donnait 9,43 de contraste sur `infoBg`, `primary` en donne
+     **5,56** : au-dessus du seuil AA de 4,5, en dessous de AAA. Le renoncement
+     est mesuré et assumé, pas subi.
+
+     **Ce que ce jeton emporte, parce qu'il sert à dix composants.** Sept
+     portent bien un état sélectionné — la liste de navigation, la barre
+     d'outils, les filtres actifs, le combobox, le select, le bouton d'icône
+     doux, les pastilles de filtre. **Deux ne le portent pas** : le bandeau et
+     la pastille d'information, qui changent donc d'encre eux aussi. C'est le
+     prix d'une paire de teinte unique, et il vaut mieux le dire que de
+     découvrir un bandeau repeint.
+  */
+  onInfoBg: core.blue, // 5,56 sur infoBg — la couleur de la marque
+
+  /*
+     **La paire d'un contrôle NON CLIQUABLE.**
+
+     Louis, le 01/09/2026, sur le bouton « Nouvel équipement » quand aucune
+     agence n'est choisie : « il me paraît bizarre dans le format, on dirait que
+     c'est un bouton qui est cliquable. Est-ce qu'il ne faudrait pas un état de
+     bouton non cliquable […] en grisé ».
+
+     Il avait raison, et la mesure le dit mieux que l'œil. L'état inactif était
+     rendu par `opacity-50` sur la variante, ce qui donne :
+
+     - bouton plein : libellé blanc sur du bleu fondu #86ADDB — **2,33 pour 1** ;
+     - bouton `outline` : libellé gris fondu #AEB6BC sur blanc — **2,06 pour 1**.
+
+     Deux fois sous le seuil de 4,5, et invisibles des deux contrôles : le
+     lecteur de classes ne sait pas fondre une opacité, et axe exempte du
+     contraste tout ce qui porte `disabled` ou `aria-disabled`. Personne ne
+     mesurait ce texte-là.
+
+     Un fond gris PLEIN règle les deux défauts d'un coup. Il ne ressemble à
+     aucune variante active — c'est ce que Louis demande — et ses deux teintes
+     sont des jetons, donc `scripts/check-contraste.mjs` les apparie à la
+     source : **5,99 pour 1**.
+
+     Le fond est le gris 100 et non le gris 50 : posé à côté d'un bouton blanc
+     `outline`, le gris 50 ne se distingue pas du fond de page.
+  */
+  inactiveBg: palette.grey[100],
+  onInactiveBg: palette.grey[600], // 5,99 sur inactiveBg
 
   // Neutrals
   bg: palette.white,
@@ -153,7 +219,84 @@ export const colors = {
    */
   textSubtle: palette.grey[400],
   textOnDark: palette.white,
+
+  /**
+   * L'encre d'un TEXTE posé sur `infoBg` — un bandeau, une pastille
+   * d'information, toute prose sur le bleu pâle.
+   *
+   * **Pourquoi elle ne peut pas être `onInfoBg`.** Ce jeton-là vaut `primary`
+   * depuis l'exception du 30-31/08/2026, voulue par Louis pour que l'état actif
+   * porte la couleur de la marque. L'exception est juste pour ce qu'elle vise —
+   * une entrée de navigation sélectionnée, un bouton secondaire — et le
+   * commentaire de `onInfoBg` prévoyait déjà son débordement : « deux [des dix
+   * composants] ne le portent pas : le bandeau et la pastille d'information ».
+   *
+   * **Le débordement a été constaté par l'usage.** Louis, le 01/09/2026, sur le
+   * bandeau « Votre session a expiré » de la page de connexion : « bizarre je
+   * pensais que dans le design system le bleu indiquait le cliquable ». Un texte
+   * peint dans l'encre de l'action se lit comme cliquable, et il ne l'est pas.
+   *
+   * **La valeur rend à la prose ce que l'exception lui avait pris** : c'est le
+   * marine que la règle des paires appelait à l'origine. Mesuré sur `infoBg` :
+   * **9,43**, contre 5,56 pour `primary`. AAA au lieu d'AA de justesse, et
+   * franchement distinct du bleu cliquable.
+   *
+   * Le nom suit `textOnDark` : une encre nommée par le fond qu'elle habite.
+   */
+  textOnInfoBg: palette.blue[700],
   black: palette.black,
 } as const;
+
+/**
+ * Les teintes catégorielles.
+ *
+ * Elles ne veulent RIEN dire. Un « Monte-charge » n'est ni bon ni mauvais : la
+ * couleur sert à distinguer une valeur d'une autre d'un coup d'œil, pas à la
+ * juger. C'est pour ça qu'elles vivent à part des teintes de statut : si
+ * « Ascenseur » pouvait tomber en vert, une pastille verte cesserait de vouloir
+ * dire « conforme ».
+ *
+ * Dix paires, chacune un fond très clair et son encre. Toutes au-dessus de 4,6
+ * pour 1 sur leur fond ET de 4,5 sur blanc — vérifiées par
+ * `scripts/check-contraste.mjs`, comme les paires de statut.
+ */
+export const tagPalette = {
+  blue:   { bg: '#E5EEFA', ink: '#2962AE' },
+  teal:   { bg: '#E5F9FA', ink: '#1E7A80' },
+  green:  { bg: '#E5FAF3', ink: '#1D7C59' },
+  lime:   { bg: '#EEFAE5', ink: '#437C1D' },
+  amber:  { bg: '#FAF3E5', ink: '#8C6521' },
+  orange: { bg: '#FAEEE5', ink: '#A15726' },
+  red:    { bg: '#FAE6E5', ink: '#AE2D29' },
+  pink:   { bg: '#FAE5EE', ink: '#AE295E' },
+  purple: { bg: '#F0E5FA', ink: '#7029AE' },
+  indigo: { bg: '#E6E5FA', ink: '#3229AE' },
+  /**
+   * La teinte neutre. Elle n'entre pas dans le tirage automatique : on la
+   * choisit, pour la valeur qui domine une colonne. Sur un parc où huit
+   * appareils sur dix sont des ascenseurs, une couleur vive sur la valeur la
+   * plus fréquente ne distingue rien — elle sature la colonne.
+   */
+  slate:  { bg: '#EFF1F4', ink: '#4D5B66' },
+} as const;
+
+export type TagTone = keyof typeof tagPalette;
+
+// `slate` est hors tirage : elle se choisit, elle ne se tombe pas dessus.
+export const TAG_TONES = (Object.keys(tagPalette) as TagTone[]).filter((t) => t !== 'slate');
+
+/**
+ * La teinte d'une valeur.
+ *
+ * Le même libellé reçoit toujours la même couleur, dans toute l'application :
+ * « Ascenseur » est du même bleu dans la liste, dans la fiche et dans un
+ * export d'écran. Un hachage plutôt qu'une table à tenir à jour — le
+ * référentiel des types compte des dizaines de valeurs et bouge sans nous.
+ */
+export function tagTone(valeur: string): TagTone {
+  let h = 0;
+  for (let i = 0; i < valeur.length; i++) h = (h * 31 + valeur.charCodeAt(i)) | 0;
+  return TAG_TONES[Math.abs(h) % TAG_TONES.length];
+}
 
 export type ColorToken = keyof typeof colors;

@@ -3,15 +3,15 @@ import * as React from 'react';
 import { Button } from '../button/button.web';
 import { Icon } from '../icon/icon.web';
 import { cn } from '../_lib/cn';
-import { ECHECS, natureDeLEchec, REESSAYER } from './empty-state.logic';
+import { FAILURES, failureKind, RETRY } from './empty-state.logic';
 import type { IconRole } from '../../src/icons';
 
 export interface EmptyStateProps {
   /** Le rôle de l'icône — voir le vocabulaire dans `src/icons.ts`. */
-  icone: IconRole;
-  titre: string;
+  icon: IconRole;
+  title: string;
   /** Ce qu'il faut comprendre, et si possible ce qu'on peut faire. */
-  conseil: string;
+  hint: string;
   actionLabel?: string;
   onAction?: () => void;
   className?: string;
@@ -24,9 +24,9 @@ export interface EmptyStateProps {
  * vide, et si possible quoi faire — c'est ce qui le sépare d'un blanc.
  */
 export function EmptyState({
-  icone,
-  titre,
-  conseil,
+  icon,
+  title,
+  hint,
   actionLabel,
   onAction,
   className,
@@ -41,10 +41,10 @@ export function EmptyState({
             textuel. Trouvé à la mesure, pas par le contrôle : celui-ci
             n'apparie que ce qui vit dans la même chaîne de classes, et ici le
             fond est sur le parent. */}
-        <Icon role={icone} size="xl" weight="actif" className="text-text-muted" />
+        <Icon role={icon} size="xl" weight="active" className="text-text-muted" />
       </span>
-      <p className="text-subhead text-text">{titre}</p>
-      <p className="mt-xxs max-w-[46ch] text-body text-text-muted">{conseil}</p>
+      <p className="text-subhead text-text">{title}</p>
+      <p className="mt-xxs max-w-[46ch] text-body text-text-muted">{hint}</p>
       {actionLabel && onAction ? (
         <Button className="mt-base" onClick={onAction}>
           {actionLabel}
@@ -60,22 +60,22 @@ export function EmptyState({
  * Hors ligne, réessayer tout de suite ne sert à rien : le message le dit et
  * envoie vérifier la connexion, plutôt que de faire appuyer en boucle.
  */
-export function EmptyStateErreur({
-  erreur,
+export function EmptyStateError({
+  error,
   onReessayer,
   className,
 }: {
-  erreur: unknown;
+  error: unknown;
   onReessayer?: () => void;
   className?: string;
 }) {
-  const { icone, titre, conseil } = ECHECS[natureDeLEchec(erreur)];
+  const { icon, title, hint } = FAILURES[failureKind(error)];
   return (
     <EmptyState
-      icone={icone}
-      titre={titre}
-      conseil={conseil}
-      actionLabel={onReessayer ? REESSAYER : undefined}
+      icon={icon}
+      title={title}
+      hint={hint}
+      actionLabel={onReessayer ? RETRY : undefined}
       onAction={onReessayer}
       className={className}
     />

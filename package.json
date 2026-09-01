@@ -1,6 +1,6 @@
 {
   "name": "@arquos/design-system",
-  "version": "1.31.0",
+  "version": "2.13.0",
   "description": "Un design system pensé pour les agents — les règles d'usage vivent dans le dépôt, pas dans les têtes. Tokens et composants partagés par les apps mobile et web d'Arquos.",
   "private": true,
   "main": "src/index.ts",
@@ -25,7 +25,7 @@
   "scripts": {
     "build": "node scripts/build-tokens.mjs && node scripts/build-catalog.mjs",
     "catalog": "node scripts/build-catalog.mjs",
-    "check": "tsc --noEmit && node scripts/check-version.mjs && node scripts/build-tokens.mjs --check && node scripts/build-catalog.mjs --check && node scripts/check-contraste.mjs && npm run test --silent",
+    "check": "tsc --noEmit && node scripts/check-version.mjs && node scripts/build-tokens.mjs --check && node scripts/build-catalog.mjs --check && node scripts/check-contraste.mjs && node scripts/check-francais.mjs && npm run test --silent",
     "storybook": "storybook dev -p 6006",
     "vitrine": "storybook build -o dist-vitrine",
     "contraste": "node scripts/check-contraste.mjs",
