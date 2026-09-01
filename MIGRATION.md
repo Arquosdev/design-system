@@ -30,6 +30,24 @@ et le compte se pose :
 Mesuré au rendu sur une liste de vingt et une marques : hauteur d'entrée 24,000,
 liste 248, contenu 512, **dix entières visibles, reste 0,000**.
 
+> **À VÉRIFIER DANS UNE APP QUI MONTE : tout calcul qui recopiait 23,59.**
+>
+> `web` borne la liste de son sélecteur d'agence à `max-h-[401px]`, écrit comme
+> 17 × 23,59. Avec l'entrée à 24, ce compte devient faux — 401 / 24 = 16,71,
+> donc une entrée coupée en deux, très exactement le défaut qu'on corrige ici.
+> Corrigé côté `web` le 01/09/2026 (401 → 408).
+>
+> **La leçon dépasse ce cas.** `web` consomme le design system par
+> `file:../design-system`, en lien symbolique : un commit d'ici arrive chez lui
+> sans version ni palier. Une hauteur d'ici recopiée dans un calcul là-bas se
+> casse en silence, et aucun contrôle des deux dépôts ne le voit — c'est une
+> arithmétique juste sur une constante périmée.
+>
+> Donc : **toute modification d'une hauteur, d'une largeur ou d'un espacement
+> qu'un écran pourrait avoir recopié se signale ici**, sous ce titre, même quand
+> la valeur d'ici est juste. Chercher `max-h-[`, `h-[` et les multiplications
+> par une constante dans l'app.
+
 **Nouvel export** : `CommandSizeProvider`, pour déclarer la taille sans passer
 par `Command`. À n'employer que dans ce cas — quiconque peut poser `<Command
 size="sm">` doit le poser.
