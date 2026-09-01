@@ -37,7 +37,20 @@ export const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      'flex h-[32px] w-fit items-center justify-between gap-sm rounded-control',
+      /*
+        **36 px, et c'est la taille de référence des contrôles.**
+
+        Elle valait 32 jusqu'à la v2.12.0, et c'était l'anomalie du produit :
+        aucune taille de `Button` ni d'`IconButton` ne tombait dessus, donc trois
+        contrôles posés sur une même barre ne pouvaient pas s'aligner sans qu'un
+        écran écrive une hauteur à la main. La pagination le faisait depuis le
+        30/08/2026, avec un `size-[32px]` signé et un renvoi au lot 27.
+
+        La hauteur vient de l'échelle (`src/control.ts`) et non d'un nombre :
+        changer l'une change les autres, ce qui est le seul moyen qu'elles
+        restent d'accord.
+      */
+      'flex h-(--arq-control-md) w-fit items-center justify-between gap-sm rounded-control',
       // `px-md` comme le `px-3` de shadcn : à quatre pixels, le mot touchait
       // son contour et le champ se lisait comme une étiquette serrée.
       'border border-border bg-bg px-md text-small font-medium text-text',

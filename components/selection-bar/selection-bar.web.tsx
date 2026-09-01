@@ -41,7 +41,7 @@ export function SelectionBar({
         type="button"
         onClick={onClear}
         aria-label="Effacer la sélection"
-        className="ml-auto grid size-[30px] shrink-0 place-items-center rounded-control text-text-on-dark hover:bg-primary-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg"
+        className="ml-auto grid size-(--arq-control-sm) shrink-0 place-items-center rounded-control text-text-on-dark hover:bg-primary-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg"
       >
         <Icon role="close" className="size-4" aria-hidden />
       </button>
@@ -63,7 +63,7 @@ export const SelectionAction = React.forwardRef<HTMLButtonElement, SelectionActi
         ref={ref}
         type="button"
         className={cn(
-          'h-[30px] shrink-0 rounded-control px-md text-small font-semibold whitespace-nowrap text-text-on-dark',
+          'h-(--arq-control-sm) shrink-0 rounded-control px-md text-small font-semibold whitespace-nowrap text-text-on-dark',
           'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg',
           primary ? 'bg-primary hover:bg-primary-dark' : 'bg-primary-dark hover:bg-primary',
           className,

@@ -28,6 +28,7 @@ import { iconSize, iconWeight, icons } from '../src/icons.ts';
 import { duration, easing } from '../src/motion.ts';
 import { layers } from '../src/layers.ts';
 import { borderWidth } from '../src/border.ts';
+import { controlHeight } from '../src/control.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
@@ -96,6 +97,11 @@ const DESCRIPTIONS = {
     normal: 'Une bascule visible — un chevron qui pivote, un onglet qui glisse.',
     lent: 'Une surface qui entre ou sort — panneau, modale, feuille.',
   },
+  controlHeight: {
+    sm: "30px — l'action discrète : fin de ligne, barre de sélection, éditeur en place. Sous la cible tactile de 44 pt.",
+    md: '36px — LA RÉFÉRENCE. Bouton, bouton d\'icône, sélecteur, et toute ligne qui doit valoir exactement la hauteur d\'un bouton. À prendre en cas de doute : c\'est elle qui aligne trois contrôles sur une même barre.',
+    lg: '44px — la cible tactile confortable. L\'action principale d\'un écran tactile.',
+  },
   borderWidth: {
     fin: 'Le trait courant — cartes, champs, séparateurs, tableaux.',
     epais: "Ce qui est en cours d'édition ou retenu. Un demi-pixel suffit à le distinguer sans décaler la mise en page.",
@@ -155,6 +161,11 @@ function buildCss() {
   section('Couleurs sémantiques — à utiliser dans le code applicatif');
   for (const [key, value] of Object.entries(colors)) {
     lines.push(`  --${NS}-color-${kebab(key)}: ${value};`);
+  }
+
+  section('Hauteurs de contrôle — bouton, sélecteur, ligne de titre');
+  for (const [key, value] of Object.entries(controlHeight)) {
+    lines.push(`  --${NS}-control-${kebab(key)}: ${value}px;`);
   }
 
   section('Espacements (base 4)');
@@ -297,6 +308,11 @@ function buildJson() {
       $value: easing,
       $description: 'La courbe par défaut — sortie douce.',
     },
+    controlHeight: {
+      $description:
+        "Hauteur d'un contrôle interactif. Trois valeurs, ce sont les trois tailles de `Button`. S'écrit `h-(--arq-control-md)`.",
+      ...group(controlHeight, 'dimension', 'px', DESCRIPTIONS.controlHeight),
+    },
     borderWidth: {
       $description:
         "Épaisseurs de bordure. Deux valeurs, parce que le produit n'en emploie que deux. L'arrondi vit à part dans `radius`.",
@@ -428,6 +444,10 @@ function buildTailwind() {
     push(`--${NS}-duration-${kebab(key)}`, `${value}ms`);
   }
   push('--ease-arquos', easing);
+  for (const [key, value] of Object.entries(controlHeight)) {
+    push(`--${NS}-control-${kebab(key)}`, `${value}px`);
+  }
+
   for (const [key, value] of Object.entries(borderWidth)) {
     push(`--${NS}-border-${kebab(key)}`, `${value}px`);
   }

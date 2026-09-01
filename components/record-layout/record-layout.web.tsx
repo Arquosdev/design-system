@@ -105,7 +105,7 @@ export function RecordRail({
              loupe s'attend. Le libellé est donc en retrait des entrées, et
              c'est assumé : un champ de recherche se reconnaît à son icône avant
              de se lire. */
-          className="flex h-[36px] shrink-0 items-center gap-sm rounded-control border border-border bg-bg px-md text-left text-small text-text-muted outline-none hover:bg-bg-muted focus-visible:ring-2 focus-visible:ring-primary"
+          className="flex h-(--arq-control-md) shrink-0 items-center gap-sm rounded-control border border-border bg-bg px-md text-left text-small text-text-muted outline-none hover:bg-bg-muted focus-visible:ring-2 focus-visible:ring-primary"
         >
           <Icon role="search" size="sm" />
           <span className="min-w-0 flex-1 truncate">{recherche.label}</span>
@@ -139,12 +139,12 @@ export function RecordRailSkeleton() {
       aria-hidden="true"
       className={`flex h-full ${LARGEUR_RAIL} shrink-0 flex-col gap-sm border-r border-border-soft bg-bg-subtle p-base`}
     >
-      <div className="h-[36px] animate-pulse rounded-control bg-bg-muted" />
+      <div className="h-(--arq-control-md) animate-pulse rounded-control bg-bg-muted" />
       <div className="mt-xs h-[32px] animate-pulse rounded-md bg-bg-muted" />
       {/* Neuf lignes : assez pour occuper la colonne, sans prétendre annoncer
           le nombre exact de rubriques qu'on ne connaît pas encore. */}
       {Array.from({ length: 9 }, (_, i) => (
-        <div key={i} className="h-[30px] animate-pulse rounded-control bg-bg-muted" />
+        <div key={i} className="h-(--arq-control-sm) animate-pulse rounded-control bg-bg-muted" />
       ))}
     </div>
   );

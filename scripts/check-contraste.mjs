@@ -161,6 +161,45 @@ const brutes = [];
 const reserves = [];
 let controlees = 0;
 
+// Les paires d'état, vérifiées À LA SOURCE et non dans les classes.
+//
+// `pairesDe` n'apparie que ce qui vit dans la même chaîne : une paire posée sur
+// deux éléments lui échappe. Et pour l'état inactif, `check-contraste-rendu`
+// n'aide pas non plus — **axe exempte du contraste tout ce qui porte `disabled`
+// ou `aria-disabled`**. Le libellé grisé d'un bouton était donc mesuré par
+// personne, alors que c'est du texte qu'on doit lire pour comprendre pourquoi
+// le geste est impossible.
+//
+// Les mesurer ici les tient quoi qu'il arrive à l'usage : c'est la déclaration
+// du jeton qui est contrôlée, pas la façon dont un composant l'écrit.
+const PAIRES = [
+  ['successBg', 'onSuccessBg'],
+  ['dangerBg', 'onDangerBg'],
+  ['warningBg', 'onWarningBg'],
+  // `onInfoBg` vaut `primary` : l'exception voulue par Louis le 31/08/2026 pour
+  // que l'état sélectionné porte l'encre de la marque. 5,56 — au-dessus du
+  // seuil, en dessous de AAA, et c'est assumé. Ce contrôle la mesure, il ne la
+  // défait pas.
+  ['infoBg', 'onInfoBg'],
+  ['infoBg', 'textOnInfoBg'],
+  ['inactiveBg', 'onInactiveBg'],
+];
+
+const pairesFaibles = [];
+for (const [fond, encre] of PAIRES) {
+  const r = ratio(colors[encre], colors[fond]);
+  if (list) console.log(`  ${r >= SEUIL_TEXTE ? '✓' : '✗'} ${`${encre} sur ${fond}`.padEnd(40)} ${r.toFixed(2)}`);
+  if (r < SEUIL_TEXTE) pairesFaibles.push({ fond, encre, r });
+}
+if (pairesFaibles.length) {
+  console.error(`\n✗ ${pairesFaibles.length} paire(s) de jetons sous le seuil :\n`);
+  for (const p of pairesFaibles) {
+    console.error(`  ${p.encre} sur ${p.fond} : ${p.r.toFixed(2)} pour 1, il en faut ${SEUIL_TEXTE}`);
+  }
+  console.error('\n  Assombrir l\'encre dans src/colors.ts : le fond d\'état reste très clair.\n');
+  process.exit(1);
+}
+
 for (const name of readdirSync(COMPONENTS).filter((n) => !n.startsWith('_'))) {
   const fichier = join(COMPONENTS, name, `${name}.web.tsx`);
   if (!existsSync(fichier)) continue;
@@ -214,45 +253,6 @@ if (reserves.length) {
   process.exit(1);
 }
 
-// Les paires d'état, vérifiées À LA SOURCE et non dans les classes.
-//
-// `pairesDe` n'apparie que ce qui vit dans la même chaîne : une paire posée sur
-// deux éléments lui échappe. Et pour l'état inactif, `check-contraste-rendu`
-// n'aide pas non plus — **axe exempte du contraste tout ce qui porte `disabled`
-// ou `aria-disabled`**. Le libellé grisé d'un bouton était donc mesuré par
-// personne, alors que c'est du texte qu'on doit lire pour comprendre pourquoi
-// le geste est impossible.
-//
-// Les mesurer ici les tient quoi qu'il arrive à l'usage : c'est la déclaration
-// du jeton qui est contrôlée, pas la façon dont un composant l'écrit.
-const PAIRES = [
-  ['successBg', 'onSuccessBg'],
-  ['dangerBg', 'onDangerBg'],
-  ['warningBg', 'onWarningBg'],
-  // `onInfoBg` vaut `primary` : l'exception voulue par Louis le 31/08/2026 pour
-  // que l'état sélectionné porte l'encre de la marque. 5,56 — au-dessus du
-  // seuil, en dessous de AAA, et c'est assumé. Ce contrôle la mesure, il ne la
-  // défait pas.
-  ['infoBg', 'onInfoBg'],
-  ['infoBg', 'textOnInfoBg'],
-  ['inactiveBg', 'onInactiveBg'],
-];
-
-const pairesFaibles = [];
-for (const [fond, encre] of PAIRES) {
-  const r = ratio(colors[encre], colors[fond]);
-  if (list) console.log(`  ${r >= SEUIL_TEXTE ? '✓' : '✗'} ${`${encre} sur ${fond}`.padEnd(40)} ${r.toFixed(2)}`);
-  if (r < SEUIL_TEXTE) pairesFaibles.push({ fond, encre, r });
-}
-if (pairesFaibles.length) {
-  console.error(`\n✗ ${pairesFaibles.length} paire(s) de jetons sous le seuil :\n`);
-  for (const p of pairesFaibles) {
-    console.error(`  ${p.encre} sur ${p.fond} : ${p.r.toFixed(2)} pour 1, il en faut ${SEUIL_TEXTE}`);
-  }
-  console.error('\n  Assombrir l\'encre dans src/colors.ts : le fond d\'état reste très clair.\n');
-  process.exit(1);
-}
-
 // Les teintes catégorielles ne passent pas par des classes Tailwind : `Tag`
 // les pose en style inline, parce que le libellé décide de la teinte au
 // rendu. Elles se vérifient donc ici, à la source.
@@ -273,7 +273,7 @@ if (tagsFaibles.length) {
   process.exit(1);
 }
 
-console.log(`✓ contraste : ${controlees} paire(s) au-dessus du seuil`);
 console.log(`✓ paires d'état : ${PAIRES.length} paire(s) de jetons lisibles`);
+console.log(`✓ contraste : ${controlees} paire(s) au-dessus du seuil`);
 console.log(`✓ teintes catégorielles : ${Object.keys(tagPalette).length} paire(s) lisibles`);
 console.log('✓ palette : aucun composant ne tape dans les rampes brutes');

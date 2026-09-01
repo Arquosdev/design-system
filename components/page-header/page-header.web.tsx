@@ -68,7 +68,7 @@ export function PageHeader({
         le design system n'a pas de token de hauteur de contrôle, et en créer un
         est une décision d'échelle à part.
       */}
-      <div className="flex min-h-[36px] items-center gap-sm">
+      <div className="flex min-h-(--arq-control-md) items-center gap-sm">
         {/*
           Le titre et son décompte s'alignent sur la LIGNE DE BASE entre eux —
           deux corps différents alignés autrement se lisent de travers — mais

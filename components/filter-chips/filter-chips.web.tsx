@@ -46,7 +46,7 @@ export function FilterChips({ chips, value, onValueChange, label, className }: F
           key={chip.value}
           value={chip.value}
           className={cn(
-            'h-[32px] rounded-control border px-md text-small font-semibold outline-none',
+            'h-(--arq-control-md) rounded-control border px-md text-small font-semibold outline-none',
             'focus-visible:ring-2 focus-visible:ring-primary',
             'border-border bg-bg text-text-muted hover:bg-bg-muted',
             'data-[state=on]:border-primary data-[state=on]:bg-info-bg data-[state=on]:text-on-info-bg',

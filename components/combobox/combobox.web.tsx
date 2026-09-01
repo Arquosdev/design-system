@@ -87,7 +87,7 @@ export function Combobox({
         <PopoverAnchor asChild>
           <div
             className={cn(
-              'flex h-[32px] w-full items-center gap-sm rounded-control',
+              'flex h-(--arq-control-md) w-full items-center gap-sm rounded-control',
               // Les mêmes traits que la gâchette de `Select`, au pixel : un
               // champ à menu doit avoir la même tête, court ou long.
               'border border-border bg-bg px-md shadow-card',

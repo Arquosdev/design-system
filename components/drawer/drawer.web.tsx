@@ -68,7 +68,7 @@ export function Drawer({
             type="button"
             onClick={onClose}
             aria-label="Fermer"
-            className="grid size-[30px] shrink-0 place-items-center rounded-control bg-bg-muted text-text-muted hover:text-text"
+            className="grid size-(--arq-control-sm) shrink-0 place-items-center rounded-control bg-bg-muted text-text-muted hover:text-text"
           >
             <Icon role="close" className="size-3.5" aria-hidden />
           </button>

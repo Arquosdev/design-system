@@ -113,7 +113,7 @@ export function CommandInput({
           // `min-w-0` : sans lui l'entrée garde sa largeur intrinsèque, la
           // boîte déborde, et c'est l'invite qui se coupe.
           'min-w-0',
-          taille === 'sm' ? 'h-[36px] text-small' : 'h-[52px] text-subhead',
+          taille === 'sm' ? 'h-(--arq-control-md) text-small' : 'h-[52px] text-subhead',
           'placeholder:text-text-muted',
           className,
         )}

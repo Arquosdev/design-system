@@ -1,5 +1,43 @@
 # Monter une app vers la version courante
 
+## v2.13.0 — les contrôles d'une même barre rendent la même hauteur
+
+**Celle-ci se voit.** `Select`, `Combobox`, `FilterChips` et `ActiveFilters`
+passent de 32 à 36 pixels de haut. Une app qui monte verra tous ses sélecteurs et
+toutes ses pastilles de filtre grandir de quatre pixels.
+
+**Pourquoi.** `Select` rendait 32, `IconButton` 36 ou 30, `Button` 36, 30 ou 44.
+Aucune taille de bouton ne tombait sur celle d'un sélecteur : trois contrôles
+côte à côte sur une barre de filtres ne pouvaient donc PAS s'aligner sans qu'un
+écran écrive une hauteur à la main. C'est ce que la pagination de `web` fait
+depuis le 30/08/2026 — un `size-[32px]` posé sur deux `IconButton`, assumé et
+signé, avec un renvoi au lot 27.
+
+Le 32 n'était pas une quatrième taille, c'était l'anomalie. Il disparaît.
+
+**Une échelle, trois valeurs** — `src/control.ts`, ce sont les trois tailles de
+`Button`, qui étaient déjà l'échelle de fait :
+
+| | | |
+| --- | --- | --- |
+| `sm` | 30 | l'action discrète — fin de ligne, barre de sélection, éditeur en place |
+| `md` | **36** | **la référence** — bouton, sélecteur, ligne de titre qui vaut un bouton |
+| `lg` | 44 | la cible tactile confortable |
+
+S'écrit `h-(--arq-control-md)`, comme `z-(--arq-layer-flottant)` et
+`duration-(--arq-duration-normal)`. Dix-huit hauteurs écrites en dur dans les
+composants ont été remplacées, dont les sept `36px` que la tâche 14.10 relevait :
+`Button`, `IconButton`, le bouton de recherche de `RecordRail`, son squelette, la
+ligne de titre de `PageHeader`.
+
+**Ce qui disparaît côté `web` le jour de la bascule** : le `size-[32px]` des deux
+`IconButton` de la pagination. Ils s'alignent maintenant tout seuls.
+
+**Ce qui NE bouge pas** : les tailles de surface — l'avatar (44), les boutons de
+la visionneuse de photo (36 et 44), la largeur d'une feuille. Ce ne sont pas des
+contrôles posés sur une barre, et les faire suivre une échelle de hauteur de
+contrôle serait leur donner une règle qui ne les concerne pas.
+
 ## v2.12.0 — un bouton non cliquable le dit, et peut dire pourquoi
 
 **Rien à changer** : `disabled` fait ce qu'il faisait. Ce qui s'ouvre est une

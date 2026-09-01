@@ -372,7 +372,7 @@ function Editor({ kind, label, value, options, other, onValider, onAnnuler }: Ed
               ariaLabel={label}
               autoFocus
               placeholder={`Rechercher — ${label.toLowerCase()}`}
-              className="h-[30px] border-(length:--arq-border-epais) border-primary"
+              className="h-(--arq-control-sm) border-(length:--arq-border-epais) border-primary"
             />
           </div>
         ) : (
@@ -381,7 +381,7 @@ function Editor({ kind, label, value, options, other, onValider, onAnnuler }: Ed
               <SelectTrigger
                 autoFocus
                 aria-label={label}
-                className="h-[30px] w-full border-(length:--arq-border-epais) border-primary"
+                className="h-(--arq-control-sm) w-full border-(length:--arq-border-epais) border-primary"
               >
                 <SelectValue placeholder="— choisir —" />
               </SelectTrigger>
@@ -415,7 +415,7 @@ function Editor({ kind, label, value, options, other, onValider, onAnnuler }: Ed
       // Valider à la perte de focus : le réflexe est de cliquer ailleurs, pas
       // d'appuyer sur Entrée. Sans ça, la saisie est silencieusement perdue.
       onBlur={(e) => onValider(e.currentTarget.value)}
-      className="h-[30px] w-full rounded-control border-(length:--arq-border-epais) border-primary px-sm text-small text-text outline-none"
+      className="h-(--arq-control-sm) w-full rounded-control border-(length:--arq-border-epais) border-primary px-sm text-small text-text outline-none"
     />
   );
 }

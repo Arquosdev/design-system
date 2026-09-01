@@ -97,6 +97,11 @@
   --arq-color-text-on-info-bg: #073B6F;
   --arq-color-black: #000000;
 
+  /* Hauteurs de contrôle — bouton, sélecteur, ligne de titre */
+  --arq-control-sm: 30px;
+  --arq-control-md: 36px;
+  --arq-control-lg: 44px;
+
   /* Espacements (base 4) */
   --arq-space-none: 0px;
   --arq-space-xxs: 2px;

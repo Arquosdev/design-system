@@ -27,13 +27,14 @@ Si le token ou le composant manque : ne pas l'inventer dans l'app, l'ajouter ici
 | Arrondi | `md` (8) ; `full` seulement sur un carré |
 | Typographie | les préréglages (`typography.body`), jamais recombiner |
 | Icône | un **rôle** (`<Icon role="delete" />`), jamais un dessin |
+| Hauteur de contrôle | `h-(--arq-control-md)` (36, la référence), jamais `h-[36px]` |
 | Empilement | `z-(--arq-layer-flottant)`, jamais `z-50` |
 | Durée | `duration-(--arq-duration-normal)`, jamais `duration-200` |
 | Bordure | `border-(length:--arq-border-epais)`, jamais `border-[1.5px]` |
 
 Chaque token porte une description dans `dist/tokens.json` : la lire plutôt que
 deviner d'après le nom. La page **Fondations → Tous les tokens** de la vitrine
-donne les 90 entrées avec leurs trois écritures — TypeScript, classe Tailwind,
+donne les 95 entrées avec leurs trois écritures — TypeScript, classe Tailwind,
 variable CSS.
 
 **Trois pièges de couleur.**

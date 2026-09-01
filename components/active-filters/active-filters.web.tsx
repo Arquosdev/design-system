@@ -38,7 +38,7 @@ export function ActiveFilters({ filters, onRemove, onRemoveAll, className }: Act
           type="button"
           onClick={() => onRemove(f.id)}
           aria-label={`Retirer le filtre ${f.label}`}
-          className="flex h-8 items-center gap-sm rounded-control border border-primary bg-info-bg px-md text-small font-semibold text-on-info-bg hover:border-primary-dark"
+          className="flex h-(--arq-control-md) items-center gap-sm rounded-control border border-primary bg-info-bg px-md text-small font-semibold text-on-info-bg hover:border-primary-dark"
         >
           {f.label}
           <Icon role="close" className="size-3.5" aria-hidden />
@@ -47,7 +47,7 @@ export function ActiveFilters({ filters, onRemove, onRemoveAll, className }: Act
       <button
         type="button"
         onClick={onRemoveAll}
-        className="h-8 rounded-control px-md text-small font-semibold text-primary hover:bg-bg-muted"
+        className="h-(--arq-control-md) rounded-control px-md text-small font-semibold text-primary hover:bg-bg-muted"
       >
         Tout retirer
       </button>

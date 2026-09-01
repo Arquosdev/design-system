@@ -135,6 +135,19 @@ const FAMILLES: {
     ),
   },
   {
+    group: 'controlHeight',
+    title: 'Hauteur de contrôle',
+    ts: (n) => `controlHeight.${n}`,
+    tailwind: (n) => `h-(--arq-control-${kebab(n)})`,
+    css: (n) => `--arq-control-${kebab(n)}`,
+    preview: (v) => (
+      <span
+        className="block w-[26px] rounded-control border border-border bg-bg-muted"
+        style={{ height: v }}
+      />
+    ),
+  },
+  {
     group: 'iconSize',
     title: 'Taille d’icône',
     ts: (n) => `iconSize.${n}`,

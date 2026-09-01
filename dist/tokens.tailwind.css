@@ -171,6 +171,9 @@
   --arq-duration-normal: 200ms;
   --arq-duration-lent: 300ms;
   --ease-arquos: cubic-bezier(0.2, 0, 0, 1);
+  --arq-control-sm: 30px;
+  --arq-control-md: 36px;
+  --arq-control-lg: 44px;
   --arq-border-fin: 1px;
   --arq-border-epais: 1.5px;
   --arq-layer-base: 0;

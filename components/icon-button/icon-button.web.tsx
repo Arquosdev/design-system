@@ -17,8 +17,8 @@ const iconButton = cva(
         ghost: 'bg-transparent text-text-muted hover:bg-bg-muted',
       },
       size: {
-        sm: 'size-[30px]',
-        md: 'size-[36px]',
+        sm: 'size-(--arq-control-sm)',
+        md: 'size-(--arq-control-md)',
       },
     },
     defaultVariants: { variant: 'outline', size: 'md' },
