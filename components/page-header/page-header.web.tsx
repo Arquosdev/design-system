@@ -63,10 +63,11 @@ export function PageHeader({
         la même chose ne doivent pas se dessiner différemment selon ce qu'ils
         ont à offrir.
 
-        `36px` est la hauteur d'un `Button` en taille normale. Elle est écrite
-        en dur ici comme elle l'est déjà dans `Button` et dans `RecordRail` :
-        le design system n'a pas de token de hauteur de contrôle, et en créer un
-        est une décision d'échelle à part.
+        La hauteur vient de `--arq-control-md`, la référence de `src/control.ts` :
+        c'est exactement celle d'un `Button` en taille normale, et c'est ce que
+        cette ligne doit valoir. Le commentaire disait encore, jusqu'au
+        01/09/2026, que « le design system n'a pas de token de hauteur de
+        contrôle » — il en a un depuis, et quatre composants le lisent.
       */}
       <div className="flex min-h-(--arq-control-md) items-center gap-sm">
         {/*

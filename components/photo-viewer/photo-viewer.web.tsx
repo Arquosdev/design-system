@@ -130,7 +130,9 @@ export function PhotoViewer({ photos, index, onIndex, open, onOpenChange }: Phot
           <Dialog.Close
             aria-label="Fermer"
             className={cn(
-              'absolute top-base right-lg size-[36px] rounded-control bg-white/15 text-body text-text-on-dark',
+              /* `--arq-control-md` et non `36px` : c'était la septième écriture du même
+                 nombre, et `src/control.ts` la nomme depuis. */
+              'absolute top-base right-lg size-(--arq-control-md) rounded-control bg-white/15 text-body text-text-on-dark',
               'outline-none hover:bg-white/25 focus-visible:ring-2 focus-visible:ring-white',
             )}
           >
