@@ -1,7 +1,7 @@
 // Capture les stories demandées, et MESURE le contraste réel de chaque bouton
 // qu'elles rendent.
 //
-//   npm run vitrine && node scripts/mesure-boutons.mjs <id-de-story>:<nom>:<hauteur> …
+//   npm run vitrine && node scripts/mesure-boutons.mjs <id>:<nom>:<hauteur>[:ouvrir] …
 //
 // Pourquoi ce script existe alors que `check-contraste-rendu.mjs` mesure déjà le
 // rendu : **axe exempte du contraste tout ce qui porte `disabled` ou
@@ -43,10 +43,20 @@ const ratio=(a,b)=>{const[x,y]=[lum(a),lum(b)].sort((p,q)=>q-p);return (x+0.05)/
 const parse=(s)=>s.match(/[\d.]+/g).slice(0,3).map(Number);
 
 for (const arg of process.argv.slice(2)) {
-  const [id, nom, h] = arg.split(':');
+  // Quatrième champ facultatif, `ouvrir` : clique le premier champ de saisie et
+  // frappe une lettre puis un retour arrière, ce qui déplie un menu sans le
+  // filtrer. Un menu fermé ne se capture pas, et c'est justement sa densité
+  // qu'on regarde.
+  const [id, nom, h, action] = arg.split(':');
   await page.setViewportSize({ width: 900, height: Number(h||160) });
   await page.goto(`http://127.0.0.1:${port}/iframe.html?id=${encodeURIComponent(id)}&viewMode=story`, { waitUntil:'networkidle' });
   await page.evaluate(()=>document.fonts.ready);
+  if (action === 'ouvrir') {
+    await page.click('input');
+    await page.type('input', 'a', { delay: 60 });
+    await page.keyboard.press('Backspace');
+    await page.waitForTimeout(400);
+  }
   await page.screenshot({ path: join(OUT, nom + '.png') });
 
   // Mesure au rendu de chaque bouton : couleur du texte contre le fond peint.
