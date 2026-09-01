@@ -189,6 +189,31 @@ export const colors = {
    */
   textSubtle: palette.grey[400],
   textOnDark: palette.white,
+
+  /**
+   * L'encre d'un TEXTE posé sur `infoBg` — un bandeau, une pastille
+   * d'information, toute prose sur le bleu pâle.
+   *
+   * **Pourquoi elle ne peut pas être `onInfoBg`.** Ce jeton-là vaut `primary`
+   * depuis l'exception du 30-31/08/2026, voulue par Louis pour que l'état actif
+   * porte la couleur de la marque. L'exception est juste pour ce qu'elle vise —
+   * une entrée de navigation sélectionnée, un bouton secondaire — et le
+   * commentaire de `onInfoBg` prévoyait déjà son débordement : « deux [des dix
+   * composants] ne le portent pas : le bandeau et la pastille d'information ».
+   *
+   * **Le débordement a été constaté par l'usage.** Louis, le 01/09/2026, sur le
+   * bandeau « Votre session a expiré » de la page de connexion : « bizarre je
+   * pensais que dans le design system le bleu indiquait le cliquable ». Un texte
+   * peint dans l'encre de l'action se lit comme cliquable, et il ne l'est pas.
+   *
+   * **La valeur rend à la prose ce que l'exception lui avait pris** : c'est le
+   * marine que la règle des paires appelait à l'origine. Mesuré sur `infoBg` :
+   * **9,43**, contre 5,56 pour `primary`. AAA au lieu d'AA de justesse, et
+   * franchement distinct du bleu cliquable.
+   *
+   * Le nom suit `textOnDark` : une encre nommée par le fond qu'elle habite.
+   */
+  textOnInfoBg: palette.blue[700],
   black: palette.black,
 } as const;
 

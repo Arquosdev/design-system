@@ -32,6 +32,7 @@
   --color-text-muted: #5D6D79;
   --color-text-subtle: #8094A3;
   --color-text-on-dark: #FFFFFF;
+  --color-text-on-info-bg: #073B6F;
   --color-black: #000000;
 
   /* Palette — pour les cas que le sémantique ne couvre pas */

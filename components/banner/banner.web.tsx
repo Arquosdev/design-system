@@ -14,7 +14,7 @@ export interface BannerProps extends React.ComponentProps<'div'> {
 }
 
 const TONES: Record<BannerTone, string> = {
-  info: 'bg-info-bg text-on-info-bg',
+  info: 'bg-info-bg text-text-on-info-bg',
   warning: 'bg-warning-bg text-on-warning-bg',
   danger: 'bg-danger-bg text-on-danger-bg',
 };
@@ -40,9 +40,25 @@ export function Banner({
 }: BannerProps) {
   return (
     <div
-      role="status"
+      /*
+        Un ton `danger` porte une ALERTE, pas un statut : `role="status"` est
+        annoncé quand le lecteur d'écran en a le loisir, `role="alert"`
+        interrompt. Un mot de passe refusé doit interrompre, sans quoi la
+        personne rejoue la même saisie sans savoir pourquoi elle a échoué.
+      */
+      role={tone === 'danger' ? 'alert' : 'status'}
       className={cn(
-        'flex w-full items-center gap-sm px-base py-sm text-small font-medium',
+        /*
+          **Arrondi par défaut, et c'est un changement du 01/09/2026.** Ce
+          bandeau a été dessiné pleine largeur en tête de page, où il n'y a rien
+          à arrondir — d'où l'oubli. Dès qu'il vit DANS une carte, l'angle vif se
+          voit : Louis l'a signalé sur la page de connexion.
+
+          Un emploi vraiment bord à bord passe `rounded-none`, ce qui fonctionne
+          depuis que `cn` déclare l'échelle d'espacement à tailwind-merge — avant
+          cette date, une surcharge de ce genre était silencieusement ignorée.
+        */
+        'flex w-full items-center gap-sm rounded-control px-base py-sm text-small font-medium',
         TONES[tone],
         className,
       )}
