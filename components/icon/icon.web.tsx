@@ -31,6 +31,7 @@ import {
   DownloadSimple,
   Eye,
   EyeSlash,
+  GearSix,
   FileCsv,
   FilePdf,
   FileText,
@@ -101,6 +102,7 @@ const GLYPHS: Record<IconRole, PhosphorIcon> = {
   stop: Stop,
   revealPassword: Eye,
   hidePassword: EyeSlash,
+  settings: GearSix,
 
   compliant: CheckCircle,
   check: Check,

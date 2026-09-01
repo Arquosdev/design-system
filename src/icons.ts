@@ -98,6 +98,22 @@ export const icons = {
   */
   revealPassword: 'Eye',
   hidePassword: 'EyeSlash',
+  /*
+    **RÉGLER quelque chose, et c'est différent de le FILTRER.**
+
+    `filter` porte déjà `Sliders`, qui est le glyphe des réglages chez Phosphor
+    autant que celui des filtres — mais un filtre agit sur ce qu'on REGARDE, un
+    réglage sur ce qui le COMMANDE. Les deux se croisent sur le même écran :
+    l'en-tête de la liste des contrats porte « Configuration » pendant que sa
+    barre d'outils porte le filtre, et deux boutons au même dessin auraient
+    annoncé la même chose.
+
+    Ajouté le 01/09/2026 à la demande de Louis, qui voulait « un bouton actif
+    avec une icône, un truc qui symbolise la configuration » et n'en trouvait
+    aucun : les soixante-dix rôles couvraient les objets, les états et les gestes
+    de liste, jamais le réglage d'un écran.
+  */
+  settings: 'GearSix',
 
   // -- Dire un état --------------------------------------------------------
   compliant: 'CheckCircle',
