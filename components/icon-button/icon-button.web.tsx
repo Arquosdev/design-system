@@ -2,6 +2,8 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '../_lib/cn';
+import { availability, availabilityAttributes, blocksActivation } from '../button/button.logic';
+import { INACTIVE_SURFACE } from '../button/button.web';
 
 const iconButton = cva(
   'inline-flex shrink-0 items-center justify-center rounded-control outline-none ' +
@@ -32,24 +34,52 @@ export interface IconButtonProps
    */
   label: string;
   icon: React.ReactNode;
+  /**
+   * Le geste est impossible ICI, MAINTENANT — voir `button.spec.md`, la règle
+   * est la même. Le bouton reste focalisable et survolable, donc capable de
+   * dire pourquoi.
+   */
+  inactive?: boolean;
+  /**
+   * Pourquoi le geste est impossible. Elle s'ajoute au `label` dans l'infobulle
+   * plutôt que de le remplacer : sans texte visible, le nom du bouton reste la
+   * première chose à annoncer.
+   */
+  inactiveReason?: string;
 }
 
 export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
-  ({ label, icon, variant, size, className, type, ...props }, ref) => (
+  ({ label, icon, variant, size, className, type, inactive, inactiveReason, disabled, onClick, ...props }, ref) => {
+    const state = availability({ inactive, disabled });
+    return (
     <button
       ref={ref}
       type={type ?? 'button'}
       aria-label={label}
       // `title` en plus d'`aria-label` : l'un pour les lecteurs d'écran, l'autre
       // pour l'infobulle au survol. Les deux disent la même chose.
-      title={label}
-      className={cn(iconButton({ variant, size }), className)}
+      //
+      // La raison d'un état inactif s'AJOUTE au nom, elle ne le remplace pas :
+      // « Supprimer — le constat est signé » se lit, « le constat est signé »
+      // seul laisse chercher de quel bouton il s'agit.
+      title={inactiveReason ? `${label} — ${inactiveReason}` : label}
+      {...availabilityAttributes(state)}
+      onClick={
+        blocksActivation(state)
+          ? (e: React.MouseEvent<HTMLButtonElement>) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }
+          : onClick
+      }
+      className={cn(iconButton({ variant, size }), inactive && !disabled && INACTIVE_SURFACE, className)}
       {...props}
     >
       <span aria-hidden="true" className="flex items-center justify-center">
         {icon}
       </span>
     </button>
-  ),
+    );
+  },
 );
 IconButton.displayName = 'IconButton';

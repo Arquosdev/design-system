@@ -55,6 +55,10 @@ const DESCRIPTIONS = {
     onWarningBg: "L'encre à poser sur `warningBg`.",
     infoBg: "Fond des éléments retenus ou renseignés — entrée de menu courante, option choisie, décision prise.",
     onInfoBg: "L'encre à poser sur `infoBg`.",
+    inactiveBg:
+      "Fond d'un contrôle NON CLIQUABLE — bouton dont l'action est impossible ici. Un fond plein, pas une opacité : il ne doit ressembler à aucune variante active.",
+    onInactiveBg:
+      "L'encre à poser sur `inactiveBg` (5,99 pour 1). Le libellé d'un contrôle inactif reste du texte : il lui faut 4,5, ce que `opacity-50` ne donnait pas (2,33).",
     bg: 'Fond de page par défaut.',
     bgSubtle:
       "En-tête de section, de tableau, du rail — presque blanc. Détache l'en-tête de son contenu sans grisser l'écran.",

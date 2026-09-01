@@ -158,7 +158,11 @@
         "cta",
         "valider",
         "enregistrer",
-        "annuler"
+        "annuler",
+        "inactif",
+        "grisé",
+        "non cliquable",
+        "désactivé"
       ],
       "platforms": [
         "web"
@@ -172,7 +176,8 @@
       "dossier": "components/button",
       "specFile": "components/button/button.spec.md",
       "fichiers": {
-        "web": "components/button/button.web.tsx"
+        "web": "components/button/button.web.tsx",
+        "logique": "components/button/button.logic.ts"
       }
     },
     {

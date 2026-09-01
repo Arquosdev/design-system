@@ -1,5 +1,73 @@
 # Monter une app vers la version courante
 
+## v2.12.0 — un bouton non cliquable le dit, et peut dire pourquoi
+
+**Rien à changer** : `disabled` fait ce qu'il faisait. Ce qui s'ouvre est une
+autre façon d'être indisponible, `inactive`, à prendre partout où une raison
+existe.
+
+Louis, le 01/09/2026, sur le bouton « Nouvel équipement » d'une liste sans
+agence choisie : « il me paraît bizarre dans le format, on dirait que c'est un
+bouton qui est cliquable. Est-ce qu'il ne faudrait pas un état de bouton non
+cliquable […] en grisé ».
+
+**Deux défauts, et le second ne se voyait pas.**
+
+`disabled` pose `pointer-events-none` : le bouton ne reçoit ni survol ni focus,
+donc il ne peut PAS porter d'infobulle ni ouvrir de `Popover`. La seule façon
+d'apprendre pourquoi le geste est impossible était de le tenter — et il ne se
+passait rien.
+
+Et `opacity-50` gardait la couleur de la variante. Mesuré au rendu, dans Chrome :
+libellé blanc sur du bleu fondu, **2,34 pour 1** ; libellé d'un `outline` fondu
+sur blanc, **2,06**. Deux fois sous le seuil de 4,5 — et invisibles des deux
+contrôles du dépôt, ce qui explique que personne ne l'ait vu : le lecteur de
+classes ne sait pas fondre une opacité, et **axe exempte du contraste tout ce qui
+porte `disabled` ou `aria-disabled`**.
+
+**Ce que fait `inactive`.**
+
+```tsx
+// La raison en infobulle, quand le bouton est seul.
+<Button inactive inactiveReason="Choisissez une agence pour créer un équipement">
+  Nouvel équipement
+</Button>
+
+// La raison déjà écrite à l'écran : pas d'`inactiveReason`, elle serait lue deux fois.
+<Button inactive>Nouveau client</Button>
+```
+
+- `aria-disabled` et non `disabled` : le bouton reste dans l'ordre de tabulation,
+  reçoit le survol, et peut donc déclencher un `Popover` d'explication ;
+- le clic est avalé par le composant — un `onClick` posé dessus ne part pas, et
+  l'appelant n'a rien à se rappeler ;
+- une plaque grise pleine, **la même pour les six variantes**. C'est ce que Louis
+  demande : un bouton indisponible doit cesser de ressembler à la variante qu'il
+  était, sinon il continue de promettre son geste.
+
+`IconButton` porte le même état, avec la même surface. Son infobulle devient
+« nom — raison » : le nom reste devant, sans texte visible la raison seule
+laisserait chercher de quel bouton il s'agit.
+
+**Deux jetons neufs**, `inactiveBg` (gris 100) et `onInactiveBg` (gris 600) —
+`bg-inactive-bg` et `text-on-inactive-bg`. Mesurés : **5,99 pour 1**.
+
+**Et un contrôle de plus, parce que la mesure manquait.**
+`scripts/check-contraste.mjs` apparie maintenant les couples de jetons À LA
+SOURCE — `successBg`/`onSuccessBg`, `infoBg`/`onInfoBg`, `inactiveBg`/
+`onInactiveBg`… — et non plus seulement ce qu'une chaîne de classes écrit d'un
+bloc. C'est le seul endroit d'où l'état inactif est visible : le rendu ne l'est
+pas, axe l'exempte.
+
+L'exception de `onInfoBg` — l'encre de l'état sélectionné vaut `primary`, voulu
+par Louis le 31/08/2026 — est mesurée par ce contrôle, pas défaite : 5,56, au-
+dessus du seuil.
+
+**À prendre côté `web`** : `components/create-without-agency.tsx` passe de
+`<Button variant="outline" disabled>` à `<Button inactive>`. La phrase visible
+reste, sans `inactiveReason`. La bascule se fait avec le reste des apps, pas
+avant.
+
 ## v2.10.3 — un bouton se reconnaît
 
 **Rien à changer.** `Button` porte `data-arq="button"`, ce qui permet à un test

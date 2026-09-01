@@ -55,4 +55,58 @@ export const Tailles: Story = {
   ),
 };
 
+/**
+ * **Le geste est impossible ici, et le bouton peut dire pourquoi.**
+ *
+ * Louis, le 01/09/2026 : « on dirait que c'est un bouton qui est cliquable ».
+ * La plaque grise est la même pour toutes les variantes — c'est ce qui la fait
+ * lire comme un état et non comme une action de moindre poids.
+ *
+ * Survoler le bouton : la raison paraît. C'est ce que `disabled` ne peut pas
+ * faire, puisqu'il ne reçoit ni survol ni focus.
+ */
+export const Inactif: Story = {
+  args: {
+    inactive: true,
+    inactiveReason: 'Choisissez une agence pour créer un équipement',
+    children: 'Nouvel équipement',
+  },
+};
+
+/**
+ * Les six variantes une fois inactives : elles rendent toutes la même plaque.
+ * Comparer avec « Variantes » — c'est là que se voit ce qui change.
+ */
+export const InactifToutesVariantes: Story = {
+  render: () => (
+    <div className="flex flex-wrap items-center gap-md">
+      <Button inactive>Enregistrer</Button>
+      <Button variant="secondary" inactive>Compléter</Button>
+      <Button variant="outline" inactive>Annuler</Button>
+      <Button variant="ghost" inactive>Afficher les champs vides</Button>
+      <Button variant="destructive" inactive>Supprimer</Button>
+      <Button variant="link" inactive>En savoir plus</Button>
+    </div>
+  ),
+};
+
+/**
+ * La raison écrite à l'écran plutôt qu'en infobulle : pas d'`inactiveReason`
+ * alors, sinon un lecteur d'écran la lit deux fois.
+ */
+export const InactifRaisonVisible: Story = {
+  render: () => (
+    <div className="flex items-center justify-end gap-sm">
+      <p className="whitespace-nowrap text-caption text-text-muted">
+        Choisissez une agence pour créer un client.
+      </p>
+      <Button inactive>Nouveau client</Button>
+    </div>
+  ),
+};
+
+/**
+ * `disabled` reste : le contrôle qui n'est pas là pour cet utilisateur, et dont
+ * il n'y a rien à dire. Il sort de l'ordre de tabulation.
+ */
 export const Desactive: Story = { args: { disabled: true } };

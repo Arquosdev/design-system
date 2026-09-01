@@ -37,6 +37,8 @@ replaces:
 | `icon`      | `ReactNode`                             | —            | L'icône, en `currentColor`               |
 | `variant`   | `'outline' \| 'soft' \| 'ghost'`        | `'outline'`  | Poids visuel                             |
 | `size`      | `'sm' \| 'md'`                          | `'md'`       | 30px ou 36px de côté                     |
+| `inactive`  | `boolean`                               | `false`      | Le geste est impossible ici, et on peut dire pourquoi |
+| `inactiveReason` | `string`                           | —            | La raison — s'ajoute au `label` dans l'infobulle |
 
 `label` est obligatoire par construction : un bouton sans texte visible qui n'a
 pas de nom accessible est muet pour un lecteur d'écran.
@@ -56,7 +58,12 @@ d'entretien » vaut mieux que « Télécharger », répété quinze fois dans un
 ## États
 
 - **Survol** : fond `colors.bgMuted` (`outline`, `ghost`) ou opacité 0.8 (`soft`).
-- **Désactivé** : opacité 0.5, plus d'interaction.
+- **Inactif** (`inactive`) : la plaque grise de `Button` — la même surface
+  (`INACTIVE_SURFACE`), parce qu'un bouton d'icône et un bouton de texte inactifs
+  se retrouvent côte à côte dans une barre d'outils. Il garde le focus et le
+  survol, donc son infobulle dit pourquoi. Voir `button.spec.md`, section
+  « `inactive` ou `disabled` » : la règle est la même.
+- **Désactivé** (`disabled`) : opacité 0.5, plus d'interaction.
 - **Focus clavier** : anneau visible de 2px.
 
 ## Accessibilité
@@ -65,3 +72,6 @@ d'entretien » vaut mieux que « Télécharger », répété quinze fois dans un
   d'écran, le second pour l'infobulle au survol.
 - La cible fait au moins 30px ; sur une interface tactile, préférer `md`.
 - L'icône est `aria-hidden` : c'est le bouton qui porte le nom, pas le dessin.
+- Avec `inactiveReason`, l'infobulle devient « `label` — raison ». La raison
+  s'AJOUTE au nom : sans texte visible, remplacer le nom laisserait chercher de
+  quel bouton il s'agit.

@@ -83,6 +83,8 @@
   --arq-color-on-warning-bg: #996315;
   --arq-color-info-bg: #E1ECFA;
   --arq-color-on-info-bg: #0D5AB7;
+  --arq-color-inactive-bg: #EAEEF1;
+  --arq-color-on-inactive-bg: #4D5B66;
   --arq-color-bg: #FFFFFF;
   --arq-color-bg-subtle: #FCFDFE;
   --arq-color-bg-muted: #F6F7F9;

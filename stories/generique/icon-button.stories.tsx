@@ -42,3 +42,38 @@ export const Variantes: Story = {
 export const LeNomCompte: Story = {
   args: { label: 'Télécharger « Rapport de contrôle 2026.pdf »' },
 };
+
+/**
+ * **Le geste est impossible ici, et le bouton peut dire pourquoi.** La plaque
+ * grise est celle de `Button` : les deux se retrouvent côte à côte dans une
+ * barre d'outils, et deux gris différents s'y verraient.
+ *
+ * L'infobulle devient « nom — raison ». Le nom reste devant : sans texte
+ * visible, la raison seule laisserait chercher de quel bouton il s'agit.
+ */
+export const Inactif: Story = {
+  render: () => (
+    <div className="flex items-center gap-md">
+      <IconButton
+        label="Télécharger le rapport"
+        inactive
+        inactiveReason="le rapport n’est pas encore signé"
+        icon={<Telechargement />}
+      />
+      <IconButton
+        label="Télécharger le rapport"
+        variant="soft"
+        inactive
+        inactiveReason="le rapport n’est pas encore signé"
+        icon={<Telechargement />}
+      />
+      <IconButton
+        label="Télécharger le rapport"
+        variant="ghost"
+        inactive
+        inactiveReason="le rapport n’est pas encore signé"
+        icon={<Telechargement />}
+      />
+    </div>
+  ),
+};

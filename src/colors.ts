@@ -156,6 +156,36 @@ export const colors = {
   */
   onInfoBg: core.blue, // 5,56 sur infoBg — la couleur de la marque
 
+  /*
+     **La paire d'un contrôle NON CLIQUABLE.**
+
+     Louis, le 01/09/2026, sur le bouton « Nouvel équipement » quand aucune
+     agence n'est choisie : « il me paraît bizarre dans le format, on dirait que
+     c'est un bouton qui est cliquable. Est-ce qu'il ne faudrait pas un état de
+     bouton non cliquable […] en grisé ».
+
+     Il avait raison, et la mesure le dit mieux que l'œil. L'état inactif était
+     rendu par `opacity-50` sur la variante, ce qui donne :
+
+     - bouton plein : libellé blanc sur du bleu fondu #86ADDB — **2,33 pour 1** ;
+     - bouton `outline` : libellé gris fondu #AEB6BC sur blanc — **2,06 pour 1**.
+
+     Deux fois sous le seuil de 4,5, et invisibles des deux contrôles : le
+     lecteur de classes ne sait pas fondre une opacité, et axe exempte du
+     contraste tout ce qui porte `disabled` ou `aria-disabled`. Personne ne
+     mesurait ce texte-là.
+
+     Un fond gris PLEIN règle les deux défauts d'un coup. Il ne ressemble à
+     aucune variante active — c'est ce que Louis demande — et ses deux teintes
+     sont des jetons, donc `scripts/check-contraste.mjs` les apparie à la
+     source : **5,99 pour 1**.
+
+     Le fond est le gris 100 et non le gris 50 : posé à côté d'un bouton blanc
+     `outline`, le gris 50 ne se distingue pas du fond de page.
+  */
+  inactiveBg: palette.grey[100],
+  onInactiveBg: palette.grey[600], // 5,99 sur inactiveBg
+
   // Neutrals
   bg: palette.white,
   /**
