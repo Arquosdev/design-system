@@ -235,7 +235,8 @@
       "dossier": "components/combobox",
       "fiche": "components/combobox/combobox.spec.md",
       "fichiers": {
-        "web": "components/combobox/combobox.web.tsx"
+        "web": "components/combobox/combobox.web.tsx",
+        "logique": "components/combobox/combobox.logic.ts"
       }
     },
     {
