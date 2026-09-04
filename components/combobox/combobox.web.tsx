@@ -1,5 +1,7 @@
 'use client';
 
+import { choixReels, contenuAffiche, type ComboboxOption } from './combobox.logic.ts';
+
 import * as React from 'react';
 import { Command as CommandPrimitive } from 'cmdk';
 
@@ -8,10 +10,7 @@ import { Icon } from '../icon/icon.web';
 import { CommandEmpty, CommandItem, CommandList } from '../command/command.web';
 import { Popover, PopoverAnchor, PopoverContent } from '../popover/popover.web';
 
-export interface ComboboxOption {
-  valeur: string;
-  libelle: string;
-}
+export type { ComboboxOption };
 
 export interface ComboboxProps {
   options: readonly ComboboxOption[];
@@ -60,13 +59,10 @@ export function Combobox({
   const [frappe, setFrappe] = React.useState('');
   const champ = React.useRef<HTMLInputElement>(null);
 
-  const retenue = options.find((o) => o.valeur === valeur);
-  const affiche = retenue?.libelle ?? valeur;
-
-  /* Ce qu'on voit dans le champ : la valeur retenue tant qu'on n'a rien tapé,
-     la frappe dès qu'on tape. Sans ça, ouvrir le champ effacerait sous les yeux
-     la valeur qu'on venait consulter. */
-  const contenu = ouvert ? frappe : affiche;
+  /* Les deux règles vivent dans `combobox.logic.ts`, où elles sont éprouvées :
+     ce qui compte comme choix, et ce que le champ montre. */
+  const choix = React.useMemo(() => choixReels(options), [options]);
+  const contenu = contenuAffiche(options, valeur, ouvert, frappe);
 
   const fermer = () => {
     setOuvert(false);
@@ -134,7 +130,7 @@ export function Combobox({
         >
           <CommandList className="max-h-[240px]">
             <CommandEmpty>Aucun choix ne correspond.</CommandEmpty>
-            {options.map((o) => (
+            {choix.map((o) => (
               <CommandItem
                 key={o.valeur}
                 value={o.libelle}
