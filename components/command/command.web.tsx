@@ -94,7 +94,16 @@ export function CommandList({
   return (
     <CommandPrimitive.List
       data-slot="command-list"
-      className={cn('max-h-[400px] scroll-py-sm overflow-x-hidden overflow-y-auto py-xs', className)}
+      /*
+        `overscroll-contain` : arrivée en bout de liste, la molette s'arrête là.
+        Sans lui elle poursuit sur la surface du dessous — dans un panneau qui
+        défile, celle-ci emmène l'ancre et la liste paraît sauter (vu le
+        04/09/2026 sur la fenêtre de complétion de la fiche).
+      */
+      className={cn(
+        'max-h-[400px] scroll-py-sm overflow-x-hidden overflow-y-auto overscroll-contain py-xs',
+        className,
+      )}
       {...props}
     />
   );

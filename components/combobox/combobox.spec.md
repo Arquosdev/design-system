@@ -47,7 +47,7 @@ qui habille la palette plein écran et porte sa hauteur.
 | `options`     | `{valeur, libelle}[]`         | —               | La liste |
 | `valeur`      | `string`                      | —               | Ce qui est retenu ; hors catalogue, s'affiche tel quel |
 | `onValeur`    | `(valeur: string) => void`    | —               | |
-| `placeholder` | `string`                      | `Rechercher…`   | Quand rien n'est retenu |
+| `placeholder` | `string`                      | `Rechercher…`   | Quand rien n'est retenu ; sinon le filigrane montre la valeur en cours |
 | `autoFocus`   | `boolean`                     | `false`         | Le champ prend le focus dès qu'il paraît |
 | `ariaLabel`   | `string`                      | —               | Quand aucun libellé visible ne nomme la gâchette |
 | `desactive`   | `boolean`                     | `false`         | |
@@ -55,14 +55,16 @@ qui habille la palette plein écran et porte sa hauteur.
 ## Anatomie
 
 - Champ : mêmes traits que la gâchette de `Select`, au pixel — 32 px, arrondi `radius.control`, contour `colors.border`, ombre `shadow.card`, retrait `spacing.md` — pour qu'un champ à menu ait la même tête, court ou long
-- Liste : à la largeur du champ, 220 px au moins, **240 px de haut au plus** — celle de la palette monte à 400, ce qui couvre un écran de fiche
+- Liste : à la largeur du champ, 220 px au moins, **320 px de haut au plus, et jamais plus de 45 % de la hauteur visible** — à 240 px elle montrait sept marques sur trois cents, et chercher redevenait faire défiler
+- Liste : **la molette s'arrête au bout** (`overscroll-contain`). Sans ça elle poursuit sur la surface du dessous ; dans un panneau qui défile, celle-ci emmène l'ancre et la liste paraît sauter
 
 ## États
 
 - **Au repos** : le champ montre la valeur retenue, comme un menu fermé.
-- **Ouvert** : la frappe remplace l'affichage, et le focus ne quitte jamais le
-  champ — la liste se resserre pendant qu'on tape. Ouvrir n'efface rien : tant
-  qu'on n'a pas tapé, la valeur d'avant reste écrite.
+- **Ouvert** : la case se vide pour laisser taper, et le focus ne quitte jamais
+  le champ — la liste se resserre pendant qu'on tape. La valeur d'avant ne
+  disparaît pas pour autant : elle reste **en filigrane**, à la place de
+  l'invite, pour qu'on sache ce qu'on est en train de remplacer.
 - **Échap** : referme et rend la valeur d'avant.
 - **Valeur hors catalogue** : écrite telle quelle. La taire reviendrait à
   effacer à l'écran ce que la base contient.
