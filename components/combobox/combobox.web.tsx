@@ -1,6 +1,11 @@
 'use client';
 
-import { choixReels, contenuAffiche, type ComboboxOption } from './combobox.logic.ts';
+import {
+  choixReels,
+  contenuAffiche,
+  invitAffichee,
+  type ComboboxOption,
+} from './combobox.logic.ts';
 
 import * as React from 'react';
 import { Command as CommandPrimitive } from 'cmdk';
@@ -63,6 +68,7 @@ export function Combobox({
      ce qui compte comme choix, et ce que le champ montre. */
   const choix = React.useMemo(() => choixReels(options), [options]);
   const contenu = contenuAffiche(options, valeur, ouvert, frappe);
+  const invite = invitAffichee(options, valeur, ouvert, placeholder);
 
   const fermer = () => {
     setOuvert(false);
@@ -103,7 +109,7 @@ export function Combobox({
               }}
               onFocus={() => setOuvert(true)}
               onMouseDown={() => setOuvert(true)}
-              placeholder={placeholder}
+              placeholder={invite}
               aria-label={ariaLabel}
               className={cn(
                 'min-w-0 flex-1 bg-transparent text-small font-medium text-text outline-none',
@@ -127,8 +133,16 @@ export function Combobox({
              se resserre. Sans ça, la première frappe partirait dans le vide. */
           onOpenAutoFocus={(e) => e.preventDefault()}
           onCloseAutoFocus={(e) => e.preventDefault()}
+          /* De quoi ne pas se coller au bord quand le champ est en bas d'un
+             panneau : la liste se retourne au-dessus plutôt que de s'écraser. */
+          collisionPadding={8}
         >
-          <CommandList className="max-h-[240px]">
+          {/*
+            La liste prend la place disponible plutôt qu'une hauteur fixe. À 240
+            pixels elle montrait sept marques sur trois cents ; chercher revenait
+            à faire défiler, ce que le champ cherchable est censé éviter.
+          */}
+          <CommandList className="max-h-[min(320px,45vh)]">
             <CommandEmpty>Aucun choix ne correspond.</CommandEmpty>
             {choix.map((o) => (
               <CommandItem

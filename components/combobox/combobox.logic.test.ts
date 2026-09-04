@@ -1,7 +1,7 @@
 import { deepStrictEqual, strictEqual } from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { choixReels, contenuAffiche } from './combobox.logic.ts';
+import { choixReels, contenuAffiche, invitAffichee } from './combobox.logic.ts';
 
 /* Ce que `menuDeChoix` fabrique pour un champ vide : la sentinelle du `Select`
    en tête, puis les vraies marques. */
@@ -42,5 +42,25 @@ describe('contenuAffiche', () => {
 
   it('montre la frappe dès que le champ est ouvert', () => {
     strictEqual(contenuAffiche(AVEC_SENTINELLE, 'SEMATIC', true, 'FER'), 'FER');
+  });
+});
+
+describe('invitAffichee', () => {
+  it('rend l’invite ordinaire quand rien n’est retenu', () => {
+    strictEqual(invitAffichee(AVEC_SENTINELLE, '', true, 'Rechercher…'), 'Rechercher…');
+  });
+
+  it('garde la valeur retenue en filigrane pendant qu’on tape', () => {
+    // Sans ça, ouvrir le champ efface sous les yeux ce qu'on venait remplacer.
+    strictEqual(invitAffichee(AVEC_SENTINELLE, 'SEMATIC', true, 'Rechercher…'), 'SEMATIC');
+  });
+
+  it('garde une valeur hors catalogue telle quelle', () => {
+    strictEqual(invitAffichee(AVEC_SENTINELLE, 'INCONNUE', true, 'Rechercher…'), 'INCONNUE');
+  });
+
+  it('rend l’invite ordinaire une fois le champ fermé', () => {
+    // Fermé, c'est `contenuAffiche` qui montre la valeur : l'invite ne sert plus.
+    strictEqual(invitAffichee(AVEC_SENTINELLE, 'SEMATIC', false, 'Rechercher…'), 'Rechercher…');
   });
 });

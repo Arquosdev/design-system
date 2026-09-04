@@ -108,8 +108,8 @@ trois défauts sont passés par là en une seule journée. Pendant la bascule,
 
 | App | Épinglée | Écart |
 | --- | --- | --- |
-| `fiche-equipement` | `v1.18.0` | 3 versions, purement additives |
-| `myarquos-mobile` | `v0.1.0` | 20 versions, purement additives |
+| `fiche-equipement` | `v1.33.0` | à jour |
+| `myarquos-mobile` | `v0.1.0` | 32 versions, purement additives |
 
 Mettre à jour se fait en une ligne dans `package.json`, puis `npm install` :
 

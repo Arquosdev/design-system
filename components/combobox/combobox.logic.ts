@@ -44,3 +44,22 @@ export function contenuAffiche(
   const retenue = choixReels(options).find((o) => o.valeur === valeur);
   return retenue?.libelle ?? valeur;
 }
+
+/**
+ * Ce que le champ propose en filigrane.
+ *
+ * Ouvrir le champ vide sa case pour laisser taper : la valeur qu'on avait sous
+ * les yeux disparaît au moment précis où l'on cherche à la remplacer, et l'on ne
+ * sait plus ce qu'on est en train de changer. Elle revient donc en filigrane,
+ * qu'on efface d'une frappe. Rien de retenu : l'invite ordinaire.
+ */
+export function invitAffichee(
+  options: readonly ComboboxOption[],
+  valeur: string,
+  ouvert: boolean,
+  placeholder: string,
+): string {
+  if (!ouvert || valeur === '') return placeholder;
+  const retenue = choixReels(options).find((o) => o.valeur === valeur);
+  return retenue?.libelle ?? valeur;
+}
