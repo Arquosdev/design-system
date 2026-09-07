@@ -63,6 +63,7 @@ export function Combobox({
   const [ouvert, setOuvert] = React.useState(false);
   const [frappe, setFrappe] = React.useState('');
   const champ = React.useRef<HTMLInputElement>(null);
+  const ancre = React.useRef<HTMLDivElement>(null);
 
   /* Les deux règles vivent dans `combobox.logic.ts`, où elles sont éprouvées :
      ce qui compte comme choix, et ce que le champ montre. */
@@ -88,6 +89,7 @@ export function Combobox({
       <Popover open={ouvert && !desactive} onOpenChange={(o) => !o && fermer()}>
         <PopoverAnchor asChild>
           <div
+            ref={ancre}
             className={cn(
               'flex h-[32px] w-full items-center gap-sm rounded-control',
               // Les mêmes traits que la gâchette de `Select`, au pixel : un
@@ -133,6 +135,19 @@ export function Combobox({
              se resserre. Sans ça, la première frappe partirait dans le vide. */
           onOpenAutoFocus={(e) => e.preventDefault()}
           onCloseAutoFocus={(e) => e.preventDefault()}
+          /*
+            Le clic qui OUVRE le champ tombe « hors » de la liste — elle vient à
+            peine de paraître, et le curseur est resté sur le champ. Radix la
+            refermait donc aussitôt : le champ gardait sa valeur affichée, et la
+            première frappe s'y ajoutait — « SEMATIC » puis « FERMA » donnait
+            « SEMATICFERMA », et plus aucun choix ne correspondait.
+
+            Sur un champ vide le défaut ne se voyait pas, ce qui explique qu'il
+            ait survécu au correctif du 04/09/2026.
+          */
+          onInteractOutside={(e) => {
+            if (ancre.current?.contains(e.target as Node)) e.preventDefault();
+          }}
           /* De quoi ne pas se coller au bord quand le champ est en bas d'un
              panneau : la liste se retourne au-dessus plutôt que de s'écraser. */
           collisionPadding={8}

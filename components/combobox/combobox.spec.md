@@ -66,5 +66,9 @@ qui habille la palette plein écran et porte sa hauteur.
   disparaît pas pour autant : elle reste **en filigrane**, à la place de
   l'invite, pour qu'on sache ce qu'on est en train de remplacer.
 - **Échap** : referme et rend la valeur d'avant.
+- **Le clic qui ouvre n'est pas un clic « dehors »** : sans cette précaution la
+  liste se refermait dans le même geste, le champ gardait sa valeur affichée et
+  la première frappe s'y ajoutait. Invisible sur un champ vide, franc dès qu'une
+  valeur était déjà retenue.
 - **Valeur hors catalogue** : écrite telle quelle. La taire reviendrait à
   effacer à l'écran ce que la base contient.

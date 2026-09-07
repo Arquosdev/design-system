@@ -70,7 +70,23 @@ export const SelectContent = React.forwardRef<
       className={cn(
         'relative z-(--arq-layer-flottant) max-h-[320px] min-w-[8rem] overflow-hidden rounded-md',
         'border border-border-soft bg-bg text-text shadow-pop',
-        'data-[state=open]:animate-voile-entree data-[state=closed]:animate-voile-sortie',
+      /*
+        PAS d'animation de sortie ici. Mesuré le 07/09/2026 dans la fiche : sur
+        un contenu posé par le positionneur (`data-radix-popper-content-wrapper`),
+        l'animation déclarée à la fermeture ne DÉMARRE jamais — `getAnimations()`
+        revient vide alors que `animation-name` vaut bien `voile-sortie` et que
+        ses images-clés existent. Radix attend `animationend` pour démonter :
+        il attend indéfiniment, et la liste reste dans la page, fermée mais
+        présente.
+
+        Ce qu'elle y fait est loin d'être cosmétique. Radix garde alors la
+        surface qui l'a ouverte inerte — `pointer-events: none` sur le panneau —
+        et le panneau de complétion ne répondait plus au clic. C'est le « il bug
+        un peu quand on clique » signalé le 04/09/2026.
+
+        Deux dixièmes de seconde de fondu ne valent pas un panneau mort.
+      */
+        'data-[state=open]:animate-voile-entree',
         position === 'popper' && 'data-[side=bottom]:translate-y-xs data-[side=top]:-translate-y-xs',
         className,
       )}

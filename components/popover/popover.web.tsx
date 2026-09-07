@@ -29,7 +29,11 @@ export const PopoverContent = React.forwardRef<
       sideOffset={sideOffset}
       className={cn(
         'z-(--arq-layer-flottant) rounded-md border border-border-soft bg-bg p-base text-text shadow-pop outline-none',
-        'data-[state=open]:animate-voile-entree data-[state=closed]:animate-voile-sortie',
+      /* Même raison que dans `Select` : sur un contenu posé par le positionneur,
+         l'animation de sortie ne démarre pas et Radix ne démonte donc jamais.
+         Le menu restait dans la page, fermé mais présent, et les couches
+         empilées finissaient par avaler le clic qui rouvrait le champ. */
+        'data-[state=open]:animate-voile-entree',
         className,
       )}
       {...props}
