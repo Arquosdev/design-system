@@ -1,5 +1,7 @@
 # Design system Arquos — pour les agents
 
+> **La connaissance d'Arquos est dans ClickUp, pas ici.** Avant de coder, lire par le connecteur ClickUp : [Commencer ici](https://app.clickup.com/90151390837/docs/2kyq23kn-715/2kyq23kn-3435), la ligne de ce dépôt dans l'[Inventaire des systèmes](https://app.clickup.com/90151390837/docs/2kyq23kn-715/2kyq23kn-3395), et les [Décisions d'architecture](https://app.clickup.com/90151390837/docs/2kyq23kn-715/2kyq23kn-3015). Une décision nouvelle s'écrit là, jamais dans un fichier. Aucun fichier `.md` de documentation ne se crée dans ce dépôt : ce fichier ne contient que ce que l'outil exige pour y travailler.
+
 Source de vérité unique du design : tokens et composants partagés. Consommé par
 `Arquosdev/mobile` et `Arquosdev/fiche-equipement`.
 
