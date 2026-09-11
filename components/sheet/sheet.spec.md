@@ -41,9 +41,19 @@ Composition shadcn : `Sheet` (racine, `open` / `onOpenChange`), `SheetContent`,
 `SheetHeader`, `SheetTitle`, `SheetDescription`, `SheetBody`, `SheetFooter`,
 `SheetClose`, `SheetCloseButton`.
 
-| Prop   | Type      | Défaut    | Rôle                          |
-| ------ | --------- | --------- | ----------------------------- |
-| `side` | `'right'` | `'right'` | Le bord d'où le panneau entre |
+| Prop     | Type                      | Défaut       | Rôle                          |
+| -------- | ------------------------- | ------------ | ----------------------------- |
+| `side`   | `'right'`                 | `'right'`    | Le bord d'où le panneau entre |
+| `taille` | `'standard' \| 'large'`   | `'standard'` | 460 px, ou 860 pour un panneau qui montre aussi ce qui explique la saisie |
+
+**Quelle taille.** `standard` pour une tâche annexe — quelques champs, une
+décision. `large` quand le panneau doit porter le formulaire ET ce qui
+l'explique : une planche cotée, un tableau à colonnes. En dessous de 860 px un
+dessin coté devient une vignette et ses repères ne se lisent plus.
+
+Deux valeurs et pas un nombre libre : une largeur décidée au cas par cas
+redevient une valeur de design en dur dans l'app. C'est ce qui était arrivé à la
+fiche équipement, avec un `w-[860px]` posé à la main sur `SheetContent`.
 
 `SheetBody` est le seul à défiler : l'en-tête et le pied restent en place, pour
 que le bouton « Enregistrer » ne parte pas hors de l'écran sur une longue liste.
@@ -80,7 +90,8 @@ import {
   joue avant le démontage — Radix l'attend, c'est pourquoi les keyframes sont de
   vraies animations et non des transitions.
 - **Écran étroit** : le panneau garde 16 px de marge (`max-w-[calc(100vw-32px)]`)
-  pour qu'on voie qu'il y a quelque chose derrière.
+  pour qu'on voie qu'il y a quelque chose derrière. Mesuré en `large` sur un
+  poste en 1280 : le panneau tient ses 860 px et laisse 420 px de page lisible.
 
 ## Accessibilité
 

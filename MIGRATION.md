@@ -34,6 +34,7 @@ Compté sur `main` de chaque dépôt, le 25/08/2026.
 | --- | --- | --- |
 | `text-text-subtle` sur du texte | **33** | 3,14 pour 1 sur blanc, il en faut 4,5 → `text-text-muted` |
 | Couleurs écrites en dur | **14** | La règle du dépôt : toujours un token |
+| Largeurs de saisie et de panneau en dur | **6** | `max-w-[420px]`, `w-[860px]` → les tokens `largeur`, v1.35.0 |
 | Palette brute | 0 | Déjà repris |
 | Teintes d'état non appairées | 0 | Déjà repris |
 
@@ -97,6 +98,27 @@ sémantiques n'ont pas ce cran. Le web s'en sort à la luminosité
 Le mobile n'a pas de survol, mais il a des états pressés : la question s'y posera
 autrement.
 
+## `leading-none` rendait une hauteur nulle — corrigé en v1.35.0
+
+Jusqu'à la v1.34.0, le thème Tailwind publiait `--spacing-none: 0px`. Tailwind
+résout `leading-none` contre l'espace des **espacements** dès qu'une clé de ce
+nom y figure : toute classe `leading-none` rendait donc `line-height: 0`.
+
+Le composant le plus touché est **`Label`**, qui la porte : sa hauteur tombait à
+zéro et son texte débordait sur ce qui était posé dessous. Invisible tant que le
+libellé est *à côté* du champ — la ligne est centrée sur le champ, plus haut.
+Se voit dès qu'on l'empile *au-dessus*, la forme normale d'un formulaire.
+Constaté dans la fiche équipement le 11/09/2026.
+
+`--spacing-none` n'est plus publié dans le thème Tailwind (il reste dans
+`--arq-space-none` et dans l'API TypeScript). Un espace nul s'écrit `p-0`,
+`gap-0` : Tailwind le fournit déjà, et aucun `*-none` d'espacement n'était
+employé dans les deux apps.
+
+**À faire pendant la bascule :** retirer les `leading-<n>` ajoutés à la main
+pour contourner le défaut. `fiche-equipement` en porte trois, dans
+`src/app/fiche/sections/modifier.tsx`.
+
 ## Ce que le design system ne verra pas pour vous
 
 Le contrôle de contraste n'apparie que ce qui vit dans **la même chaîne de
@@ -108,7 +130,7 @@ trois défauts sont passés par là en une seule journée. Pendant la bascule,
 
 | App | Épinglée | Écart |
 | --- | --- | --- |
-| `fiche-equipement` | `v1.33.0` | à jour |
+| `fiche-equipement` | `v1.35.0` | à jour |
 | `myarquos-mobile` | `v0.1.0` | 32 versions, purement additives |
 
 Mettre à jour se fait en une ligne dans `package.json`, puis `npm install` :

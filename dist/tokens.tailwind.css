@@ -93,7 +93,6 @@
   --color-black: #000000;
 
   /* Espacements */
-  --spacing-none: 0px;
   --spacing-xxs: 2px;
   --spacing-xs: 4px;
   --spacing-sm: 8px;
@@ -105,6 +104,12 @@
   --spacing-3xl: 40px;
   --spacing-4xl: 48px;
   --spacing-5xl: 64px;
+
+  /* Largeurs nommées */
+  --container-saisie-courte: 200px;
+  --container-saisie-longue: 420px;
+  --container-panneau: 460px;
+  --container-panneau-large: 860px;
 
   /* Arrondis */
   --radius-none: 0px;

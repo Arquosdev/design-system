@@ -109,6 +109,10 @@
   --arq-space-5xl: 64px;
 
   /* Arrondis */
+  --arq-largeur-saisie-courte: 200px;
+  --arq-largeur-saisie-longue: 420px;
+  --arq-largeur-panneau: 460px;
+  --arq-largeur-panneau-large: 860px;
   --arq-radius-none: 0px;
   --arq-radius-control: 5px;
   --arq-radius-sm: 4px;
