@@ -28,6 +28,7 @@ import { iconSize, iconWeight, icones } from '../src/icons.ts';
 import { duration, easing } from '../src/motion.ts';
 import { layers } from '../src/layers.ts';
 import { borderWidth } from '../src/border.ts';
+import { largeur } from '../src/sizes.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
@@ -86,6 +87,13 @@ const DESCRIPTIONS = {
     '3xl': 'Séparation large.',
     '4xl': 'Séparation très large.',
     '5xl': 'Respiration maximale — écrans vides, écrans de démarrage.',
+  },
+  largeur: {
+    saisieCourte: "Un nombre, une date, un code — ce qui se lit d'un coup d'œil.",
+    saisieLongue: 'Un texte libre ou un menu — assez large pour un libellé entier.',
+    panneau: 'Le panneau latéral courant — une tâche annexe, quelques champs.',
+    panneauLarge:
+      "Le panneau qui porte un formulaire ET ce qui l'explique — une planche cotée, un tableau. En dessous, les repères d'un dessin ne se lisent plus.",
   },
   duration: {
     rapide: 'Un retour immédiat — survol, focus, opacité.',
@@ -159,6 +167,10 @@ function buildCss() {
   }
 
   section('Arrondis');
+  for (const [key, value] of Object.entries(largeur)) {
+    lines.push(`  --${NS}-largeur-${kebab(key)}: ${value}px;`);
+  }
+
   for (const [key, value] of Object.entries(radius)) {
     lines.push(`  --${NS}-radius-${kebab(key)}: ${value}px;`);
   }
@@ -279,6 +291,11 @@ function buildJson() {
       $description: 'Échelle base 4. `base` (16px) est le padding par défaut.',
       ...group(spacing, 'dimension', 'px', DESCRIPTIONS.spacing),
     },
+    largeur: {
+      $description:
+        "Largeurs nommées. Une saisie prend la largeur de ce qu'elle reçoit ; un panneau, celle de ce qu'il doit montrer.",
+      ...group(largeur, 'dimension', 'px', DESCRIPTIONS.largeur),
+    },
     radius: {
       $description: 'Arrondis. `md` (8px) est la référence.',
       ...group(radius, 'dimension', 'px', DESCRIPTIONS.radius),
@@ -391,7 +408,22 @@ function buildTailwind() {
 
   theme.push('', '  /* Espacements */');
   for (const [key, value] of Object.entries(spacing)) {
+    // `none` reste hors du thème Tailwind, à dessein. Tailwind résout
+    // `leading-none` contre l'espace des espacements quand une clé de ce nom y
+    // figure : `--spacing-none: 0px` faisait donc rendre `line-height: 0` à
+    // tout ce qui porte `leading-none` — à commencer par `Label`, dont la
+    // hauteur tombait à zéro et dont le texte débordait sur le champ posé
+    // dessous. Constaté dans la fiche équipement le 11/09/2026.
+    // Un espace nul s'écrit `p-0`, `gap-0` : Tailwind le fournit déjà.
+    if (key === 'none') continue;
     push(`--spacing-${kebab(key)}`, `${value}px`);
+  }
+
+  // `--container-*` est l'espace que lisent `w-*` et `max-w-*` : `--container-
+  // saisie-longue` donne `max-w-saisie-longue`.
+  theme.push('', '  /* Largeurs nommées */');
+  for (const [key, value] of Object.entries(largeur)) {
+    push(`--container-${kebab(key)}`, `${value}px`);
   }
 
   theme.push('', '  /* Arrondis */');

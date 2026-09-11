@@ -22,12 +22,25 @@ export interface SheetContentProps
   extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content> {
   /** Le bord d'où le panneau entre. Seule la droite est habillée pour l'instant. */
   side?: 'right';
+  /**
+   * La largeur du panneau.
+   *
+   * `standard` (460) pour une tâche annexe : quelques champs, une décision.
+   * `large` (860) quand le panneau doit montrer le formulaire ET ce qui
+   * l'explique — une planche cotée, un tableau à colonnes. En dessous de cette
+   * largeur, les repères d'un dessin ne se lisent plus.
+   *
+   * Deux valeurs, pas un nombre libre : une largeur choisie au cas par cas
+   * redevient une valeur de design en dur dans l'app, et c'est ce qui est
+   * arrivé à la fiche équipement (`w-[860px]` posé à la main).
+   */
+  taille?: 'standard' | 'large';
 }
 
 export const SheetContent = React.forwardRef<
   React.ComponentRef<typeof SheetPrimitive.Content>,
   SheetContentProps
->(({ className, children, side = 'right', ...props }, ref) => (
+>(({ className, children, side = 'right', taille = 'standard', ...props }, ref) => (
   <SheetPrimitive.Portal>
     <SheetPrimitive.Overlay
       className={cn(
@@ -38,8 +51,10 @@ export const SheetContent = React.forwardRef<
     <SheetPrimitive.Content
       ref={ref}
       data-side={side}
+      data-taille={taille}
       className={cn(
-        'fixed inset-y-0 right-0 z-(--arq-layer-panneau) flex h-full w-[460px] max-w-[calc(100vw-32px)] flex-col',
+        'fixed inset-y-0 right-0 z-(--arq-layer-panneau) flex h-full max-w-[calc(100vw-32px)] flex-col',
+        taille === 'large' ? 'w-panneau-large' : 'w-panneau',
         'border-l border-border-soft bg-bg shadow-pop outline-none',
         'data-[state=open]:animate-tiroir-entree data-[state=closed]:animate-tiroir-sortie',
         className,
