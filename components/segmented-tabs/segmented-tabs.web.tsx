@@ -59,6 +59,11 @@ export function SegmentedTabs({
               // `flex-1` et non la largeur du texte : sinon la piste tressaute
               // d'un onglet à l'autre quand les libellés sont inégaux.
               'flex flex-1 items-center justify-center gap-sm rounded-control px-sm py-sm text-small outline-none',
+              // Un libellé ne se coupe jamais en deux lignes : « Tous les
+              // champs » rendait « Tous les / champs », et la piste doublait de
+              // hauteur. Mieux vaut une piste qui dépasse — l'appelant la fait
+              // passer à la ligne — qu'un onglet illisible.
+              'whitespace-nowrap',
               'focus-visible:ring-2 focus-visible:ring-primary',
               // Même règle que `NavList` : un segment au repos est en `medium`,
               // le segment courant garde `semibold`. Les deux composants se
@@ -69,7 +74,23 @@ export function SegmentedTabs({
                 : 'font-medium text-text-muted',
             )}
           >
-            <span>{segment.label}</span>
+            {/*
+              Le libellé est doublé d'un fantôme en `semibold`, superposé dans
+              la même cellule de grille. C'est lui qui donne sa largeur au
+              segment : sans ça, la largeur se calcule sur la graisse COURANTE,
+              et le segment qui devient actif — donc plus gras — ne rentre plus
+              dans la place qu'il occupait. Il se coupait alors en deux lignes,
+              ce qui se voyait sur « Face 1 » à côté de « Face 2 ».
+            */}
+            <span className="grid grid-cols-1 grid-rows-1 place-items-center">
+              <span className="col-start-1 row-start-1">{segment.label}</span>
+              <span
+                aria-hidden="true"
+                className="invisible col-start-1 row-start-1 font-semibold"
+              >
+                {segment.label}
+              </span>
+            </span>
             {segment.compteur !== undefined && segment.compteur !== '' ? (
               <span
                 className={cn(

@@ -67,6 +67,14 @@ import { SegmentedTabs } from '@arquos/design-system/web';
 - **Libellés de longueurs inégales** : chaque segment prend la moitié, pas sa
   largeur de texte — sinon la piste tressaute d'un onglet à l'autre.
 - **Compteur inconnu** : l'omettre. Un `0` affirmerait qu'il n'y a rien.
+- **Libellé long** : il ne se coupe jamais en deux lignes. La largeur d'un
+  segment est celle de son libellé **en gras**, réservée d'avance par un
+  fantôme superposé : sans ça, le segment qui devient actif — donc plus gras —
+  ne rentrait plus dans la place qu'il occupait et passait à la ligne. Vu sur
+  « Face 1 » et « Tous les champs » dans la fiche équipement le 11/09/2026.
+- **Piste trop large pour son emplacement** : elle dépasse plutôt que de
+  comprimer ses onglets. C'est à l'appelant de la faire passer à la ligne
+  (`flex-wrap` sur la rangée, `shrink-0` sur la piste).
 
 ## Accessibilité
 
