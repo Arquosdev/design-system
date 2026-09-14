@@ -111,6 +111,8 @@
   --container-planche: 620px;
   --container-panneau: 460px;
   --container-panneau-large: 860px;
+  --container-lecture: 720px;
+  --container-rail: 284px;
 
   /* Arrondis */
   --radius-none: 0px;
