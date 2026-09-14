@@ -4,6 +4,7 @@ import {
   Camera,
   CameraRotate,
   CameraSlash,
+  Calculator,
   CaretDown,
   CaretLeft,
   CaretRight,
@@ -87,6 +88,7 @@ const DESSINS: Record<IconRole, PhosphorIcon> = {
   securite: ShieldCheck,
   intervention: Wrench,
   mesure: Ruler,
+  calculer: Calculator,
   assistanceIA: Sparkle,
 };
 

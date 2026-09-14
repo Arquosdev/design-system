@@ -3,6 +3,7 @@
 import * as React from 'react';
 
 import { Icon } from '../icon/icon.web';
+import type { IconRole } from '../../src/icons';
 import { cn } from '../_lib/cn';
 import {
   menuDeChoix,
@@ -83,12 +84,55 @@ export interface FieldRowProps {
   schemas?: readonly { nom: string }[];
   onVoirSchemas?: () => void;
   /**
+   * UNE action propre à cette ligne-là, à côté des photos et des schémas.
+   *
+   * Photos et schémas sont deux affordances NOMMÉES parce qu'elles reviennent
+   * partout et veulent dire la même chose partout. Celle-ci est le cas
+   * particulier : « Calculer » sur la course d'une gaine, que rien d'autre ne
+   * porte. Une seule, et l'appelant dit le rôle d'icône et le mot — le système
+   * ne prétend pas connaître d'avance ce que l'écran sait faire.
+   */
+  action?: { role: IconRole; libelle: string; onClick: () => void };
+  /**
    * Désigne la ligne : la recherche vient d'y emmener. Elle défile sous les
    * yeux une fois, puis le repère s'efface.
    */
   repere?: boolean;
   readOnly?: boolean;
   className?: string;
+}
+
+/**
+ * Le bouton discret d'une ligne — photo, schéma, action propre.
+ *
+ * Les trois s'écrivaient à l'identique, à l'icône et au libellé près ; le
+ * troisième aurait fait une troisième copie. Discret par construction : rien à
+ * l'écran tant qu'on ne le cherche pas.
+ */
+function BoutonDeLigne({
+  role,
+  libelle,
+  onClick,
+}: {
+  role: IconRole;
+  libelle: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={libelle}
+      title={libelle}
+      className={cn(
+        'inline-flex size-[24px] shrink-0 items-center justify-center rounded-control',
+        'text-text-subtle outline-none hover:bg-bg-muted hover:text-text-muted',
+        'focus-visible:ring-2 focus-visible:ring-primary',
+      )}
+    >
+      <Icon role={role} size="xs" />
+    </button>
+  );
 }
 
 // Les mots viennent de la logique partagée, les classes restent ici : le
@@ -127,6 +171,7 @@ export function FieldRow({
   onVoirPhotos,
   schemas,
   onVoirSchemas,
+  action,
   autre = false,
   demandeOuverture,
   repere = false,
@@ -237,34 +282,25 @@ export function FieldRow({
               // Discret par construction : rien à l'écran tant qu'on ne le
               // cherche pas. La photo explique la valeur, elle ne la remplace
               // pas — l'imposer encombrerait une rubrique de cent lignes.
-              <button
-                type="button"
+              <BoutonDeLigne
+                role="photo"
+                libelle={libellePhotos(photos)}
                 onClick={onVoirPhotos}
-                aria-label={libellePhotos(photos)}
-                title={libellePhotos(photos)}
-                className={cn(
-                  'inline-flex size-[24px] shrink-0 items-center justify-center rounded-control',
-                  'text-text-subtle outline-none hover:bg-bg-muted hover:text-text-muted',
-                  'focus-visible:ring-2 focus-visible:ring-primary',
-                )}
-              >
-                <Icon role="photo" size="xs" />
-              </button>
+              />
             ) : null}
             {onVoirSchemas && schemas && schemas.length > 0 ? (
-              <button
-                type="button"
+              <BoutonDeLigne
+                role="mesure"
+                libelle={libelleSchemas(schemas)}
                 onClick={onVoirSchemas}
-                aria-label={libelleSchemas(schemas)}
-                title={libelleSchemas(schemas)}
-                className={cn(
-                  'inline-flex size-[24px] shrink-0 items-center justify-center rounded-control',
-                  'text-text-subtle outline-none hover:bg-bg-muted hover:text-text-muted',
-                  'focus-visible:ring-2 focus-visible:ring-primary',
-                )}
-              >
-                <Icon role="mesure" size="xs" />
-              </button>
+              />
+            ) : null}
+            {action ? (
+              <BoutonDeLigne
+                role={action.role}
+                libelle={action.libelle}
+                onClick={action.onClick}
+              />
             ) : null}
             {statut ? (
               <span
