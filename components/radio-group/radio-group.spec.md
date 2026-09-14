@@ -14,13 +14,22 @@ remplace:
 
 ## Quand l'utiliser
 
-- Un choix unique parmi **deux à cinq** options, quand les voir toutes aide à
+- Un choix unique parmi **deux à six** options, quand les voir toutes aide à
   décider : le type d'entraînement, la nature d'un accès.
 - Quand la comparaison des options fait partie du choix.
 
+> **Pourquoi six et non cinq.** La limite était à cinq jusqu'en v1.38.0. Les
+> listes fermées du relevé en comptent très souvent six — « Type ouverture porte
+> cabine » en est l'exemple : cinq dans la maquette, six dans le jeu d'options
+> réel, parce que l'articulée s'y décline en manuelle et automatique. La limite
+> à cinq faisait donc basculer en menu déroulant, sur un écran de saisie, le
+> champ même que la maquette montrait en radios. Un jeu de six tient encore
+> sous les yeux ; c'est au-delà que la colonne pousse le champ suivant hors de
+> l'écran.
+
 ## Quand NE PAS l'utiliser
 
-- **Au-delà de cinq options** → `Select`. Une liste de dix boutons radio occupe
+- **Au-delà de six options** → `Select`. Une liste de dix boutons radio occupe
   un écran entier pour une seule valeur.
 - **Au-delà de vingt** → `Combobox`. Il faut pouvoir taper.
 - **Pour un choix qui peut être vide.** Un groupe radio ne se dévalide pas au

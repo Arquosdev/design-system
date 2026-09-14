@@ -119,6 +119,18 @@ employé dans les deux apps.
 pour contourner le défaut. `fiche-equipement` en porte trois, dans
 `src/app/fiche/sections/modifier.tsx`.
 
+## Les radios vont jusqu'à six — v1.38.0
+
+La limite était à cinq. Les listes fermées du relevé en comptent très souvent
+six : « Type ouverture porte cabine » a cinq entrées dans la maquette et six
+dans le jeu d'options réel, l'articulée s'y déclinant en manuelle et
+automatique. Un écran de saisie basculait donc en menu déroulant le champ même
+que sa maquette montrait en radios.
+
+**À faire pendant la bascule :** rien n'est cassé — c'est une règle, pas une
+API. Un écran qui choisit son contrôle d'après le nombre d'options doit
+seulement remonter son seuil de cinq à six.
+
 ## Ce que le design system ne verra pas pour vous
 
 Le contrôle de contraste n'apparie que ce qui vit dans **la même chaîne de
