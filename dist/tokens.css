@@ -111,6 +111,7 @@
   /* Arrondis */
   --arq-largeur-saisie-courte: 200px;
   --arq-largeur-saisie-longue: 420px;
+  --arq-largeur-planche: 620px;
   --arq-largeur-panneau: 460px;
   --arq-largeur-panneau-large: 860px;
   --arq-radius-none: 0px;
@@ -180,6 +181,14 @@
   font-size: 12px;
   font-weight: 400;
   line-height: 16.799999999999997px;
+}
+
+.arq-text-overline {
+  font-family: var(--arq-font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16.799999999999997px;
+  letter-spacing: 0.5px;
 }
 
 .arq-text-small {

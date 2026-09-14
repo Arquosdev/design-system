@@ -108,6 +108,7 @@
   /* Largeurs nommées */
   --container-saisie-courte: 200px;
   --container-saisie-longue: 420px;
+  --container-planche: 620px;
   --container-panneau: 460px;
   --container-panneau-large: 860px;
 
@@ -127,6 +128,10 @@
   --text-caption: 12px;
   --text-caption--line-height: 16.799999999999997px;
   --text-caption--font-weight: 400;
+  --text-overline: 12px;
+  --text-overline--line-height: 16.799999999999997px;
+  --text-overline--font-weight: 600;
+  --text-overline--letter-spacing: 0.5px;
   --text-small: 14px;
   --text-small--line-height: 19.599999999999998px;
   --text-small--font-weight: 400;

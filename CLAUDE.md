@@ -27,7 +27,7 @@ Si le token ou le composant manque : ne pas l'inventer dans l'app, l'ajouter ici
 | Couleur | `colors.*` — jamais `palette.*` |
 | Espacement | base 4 ; `base` (16) par défaut, `sm` (8) entre proches |
 | Arrondi | `md` (8) ; `full` seulement sur un carré |
-| Typographie | les préréglages (`typography.body`), jamais recombiner |
+| Typographie | les préréglages (`typography.body`), jamais recombiner. Un titre de section DANS un formulaire : `overline`, en capitales |
 | Icône | un **rôle** (`<Icon role="supprimer" />`), jamais un dessin |
 | Empilement | `z-(--arq-layer-flottant)`, jamais `z-50` |
 | Durée | `duration-(--arq-duration-normal)`, jamais `duration-200` |

@@ -19,6 +19,10 @@ export const largeur = {
   saisieCourte: 200,
   /** Un texte libre, un menu : assez large pour un libellé entier. */
   saisieLongue: 420,
+  /** Une planche de mesure intercalée dans un formulaire. Assez large pour que
+   *  ses repères se lisent, assez étroite pour rester une illustration : une
+   *  image qui prend toute la largeur du panneau devient le sujet. */
+  planche: 620,
   /** Le panneau latéral courant — une tâche annexe, quelques champs. */
   panneau: 460,
   /** Le panneau qui porte un formulaire ET ce qui l'explique — une planche

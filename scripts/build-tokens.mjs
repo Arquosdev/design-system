@@ -91,6 +91,8 @@ const DESCRIPTIONS = {
   largeur: {
     saisieCourte: "Un nombre, une date, un code — ce qui se lit d'un coup d'œil.",
     saisieLongue: 'Un texte libre ou un menu — assez large pour un libellé entier.',
+    planche:
+      "Une planche de mesure intercalée dans un formulaire — assez large pour que ses repères se lisent, assez étroite pour rester une illustration.",
     panneau: 'Le panneau latéral courant — une tâche annexe, quelques champs.',
     panneauLarge:
       "Le panneau qui porte un formulaire ET ce qui l'explique — une planche cotée, un tableau. En dessous, les repères d'un dessin ne se lisent plus.",
