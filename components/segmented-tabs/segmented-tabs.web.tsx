@@ -64,6 +64,12 @@ export function SegmentedTabs({
               // hauteur. Mieux vaut une piste qui dépasse — l'appelant la fait
               // passer à la ligne — qu'un onglet illisible.
               'whitespace-nowrap',
+              // Et jamais plus étroit que son contenu. `flex-1` partage la
+              // place en parts égales, y compris quand elle manque : l'onglet
+              // se retrouvait plus court que son texte, qui débordait alors sur
+              // le compteur — « Tous les champs239 », collés. `min-w-fit` pose
+              // le plancher ; la part égale ne joue qu'au-dessus.
+              'min-w-fit',
               'focus-visible:ring-2 focus-visible:ring-primary',
               // Même règle que `NavList` : un segment au repos est en `medium`,
               // le segment courant garde `semibold`. Les deux composants se
