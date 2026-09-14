@@ -28,15 +28,25 @@ existant, qui continue de fonctionner en restant à côté.
 
 Compté sur `main` de chaque dépôt, le 25/08/2026.
 
-### `fiche-equipement` — épinglée en v1.18.0
+### `fiche-equipement` — épinglée en v1.40.0
 
-| À reprendre | Combien | Pourquoi |
-| --- | --- | --- |
-| `text-text-subtle` sur du texte | **33** | 3,14 pour 1 sur blanc, il en faut 4,5 → `text-text-muted` |
-| Couleurs écrites en dur | **14** | La règle du dépôt : toujours un token |
-| Largeurs de saisie et de panneau en dur | **6** | `max-w-[420px]`, `w-[860px]` → les tokens `largeur`, v1.35.0 |
-| Palette brute | 0 | Déjà repris |
-| Teintes d'état non appairées | 0 | Déjà repris |
+Reprise le 14/09/2026. La colonne « restant » ne compte plus que ce qui n'a pas
+de token pour l'accueillir.
+
+| À reprendre | Au 25/08 | Restant | Pourquoi |
+| --- | --- | --- | --- |
+| `text-text-subtle` sur du texte | 33 | **0** | 3,14 pour 1 sur blanc, il en faut 4,5 → `text-text-muted`. Les 3 occurrences qui subsistent portent une icône, ce que la règle autorise |
+| Couleurs écrites en dur | 14 | **0** | La règle du dépôt : toujours un token |
+| Tailles de texte en dur | 3 | **0** | Un préréglage, jamais une valeur → `text-overline` |
+| Largeurs de saisie et de panneau en dur | 6 | **0** | Les tokens `largeur` — et deux de plus en v1.40.0, `lecture` et `rail` |
+| Palette brute | 0 | 0 | Déjà repris |
+| Teintes d'état non appairées | 0 | 0 | Déjà repris |
+
+Restent **40 valeurs en pixels**, toutes de la géométrie de contrôle : hauteurs
+de puces, de pastilles, de champs dessinés à la main. Ce n'est pas un token qui
+leur manque — le design system écrit les siennes pareil (`h-[36px]` sur
+`Button`, `size-[30px]` sur `IconButton`). C'est un composant. Ces valeurs
+tomberont quand la fiche cessera de dessiner ses contrôles, pas avant.
 
 ### `myarquos-mobile` — épinglée en v0.1.0
 
