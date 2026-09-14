@@ -72,6 +72,10 @@ import { SegmentedTabs } from '@arquos/design-system/web';
   fantôme superposé : sans ça, le segment qui devient actif — donc plus gras —
   ne rentrait plus dans la place qu'il occupait et passait à la ligne. Vu sur
   « Face 1 » et « Tous les champs » dans la fiche équipement le 11/09/2026.
+- **Compteur à trois chiffres** : l'onglet s'élargit. Il ne descend jamais sous
+  la largeur de son contenu — sans ce plancher, `flex-1` partageait la place en
+  parts égales même quand elle manquait, et le libellé débordait sur le
+  compteur (« Tous les champs239 », collés).
 - **Piste trop large pour son emplacement** : elle dépasse plutôt que de
   comprimer ses onglets. C'est à l'appelant de la faire passer à la ligne
   (`flex-wrap` sur la rangée, `shrink-0` sur la piste).
