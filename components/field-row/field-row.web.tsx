@@ -92,7 +92,14 @@ export interface FieldRowProps {
    * porte. Une seule, et l'appelant dit le rôle d'icône et le mot — le système
    * ne prétend pas connaître d'avance ce que l'écran sait faire.
    */
-  action?: { role: IconRole; libelle: string; onClick: () => void };
+  action?: {
+    role: IconRole;
+    libelle: string;
+    onClick: () => void;
+    /** Le mot affiché, quand le libellé complet est trop long pour la ligne —
+     *  « Calculer » pour « Calculer la course ». Par défaut, le libellé. */
+    mot?: string;
+  };
   /**
    * Désigne la ligne : la recherche vient d'y emmener. Elle défile sous les
    * yeux une fois, puis le repère s'efface.
@@ -103,20 +110,29 @@ export interface FieldRowProps {
 }
 
 /**
- * Le bouton discret d'une ligne — photo, schéma, action propre.
+ * Ce qu'une ligne pose à côté de sa valeur — et il y en a DEUX SORTES.
  *
- * Les trois s'écrivaient à l'identique, à l'icône et au libellé près ; le
- * troisième aurait fait une troisième copie. Discret par construction : rien à
- * l'écran tant qu'on ne le cherche pas.
+ * Une RÉFÉRENCE — la photo où la valeur a été lue, le schéma qui explique la
+ * mesure — reste une icône nue : rien à l'écran tant qu'on ne la cherche pas,
+ * sans quoi une rubrique de cent lignes serait constellée de pictos.
+ *
+ * Une ACTION porte son mot. Sans lui elle ne se trouve pas : « Calculer » posé
+ * en icône grise de quatorze pixels à côté d'une valeur est passé inaperçu de
+ * celui qui l'avait demandé la veille (14/09/2026). On ne cherche pas ce dont
+ * on ignore l'existence — une référence répond à une question qu'on se pose,
+ * une action doit s'annoncer.
  */
 function BoutonDeLigne({
   role,
   libelle,
   onClick,
+  mot,
 }: {
   role: IconRole;
   libelle: string;
   onClick: () => void;
+  /** Le mot à montrer. Absent : l'icône seule, pour les références. */
+  mot?: string;
 }) {
   return (
     <button
@@ -125,12 +141,15 @@ function BoutonDeLigne({
       aria-label={libelle}
       title={libelle}
       className={cn(
-        'inline-flex size-[24px] shrink-0 items-center justify-center rounded-control',
-        'text-text-subtle outline-none hover:bg-bg-muted hover:text-text-muted',
-        'focus-visible:ring-2 focus-visible:ring-primary',
+        'inline-flex h-[24px] shrink-0 items-center justify-center rounded-control',
+        'outline-none focus-visible:ring-2 focus-visible:ring-primary',
+        mot
+          ? 'gap-xxs border border-border bg-bg px-xs text-caption font-semibold text-primary hover:bg-bg-muted'
+          : 'w-[24px] text-text-subtle hover:bg-bg-muted hover:text-text-muted',
       )}
     >
       <Icon role={role} size="xs" />
+      {mot ? <span>{mot}</span> : null}
     </button>
   );
 }
@@ -300,6 +319,7 @@ export function FieldRow({
                 role={action.role}
                 libelle={action.libelle}
                 onClick={action.onClick}
+                mot={action.mot ?? action.libelle}
               />
             ) : null}
             {statut ? (
