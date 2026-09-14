@@ -29,6 +29,16 @@ export const largeur = {
    *  cotée, un tableau. En dessous, les repères A/B d'un dessin ne se lisent
    *  plus : c'est la mesure qui a fixé cette largeur. */
   panneauLarge: 860,
+  /** La largeur d'un paragraphe qu'on LIT — le texte qui explique une rubrique,
+   *  pas une donnée qu'on balaye. Au-delà, l'œil perd la ligne suivante en
+   *  revenant à la marge ; c'est la mesure de lecture, pas une contrainte de
+   *  mise en page. */
+  lecture: 720,
+  /** Le rail de navigation d'un écran — la liste des rubriques à gauche. Assez
+   *  large pour un libellé entier sur une ligne, assez étroite pour que le
+   *  contenu garde la page. Le squelette de chargement doit la partager, sinon
+   *  la mise en page saute à l'arrivée des données. */
+  rail: 284,
 } as const;
 
 export type LargeurToken = keyof typeof largeur;
