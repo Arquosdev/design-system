@@ -111,6 +111,10 @@ export const icones = {
   securite: 'ShieldCheck',
   intervention: 'Wrench',
   mesure: 'Ruler',
+  /** Une valeur que l'écran SAIT calculer — la course d'une gaine, tirée de
+   *  trois hauteurs ou de la somme des entre-niveaux. Le rôle dit « je peux la
+   *  calculer pour toi », jamais « voici une calculatrice ». */
+  calculer: 'Calculator',
   assistanceIA: 'Sparkle',
 } as const;
 

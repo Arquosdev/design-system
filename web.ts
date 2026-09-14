@@ -50,6 +50,9 @@ export {
 } from './components/filter-chips/filter-chips.web';
 export { IconButton, type IconButtonProps } from './components/icon-button/icon-button.web';
 export { Icon, type IconProps } from './components/icon/icon.web';
+/* Le vocabulaire d'icônes, pour les apps qui doivent NOMMER un rôle — c'est le
+   cas de `FieldRow.action`, dont l'appelant choisit l'icône. */
+export { type IconRole, type IconName } from './src/icons';
 export { FieldRow, type FieldRowProps } from './components/field-row/field-row.web';
 // La logique métier de FieldRow est aussi servie par le point d'entrée racine —
 // c'est la même source, deux portes : le mobile la prendra par la racine.
