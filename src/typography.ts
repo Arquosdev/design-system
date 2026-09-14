@@ -65,6 +65,20 @@ export const typography = {
     fontWeight: fontWeight.regular,
     lineHeight: fontSize.caption * lineHeight.normal,
   },
+  // Le titre d'une section À L'INTÉRIEUR d'un formulaire : « OUVERTURE »,
+  // « FINITION ». Il range sans peser — dans un formulaire, ce qui doit
+  // ressortir est le libellé du champ, pas le nom de la section qui le range.
+  // S'ÉCRIT EN CAPITALES : c'est la capitale qui le fait lire comme une
+  // étiquette plutôt que comme un titre, et c'est pour ça qu'il tient à
+  // 12 px. Ajouter `uppercase` (web) ou `textTransform: 'uppercase'` (natif).
+  // Ne pas l'employer comme titre de bloc dans une page en lecture : là, c'est
+  // `bodyBold` — voir l'accordéon de la fiche équipement.
+  overline: {
+    fontSize: fontSize.caption,
+    fontWeight: fontWeight.semibold,
+    lineHeight: fontSize.caption * lineHeight.normal,
+    letterSpacing: letterSpacing.wide,
+  },
   small: {
     fontSize: fontSize.small,
     fontWeight: fontWeight.regular,
