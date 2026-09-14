@@ -71,8 +71,8 @@ place donc sous `flottant`.
 | --- | --- |
 | se tape, courte | `Input` |
 | se rédige, longue | `Textarea` |
-| se choisit parmi 2 à 5 visibles | `RadioGroup` |
-| parmi 6 à 20 | `Select` |
+| se choisit parmi 2 à 6 visibles | `RadioGroup` |
+| parmi 7 à 20 | `Select` |
 | au-delà de 20 | `Combobox` |
 | vraie/fausse, validée plus tard | `Checkbox` |
 | vraie/fausse, **appliquée aussitôt** | `Switch` |
