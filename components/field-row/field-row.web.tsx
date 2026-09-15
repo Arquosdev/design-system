@@ -7,6 +7,7 @@ import type { IconRole } from '../../src/icons';
 import { cn } from '../_lib/cn';
 import {
   menuDeChoix,
+  partagerLeChoixMultiple,
   texteDeValeur,
   TEXTE_SAUVEGARDE,
   TEXTE_STATUT,
@@ -18,6 +19,7 @@ import {
 } from './field-row.logic';
 import { Button } from '../button/button.web';
 import { Combobox, SEUIL_RECHERCHE } from '../combobox/combobox.web';
+import { Input } from '../input/input.web';
 import {
   Select,
   SelectContent,
@@ -386,6 +388,7 @@ function Editeur({ kind, label, value, options, autre, onValider, onAnnuler }: E
         label={label}
         value={Array.isArray(value) ? value : []}
         options={options}
+        autre={autre}
         onValider={onValider}
         onAnnuler={onAnnuler}
       />
@@ -480,21 +483,45 @@ function EditeurMulti({
   label,
   value,
   options,
+  autre,
   onValider,
   onAnnuler,
 }: {
   label: string;
   value: string[];
   options: readonly FieldOption[];
+  /** Le jeu porte « Autre » : une valeur saisie s'ajoute aux cases cochées. */
+  autre?: boolean;
   onValider: (v: string[]) => void;
   onAnnuler: () => void;
 }) {
-  const [choisis, setChoisis] = React.useState<string[]>(value);
+  /*
+    UNE VALEUR SAISIE, À CÔTÉ DES CASES.
+
+    Un jeu d'options ouvert porte « Autre » : le relevé coche l'option et écrit
+    le texte dans une colonne jumelle. Sur un choix MULTIPLE, ce texte revient
+    mêlé aux valeurs connues — et les pastilles ne montrant que le catalogue, il
+    était invisible ici, donc perdu au premier enregistrement.
+
+    On le sort donc de la liste pour le mettre dans sa propre saisie, et on le
+    remet dedans en enregistrant. Une seule valeur libre : la colonne jumelle
+    n'en porte qu'une, et le service refuse au-delà.
+  */
+  const depart = partagerLeChoixMultiple(value, options);
+  const [choisis, setChoisis] = React.useState<string[]>(depart.connues);
+  const [texteAutre, setTexteAutre] = React.useState(depart.libre);
+  const [saisieOuverte, setSaisieOuverte] = React.useState(Boolean(depart.libre));
 
   const basculer = (v: string) =>
     setChoisis((actuels) =>
       actuels.includes(v) ? actuels.filter((x) => x !== v) : [...actuels, v],
     );
+
+  /* Ce qui part : les cases cochées, puis la valeur libre. L'ordre n'a pas
+     d'importance pour Bubble, qui range selon son jeu d'options ; il en a pour
+     la relecture, où l'on veut retrouver le catalogue avant l'exception. */
+  const retenues = () =>
+    texteAutre.trim() ? [...choisis, texteAutre.trim()] : choisis;
 
   return (
     <div
@@ -524,9 +551,43 @@ function EditeurMulti({
             </button>
           );
         })}
+        {autre ? (
+          <button
+            type="button"
+            aria-pressed={saisieOuverte}
+            onClick={() => {
+              /* Refermer la saisie EFFACE la valeur libre : laisser un texte
+                 invisible partir à l'enregistrement serait pire que de le
+                 perdre sous les yeux. */
+              if (saisieOuverte) setTexteAutre('');
+              setSaisieOuverte((o) => !o);
+            }}
+            className={cn(
+              'rounded-control px-sm py-xxs text-caption font-semibold outline-none',
+              'focus-visible:ring-2 focus-visible:ring-primary',
+              saisieOuverte
+                ? 'bg-primary text-text-on-dark'
+                : 'bg-bg-muted text-text-muted hover:bg-info-bg',
+            )}
+          >
+            Autre
+          </button>
+        ) : null}
       </div>
+      {autre && saisieOuverte ? (
+        <div className="mt-sm">
+          <Input
+            autoFocus
+            aria-label={`${label} — autre`}
+            value={texteAutre}
+            placeholder="Saisir une valeur…"
+            onChange={(e) => setTexteAutre(e.target.value)}
+            className="h-[30px]"
+          />
+        </div>
+      ) : null}
       <div className="mt-sm flex flex-wrap items-center gap-sm">
-        <Button size="sm" onClick={() => onValider(choisis)}>
+        <Button size="sm" onClick={() => onValider(retenues())}>
           Enregistrer
         </Button>
         <Button variant="secondary" size="sm" onClick={onAnnuler}>
@@ -537,9 +598,9 @@ function EditeurMulti({
             on dit pourquoi ça ne partira pas — le service refuse une valeur
             vide, la consolidation la repeuplerait au calcul suivant. */}
         <span className="text-caption text-text-muted">
-          {choisis.length === 0
+          {retenues().length === 0
             ? 'Aucune valeur retenue — un champ ne peut pas être vidé depuis la fiche.'
-            : choisis
+            : retenues()
                 .map((v) => options.find((o) => o.value === v)?.label ?? v)
                 .join(' · ')}
         </span>

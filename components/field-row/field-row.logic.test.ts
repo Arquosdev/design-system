@@ -1,7 +1,13 @@
 import { deepStrictEqual, strictEqual } from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { estVide, menuDeChoix, texteDeValeur, VIDE } from './field-row.logic.ts';
+import {
+  estVide,
+  menuDeChoix,
+  partagerLeChoixMultiple,
+  texteDeValeur,
+  VIDE,
+} from './field-row.logic.ts';
 
 const ETATS = [
   { value: 'bon', label: 'Bon' },
@@ -78,5 +84,38 @@ describe('estVide', () => {
     strictEqual(estVide('0'), false);
     strictEqual(estVide([]), true);
     strictEqual(estVide(['Cuvette']), false);
+  });
+});
+
+describe('partagerLeChoixMultiple', () => {
+  const ACCES = [
+    { value: 'digicode', label: 'Digicode' },
+    { value: 'badge', label: 'Badge' },
+  ] as const;
+
+  it('sépare les valeurs du catalogue de la valeur saisie', () => {
+    const { connues, libre } = partagerLeChoixMultiple(
+      ['digicode', 'Clé plate n°4', 'badge'],
+      ACCES,
+    );
+    deepStrictEqual(connues, ['digicode', 'badge']);
+    strictEqual(libre, 'Clé plate n°4');
+  });
+
+  it('reconnaît une valeur donnée par son libellé', () => {
+    const { connues, libre } = partagerLeChoixMultiple(['Digicode'], ACCES);
+    deepStrictEqual(connues, ['Digicode']);
+    strictEqual(libre, '');
+  });
+
+  it('ne retient qu’une valeur libre — la colonne jumelle n’en porte qu’une', () => {
+    const { libre } = partagerLeChoixMultiple(['Clé plate', 'Clé carrée'], ACCES);
+    strictEqual(libre, 'Clé plate');
+  });
+
+  it('ignore les valeurs blanches', () => {
+    const { connues, libre } = partagerLeChoixMultiple(['  ', 'badge'], ACCES);
+    deepStrictEqual(connues, ['badge']);
+    strictEqual(libre, '');
   });
 });

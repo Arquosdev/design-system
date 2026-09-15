@@ -89,3 +89,27 @@ export function texteDeValeur(value: string | string[] | null | undefined): stri
 export function estVide(value: string | string[] | null | undefined): boolean {
   return texteDeValeur(value) === VIDE;
 }
+
+/**
+ * Un choix multiple, séparé en deux : ce qui vient du catalogue, et le reste.
+ *
+ * Un jeu d'options OUVERT porte une valeur « Autre » : le relevé coche l'option
+ * et écrit le texte à côté. Sur un champ à choix multiple, le texte arrive donc
+ * mêlé aux valeurs connues, et rien ne le distingue — les pastilles ne montrent
+ * que le catalogue, si bien qu'une valeur saisie à la main devenait invisible
+ * et disparaissait au premier enregistrement.
+ *
+ * On rend donc les deux : les valeurs que le catalogue reconnaît, et LA valeur
+ * libre. Une seule, parce que la colonne jumelle n'en porte qu'une — c'est ce
+ * que le service accepte, et refuser ici ce qu'il refusera de toute façon vaut
+ * mieux que de le découvrir après l'envoi.
+ */
+export function partagerLeChoixMultiple(
+  valeurs: readonly string[],
+  options: readonly FieldOption[],
+): { connues: string[]; libre: string } {
+  const connu = (v: string) => options.some((o) => o.value === v || o.label === v);
+  const connues = valeurs.filter(connu);
+  const libre = valeurs.find((v) => !connu(v) && v.trim() !== '') ?? '';
+  return { connues, libre };
+}

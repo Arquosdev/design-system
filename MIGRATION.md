@@ -141,6 +141,26 @@ que sa maquette montrait en radios.
 API. Un écran qui choisit son contrôle d'après le nombre d'options doit
 seulement remonter son seuil de cinq à six.
 
+## « Autre » marche aussi sur un choix multiple — v1.43.0
+
+`FieldRow` porte un drapeau `autre` depuis longtemps : il dit qu'un jeu
+d'options est OUVERT — le relevé coche l'option « Autre » et écrit le texte dans
+une colonne jumelle. L'éditeur à UN choix l'honorait ; l'éditeur à CASES
+l'ignorait.
+
+Conséquence mesurée sur la fiche équipement : trois champs — type d'alimentation
+générale, contrôle d'accès de la boîte à boutons cabine, contrôle d'accès de la
+gâche — n'offraient aucune saisie libre, et une valeur déjà saisie par le terrain
+était **invisible** dans l'éditeur, donc perdue au premier enregistrement.
+
+L'éditeur à cases montre maintenant une pastille « Autre » qui ouvre une saisie,
+et il rend la valeur libre qu'il a reçue. `partagerLeChoixMultiple` fait le
+partage entre ce que le catalogue reconnaît et ce qu'il ne reconnaît pas ; une
+seule valeur libre est retenue, parce que la colonne jumelle n'en porte qu'une.
+
+**À faire pendant la bascule :** rien n'est cassé, c'est additif. Un écran qui
+sert un champ à choix multiple ouvert doit seulement penser à passer `autre`.
+
 ## Ce que le design system ne verra pas pour vous
 
 Le contrôle de contraste n'apparie que ce qui vit dans **la même chaîne de
