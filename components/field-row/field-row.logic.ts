@@ -107,9 +107,16 @@ export function estVide(value: string | string[] | null | undefined): boolean {
 export function partagerLeChoixMultiple(
   valeurs: readonly string[],
   options: readonly FieldOption[],
-): { connues: string[]; libre: string } {
+  /* Le mot que le relevé écrit dans la colonne pour dire « il y a un texte à
+     côté ». Il n'est pas dans le catalogue — l'extraction l'en retire — et ce
+     n'est pas pour autant la valeur saisie : le prendre pour elle remplissait la
+     saisie avec le mot « Autre » au lieu du texte réel. */
+  libelleAutre = 'Autre',
+): { connues: string[]; libre: string; marquee: boolean } {
   const connu = (v: string) => options.some((o) => o.value === v || o.label === v);
+  const marque = (v: string) =>
+    v.trim().toLowerCase() === libelleAutre.trim().toLowerCase();
   const connues = valeurs.filter(connu);
-  const libre = valeurs.find((v) => !connu(v) && v.trim() !== '') ?? '';
-  return { connues, libre };
+  const libre = valeurs.find((v) => !connu(v) && !marque(v) && v.trim() !== '') ?? '';
+  return { connues, libre, marquee: valeurs.some(marque) };
 }

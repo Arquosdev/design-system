@@ -119,3 +119,33 @@ describe('partagerLeChoixMultiple', () => {
     strictEqual(libre, '');
   });
 });
+
+describe('partagerLeChoixMultiple — le mot « Autre »', () => {
+  const ACCES = [
+    { value: 'digicode', label: 'Digicode' },
+    { value: 'badge', label: 'Badge' },
+  ] as const;
+
+  it('ne prend pas le mot « Autre » pour la valeur saisie', () => {
+    const { connues, libre, marquee } = partagerLeChoixMultiple(
+      ['digicode', 'Autre'],
+      ACCES,
+    );
+    deepStrictEqual(connues, ['digicode']);
+    strictEqual(libre, '');
+    strictEqual(marquee, true);
+  });
+
+  it('rend le texte réel quand il est là, à côté du mot', () => {
+    const { libre, marquee } = partagerLeChoixMultiple(
+      ['Autre', 'Clé plate n°4'],
+      ACCES,
+    );
+    strictEqual(libre, 'Clé plate n°4');
+    strictEqual(marquee, true);
+  });
+
+  it('dit non quand le mot n’y est pas', () => {
+    strictEqual(partagerLeChoixMultiple(['digicode'], ACCES).marquee, false);
+  });
+});

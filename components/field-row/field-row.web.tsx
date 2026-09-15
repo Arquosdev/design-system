@@ -510,7 +510,9 @@ function EditeurMulti({
   const depart = partagerLeChoixMultiple(value, options);
   const [choisis, setChoisis] = React.useState<string[]>(depart.connues);
   const [texteAutre, setTexteAutre] = React.useState(depart.libre);
-  const [saisieOuverte, setSaisieOuverte] = React.useState(Boolean(depart.libre));
+  const [saisieOuverte, setSaisieOuverte] = React.useState(
+    Boolean(depart.libre) || depart.marquee,
+  );
 
   const basculer = (v: string) =>
     setChoisis((actuels) =>
@@ -520,8 +522,13 @@ function EditeurMulti({
   /* Ce qui part : les cases cochées, puis la valeur libre. L'ordre n'a pas
      d'importance pour Bubble, qui range selon son jeu d'options ; il en a pour
      la relecture, où l'on veut retrouver le catalogue avant l'exception. */
-  const retenues = () =>
-    texteAutre.trim() ? [...choisis, texteAutre.trim()] : choisis;
+  const retenues = () => {
+    if (texteAutre.trim()) return [...choisis, texteAutre.trim()];
+    /* La pastille cochée sans texte : on REMET le mot tel qu'il était stocké,
+       plutôt que de l'effacer au passage. Le relevé l'a écrit, et la valeur
+       saisie vit dans sa propre colonne — que la fiche montre à côté. */
+    return depart.marquee && saisieOuverte ? [...choisis, 'Autre'] : choisis;
+  };
 
   return (
     <div
