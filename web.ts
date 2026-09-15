@@ -58,6 +58,7 @@ export { FieldRow, type FieldRowProps } from './components/field-row/field-row.w
 // c'est la même source, deux portes : le mobile la prendra par la racine.
 export {
   menuDeChoix,
+  partagerLeChoixMultiple,
   texteDeValeur,
   estVide,
   VIDE,

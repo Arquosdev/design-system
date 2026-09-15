@@ -158,6 +158,10 @@ et il rend la valeur libre qu'il a reçue. `partagerLeChoixMultiple` fait le
 partage entre ce que le catalogue reconnaît et ce qu'il ne reconnaît pas ; une
 seule valeur libre est retenue, parce que la colonne jumelle n'en porte qu'une.
 
+`partagerLeChoixMultiple` est exportée du point d'entrée web depuis la v1.44.0 :
+un écran qui écrit son propre éditeur à cases applique ainsi la MÊME règle que la
+ligne de champ, au lieu d'en écrire une seconde qui finira par en diverger.
+
 **À faire pendant la bascule :** rien n'est cassé, c'est additif. Un écran qui
 sert un champ à choix multiple ouvert doit seulement penser à passer `autre`.
 
