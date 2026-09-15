@@ -158,6 +158,12 @@ et il rend la valeur libre qu'il a reçue. `partagerLeChoixMultiple` fait le
 partage entre ce que le catalogue reconnaît et ce qu'il ne reconnaît pas ; une
 seule valeur libre est retenue, parce que la colonne jumelle n'en porte qu'une.
 
+Depuis la **v1.45.0**, `partagerLeChoixMultiple` distingue en plus le MOT
+« Autre » — que le relevé écrit dans la colonne pour dire « il y a un texte à
+côté » — de la valeur saisie elle-même. Sans cette distinction, la saisie libre
+s'ouvrait préremplie avec le mot « Autre » au lieu du texte réel, qui vit dans
+sa propre colonne.
+
 `partagerLeChoixMultiple` est exportée du point d'entrée web depuis la v1.44.0 :
 un écran qui écrit son propre éditeur à cases applique ainsi la MÊME règle que la
 ligne de champ, au lieu d'en écrire une seconde qui finira par en diverger.
