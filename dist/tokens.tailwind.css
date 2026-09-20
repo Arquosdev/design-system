@@ -11,6 +11,7 @@
   --color-primary: #0D5AB7;
   --color-primary-dark: #073B6F;
   --color-brand: #00295B;
+  --color-night: #04122A;
   --color-accent: #FFA522;
   --color-success: #0C7C59;
   --color-success-bg: #DFF7F3;
@@ -127,6 +128,7 @@
 
   /* Typographie */
   --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --text-caption: 12px;
   --text-caption--line-height: 16.799999999999997px;
   --text-caption--font-weight: 400;

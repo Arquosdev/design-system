@@ -194,3 +194,11 @@ Mettre à jour se fait en une ligne dans `package.json`, puis `npm install` :
 > Ne pas épingler `v1.15.0` ni `v1.18.0` : ces deux tags pointent à côté de
 > `main` — voir l'historique de `check-version.mjs`. `v1.19.0` et au-delà sont
 > sains.
+
+## v2.16.0 — le site vitrine entre dans le design system (20/09/2026)
+
+Additif, rien à reprendre dans les apps. Deux tokens et une page de vitrine :
+
+- `colors.night` (`#04122A`), la surface de nuit du site arquos.eu. L'application ne s'en sert pas.
+- `fontFamilyMono` (DM Mono), pour les valeurs de données. `--arq-font-mono` en CSS, `--font-mono` sous Tailwind. L'application reste en DM Sans partout tant qu'elle n'en a pas l'usage.
+- La page **Fondations → Marque et site vitrine** dit ce que le site ajoute à la charte sans la contredire : angles droits, plaques, lignes, mockups, jumeau 3D. Le code du site vit dans `Arquosdev/site`.

@@ -8,6 +8,7 @@
 export { palette, core, colors, type ColorToken } from './colors';
 export {
   fontFamily,
+  fontFamilyMono,
   fontFamilyNative,
   fontSize,
   fontWeight,

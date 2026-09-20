@@ -15,6 +15,7 @@ import { fileURLToPath } from 'node:url';
 import { palette, core, colors } from '../src/colors.ts';
 import {
   fontFamily,
+  fontFamilyMono,
   fontSize,
   fontWeight,
   lineHeight,
@@ -44,6 +45,7 @@ const DESCRIPTIONS = {
     primary: 'Accent interactif principal — CTA, liens, état actif.',
     primaryDark: 'Variante foncée de primary — état pressé, survol.',
     brand: 'Surface de marque dominante — en-têtes, blocs héros.',
+    night: "Surface de nuit du site vitrine — hero, appel à la démo, pied de page d'arquos.eu. Pas employée par l'application.",
     accent: "Mise en avant, attention — à réserver aux éléments qui doivent capter l'œil.",
     success: 'État de réussite — validation, conformité, synchronisation terminée.',
     successBg: 'Fond des éléments en état de réussite (pastilles, bandeaux).',
@@ -205,6 +207,7 @@ function buildCss() {
 
   section('Typographie');
   lines.push(`  --${NS}-font-sans: ${fontFamily};`);
+  lines.push(`  --${NS}-font-mono: ${fontFamilyMono};`);
   for (const [key, value] of Object.entries(fontSize)) {
     lines.push(`  --${NS}-font-size-${kebab(key)}: ${value}px;`);
   }
@@ -347,6 +350,12 @@ function buildJson() {
       $description:
         'DM Sans est la seule police de la marque. Côté React Native, utiliser `fontFamilyNative` : le gras synthétique rend mal sur Android.',
     },
+    fontFamilyMono: {
+      $type: 'fontFamily',
+      $value: fontFamilyMono,
+      $description:
+        "DM Mono, la compagne de DM Sans pour les valeurs de données — numéros, cotes, dates, plaques du site vitrine. Ne remplace pas DM Sans.",
+    },
     fontSize: {
       $description: "Échelle typographique. `body` (16px) est la taille du texte courant. Ne pas ajouter de nouvelle taille.",
       ...group(fontSize, 'dimension', 'px'),
@@ -435,6 +444,7 @@ function buildTailwind() {
 
   theme.push('', '  /* Typographie */');
   push('--font-sans', fontFamily);
+  push('--font-mono', fontFamilyMono);
   for (const [key, preset] of Object.entries(typography)) {
     // En Tailwind v4, `--text-x` et `--text-x--line-height` se combinent : une
     // seule classe `text-body` pose la taille ET l'interligne.
