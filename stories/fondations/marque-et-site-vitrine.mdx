@@ -1,0 +1,91 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Fondations/Marque et site vitrine" />
+
+# Marque et site vitrine
+
+Le site arquos.eu vit dans le dépôt `Arquosdev/site`. Il **consomme** ce design
+system — tokens, polices, logos — et y **ajoute** une couche marketing. Cette
+page dit ce qu'il ajoute, pour que le site et l'application disent la même
+chose sans se confondre : l'application est un outil dense qu'on utilise toute
+la journée, le site doit convaincre en trente secondes.
+
+Le raisonnement (positionnement, arborescence, SEO) est dans ClickUp, Produit →
+**Site web**. Ici, seulement ce qui touche au design.
+
+---
+
+## Ce que le site prend au design system
+
+| Élément | Token | Sur le site |
+| --- | --- | --- |
+| Police | `fontFamily` (DM Sans) | Partout, du 300 au 1000 : titres en 800 serrés, texte en 400, étiquettes en 600 capitales espacées |
+| Action | `colors.primary` | La seule couleur de bouton principal, comme dans l'application (décision 0029) |
+| Marque | `colors.brand` | Titres sur fond clair, colonne accent |
+| Repère | `colors.highlight` | Plaques, lignes de cote, chiffres de preuve. **Jamais un bouton** |
+| Texte | `colors.text`, `colors.textMuted` | Texte courant et secondaire sur fond clair |
+| Fonds | `colors.bg`, `colors.bgMuted` | Sections alternées blanc et papier |
+| Filets | `colors.border`, `colors.borderSoft` | Lignes de section, colonnes, cellules |
+
+## Ce que le site ajoute
+
+| Élément | Token | Rôle |
+| --- | --- | --- |
+| Nuit | `colors.night` (`#04122A`) | Fond du hero, de l'appel à la démo et du pied de page. Hero marine, contenu clair, fin de page marine |
+| Données | `fontFamilyMono` (DM Mono) | Valeurs de données, plaques, légendes de figure. La compagne de DM Sans, dessinée dans la même famille |
+| Angles | `0` | Boutons, plaques, puces, formulaires, panneaux. **Le site est à angles droits, l'application garde ses arrondis.** La confiance se voit ; les mockups d'appareils restent arrondis parce que ce sont des objets |
+
+## Les trois logos
+
+| Fond | Logo |
+| --- | --- |
+| Clair | Orange et bleu |
+| Sombre | **A orange, texte blanc**. Jamais le logo tout blanc |
+| Isotype seul | Le A orange, pour les favicons et les avatars |
+
+Les fichiers sont dans OneDrive, PRODUIT TECH → Design → Logos ; le site en garde une copie dans `public/img/logos`.
+
+---
+
+## Les motifs propres au site
+
+**La plaque.** Une étiquette en DM Mono, rivetée aux quatre coins, posée sur
+les photos, les écrans et le jumeau 3D. C'est la plaque machine que l'IA lit,
+devenue élément d'interface : elle porte les données de l'équipement partout
+sur le site. Version sombre sur fond clair, claire sur fond sombre. Ce n'est
+pas un composant d'application : une valeur dans l'application s'affiche dans
+`FieldRow`.
+
+**La cote.** Les intitulés de section sont dessinés comme une ligne de cote de
+plan, avec ses deux ticks.
+
+**Les lignes.** Deux traits verticaux encadrent la colonne de contenu sur toute
+la hauteur, un filet sépare chaque section avec un repère en croix aux
+intersections, des filets séparent les colonnes, les logos vivent en cellules.
+
+**Le jumeau numérique 3D.** Une gaine en fil de fer, six niveaux, la cabine et
+son contrepoids en mouvement, la machine et sa poulie, l'armoire de manœuvre.
+Les plaques de données se posent une à une sur les composants pendant que la
+barre de taux de connaissance monte. Construit en Three.js, sans image.
+
+**Les mockups.** Un laptop et un téléphone en CSS pour les captures de la
+refonte web et de myArquos : les deux supports de nos clients.
+
+**Les photos de relevés.** En duotone marine (`night` vers `palette.marine[200]`)
+dans les cartes et les figures encadrées. **Jamais de texte posé sur une photo.**
+
+---
+
+## Le mouvement
+
+Nav marine tant que le hero ou la fin de page est sous la barre, claire
+ailleurs, en fondu. Révélation progressive au défilement, compteurs sur les
+chiffres clés, chronologie qui se joue toute seule, messages de l'assistant qui
+apparaissent l'un après l'autre. Tout respecte `prefers-reduced-motion`, comme
+`motion.ts` le demande à l'application.
+
+## Ce que le site ne fait pas
+
+- Pas de quadrillage en fond, pas de dégradé, pas d'illustration générique, pas d'emoji.
+- Pas de composant d'application recopié : le site n'importe pas `web.ts`.
+- Pas de valeur de design en dur quand un token existe. Les rares valeurs propres au site (ombres des mockups, opacités des filets sur fond sombre) sont déclarées une fois dans sa feuille de style.

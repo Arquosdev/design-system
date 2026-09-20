@@ -71,6 +71,7 @@
   --arq-color-primary: #0D5AB7;
   --arq-color-primary-dark: #073B6F;
   --arq-color-brand: #00295B;
+  --arq-color-night: #04122A;
   --arq-color-accent: #FFA522;
   --arq-color-success: #0C7C59;
   --arq-color-success-bg: #DFF7F3;
@@ -157,6 +158,7 @@
 
   /* Typographie */
   --arq-font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --arq-font-mono: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --arq-font-size-caption: 12px;
   --arq-font-size-small: 14px;
   --arq-font-size-body: 16px;

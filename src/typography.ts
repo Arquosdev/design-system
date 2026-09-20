@@ -14,6 +14,19 @@
 export const fontFamily =
   "'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
 
+/**
+ * DM Mono, la compagne de DM Sans dessinée dans la même famille — pour les
+ * **valeurs de données** : numéros d'équipement, cotes, dates, légendes de
+ * figure, plaques du site vitrine.
+ *
+ * Elle ne remplace pas DM Sans, elle la complète là où des chiffres s'alignent
+ * ou qu'une valeur doit se lire comme une valeur. L'application ne l'emploie
+ * pas encore ; le site vitrine l'emploie partout où une donnée s'affiche
+ * (décision du 20/09/2026, DM Sans partout, DM Mono pour la donnée).
+ */
+export const fontFamilyMono =
+  "'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace";
+
 export const fontFamilyNative = {
   400: 'DMSans_400Regular',
   500: 'DMSans_500Medium',
