@@ -140,15 +140,32 @@ function EntreeDepliante({
     if (tientLeCourant) setOuvert(true);
   }, [tientLeCourant]);
   const deplie = ouvert;
+  /* Replié sur une sous-rubrique courante, c'est l'entrée MÈRE qui porte la
+     pastille : sinon le rail ne dirait plus où l'on est, et refermer
+     reviendrait à se perdre. */
+    const portePastille = item.cle === courant || (!deplie && tientLeCourant);
   return (
     <div className="flex flex-col gap-xxs">
       <Entree
         item={item}
-        /* Replié sur une sous-rubrique courante, c'est l'entrée MÈRE qui porte
-           la pastille : sinon le rail ne dirait plus où l'on est, et refermer
-           reviendrait à se perdre. */
-        courant={!deplie && tientLeCourant ? item.cle : courant}
+        courant={portePastille ? item.cle : courant}
+        /*
+          TOUTE LA LIGNE REPLIE, DÈS QU'ON Y EST DÉJÀ.
+
+          Thomas, le 21/09/2026 : « j'aimerai aussi qu'on puisse replier ou
+          ouvrir en cliquant sur toute la zone bleue ». Le chevron seul demandait
+          de viser seize pixels pour un geste qu'on fait souvent.
+
+          La règle tient en une phrase : la ligne mène à sa rubrique tant qu'on
+          n'y est pas, et replie une fois qu'on y est. Pastille allumée, le clic
+          ne peut de toute façon plus rien ouvrir de neuf — on y est — donc il
+          n'enlève rien et donne la cible large.
+        */
         onChoisir={(cle) => {
+          if (portePastille) {
+            setOuvert(!deplie);
+            return;
+          }
           setOuvert(true);
           onChoisir(cle);
         }}
