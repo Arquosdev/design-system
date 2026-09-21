@@ -14,6 +14,23 @@ export interface PhotoVue {
   zone?: string;
 }
 
+/**
+ * Une action posée sur la photo regardée.
+ *
+ * La visionneuse ne sait rien faire d'autre que montrer : télécharger, ouvrir
+ * ailleurs, signaler — tout cela appartient à l'écran qui l'ouvre. Elle lui
+ * prête donc un bouton, et lui passe la photo courante.
+ *
+ * Un seul, à dessein : c'est une visionneuse, pas une barre d'outils. Le jour
+ * où deux actions se présentent, c'est le menu qu'il faudra, pas un second
+ * bouton posé à côté.
+ */
+export interface PhotoViewerAction {
+  /** Ce que le bouton dit. Sert aussi de libellé aux lecteurs d'écran. */
+  libelle: string;
+  onAction: (photo: PhotoVue) => void;
+}
+
 export interface PhotoViewerProps {
   photos: readonly PhotoVue[];
   /** L'indice affiché. Piloté par l'appelant, pour qu'il sache où on en est. */
@@ -21,6 +38,8 @@ export interface PhotoViewerProps {
   onIndex: (index: number) => void;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  /** Absent = la visionneuse ne montre que la croix de fermeture. */
+  action?: PhotoViewerAction;
 }
 
 /**
@@ -30,7 +49,14 @@ export interface PhotoViewerProps {
  * Dialog de shadcn : elle apporte le piège à focus, la fermeture par Échap et
  * le masquage du reste de la page aux lecteurs d'écran, qu'on réécrirait mal.
  */
-export function PhotoViewer({ photos, index, onIndex, open, onOpenChange }: PhotoViewerProps) {
+export function PhotoViewer({
+  photos,
+  index,
+  onIndex,
+  open,
+  onOpenChange,
+  action,
+}: PhotoViewerProps) {
   const nb = photos.length;
   const courante = photos[index];
 
@@ -126,6 +152,24 @@ export function PhotoViewer({ photos, index, onIndex, open, onOpenChange }: Phot
               {courante.zone}
             </p>
           </div>
+
+          {/* L'action, à gauche de la croix : même hauteur, même traitement sur
+              le voile, pour qu'on lise une rangée et non deux objets posés là.
+              Elle ne ferme pas la visionneuse — c'est à l'appelant de décider
+              si son action l'emporte. */}
+          {action ? (
+            <button
+              type="button"
+              onClick={() => courante && action.onAction(courante)}
+              className={cn(
+                'absolute top-base right-[calc(var(--spacing-lg)+36px+var(--spacing-xs))] h-[36px] px-base',
+                'rounded-control bg-white/15 text-small font-medium text-text-on-dark',
+                'outline-none hover:bg-white/25 focus-visible:ring-2 focus-visible:ring-white',
+              )}
+            >
+              {action.libelle}
+            </button>
+          ) : null}
 
           <Dialog.Close
             aria-label="Fermer"

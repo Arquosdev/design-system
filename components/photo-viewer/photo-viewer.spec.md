@@ -37,6 +37,7 @@ lecteurs d'écran. Tout cela se réécrit mal à la main.
 | `onIndex`      | `(i: number) => void`       | —      | L'appelant garde la main sur la position |
 | `open`         | `boolean`                   | —      | Ouverte ou non                          |
 | `onOpenChange` | `(o: boolean) => void`      | —      | Fermeture par Échap, clic dehors, croix |
+| `action`       | `PhotoViewerAction`         | —      | Un bouton à gauche de la croix, qui reçoit la photo courante |
 
 `PhotoVue` : `{ nom: string; url?: string; zone?: string }`. `nom` est la
 légende **et** le texte alternatif ; `zone` dit d'où elle vient.
@@ -79,3 +80,31 @@ const [vue, setVue] = React.useState<{ photos: PhotoVue[]; i: number } | null>(n
 - Les flèches ← et → parcourent la série.
 - Échap ferme, et le focus revient sur la vignette d'où l'on venait.
 - Le titre du dialogue est le nom de la photo, jamais « visionneuse » : c'est ce qu'un lecteur d'écran doit annoncer en arrivant.
+
+## L'action
+
+La visionneuse ne sait que montrer. Télécharger, ouvrir ailleurs, signaler —
+tout cela appartient à l'écran qui l'ouvre : il passe `action`, elle pose un
+bouton à gauche de la croix et lui rend la photo courante.
+
+```tsx
+<PhotoViewer
+  photos={photos}
+  index={index}
+  onIndex={setIndex}
+  open={ouverte}
+  onOpenChange={setOuverte}
+  action={{ libelle: 'Agrandir', onAction: (photo) => ouvrirAilleurs(photo.url) }}
+/>
+```
+
+**Un seul bouton, à dessein.** C'est une visionneuse, pas une barre d'outils. Le
+jour où deux actions se présentent, c'est un menu qu'il faudra, pas un second
+bouton posé à côté.
+
+**Elle ne se ferme pas toute seule** après l'action : c'est à l'appelant de
+décider si la sienne l'emporte sur ce qu'on était en train de regarder.
+
+Demandé par la fiche équipement le 21/09/2026 : embarquée dans une iframe
+Bubble, sa visionneuse ne peut pas dépasser le cadre de la fiche. Le bouton sert
+à passer la main à l'hôte, qui sait ouvrir la photo par-dessus toute la page.
