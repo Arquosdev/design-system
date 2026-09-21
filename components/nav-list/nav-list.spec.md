@@ -35,7 +35,7 @@ remplace:
 | `repliable` | `boolean`                    | `false`| Rend l'intitulé cliquable, pour replier le groupe |
 | `ouvertParDefaut` | `boolean`              | `true` | Ouvert au premier rendu                     |
 
-`NavItem` : `{ cle, label, compteur?, desactive?, enfants? }`.
+`NavItem` : `{ cle, label, compteur?, desactive?, vide?, enfants? }`.
 
 **`enfants` fait de l'entrée une rubrique dépliante.** Elle garde l'aspect des
 autres — même casse, même hauteur, même pastille quand elle est courante — et
@@ -92,8 +92,14 @@ import { NavList } from '@arquos/design-system/web';
 ## États
 
 - **Courante** : fond teinté **et** `aria-current`. La couleur seule ne suffit pas.
-- **Désactivée** : opacité réduite, plus de clic. Réservé à une rubrique qui n'a
-  rien à montrer sur cet objet — pas à une rubrique qui charge encore.
+- **Désactivée** (`desactive`) : opacité réduite, plus de clic. Réservé à une
+  rubrique hors sujet sur cet objet — un relevé qui ne l'alimente pas. Jamais
+  pour une rubrique qui charge encore, ni pour une rubrique simplement vide.
+- **Vide** (`vide`) : libellé en `colors.textMuted`, le clic reste. La rubrique
+  existe, rien n'y est encore renseigné, et c'est en y allant qu'on la remplit.
+  Le survol la rend à l'encre pleine : elle se prend, elle ne refuse pas. Née
+  le 21/09/2026 pour la fiche équipement, qui cache ses champs vides en lecture
+  — le menu doit alors dire où il n'y a rien, sans le fermer.
 - **Compteur inconnu** : passer `'…'`. Ne jamais afficher `0` par défaut.
 - **Libellé long** : passe à la ligne. Le tronquer cacherait la rubrique cherchée.
 - **Groupe replié contenant la rubrique ouverte** : il reste déplié. Le replier
