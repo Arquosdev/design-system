@@ -15,6 +15,15 @@ export interface NavItem {
   compteur?: number | string;
   desactive?: boolean;
   /**
+   * La rubrique existe mais n'a encore rien à montrer : son libellé s'atténue,
+   * et elle RESTE cliquable — c'est en y allant qu'on la remplit. À ne pas
+   * confondre avec `desactive`, qui dit « hors sujet sur cet objet » et retire
+   * le clic. Né dans la fiche équipement le 21/09/2026 : un client trouvait
+   * les champs vides « trop lourds » ; la fiche les cache désormais en lecture,
+   * et le menu doit alors dire, sans interdire, où il n'y a rien.
+   */
+  vide?: boolean;
+  /**
    * Les sous-rubriques de cette entrée. L'entrée devient dépliante : elle
    * garde l'aspect des autres — même casse, même hauteur, même pastille quand
    * elle est courante — et porte un chevron à droite. Un clic ouvre la rubrique
@@ -200,8 +209,15 @@ function EntreeDepliante({
   pas la graisse en soi, qui dit où l'on est.
 */
 const LIGNE = 'flex w-full items-center gap-sm rounded-control text-left text-small';
-const ETAT = (actif: boolean) =>
-  actif ? 'bg-info-bg font-semibold text-on-info-bg' : 'font-medium text-text hover:bg-bg-muted';
+const ETAT = (actif: boolean, vide?: boolean) =>
+  actif
+    ? 'bg-info-bg font-semibold text-on-info-bg'
+    : vide
+      ? /* Atténuée, jamais éteinte : `textMuted` reste un texte lisible
+           (5,34 sur blanc), et le survol la rend à l'encre pleine — c'est une
+           entrée qu'on peut prendre, pas une entrée qui refuse. */
+        'font-medium text-text-muted hover:bg-bg-muted hover:text-text'
+      : 'font-medium text-text hover:bg-bg-muted';
 
 /** Le compteur, s'il y en a un. */
 function Compteur({ item, actif }: { item: NavItem; actif: boolean }) {
@@ -249,7 +265,7 @@ function Entree({
           LIGNE,
           'px-md py-sm outline-none focus-visible:ring-2 focus-visible:ring-primary',
           'disabled:pointer-events-none disabled:opacity-50',
-          ETAT(actif),
+          ETAT(actif, item.vide),
         )}
       >
         <span className="flex-1">{item.label}</span>
@@ -269,7 +285,7 @@ function Entree({
     vivent dedans.
   */
   return (
-    <div className={cn(LIGNE, ETAT(actif), 'pr-xxs', item.desactive && 'opacity-50')}>
+    <div className={cn(LIGNE, ETAT(actif, item.vide), 'pr-xxs', item.desactive && 'opacity-50')}>
       <button
         type="button"
         aria-current={actif ? 'page' : undefined}
