@@ -13,6 +13,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { palette, core, colors } from '../src/colors.ts';
+import { site } from '../src/site.ts';
 import {
   fontFamily,
   fontFamilyMono,
@@ -41,15 +42,19 @@ const NS = 'arq';
 // Descriptions rattachées aux tokens sémantiques. Elles voyagent jusque dans le
 // JSON : c'est ce qu'un agent lit pour choisir le bon token sans deviner.
 const DESCRIPTIONS = {
+  site: {
+    color: {
+      night: "Surface de nuit du site arquos.eu — hero, appel à la démo, pied de page.",
+      textOnNight: 'Texte courant posé sur `night`. 15,9 pour 1.',
+      textOnNightMuted: 'Texte secondaire posé sur `night` — chapeaux, légendes. 11,6 pour 1.',
+      textOnNightSubtle: 'Repères et libellés mono posés sur `night`. 6,2 pour 1.',
+      deviceFrame: 'Cadre du téléphone et de l’ordinateur dessinés en CSS par le site.',
+    },
+  },
   color: {
     primary: 'Accent interactif principal — CTA, liens, état actif.',
     primaryDark: 'Variante foncée de primary — état pressé, survol.',
     brand: 'Surface de marque dominante — en-têtes, blocs héros.',
-    night: "Surface de nuit du site vitrine — hero, appel à la démo, pied de page d'arquos.eu. Pas employée par l'application.",
-    textOnNight: "Texte courant posé sur `night` (site vitrine). 15,9 pour 1.",
-    textOnNightMuted: "Texte secondaire posé sur `night` (site vitrine) — chapeaux, légendes. 11,6 pour 1.",
-    textOnNightSubtle: "Repères et libellés mono posés sur `night` (site vitrine). 6,2 pour 1.",
-    deviceFrame: "Cadre des appareils dessinés par le site vitrine (téléphone, ordinateur). Pas employé par l'application.",
     accent: "Mise en avant, attention — à réserver aux éléments qui doivent capter l'œil.",
     success: 'État de réussite — validation, conformité, synchronisation terminée.',
     successBg: 'Fond des éléments en état de réussite (pastilles, bandeaux).',
@@ -167,6 +172,11 @@ function buildCss() {
   section('Couleurs sémantiques — à utiliser dans le code applicatif');
   for (const [key, value] of Object.entries(colors)) {
     lines.push(`  --${NS}-color-${kebab(key)}: ${value};`);
+  }
+
+  section("Site vitrine arquos.eu — pas l'application (voir src/site.ts)");
+  for (const [key, value] of Object.entries(site.color)) {
+    lines.push(`  --${NS}-site-color-${kebab(key)}: ${value};`);
   }
 
   section('Espacements (base 4)');
@@ -295,6 +305,11 @@ function buildJson() {
     color: {
       $description: 'Couleurs sémantiques — le vocabulaire à employer dans le code.',
       ...group(colors, 'color', '', DESCRIPTIONS.color),
+    },
+    site: {
+      $description:
+        "Ce que le site vitrine arquos.eu ajoute. Pas du vocabulaire applicatif : Arquos et myArquos n'y touchent pas.",
+      color: group(site.color, 'color', '', DESCRIPTIONS.site.color),
     },
     spacing: {
       $description: 'Échelle base 4. `base` (16px) est le padding par défaut.',
