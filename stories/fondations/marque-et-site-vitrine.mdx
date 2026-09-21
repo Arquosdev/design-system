@@ -29,11 +29,13 @@ Le raisonnement (positionnement, arborescence, SEO) est dans ClickUp, Produit �
 
 ## Ce que le site ajoute
 
+Ces jetons vivent dans `src/site.ts`, à part du vocabulaire applicatif, et sortent en CSS sous `--arq-site-*`. Arquos et myArquos n'y touchent pas.
+
 | Élément | Token | Rôle |
 | --- | --- | --- |
-| Nuit | `colors.night` (`#04122A`) | Fond du hero, de l'appel à la démo et du pied de page. Hero marine, contenu clair, fin de page marine |
-| Encre sur la nuit | `colors.textOnNight` (`#EEF3F9`), `textOnNightMuted` (`#C6D4E6`), `textOnNightSubtle` (`#93A9C6`) | Les trois niveaux de texte sur le fond de nuit : courant, secondaire, repères. Contrastes 15,9 / 11,6 / 6,2 pour 1 |
-| Cadre d'appareil | `colors.deviceFrame` (`#0B1220`) | Le contour du téléphone et de l'ordinateur dessinés en CSS, plus profond que la nuit pour que l'écran se détache |
+| Nuit | `site.color.night` (`#04122A`) | Fond du hero, de l'appel à la démo et du pied de page. Hero marine, contenu clair, fin de page marine |
+| Encre sur la nuit | `site.color.textOnNight` (`#EEF3F9`), `textOnNightMuted` (`#C6D4E6`), `textOnNightSubtle` (`#93A9C6`) | Les trois niveaux de texte sur la nuit : courant, secondaire, repères. Contrastes 15,9 / 11,6 / 6,2 pour 1 |
+| Cadre d'appareil | `site.color.deviceFrame` (`#0B1220`) | Le contour du téléphone et de l'ordinateur dessinés en CSS, plus profond que la nuit pour que l'écran se détache |
 | Données | `fontFamilyMono` (DM Mono) | Valeurs de données, plaques, légendes de figure. La compagne de DM Sans, dessinée dans la même famille |
 | Angles | `0` | Boutons, plaques, puces, formulaires, panneaux. **Le site est à angles droits, l'application garde ses arrondis.** La confiance se voit ; les mockups d'appareils restent arrondis parce que ce sont des objets |
 
@@ -73,7 +75,7 @@ barre de taux de connaissance monte. Construit en Three.js, sans image.
 **Les mockups.** Un laptop et un téléphone en CSS pour les captures de la
 refonte web et de myArquos : les deux supports de nos clients.
 
-**Les photos de relevés.** En duotone marine (`night` vers `palette.marine[200]`)
+**Les photos de relevés.** En duotone marine (`site.color.night` vers `palette.marine[200]`)
 dans les cartes et les figures encadrées. **Jamais de texte posé sur une photo.**
 
 ---

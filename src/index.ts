@@ -6,6 +6,8 @@
 //   import { tokens } from '@arquos/design-system';
 
 export { palette, core, colors, type ColorToken } from './colors';
+// Le site vitrine, à part : voir src/site.ts.
+export { site, type SiteColorToken } from './site';
 export {
   fontFamily,
   fontFamilyMono,

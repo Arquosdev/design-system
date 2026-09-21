@@ -71,11 +71,6 @@
   --arq-color-primary: #0D5AB7;
   --arq-color-primary-dark: #073B6F;
   --arq-color-brand: #00295B;
-  --arq-color-night: #04122A;
-  --arq-color-text-on-night: #EEF3F9;
-  --arq-color-text-on-night-muted: #C6D4E6;
-  --arq-color-text-on-night-subtle: #93A9C6;
-  --arq-color-device-frame: #0B1220;
   --arq-color-accent: #FFA522;
   --arq-color-success: #0C7C59;
   --arq-color-success-bg: #DFF7F3;
@@ -98,6 +93,13 @@
   --arq-color-text-subtle: #8094A3;
   --arq-color-text-on-dark: #FFFFFF;
   --arq-color-black: #000000;
+
+  /* Site vitrine arquos.eu — pas l'application (voir src/site.ts) */
+  --arq-site-color-night: #04122A;
+  --arq-site-color-text-on-night: #EEF3F9;
+  --arq-site-color-text-on-night-muted: #C6D4E6;
+  --arq-site-color-text-on-night-subtle: #93A9C6;
+  --arq-site-color-device-frame: #0B1220;
 
   /* Espacements (base 4) */
   --arq-space-none: 0px;
