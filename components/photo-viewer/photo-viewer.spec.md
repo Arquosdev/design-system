@@ -107,6 +107,12 @@ en haut — une plaque de charge, une étiquette de machine.
 lecteurs d'écran et s'affiche en infobulle. Le dessin se demande par son rôle
 (`icone: 'agrandir'`), jamais par son nom Phosphor.
 
+**Posé sur la boîte mesurée, jamais sur le cadre.** L'élément image est étiré
+par son cadre, et `object-contain` y inscrit ensuite la photo en centrant ce qui
+reste : sur une photo debout — les trois quarts des photos de relevé — un bouton
+calé sur le coin du cadre sort du cliché. `boiteDessinee()` rend la boîte
+réellement dessinée ; c'est elle qu'on vise.
+
 **Blanc sur marine, quel que soit le thème.** Comme les flèches et la croix :
 la visionneuse est toujours posée sur un voile sombre, elle ne suit pas le
 thème de la page. Un fond qui s'adapterait virerait au sombre la nuit, et le

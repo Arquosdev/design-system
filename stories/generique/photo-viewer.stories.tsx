@@ -24,6 +24,16 @@ const carre = (fond: string, texte: string) =>
     `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600"><rect width="800" height="600" fill="${fond}"/><text x="400" y="310" font-family="sans-serif" font-size="42" fill="#ffffff" text-anchor="middle">${texte}</text></svg>`,
   );
 
+/* Une photo DEBOUT — le cas réel : 77 % des photos de relevé sont en portrait,
+   prises au téléphone tenu droit devant une porte ou une armoire. C'est sur
+   elles que la hauteur borne l'image avant la largeur, et c'est là que tout ce
+   qui se pose sur la photo doit être éprouvé. */
+const debout = (fond: string, texte: string) =>
+  'data:image/svg+xml;utf8,' +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1600"><rect width="900" height="1600" fill="${fond}"/><text x="450" y="820" font-family="sans-serif" font-size="56" fill="#ffffff" text-anchor="middle">${texte}</text></svg>`,
+  );
+
 const SERIE: PhotoVue[] = [
   { nom: 'Façade de l’immeuble', url: carre('#0D5AB7', 'Façade'), zone: 'Environnement' },
   { nom: 'Plaque de charge', url: carre('#00295B', 'Plaque de charge'), zone: 'Cabine' },
@@ -68,6 +78,10 @@ export const AvecAction: Story = {
   ...Defaut,
   args: {
     ...Defaut.args,
+    photos: [
+      { nom: 'Porte palière — niveau principal', url: debout('#00295B', 'Porte palière'), zone: 'Palier' },
+      ...SERIE,
+    ],
     action: { libelle: 'Agrandir', icone: 'agrandir', onAction: () => {} },
   },
   render: function Rendu(args) {

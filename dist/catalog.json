@@ -621,7 +621,8 @@
       "dossier": "components/photo-viewer",
       "fiche": "components/photo-viewer/photo-viewer.spec.md",
       "fichiers": {
-        "web": "components/photo-viewer/photo-viewer.web.tsx"
+        "web": "components/photo-viewer/photo-viewer.web.tsx",
+        "logique": "components/photo-viewer/photo-viewer.logic.ts"
       }
     },
     {
