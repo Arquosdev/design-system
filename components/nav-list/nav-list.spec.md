@@ -35,7 +35,23 @@ remplace:
 | `repliable` | `boolean`                    | `false`| Rend l'intitulé cliquable, pour replier le groupe |
 | `ouvertParDefaut` | `boolean`              | `true` | Ouvert au premier rendu                     |
 
-`NavItem` : `{ cle, label, compteur?, desactive? }`.
+`NavItem` : `{ cle, label, compteur?, desactive?, enfants? }`.
+
+**`enfants` fait de l'entrée une rubrique dépliante.** Elle garde l'aspect des
+autres — même casse, même hauteur, même pastille quand elle est courante — et
+porte un chevron à droite ; ses sous-rubriques s'alignent en retrait, rattachées
+par un filet. Un clic ouvre la rubrique ET déplie : une seule ligne, un seul
+geste à apprendre. Le chevron seul replie, sans rouvrir la rubrique.
+
+À ne pas confondre avec `titre` + `repliable`, qui coiffe une LISTE entière d'un
+intitulé en capitales. Celui-là est un titre de section : au milieu d'entrées
+écrites en minuscules, il se lit comme une rupture — c'est ce qu'a montré le
+rail de la fiche équipement le 21/09/2026, où « PHOTOS » tombait entre « Vue
+d'ensemble » et « Données techniques ».
+
+Une entrée dépliante reste OUVERTE tant que la rubrique courante est l'une des
+siennes : sans quoi ouvrir une sous-rubrique refermerait le chemin qu'on vient
+de prendre.
 
 **`compteur` accepte une chaîne, pas seulement un nombre.** Tant que les données
 ne sont pas toutes arrivées, passer `'…'` dit qu'on ne sait pas encore ; `0`
