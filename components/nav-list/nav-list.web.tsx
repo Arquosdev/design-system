@@ -14,6 +14,18 @@ export interface NavItem {
    */
   compteur?: number | string;
   desactive?: boolean;
+  /**
+   * Les sous-rubriques de cette entrée. L'entrée devient dépliante : elle
+   * garde l'aspect des autres — même casse, même hauteur, même pastille quand
+   * elle est courante — et porte un chevron à droite. Un clic ouvre la rubrique
+   * ET déplie ; il n'y a donc pas deux gestes à apprendre pour une seule ligne.
+   *
+   * À ne pas confondre avec `titre` + `repliable`, qui coiffe une LISTE d'un
+   * intitulé en capitales : celui-ci est un titre de section, et il jure au
+   * milieu d'entrées écrites en minuscules — c'est ce qu'a montré le rail de la
+   * fiche équipement le 21/09/2026.
+   */
+  enfants?: NavItem[];
 }
 
 export interface NavListProps {
@@ -75,16 +87,93 @@ export function NavList({
       )}
 
       <div className={cn('flex flex-col gap-xxs', !deplie && 'hidden')}>
-        {items.map((item) => {
-          const actif = item.cle === courant;
-          return (
-            <button
+        {items.map((item) =>
+          item.enfants?.length ? (
+            <EntreeDepliante
               key={item.cle}
+              item={item}
+              courant={courant}
+              onChoisir={onChoisir}
+            />
+          ) : (
+            <Entree key={item.cle} item={item} courant={courant} onChoisir={onChoisir} />
+          ),
+        )}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Une entrée qui porte des sous-rubriques.
+ *
+ * Elle reste ouverte tant que la rubrique courante est l'une des siennes —
+ * sinon ouvrir une sous-rubrique refermerait le chemin qu'on vient de prendre.
+ */
+function EntreeDepliante({
+  item,
+  courant,
+  onChoisir,
+}: {
+  item: NavItem;
+  courant?: string;
+  onChoisir: (cle: string) => void;
+}) {
+  const enfants = item.enfants ?? [];
+  const tientLeCourant = enfants.some((e) => e.cle === courant);
+  const [ouvert, setOuvert] = React.useState(false);
+  const deplie = ouvert || tientLeCourant;
+  return (
+    <div className="flex flex-col gap-xxs">
+      <Entree
+        item={item}
+        courant={courant}
+        onChoisir={(cle) => {
+          setOuvert(true);
+          onChoisir(cle);
+        }}
+        chevron={deplie}
+        surChevron={() => setOuvert(!deplie)}
+      />
+      {/* Le filet rattache les sous-rubriques à la leur : sans lui, le retrait
+          seul se lit comme un défaut d'alignement. */}
+      <div
+        className={cn(
+          'ml-md flex flex-col gap-xxs border-l border-border-soft pl-xs',
+          !deplie && 'hidden',
+        )}
+      >
+        {enfants.map((e) => (
+          <Entree key={e.cle} item={e} courant={courant} onChoisir={onChoisir} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Entree({
+  item,
+  courant,
+  onChoisir,
+  chevron,
+  surChevron,
+}: {
+  item: NavItem;
+  courant?: string;
+  onChoisir: (cle: string) => void;
+  /** Présent : l'entrée porte un chevron, tourné vers le bas quand c'est vrai. */
+  chevron?: boolean;
+  surChevron?: () => void;
+}) {
+  const actif = item.cle === courant;
+  return (
+            <button
               type="button"
               // `aria-current` en plus du fond teinté : la couleur seule ne dit
               // rien à un lecteur d'écran.
               aria-current={actif ? 'page' : undefined}
               disabled={item.desactive}
+              aria-expanded={chevron === undefined ? undefined : chevron}
               onClick={() => onChoisir(item.cle)}
               className={cn(
                 /*
@@ -130,11 +219,29 @@ export function NavList({
                   {item.compteur}
                 </span>
               ) : null}
+              {chevron === undefined ? null : (
+                /* Le chevron est DANS le bouton, pas à côté : une seconde cible
+                   de la taille d'un doigt sur une ligne de trente-six pixels
+                   tiendrait mal, et un clic n'importe où sur la ligne doit
+                   déplier de toute façon. `surChevron` ne sert qu'à replier
+                   sans rouvrir la rubrique. */
+                <span
+                  role="presentation"
+                  onClick={(e) => {
+                    if (!surChevron) return;
+                    e.stopPropagation();
+                    surChevron();
+                  }}
+                  className={cn(
+                    'shrink-0 transition-transform duration-(--arq-duration-normal)',
+                    chevron ? 'rotate-0' : '-rotate-90',
+                    actif ? 'text-on-info-bg' : 'text-text-muted',
+                  )}
+                >
+                  <Icon role="deplier" size="xs" />
+                </span>
+              )}
             </button>
-          );
-        })}
-      </div>
-    </div>
   );
 }
 
