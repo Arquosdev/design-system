@@ -57,6 +57,11 @@ l'on est, et refermer reviendrait à se perdre.
 Le chevron est un BOUTON à part, pas une zone cliquable dans le premier : il
 fait autre chose que la ligne, et la tabulation doit l'atteindre.
 
+**La ligne entière replie dès qu'on y est déjà.** Elle mène à sa rubrique tant
+qu'on n'y est pas ; pastille allumée, le clic replie ou rouvre. Viser le chevron
+seul demandait seize pixels pour un geste qu'on fait souvent, et une ligne
+courante n'a de toute façon plus rien de neuf à ouvrir.
+
 **`compteur` accepte une chaîne, pas seulement un nombre.** Tant que les données
 ne sont pas toutes arrivées, passer `'…'` dit qu'on ne sait pas encore ; `0`
 affirmerait qu'il n'y a rien, ce qui serait faux.
