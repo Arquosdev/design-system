@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Dialog } from 'radix-ui';
 
 import { cn } from '../_lib/cn';
+import { boiteDessinee, type Boite } from './photo-viewer.logic';
 import { Icon } from '../icon/icon.web';
 import type { IconRole } from '../../src/icons';
 
@@ -89,6 +90,51 @@ export function PhotoViewer({
    */
   const origine = React.useRef<HTMLElement | null>(null);
 
+  /**
+   * Où la photo est réellement dessinée dans son cadre.
+   *
+   * Le cadre ne colle pas à la photo, et aucune règle CSS ne l'y oblige : sa
+   * largeur se calcule sur la taille naturelle de l'image, que le plafond de
+   * hauteur ne corrige pas. Sur une photo debout — les trois quarts des photos
+   * de relevé — le cadre reste large de toute l'image d'origine pendant qu'elle
+   * s'affiche étroite, et un bouton posé dans son coin sort du cliché. Vu le
+   * 21/09/2026.
+   *
+   * Deux écarts se cumulent, et aucun ne se devine :
+   *   - l'élément est étiré par son cadre — mesuré à 760 × 801 pour une photo
+   *     de 900 × 1600 le 21/09/2026 ;
+   *   - `object-contain` y inscrit ensuite la photo et centre le reste.
+   *
+   * On mesure donc l'élément, puis on calcule ce qu'il dessine vraiment. Le
+   * bouton étant en position absolue, il ne pèse sur aucun de ces calculs : la
+   * mesure ne peut pas se mordre la queue.
+   */
+  const photoRef = React.useRef<HTMLImageElement | null>(null);
+  const [boite, setBoite] = React.useState<Boite | null>(null);
+
+  React.useLayoutEffect(() => {
+    const img = photoRef.current;
+    if (!img) {
+      setBoite(null);
+      return;
+    }
+    const mesurer = () =>
+      setBoite(
+        boiteDessinee(
+          { l: img.offsetLeft, t: img.offsetTop, w: img.offsetWidth, h: img.offsetHeight },
+          { w: img.naturalWidth, h: img.naturalHeight },
+        ),
+      );
+    mesurer();
+    // La fenêtre qu'on redimensionne, la photo suivante qui n'a pas le même
+    // format : deux façons de bouger. La troisième — l'image qui finit de
+    // charger — passe par `onLoad`, seul moment où ses dimensions naturelles
+    // deviennent connues.
+    const observateur = new ResizeObserver(mesurer);
+    observateur.observe(img);
+    return () => observateur.disconnect();
+  }, [url, open]);
+
   if (!courante) return null;
 
   return (
@@ -130,22 +176,39 @@ export function PhotoViewer({
             ) : null}
 
             {url ? (
-              /* Le cadre serre la photo, pas la place qu'elle occupe : c'est
-                 lui qui donne au bouton un coin où se poser. Sans lui,
-                 « absolute » viserait toute la rangée, flèches comprises, et
-                 le bouton flotterait dans le vide à côté d'une photo étroite. */
+              /* Le cadre donne au bouton un parent positionné. Il ne serre pas
+                 la photo — c'est la mesure qui s'en charge, voir `boite`. Et on
+                 n'y touche plus : lui donner `items-center` suffit à faire
+                 tomber le plafond de hauteur de la photo, qui s'affiche alors
+                 en pleine taille et déborde de l'écran. */
               <div className="relative flex max-h-full min-h-0">
                 {/* eslint-disable-next-line @next/next/no-img-element -- photos
                     servies par un stockage externe, hors de l'optimiseur. */}
                 <img
+                  ref={photoRef}
                   src={url}
                   alt={courante.nom}
                   onError={() => setCassees((c) => ({ ...c, [url]: true }))}
+                  onLoad={(e) =>
+                    setBoite(
+                      boiteDessinee(
+                        {
+                          l: e.currentTarget.offsetLeft,
+                          t: e.currentTarget.offsetTop,
+                          w: e.currentTarget.offsetWidth,
+                          h: e.currentTarget.offsetHeight,
+                        },
+                        { w: e.currentTarget.naturalWidth, h: e.currentTarget.naturalHeight },
+                      ),
+                    )
+                  }
                   // `contain` : ne rien rogner. Une photo de plaque de charge
                   // recadrée peut perdre le chiffre qu'on est venu lire.
                   className="max-h-full max-w-[76vw] rounded-md object-contain"
                 />
-                {action ? <Bouton action={action} photo={courante} /> : null}
+                {action && boite ? (
+                  <Bouton action={action} photo={courante} coin={boite} />
+                ) : null}
               </div>
             ) : (
               // palette-brute-ok: plaque de remplacement posée sur le voile
@@ -200,15 +263,28 @@ export function PhotoViewer({
  * Elle ne ferme pas la visionneuse : c'est à l'appelant de décider si son
  * action l'emporte sur ce qu'on était en train de regarder.
  */
-function Bouton({ action, photo }: { action: PhotoViewerAction; photo: PhotoVue }) {
+function Bouton({
+  action,
+  photo,
+  coin,
+}: {
+  action: PhotoViewerAction;
+  photo: PhotoVue;
+  /** La boîte dessinée par la photo, dans le cadre — mesurée, pas déduite. */
+  coin: Boite;
+}) {
   return (
     <button
       type="button"
       onClick={() => action.onAction(photo)}
       aria-label={action.libelle}
       title={action.libelle}
+      // Le coin bas-droit de la photo, puis on rentre le bouton à l'intérieur
+      // d'une marge — la translation garde l'espacement en token.
+      style={{ left: coin.l + coin.w, top: coin.t + coin.h }}
       className={cn(
-        'absolute right-sm bottom-sm grid size-[40px] place-items-center',
+        'absolute grid size-[40px] place-items-center',
+        '-translate-x-[calc(100%+var(--spacing-sm))] -translate-y-[calc(100%+var(--spacing-sm))]',
         // Blanc et marine en dur, comme les flèches et la croix : la
         // visionneuse est toujours sur voile sombre, elle ne suit pas le thème
         // de la page. `bg-bg` aurait viré au sombre la nuit, et le bouton se
