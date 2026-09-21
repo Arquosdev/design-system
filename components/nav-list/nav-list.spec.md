@@ -49,9 +49,13 @@ intitulé en capitales. Celui-là est un titre de section : au milieu d'entrées
 rail de la fiche équipement le 21/09/2026, où « PHOTOS » tombait entre « Vue
 d'ensemble » et « Données techniques ».
 
-Une entrée dépliante reste OUVERTE tant que la rubrique courante est l'une des
-siennes : sans quoi ouvrir une sous-rubrique refermerait le chemin qu'on vient
-de prendre.
+Arriver sur une sous-rubrique OUVRE l'entrée. Ensuite le repli appartient à
+celui qui clique : le chevron referme, même depuis une sous-rubrique. C'est
+alors l'entrée MÈRE qui porte la pastille — sinon le rail ne dirait plus où
+l'on est, et refermer reviendrait à se perdre.
+
+Le chevron est un BOUTON à part, pas une zone cliquable dans le premier : il
+fait autre chose que la ligne, et la tabulation doit l'atteindre.
 
 **`compteur` accepte une chaîne, pas seulement un nombre.** Tant que les données
 ne sont pas toutes arrivées, passer `'…'` dit qu'on ne sait pas encore ; `0`
