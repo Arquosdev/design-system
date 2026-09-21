@@ -48,8 +48,14 @@ function classesDeCouleur(nom: string): string {
   return `bg-${k} · text-${k}`;
 }
 
-const entrees = (groupe: string) =>
-  Object.entries(table[groupe] ?? {}).filter(([c]) => !c.startsWith('$'));
+/**
+ * Les tokens d'un groupe. `sous` descend d'un cran pour les groupes qui en ont
+ * un (`site.color`), le site vitrine ayant son propre espace.
+ */
+const entrees = (groupe: string, sous?: string) => {
+  const noeud = (sous ? (table[groupe] as Record<string, Brut> | undefined)?.[sous] : table[groupe]) ?? {};
+  return Object.entries(noeud as Record<string, Brut>).filter(([c]) => !c.startsWith('$'));
+};
 
 /**
  * Chaque famille dit comment se nomme un de ses tokens dans les trois
@@ -59,6 +65,8 @@ const entrees = (groupe: string) =>
  */
 const FAMILLES: {
   groupe: string;
+  /** Sous-groupe, quand le groupe en a un : `site.color`. */
+  sous?: string;
   titre: string;
   ts: (n: string) => string;
   tailwind?: (n: string) => string;
@@ -163,10 +171,22 @@ const FAMILLES: {
     apercu: (v) => (
       <span className="block size-[26px] rounded-control border border-border-soft" style={{ background: v }} />
     ) },
+  // Le site vitrine arquos.eu, à part : ces teintes ne sont pas du vocabulaire
+  // applicatif, et n'ont donc pas d'utilitaire Tailwind côté produit.
+  {
+    groupe: 'site',
+    sous: 'color',
+    titre: 'Site vitrine',
+    ts: (n) => `site.color.${n}`,
+    css: (n) => `--arq-site-color-${kebab(n)}`,
+    apercu: (v) => (
+      <span className="block size-[26px] rounded-control border border-border-soft" style={{ background: v }} />
+    ),
+  },
 ];
 
 const LIGNES: Ligne[] = FAMILLES.flatMap((f) =>
-  entrees(f.groupe).map(([nom, t]) => {
+  entrees(f.groupe, f.sous).map(([nom, t]) => {
     const valeur = String((t as Brut).$value ?? '');
     return {
       groupe: f.titre,
