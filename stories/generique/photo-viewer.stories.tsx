@@ -57,3 +57,33 @@ export const Indisponible: Story = {
   ...Defaut,
   args: { ...Defaut.args, photos: [{ nom: 'Toit de cabine', zone: 'Cabine' }] },
 };
+
+/**
+ * Avec une action : un bouton rond dans le coin de la photo, pas dans
+ * l'en-tête. Ici « Agrandir », que la fiche équipement utilise pour rendre la
+ * main à la page qui l'héberge — sa visionneuse ne peut pas dépasser le cadre
+ * de son iframe.
+ */
+export const AvecAction: Story = {
+  ...Defaut,
+  args: {
+    ...Defaut.args,
+    action: { libelle: 'Agrandir', icone: 'agrandir', onAction: () => {} },
+  },
+  render: function Rendu(args) {
+    const [vue, setVue] = React.useState({ ouverte: false, index: 0 });
+    return (
+      <>
+        <Button onClick={() => setVue({ ouverte: true, index: 0 })}>Ouvrir</Button>
+        <PhotoViewer
+          photos={args.photos}
+          index={vue.index}
+          onIndex={(index) => setVue((v) => ({ ...v, index }))}
+          open={vue.ouverte}
+          onOpenChange={(ouverte) => setVue((v) => ({ ...v, ouverte }))}
+          action={args.action}
+        />
+      </>
+    );
+  },
+};
