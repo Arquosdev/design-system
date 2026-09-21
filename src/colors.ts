@@ -107,6 +107,20 @@ export const colors = {
    * system disent la même couleur.
    */
   night: '#04122A',
+  /**
+   * Les encres posées sur `night`, pour le site vitrine : texte courant, texte
+   * secondaire, repères. Blanc pur serait trop dur sur la nuit ; ces trois
+   * bleus très clairs gardent la page calme. Contrastes sur `night` : 15,9 —
+   * 11,6 — 6,2 pour 1, tous au-dessus du seuil.
+   */
+  textOnNight: '#EEF3F9',
+  textOnNightMuted: '#C6D4E6',
+  textOnNightSubtle: '#93A9C6',
+  /**
+   * Le cadre des appareils dessinés par le site (téléphone, ordinateur) : un
+   * noir bleuté, plus profond que `night`, pour que l'écran se détache.
+   */
+  deviceFrame: '#0B1220',
   accent: core.orange, // highlight / attention
 
   // Status
