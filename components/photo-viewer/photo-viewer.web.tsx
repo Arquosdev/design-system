@@ -4,6 +4,8 @@ import * as React from 'react';
 import { Dialog } from 'radix-ui';
 
 import { cn } from '../_lib/cn';
+import { Icon } from '../icon/icon.web';
+import type { IconRole } from '../../src/icons';
 
 export interface PhotoVue {
   /** Ce que la photo montre — sert de légende ET de texte alternatif. */
@@ -26,8 +28,16 @@ export interface PhotoVue {
  * bouton posé à côté.
  */
 export interface PhotoViewerAction {
-  /** Ce que le bouton dit. Sert aussi de libellé aux lecteurs d'écran. */
+  /**
+   * Ce que l'action fait — « Agrandir », « Télécharger ».
+   *
+   * Le bouton n'en montre rien : il est en icône, posé sur la photo. Le
+   * libellé est ce qu'un lecteur d'écran annonce et ce que l'infobulle
+   * affiche. Il reste donc obligatoire : une icône seule ne se nomme pas.
+   */
   libelle: string;
+  /** Le dessin, par son rôle du vocabulaire — jamais par son nom Phosphor. */
+  icone: IconRole;
   onAction: (photo: PhotoVue) => void;
 }
 
@@ -120,16 +130,23 @@ export function PhotoViewer({
             ) : null}
 
             {url ? (
-              // eslint-disable-next-line @next/next/no-img-element -- photos
-              // servies par un stockage externe, hors de l'optimiseur d'images.
-              <img
-                src={url}
-                alt={courante.nom}
-                onError={() => setCassees((c) => ({ ...c, [url]: true }))}
-                // `contain` : ne rien rogner. Une photo de plaque de charge
-                // recadrée peut perdre le chiffre qu'on est venu lire.
-                className="max-h-full max-w-[76vw] rounded-md object-contain"
-              />
+              /* Le cadre serre la photo, pas la place qu'elle occupe : c'est
+                 lui qui donne au bouton un coin où se poser. Sans lui,
+                 « absolute » viserait toute la rangée, flèches comprises, et
+                 le bouton flotterait dans le vide à côté d'une photo étroite. */
+              <div className="relative flex max-h-full min-h-0">
+                {/* eslint-disable-next-line @next/next/no-img-element -- photos
+                    servies par un stockage externe, hors de l'optimiseur. */}
+                <img
+                  src={url}
+                  alt={courante.nom}
+                  onError={() => setCassees((c) => ({ ...c, [url]: true }))}
+                  // `contain` : ne rien rogner. Une photo de plaque de charge
+                  // recadrée peut perdre le chiffre qu'on est venu lire.
+                  className="max-h-full max-w-[76vw] rounded-md object-contain"
+                />
+                {action ? <Bouton action={action} photo={courante} /> : null}
+              </div>
             ) : (
               // palette-brute-ok: plaque de remplacement posée sur le voile
               // sombre de la visionneuse. Aucune surface sémantique ne
@@ -153,24 +170,6 @@ export function PhotoViewer({
             </p>
           </div>
 
-          {/* L'action, à gauche de la croix : même hauteur, même traitement sur
-              le voile, pour qu'on lise une rangée et non deux objets posés là.
-              Elle ne ferme pas la visionneuse — c'est à l'appelant de décider
-              si son action l'emporte. */}
-          {action ? (
-            <button
-              type="button"
-              onClick={() => courante && action.onAction(courante)}
-              className={cn(
-                'absolute top-base right-[calc(var(--spacing-lg)+36px+var(--spacing-xs))] h-[36px] px-base',
-                'rounded-control bg-white/15 text-small font-medium text-text-on-dark',
-                'outline-none hover:bg-white/25 focus-visible:ring-2 focus-visible:ring-white',
-              )}
-            >
-              {action.libelle}
-            </button>
-          ) : null}
-
           <Dialog.Close
             aria-label="Fermer"
             className={cn(
@@ -183,6 +182,43 @@ export function PhotoViewer({
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
+  );
+}
+
+/**
+ * L'action, posée dans le coin de la photo.
+ *
+ * Sur la photo et non dans l'en-tête : c'est l'objet qu'elle vise, et le lire
+ * là évite de chercher le rapport entre un bouton lointain et ce qu'on
+ * regarde. En bas à droite, parce qu'une photo de relevé porte son sujet au
+ * centre et ses mentions en haut.
+ *
+ * Un fond plein, pas le blanc translucide des flèches : celles-ci se détachent
+ * du voile sombre, celui-ci se pose sur une photo dont on ne sait rien — du
+ * ciel blanc comme une armoire noire.
+ *
+ * Elle ne ferme pas la visionneuse : c'est à l'appelant de décider si son
+ * action l'emporte sur ce qu'on était en train de regarder.
+ */
+function Bouton({ action, photo }: { action: PhotoViewerAction; photo: PhotoVue }) {
+  return (
+    <button
+      type="button"
+      onClick={() => action.onAction(photo)}
+      aria-label={action.libelle}
+      title={action.libelle}
+      className={cn(
+        'absolute right-sm bottom-sm grid size-[40px] place-items-center',
+        // Blanc et marine en dur, comme les flèches et la croix : la
+        // visionneuse est toujours sur voile sombre, elle ne suit pas le thème
+        // de la page. `bg-bg` aurait viré au sombre la nuit, et le bouton se
+        // serait perdu sur une photo d'armoire.
+        'rounded-full bg-white text-brand shadow-pop',
+        'outline-none hover:bg-white/85 focus-visible:ring-2 focus-visible:ring-white',
+      )}
+    >
+      <Icon role={action.icone} size="lg" />
+    </button>
   );
 }
 

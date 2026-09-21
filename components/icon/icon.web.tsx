@@ -20,6 +20,7 @@ import {
   Lightning,
   LightningSlash,
   MagnifyingGlass,
+  MagnifyingGlassPlus,
   Microphone,
   MinusCircle,
   PencilSimple,
@@ -43,7 +44,7 @@ import {
 import { iconSize, iconWeight, type IconRole } from '../../src/icons';
 import { cn } from '../_lib/cn';
 
-// Le vocabulaire de `src/icons.ts` résolu en composants. Les 35 dessins sont
+// Le vocabulaire de `src/icons.ts` résolu en composants. Les 36 dessins sont
 // importés ici et nulle part ailleurs : c'est ce qui garantit qu'un rôle donne
 // le même dessin dans tout le produit.
 //
@@ -57,6 +58,7 @@ const DESSINS: Record<IconRole, PhosphorIcon> = {
   fermer: X,
 
   rechercher: MagnifyingGlass,
+  agrandir: MagnifyingGlassPlus,
   ajouter: Plus,
   modifier: PencilSimple,
   supprimer: Trash,

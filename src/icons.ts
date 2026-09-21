@@ -77,6 +77,10 @@ export const icones = {
 
   // -- Agir ----------------------------------------------------------------
   rechercher: 'MagnifyingGlass',
+  /** Voir plus grand ce qu'on regarde déjà — une photo, un schéma. La loupe
+   *  et non un `+` nu : le `+` seul veut dire « ajouter » ici, et le même
+   *  dessin ne peut pas porter les deux. */
+  agrandir: 'MagnifyingGlassPlus',
   ajouter: 'Plus',
   modifier: 'PencilSimple',
   supprimer: 'Trash',

@@ -202,3 +202,24 @@ Additif, rien à reprendre dans les apps. Deux tokens et une page de vitrine :
 - `colors.night` (`#04122A`), la surface de nuit du site arquos.eu. L'application ne s'en sert pas.
 - `fontFamilyMono` (DM Mono), pour les valeurs de données. `--arq-font-mono` en CSS, `--font-mono` sous Tailwind. L'application reste en DM Sans partout tant qu'elle n'en a pas l'usage.
 - La page **Fondations → Marque et site vitrine** dit ce que le site ajoute à la charte sans la contredire : angles droits, plaques, lignes, mockups, jumeau 3D. Le code du site vit dans `Arquosdev/site`.
+
+## v2.22.0 — l'action de la visionneuse passe sur la photo (21/09/2026)
+
+**Rupture, un seul appelant.** `PhotoViewerAction` gagne un champ **requis** :
+
+```diff
+ action={{
+   libelle: 'Agrandir',
++  icone: 'agrandir',
+   onAction: (photo) => ouvrirAilleurs(photo.url),
+ }}
+```
+
+Le bouton n'affiche plus son libellé : il est en icône, rond, posé dans le coin
+bas-droit de la photo au lieu de l'en-tête. `libelle` reste requis — il nomme le
+bouton pour les lecteurs d'écran et s'affiche en infobulle.
+
+Le vocabulaire d'icônes gagne le rôle **`agrandir`** (`MagnifyingGlassPlus`) :
+voir plus grand ce qu'on regarde déjà. La loupe et non un `+` nu, parce que le
+`+` seul veut dire « ajouter » chez Arquos et qu'un dessin ne peut pas porter
+les deux sens.
