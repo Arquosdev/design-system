@@ -7,6 +7,10 @@ et on applique tout d'un coup quand il est solide.
 Une bascule groupée se fait à l'aveugle si personne n'a noté, au fil de l'eau, ce
 qu'elle coûtera. C'est ce que ce fichier note.
 
+## 2.24.0 — le site vitrine a son propre espace
+
+`colors.night` et les quatre jetons de la 2.23.0 (`textOnNight`, `textOnNightMuted`, `textOnNightSubtle`, `deviceFrame`) quittent `colors` pour `site.color` (`src/site.ts`). En CSS, `--arq-color-night` devient `--arq-site-color-night`, et les autres `--arq-site-color-*`. Le site arquos.eu est le seul consommateur ; l'application n'a rien à changer.
+
 ## La bonne nouvelle, mesurée
 
 **Rien ne casse.** Vérifié tag par tag depuis la `v0.1.0` :
@@ -14,7 +18,7 @@ qu'elle coûtera. C'est ce que ce fichier note.
 | | Depuis v0.1.0 |
 | --- | --- |
 | Valeurs de token modifiées | **1** — `colors.success`, voir la règle 8 |
-| Tokens retirés | **0** |
+| Tokens retirés | **1** — `colors.night` et les jetons ajoutés en 2.23.0, déplacés dans `site.color` en 2.24.0 ; le site est leur seul consommateur |
 | Exports retirés du point d'entrée web | **0** |
 
 Tout ce qui est arrivé depuis est **additif**. Une app peut monter de treize
@@ -199,7 +203,7 @@ Mettre à jour se fait en une ligne dans `package.json`, puis `npm install` :
 
 Additif, rien à reprendre dans les apps. Deux tokens et une page de vitrine :
 
-- `colors.night` (`#04122A`), la surface de nuit du site arquos.eu. L'application ne s'en sert pas.
+- `colors.night` (`#04122A`), la surface de nuit du site arquos.eu. L'application ne s'en sert pas. *(Déplacé en 2.24.0 vers `site.color.night`.)*
 - `fontFamilyMono` (DM Mono), pour les valeurs de données. `--arq-font-mono` en CSS, `--font-mono` sous Tailwind. L'application reste en DM Sans partout tant qu'elle n'en a pas l'usage.
 - La page **Fondations → Marque et site vitrine** dit ce que le site ajoute à la charte sans la contredire : angles droits, plaques, lignes, mockups, jumeau 3D. Le code du site vit dans `Arquosdev/site`.
 

@@ -89,38 +89,6 @@ export const colors = {
   primary: core.blue, // main interactive accent (CTAs, links, active state)
   primaryDark: palette.blue[700],
   brand: core.marine, // dominant brand surface (headers, hero blocks)
-  /**
-   * La surface de nuit du **site vitrine** — hero, appel à la démo, pied de
-   * page d'arquos.eu.
-   *
-   * Plus profonde que `brand` : le marine 700 est la couleur d'un en-tête
-   * d'application, celle-ci est le fond sur lequel le jumeau numérique 3D et
-   * les plaques de données se posent. Louis, le 20/09/2026, sur la maquette du
-   * site : « j'aimerais que la hero soit bleu marine […] hero en bleu marine, le
-   * footer en bleu marine et puis entre les deux c'est plutôt clair ».
-   *
-   * Hors des rampes, comme `bgSubtle` : ce n'est pas un échelon de marine, c'est
-   * la nuit en gaine. `textOnDark` y donne 18,4 pour 1, `palette.marine[200]`
-   * (l'encre secondaire du site) 11,6.
-   *
-   * L'application ne s'en sert pas. Elle vit ici pour que le site et le design
-   * system disent la même couleur.
-   */
-  night: '#04122A',
-  /**
-   * Les encres posées sur `night`, pour le site vitrine : texte courant, texte
-   * secondaire, repères. Blanc pur serait trop dur sur la nuit ; ces trois
-   * bleus très clairs gardent la page calme. Contrastes sur `night` : 15,9 —
-   * 11,6 — 6,2 pour 1, tous au-dessus du seuil.
-   */
-  textOnNight: '#EEF3F9',
-  textOnNightMuted: '#C6D4E6',
-  textOnNightSubtle: '#93A9C6',
-  /**
-   * Le cadre des appareils dessinés par le site (téléphone, ordinateur) : un
-   * noir bleuté, plus profond que `night`, pour que l'écran se détache.
-   */
-  deviceFrame: '#0B1220',
   accent: core.orange, // highlight / attention
 
   // Status
