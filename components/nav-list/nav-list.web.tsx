@@ -121,13 +121,33 @@ function EntreeDepliante({
 }) {
   const enfants = item.enfants ?? [];
   const tientLeCourant = enfants.some((e) => e.cle === courant);
-  const [ouvert, setOuvert] = React.useState(false);
-  const deplie = ouvert || tientLeCourant;
+  /*
+    LE REPLI APPARTIENT À CELUI QUI CLIQUE, MÊME DEPUIS UNE SOUS-RUBRIQUE.
+
+    La première version forçait l'ouverture tant que la rubrique courante était
+    l'une des siennes — `ouvert || tientLeCourant`. Conséquence : une fois sur
+    « Machinerie », le chevron ne refermait plus rien. Thomas, le 21/09/2026 :
+    « j'arrive pas à refermer l'accordéon photos quand je suis sur un onglet
+    d'une catégorie de photos ».
+
+    L'état suit donc le clic, et rien d'autre. Ce qu'on garde de l'intention
+    première : arriver sur une sous-rubrique OUVRE le groupe — c'est l'effet
+    ci-dessous, qui ne joue qu'au passage de faux à vrai, donc jamais pour
+    rouvrir ce que la personne vient de fermer.
+  */
+  const [ouvert, setOuvert] = React.useState(tientLeCourant);
+  React.useEffect(() => {
+    if (tientLeCourant) setOuvert(true);
+  }, [tientLeCourant]);
+  const deplie = ouvert;
   return (
     <div className="flex flex-col gap-xxs">
       <Entree
         item={item}
-        courant={courant}
+        /* Replié sur une sous-rubrique courante, c'est l'entrée MÈRE qui porte
+           la pastille : sinon le rail ne dirait plus où l'on est, et refermer
+           reviendrait à se perdre. */
+        courant={!deplie && tientLeCourant ? item.cle : courant}
         onChoisir={(cle) => {
           setOuvert(true);
           onChoisir(cle);
@@ -151,6 +171,38 @@ function EntreeDepliante({
   );
 }
 
+/*
+  LA MISE EN FORME D'UNE LIGNE, ÉCRITE UNE FOIS.
+
+  `px-md` et non `px-xs` : le fond teinté de l'entrée courante est une pastille,
+  et une pastille qui touche ses mots se lit comme un défaut d'alignement.
+
+  Une entrée au repos est en `medium`, pas en normal. C'est un menu, pas du
+  texte courant : ses mots se balaient du regard. L'entrée courante garde
+  `semibold` — un échelon la sépare toujours des autres, et c'est ce contraste,
+  pas la graisse en soi, qui dit où l'on est.
+*/
+const LIGNE = 'flex w-full items-center gap-sm rounded-control text-left text-small';
+const ETAT = (actif: boolean) =>
+  actif ? 'bg-info-bg font-semibold text-on-info-bg' : 'font-medium text-text hover:bg-bg-muted';
+
+/** Le compteur, s'il y en a un. */
+function Compteur({ item, actif }: { item: NavItem; actif: boolean }) {
+  if (item.compteur === undefined || item.compteur === '') return null;
+  return (
+    // Chasse fixe : sans elle les nombres dansent d'une ligne à l'autre. Sur la
+    // ligne courante, le compteur prend l'encre appairée du fond `infoBg` :
+    // `textMuted` y tombe à 4,47 — juste sous le seuil. Le fond est sur le
+    // parent et la couleur sur l'enfant, donc le contrôle de contraste ne peut
+    // pas le voir.
+    <span
+      className={cn('shrink-0 tabular-nums text-small', actif ? 'text-on-info-bg' : 'text-text-muted')}
+    >
+      {item.compteur}
+    </span>
+  );
+}
+
 function Entree({
   item,
   courant,
@@ -166,82 +218,77 @@ function Entree({
   surChevron?: () => void;
 }) {
   const actif = item.cle === courant;
+
+  if (chevron === undefined) {
+    return (
+      <button
+        type="button"
+        // `aria-current` en plus du fond teinté : la couleur seule ne dit rien à
+        // un lecteur d'écran.
+        aria-current={actif ? 'page' : undefined}
+        disabled={item.desactive}
+        onClick={() => onChoisir(item.cle)}
+        className={cn(
+          LIGNE,
+          'px-md py-sm outline-none focus-visible:ring-2 focus-visible:ring-primary',
+          'disabled:pointer-events-none disabled:opacity-50',
+          ETAT(actif),
+        )}
+      >
+        <span className="flex-1">{item.label}</span>
+        <Compteur item={item} actif={actif} />
+      </button>
+    );
+  }
+
+  /*
+    DEUX BOUTONS, PAS UN SEUL AVEC UNE ZONE CLIQUABLE DEDANS.
+
+    Le chevron replie sans changer de rubrique : c'est une action à part, donc
+    une cible à part. Posé en `<span onClick>` dans le bouton — ce qu'il était
+    au premier jet — la tabulation ne l'atteignait jamais, et replier devenait
+    impossible au clavier. Un bouton dans un bouton n'existe pas en HTML : la
+    ligne devient donc une boîte qui porte la pastille, et les deux boutons
+    vivent dedans.
+  */
   return (
-            <button
-              type="button"
-              // `aria-current` en plus du fond teinté : la couleur seule ne dit
-              // rien à un lecteur d'écran.
-              aria-current={actif ? 'page' : undefined}
-              disabled={item.desactive}
-              aria-expanded={chevron === undefined ? undefined : chevron}
-              onClick={() => onChoisir(item.cle)}
-              className={cn(
-                /*
-                  `px-md` et non `px-xs` : le fond teinté de l'entrée courante
-                  est une pastille, et une pastille qui touche ses mots se lit
-                  comme un défaut d'alignement. Quatre pixels ne suffisaient ni à
-                  gauche du libellé ni à droite du compteur.
-
-                  Les intitulés de groupe prennent le même retrait, sinon leur
-                  texte ne tombe plus sur celui des entrées.
-                */
-                'flex w-full items-center gap-sm rounded-control px-md py-sm text-left text-small outline-none',
-                'focus-visible:ring-2 focus-visible:ring-primary',
-                'disabled:pointer-events-none disabled:opacity-50',
-                /*
-                  Une entrée au repos est en `medium`, pas en normal. C'est un
-                  menu, pas du texte courant : ses mots se balaient du regard, ils
-                  ne se lisent pas en phrase. Le demi-échelon leur donne de quoi
-                  tenir contre les grands titres de la page.
-
-                  L'entrée courante garde `semibold` : un échelon la sépare
-                  toujours des autres, et c'est ce contraste — pas la graisse en
-                  soi — qui dit où l'on est.
-                */
-                actif
-                  ? 'bg-info-bg font-semibold text-on-info-bg'
-                  : 'font-medium text-text hover:bg-bg-muted',
-              )}
-            >
-              <span className="flex-1">{item.label}</span>
-              {item.compteur !== undefined && item.compteur !== '' ? (
-                // Chasse fixe : sans elle les nombres dansent d'une ligne à l'autre.
-                // Sur la ligne courante, le compteur prend l'encre appairée du
-                // fond `infoBg` : `textMuted` y tombe à 4,47 — juste sous le
-                // seuil. Le fond est sur le parent et la couleur sur l'enfant,
-                // donc le contrôle de contraste ne peut pas le voir.
-                <span
-                  className={cn(
-                    'shrink-0 tabular-nums text-small',
-                    actif ? 'text-on-info-bg' : 'text-text-muted',
-                  )}
-                >
-                  {item.compteur}
-                </span>
-              ) : null}
-              {chevron === undefined ? null : (
-                /* Le chevron est DANS le bouton, pas à côté : une seconde cible
-                   de la taille d'un doigt sur une ligne de trente-six pixels
-                   tiendrait mal, et un clic n'importe où sur la ligne doit
-                   déplier de toute façon. `surChevron` ne sert qu'à replier
-                   sans rouvrir la rubrique. */
-                <span
-                  role="presentation"
-                  onClick={(e) => {
-                    if (!surChevron) return;
-                    e.stopPropagation();
-                    surChevron();
-                  }}
-                  className={cn(
-                    'shrink-0 transition-transform duration-(--arq-duration-normal)',
-                    chevron ? 'rotate-0' : '-rotate-90',
-                    actif ? 'text-on-info-bg' : 'text-text-muted',
-                  )}
-                >
-                  <Icon role="deplier" size="xs" />
-                </span>
-              )}
-            </button>
+    <div className={cn(LIGNE, ETAT(actif), 'pr-xxs', item.desactive && 'opacity-50')}>
+      <button
+        type="button"
+        aria-current={actif ? 'page' : undefined}
+        disabled={item.desactive}
+        onClick={() => onChoisir(item.cle)}
+        className={cn(
+          'flex flex-1 items-center gap-sm rounded-control py-sm pl-md text-left outline-none',
+          'focus-visible:ring-2 focus-visible:ring-primary',
+          'disabled:pointer-events-none',
+        )}
+      >
+        <span className="flex-1">{item.label}</span>
+        <Compteur item={item} actif={actif} />
+      </button>
+      <button
+        type="button"
+        aria-expanded={chevron}
+        aria-label={`${chevron ? 'Replier' : 'Déplier'} ${item.label}`}
+        disabled={item.desactive}
+        onClick={() => surChevron?.()}
+        className={cn(
+          'shrink-0 rounded-control p-xs outline-none focus-visible:ring-2 focus-visible:ring-primary',
+          'disabled:pointer-events-none',
+          actif ? 'text-on-info-bg' : 'text-text-muted hover:text-text',
+        )}
+      >
+        <Icon
+          role="deplier"
+          size="xs"
+          className={cn(
+            'transition-transform duration-(--arq-duration-normal)',
+            chevron ? 'rotate-0' : '-rotate-90',
+          )}
+        />
+      </button>
+    </div>
   );
 }
 
