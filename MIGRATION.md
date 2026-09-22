@@ -318,3 +318,27 @@ un nom que rien ne dispute.
 `src/colors.ts` mais toute classe `bg-accent` / `text-accent` / `border-accent`
 rend le bleu pâle de shadcn. Il fait par ailleurs doublon avec `warning`, qui
 porte la même valeur. À retirer ou à renommer — décision en attente.
+
+## v2.33.0 — le jeton `accent` est retiré (22/09/2026)
+
+**Rupture, aucun appelant restant.** `colors.accent` valait `core.orange` et
+mentait : la couche de compatibilité shadcn définit son propre `--accent` (une
+surface de survol, #E1ECFA) puis `--color-accent: var(--accent)`, APRÈS la
+déclaration Arquos. Toute classe `bg-accent` / `text-accent` / `border-accent`
+rendait donc un bleu très pâle au lieu de l'orange annoncé.
+
+Il faisait par ailleurs doublon : **`warning` porte exactement le même orange**,
+sous un nom que shadcn ne dispute pas.
+
+```diff
+-className="border-accent"
++className="border-warning"
+```
+
+`--accent` et `--color-accent: var(--accent)` restent dans la feuille : ils
+appartiennent à shadcn et servent aux états de survol de ses composants. C'est
+le doublon Arquos qui disparaît, pas le mécanisme.
+
+Les trois appelants connus ont été corrigés la veille de ce retrait : la jauge
+(v2.32.0), l'encart des photos à reprendre et la case retenue du schéma de
+synthèse de la fiche équipement.
