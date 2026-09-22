@@ -265,3 +265,15 @@ section, à gauche, et la convention d'arborescence y est la bonne.
 La vitrine gagne la vue `EntreeDepliante` : `enfants` existait depuis la v2.18.0
 sans qu'aucune story ne le montre, et c'est pour cela que ce chevron n'avait
 jamais été regardé.
+
+## v2.28.0 — toute la ligne d'une entrée dépliante referme (22/09/2026)
+
+Additif, rien à reprendre. `NavList` : la ligne d'une entrée à `enfants` ne
+basculait que si elle portait la PASTILLE. Depuis la v2.26.0, un enfant qui
+porte la clé de sa mère éteint celle-ci tant que le groupe est ouvert — la ligne
+ne refermait donc plus jamais. Thomas, le 22/09/2026 : « je dois pouvoir fermer
+la rubrique photo en cliquant sur toute la zone de photos ».
+
+La bascule se décide désormais sur « est-on DANS le groupe ? » — la rubrique
+mère ou l'une de ses sections — et non sur la pastille. Dehors, la ligne mène,
+même si le groupe était resté ouvert derrière soi.
