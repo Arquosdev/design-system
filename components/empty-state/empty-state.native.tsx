@@ -3,7 +3,6 @@ import { StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 
 import { colors } from '../../src/colors';
 import type { IconRole } from '../../src/icons';
-import { radius } from '../../src/radius';
 import { spacing } from '../../src/spacing';
 import { Button } from '../button/button.native';
 import { Icon } from '../icon/icon.native';
@@ -20,20 +19,18 @@ export interface EmptyStateProps {
 }
 
 /*
-  Le même dessin que le web : le carré doux de 60 sur `bgMuted`, l'icône en
-  `textMuted` — et non `textSubtle`, qui tombe à 2,93 sur ce fond — le titre en
-  `subhead`, le conseil en `body` muté, le bouton à `base` en dessous.
+  Le même dessin que le web : l'icône nue en trait, le titre en `subhead`, le
+  conseil en `small` muté, le bouton en dessous. Voir `empty-state.web.tsx`
+  pour ce qui a été retiré le 22/09/2026 — le carré gris de 60 — et pourquoi.
 */
 export function EmptyState({ icone, titre, conseil, actionLabel, onAction, style }: EmptyStateProps) {
   return (
     <View style={[styles.conteneur, style]}>
-      <View style={styles.carre}>
-        <Icon role={icone} size="xl" weight="actif" color={colors.textMuted} />
-      </View>
-      <Text variant="subhead" style={styles.centre}>
+      <Icon role={icone} size="xl" weight="discret" color={colors.textSubtle} style={styles.icone} />
+      <Text variant="subhead" style={[styles.centre, styles.titre]}>
         {titre}
       </Text>
-      <Text tone="muted" style={[styles.centre, styles.conseil]}>
+      <Text variant="small" tone="muted" style={[styles.centre, styles.conseil]}>
         {conseil}
       </Text>
       {actionLabel && onAction ? (
@@ -80,21 +77,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.xl,
     paddingVertical: spacing['2xl'],
   },
-  carre: {
-    width: 60,
-    height: 60,
-    borderRadius: radius.md,
-    backgroundColor: colors.bgMuted,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: spacing.sm,
+  icone: {
+    marginBottom: spacing.md,
   },
   centre: {
     textAlign: 'center',
   },
+  titre: {
+    fontWeight: '600',
+  },
   conseil: {
-    marginTop: spacing.xxs,
-    maxWidth: 360,
+    marginTop: spacing.xs,
+    maxWidth: 280,
   },
   action: {
     marginTop: spacing.base,

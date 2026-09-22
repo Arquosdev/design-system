@@ -89,3 +89,20 @@ Aucun état propre. C'est lui qui **est** un état.
 Identique, jusqu'au wording partagé par `empty-state.logic.ts`.
 `natureDeLEchec` ne trouve pas `navigator.onLine` en React Native et retombe
 sur le message de l'erreur, ce que faisait déjà `lib/errors.ts` de myArquos.
+
+## Anatomie
+
+- Icône : `xl` (28), **poids `discret`**, `colors.textSubtle`, nue — pas de
+  cadre, pas d'aplat
+- Titre : `subhead` semibold, `colors.text`
+- Conseil : `small`, `colors.textMuted`, borné à deux lignes courtes
+- Action : `Button` par défaut, à `spacing.base` en dessous
+
+**Le carré gris de 60 px a été retiré le 22/09/2026.** Il encadrait une icône
+qui n'a rien à encadrer, et ajoutait une surface là où l'écran est déjà vide.
+Louis, en le voyant sur myArquos : « je le trouve moche. » Les états vides des
+produits de référence n'en ont plus — Figma n'affiche aucune icône, Family en
+garde une, grande et en trait, sans cadre.
+
+Et le conseil est passé de `body` à `small` : à 16 sur un titre de 18, il
+concurrençait ce qu'il précise.

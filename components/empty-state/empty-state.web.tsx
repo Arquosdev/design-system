@@ -33,18 +33,30 @@ export function EmptyState({
 }: EmptyStateProps) {
   return (
     <div className={cn('flex flex-col items-center px-xl py-2xl text-center', className)}>
-      {/* Le carré doux plutôt que l'icône nue : posée seule au milieu du vide,
-          une icône de 40 px flotte et se lit comme un défaut d'affichage. */}
-      <span className="mb-sm flex size-[60px] items-center justify-center rounded-md bg-bg-muted">
-        {/* `textMuted` et non `textSubtle` : sur le carré `bgMuted`, le second
-            tombe à 2,93 pour 1 — sous le seuil, même pour un élément non
-            textuel. Trouvé à la mesure, pas par le contrôle : celui-ci
-            n'apparie que ce qui vit dans la même chaîne de classes, et ici le
-            fond est sur le parent. */}
-        <Icon role={icone} size="xl" weight="actif" className="text-text-muted" />
-      </span>
-      <p className="text-subhead text-text">{titre}</p>
-      <p className="mt-xxs max-w-[46ch] text-body text-text-muted">{conseil}</p>
+      {/*
+        **L'icône nue, en trait, et non pleine dans un carré gris.**
+
+        Louis, le 22/09/2026 : « est-ce que l'empty state est cohérent avec le
+        nouveau design ? je le trouve moche. » Le carré doux de 60 px était le
+        motif de 2018 : il encadre une icône qui n'a rien à encadrer, et il
+        ajoute une surface là où l'écran est déjà vide. Les états vides des
+        produits qu'on regarde n'en ont plus — Figma n'a pas d'icône du tout,
+        Family en garde une, grande et en trait, sans cadre.
+
+        `discret` (le trait) et non `actif` (le plein) : posée seule, une icône
+        pleine pèse comme un pictogramme d'alerte, alors qu'un vide n'est pas
+        un incident. `textSubtle` est sa couleur — la fiche du vocabulaire la
+        réserve aux icônes, et elle est ici décorative : le titre dit tout.
+      */}
+      <Icon role={icone} size="xl" weight="discret" className="mb-md text-text-subtle" />
+      <p className="text-subhead font-semibold text-text">{titre}</p>
+      {/*
+        `small` et non `body` : à 16 sur un titre de 18, le conseil concurrençait
+        ce qu'il précise et les deux lignes faisaient un pavé. La hiérarchie se
+        creuse d'un cran, et la largeur se resserre pour qu'il tienne en deux
+        lignes courtes.
+      */}
+      <p className="mt-xs max-w-[38ch] text-small text-text-muted">{conseil}</p>
       {actionLabel && onAction ? (
         <Button className="mt-base" onClick={onAction}>
           {actionLabel}
