@@ -25,18 +25,18 @@
         "replier"
       ],
       "plateformes": [
-        "web"
+        "web",
+        "mobile"
       ],
       "remplace": {
         "web": [],
-        "mobile": [
-          "components/full-form/RubriqueBlock.tsx"
-        ]
+        "mobile": []
       },
       "dossier": "components/accordion",
       "fiche": "components/accordion/accordion.spec.md",
       "fichiers": {
-        "web": "components/accordion/accordion.web.tsx"
+        "web": "components/accordion/accordion.web.tsx",
+        "mobile": "components/accordion/accordion.native.tsx"
       }
     },
     {

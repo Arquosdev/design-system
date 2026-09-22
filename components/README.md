@@ -14,7 +14,7 @@ Une mécanique que n'importe quelle application aurait — bouton, modale, ongle
 
 | Composant | Rôle | Plateformes | Statut |
 | --- | --- | --- | --- |
-| [Accordion](accordion/accordion.spec.md) | Grouper des champs sous un titre pliable, pour qu'une page longue reste parcourable. | 🖥️ | stable |
+| [Accordion](accordion/accordion.spec.md) | Grouper des champs sous un titre pliable, pour qu'une page longue reste parcourable. | 🖥️ 📱 | stable |
 | [Avatar](avatar/avatar.spec.md) | Représenter une personne par sa photo, ou à défaut par ses initiales. | 🖥️ | stable |
 | [Badge](badge/badge.spec.md) | Poser une étiquette courte qui qualifie l'élément à côté duquel elle se trouve. | 🖥️ 📱 | stable |
 | [Banner](banner/banner.spec.md) | Informer d'une condition qui dure, en haut d'une zone, sans interrompre. | 🖥️ 📱 | stable |

@@ -4,11 +4,18 @@ statut: stable
 couche: generique
 role: Grouper des champs sous un titre pliable, pour qu'une page longue reste parcourable.
 mots_cles: [accordeon, groupe, section, plier, deplier, replier]
-plateformes: [web]
+plateformes: [web, mobile]
 remplace:
   web:
     - public/fiche/index.html — motif recopié aux lignes 411, 496, 991
-  mobile: [components/full-form/RubriqueBlock.tsx]
+  mobile:
+    - components/full-form/RubriqueBlock.tsx
+    - components/TechnicalDataBlock.tsx
+    - components/EssentialCategoriesBlock.tsx
+    - components/DiscrepanciesBlock.tsx
+    - components/ComplementaryPhotosBlock.tsx
+    - components/ContractBlock.tsx
+    - components/InformationsBlock.tsx
 ---
 
 # Accordion
@@ -77,3 +84,34 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent }
 
 Radix gère `aria-expanded`, `aria-controls` et la navigation au clavier. Ne pas
 remplacer l'en-tête par un `<div>` cliquable : cela supprime tout cela d'un coup.
+
+## Mobile
+
+**Il remplace SEPT copies du même en-tête** dans myArquos, chacune portant en
+commentaire « on duplique plutôt que de factoriser ». Les sept avaient dérivé :
+trois teintes de chevron, deux tailles d'icône, des compteurs tantôt en
+pastille tantôt en texte.
+
+**Une seule section par composant, et l'appelant tient l'état.** Pas de
+`Accordion` / `AccordionItem` / `AccordionTrigger` / `AccordionContent` : le
+web les sépare parce que Radix gère l'exclusivité entre groupes, alors que les
+écrans de myArquos décident déjà quelle section est ouverte — la première qui
+manque de champs, celle qu'une recherche a désignée. Le composant prend donc
+`ouvert` et `onBasculer`.
+
+| Prop | Rôle |
+| --- | --- |
+| `icone` | Un **rôle** du vocabulaire, à gauche du titre |
+| `titre`, `description` | Le titre et, dessous, ce que la section contient |
+| `meta`, `metaAtteinte` | Un compte ou une progression ; vert quand elle est atteinte |
+| `ouvert`, `onBasculer` | L'état, tenu par l'appelant |
+| `lien` | La section **ouvre une page** au lieu de se déplier |
+
+**`lien` vient du support, pas d'un caprice** : sur un téléphone, une rubrique
+de trente champs dépliée sur place enterre tout ce qui la suit. Le formulaire
+rapide ouvre donc une page, là où la tablette déplie dans un volet. Le chevron
+cède la place à une flèche. Le web n'a pas ce cas — il a la place.
+
+**Ouverte, la section se signale par sa bordure `primary`**, pas par une ombre.
+Les sept copies en posaient une de 12 de flou ; sur une page qui empile six
+sections, cela faisait un escalier de gris.
