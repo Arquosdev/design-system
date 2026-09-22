@@ -102,9 +102,13 @@ describe('partagerLeChoixMultiple', () => {
     strictEqual(libre, 'Clé plate n°4');
   });
 
-  it('reconnaît une valeur donnée par son libellé', () => {
+  /* L'attente a changé le 22/09/2026, et c'est la correction elle-même : le
+     libellé était reconnu, mais RENDU tel quel. L'appelant comparait ensuite à
+     `o.value`, et sur un jeu où les deux diffèrent aucune pastille ne
+     s'allumait. Reconnaître et traduire sont la même opération. */
+  it('reconnaît une valeur donnée par son libellé, et rend celle du menu', () => {
     const { connues, libre } = partagerLeChoixMultiple(['Digicode'], ACCES);
-    deepStrictEqual(connues, ['Digicode']);
+    deepStrictEqual(connues, ['digicode']);
     strictEqual(libre, '');
   });
 
@@ -147,5 +151,37 @@ describe('partagerLeChoixMultiple — le mot « Autre »', () => {
 
   it('dit non quand le mot n’y est pas', () => {
     strictEqual(partagerLeChoixMultiple(['digicode'], ACCES).marquee, false);
+  });
+});
+
+describe('partagerLeChoixMultiple — libellé reçu, valeur rendue', () => {
+  const CAMES = [
+    { value: 'came_fixe', label: 'Came fixe' },
+    { value: 'came_mobile', label: 'Came mobile' },
+  ] as const;
+
+  it('rend la valeur du menu quand on lui donne le libellé', () => {
+    // Le cas réel : la fiche équipement affiche « Came fixe », le menu porte
+    // `came_fixe`. Sans traduction, l'appelant compare à `o.value` et aucune
+    // pastille ne s'allume.
+    const r = partagerLeChoixMultiple(['Came fixe', 'Came mobile'], CAMES);
+    deepStrictEqual(r.connues, ['came_fixe', 'came_mobile']);
+    strictEqual(r.libre, '');
+  });
+
+  it('rend la valeur inchangée quand on lui donne déjà la valeur', () => {
+    const r = partagerLeChoixMultiple(['came_mobile'], CAMES);
+    deepStrictEqual(r.connues, ['came_mobile']);
+  });
+
+  it('mélange les deux formes sans se tromper', () => {
+    const r = partagerLeChoixMultiple(['Came fixe', 'came_mobile'], CAMES);
+    deepStrictEqual(r.connues, ['came_fixe', 'came_mobile']);
+  });
+
+  it("laisse la valeur libre hors du menu, telle qu'elle est écrite", () => {
+    const r = partagerLeChoixMultiple(['Came fixe', 'une came bricolée'], CAMES);
+    deepStrictEqual(r.connues, ['came_fixe']);
+    strictEqual(r.libre, 'une came bricolée');
   });
 });
