@@ -277,3 +277,19 @@ la rubrique photo en cliquant sur toute la zone de photos ».
 La bascule se décide désormais sur « est-on DANS le groupe ? » — la rubrique
 mère ou l'une de ses sections — et non sur la pastille. Dehors, la ligne mène,
 même si le groupe était resté ouvert derrière soi.
+
+## v2.30.0 — les choix multiples se reconnaissent, quelle que soit la forme reçue (22/09/2026)
+
+Additif, rien à reprendre. `partagerLeChoixMultiple` reconnaissait une valeur
+donnée par son LIBELLÉ mais la rendait telle quelle. L'appelant comparait
+ensuite à `o.value` : sur un jeu où valeur et libellé diffèrent, aucune pastille
+ne s'allumait dans l'éditeur en ligne, alors que la fiche montre le champ
+renseigné. Les **neuf** champs à choix multiples de la fiche équipement étaient
+dans ce cas, « type de came » compris.
+
+`connues` sort désormais en **valeur de menu**. Reconnaître une valeur et la
+rendre sous le nom du menu sont la même opération ; les séparer laissait à
+chaque appelant le soin de la refaire.
+
+Le choix UNIQUE en ligne ne bougeait pas : il passe par `menuDeChoix`, qui
+traduisait déjà.

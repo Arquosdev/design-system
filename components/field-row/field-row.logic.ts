@@ -113,10 +113,25 @@ export function partagerLeChoixMultiple(
      saisie avec le mot « Autre » au lieu du texte réel. */
   libelleAutre = 'Autre',
 ): { connues: string[]; libre: string; marquee: boolean } {
-  const connu = (v: string) => options.some((o) => o.value === v || o.label === v);
+  /*
+    LES CONNUES SORTENT EN VALEUR DE MENU, PAS COMME ELLES SONT ENTRÉES.
+
+    Une valeur arrive tantôt en valeur de base (`came_fixe`), tantôt en libellé
+    (« Came fixe ») : la fiche équipement affiche le libellé, le menu porte la
+    valeur, et les deux se ressemblent assez souvent pour que la différence ait
+    passé longtemps inaperçue. Les reconnaître ne suffisait donc pas — l'appelant
+    comparait ensuite `connues` à `o.value`, et sur un jeu où les deux diffèrent
+    aucune pastille ne s'allumait. Les neuf champs à choix multiples de la fiche
+    étaient dans ce cas, « type de came » compris. Constaté le 22/09/2026.
+
+    On traduit ici, une fois : reconnaître une valeur et la rendre sous le nom
+    du menu sont la même opération, et les séparer, c'est laisser à chaque
+    appelant le soin de la refaire.
+  */
+  const retenu = (v: string) => options.find((o) => o.value === v || o.label === v);
   const marque = (v: string) =>
     v.trim().toLowerCase() === libelleAutre.trim().toLowerCase();
-  const connues = valeurs.filter(connu);
-  const libre = valeurs.find((v) => !connu(v) && !marque(v) && v.trim() !== '') ?? '';
+  const connues = valeurs.map(retenu).filter((o): o is FieldOption => Boolean(o)).map((o) => o.value);
+  const libre = valeurs.find((v) => !retenu(v) && !marque(v) && v.trim() !== '') ?? '';
   return { connues, libre, marquee: valeurs.some(marque) };
 }
