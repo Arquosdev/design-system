@@ -28,17 +28,35 @@ export interface AccordionTriggerProps
   titre: string;
   /** Compteur ou précision affichée à droite du titre (« 4 champs renseignés »). */
   meta?: string;
+  /**
+   * Un raccourci posé au bout de la barre — « 5 à renseigner », qui ouvre le
+   * formulaire sur ce bloc.
+   *
+   * C'est un BOUTON À PART, pas une zone cliquable dans celui qui déplie : il
+   * fait autre chose, et la tabulation doit l'atteindre. Un bouton dans un
+   * bouton n'existe pas en HTML — la barre devient donc une rangée qui porte
+   * les deux, et celui qui déplie n'occupe plus que la place qui reste.
+   */
+  action?: {
+    libelle: string;
+    onClick: () => void;
+    /** Ce qu'un lecteur d'écran annonce, quand le libellé seul ne suffit pas. */
+    ariaLabel?: string;
+  };
 }
 
 export const AccordionTrigger = React.forwardRef<
   React.ComponentRef<typeof AccordionPrimitive.Trigger>,
   AccordionTriggerProps
->(({ className, titre, meta, ...props }, ref) => (
-  <AccordionPrimitive.Header className="flex">
+>(({ className, titre, meta, action, ...props }, ref) => (
+  <AccordionPrimitive.Header
+    className={cn('flex items-stretch', action && 'border-b border-border-soft bg-bg-subtle')}
+  >
     <AccordionPrimitive.Trigger
       ref={ref}
       className={cn(
-        'group flex w-full items-center gap-sm border-b border-border-soft bg-bg-subtle',
+        'group flex w-full items-center gap-sm',
+        !action && 'border-b border-border-soft bg-bg-subtle',
         'px-base py-md text-left outline-none',
         'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
         className,
@@ -56,6 +74,24 @@ export const AccordionTrigger = React.forwardRef<
       <span className="text-small font-bold text-text">{titre}</span>
       {meta ? <span className="text-caption text-text-muted">{meta}</span> : null}
     </AccordionPrimitive.Trigger>
+    {action ? (
+      <button
+        type="button"
+        onClick={action.onClick}
+        aria-label={action.ariaLabel}
+        /* Souligné au survol et non en permanence : la barre en porte déjà
+           deux — le titre et le compte — et un troisième trait toujours visible
+           ferait une ligne bavarde. La couleur suffit à dire qu'on peut cliquer,
+           le soulignement confirme quand on y va. */
+        className={cn(
+          'shrink-0 self-center rounded-control px-base py-xs text-caption font-semibold',
+          'text-primary underline decoration-transparent underline-offset-2 outline-none',
+          'hover:decoration-current focus-visible:ring-2 focus-visible:ring-primary',
+        )}
+      >
+        {action.libelle}
+      </button>
+    ) : null}
   </AccordionPrimitive.Header>
 ));
 AccordionTrigger.displayName = 'AccordionTrigger';

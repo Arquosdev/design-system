@@ -39,7 +39,16 @@ remplace:
 
 `AccordionItem` : `value: string` (identifiant du groupe, obligatoire et unique).
 
-`AccordionTrigger` : `titre: string`, `meta?: string` (compteur à droite du titre).
+`AccordionTrigger` : `titre: string`, `meta?: string` (compteur à droite du
+titre), `action?: { libelle, onClick, ariaLabel? }`.
+
+**`action` pose un raccourci au bout de la barre** — « 5 à renseigner », qui
+ouvre le formulaire sur ce bloc. C'est un BOUTON À PART, pas une zone cliquable
+dans celui qui déplie : il fait autre chose, et la tabulation doit l'atteindre.
+Un bouton dans un bouton n'existe pas en HTML, donc la barre devient une rangée
+qui porte les deux, et celui qui déplie n'occupe plus que la place qui reste.
+Née le 22/09/2026 pour la fiche équipement, où le compte des champs vides d'un
+bloc mène au panneau « Modifier », onglet « À renseigner ».
 
 `AccordionContent` : le contenu du groupe.
 
