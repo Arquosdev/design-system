@@ -342,3 +342,19 @@ le doublon Arquos qui disparaît, pas le mécanisme.
 Les trois appelants connus ont été corrigés la veille de ce retrait : la jauge
 (v2.32.0), l'encart des photos à reprendre et la case retenue du schéma de
 synthèse de la fiche équipement.
+
+## v2.34.0 — `--warning` n'est plus `undefined` (22/09/2026)
+
+**Correctif urgent d'une régression de la v2.33.0.** Retirer `colors.accent` a
+laissé une ligne le désigner encore, dans le bloc de compatibilité shadcn :
+`['--warning', colors.accent]`. La feuille livrée portait donc
+`--warning: undefined`, et comme `--color-warning: var(--warning)` la réécrit,
+**toute classe `bg-warning` / `text-warning` / `border-warning` est devenue
+invalide** — l'arc moyen de la jauge avec.
+
+La ligne désigne `colors.warning`, qui portait déjà le même orange.
+
+**Et le générateur refuse désormais d'écrire une valeur indéfinie.** Ni `check`,
+ni la vitrine, ni le contrôle de contraste n'avaient vu passer `undefined` : une
+variable invalide ne casse rien, elle rend l'élément invisible, ce qu'aucun
+d'eux ne mesure. Le générateur, lui, le sait au moment où il écrit.

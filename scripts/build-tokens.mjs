@@ -525,13 +525,35 @@ function buildTailwind() {
        déclarent en variantes supplémentaires, comme shadcn invite à le faire. */
     ['--success', colors.success],
     ['--success-foreground', colors.textOnDark],
-    ['--warning', colors.accent],
+    /* `colors.warning` et non `colors.accent`. Les deux portaient le même
+       orange, et `accent` a été retiré le 22/09/2026 — cette ligne est restée
+       à le désigner et a écrit `--warning: undefined` dans la feuille livrée.
+       Toute classe `bg-warning` / `text-warning` / `border-warning` est alors
+       devenue invalide, l'arc moyen de la jauge avec. Vu en production le jour
+       même : « sur 40 % j'ai aucun arc ». */
+    ['--warning', colors.warning],
     ['--warning-foreground', colors.text],
     ['--border', colors.border],
     ['--input', colors.border],
     ['--ring', colors.primary],
     ['--radius', `${radius.md}px`],
   ];
+
+  /* AUCUNE VALEUR INDÉFINIE NE SORT D'ICI.
+
+     Le 22/09/2026, retirer un jeton a laissé une ligne le désigner encore :
+     la feuille a été livrée avec `--warning: undefined`, et tout ce qui s'en
+     servait a cessé de s'afficher. Ni `check`, ni la vitrine, ni le contrôle
+     de contraste ne l'ont vu — une variable invalide ne casse rien, elle rend
+     l'élément invisible, ce qu'aucun d'eux ne mesure.
+     Le générateur, lui, le sait au moment où il écrit. */
+  const vides = shadcn.filter(([, valeur]) => valeur === undefined || valeur === null);
+  if (vides.length) {
+    throw new Error(
+      `Jetons de compatibilité sans valeur : ${vides.map(([n]) => n).join(', ')}. ` +
+        'Un jeton a probablement été renommé ou retiré de src/colors.ts.',
+    );
+  }
 
   return [
     '/* Thème Tailwind v4 — GÉNÉRÉ, ne pas éditer à la main.',
