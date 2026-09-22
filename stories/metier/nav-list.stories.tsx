@@ -88,3 +88,39 @@ export const Repliable: Story = {
     ],
   },
 };
+
+/**
+ * Une entrée qui se déplie : « Photos » porte ses sections en sous-rubriques.
+ *
+ * Le chevron est un bouton à part — il replie sans changer de rubrique. **Fermé
+ * il pointe vers le bas, ouvert vers le haut**, comme celui d'un menu
+ * déroulant : il est posé à droite de la ligne, pas à gauche d'une branche
+ * d'arborescence.
+ */
+export const EntreeDepliante: Story = {
+  args: {
+    items: [
+      RUBRIQUES[0],
+      {
+        ...RUBRIQUES[1],
+        enfants: [
+          { cle: 'photos', label: 'Toutes' },
+          { cle: 'photos-env', label: 'Environnement' },
+          { cle: 'photos-cabine', label: 'Cabine' },
+          { cle: 'photos-machinerie', label: 'Machinerie' },
+        ],
+      },
+      ...RUBRIQUES.slice(2, 5),
+    ],
+    courant: 'photos-cabine',
+    onChoisir: () => {},
+  },
+  render: function Rendu(args) {
+    const [courant, setCourant] = React.useState(args.courant);
+    return (
+      <div className="w-[268px] rounded-md bg-bg-muted p-base">
+        <NavList {...args} courant={courant} onChoisir={setCourant} />
+      </div>
+    );
+  },
+};

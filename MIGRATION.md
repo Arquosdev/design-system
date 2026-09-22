@@ -249,3 +249,19 @@ disparaît — il n'avait qu'un usage, la fenêtre Bubble abandonnée le 22/09 �
 `ouvrirAilleurs` (`ArrowSquareOut`) le remplace : sortir de l'écran courant pour
 voir la chose ailleurs, jamais grossir ce qu'on a déjà sous les yeux. Ajouté et
 retiré en un jour, donc sans autre consommateur que la fiche équipement.
+
+## v2.27.0 — le chevron d'une entrée dépliante va du bas vers le haut (22/09/2026)
+
+Additif, rien à reprendre. `NavList` : le chevron d'une entrée à `enfants`
+pointait vers la DROITE fermé et vers le BAS ouvert — la convention d'un chevron
+de gauche, celui qui ouvre une branche d'arborescence. Posé à droite d'une ligne
+il se lit comme un menu déroulant : **bas fermé, haut ouvert**. Thomas, le
+22/09/2026 : « pointe vers le bas quand fermé et pointe vers le haut quand
+ouvert ».
+
+Le chevron d'un `titre` + `repliable`, lui, ne bouge pas : c'est un titre de
+section, à gauche, et la convention d'arborescence y est la bonne.
+
+La vitrine gagne la vue `EntreeDepliante` : `enfants` existait depuis la v2.18.0
+sans qu'aucune story ne le montre, et c'est pour cela que ce chevron n'avait
+jamais été regardé.

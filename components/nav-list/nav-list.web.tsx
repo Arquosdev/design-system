@@ -259,7 +259,7 @@ function Entree({
   item: NavItem;
   courant?: string;
   onChoisir: (cle: string) => void;
-  /** Présent : l'entrée porte un chevron, tourné vers le bas quand c'est vrai. */
+  /** Présent : l'entrée porte un chevron, tourné vers le haut quand c'est vrai. */
   chevron?: boolean;
   surChevron?: () => void;
 }) {
@@ -329,8 +329,20 @@ function Entree({
           role="deplier"
           size="xs"
           className={cn(
+            /*
+              FERMÉ VERS LE BAS, OUVERT VERS LE HAUT.
+
+              Thomas, le 22/09/2026 : « pointe vers le bas quand fermé et
+              pointe vers le haut quand ouvert ». Il tournait de la droite vers
+              le bas — la convention d'un CHEVRON DE GAUCHE, celui qui ouvre une
+              branche d'arborescence, comme l'intitulé de groupe au-dessus.
+              Posé à DROITE d'une ligne, un chevron se lit autrement : bas pour
+              « ça se déplie », haut pour « ça se replie », comme un menu
+              déroulant. La rotation reste une rotation, seuls les deux repères
+              changent.
+            */
             'transition-transform duration-(--arq-duration-normal)',
-            chevron ? 'rotate-0' : '-rotate-90',
+            chevron ? 'rotate-180' : 'rotate-0',
           )}
         />
       </button>
