@@ -110,6 +110,12 @@ Deux divergences, et la première est structurelle :
   soulignement pointillé porte donc seul le signal « ceci se corrige », ce qui
   lui donne plus de poids qu'en web.
 
+**Une prop de plus, `onPress`** : la valeur MÈNE quelque part — une adresse
+ouvre Plans, un téléphone compose. Sur le web ce serait un lien ; React Native
+n'en a pas, donc le composant doit savoir que la valeur agit pour la peindre en
+`primary`. `onSave` et `onPress` s'excluent : une valeur qui mène ailleurs ne
+s'édite pas sur place.
+
 `multi` n'a pas d'éditeur natif : la valeur se lit, la correction se fait
 ailleurs. Une prop `derniere` retire le filet du bas — React Native n'a pas de
 `last:`.

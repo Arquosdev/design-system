@@ -25,6 +25,18 @@ export interface FieldRowProps {
   options?: readonly FieldOption[];
   /** Absent = lecture seule. */
   onSave?: (v: string | string[]) => void;
+  /**
+   * La valeur MÈNE quelque part : une adresse ouvre Plans, un téléphone
+   * compose, un email écrit.
+   *
+   * **Mobile seulement, et c'est la nature du support.** Sur le web, ce serait
+   * un lien — la valeur porterait un `href` et le navigateur ferait le reste.
+   * React Native n'a pas de lien : c'est l'appelant qui ouvre l'URL, donc le
+   * composant a besoin de savoir que la valeur agit pour la peindre comme
+   * telle. `onSave` et `onPress` s'excluent : une valeur qui mène ailleurs ne
+   * s'édite pas sur place.
+   */
+  onPress?: () => void;
   statut?: FieldStatut;
   sauvegarde?: FieldSauvegarde;
   readOnly?: boolean;
@@ -67,13 +79,14 @@ export function FieldRow({
   kind = 'text',
   options = [],
   onSave,
+  onPress,
   statut,
   sauvegarde,
   readOnly = false,
   derniere = false,
   style,
 }: FieldRowProps) {
-  const editable = !!onSave && !readOnly && kind !== 'multi';
+  const editable = !!onSave && !onPress && !readOnly && kind !== 'multi';
   const [enSaisie, setEnSaisie] = React.useState(false);
   const [brouillon, setBrouillon] = React.useState('');
   const vide = estVideLogique(value);
@@ -124,15 +137,21 @@ export function FieldRow({
         ) : (
           <View style={styles.lecture}>
             <Pressable
-              onPress={ouvrir}
-              disabled={!editable}
-              accessibilityRole={editable ? 'button' : undefined}
-              accessibilityLabel={editable ? `${label} : ${texteDeValeur(value)}, modifier` : undefined}
+              onPress={onPress ?? ouvrir}
+              disabled={!editable && !onPress}
+              accessibilityRole={editable || onPress ? 'button' : undefined}
+              accessibilityLabel={
+                onPress
+                  ? `${label} : ${texteDeValeur(value)}, ouvrir`
+                  : editable
+                    ? `${label} : ${texteDeValeur(value)}, modifier`
+                    : undefined
+              }
               style={styles.zoneValeur}
             >
               <Text
                 variant="small"
-                tone={vide ? 'muted' : 'text'}
+                tone={onPress ? 'primary' : vide ? 'muted' : 'text'}
                 style={[
                   styles.valeur,
                   editable && styles.editable,
