@@ -57,6 +57,12 @@ l'on est, et refermer reviendrait à se perdre.
 Le chevron est un BOUTON à part, pas une zone cliquable dans le premier : il
 fait autre chose que la ligne, et la tabulation doit l'atteindre.
 
+**Un enfant qui porte la clé de sa mère en fait un conteneur.** Lister la
+rubrique de la mère parmi ses enfants — « Toutes » sous « Photos » — donne un
+moyen d'y revenir depuis une sous-rubrique. C'est alors l'ENFANT qui porte la
+pastille, pas la mère : deux pastilles empilées se lisent comme un défaut. La
+mère la reprend une fois repliée, quand l'enfant ne se voit plus.
+
 **La ligne entière replie dès qu'on y est déjà.** Elle mène à sa rubrique tant
 qu'on n'y est pas ; pastille allumée, le clic replie ou rouvre. Viser le chevron
 seul demandait seize pixels pour un geste qu'on fait souvent, et une ligne
