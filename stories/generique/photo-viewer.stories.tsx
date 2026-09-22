@@ -69,12 +69,11 @@ export const Indisponible: Story = {
 };
 
 /**
- * Avec une action : un bouton rond dans le coin de la photo, pas dans
- * l'en-tête. Ici « Agrandir », que la fiche équipement utilise pour rendre la
- * main à la page qui l'héberge — sa visionneuse ne peut pas dépasser le cadre
- * de son iframe.
+ * Avec des actions : des boutons ronds dans le coin de la photo, pas dans
+ * l'en-tête. Ici les deux de la fiche équipement — télécharger la photo, ou
+ * l'ouvrir dans un onglet où elle s'affiche à sa taille réelle.
  */
-export const AvecAction: Story = {
+export const AvecActions: Story = {
   ...Defaut,
   args: {
     ...Defaut.args,
@@ -82,7 +81,10 @@ export const AvecAction: Story = {
       { nom: 'Porte palière — niveau principal', url: debout('#00295B', 'Porte palière'), zone: 'Palier' },
       ...SERIE,
     ],
-    action: { libelle: 'Agrandir', icone: 'agrandir', onAction: () => {} },
+    actions: [
+      { libelle: 'Télécharger', icone: 'telecharger', onAction: () => {} },
+      { libelle: 'Ouvrir dans un nouvel onglet', icone: 'ouvrirAilleurs', onAction: () => {} },
+    ],
   },
   render: function Rendu(args) {
     const [vue, setVue] = React.useState({ ouverte: false, index: 0 });
@@ -95,7 +97,7 @@ export const AvecAction: Story = {
           onIndex={(index) => setVue((v) => ({ ...v, index }))}
           open={vue.ouverte}
           onOpenChange={(ouverte) => setVue((v) => ({ ...v, ouverte }))}
-          action={args.action}
+          actions={args.actions}
         />
       </>
     );

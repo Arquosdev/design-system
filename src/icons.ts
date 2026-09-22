@@ -77,14 +77,14 @@ export const icones = {
 
   // -- Agir ----------------------------------------------------------------
   rechercher: 'MagnifyingGlass',
-  /** Voir plus grand ce qu'on regarde déjà — une photo, un schéma. La loupe
-   *  et non un `+` nu : le `+` seul veut dire « ajouter » ici, et le même
-   *  dessin ne peut pas porter les deux. */
-  agrandir: 'MagnifyingGlassPlus',
   ajouter: 'Plus',
   modifier: 'PencilSimple',
   supprimer: 'Trash',
   telecharger: 'DownloadSimple',
+  /** Sortir de l'écran courant pour voir la chose ailleurs — un onglet neuf,
+   *  une autre application. La flèche qui quitte son cadre, jamais une loupe :
+   *  on ne grossit pas ce qu'on a sous les yeux, on l'ouvre autre part. */
+  ouvrirAilleurs: 'ArrowSquareOut',
   filtrer: 'Sliders',
   plusDActions: 'DotsThreeVertical',
   dicter: 'Microphone',

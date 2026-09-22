@@ -227,3 +227,25 @@ Le vocabulaire d'icônes gagne le rôle **`agrandir`** (`MagnifyingGlassPlus`) :
 voir plus grand ce qu'on regarde déjà. La loupe et non un `+` nu, parce que le
 `+` seul veut dire « ajouter » chez Arquos et qu'un dessin ne peut pas porter
 les deux sens.
+
+## v2.25.0 — la visionneuse porte plusieurs actions (22/09/2026)
+
+**Rupture, un seul appelant.** `action` devient `actions`, au pluriel :
+
+```diff
+-action={{ libelle: 'Agrandir', icone: 'agrandir', onAction: agrandir }}
++actions={[
++  { libelle: 'Télécharger', icone: 'telecharger', onAction: telecharger },
++  { libelle: 'Ouvrir dans un nouvel onglet', icone: 'ouvrirAilleurs', onAction: ouvrir },
++]}
+```
+
+Les boutons se posent en rangée dans le coin bas-droit de la photo, ancrés à
+droite : ajouter une action ne déplace pas les précédentes. Trois au plus — la
+fiche du composant dit pourquoi le menu ne gagne qu'au-delà.
+
+**Le vocabulaire d'icônes échange un rôle.** `agrandir` (`MagnifyingGlassPlus`)
+disparaît — il n'avait qu'un usage, la fenêtre Bubble abandonnée le 22/09 — et
+`ouvrirAilleurs` (`ArrowSquareOut`) le remplace : sortir de l'écran courant pour
+voir la chose ailleurs, jamais grossir ce qu'on a déjà sous les yeux. Ajouté et
+retiré en un jour, donc sans autre consommateur que la fiche équipement.

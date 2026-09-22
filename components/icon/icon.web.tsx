@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {
   ArrowRight,
+  ArrowSquareOut,
   Camera,
   CameraRotate,
   CameraSlash,
@@ -20,7 +21,6 @@ import {
   Lightning,
   LightningSlash,
   MagnifyingGlass,
-  MagnifyingGlassPlus,
   Microphone,
   MinusCircle,
   PencilSimple,
@@ -58,11 +58,11 @@ const DESSINS: Record<IconRole, PhosphorIcon> = {
   fermer: X,
 
   rechercher: MagnifyingGlass,
-  agrandir: MagnifyingGlassPlus,
   ajouter: Plus,
   modifier: PencilSimple,
   supprimer: Trash,
   telecharger: DownloadSimple,
+  ouvrirAilleurs: ArrowSquareOut,
   filtrer: Sliders,
   plusDActions: DotsThreeVertical,
   dicter: Microphone,
