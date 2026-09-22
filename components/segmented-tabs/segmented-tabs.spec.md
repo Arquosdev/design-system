@@ -38,7 +38,7 @@ remplace:
 | `onChanger` | `(cle: string) => void`   | —      | Appelé au changement                     |
 | `ariaLabel` | `string`                  | —      | Ce que le groupe sépare, pour l'annoncer |
 
-`Segment` : `{ cle, label, compteur?, icone? }`. Le compteur suit le libellé, en retrait ; l'icône le précède.
+`Segment` : `{ cle, label, compteur? }`. Le compteur suit le libellé, en retrait.
 
 ## Exemples
 
@@ -87,13 +87,21 @@ import { SegmentedTabs } from '@arquos/design-system/web';
 - Les flèches gauche et droite déplacent la sélection, comme l'attend un lecteur
   d'écran sur un groupe d'onglets.
 
-## Une icône n'est pas un segment
+## Pas d'icône dans un segment, et c'est une décision
 
-`icone` accompagne le libellé, elle ne le remplace pas. myArquos avait deux
-segments à ICÔNE SEULE sur sa carte — un ascenseur, un carnet — et rien ne
-disait lequel montrait quoi : ni en balayage, ni au lecteur d'écran. Le
-vocabulaire dit d'ailleurs la même chose de son côté : « ne jamais porter seule
-une information ».
+Une prop `icone` a existé quelques heures le 22/09/2026, pour la carte de
+myArquos, qui portait deux segments à ICÔNE SEULE — un ascenseur, un carnet —
+dont rien ne disait lequel montrait quoi. Le libellé les a remplacés, et Louis
+a tranché sur l'icône qui les accompagnait : « enlève les icônes, sinon ce
+n'est pas cohérent avec le switch d'en dessous. »
+
+Il a raison au-delà de ce cas. **Deux sélecteurs l'un sous l'autre, l'un
+iconographié et l'autre non, se lisent comme deux mécaniques différentes** alors
+qu'ils font la même chose. Et un segment n'a pas la place d'un repère : le
+libellé y est déjà court par construction.
+
+La prop est donc retirée plutôt que laissée sans consommateur — c'est la règle
+du dépôt : on ne déclare que ce qui a un écran.
 
 ## Mobile
 

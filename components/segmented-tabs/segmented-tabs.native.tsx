@@ -2,26 +2,15 @@ import * as React from 'react';
 import { Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 
 import { colors } from '../../src/colors';
-import type { IconRole } from '../../src/icons';
 import { shadowNative } from '../../src/elevation';
 import { radius } from '../../src/radius';
 import { spacing } from '../../src/spacing';
-import { Icon } from '../icon/icon.native';
 import { Text } from '../text/text.native';
 
 export interface Segment {
   cle: string;
   label: string;
   compteur?: number | string;
-  /**
-   * Une icône du vocabulaire, AVANT le libellé.
-   *
-   * **Elle ne remplace jamais le libellé**, elle l'accompagne : un
-   * pictogramme seul ne se lit ni en balayage ni au lecteur d'écran, et la
-   * carte de myArquos en avait deux — un ascenseur et un carnet — dont
-   * personne ne pouvait dire lequel montrait quoi sans les toucher.
-   */
-  icone?: IconRole;
 }
 
 export interface SegmentedTabsProps {
@@ -62,14 +51,6 @@ export function SegmentedTabs({ segments, valeur, onChanger, ariaLabel, style }:
             onPress={() => onChanger(segment.cle)}
             style={[styles.segment, actif && styles.segmentActif]}
           >
-            {segment.icone ? (
-              <Icon
-                role={segment.icone}
-                size="sm"
-                weight="actif"
-                color={actif ? colors.text : colors.textMuted}
-              />
-            ) : null}
             <Text
               variant="small"
               tone={actif ? 'text' : 'muted'}
