@@ -11,7 +11,6 @@
   --color-primary: #0D5AB7;
   --color-primary-dark: #073B6F;
   --color-brand: #00295B;
-  --color-accent: #FFA522;
   --color-success: #0C7C59;
   --color-success-bg: #DFF7F3;
   --color-on-success-bg: #0C7C59;
@@ -214,7 +213,7 @@
   --destructive-foreground: #FFFFFF;
   --success: #0C7C59;
   --success-foreground: #FFFFFF;
-  --warning: #FFA522;
+  --warning: undefined;
   --warning-foreground: #232B2F;
   --border: #C8D3DA;
   --input: #C8D3DA;

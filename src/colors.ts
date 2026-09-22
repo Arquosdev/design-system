@@ -89,7 +89,22 @@ export const colors = {
   primary: core.blue, // main interactive accent (CTAs, links, active state)
   primaryDark: palette.blue[700],
   brand: core.marine, // dominant brand surface (headers, hero blocks)
-  accent: core.orange, // highlight / attention
+  /*
+    PAS DE JETON `accent` ICI, ET C'EST DÉLIBÉRÉ.
+
+    Il a existé — `core.orange`, « highlight / attention » — et il mentait :
+    la couche de compatibilité shadcn définit son propre `--accent` (une
+    surface de survol, #E1ECFA) puis `--color-accent: var(--accent)`, APRÈS
+    cette déclaration-ci. La seconde l'emportait, si bien que toute classe
+    `bg-accent` / `text-accent` / `border-accent` rendait un bleu très pâle au
+    lieu de l'orange annoncé. La jauge y a perdu son arc du palier moyen —
+    invisible, constaté par un retour client le 22/09/2026.
+
+    Il faisait par ailleurs DOUBLON : `warning` porte exactement le même
+    orange, sous un nom que shadcn ne dispute pas. Retiré le 22/09/2026 sur
+    décision de Thomas — « supprime le jeton accent ». Pour un orange
+    d'attention : `warning`. Voir MIGRATION.md.
+  */
 
   // Status
   //
