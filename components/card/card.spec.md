@@ -76,3 +76,16 @@ import { Card, CardHeader, CardTitle, CardDescription, CardList }
 
 La carte est un conteneur, pas un contrôle : elle ne reçoit ni `role` ni focus.
 Si son contenu est cliquable, c'est le contenu qui porte le bouton ou le lien.
+
+## La barre d'en-tête est celle de l'accordéon
+
+`CardHeader` et le déclencheur d'`Accordion` posent **la même barre** :
+`bg-bg-subtle`, séparateur `border-border-soft`, titre en `text-small font-bold`,
+précision en `text-caption text-text-muted`. Ce n'était pas le cas — la carte
+tirait vers `bg-muted`, un gris plus franc — et les deux composants encadrent
+pourtant les mêmes blocs dans un même écran. Aligné le 22/09/2026, sur le retour
+de Thomas : « ça semble varié d'un bloc à un autre, autant dans le titre, la
+bordure, la couleur du texte ».
+
+**Un bloc qui se replie prend l'accordéon, un bloc fixe prend la carte, et rien
+ne doit les distinguer à l'œil.**
