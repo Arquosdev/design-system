@@ -43,6 +43,12 @@ porte un chevron à droite ; ses sous-rubriques s'alignent en retrait, rattaché
 par un filet. Un clic ouvre la rubrique ET déplie : une seule ligne, un seul
 geste à apprendre. Le chevron seul replie, sans rouvrir la rubrique.
 
+**Fermé il pointe vers le bas, ouvert vers le haut.** Un chevron posé à DROITE
+d'une ligne se lit comme celui d'un menu déroulant : bas pour « ça se déplie »,
+haut pour « ça se replie ». À ne pas confondre avec le chevron de GAUCHE d'un
+titre de section, qui ouvre une branche d'arborescence et va donc de la droite
+vers le bas.
+
 À ne pas confondre avec `titre` + `repliable`, qui coiffe une LISTE entière d'un
 intitulé en capitales. Celui-là est un titre de section : au milieu d'entrées
 écrites en minuscules, il se lit comme une rupture — c'est ce qu'a montré le
