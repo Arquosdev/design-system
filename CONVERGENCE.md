@@ -152,6 +152,7 @@ jusqu'ici :
 | **Onze rôles d'objet** — `equipement`, `releve`, `immeuble`, `client`, `contact`, `utilisateur`, `carte`, `conversation`, `copier`, `classeur`, `archiver` | L'app importait Phosphor dans dix-neuf écrans, avec quatre dessins différents pour « équipement » |
 | **`deconnexion`** | Le profil dessinait `SignOut` à la main ; replié sur `fermer`, il disait « fermer » au lieu de « sortir » |
 | Le manque d'un **registre danger doux** en bouton | Écrit dans la fiche `Button` plutôt que contourné par un rouge clair en dur dans l'app |
+| Le manque de la **rubrique qui ne se replie pas** | Écrit dans la fiche `Accordion`, sa soeur. myArquos en portait trois copies, et deux recopiaient le retrait de la carte à 15 là où elle pose 16 |
 
 **Ce qui reste dans l'app, et qui a le droit d'y rester** : les enveloppes de
 compatibilité (`components/Button.tsx` et consorts, qui traduisent l'API

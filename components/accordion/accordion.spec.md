@@ -115,3 +115,29 @@ cède la place à une flèche. Le web n'a pas ce cas — il a la place.
 **Ouverte, la section se signale par sa bordure `primary`**, pas par une ombre.
 Les sept copies en posaient une de 12 de flou ; sur une page qui empile six
 sections, cela faisait un escalier de gris.
+
+## Ce qui manque à côté : la rubrique qui NE se replie PAS
+
+**Mesuré le 22/09/2026, sur myArquos.** L'`Accordion` couvre la section qui se
+déplie. Les FICHES, elles, emploient une rubrique qui ne se replie jamais —
+une carte, un titre gris en `subhead`, un filet qui va d'un bord à l'autre,
+puis le corps. Elle n'existe pas ici, et myArquos en portait donc **trois
+copies** : la fiche Relevé, la fiche Équipement et le bloc des données
+techniques, chacune avec sa propre paire de styles.
+
+**Ce n'est pas le même composant avec `ouvert` figé à vrai.** Une rubrique qui
+ne se replie pas n'a ni chevron, ni cible tactile sur son en-tête, ni état
+d'ouverture à porter — son en-tête est un titre, pas un bouton, et l'annoncer
+comme tel à un lecteur d'écran serait faux. Ce qu'elles partagent est leur
+CHROME : la carte, la cote du titre, le filet pleine largeur.
+
+**Ce que la duplication a coûté, et c'est ce qui rend la lacune chiffrable.**
+Deux des trois copies annulaient le retrait de la carte par
+`marginHorizontal: -15` en commentant « cancel the Card's 15 px padding ».
+La carte pose `spacing.base`, qui vaut **16** : le filet s'arrêtait à un point
+de chaque bord, sur toutes les rubriques de deux fiches, depuis toujours. Une
+cote recopiée dans un calcul d'appelant ne vieillit pas seulement — elle peut
+n'avoir jamais été juste, et aucun garde des deux dépôts ne sait voir ça.
+
+En attendant, myArquos porte `components/SectionCard.tsx`, qui lit le retrait
+du même jeton que la carte applique.
