@@ -37,6 +37,7 @@ import {
   Plus,
   Ruler,
   ShieldCheck,
+  SignOut,
   Sliders,
   Sparkle,
   Stop,
@@ -116,6 +117,7 @@ const DESSINS: Record<IconRole, PhosphorIcon> = {
   copier: Copy,
   classeur: Folder,
   archiver: Archive,
+  deconnexion: SignOut,
 };
 
 export interface IconProps extends Omit<React.SVGProps<SVGSVGElement>, 'role' | 'ref'> {

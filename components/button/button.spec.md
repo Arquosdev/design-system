@@ -70,6 +70,19 @@ import { Button } from '@arquos/design-system/web';
 - Cible tactile d'au moins 36px en hauteur (`default`).
 - Un bouton sans texte visible doit recevoir un `aria-label`.
 
+## Ce qui manque : un registre DANGER DOUX
+
+Trouvé le 22/09/2026 sur « Se déconnecter » de myArquos. `destructive` est un
+rouge PLEIN, et sa fiche dit ce qu'il annonce : l'irréversible. Se déconnecter
+ne l'est pas — on se reconnecte — et l'app posait d'ailleurs un rouge CLAIR,
+fond `dangerBg` et encre `onDangerBg`, exactement la paire que `Badge` emploie
+pour son `destructive`.
+
+**Ce registre n'existe pas en bouton**, et il manque pour toute action qui sort,
+retire ou annule sans détruire. En attendant, ces boutons prennent `outline` :
+le mot dit l'action, et le bouton reste de second rang. Écrire un rouge clair à
+la main serait une valeur de design en dur.
+
 ## Mobile
 
 Mêmes noms de variantes, mêmes teintes. **Trois divergences, toutes tenues par

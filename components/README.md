@@ -48,7 +48,7 @@ Elle porte l'ascenseur : son vocabulaire, ses états, ses règles. shadcn n'a ri
 | Composant | Rôle | Plateformes | Statut |
 | --- | --- | --- | --- |
 | [DataTable](data-table/data-table.spec.md) | Présenter des mesures en lignes et colonnes, quand la comparaison colonne par colonne est le sujet. | 🖥️ | beta |
-| [FieldRow](field-row/field-row.spec.md) | Afficher un champ en lecture, et le passer en saisie d'un clic sans quitter la page. | 🖥️ | beta |
+| [FieldRow](field-row/field-row.spec.md) | Afficher un champ en lecture, et le passer en saisie d'un clic sans quitter la page. | 🖥️ 📱 | beta |
 | [Gauge](gauge/gauge.spec.md) | Montrer une proportion d'un coup d'œil, avec son chiffre écrit à côté. | 🖥️ | beta |
 | [NavList](nav-list/nav-list.spec.md) | Lister les rubriques d'un écran, avec ce que chacune contient, et dire laquelle est ouverte. | 🖥️ | beta |
 | [PhotoTile](photo-tile/photo-tile.spec.md) | Montrer une photo attendue — prise ou non — avec ce qu'elle est censée montrer. | 🖥️ | beta |

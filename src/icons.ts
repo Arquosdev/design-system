@@ -141,6 +141,15 @@ export const icones = {
   copier: 'Copy',
   classeur: 'Folder',
   archiver: 'Archive',
+
+  /*
+    Sortir de son compte. Ajouté le 22/09/2026 : le profil de myArquos
+    importait `SignOut` de Phosphor directement, et la refonte l'avait replié
+    sur `fermer` — une croix. Or une croix FERME ce qu'on regarde ; elle ne
+    sort pas d'un compte. C'est la faute que le rôle `settings` a corrigée en
+    son temps : un glyphe qui va n'est pas un rôle qui dit.
+  */
+  deconnexion: 'SignOut',
 } as const;
 
 export type IconSizeToken = keyof typeof iconSize;

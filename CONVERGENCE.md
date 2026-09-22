@@ -9,12 +9,14 @@ n'existaient pas.
 
 | | Web | Mobile |
 | --- | --- | --- |
-| Composants dans ce dépôt | 32 | **12** depuis la 2.25.0 (branche `refonte-mobile`, 22/09/2026) |
+| Composants dans ce dépôt | 32 | **13** depuis la 2.25.0 (branche `refonte-mobile`, 22/09/2026) |
 | Composants dans l'app | — | 51, chez elle — que la branche `refonte` de myArquos remplace écran par écran |
 | Tokens | depuis ce dépôt | depuis ce dépôt |
 
-Le mobile reçoit les **tokens**, et rien d'autre. Ce n'est pas un oubli : le web
-avait l'urgence, et construire deux fois coûte cher. Mais il fallait l'écrire.
+Le mobile n'a longtemps reçu que les **tokens**. Ce n'était pas un oubli : le web
+avait l'urgence, et construire deux fois coûte cher — mais il fallait l'écrire.
+Depuis la 2.25.0, il reçoit aussi treize composants, et la liste grandit au
+rythme des écrans qui en ont besoin.
 
 ## Où l'on va
 
@@ -55,7 +57,7 @@ de plateforme.
 components/field-row/
   field-row.logic.ts   ← « Non renseigné », les statuts, menuDeChoix()
   field-row.web.tsx    ← les classes Tailwind
-  field-row.native.tsx ← les styles React Native (à venir)
+  field-row.native.tsx ← les styles React Native
 ```
 
 Ce qui se gagne : `menuDeChoix()` était déjà une fonction pure, enfermée dans un
@@ -122,11 +124,11 @@ ment au moment où l'on en a besoin.
 - **Le mobile épingle la v0.1.0** — vingt versions en arrière, mais l'écart est
   purement additif : rien n'a changé de valeur, rien n'a été retiré. La montée
   est donc sans risque le jour où on la fera.
-- **Douze composants `.native.tsx` existent depuis la 2.25.0**, servis par
+- **Treize composants `.native.tsx` existent depuis la 2.25.0**, servis par
   `@arquos/design-system/native` : `Text` (mobile seulement — le web n'a pas
   besoin d'envelopper son texte), `Icon`, `Button`, `IconButton`, `Badge`,
   `Card`, `SegmentedTabs`, `Input`, `Label`, `EmptyState`, `Skeleton`,
-  `Banner`. Ils sont nés pour la refonte du front de myArquos, demandée par
+  `Banner`, `FieldRow`. Ils sont nés pour la refonte du front de myArquos, demandée par
   Louis le 22/09/2026, **sur une branche indépendante de `main` des deux
   dépôts** : la stratégie « la base d'abord, la bascule ensuite » tient pour la
   production, et cette branche est justement la bascule qui se prépare à côté.
@@ -134,3 +136,25 @@ ment au moment où l'on en a besoin.
 - **Les survols n'ont pas d'équivalent tactile.** Les paires sémantiques n'ont
   pas de « cran au-dessus » comme les rampes brutes en avaient ; le web s'en sort
   par la luminosité, le mobile devra trouver autre chose.
+
+## Ce que la refonte de myArquos a fait REMONTER ici
+
+Louis, le 22/09/2026 : « pense à bien actualiser le design system avec ce que tu
+fais évoluer sur myArquos. » C'est la règle du dépôt — « si le token ou le
+composant manque : ne pas l'inventer dans l'app, l'ajouter ici » — et la
+refonte du front mobile la met à l'épreuve écran par écran. Ce qui est monté
+jusqu'ici :
+
+| Ce qui est monté | Pourquoi ça ne pouvait pas rester dans l'app |
+| --- | --- |
+| Les treize implémentations `.native.tsx` | Le web les avait déjà sous ces noms ; deux bibliothèques qui divergent ne sont pas un design system |
+| `colors.inactiveBg` / `onInactiveBg`, `controlHeight` | Des jetons, pas des valeurs d'écran |
+| **Onze rôles d'objet** — `equipement`, `releve`, `immeuble`, `client`, `contact`, `utilisateur`, `carte`, `conversation`, `copier`, `classeur`, `archiver` | L'app importait Phosphor dans dix-neuf écrans, avec quatre dessins différents pour « équipement » |
+| **`deconnexion`** | Le profil dessinait `SignOut` à la main ; replié sur `fermer`, il disait « fermer » au lieu de « sortir » |
+| Le manque d'un **registre danger doux** en bouton | Écrit dans la fiche `Button` plutôt que contourné par un rouge clair en dur dans l'app |
+
+**Ce qui reste dans l'app, et qui a le droit d'y rester** : les enveloppes de
+compatibilité (`components/Button.tsx` et consorts, qui traduisent l'API
+historique vers celle d'ici et disparaîtront), la plomberie hors design —
+cache, position, synchronisation — et les squelettes d'écran, qui épousent une
+mise en page qui n'appartient pas au design system.

@@ -54,3 +54,13 @@ export {
 } from './components/empty-state/empty-state.native';
 export { Skeleton, type SkeletonProps } from './components/skeleton/skeleton.native';
 export { Banner, type BannerProps, type BannerTon } from './components/banner/banner.native';
+export { FieldRow, type FieldRowProps } from './components/field-row/field-row.native';
+/* La logique de FieldRow est aussi servie par le point d'entrée racine — même
+   source, deux portes. */
+export {
+  VIDE,
+  type FieldKind,
+  type FieldOption,
+  type FieldSauvegarde,
+  type FieldStatut,
+} from './components/field-row/field-row.logic';

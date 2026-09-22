@@ -357,7 +357,8 @@
         "formulaire"
       ],
       "plateformes": [
-        "web"
+        "web",
+        "mobile"
       ],
       "remplace": {
         "web": [],
@@ -367,6 +368,7 @@
       "fiche": "components/field-row/field-row.spec.md",
       "fichiers": {
         "web": "components/field-row/field-row.web.tsx",
+        "mobile": "components/field-row/field-row.native.tsx",
         "logique": "components/field-row/field-row.logic.ts"
       }
     },

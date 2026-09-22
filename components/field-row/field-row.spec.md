@@ -4,13 +4,14 @@ statut: beta
 couche: metier
 role: Afficher un champ en lecture, et le passer en saisie d'un clic sans quitter la page.
 mots_cles: [champ, ligne, libelle, valeur, edition, inline, saisie, formulaire]
-plateformes: [web]
+plateformes: [web, mobile]
 remplace:
   web:
     - public/fiche/index.html — buildField(), markup recopié lignes 402/487/643/950
   mobile:
     - components/full-form/FormFieldRenderer.tsx
     - components/OptionRow.tsx
+    - app/profile.tsx — le couple libellé / valeur sur plaque grise, hérité de Bubble
 ---
 
 # FieldRow
@@ -90,3 +91,25 @@ de la fiche : c'est lui qui la rend modifiable sans formulaire séparé.
 - La valeur cliquable porte `role="button"` et `tabIndex=0` ; Entrée et Espace ouvrent la saisie.
 - Chaque éditeur reçoit un `aria-label` repris du libellé.
 - Les deux pictos portent en `aria-label` ce qu'ils ouvrent, jamais « voir » : la photo dit **où** la valeur a été lue, le schéma **comment** la mesure se prend.
+
+## Mobile
+
+**C'est lui qui remplace la plaque grise de myArquos**, où chaque valeur d'une
+fiche s'affichait sur un aplat `bgMuted` sous son libellé — le motif de Bubble.
+Louis, le 22/09/2026, en le voyant sur le profil : « ce format de présentation
+des données avec label et valeur en dessous en fond gris, on n'a pas ça dans le
+nouveau design, c'était l'ancien. »
+
+Deux divergences, et la première est structurelle :
+
+- **la colonne du libellé prend 40 % de la largeur, bornée à 150**, là où le web
+  la fixe à 190 px. Sur un écran de 393 points, 190 ne laisserait pas de quoi
+  lire une adresse. La valeur passe à la ligne dans sa colonne plutôt que de
+  pousser le libellé ;
+- **l'édition s'ouvre au TOUCHER, sans survol pour l'annoncer.** Le
+  soulignement pointillé porte donc seul le signal « ceci se corrige », ce qui
+  lui donne plus de poids qu'en web.
+
+`multi` n'a pas d'éditeur natif : la valeur se lit, la correction se fait
+ailleurs. Une prop `derniere` retire le filet du bas — React Native n'a pas de
+`last:`.
