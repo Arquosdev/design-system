@@ -7,6 +7,36 @@ et on applique tout d'un coup quand il est solide.
 Une bascule groupée se fait à l'aveugle si personne n'a noté, au fil de l'eau, ce
 qu'elle coûtera. C'est ce que ce fichier note.
 
+## 2.25.0 — les douze premières implémentations natives, et le point d'entrée `native`
+
+**Additif, rien ne casse.** Un point d'entrée `@arquos/design-system/native`
+sert `Text`, `Icon`, `Button`, `IconButton`, `Badge`, `Card` (et ses six
+parties), `SegmentedTabs`, `Input`, `Label`, `EmptyState` / `EmptyStateErreur`,
+`Skeleton` et `Banner` en React Native, **aux mêmes noms que le web**. Chaque
+fiche dit ce qui diverge sur mobile, dans une section « Mobile ».
+
+Deux tokens arrivent avec : `colors.inactiveBg` / `colors.onInactiveBg` (la
+plaque grise d'un contrôle inactif, 5,99 pour 1) et `controlHeight` (30 / 36 /
+44). Ils existaient sur la branche `liste-et-proportion` et non sur `main` ;
+ils sont repris tels quels pour que la fusion soit sans conflit.
+
+**Ce que myArquos aura à reprendre**, compté le 22/09/2026 sur `main` du dépôt
+mobile, et que la branche `refonte` reprend écran par écran :
+
+| À reprendre | Compté | Vers quoi |
+| --- | --- | --- |
+| Écrans qui écrivent `palette.xxx` | **40 sur 47** | `colors.*`, la règle 4 |
+| `fontSize` écrits à la main | **432**, dix tailles (16, 14, 12, 13, 15, 18, 11, 20, 22, 17) | `Text variant=…`, huit préréglages |
+| `StatusPill`, `Tag`, `OpportunityTypePill` | 3 composants | `Badge` |
+| `Button` (`label`, `primary`), `Card` (avec ombre), `SegmentedTabs` (bleu plein) | 3 composants | leurs homonymes natifs |
+| `AppText` | 39 fichiers | `Text` |
+
+**Les fichiers `.native.tsx` ne sont pas vérifiés par le `tsc` de ce dépôt**,
+qui n'a pas `react-native` : `tsconfig.json` les exclut, et c'est le `tsc` de
+l'app qui les vérifie en suivant le lien de fichier (`preserveSymlinks`).
+Le jour où `react-native` entre en dépendance de développement, l'exclusion
+tombe.
+
 ## 2.24.0 — le site vitrine a son propre espace
 
 `colors.night` et les quatre jetons de la 2.23.0 (`textOnNight`, `textOnNightMuted`, `textOnNightSubtle`, `deviceFrame`) quittent `colors` pour `site.color` (`src/site.ts`). En CSS, `--arq-color-night` devient `--arq-site-color-night`, et les autres `--arq-site-color-*`. Le site arquos.eu est le seul consommateur ; l'application n'a rien à changer.

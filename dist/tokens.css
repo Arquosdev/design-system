@@ -91,6 +91,8 @@
   --arq-color-text-muted: #5D6D79;
   --arq-color-text-subtle: #8094A3;
   --arq-color-text-on-dark: #FFFFFF;
+  --arq-color-inactive-bg: #EAEEF1;
+  --arq-color-on-inactive-bg: #4D5B66;
   --arq-color-black: #000000;
 
   /* Site vitrine arquos.eu — pas l'application (voir src/site.ts) */

@@ -4,7 +4,7 @@ statut: stable
 couche: generique
 role: Recueillir une valeur courte tapée au clavier, dans un formulaire.
 mots_cles: [champ, saisie, input, texte, nombre, formulaire, taper]
-plateformes: [web]
+plateformes: [web, mobile]
 remplace:
   web:
     - src/app/fiche/sections/completer.tsx — trois <input> écrits sur place
@@ -70,3 +70,11 @@ Toutes celles de `<input>`, rien n'est intercepté.
 
 - **Intitulé associé obligatoire** : `Label htmlFor`, ou `aria-label`.
 - `aria-invalid` va avec `aria-describedby` pointant le message.
+
+## Mobile
+
+Hauteur **44** (`controlHeight.lg`, celle du `Button` natif) et corps **16**
+(`body`) : on tape dehors, et c'est le texte qu'on relit le moins bien.
+`invalid` est le pendant d'`aria-invalid`. Au focus, la bordure passe à
+`primary` et s'épaissit d'un point, le retrait reculant d'autant pour que le
+texte ne saute pas.

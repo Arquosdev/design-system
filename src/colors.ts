@@ -168,6 +168,16 @@ export const colors = {
    */
   textSubtle: palette.grey[400],
   textOnDark: palette.white,
+  /*
+    L'état INACTIF d'un contrôle : la plaque grise d'un bouton dont le geste est
+    impossible ici, quelle que soit sa variante. Une paire, comme les teintes
+    d'état : 5,99 pour 1, mesuré par `check-contraste.mjs`. Repris à l'identique
+    de la branche `liste-et-proportion`, où la paire est née le 01/09/2026 avec
+    la prop `inactive` de `Button` — le natif en a besoin le même jour que le
+    web, et deux gris qui divergeraient se verraient d'un écran à l'autre.
+  */
+  inactiveBg: palette.grey[100],
+  onInactiveBg: palette.grey[600], // 5,99 sur inactiveBg
   black: palette.black,
 } as const;
 

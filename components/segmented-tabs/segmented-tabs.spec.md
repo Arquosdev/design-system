@@ -4,7 +4,7 @@ statut: beta
 couche: generique
 role: Basculer entre deux ou trois vues d'un même écran, toutes également importantes.
 mots_cles: [onglets, segments, bascule, tabs, vues, selecteur]
-plateformes: [web]
+plateformes: [web, mobile]
 remplace:
   web: [public/fiche/index.html — bascule Fiche / Composants du rail]
   mobile: [components/SegmentedTabs.tsx]
@@ -86,3 +86,10 @@ import { SegmentedTabs } from '@arquos/design-system/web';
   segment : c'est ce qui fait annoncer « onglet 1 sur 2, sélectionné ».
 - Les flèches gauche et droite déplacent la sélection, comme l'attend un lecteur
   d'écran sur un groupe d'onglets.
+
+## Mobile
+
+Mêmes props (`segments`, `valeur`, `onChanger`, `ariaLabel` → `accessibilityLabel`)
+et même dessin : piste `bgMuted`, actif en blanc détaché par `shadowNative.card`.
+Le libellé rétrécit avant de se couper (`adjustsFontSizeToFit`, 85 % au plus).
+Remplace le sélecteur bleu plein de myArquos.

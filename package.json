@@ -8,6 +8,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./web": "./web.ts",
+    "./native": "./native.ts",
     "./tokens.css": "./dist/tokens.css",
     "./tokens.tailwind.css": "./dist/tokens.tailwind.css",
     "./tokens.json": "./dist/tokens.json",
@@ -19,6 +20,7 @@
     "dist",
     "components",
     "web.ts",
+    "native.ts",
     "README.md",
     "CLAUDE.md"
   ],

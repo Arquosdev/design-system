@@ -4,7 +4,7 @@ statut: stable
 couche: generique
 role: Dire pourquoi une zone est vide, et ce qu'on peut y faire.
 mots_cles: [vide, empty, aucun, erreur, hors ligne, reessayer, rien]
-plateformes: [web]
+plateformes: [web, mobile]
 remplace:
   web: [src/app/fiche/sections/documents.tsx — messages de liste vide écrits sur place]
   mobile: [components/EmptyState.tsx]
@@ -83,3 +83,9 @@ Aucun état propre. C'est lui qui **est** un état.
   dans le plan du document, où il ferait un chapitre fantôme.
 - Si l'état vide remplace une zone qui chargeait, retirer `aria-busy` de cette
   zone en même temps — sinon un lecteur d'écran continue d'annoncer une attente.
+
+## Mobile
+
+Identique, jusqu'au wording partagé par `empty-state.logic.ts`.
+`natureDeLEchec` ne trouve pas `navigator.onLine` en React Native et retombe
+sur le message de l'erreur, ce que faisait déjà `lib/errors.ts` de myArquos.

@@ -4,7 +4,7 @@ statut: stable
 couche: generique
 role: Poser une étiquette courte qui qualifie l'élément à côté duquel elle se trouve.
 mots_cles: [badge, pastille, etiquette, statut, tag, echeance, compteur]
-plateformes: [web]
+plateformes: [web, mobile]
 remplace:
   web:
     - public/fiche/index.html — badge(sev, size), pastilles recopiées inline
@@ -74,3 +74,9 @@ focus. S'il en faut un, c'est que ce devait être un bouton.
 
 - Le badge est du texte dans un `<span>` : il est lu tel quel, sans `role`.
 - Le contraste est vérifié sur le fond blanc de la fiche.
+
+## Mobile
+
+Identique : huit registres, mêmes paires. `children` est une chaîne, sur une
+ligne. Remplace `StatusPill`, `Tag` et `OpportunityTypePill` de myArquos, qui
+composaient leurs couleurs depuis la palette brute.

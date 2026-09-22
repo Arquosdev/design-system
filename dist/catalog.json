@@ -83,7 +83,8 @@
         "compteur"
       ],
       "plateformes": [
-        "web"
+        "web",
+        "mobile"
       ],
       "remplace": {
         "web": [],
@@ -92,7 +93,8 @@
       "dossier": "components/badge",
       "fiche": "components/badge/badge.spec.md",
       "fichiers": {
-        "web": "components/badge/badge.web.tsx"
+        "web": "components/badge/badge.web.tsx",
+        "mobile": "components/badge/badge.native.tsx"
       }
     },
     {
@@ -110,7 +112,8 @@
         "statut"
       ],
       "plateformes": [
-        "web"
+        "web",
+        "mobile"
       ],
       "remplace": {
         "web": [],
@@ -119,7 +122,8 @@
       "dossier": "components/banner",
       "fiche": "components/banner/banner.spec.md",
       "fichiers": {
-        "web": "components/banner/banner.web.tsx"
+        "web": "components/banner/banner.web.tsx",
+        "mobile": "components/banner/banner.native.tsx"
       }
     },
     {
@@ -136,7 +140,8 @@
         "annuler"
       ],
       "plateformes": [
-        "web"
+        "web",
+        "mobile"
       ],
       "remplace": {
         "web": [
@@ -147,7 +152,8 @@
       "dossier": "components/button",
       "fiche": "components/button/button.spec.md",
       "fichiers": {
-        "web": "components/button/button.web.tsx"
+        "web": "components/button/button.web.tsx",
+        "mobile": "components/button/button.native.tsx"
       }
     },
     {
@@ -164,7 +170,8 @@
         "panneau"
       ],
       "plateformes": [
-        "web"
+        "web",
+        "mobile"
       ],
       "remplace": {
         "web": [
@@ -177,7 +184,8 @@
       "dossier": "components/card",
       "fiche": "components/card/card.spec.md",
       "fichiers": {
-        "web": "components/card/card.web.tsx"
+        "web": "components/card/card.web.tsx",
+        "mobile": "components/card/card.native.tsx"
       }
     },
     {
@@ -314,7 +322,8 @@
         "rien"
       ],
       "plateformes": [
-        "web"
+        "web",
+        "mobile"
       ],
       "remplace": {
         "web": [
@@ -328,6 +337,7 @@
       "fiche": "components/empty-state/empty-state.spec.md",
       "fichiers": {
         "web": "components/empty-state/empty-state.web.tsx",
+        "mobile": "components/empty-state/empty-state.native.tsx",
         "logique": "components/empty-state/empty-state.logic.ts"
       }
     },
@@ -437,7 +447,8 @@
         "glyphe"
       ],
       "plateformes": [
-        "web"
+        "web",
+        "mobile"
       ],
       "remplace": {
         "web": [],
@@ -446,7 +457,8 @@
       "dossier": "components/icon",
       "fiche": "components/icon/icon.spec.md",
       "fichiers": {
-        "web": "components/icon/icon.web.tsx"
+        "web": "components/icon/icon.web.tsx",
+        "mobile": "components/icon/icon.native.tsx"
       }
     },
     {
@@ -464,7 +476,8 @@
         "supprimer"
       ],
       "plateformes": [
-        "web"
+        "web",
+        "mobile"
       ],
       "remplace": {
         "web": [
@@ -475,7 +488,8 @@
       "dossier": "components/icon-button",
       "fiche": "components/icon-button/icon-button.spec.md",
       "fichiers": {
-        "web": "components/icon-button/icon-button.web.tsx"
+        "web": "components/icon-button/icon-button.web.tsx",
+        "mobile": "components/icon-button/icon-button.native.tsx"
       }
     },
     {
@@ -493,7 +507,8 @@
         "taper"
       ],
       "plateformes": [
-        "web"
+        "web",
+        "mobile"
       ],
       "remplace": {
         "web": [],
@@ -502,7 +517,8 @@
       "dossier": "components/input",
       "fiche": "components/input/input.spec.md",
       "fichiers": {
-        "web": "components/input/input.web.tsx"
+        "web": "components/input/input.web.tsx",
+        "mobile": "components/input/input.native.tsx"
       }
     },
     {
@@ -519,7 +535,8 @@
         "formulaire"
       ],
       "plateformes": [
-        "web"
+        "web",
+        "mobile"
       ],
       "remplace": {
         "web": [],
@@ -530,7 +547,8 @@
       "dossier": "components/label",
       "fiche": "components/label/label.spec.md",
       "fichiers": {
-        "web": "components/label/label.web.tsx"
+        "web": "components/label/label.web.tsx",
+        "mobile": "components/label/label.native.tsx"
       }
     },
     {
@@ -689,7 +707,8 @@
         "selecteur"
       ],
       "plateformes": [
-        "web"
+        "web",
+        "mobile"
       ],
       "remplace": {
         "web": [
@@ -702,7 +721,8 @@
       "dossier": "components/segmented-tabs",
       "fiche": "components/segmented-tabs/segmented-tabs.spec.md",
       "fichiers": {
-        "web": "components/segmented-tabs/segmented-tabs.web.tsx"
+        "web": "components/segmented-tabs/segmented-tabs.web.tsx",
+        "mobile": "components/segmented-tabs/segmented-tabs.native.tsx"
       }
     },
     {
@@ -777,7 +797,8 @@
         "placeholder"
       ],
       "plateformes": [
-        "web"
+        "web",
+        "mobile"
       ],
       "remplace": {
         "web": [],
@@ -788,7 +809,8 @@
       "dossier": "components/skeleton",
       "fiche": "components/skeleton/skeleton.spec.md",
       "fichiers": {
-        "web": "components/skeleton/skeleton.web.tsx"
+        "web": "components/skeleton/skeleton.web.tsx",
+        "mobile": "components/skeleton/skeleton.native.tsx"
       }
     },
     {
@@ -849,6 +871,36 @@
       "fiche": "components/switch/switch.spec.md",
       "fichiers": {
         "web": "components/switch/switch.web.tsx"
+      }
+    },
+    {
+      "name": "Text",
+      "statut": "beta",
+      "couche": "generique",
+      "role": "Écrire du texte avec un préréglage typographique et un ton de couleur, sans jamais recomposer une taille à la main.",
+      "mots_cles": [
+        "texte",
+        "text",
+        "typographie",
+        "police",
+        "dm sans",
+        "libellé",
+        "paragraphe",
+        "titre"
+      ],
+      "plateformes": [
+        "mobile"
+      ],
+      "remplace": {
+        "web": [],
+        "mobile": [
+          "components/AppText.tsx"
+        ]
+      },
+      "dossier": "components/text",
+      "fiche": "components/text/text.spec.md",
+      "fichiers": {
+        "mobile": "components/text/text.native.tsx"
       }
     },
     {

@@ -4,7 +4,7 @@ statut: stable
 couche: generique
 role: Informer d'une condition qui dure, en haut d'une zone, sans interrompre.
 mots_cles: [bandeau, banner, hors ligne, alerte, information, permanent, statut]
-plateformes: [web]
+plateformes: [web, mobile]
 remplace:
   web:
     - src/app/fiche/sections/bandeau-releve.tsx
@@ -69,3 +69,9 @@ pas lui.
 
 - `role="status"` : annoncé poliment, sans couper ce que le lecteur d'écran est en train de dire.
 - Le ton passe par la couleur **et par les mots**.
+
+## Mobile
+
+Identique : trois tons, une icône facultative, une action. Le bandeau annonce
+son changement en `accessibilityLiveRegion="polite"`, le pendant de
+`role="status"`.

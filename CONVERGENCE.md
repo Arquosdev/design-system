@@ -9,8 +9,8 @@ n'existaient pas.
 
 | | Web | Mobile |
 | --- | --- | --- |
-| Composants dans ce dépôt | 27 | **0** |
-| Composants dans l'app | — | 51, chez elle |
+| Composants dans ce dépôt | 32 | **12** depuis la 2.25.0 (branche `refonte-mobile`, 22/09/2026) |
+| Composants dans l'app | — | 51, chez elle — que la branche `refonte` de myArquos remplace écran par écran |
 | Tokens | depuis ce dépôt | depuis ce dépôt |
 
 Le mobile reçoit les **tokens**, et rien d'autre. Ce n'est pas un oubli : le web
@@ -122,8 +122,15 @@ ment au moment où l'on en a besoin.
 - **Le mobile épingle la v0.1.0** — vingt versions en arrière, mais l'écart est
   purement additif : rien n'a changé de valeur, rien n'a été retiré. La montée
   est donc sans risque le jour où on la fera.
-- **Aucun composant `.native.tsx` n'existe encore.** Ce document dit où l'on va,
-  pas où l'on est.
+- **Douze composants `.native.tsx` existent depuis la 2.25.0**, servis par
+  `@arquos/design-system/native` : `Text` (mobile seulement — le web n'a pas
+  besoin d'envelopper son texte), `Icon`, `Button`, `IconButton`, `Badge`,
+  `Card`, `SegmentedTabs`, `Input`, `Label`, `EmptyState`, `Skeleton`,
+  `Banner`. Ils sont nés pour la refonte du front de myArquos, demandée par
+  Louis le 22/09/2026, **sur une branche indépendante de `main` des deux
+  dépôts** : la stratégie « la base d'abord, la bascule ensuite » tient pour la
+  production, et cette branche est justement la bascule qui se prépare à côté.
+  Les trente autres suivent quand un écran en a besoin, pas avant.
 - **Les survols n'ont pas d'équivalent tactile.** Les paires sémantiques n'ont
   pas de « cran au-dessus » comme les rampes brutes en avaient ; le web s'en sort
   par la luminosité, le mobile devra trouver autre chose.

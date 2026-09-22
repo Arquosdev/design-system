@@ -32,5 +32,8 @@
     "stories",
     "web.ts",
     ".storybook"
+  ],
+  "exclude": [
+    "**/*.native.tsx"
   ]
 }

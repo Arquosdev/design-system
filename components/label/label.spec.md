@@ -4,7 +4,7 @@ statut: stable
 couche: generique
 role: Nommer un champ, et agrandir sa cible de clic à tout l'intitulé.
 mots_cles: [label, intitule, libelle, etiquette, champ, formulaire]
-plateformes: [web]
+plateformes: [web, mobile]
 remplace:
   web: []
   mobile: [components/FormField.tsx]
@@ -56,3 +56,9 @@ C'est **le seul rôle de ce composant** : associer. Un texte posé à côté d'u
 champ n'agrandit pas la cible de clic et n'est pas annoncé avec lui. Les deux
 formes valent — `htmlFor` pointant l'`id`, ou l'enveloppement — et il ne faut
 pas les cumuler.
+
+## Mobile
+
+Le même corps et la même graisse (`small`, `medium`). Pas de `htmlFor` : React
+Native ne lie pas un intitulé à son champ, c'est l'appelant qui pose
+`accessibilityLabel` sur le champ.

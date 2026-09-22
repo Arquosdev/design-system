@@ -4,7 +4,7 @@ statut: stable
 couche: generique
 role: Poser une icône du vocabulaire Arquos, désignée par son rôle et non par son dessin.
 mots_cles: [icone, icon, phosphor, pictogramme, symbole, svg, glyphe]
-plateformes: [web]
+plateformes: [web, mobile]
 remplace:
   web:
     - src/app/fiche/sections/rail.tsx — IconeLoupe, tracé Phosphor recopié à la main
@@ -87,3 +87,11 @@ Côté mobile, `Icon` n'existe pas encore : lire le nom du dessin dans `icones` 
 la taille dans `iconSize`.
 
 Le vocabulaire complet est dans la vitrine : **Fondations → Icônes**.
+
+## Mobile
+
+Même vocabulaire, même tableau de dessins (`phosphor-react-native`, les 37
+vérifiés un à un le 22/09/2026). **Une prop de plus, `color`** : React Native
+n'a pas d'héritage de couleur entre une vue et son icône, donc l'appelant la
+donne — `colors.text` par défaut. Sur le web elle reste héritée, et la prop
+n'existe pas.

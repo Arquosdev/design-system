@@ -4,7 +4,7 @@ statut: stable
 couche: generique
 role: Déclencher une action représentée par une icône seule, sans perdre son nom accessible.
 mots_cles: [bouton, icone, action, telecharger, editer, fermer, supprimer]
-plateformes: [web]
+plateformes: [web, mobile]
 remplace:
   web: [public/fiche/index.html — boutons carrés recopiés inline]
   mobile:
@@ -65,3 +65,9 @@ d'entretien » vaut mieux que « Télécharger », répété quinze fois dans un
   d'écran, le second pour l'infobulle au survol.
 - La cible fait au moins 30px ; sur une interface tactile, préférer `md`.
 - L'icône est `aria-hidden` : c'est le bouton qui porte le nom, pas le dessin.
+
+## Mobile
+
+`icon` prend un **rôle** et non un nœud (même raison que `Button` : c'est le
+bouton qui peint l'icône). `size` : `sm` **36**, `md` **44** — les crans du
+mobile. `label` reste obligatoire : il devient `accessibilityLabel`.

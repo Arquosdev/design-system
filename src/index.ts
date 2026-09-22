@@ -25,6 +25,7 @@ export { shadow, shadowNative, type ShadowToken } from './elevation';
 export { duration, easing, type DurationToken } from './motion';
 export { layers, type LayerToken } from './layers';
 export { borderWidth, type BorderWidthToken } from './border';
+export { controlHeight, type ControlHeightToken } from './control';
 export { largeur, type LargeurToken } from './sizes';
 
 // --- Logique métier partagée -------------------------------------------
@@ -76,6 +77,7 @@ import { shadow, shadowNative } from './elevation';
 import { duration, easing } from './motion';
 import { layers } from './layers';
 import { borderWidth } from './border';
+import { controlHeight } from './control';
 import { largeur } from './sizes';
 import { iconSize, iconWeight, icones } from './icons';
 
@@ -98,6 +100,7 @@ export const tokens = {
   easing,
   layers,
   borderWidth,
+  controlHeight,
   largeur,
   iconSize,
   iconWeight,

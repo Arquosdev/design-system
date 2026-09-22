@@ -4,7 +4,7 @@ statut: stable
 couche: generique
 role: Occuper la place de ce qui charge, pour que l'écran ne mente pas en paraissant vide.
 mots_cles: [squelette, skeleton, chargement, attente, pulse, placeholder]
-plateformes: [web]
+plateformes: [web, mobile]
 remplace:
   web:
     - src/app/fiche/sections/rail.tsx — SqueletteRail, et huit autres blocs écrits sur place
@@ -62,3 +62,9 @@ arrive. Il n'a pas d'état d'échec : c'est `EmptyState` qui le dit.
 - Le bloc porte `aria-hidden` : un lecteur d'écran n'a rien à annoncer d'une forme qui attend.
 - **C'est la zone qui charge qui doit porter `aria-busy="true"`**, pas le squelette.
 - La pulsation suit `prefers-reduced-motion` via l'utilitaire `animate-pulse`.
+
+## Mobile
+
+La taille se donne par `style` (`{ width, height }`) et non par des classes.
+La pulsation est une opacité, pas un dégradé qui glisse : celui-ci saccade sur
+un Android d'entrée de gamme.

@@ -4,7 +4,7 @@ statut: stable
 couche: generique
 role: Poser un groupe d'éléments dans une surface délimitée, avec un en-tête facultatif.
 mots_cles: [carte, surface, encart, groupe, bloc, panneau]
-plateformes: [web]
+plateformes: [web, mobile]
 remplace:
   web: [public/fiche/index.html — sections bordées recopiées inline]
   mobile: [components/Card.tsx]
@@ -89,3 +89,11 @@ bordure, la couleur du texte ».
 
 **Un bloc qui se replie prend l'accordéon, un bloc fixe prend la carte, et rien
 ne doit les distinguer à l'œil.**
+
+## Mobile
+
+Les sept parties, aux mêmes tokens. **Pas d'ombre par défaut**, et c'est un
+changement pour myArquos, dont la `Card` en posait une sur chaque ligne de
+liste ; une carte qui doit se détacher d'un fond blanc prend
+`shadowNative.card` par `style`. Pas de `onPress` : une carte cliquable est un
+composant dédié.

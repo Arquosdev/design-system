@@ -4,7 +4,7 @@ statut: stable
 couche: generique
 role: Déclencher une action. Le poids visuel dit l'importance de l'action, pas sa nature.
 mots_cles: [bouton, action, cta, valider, enregistrer, annuler]
-plateformes: [web]
+plateformes: [web, mobile]
 remplace:
   web: [public/fiche/index.html — boutons inline recopiés 13 fois]
   mobile:
@@ -69,3 +69,19 @@ import { Button } from '@arquos/design-system/web';
 - Rend un `<button type="button">` : ne soumet pas de formulaire par accident.
 - Cible tactile d'au moins 36px en hauteur (`default`).
 - Un bouton sans texte visible doit recevoir un `aria-label`.
+
+## Mobile
+
+Mêmes noms de variantes, mêmes teintes. **Trois divergences, toutes tenues par
+la cible tactile** :
+
+- `size` : `default` **44** (et non 36), `sm` 36 (et non 30), `icon` 44 de
+  côté. Pas de `lg`. Quarante-quatre points est le seuil sous lequel un pouce
+  ganté rate le bouton.
+- le libellé est en `body` (16) et non `small` (14) sur `default`.
+- `icon` prend un **rôle** (`IconRole`) et non un nœud : l'icône ne sait pas
+  hériter sa couleur, c'est le bouton qui la peint.
+
+`inactive` porte sa raison en `accessibilityHint` ; il n'y a pas d'infobulle au
+doigt, donc la raison s'écrit à côté du bouton, à l'écran. `children` est une
+chaîne : un bouton dit ce qu'il fait en mots.
