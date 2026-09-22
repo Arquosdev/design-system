@@ -34,7 +34,14 @@ export const CardHeader = React.forwardRef<HTMLDivElement, React.ComponentPropsW
     <div
       ref={ref}
       className={cn(
-        'flex items-baseline gap-md border-b border-border-soft bg-muted px-base py-md',
+        /* `bg-bg-subtle` et non `bg-muted` : l'ACCORDÉON pose déjà sa barre
+           dans cette teinte-là, et les deux composants encadrent les mêmes
+           blocs dans un même écran. Deux gris différents à quelques pixels
+           l'un de l'autre se lisent comme un défaut — c'est ce que Thomas a
+           relevé le 22/09/2026 : « ça semble varié d'un bloc à un autre ».
+           C'est le blanc cassé qui l'emporte parce que c'est lui que la fiche
+           emploie partout ailleurs, en-têtes de tableau compris. */
+        'flex items-baseline gap-md border-b border-border-soft bg-bg-subtle px-base py-md',
         className,
       )}
       {...props}

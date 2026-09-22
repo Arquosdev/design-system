@@ -293,3 +293,11 @@ chaque appelant le soin de la refaire.
 
 Le choix UNIQUE en ligne ne bougeait pas : il passe par `menuDeChoix`, qui
 traduisait déjà.
+
+## v2.31.0 — la carte et l'accordéon posent la même barre (22/09/2026)
+
+Additif. `CardHeader` passait `bg-muted` (#F6F7F9) là où le déclencheur
+d'`Accordion` pose `bg-bg-subtle` (#FCFDFE). Les deux encadrent les mêmes blocs
+dans un même écran, et deux gris à quelques pixels l'un de l'autre se lisent
+comme un défaut. La carte prend la teinte de l'accordéon — c'est elle que la
+fiche équipement emploie partout ailleurs, en-têtes de tableau compris.
