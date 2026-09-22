@@ -152,7 +152,16 @@ function EntreeDepliante({
   /* Replié sur une sous-rubrique courante, c'est l'entrée MÈRE qui porte la
      pastille : sinon le rail ne dirait plus où l'on est, et refermer
      reviendrait à se perdre. */
-    const portePastille = item.cle === courant || (!deplie && tientLeCourant);
+  /* UN ENFANT QUI PORTE LA CLÉ DE SA MÈRE FAIT DE CELLE-CI UN CONTENEUR.
+     La fiche équipement range ses sections de photos sous « Photos », et la
+     première s'appelle « Toutes » : c'est la rubrique de la mère, listée en
+     clair pour qu'on sache y revenir d'une section. Sans cette règle, les deux
+     lignes s'allumaient ensemble — deux pastilles empilées se lisent comme un
+     défaut. C'est l'enfant qui s'allume, parce que c'est lui qu'on a visé ;
+     la mère ne reprend la pastille que repliée, où l'enfant ne se voit plus. */
+  const enfantHomonyme = enfants.some((e) => e.cle === item.cle);
+  const portePastille =
+    (!enfantHomonyme && item.cle === courant) || (!deplie && tientLeCourant);
   return (
     <div className="flex flex-col gap-xxs">
       <Entree
