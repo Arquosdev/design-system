@@ -38,7 +38,7 @@ remplace:
 | `onChanger` | `(cle: string) => void`   | —      | Appelé au changement                     |
 | `ariaLabel` | `string`                  | —      | Ce que le groupe sépare, pour l'annoncer |
 
-`Segment` : `{ cle, label, compteur? }`. Le compteur suit le libellé, en retrait.
+`Segment` : `{ cle, label, compteur?, icone? }`. Le compteur suit le libellé, en retrait ; l'icône le précède.
 
 ## Exemples
 
@@ -87,9 +87,21 @@ import { SegmentedTabs } from '@arquos/design-system/web';
 - Les flèches gauche et droite déplacent la sélection, comme l'attend un lecteur
   d'écran sur un groupe d'onglets.
 
+## Une icône n'est pas un segment
+
+`icone` accompagne le libellé, elle ne le remplace pas. myArquos avait deux
+segments à ICÔNE SEULE sur sa carte — un ascenseur, un carnet — et rien ne
+disait lequel montrait quoi : ni en balayage, ni au lecteur d'écran. Le
+vocabulaire dit d'ailleurs la même chose de son côté : « ne jamais porter seule
+une information ».
+
 ## Mobile
 
 Mêmes props (`segments`, `valeur`, `onChanger`, `ariaLabel` → `accessibilityLabel`)
 et même dessin : piste `bgMuted`, actif en blanc détaché par `shadowNative.card`.
-Le libellé rétrécit avant de se couper (`adjustsFontSizeToFit`, 85 % au plus).
 Remplace le sélecteur bleu plein de myArquos.
+
+**Le libellé ne rétrécit pas, il se coupe.** `adjustsFontSizeToFit` a été retiré
+le 22/09/2026 : il réduisait bien en deçà des 85 % annoncés quand la piste était
+étroite — « Équipements » devenait illisible à côté de « Relevés ». Un libellé
+qui ne tient pas doit se voir, pour que la mise en page se corrige.

@@ -77,6 +77,17 @@ import { Text } from '@arquos/design-system/native';
 - Couleur : `colors.text`, `colors.textMuted`, `colors.textOnDark`,
   `colors.primary`, `colors.danger`, `colors.success`, `colors.onWarningBg`
 
+## Une taille imposée emporte son interligne
+
+Un appelant qui écrit `fontSize` dans son `style` sans donner de `lineHeight`
+reçoit un interligne recalculé **au rapport de son préréglage**. Sans cette
+règle, un titre de 32 px gardait l'interligne de `body` — 22,4 — et se faisait
+rogner par le haut : mesuré le 22/09/2026 sur les titres « Carte » et
+« Dépannage » de myArquos, dont la moitié supérieure des lettres manquait.
+
+C'est un filet pour la reprise, pas une invitation : la bonne façon d'écrire un
+titre reste `variant="display"`.
+
 ## États
 
 - **Texte long** : passe à la ligne, comme `Text` de React Native. Borner par

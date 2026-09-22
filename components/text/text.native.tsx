@@ -52,16 +52,36 @@ export const Text = React.forwardRef<RNText, TextProps>(function Text(
   const preset = typography[variant];
   const plat = StyleSheet.flatten(style) as TextStyle | undefined;
   const poids = plat?.fontWeight ?? preset.fontWeight;
+
+  /*
+    **Une taille imposée sans interligne emporte l'interligne avec elle.**
+
+    Sans ça, un appelant qui écrit `fontSize: 32` dans son `style` garde
+    l'interligne du préréglage — 22,4 pour `body` — et son texte se fait
+    ROGNER par le haut. Mesuré le 22/09/2026 sur les titres « Carte » et
+    « Dépannage » de myArquos, dont la moitié supérieure des lettres avait
+    disparu.
+
+    Le rapport du préréglage est conservé : c'est lui qui fait l'air entre les
+    lignes, et il ne dépend pas de la taille. Un appelant qui donne les deux
+    garde évidemment les siens.
+  */
+  const rapport = preset.lineHeight / preset.fontSize;
+  const interligne =
+    plat?.lineHeight ??
+    (plat?.fontSize ? Math.round(plat.fontSize * rapport) : preset.lineHeight);
+
   return (
     <RNText
       ref={ref}
       {...props}
       style={[
-        { fontSize: preset.fontSize, lineHeight: preset.lineHeight, color: TONS[tone] },
+        { fontSize: preset.fontSize, color: TONS[tone] },
         style,
         // Après `style`, exprès : c'est la famille qui porte la graisse, et un
         // `fontWeight` laissé en place ferait synthétiser un second gras.
-        { fontFamily: famille(poids), fontWeight: 'normal' },
+        // L'interligne aussi, puisqu'il se déduit de la taille finale.
+        { lineHeight: interligne, fontFamily: famille(poids), fontWeight: 'normal' },
       ]}
     />
   );

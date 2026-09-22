@@ -3,11 +3,15 @@
 import * as React from 'react';
 
 import { cn } from '../_lib/cn';
+import { Icon } from '../icon/icon.web';
+import type { IconRole } from '../../src/icons';
 
 export interface Segment {
   cle: string;
   label: string;
   compteur?: number | string;
+  /** Une icône du vocabulaire, AVANT le libellé. Elle ne le remplace jamais. */
+  icone?: IconRole;
 }
 
 export interface SegmentedTabsProps {
@@ -80,6 +84,9 @@ export function SegmentedTabs({
                 : 'font-medium text-text-muted',
             )}
           >
+            {segment.icone ? (
+              <Icon role={segment.icone} size="sm" weight="actif" />
+            ) : null}
             {/*
               Le libellé est doublé d'un fantôme en `semibold`, superposé dans
               la même cellule de grille. C'est lui qui donne sa largeur au
