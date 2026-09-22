@@ -120,6 +120,27 @@ export const icones = {
    *  calculer pour toi », jamais « voici une calculatrice ». */
   calculer: 'Calculator',
   assistanceIA: 'Sparkle',
+
+  /*
+    Les OBJETS du métier, ajoutés le 22/09/2026 pour myArquos : ses onglets et
+    ses dix-neuf états vides dessinaient l'appareil, le relevé, l'immeuble ou la
+    conversation en important Phosphor directement dans l'écran — quatre
+    dessins différents pour « équipement » selon la page. Un rôle par objet,
+    et le dessin est le même partout. L'app web nomme les mêmes objets
+    (`entity-icon.ts`) ; le jour où elle passe par ce vocabulaire, ce sont ces
+    rôles-là qu'elle prend.
+  */
+  equipement: 'Elevator',
+  releve: 'ClipboardText',
+  immeuble: 'Buildings',
+  client: 'Briefcase',
+  contact: 'User',
+  utilisateur: 'UserCircle',
+  carte: 'MapTrifold',
+  conversation: 'ChatCircleDots',
+  copier: 'Copy',
+  classeur: 'Folder',
+  archiver: 'Archive',
 } as const;
 
 export type IconSizeToken = keyof typeof iconSize;
