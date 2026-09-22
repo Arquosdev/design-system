@@ -196,7 +196,6 @@ const styles = StyleSheet.create({
   libelle: {
     width: '40%',
     maxWidth: 150,
-    paddingTop: spacing.xxs,
   },
   colonneValeur: {
     flex: 1,
