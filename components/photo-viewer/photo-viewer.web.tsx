@@ -21,12 +21,15 @@ export interface PhotoVue {
  * Une action posée sur la photo regardée.
  *
  * La visionneuse ne sait rien faire d'autre que montrer : télécharger, ouvrir
- * ailleurs, signaler — tout cela appartient à l'écran qui l'ouvre. Elle lui
- * prête donc un bouton, et lui passe la photo courante.
+ * ailleurs, signaler — tout cela appartient à l'écran qui l'ouvre. Il lui
+ * passe donc ses actions, et elle leur rend la photo courante.
  *
- * Un seul, à dessein : c'est une visionneuse, pas une barre d'outils. Le jour
- * où deux actions se présentent, c'est le menu qu'il faudra, pas un second
- * bouton posé à côté.
+ * **Trois au plus, en rangée.** La fiche écrivait d'abord « une seule, et au
+ * jour où il en faudra deux, ce sera un menu » ; elle en a demandé deux le
+ * 22/09/2026 — télécharger, ouvrir ailleurs — et le menu se révèle pire : il
+ * cache derrière un clic deux gestes qui n'en demandent qu'un, sur un écran
+ * qu'on a ouvert pour REGARDER. Deux picots parlent d'eux-mêmes. Au-delà de
+ * trois, la rangée couvrirait la photo, et c'est alors que le menu gagne.
  */
 export interface PhotoViewerAction {
   /**
@@ -49,8 +52,8 @@ export interface PhotoViewerProps {
   onIndex: (index: number) => void;
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  /** Absent = la visionneuse ne montre que la croix de fermeture. */
-  action?: PhotoViewerAction;
+  /** Vide ou absent = la visionneuse ne montre que la croix de fermeture. */
+  actions?: readonly PhotoViewerAction[];
 }
 
 /**
@@ -66,7 +69,7 @@ export function PhotoViewer({
   onIndex,
   open,
   onOpenChange,
-  action,
+  actions,
 }: PhotoViewerProps) {
   const nb = photos.length;
   const courante = photos[index];
@@ -206,8 +209,8 @@ export function PhotoViewer({
                   // recadrée peut perdre le chiffre qu'on est venu lire.
                   className="max-h-full max-w-[76vw] rounded-md object-contain"
                 />
-                {action && boite ? (
-                  <Bouton action={action} photo={courante} coin={boite} />
+                {actions?.length && boite ? (
+                  <Rangee actions={actions} photo={courante} coin={boite} />
                 ) : null}
               </div>
             ) : (
@@ -249,52 +252,65 @@ export function PhotoViewer({
 }
 
 /**
- * L'action, posée dans le coin de la photo.
+ * Les actions, posées dans le coin de la photo.
  *
- * Sur la photo et non dans l'en-tête : c'est l'objet qu'elle vise, et le lire
- * là évite de chercher le rapport entre un bouton lointain et ce qu'on
+ * Sur la photo et non dans l'en-tête : c'est l'objet qu'elles visent, et les
+ * lire là évite de chercher le rapport entre un bouton lointain et ce qu'on
  * regarde. En bas à droite, parce qu'une photo de relevé porte son sujet au
  * centre et ses mentions en haut.
  *
  * Un fond plein, pas le blanc translucide des flèches : celles-ci se détachent
- * du voile sombre, celui-ci se pose sur une photo dont on ne sait rien — du
+ * du voile sombre, ceux-ci se posent sur une photo dont on ne sait rien — du
  * ciel blanc comme une armoire noire.
  *
- * Elle ne ferme pas la visionneuse : c'est à l'appelant de décider si son
+ * La rangée est ancrée par son coin bas-droit, donc elle POUSSE vers la
+ * gauche : ajouter une action ne déplace pas celles qui étaient déjà là, et
+ * l'œil qui a appris où cliquer ne le réapprend pas.
+ *
+ * Elles ne ferment pas la visionneuse : c'est à l'appelant de décider si son
  * action l'emporte sur ce qu'on était en train de regarder.
  */
-function Bouton({
-  action,
+function Rangee({
+  actions,
   photo,
   coin,
 }: {
-  action: PhotoViewerAction;
+  actions: readonly PhotoViewerAction[];
   photo: PhotoVue;
   /** La boîte dessinée par la photo, dans le cadre — mesurée, pas déduite. */
   coin: Boite;
 }) {
   return (
-    <button
-      type="button"
-      onClick={() => action.onAction(photo)}
-      aria-label={action.libelle}
-      title={action.libelle}
-      // Le coin bas-droit de la photo, puis on rentre le bouton à l'intérieur
+    <div
+      // Le coin bas-droit de la photo, puis on rentre la rangée à l'intérieur
       // d'une marge — la translation garde l'espacement en token.
       style={{ left: coin.l + coin.w, top: coin.t + coin.h }}
       className={cn(
-        'absolute grid size-[40px] place-items-center',
+        'absolute flex gap-sm',
         '-translate-x-[calc(100%+var(--spacing-sm))] -translate-y-[calc(100%+var(--spacing-sm))]',
-        // Blanc et marine en dur, comme les flèches et la croix : la
-        // visionneuse est toujours sur voile sombre, elle ne suit pas le thème
-        // de la page. `bg-bg` aurait viré au sombre la nuit, et le bouton se
-        // serait perdu sur une photo d'armoire.
-        'rounded-full bg-white text-brand shadow-pop',
-        'outline-none hover:bg-white/85 focus-visible:ring-2 focus-visible:ring-white',
       )}
     >
-      <Icon role={action.icone} size="lg" />
-    </button>
+      {actions.map((action) => (
+        <button
+          key={action.libelle}
+          type="button"
+          onClick={() => action.onAction(photo)}
+          aria-label={action.libelle}
+          title={action.libelle}
+          className={cn(
+            'grid size-[40px] place-items-center',
+            // Blanc et marine en dur, comme les flèches et la croix : la
+            // visionneuse est toujours sur voile sombre, elle ne suit pas le
+            // thème de la page. `bg-bg` aurait viré au sombre la nuit, et le
+            // bouton se serait perdu sur une photo d'armoire.
+            'rounded-full bg-white text-brand shadow-pop',
+            'outline-none hover:bg-white/85 focus-visible:ring-2 focus-visible:ring-white',
+          )}
+        >
+          <Icon role={action.icone} size="lg" />
+        </button>
+      ))}
+    </div>
   );
 }
 
