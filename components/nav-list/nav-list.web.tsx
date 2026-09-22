@@ -166,7 +166,11 @@ function EntreeDepliante({
     <div className="flex flex-col gap-xxs">
       <Entree
         item={item}
-        courant={portePastille ? item.cle : courant}
+        /* `undefined` et non `courant` : cette ligne-ci ne se compare qu'à
+           elle-même, et lui repasser `courant` la rallumait dès que la clé
+           correspondait — ce qui est justement le cas d'une mère dont un enfant
+           porte sa clé. `portePastille` reste alors le seul juge. */
+        courant={portePastille ? item.cle : undefined}
         /*
           TOUTE LA LIGNE REPLIE, DÈS QU'ON Y EST DÉJÀ.
 
