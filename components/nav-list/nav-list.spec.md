@@ -60,6 +60,12 @@ celui qui clique : le chevron referme, même depuis une sous-rubrique. C'est
 alors l'entrée MÈRE qui porte la pastille — sinon le rail ne dirait plus où
 l'on est, et refermer reviendrait à se perdre.
 
+**Toute la ligne bascule dès qu'on est DANS le groupe** — sur la rubrique mère
+comme sur l'une de ses sections. Dehors, elle mène. Ce n'est pas la pastille qui
+en décide : elle dit où l'on est, pas ce que le clic doit faire. Les confondre
+avait supprimé le repli le jour où un enfant s'est mis à porter la clé de sa
+mère.
+
 Le chevron est un BOUTON à part, pas une zone cliquable dans le premier : il
 fait autre chose que la ligne, et la tabulation doit l'atteindre.
 

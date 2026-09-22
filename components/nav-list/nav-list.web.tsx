@@ -172,22 +172,36 @@ function EntreeDepliante({
            porte sa clé. `portePastille` reste alors le seul juge. */
         courant={portePastille ? item.cle : undefined}
         /*
-          TOUTE LA LIGNE REPLIE, DÈS QU'ON Y EST DÉJÀ.
+          TOUTE LA LIGNE REPLIE, DÈS QU'ON EST DANS LE GROUPE.
 
           Thomas, le 21/09/2026 : « j'aimerai aussi qu'on puisse replier ou
           ouvrir en cliquant sur toute la zone bleue ». Le chevron seul demandait
           de viser seize pixels pour un geste qu'on fait souvent.
 
-          La règle tient en une phrase : la ligne mène à sa rubrique tant qu'on
-          n'y est pas, et replie une fois qu'on y est. Pastille allumée, le clic
-          ne peut de toute façon plus rien ouvrir de neuf — on y est — donc il
-          n'enlève rien et donne la cible large.
+          La règle tient en une phrase : **la ligne mène à sa rubrique tant
+          qu'on n'y est pas, et bascule une fois qu'on y est.** Dedans, le clic
+          ne peut de toute façon rien ouvrir de neuf, donc il n'enlève rien et
+          donne la cible large.
+
+          Ce n'est PAS `portePastille` qui en décide, et c'est la correction du
+          22/09/2026 — « je dois pouvoir fermer la rubrique photo en cliquant
+          sur toute la zone de photos ». Depuis qu'un enfant porte la clé de sa
+          mère (« Toutes » sous « Photos »), la mère ne s'allume plus quand le
+          groupe est ouvert : la ligne ne refermait donc jamais. La pastille dit
+          où l'on est, pas ce que le clic doit faire ; les deux questions se
+          séparent ici.
+
+          « Dedans » comprend la clé de la mère elle-même : sur « Toutes », on
+          est bien dans le groupe.
         */
         onChoisir={(cle) => {
-          if (portePastille) {
+          const dedans = tientLeCourant || item.cle === courant;
+          if (dedans) {
             setOuvert(!deplie);
             return;
           }
+          /* Dehors, la ligne mène — même si le groupe était resté ouvert
+             derrière nous. La refermer alors surprendrait : on visait Photos. */
           setOuvert(true);
           onChoisir(cle);
         }}
