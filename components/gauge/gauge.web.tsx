@@ -18,9 +18,24 @@ export interface GaugeProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 
   centre?: React.ReactNode;
 }
 
+/*
+  `--color-warning` ET NON `--color-accent`, qui porte pourtant le même orange.
+
+  `accent` est réécrit par la couche de compatibilité shadcn : elle définit
+  `--accent` comme une surface de survol (#E1ECFA, un bleu très pâle) puis
+  `--color-accent: var(--accent)`, après la déclaration Arquos. La seconde
+  l'emporte, et l'arc du palier moyen se dessinait donc en bleu pâle sur une
+  piste grise — **invisible**. Retour client relayé par Thomas le 22/09/2026 :
+  « le rendu du disque est bizarre non ? ». Mesuré dans la vitrine : à 54 %,
+  aucun arc.
+
+  Le jeton `warning` porte exactement la même couleur, sous un nom que rien ne
+  dispute. C'est lui qu'il fallait dès le départ — d'autant que ce palier
+  s'appelle « warning ».
+*/
 const TONS = {
   success: 'var(--color-success)',
-  warning: 'var(--color-accent)',
+  warning: 'var(--color-warning)',
   danger: 'var(--color-danger)',
 } as const;
 

@@ -301,3 +301,20 @@ d'`Accordion` pose `bg-bg-subtle` (#FCFDFE). Les deux encadrent les mêmes blocs
 dans un même écran, et deux gris à quelques pixels l'un de l'autre se lisent
 comme un défaut. La carte prend la teinte de l'accordéon — c'est elle que la
 fiche équipement emploie partout ailleurs, en-têtes de tableau compris.
+
+## v2.32.0 — l'arc moyen de la jauge redevient visible (22/09/2026)
+
+Correctif. `Gauge` peignait son palier `warning` avec `var(--color-accent)`.
+Or `accent` est **réécrit** par la couche de compatibilité shadcn : elle définit
+`--accent` comme une surface de survol (#E1ECFA, bleu très pâle) puis
+`--color-accent: var(--accent)`, APRÈS la déclaration Arquos. La seconde
+l'emporte, et l'arc se dessinait en bleu pâle sur une piste grise — invisible.
+Mesuré dans la vitrine : à 54 %, aucun arc.
+
+Le palier prend `var(--color-warning)`, qui porte exactement le même orange sous
+un nom que rien ne dispute.
+
+⚠️ **Le jeton `colors.accent` reste piégé.** Il vaut `core.orange` dans
+`src/colors.ts` mais toute classe `bg-accent` / `text-accent` / `border-accent`
+rend le bleu pâle de shadcn. Il fait par ailleurs doublon avec `warning`, qui
+porte la même valeur. À retirer ou à renommer — décision en attente.
