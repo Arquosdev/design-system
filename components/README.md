@@ -24,6 +24,7 @@ Une mécanique que n'importe quelle application aurait — bouton, modale, ongle
 | [Checkbox](checkbox/checkbox.spec.md) | Cocher une option indépendante, ou plusieurs, dans un formulaire qui se valide. | 🖥️ | stable |
 | [Combobox](combobox/combobox.spec.md) | Choisir dans une liste trop longue pour être parcourue, en la filtrant. | 🖥️ | beta |
 | [Command](command/command.spec.md) | Atteindre n'importe quoi dans un écran dense, en tapant son nom. | 🖥️ | beta |
+| [DateField](date-field/date-field.spec.md) | Saisir une date au clavier, ou la choisir dans un calendrier, et la rendre en ISO. | 🖥️ | beta |
 | [Drawer](drawer/drawer.spec.md) | Ouvrir un panneau latéral pour régler ce qu'on regarde, sans quitter l'écran. | 🖥️ | beta |
 | [EmptyState](empty-state/empty-state.spec.md) | Dire pourquoi une zone est vide, et ce qu'on peut y faire. | 🖥️ | stable |
 | [FilterChips](filter-chips/filter-chips.spec.md) | Restreindre une liste à une de ses parties, par une barre de puces. | 🖥️ | beta |

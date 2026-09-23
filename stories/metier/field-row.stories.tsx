@@ -42,6 +42,28 @@ export const Defaut: Story = {
  */
 export const NonRenseignee: Story = { ...Defaut, args: { label: 'Année d’installation', value: null } };
 
+/**
+ * `kind="date"` — **le seul genre dont l'affichage n'est pas le stockage.**
+ *
+ * La ligne reçoit `value="1978-03-04"` et affiche « 04/03/1978 » ; `onSave`
+ * rend `'1978-03-04'`. Ouvrir la ligne donne un `DateField` : on tape, ou on
+ * déroule le calendrier.
+ *
+ * C'est ce décalage qui débloque les treize attributs de date de `web`, restés
+ * non modifiables depuis qu'un `Input` nu les a fait entrer dans le mauvais
+ * mois.
+ */
+export const Date_: Story = {
+  ...Defaut,
+  args: { label: 'Date de mise en service', value: '1978-03-04', kind: 'date' },
+};
+
+/** Une date qu'on n'a pas encore. L'éditeur s'ouvre sur le mois courant. */
+export const DateNonRenseignee: Story = {
+  ...Defaut,
+  args: { label: 'Date de dernière visite', value: null, kind: 'date' },
+};
+
 /** Sans `onSave`, ou avec `readOnly` : le soulignement pointillé disparaît. */
 export const LectureSeule: Story = {
   args: { label: 'Taux de connaissance', value: '82 %', readOnly: true },

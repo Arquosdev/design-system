@@ -8,7 +8,15 @@
 // Rien dans ce fichier n'importe React : il se lit et se teste sans navigateur
 // ni simulateur.
 
-export type FieldKind = 'text' | 'number' | 'choice' | 'multi';
+/*
+  Le premier import d'un module de logique par un autre, et l'extension `.ts` y
+  est OBLIGATOIRE : ces fichiers tournent sous Node nu — `npm run test` les
+  exécute par `--experimental-strip-types`, sans bundler pour deviner un
+  chemin. Les `.web.tsx` voisins peuvent l'omettre, eux passent par Vite.
+*/
+import { isISO, toDisplay } from '../date-field/date-field.logic.ts';
+
+export type FieldKind = 'text' | 'number' | 'choice' | 'multi' | 'date';
 export type FieldStatus = 'filled' | 'missing' | 'to_check';
 export type FieldSave = 'saving' | 'ok' | 'error';
 export interface FieldOption {
@@ -88,4 +96,21 @@ export function valueText(value: string | string[] | null | undefined): string {
 /** Vrai quand la valeur est à combler — ce qui rend la ligne cliquable. */
 export function isEmpty(value: string | string[] | null | undefined): boolean {
   return valueText(value) === EMPTY;
+}
+
+/**
+ * Le texte d'une valeur de genre `date` — l'ISO qu'on stocke, rendu lisible.
+ *
+ * La ligne affiche `12/09/2026`, le service reçoit `2026-09-12`. Sans ce
+ * passage, une fiche montrerait son ISO nu à l'utilisateur : c'est l'autre
+ * moitié de la confusion qui a corrompu les données côté `web` — le format de
+ * stockage n'est pas un format de lecture.
+ *
+ * Une valeur qui n'est pas de l'ISO passe telle quelle : un champ peut porter
+ * une date approximative saisie à la main (« vers 1978 ») que rien n'oblige à
+ * cacher.
+ */
+export function dateText(value: string | string[] | null | undefined): string {
+  if (typeof value === 'string' && isISO(value)) return toDisplay(value);
+  return valueText(value);
 }

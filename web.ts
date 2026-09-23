@@ -86,6 +86,41 @@ export {
   type FieldOption,
 } from './components/field-row/field-row.logic';
 
+export { DateField, type DateFieldProps } from './components/date-field/date-field.web';
+/*
+  La logique de `DateField` est servie par les deux portes, comme celle de
+  `FieldRow`. Elle n'est pas là par symétrie : `todayISO` et `toDisplay` sont ce
+  qu'un écran appelle pour borner un champ ou afficher une date en lecture, et
+  sans elles il réécrirait `new Date().toISOString().slice(0, 10)` — un décalage
+  d'un jour selon le fuseau, la faute même que le composant existe pour fermer.
+*/
+export {
+  toISO,
+  toDisplay,
+  isISO,
+  todayISO,
+  mask,
+  inRange,
+  refusal,
+  monthGrid,
+  monthLabel,
+  shiftDay,
+  shiftMonth,
+  shiftMonthKeepingDay,
+  daysInMonth,
+  cellLabel,
+  cursorFor,
+  splitISO,
+  DISPLAY_FORMAT,
+  MONTHS,
+  WEEKDAYS,
+  WEEKDAYS_LONG,
+  TODAY_LABEL,
+  INVALID_TEXT,
+  type DateCell,
+  type MonthCursor,
+} from './components/date-field/date-field.logic';
+
 export {
   Sheet,
   SheetTrigger,

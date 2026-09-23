@@ -329,6 +329,36 @@
       }
     },
     {
+      "name": "DateField",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Saisir une date au clavier, ou la choisir dans un calendrier, et la rendre en ISO.",
+      "keywords": [
+        "date",
+        "calendrier",
+        "jour",
+        "mois",
+        "annee",
+        "saisie",
+        "champ",
+        "iso",
+        "echeance"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/date-field",
+      "specFile": "components/date-field/date-field.spec.md",
+      "fichiers": {
+        "web": "components/date-field/date-field.web.tsx",
+        "logique": "components/date-field/date-field.logic.ts"
+      }
+    },
+    {
       "name": "Drawer",
       "status": "beta",
       "layer": "generique",

@@ -1,7 +1,7 @@
 import { deepStrictEqual, strictEqual } from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { isEmpty, choiceMenu, valueText, EMPTY } from './field-row.logic.ts';
+import { isEmpty, choiceMenu, dateText, valueText, EMPTY } from './field-row.logic.ts';
 
 const STATES = [
   { value: 'bon', label: 'Bon' },
@@ -78,5 +78,31 @@ describe('estVide', () => {
     strictEqual(isEmpty('0'), false);
     strictEqual(isEmpty([]), true);
     strictEqual(isEmpty(['Cuvette']), false);
+  });
+});
+
+describe('texteDeDate — l’ISO qu’on stocke, rendu lisible', () => {
+  it('rend une date ISO en français', () => {
+    strictEqual(dateText('2026-09-12'), '12/09/2026');
+    strictEqual(dateText('1978-03-04'), '04/03/1978');
+  });
+
+  it('dit « Non renseigné » sur une date absente, comme les autres genres', () => {
+    strictEqual(dateText(null), EMPTY);
+    strictEqual(dateText(''), EMPTY);
+    strictEqual(dateText(undefined), EMPTY);
+  });
+
+  /*
+    Un champ peut porter une date approximative saisie à la main. La cacher
+    parce qu'elle n'est pas de l'ISO serait pire que la montrer.
+  */
+  it('laisse passer ce qui n’est pas de l’ISO', () => {
+    strictEqual(dateText('vers 1978'), 'vers 1978');
+    strictEqual(dateText('12/09/2026'), '12/09/2026');
+  });
+
+  it('ne prétend pas lire une date ISO impossible', () => {
+    strictEqual(dateText('2026-02-31'), '2026-02-31');
   });
 });

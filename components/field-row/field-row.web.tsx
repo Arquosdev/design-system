@@ -4,8 +4,11 @@ import * as React from 'react';
 
 import { Icon } from '../icon/icon.web';
 import { cn } from '../_lib/cn';
+import { DateField } from '../date-field/date-field.web';
+import { toISO } from '../date-field/date-field.logic';
 import {
   choiceMenu,
+  dateText,
   valueText,
   SAVE_TEXT,
   STATUS_TEXT,
@@ -109,7 +112,16 @@ const SAVE_CLASS: Record<FieldSave, string> = {
 
 
 
-function afficher(value: string | string[] | null): string {
+/*
+  Le texte de la ligne en lecture.
+
+  `kind` n'entre en jeu que pour les dates, et c'est délibéré : elles sont le
+  seul genre dont la valeur STOCKÉE n'est pas la valeur LISIBLE. `2026-09-12`
+  s'affiche « 12/09/2026 ». Les quatre autres genres passent par le chemin
+  qu'ils ont toujours pris, à la ligne près.
+*/
+function afficher(value: string | string[] | null, kind: FieldKind): string {
+  if (kind === 'date') return dateText(value);
   if (Array.isArray(value)) return value.length ? value.join(', ') : EMPTY;
   return value && value.trim() !== '' ? value : EMPTY;
 }
@@ -241,7 +253,7 @@ export function FieldRow({
                   : 'text-text border-text-subtle',
               )}
             >
-              {afficher(value)}
+              {afficher(value, kind)}
             </span>
             {onViewPhotos && photos && photos.length > 0 ? (
               // Discret par construction : rien à l'écran tant qu'on ne le
@@ -412,6 +424,10 @@ function Editor({ kind, label, value, options, other, onValider, onAnnuler }: Ed
     );
   }
 
+  if (kind === 'date') {
+    return <DateEditor label={label} value={value} onValider={onValider} onAnnuler={onAnnuler} />;
+  }
+
   return (
     <input
       autoFocus
@@ -498,6 +514,83 @@ function MultiEditor({
                 .join(' · ')}
         </span>
       </div>
+    </div>
+  );
+}
+
+/**
+ * L'éditeur d'une date : un `DateField`, et deux boutons.
+ *
+ * **Pas de validation à la perte de focus**, contrairement au champ texte. Le
+ * réflexe y est de cliquer ailleurs, mais ici « ailleurs » est souvent le
+ * bouton de calendrier du champ lui-même : la sortie de focus enregistrerait la
+ * date d'avant et refermerait la ligne au moment précis où l'utilisateur ouvre
+ * la grille pour la changer. Deux boutons explicites, comme `MultiEditor`.
+ *
+ * Ce que `onSave` reçoit est de l'**ISO**, jamais ce que la ligne affichait.
+ */
+function DateEditor({
+  label,
+  value,
+  onValider,
+  onAnnuler,
+}: {
+  label: string;
+  value: string | string[] | null;
+  onValider: (v: string) => void;
+  onAnnuler: () => void;
+}) {
+  /*
+    La valeur de départ passe par `toISO`, qui accepte les DEUX écritures. C'est
+    ce qui permet à `FieldRow` de vivre avec son unique prop `value` : que
+    l'appelant l'ait donnée en ISO (`2026-09-12`) ou en français (`12/09/2026`),
+    l'éditeur s'ouvre sur la bonne date. Une valeur illisible ouvre un champ
+    vide plutôt que de refuser la correction.
+  */
+  const initiale = toISO(typeof value === 'string' ? value : '');
+  const [iso, setIso] = React.useState<string | null>(initiale);
+
+  /* Le même geste que le bouton, et la même règle de reclic : réenregistrer la
+     date déjà en place ferme sans écrire. */
+  const enregistrer = () => {
+    if (iso === null || iso === initiale) onAnnuler();
+    else onValider(iso);
+  };
+
+  return (
+    <div
+      className="flex flex-wrap items-center gap-sm"
+      onKeyDown={(e) => {
+        if (e.key === 'Escape') onAnnuler();
+        /*
+          Entrée enregistre, comme sur l'éditeur texte : on tape la date, on
+          valide, sans chercher le bouton. Le calendrier est monté dans un
+          portail, donc son propre Entrée — celui qui choisit un jour — ne
+          remonte pas jusqu'ici et ne peut pas déclencher les deux.
+        */
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          enregistrer();
+        }
+      }}
+    >
+      <div className="min-w-0 flex-1">
+        <DateField value={iso} onValue={setIso} ariaLabel={label} autoFocus />
+      </div>
+      <Button
+        size="sm"
+        // Rien à enregistrer tant que la frappe ne fait pas une date. Le champ
+        // dit déjà pourquoi, juste en dessous — le bouton n'a pas à le répéter.
+        disabled={iso === null}
+        /* Réenregistrer la même date daterait la fiche d'une correction qui
+           n'en est pas une — la règle du menu à choix, pour la même raison. */
+        onClick={enregistrer}
+      >
+        Enregistrer
+      </Button>
+      <Button variant="secondary" size="sm" onClick={onAnnuler}>
+        Annuler
+      </Button>
     </div>
   );
 }

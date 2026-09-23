@@ -35,7 +35,7 @@ de la fiche : c'est lui qui la rend modifiable sans formulaire séparé.
 | ------------ | ------------------------------------------- | ---------- | --------------------------------------------- |
 | `label`      | `string`                                    | —          | Le libellé du champ                            |
 | `value`      | `string \| string[] \| null`                | —          | La valeur courante ; `null` = non renseignée   |
-| `kind`       | `'text' \| 'number' \| 'choice' \| 'multi'` | `'text'`   | Détermine l'éditeur qui s'ouvre à la saisie    |
+| `kind`       | `'text' \| 'number' \| 'choice' \| 'multi' \| 'date'` | `'text'`   | Détermine l'éditeur qui s'ouvre à la saisie    |
 | `options`    | `{ value: string; label: string }[]`        | `[]`       | Requis pour `choice` et `multi`                |
 | `onSave`     | `(v: string \| string[]) => void`           | —          | Appelé à la validation. Absent = lecture seule |
 | `status`     | `'filled' \| 'missing' \| 'to_check'` | —          | Pastille affichée à droite de la valeur        |
@@ -57,7 +57,35 @@ de la fiche : c'est lui qui la rend modifiable sans formulaire séparé.
 <FieldRow label="Nombre de niveaux" value="7" kind="number" onSave={enregistrer} />
 <FieldRow label="Accès" value={['Badge', 'Interphone']} kind="multi" options={acces} onSave={enregistrer} />
 <FieldRow label="Taux de connaissance" value="82 %" readOnly />
+<FieldRow label="Date de mise en service" value="1978-03-04" kind="date" onSave={enregistrer} />
 ```
+
+## `kind="date"` — la seule valeur dont l'affichage n'est pas le stockage
+
+Les quatre autres genres montrent leur `value` telle quelle. Une date, non :
+`value="1978-03-04"` s'affiche **« 04/03/1978 »**, et `onSave` rend
+**`'1978-03-04'`**. L'éditeur est un `DateField`.
+
+**C'est ce décalage qui rend la prop unique `value` vivable pour une date.** Le
+`value` de `FieldRow` sert à la fois d'affichage et de valeur initiale de
+l'éditeur, ce qui est un manque connu — pour un montant ou une unité, il
+faudrait un couple `display`/`edit`. Les dates y échappent parce que les deux
+écritures se distinguent sans ambiguïté : l'ISO met l'année devant, le français
+la met derrière. `toISO` accepte donc les deux, et l'éditeur s'ouvre sur la
+bonne date que l'appelant ait passé l'une ou l'autre.
+
+**Passer de l'ISO reste la bonne façon**, et c'est ce que le service rend. Une
+valeur qui n'est pas de l'ISO passe telle quelle à l'écran : un champ peut
+porter « vers 1978 », que rien n'oblige à cacher.
+
+Entrée enregistre, comme sur l'éditeur texte. Mais l'éditeur de date
+**n'enregistre pas à la perte de focus**, contrairement à lui : « ailleurs » y est souvent le bouton de calendrier du champ
+lui-même, et la sortie de focus enregistrerait la date d'avant au moment précis
+où l'on ouvre la grille pour la changer. Deux boutons explicites, comme la
+multi-sélection.
+
+Voir `date-field.spec.md` : c'est là que vit la raison d'être du format, et elle
+est une corruption de données réelle.
 
 ## Anatomie
 
@@ -97,6 +125,9 @@ enfant du DOM n'est pas le dernier de chaque colonne.
   dépend a changé. On ne peut pas la vider — le service refuse le vide — donc on
   rouvre le menu pour que le choix se fasse maintenant.
 - **Multi-sélection** : le résumé liste les libellés, pas leur nombre.
+- **Date** : la ligne affiche `JJ/MM/AAAA`, l'éditeur rend de l'ISO.
+  « Enregistrer » reste inerte tant que la frappe ne fait pas une date — le
+  champ dit déjà pourquoi juste en dessous, le bouton n'a pas à le répéter.
 - **Reclic sur la valeur déjà retenue** : ferme sans écrire. Réenregistrer à
   l'identique daterait la fiche d'une correction qui n'en est pas une.
 - **Désignée** (`landmark`) : défile **une seule fois**, le fond s'allume puis

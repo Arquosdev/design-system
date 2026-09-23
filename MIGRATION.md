@@ -1,5 +1,81 @@
 # Monter une app vers la version courante
 
+## v2.15.0 — les dates s'éditent, et elles sortent en ISO
+
+**`DateField` est neuf, et `FieldRow` a un `kind="date"`.** C'est additif des
+deux côtés : rien d'existant ne change de comportement, aucune cote ne bouge.
+
+**Ce que ça débloque.** La déclaration d'objets de `web` porte **treize
+attributs `format: 'date'` sur cinq objets** — relevé, affaire, sollicitation,
+écart — et **pas un seul ne s'éditait**, parce que le design system n'offrait
+aucun champ de date.
+
+**Pourquoi ils avaient été figés, et c'est la partie à lire deux fois.**
+Jusqu'au 06/09/2026, le formulaire de `web` rendait un `Input` NU pour un
+attribut de date, et il écrivait. Son PostgreSQL est réglé sur
+`DateStyle = ISO, MDY` : « 12/09/2026 » entrait donc comme le **9 décembre**,
+sans un mot, sans erreur — tandis que « 31/12/2026 » faisait lever une erreur
+brute. **Les jours 1 à 12 d'un mois corrompaient en silence, les suivants
+plantaient.** Sept champs de la création d'une affaire étaient dans ce cas, et
+la parade a été de rendre toutes les dates non modifiables.
+
+**Le contrat qui lève la parade** : ce qui s'affiche est `JJ/MM/AAAA`, ce qui
+entre et ce qui sort est `AAAA-MM-JJ`. `onValue` ne rend jamais une frappe
+partielle, jamais une date impossible, jamais une chaîne à interpréter — de
+l'ISO valide, ou `null`. `2026-09-12` n'a pas de seconde lecture.
+
+```tsx
+import { DateField, todayISO } from '@arquos/design-system/web';
+
+<DateField value={miseEnService} onValue={setMiseEnService}
+           ariaLabel="Date de mise en service" max={todayISO()} />
+
+// Dans une fiche, à corriger sur place
+<FieldRow label="Date de mise en service" value="1978-03-04"
+          kind="date" onSave={enregistrer} />
+```
+
+**Sur `FieldRow kind="date"`, la seule chose à savoir** : c'est le seul genre
+dont l'affichage n'est pas le stockage. `value="1978-03-04"` affiche
+« 04/03/1978 », `onSave` rend `'1978-03-04'`. L'ISO est la bonne façon de le
+passer, et le français est accepté aussi — les deux écritures se distinguent
+sans ambiguïté, l'ISO met l'année devant.
+
+> **À VÉRIFIER DANS UNE APP QUI MONTE : un `switch` EXHAUSTIF sur `FieldKind`.**
+>
+> `FieldKind` gagne un membre — `'date'` — et un `switch` exhaustif avec un
+> `never` en défaut signalerait alors un cas manquant. **Vérifié dans `web` le
+> 07/09/2026 : il n'y en a aucun.** Le seul usage y est `kind?: FieldKind` comme
+> annotation de type (`app/(app)/equipment/[id]/sections/fields-section.tsx:31`),
+> qui s'élargit sans rien casser. `mobile` n'a pas été vérifié.
+
+> **Et prendre `todayISO()`, jamais `new Date().toISOString().slice(0, 10)`.**
+>
+> Le second convertit vers UTC : à Paris en été, le 12 septembre à minuit en
+> sort comme le 11, et il borne alors la veille. C'est la même faute que celle
+> que le composant existe pour fermer, écrite dans l'appel plutôt que dans le
+> composant. `todayISO` est exporté par les deux points d'entrée.
+
+**Une leçon au passage, et elle vaut pour tout le dépôt.** La première version
+du calendrier fondait ses cases hors bornes (`disabled:opacity-50`) : **2,06 pour
+1 au rendu, et `npm run check` en vert.** Les deux contrôles sont aveugles à ce
+motif — le lecteur de classes ne fond pas une opacité, axe exempte ce qui porte
+`disabled` — exactement comme pour le libellé à 2,34 du 01/09/2026. La paire
+nommée `inactiveBg`/`onInactiveBg` (5,99) est vérifiée à la source, où l'opacité
+n'a pas de prise. **`opacity-50` sur du texte indisponible est un motif à
+proscrire, pas seulement à corriger là où on le trouve.**
+
+Et il reste un angle mort : `check-contraste-rendu.mjs` n'ouvre pas les
+surfaces flottantes. Le contenu d'un popover — ce calendrier, un menu — n'est
+mesuré par personne au rendu.
+
+**Un manque qui reste, et qui n'est pas celui-là.** Le `value` de `FieldRow`
+sert à la fois d'affichage et de valeur initiale de l'éditeur : il faudrait un
+couple `display`/`edit`. Les dates y échappent parce que leurs deux écritures se
+distinguent ; **un montant n'y échappera pas** — `web` contourne aujourd'hui en
+mettant l'unité dans le libellé, « Prix de base minimum (€) ». À traiter quand
+un champ en aura besoin.
+
 ## v2.14.0 — le menu d'un `Combobox` a la densité d'un menu
 
 **Ça se voit, et c'est ce que Louis demandait.** Les entrées d'un `Combobox`

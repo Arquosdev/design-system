@@ -42,6 +42,32 @@ export {
   type FieldSave,
   type FieldOption,
 } from '../components/field-row/field-row.logic';
+export {
+  toISO,
+  toDisplay,
+  isISO,
+  todayISO,
+  mask,
+  inRange,
+  refusal,
+  monthGrid,
+  monthLabel,
+  shiftDay,
+  shiftMonth,
+  shiftMonthKeepingDay,
+  daysInMonth,
+  cellLabel,
+  cursorFor,
+  splitISO,
+  DISPLAY_FORMAT,
+  MONTHS,
+  WEEKDAYS,
+  WEEKDAYS_LONG,
+  TODAY_LABEL,
+  INVALID_TEXT,
+  type DateCell,
+  type MonthCursor,
+} from '../components/date-field/date-field.logic';
 export { NOT_TAKEN, estEnTravers } from '../components/photo-tile/photo-tile.logic';
 export {
   FAILURES,
