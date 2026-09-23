@@ -44,7 +44,7 @@ Composition shadcn : `Sheet` (racine, `open` / `onOpenChange`), `SheetContent`,
 | Prop     | Type                      | Défaut       | Rôle                          |
 | -------- | ------------------------- | ------------ | ----------------------------- |
 | `side`   | `'right'`                 | `'right'`    | Le bord d'où le panneau entre |
-| `taille` | `'standard' \| 'large'`   | `'standard'` | 460 px, ou 860 pour un panneau qui montre aussi ce qui explique la saisie |
+| `size` | `'standard' \| 'large'`   | `'standard'` | 460 px, ou 860 pour un panneau qui montre aussi ce qui explique la saisie |
 
 **Quelle taille.** `standard` pour une tâche annexe — quelques champs, une
 décision. `large` quand le panneau doit porter le formulaire ET ce qui

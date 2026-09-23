@@ -11,7 +11,7 @@
 // design en dur, il fallait donc que le système la porte.
 //
 // Usage :
-//   web      `max-w-saisie-courte`, `w-panneau-large` (namespace `--container-*`)
+//   web      `max-w-input-short`, `w-panel-wide` (namespace `--container-*`)
 //   CSS nu   `var(--arq-width-input-short)`
 
 export const width = {

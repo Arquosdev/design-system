@@ -34,13 +34,13 @@ export interface SheetContentProps
    * redevient une valeur de design en dur dans l'app, et c'est ce qui est
    * arrivé à la fiche équipement (`w-[860px]` posé à la main).
    */
-  taille?: 'standard' | 'large';
+  size?: 'standard' | 'large';
 }
 
 export const SheetContent = React.forwardRef<
   React.ComponentRef<typeof SheetPrimitive.Content>,
   SheetContentProps
->(({ className, children, side = 'right', taille = 'standard', ...props }, ref) => (
+>(({ className, children, side = 'right', size = 'standard', ...props }, ref) => (
   <SheetPrimitive.Portal>
     <SheetPrimitive.Overlay
       className={cn(
@@ -51,10 +51,10 @@ export const SheetContent = React.forwardRef<
     <SheetPrimitive.Content
       ref={ref}
       data-side={side}
-      data-taille={taille}
+      data-size={size}
       className={cn(
         'fixed inset-y-0 right-0 z-(--arq-layer-panneau) flex h-full max-w-[calc(100vw-32px)] flex-col',
-        taille === 'large' ? 'w-panneau-large' : 'w-panneau',
+        size === 'large' ? 'w-panel-wide' : 'w-panel',
         'border-l border-border-soft bg-bg shadow-pop outline-none',
         'data-[state=open]:animate-tiroir-entree data-[state=closed]:animate-tiroir-sortie',
         className,
