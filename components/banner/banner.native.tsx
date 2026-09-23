@@ -7,11 +7,11 @@ import { spacing } from '../../src/spacing';
 import { Icon } from '../icon/icon.native';
 import { Text } from '../text/text.native';
 
-export type BannerTon = 'info' | 'attention' | 'danger';
+export type BannerTone = 'info' | 'warning' | 'danger';
 
 export interface BannerProps {
-  ton?: BannerTon;
-  icone?: IconRole;
+  tone?: BannerTone;
+  icon?: IconRole;
   /** Ce qu'on peut faire — un bouton `ghost`, un lien. */
   action?: React.ReactNode;
   children: React.ReactNode;
@@ -19,21 +19,21 @@ export interface BannerProps {
 }
 
 // Les paires d'état, jamais dissociées : le fond et son encre vont ensemble.
-const TONS: Record<BannerTon, { fond: string; encre: string }> = {
-  info: { fond: colors.infoBg, encre: colors.onInfoBg },
-  attention: { fond: colors.warningBg, encre: colors.onWarningBg },
-  danger: { fond: colors.dangerBg, encre: colors.onDangerBg },
+const TONES: Record<BannerTone, { background: string; ink: string }> = {
+  info: { background: colors.infoBg, ink: colors.onInfoBg },
+  warning: { background: colors.warningBg, ink: colors.onWarningBg },
+  danger: { background: colors.dangerBg, ink: colors.onDangerBg },
 };
 
-export function Banner({ ton = 'info', icone, action, children, style }: BannerProps) {
-  const { fond, encre } = TONS[ton];
+export function Banner({ tone = 'info', icon, action, children, style }: BannerProps) {
+  const { background, ink } = TONES[tone];
   return (
     <View
       accessibilityLiveRegion="polite"
-      style={[styles.bandeau, { backgroundColor: fond }, style]}
+      style={[styles.bandeau, { backgroundColor: background }, style]}
     >
-      {icone ? <Icon role={icone} size="sm" color={encre} /> : null}
-      <Text variant="small" style={[styles.message, { color: encre, fontWeight: '500' }]}>
+      {icon ? <Icon role={icon} size="sm" color={ink} /> : null}
+      <Text variant="small" style={[styles.message, { color: ink, fontWeight: '500' }]}>
         {children}
       </Text>
       {action}

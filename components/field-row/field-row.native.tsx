@@ -8,14 +8,14 @@ import { spacing } from '../../src/spacing';
 import { fontFamilyNative, typography } from '../../src/typography';
 import { Text } from '../text/text.native';
 import {
-  estVide as estVideLogique,
-  texteDeValeur,
-  TEXTE_SAUVEGARDE,
-  TEXTE_STATUT,
+  isEmpty as estVideLogique,
+  valueText,
+  SAVE_TEXT,
+  STATUS_TEXT,
   type FieldKind,
   type FieldOption,
-  type FieldSauvegarde,
-  type FieldStatut,
+  type FieldSave,
+  type FieldStatus,
 } from './field-row.logic';
 
 export interface FieldRowProps {
@@ -37,24 +37,24 @@ export interface FieldRowProps {
    * s'édite pas sur place.
    */
   onPress?: () => void;
-  statut?: FieldStatut;
-  sauvegarde?: FieldSauvegarde;
+  status?: FieldStatus;
+  save?: FieldSave;
   readOnly?: boolean;
   /** Dernière ligne d'un groupe : pas de filet en bas. */
-  derniere?: boolean;
+  last?: boolean;
   style?: StyleProp<ViewStyle>;
 }
 
-const TEINTE_STATUT: Record<FieldStatut, { fond: string; encre: string }> = {
-  renseigne: { fond: colors.successBg, encre: colors.onSuccessBg },
-  manquant: { fond: colors.dangerBg, encre: colors.onDangerBg },
-  a_verifier: { fond: colors.warningBg, encre: colors.onWarningBg },
+const STATUS_TINT: Record<FieldStatus, { fond: string; encre: string }> = {
+  filled: { fond: colors.successBg, encre: colors.onSuccessBg },
+  missing: { fond: colors.dangerBg, encre: colors.onDangerBg },
+  to_check: { fond: colors.warningBg, encre: colors.onWarningBg },
 };
 
-const TEINTE_SAUVEGARDE: Record<FieldSauvegarde, string> = {
-  encours: colors.textMuted,
+const SAVE_TINT: Record<FieldSave, string> = {
+  saving: colors.textMuted,
   ok: colors.success,
-  echec: colors.danger,
+  error: colors.danger,
 };
 
 /**
@@ -80,10 +80,10 @@ export function FieldRow({
   options = [],
   onSave,
   onPress,
-  statut,
-  sauvegarde,
+  status,
+  save,
   readOnly = false,
-  derniere = false,
+  last = false,
   style,
 }: FieldRowProps) {
   const editable = !!onSave && !onPress && !readOnly && kind !== 'multi';
@@ -93,7 +93,7 @@ export function FieldRow({
 
   const ouvrir = () => {
     if (!editable) return;
-    setBrouillon(vide ? '' : texteDeValeur(value));
+    setBrouillon(vide ? '' : valueText(value));
     setEnSaisie(true);
   };
 
@@ -103,7 +103,7 @@ export function FieldRow({
   };
 
   return (
-    <View style={[styles.ligne, !derniere && styles.filet, style]}>
+    <View style={[styles.ligne, !last && styles.filet, style]}>
       <Text variant="small" tone="muted" style={styles.libelle}>
         {label}
       </Text>
@@ -142,9 +142,9 @@ export function FieldRow({
               accessibilityRole={editable || onPress ? 'button' : undefined}
               accessibilityLabel={
                 onPress
-                  ? `${label} : ${texteDeValeur(value)}, ouvrir`
+                  ? `${label} : ${valueText(value)}, ouvrir`
                   : editable
-                    ? `${label} : ${texteDeValeur(value)}, modifier`
+                    ? `${label} : ${valueText(value)}, modifier`
                     : undefined
               }
               style={styles.zoneValeur}
@@ -153,26 +153,26 @@ export function FieldRow({
                 variant="small"
                 tone={onPress ? 'primary' : vide ? 'muted' : 'text'}
                 style={[
-                  styles.valeur,
+                  styles.value,
                   editable && styles.editable,
                   editable && { borderBottomColor: vide ? colors.border : colors.textSubtle },
                 ]}
               >
-                {texteDeValeur(value)}
+                {valueText(value)}
               </Text>
             </Pressable>
 
-            {statut ? (
-              <View style={[styles.pastille, { backgroundColor: TEINTE_STATUT[statut].fond }]}>
-                <Text variant="caption" style={{ color: TEINTE_STATUT[statut].encre, fontWeight: '600' }}>
-                  {TEXTE_STATUT[statut]}
+            {status ? (
+              <View style={[styles.pastille, { backgroundColor: STATUS_TINT[status].fond }]}>
+                <Text variant="caption" style={{ color: STATUS_TINT[status].encre, fontWeight: '600' }}>
+                  {STATUS_TEXT[status]}
                 </Text>
               </View>
             ) : null}
 
-            {sauvegarde ? (
-              <Text variant="caption" style={{ color: TEINTE_SAUVEGARDE[sauvegarde], fontWeight: '700' }}>
-                {TEXTE_SAUVEGARDE[sauvegarde]}
+            {save ? (
+              <Text variant="caption" style={{ color: SAVE_TINT[save], fontWeight: '700' }}>
+                {SAVE_TEXT[save]}
               </Text>
             ) : null}
           </View>
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
   zoneValeur: {
     flexShrink: 1,
   },
-  valeur: {
+  value: {
     fontWeight: '500',
   },
   // Le soulignement pointillé : LE signal « cette valeur se corrige ». Sans

@@ -6,7 +6,7 @@ import { radius } from '../../src/radius';
 
 export interface SkeletonProps {
   /** Bloc circulaire — pastille, avatar. */
-  rond?: boolean;
+  round?: boolean;
   /** La **taille se donne ici** : `{ width: 120, height: 16 }`. */
   style?: StyleProp<ViewStyle>;
 }
@@ -17,7 +17,7 @@ export interface SkeletonProps {
   d'entrée de gamme saccade assez pour trahir le but. C'est le `animate-pulse`
   du web, avec la même teinte.
 */
-export function Skeleton({ rond = false, style }: SkeletonProps) {
+export function Skeleton({ round = false, style }: SkeletonProps) {
   const opacite = React.useRef(new Animated.Value(0.45)).current;
   React.useEffect(() => {
     const boucle = Animated.loop(
@@ -46,7 +46,7 @@ export function Skeleton({ rond = false, style }: SkeletonProps) {
       accessibilityElementsHidden
       importantForAccessibility="no"
       style={[
-        { backgroundColor: colors.bgMuted, borderRadius: rond ? radius.full : radius.sm, opacity: opacite },
+        { backgroundColor: colors.bgMuted, borderRadius: round ? radius.full : radius.sm, opacity: opacite },
         style,
       ]}
     />

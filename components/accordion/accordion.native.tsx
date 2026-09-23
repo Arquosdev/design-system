@@ -27,16 +27,16 @@ import { Text } from '../text/text.native';
 
 export interface AccordionProps {
   /** Le rôle de l'icône, à gauche du titre. */
-  icone: IconRole;
-  titre: string;
+  icon: IconRole;
+  title: string;
   /** Sous le titre : ce que la section contient. */
   description?: string;
   /** À droite du titre : un compte, une progression (« 4 / 12 »). */
   meta?: string | number;
   /** La progression est atteinte : le compteur passe au vert. */
-  metaAtteinte?: boolean;
-  ouvert: boolean;
-  onBasculer: () => void;
+  metaReached?: boolean;
+  open: boolean;
+  onToggle: () => void;
   /**
    * La section OUVRE UNE PAGE au lieu de se déplier.
    *
@@ -46,37 +46,37 @@ export interface AccordionProps {
    * déplie dans un volet. Le chevron cède alors la place à une flèche, qui est
    * ce que dit un lien. Le web n'a pas ce cas — il a la place.
    */
-  lien?: boolean;
+  link?: boolean;
   children?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
 }
 
 export function Accordion({
-  icone,
-  titre,
+  icon,
+  title,
   description,
   meta,
-  metaAtteinte = false,
-  ouvert,
-  onBasculer,
-  lien = false,
+  metaReached = false,
+  open,
+  onToggle,
+  link = false,
   children,
   style,
 }: AccordionProps) {
   return (
-    <View style={[styles.section, ouvert && !lien && styles.sectionOuverte, style]}>
+    <View style={[styles.section, open && !link && styles.sectionOuverte, style]}>
       <Pressable
-        onPress={onBasculer}
+        onPress={onToggle}
         accessibilityRole="button"
-        accessibilityState={lien ? undefined : { expanded: ouvert }}
-        accessibilityLabel={meta !== undefined ? `${titre}, ${meta}` : titre}
+        accessibilityState={link ? undefined : { expanded: open }}
+        accessibilityLabel={meta !== undefined ? `${title}, ${meta}` : title}
         style={({ pressed }) => [styles.entete, pressed && styles.entetePressee]}
       >
-        <Icon role={icone} size="lg" weight="active" color={colors.primary} />
+        <Icon role={icon} size="lg" weight="active" color={colors.primary} />
 
         <View style={styles.textes}>
-          <Text variant="body" style={styles.titre} numberOfLines={1}>
-            {titre}
+          <Text variant="body" style={styles.title} numberOfLines={1}>
+            {title}
           </Text>
           {description ? (
             <Text variant="caption" tone="muted" numberOfLines={1}>
@@ -86,10 +86,10 @@ export function Accordion({
         </View>
 
         {meta !== undefined && meta !== '' ? (
-          <View style={[styles.meta, metaAtteinte && styles.metaAtteinte]}>
+          <View style={[styles.meta, metaReached && styles.metaReached]}>
             <Text
               variant="caption"
-              style={{ color: metaAtteinte ? colors.onSuccessBg : colors.onInfoBg, fontWeight: '600' }}
+              style={{ color: metaReached ? colors.onSuccessBg : colors.onInfoBg, fontWeight: '600' }}
             >
               {meta}
             </Text>
@@ -97,13 +97,13 @@ export function Accordion({
         ) : null}
 
         <Icon
-          role={lien ? 'go' : ouvert ? 'replier' : 'expand'}
+          role={link ? 'go' : open ? 'collapse' : 'expand'}
           size="md"
           color={colors.textSubtle}
         />
       </Pressable>
 
-      {ouvert && !lien ? <View style={styles.corps}>{children}</View> : null}
+      {open && !link ? <View style={styles.corps}>{children}</View> : null}
     </View>
   );
 }
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     minWidth: 0,
     gap: spacing.xxs,
   },
-  titre: {
+  title: {
     fontWeight: '600',
   },
   meta: {
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.xs,
     paddingVertical: spacing.xxs,
   },
-  metaAtteinte: {
+  metaReached: {
     backgroundColor: colors.successBg,
   },
   corps: {

@@ -8,15 +8,15 @@ import { spacing } from '../../src/spacing';
 import { Text } from '../text/text.native';
 
 export interface Segment {
-  cle: string;
+  id: string;
   label: string;
-  compteur?: number | string;
+  count?: number | string;
 }
 
 export interface SegmentedTabsProps {
   segments: readonly Segment[];
-  valeur: string;
-  onChanger: (cle: string) => void;
+  value: string;
+  onChange: (id: string) => void;
   /** Ce que le groupe sépare, pour l'annoncer. Même nom que sur le web. */
   ariaLabel: string;
   style?: StyleProp<ViewStyle>;
@@ -33,22 +33,22 @@ export interface SegmentedTabsProps {
   longueur de son libellé : sinon la piste tressaute d'un onglet à l'autre.
   Le libellé ne se coupe pas en deux lignes ; il rétrécit d'abord.
 */
-export function SegmentedTabs({ segments, valeur, onChanger, ariaLabel, style }: SegmentedTabsProps) {
+export function SegmentedTabs({ segments, value, onChange, ariaLabel, style }: SegmentedTabsProps) {
   return (
     <View accessibilityRole="tablist" accessibilityLabel={ariaLabel} style={[styles.piste, style]}>
       {segments.map((segment) => {
-        const actif = segment.cle === valeur;
+        const actif = segment.id === value;
         return (
           <Pressable
-            key={segment.cle}
+            key={segment.id}
             accessibilityRole="tab"
             accessibilityState={{ selected: actif }}
             accessibilityLabel={
-              segment.compteur !== undefined && segment.compteur !== ''
-                ? `${segment.label}, ${segment.compteur}`
+              segment.count !== undefined && segment.count !== ''
+                ? `${segment.label}, ${segment.count}`
                 : segment.label
             }
-            onPress={() => onChanger(segment.cle)}
+            onPress={() => onChange(segment.id)}
             style={[styles.segment, actif && styles.segmentActif]}
           >
             <Text
@@ -67,13 +67,13 @@ export function SegmentedTabs({ segments, valeur, onChanger, ariaLabel, style }:
             >
               {segment.label}
             </Text>
-            {segment.compteur !== undefined && segment.compteur !== '' ? (
+            {segment.count !== undefined && segment.count !== '' ? (
               <Text
                 variant="small"
                 tone={actif ? 'primary' : 'muted'}
-                style={[styles.compteur, { fontWeight: actif ? '600' : '500' }]}
+                style={[styles.count, { fontWeight: actif ? '600' : '500' }]}
               >
-                {segment.compteur}
+                {segment.count}
               </Text>
             ) : null}
           </Pressable>
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   libelle: {
     flexShrink: 1,
   },
-  compteur: {
+  count: {
     fontVariant: ['tabular-nums'],
   },
 });

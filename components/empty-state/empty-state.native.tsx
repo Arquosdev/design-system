@@ -7,12 +7,12 @@ import { spacing } from '../../src/spacing';
 import { Button } from '../button/button.native';
 import { Icon } from '../icon/icon.native';
 import { Text } from '../text/text.native';
-import { ECHECS, natureDeLEchec, REESSAYER } from './empty-state.logic';
+import { FAILURES, failureKind, RETRY } from './empty-state.logic';
 
 export interface EmptyStateProps {
-  icone: IconRole;
-  titre: string;
-  conseil: string;
+  icon: IconRole;
+  title: string;
+  hint: string;
   actionLabel?: string;
   onAction?: () => void;
   style?: StyleProp<ViewStyle>;
@@ -23,15 +23,15 @@ export interface EmptyStateProps {
   conseil en `small` muté, le bouton en dessous. Voir `empty-state.web.tsx`
   pour ce qui a été retiré le 22/09/2026 — le carré gris de 60 — et pourquoi.
 */
-export function EmptyState({ icone, titre, conseil, actionLabel, onAction, style }: EmptyStateProps) {
+export function EmptyState({ icon, title, hint, actionLabel, onAction, style }: EmptyStateProps) {
   return (
     <View style={[styles.conteneur, style]}>
-      <Icon role={icone} size="xl" weight="subtle" color={colors.textSubtle} style={styles.icone} />
-      <Text variant="subhead" style={[styles.centre, styles.titre]}>
-        {titre}
+      <Icon role={icon} size="xl" weight="subtle" color={colors.textSubtle} style={styles.icon} />
+      <Text variant="subhead" style={[styles.centre, styles.title]}>
+        {title}
       </Text>
-      <Text variant="small" tone="muted" style={[styles.centre, styles.conseil]}>
-        {conseil}
+      <Text variant="small" tone="muted" style={[styles.centre, styles.hint]}>
+        {hint}
       </Text>
       {actionLabel && onAction ? (
         <Button onPress={onAction} style={styles.action}>
@@ -49,23 +49,23 @@ export function EmptyState({ icone, titre, conseil, actionLabel, onAction, style
   pas — elle retombe alors sur le message de l'erreur, ce que faisait déjà
   `lib/errors.ts` de myArquos.
 */
-export function EmptyStateErreur({
-  erreur,
-  onReessayer,
+export function EmptyStateError({
+  error,
+  onRetry,
   style,
 }: {
-  erreur: unknown;
-  onReessayer?: () => void;
+  error: unknown;
+  onRetry?: () => void;
   style?: StyleProp<ViewStyle>;
 }) {
-  const { icone, titre, conseil } = ECHECS[natureDeLEchec(erreur)];
+  const { icon, title, hint } = FAILURES[failureKind(error)];
   return (
     <EmptyState
-      icone={icone}
-      titre={titre}
-      conseil={conseil}
-      actionLabel={onReessayer ? REESSAYER : undefined}
-      onAction={onReessayer}
+      icon={icon}
+      title={title}
+      hint={hint}
+      actionLabel={onRetry ? RETRY : undefined}
+      onAction={onRetry}
       style={style}
     />
   );
@@ -77,16 +77,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.xl,
     paddingVertical: spacing['2xl'],
   },
-  icone: {
+  icon: {
     marginBottom: spacing.md,
   },
   centre: {
     textAlign: 'center',
   },
-  titre: {
+  title: {
     fontWeight: '600',
   },
-  conseil: {
+  hint: {
     marginTop: spacing.xs,
     maxWidth: 280,
   },
