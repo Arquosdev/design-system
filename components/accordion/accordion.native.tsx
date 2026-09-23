@@ -85,7 +85,12 @@ export function Accordion({
             {title}
           </Text>
           {description ? (
-            <Text variant="caption" tone="muted" numberOfLines={1}>
+            /* `small` et non `caption` : c'est la phrase qui dit ce que la
+               rubrique contient, pas une mention en marge. En légende elle
+               tombait à 12 sur un téléphone lu à bout de bras (Louis,
+               23/09/2026). Deux lignes permises : à 15 une phrase courte peut
+               déborder, et la couper la rendrait muette. */
+            <Text variant="small" tone="muted" numberOfLines={2}>
               {description}
             </Text>
           ) : null}

@@ -72,75 +72,87 @@ export const letterSpacing = {
 
 // Combinaisons sémantiques prêtes à l'emploi. Préfère ces tokens dans le code
 // applicatif (ex : `typography.body` plutôt que de recombiner les briques).
-export const typography = {
-  caption: {
-    fontSize: fontSize.caption,
-    fontWeight: fontWeight.regular,
-    lineHeight: fontSize.caption * lineHeight.normal,
-  },
-  // Le titre d'une section À L'INTÉRIEUR d'un formulaire : « OUVERTURE »,
-  // « FINITION ». Il range sans peser — dans un formulaire, ce qui doit
-  // ressortir est le libellé du champ, pas le nom de la section qui le range.
-  // S'ÉCRIT EN CAPITALES : c'est la capitale qui le fait lire comme une
-  // étiquette plutôt que comme un titre, et c'est pour ça qu'il tient à
-  // 12 px. Ajouter `uppercase` (web) ou `textTransform: 'uppercase'` (natif).
-  // Ne pas l'employer comme titre de bloc dans une page en lecture : là, c'est
-  // `bodyBold` — voir l'accordéon de la fiche équipement.
-  overline: {
-    fontSize: fontSize.caption,
-    fontWeight: fontWeight.semibold,
-    lineHeight: fontSize.caption * lineHeight.normal,
-    letterSpacing: letterSpacing.wide,
-  },
-  small: {
-    fontSize: fontSize.small,
-    fontWeight: fontWeight.regular,
-    lineHeight: fontSize.small * lineHeight.normal,
-  },
-  body: {
-    fontSize: fontSize.body,
-    fontWeight: fontWeight.regular,
-    lineHeight: fontSize.body * lineHeight.normal,
-  },
-  bodyMedium: {
-    fontSize: fontSize.body,
-    fontWeight: fontWeight.medium,
-    lineHeight: fontSize.body * lineHeight.normal,
-  },
-  bodyBold: {
-    fontSize: fontSize.body,
-    fontWeight: fontWeight.semibold,
-    lineHeight: fontSize.body * lineHeight.normal,
-  },
-  subhead: {
-    fontSize: fontSize.subhead,
-    fontWeight: fontWeight.semibold,
-    lineHeight: fontSize.subhead * lineHeight.tight,
-  },
-  title: {
-    fontSize: fontSize.title,
-    fontWeight: fontWeight.semibold,
-    lineHeight: fontSize.title * lineHeight.tight,
-    letterSpacing: letterSpacing.tight,
-  },
-  titleLarge: {
-    fontSize: fontSize.titleLarge,
-    fontWeight: fontWeight.bold,
-    lineHeight: fontSize.titleLarge * lineHeight.tight,
-    letterSpacing: letterSpacing.tight,
-  },
-  headline: {
-    fontSize: fontSize.headline,
-    fontWeight: fontWeight.bold,
-    lineHeight: fontSize.headline * lineHeight.tight,
-    letterSpacing: letterSpacing.tight,
-  },
-  display: {
-    fontSize: fontSize.display,
-    fontWeight: fontWeight.bold,
-    lineHeight: fontSize.display * lineHeight.tight,
-    letterSpacing: letterSpacing.tight,
-  },
-} as const;
+/**
+ * Les combinaisons, tirées d'UNE échelle de tailles.
+ *
+ * Une fonction et non une constante, parce qu'il y a deux échelles : celle du
+ * web, ci-dessus, et celle du téléphone (`typography.native.ts`), plus grande.
+ * Les deux partagent tout le reste — graisses, interlignes, approches — et le
+ * recopier ferait deux systèmes qui divergeraient au premier réglage.
+ */
+export function scaleFrom(fs: Record<keyof typeof fontSize, number>) {
+  return {
+    caption: {
+      fontSize: fs.caption,
+      fontWeight: fontWeight.regular,
+      lineHeight: fs.caption * lineHeight.normal,
+    },
+    // Le titre d'une section À L'INTÉRIEUR d'un formulaire : « OUVERTURE »,
+    // « FINITION ». Il range sans peser — dans un formulaire, ce qui doit
+    // ressortir est le libellé du champ, pas le nom de la section qui le range.
+    // S'ÉCRIT EN CAPITALES : c'est la capitale qui le fait lire comme une
+    // étiquette plutôt que comme un titre, et c'est pour ça qu'il tient à
+    // 12 px. Ajouter `uppercase` (web) ou `textTransform: 'uppercase'` (natif).
+    // Ne pas l'employer comme titre de bloc dans une page en lecture : là, c'est
+    // `bodyBold` — voir l'accordéon de la fiche équipement.
+    overline: {
+      fontSize: fs.caption,
+      fontWeight: fontWeight.semibold,
+      lineHeight: fs.caption * lineHeight.normal,
+      letterSpacing: letterSpacing.wide,
+    },
+    small: {
+      fontSize: fs.small,
+      fontWeight: fontWeight.regular,
+      lineHeight: fs.small * lineHeight.normal,
+    },
+    body: {
+      fontSize: fs.body,
+      fontWeight: fontWeight.regular,
+      lineHeight: fs.body * lineHeight.normal,
+    },
+    bodyMedium: {
+      fontSize: fs.body,
+      fontWeight: fontWeight.medium,
+      lineHeight: fs.body * lineHeight.normal,
+    },
+    bodyBold: {
+      fontSize: fs.body,
+      fontWeight: fontWeight.semibold,
+      lineHeight: fs.body * lineHeight.normal,
+    },
+    subhead: {
+      fontSize: fs.subhead,
+      fontWeight: fontWeight.semibold,
+      lineHeight: fs.subhead * lineHeight.tight,
+    },
+    title: {
+      fontSize: fs.title,
+      fontWeight: fontWeight.semibold,
+      lineHeight: fs.title * lineHeight.tight,
+      letterSpacing: letterSpacing.tight,
+    },
+    titleLarge: {
+      fontSize: fs.titleLarge,
+      fontWeight: fontWeight.bold,
+      lineHeight: fs.titleLarge * lineHeight.tight,
+      letterSpacing: letterSpacing.tight,
+    },
+    headline: {
+      fontSize: fs.headline,
+      fontWeight: fontWeight.bold,
+      lineHeight: fs.headline * lineHeight.tight,
+      letterSpacing: letterSpacing.tight,
+    },
+    display: {
+      fontSize: fs.display,
+      fontWeight: fontWeight.bold,
+      lineHeight: fs.display * lineHeight.tight,
+      letterSpacing: letterSpacing.tight,
+    },
+  } as const;
+}
+
+export const typography = scaleFrom(fontSize);
 
 export type TypographyToken = keyof typeof typography;
