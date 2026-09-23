@@ -159,3 +159,17 @@ compatibilité (`components/Button.tsx` et consorts, qui traduisent l'API
 historique vers celle d'ici et disparaîtront), la plomberie hors design —
 cache, position, synchronisation — et les squelettes d'écran, qui épousent une
 mise en page qui n'appartient pas au design system.
+
+## Ce que le `tsc` du design system ne voit pas : ses fichiers natifs
+
+**Relevé le 23/09/2026 en reprenant `refonte` sur `main`.** `tsconfig.json`
+exclut `**/*.native.tsx`, et c'est voulu : React Native n'est pas installé ici,
+et une seconde copie de React dans l'arbre avait cassé Metro (« useMemoCache of
+null »). Les implémentations natives ne sont donc vérifiées que par le `tsc` de
+myArquos.
+
+**Ce que ça coûte, mesuré le jour même** : `main` avait retiré le rôle
+`agrandir` et ajouté `ouvrirAilleurs`. Le `tsc` d'ici passait ; celui de
+myArquos a refusé `icon.native.tsx`, dont la table est typée pour être
+complète. Le garde a fonctionné, mais UN DÉPÔT PLUS LOIN. **Après toute reprise
+de `main` dans `refonte`, lancer le `tsc` de myArquos** avant de conclure.

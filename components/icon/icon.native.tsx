@@ -3,6 +3,7 @@ import type { StyleProp, ViewStyle } from 'react-native';
 import {
   Archive,
   ArrowRight,
+  ArrowSquareOut,
   Briefcase,
   Buildings,
   Calculator,
@@ -29,7 +30,6 @@ import {
   Lightning,
   LightningSlash,
   MagnifyingGlass,
-  MagnifyingGlassPlus,
   MapTrifold,
   Microphone,
   MinusCircle,
@@ -69,11 +69,11 @@ const DESSINS: Record<IconRole, PhosphorIcon> = {
   fermer: X,
 
   rechercher: MagnifyingGlass,
-  agrandir: MagnifyingGlassPlus,
   ajouter: Plus,
   modifier: PencilSimple,
   supprimer: Trash,
   telecharger: DownloadSimple,
+  ouvrirAilleurs: ArrowSquareOut,
   filtrer: Sliders,
   plusDActions: DotsThreeVertical,
   dicter: Microphone,
