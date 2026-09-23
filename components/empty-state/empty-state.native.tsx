@@ -26,7 +26,7 @@ export interface EmptyStateProps {
 export function EmptyState({ icone, titre, conseil, actionLabel, onAction, style }: EmptyStateProps) {
   return (
     <View style={[styles.conteneur, style]}>
-      <Icon role={icone} size="xl" weight="discret" color={colors.textSubtle} style={styles.icone} />
+      <Icon role={icone} size="xl" weight="subtle" color={colors.textSubtle} style={styles.icone} />
       <Text variant="subhead" style={[styles.centre, styles.titre]}>
         {titre}
       </Text>

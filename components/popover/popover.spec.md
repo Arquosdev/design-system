@@ -1,11 +1,11 @@
 ---
 name: Popover
-statut: beta
-couche: generique
+status: beta
+layer: generique
 role: Poser un petit panneau au-dessus de la page, ancré à ce qui l'a ouvert.
-mots_cles: [popover, bulle, panneau, ancre, flottant]
-plateformes: [web]
-remplace:
+keywords: [popover, bulle, panneau, ancre, flottant]
+platforms: [web]
+replaces:
   web: []
 ---
 

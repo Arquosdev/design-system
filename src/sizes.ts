@@ -12,28 +12,28 @@
 //
 // Usage :
 //   web      `max-w-saisie-courte`, `w-panneau-large` (namespace `--container-*`)
-//   CSS nu   `var(--arq-largeur-saisie-courte)`
+//   CSS nu   `var(--arq-width-input-short)`
 
-export const largeur = {
+export const width = {
   /** Un nombre, une date, un code — ce qui se lit d'un coup d'œil. */
-  saisieCourte: 200,
+  inputShort: 200,
   /** Un texte libre, un menu : assez large pour un libellé entier. */
-  saisieLongue: 420,
+  inputLong: 420,
   /** Une planche de mesure intercalée dans un formulaire. Assez large pour que
    *  ses repères se lisent, assez étroite pour rester une illustration : une
    *  image qui prend toute la largeur du panneau devient le sujet. */
-  planche: 620,
+  plate: 620,
   /** Le panneau latéral courant — une tâche annexe, quelques champs. */
-  panneau: 460,
+  panel: 460,
   /** Le panneau qui porte un formulaire ET ce qui l'explique — une planche
    *  cotée, un tableau. En dessous, les repères A/B d'un dessin ne se lisent
    *  plus : c'est la mesure qui a fixé cette largeur. */
-  panneauLarge: 860,
+  panelWide: 860,
   /** La largeur d'un paragraphe qu'on LIT — le texte qui explique une rubrique,
    *  pas une donnée qu'on balaye. Au-delà, l'œil perd la ligne suivante en
    *  revenant à la marge ; c'est la mesure de lecture, pas une contrainte de
    *  mise en page. */
-  lecture: 720,
+  reading: 720,
   /** Le rail de navigation d'un écran — la liste des rubriques à gauche. Assez
    *  large pour un libellé entier sur une ligne, assez étroite pour que le
    *  contenu garde la page. Le squelette de chargement doit la partager, sinon
@@ -41,4 +41,4 @@ export const largeur = {
   rail: 284,
 } as const;
 
-export type LargeurToken = keyof typeof largeur;
+export type WidthToken = keyof typeof width;

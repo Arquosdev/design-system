@@ -1,11 +1,11 @@
 ---
 name: PhotoTile
-statut: beta
-couche: metier
+status: beta
+layer: metier
 role: Montrer une photo attendue — prise ou non — avec ce qu'elle est censée montrer.
-mots_cles: [photo, vignette, image, miniature, cliche, apercu]
-plateformes: [web]
-remplace:
+keywords: [photo, vignette, image, miniature, cliche, apercu]
+platforms: [web]
+replaces:
   web: [public/fiche/index.html — vignettes de la vue d'ensemble et de la rubrique Photos]
   mobile: [components/full-form/PhotoGrid.tsx]
 ---
@@ -31,18 +31,18 @@ remplace:
 
 | Prop         | Type         | Défaut  | Rôle                                        |
 | ------------ | ------------ | ------- | ------------------------------------------- |
-| `nom`        | `string`     | —       | Ce que la photo montre. Sert aussi de texte alternatif |
+| `name`        | `string`     | —       | Ce que la photo montre. Sert aussi de texte alternatif |
 | `url`        | `string`     | —       | Absent = emplacement non pris                |
-| `essentielle`| `boolean`    | `false` | Marque un emplacement obligatoire            |
-| `onOuvrir`   | `() => void` | —       | Rend la vignette cliquable                   |
+| `essential`| `boolean`    | `false` | Marque un emplacement obligatoire            |
+| `onOpen`   | `() => void` | —       | Rend la vignette cliquable                   |
 
 ## Exemples
 
 ```tsx
 import { PhotoTile } from '@arquos/design-system/web';
 
-<PhotoTile nom="Façade de l'immeuble" url={photo.url} onOuvrir={ouvrirVisionneuse} />
-<PhotoTile nom="Plaque de charge" essentielle />
+<PhotoTile name="Façade de l'immeuble" url={photo.url} onOpen={ouvrirVisionneuse} />
+<PhotoTile name="Plaque de charge" essential />
 ```
 
 ## Anatomie
@@ -72,4 +72,4 @@ l'appel.
 
 - Le texte alternatif est le nom de l'emplacement, jamais « photo » — un lecteur
   d'écran doit savoir ce qui est montré.
-- Sans `onOuvrir`, la tuile n'est ni un bouton ni atteignable au clavier.
+- Sans `onOpen`, la tuile n'est ni un bouton ni atteignable au clavier.

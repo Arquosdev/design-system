@@ -18,18 +18,18 @@ type Story = StoryObj<typeof meta>;
 export const Defaut: Story = {
   args: {
     ariaLabel: 'Contenu du rail',
-    valeur: 'fiche',
-    onChanger: () => {},
+    value: 'specFile',
+    onChange: () => {},
     segments: [
-      { cle: 'fiche', label: 'Fiche', compteur: 9 },
-      { cle: 'composants', label: 'Composants', compteur: 15 },
+      { id: 'specFile', label: 'Fiche', count: 9 },
+      { id: 'composants', label: 'Composants', count: 15 },
     ],
   },
   render: function Rendu(args) {
-    const [valeur, setValeur] = React.useState(args.valeur);
+    const [value, setValue] = React.useState(args.value);
     return (
       <div className="max-w-[268px]">
-        <SegmentedTabs {...args} valeur={valeur} onChanger={setValeur} />
+        <SegmentedTabs {...args} value={value} onChange={setValue} />
       </div>
     );
   },
@@ -40,12 +40,12 @@ export const Trois: Story = {
   ...Defaut,
   args: {
     ariaLabel: 'Période',
-    valeur: 'mois',
-    onChanger: () => {},
+    value: 'mois',
+    onChange: () => {},
     segments: [
-      { cle: 'semaine', label: 'Semaine' },
-      { cle: 'mois', label: 'Mois' },
-      { cle: 'annee', label: 'Année' },
+      { id: 'semaine', label: 'Semaine' },
+      { id: 'mois', label: 'Mois' },
+      { id: 'annee', label: 'Année' },
     ],
   },
 };

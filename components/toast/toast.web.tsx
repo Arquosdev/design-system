@@ -9,29 +9,29 @@ import { cn } from '../_lib/cn';
  * Une confirmation se lit d'un œil et disparaît ; un refus doit être lu.
  * D'où deux durées, et deux façons de l'annoncer à un lecteur d'écran.
  */
-export type ToastTon = 'info' | 'echec';
+export type ToastTone = 'info' | 'error';
 
 /** Reprises du module actuel (index.html:3908) — 2,2 s et 12 s. */
-const DUREES: Record<ToastTon, number> = { info: 2200, echec: 12000 };
+const DURATIONS: Record<ToastTone, number> = { info: 2200, error: 12000 };
 
 /**
  * Au-delà, l'empilement couvre le bas de l'écran et cache ce qui vient d'être
  * corrigé. Le plus ancien s'efface.
  */
-const MAX_VISIBLES = 3;
+const MAX_VISIBLE = 3;
 
-export interface Annonce {
+export interface Announcement {
   id: number;
   message: string;
-  ton: ToastTon;
+  tone: ToastTone;
 }
 
-export interface ToastContexte {
+export interface ToastContext {
   /** Un message passager en bas d'écran. */
-  annoncer: (message: string, options?: { ton?: ToastTon }) => void;
+  announce: (message: string, options?: { tone?: ToastTone }) => void;
 }
 
-const Contexte = React.createContext<ToastContexte | null>(null);
+const Context = React.createContext<ToastContext | null>(null);
 
 /**
  * Le raccourci qui donne accès aux annonces.
@@ -40,11 +40,11 @@ const Contexte = React.createContext<ToastContexte | null>(null);
  * pas faire tomber l'écran parce que l'hôte n'a pas monté le fournisseur. Le
  * message part alors dans la console, où on le retrouvera.
  */
-export function useToast(): ToastContexte {
-  const ctx = React.useContext(Contexte);
+export function useToast(): ToastContext {
+  const ctx = React.useContext(Context);
   return (
     ctx ?? {
-      annoncer: (message) =>
+      announce: (message) =>
         console.warn('[design-system] Toast hors ToastProvider :', message),
     }
   );
@@ -60,38 +60,38 @@ export interface ToastProviderProps {
  * et les messages partiraient dans le vide sans que rien ne le signale.
  */
 export function ToastProvider({ children }: ToastProviderProps) {
-  const [annonces, setAnnonces] = React.useState<Annonce[]>([]);
+  const [announcements, setAnnouncements] = React.useState<Announcement[]>([]);
   const prochain = React.useRef(0);
 
-  const annoncer = React.useCallback(
-    (message: string, options?: { ton?: ToastTon }) => {
+  const announce = React.useCallback(
+    (message: string, options?: { tone?: ToastTone }) => {
       const id = ++prochain.current;
-      const ton = options?.ton ?? 'info';
-      setAnnonces((liste) => [...liste, { id, message, ton }].slice(-MAX_VISIBLES));
+      const tone = options?.tone ?? 'info';
+      setAnnouncements((list) => [...list, { id, message, tone }].slice(-MAX_VISIBLE));
     },
     [],
   );
 
   const retirer = React.useCallback((id: number) => {
-    setAnnonces((liste) => liste.filter((a) => a.id !== id));
+    setAnnouncements((list) => list.filter((a) => a.id !== id));
   }, []);
 
-  const valeur = React.useMemo(() => ({ annoncer }), [annoncer]);
+  const value = React.useMemo(() => ({ announce }), [announce]);
 
   return (
-    <Contexte.Provider value={valeur}>
+    <Context.Provider value={value}>
       {/* Balayage vers le bas : le bandeau est ancré en bas, l'écarter d'un
           geste doit aller dans le sens où il sort de l'écran. */}
       <ToastPrimitive.Provider swipeDirection="down">
         {children}
 
-        {annonces.map((a) => (
+        {announcements.map((a) => (
           <ToastPrimitive.Root
             key={a.id}
-            duration={DUREES[a.ton]}
+            duration={DURATIONS[a.tone]}
             // `foreground` interrompt le lecteur d'écran, `background` attend
             // qu'il ait fini. Un refus ne peut pas attendre.
-            type={a.ton === 'echec' ? 'foreground' : 'background'}
+            type={a.tone === 'error' ? 'foreground' : 'background'}
             onOpenChange={(ouvert) => !ouvert && retirer(a.id)}
             className={cn(
               'pointer-events-auto flex max-w-[min(640px,calc(100vw-48px))] items-start gap-md',
@@ -123,6 +123,6 @@ export function ToastProvider({ children }: ToastProviderProps) {
           )}
         />
       </ToastPrimitive.Provider>
-    </Contexte.Provider>
+    </Context.Provider>
   );
 }

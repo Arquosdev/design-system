@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Fondation, Section, groupe } from '../atelier';
+import { Fondation, Section, group } from '../atelier';
 
 const meta: Meta = {
   title: 'Fondations/Élévation',
@@ -13,18 +13,18 @@ export const Elevation: Story = {
   name: 'Élévation',
   render: () => (
     <Fondation
-      titre="Élévation"
-      quoi="Trois ombres, chacune attachée à un usage précis. L'ombre est le token le plus facile à réinventer au call site : s'en tenir à ces trois-là est ce qui garde les surfaces cohérentes."
+      title="Élévation"
+      what="Trois ombres, chacune attachée à un usage précis. L'ombre est le token le plus facile à réinventer au call site : s'en tenir à ces trois-là est ce qui garde les surfaces cohérentes."
     >
-      <Section titre="Les trois niveaux">
+      <Section title="Les trois niveaux">
         <div className="flex flex-wrap gap-xl bg-bg-muted p-xl">
-          {groupe('shadow').map(([nom, t]) => (
+          {group('shadow').map(([name, t]) => (
             <div
-              key={nom}
+              key={name}
               className="flex size-[150px] flex-col items-center justify-center gap-xs rounded-md bg-bg p-sm"
               style={{ boxShadow: t.$value }}
             >
-              <span className="text-small font-semibold text-text">{nom}</span>
+              <span className="text-small font-semibold text-text">{name}</span>
               {t.$description ? (
                 <span className="text-center text-caption text-text-muted">{t.$description}</span>
               ) : null}
@@ -34,8 +34,8 @@ export const Elevation: Story = {
       </Section>
 
       <Section
-        titre="Côté mobile, l'ombre se déclare deux fois"
-        quoi="React Native ne comprend pas `box-shadow` : `elevation` est la propriété Android, les `shadow*` sont lues par iOS, et il faut les deux pour un rendu identique. `shadowNative` porte les deux jeux."
+        title="Côté mobile, l'ombre se déclare deux fois"
+        what="React Native ne comprend pas `box-shadow` : `elevation` est la propriété Android, les `shadow*` sont lues par iOS, et il faut les deux pour un rendu identique. `shadowNative` porte les deux jeux."
       >
         <pre className="overflow-x-auto rounded-md border border-border-soft bg-bg-muted p-base text-caption text-text">
 {`import { shadowNative } from '@arquos/design-system';

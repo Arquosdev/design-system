@@ -1,9 +1,9 @@
 'use client';
 
 import {
-  choixReels,
-  contenuAffiche,
-  invitAffichee,
+  realChoices,
+  displayedText,
+  displayedPlaceholder,
   type ComboboxOption,
 } from './combobox.logic.ts';
 
@@ -12,7 +12,12 @@ import { Command as CommandPrimitive } from 'cmdk';
 
 import { cn } from '../_lib/cn';
 import { Icon } from '../icon/icon.web';
-import { CommandEmpty, CommandItem, CommandList } from '../command/command.web';
+import {
+  CommandEmpty,
+  CommandItem,
+  CommandList,
+  CommandSizeProvider,
+} from '../command/command.web';
 import { Popover, PopoverAnchor, PopoverContent } from '../popover/popover.web';
 
 export type { ComboboxOption };
@@ -20,13 +25,13 @@ export type { ComboboxOption };
 export interface ComboboxProps {
   options: readonly ComboboxOption[];
   /** La valeur retenue. Une valeur hors catalogue s'affiche telle quelle. */
-  valeur: string;
-  onValeur: (valeur: string) => void;
+  value: string;
+  onValue: (value: string) => void;
   /** Ce que le champ dit quand rien n'est retenu. */
   placeholder?: string;
   /** Nomme le champ quand aucun libellé visible ne le fait. */
   ariaLabel?: string;
-  desactive?: boolean;
+  disabled?: boolean;
   /** Le champ prend le focus dès qu'il paraît — il remplace une valeur. */
   autoFocus?: boolean;
   className?: string;
@@ -52,11 +57,11 @@ export interface ComboboxProps {
  */
 export function Combobox({
   options,
-  valeur,
-  onValeur,
+  value,
+  onValue,
   placeholder = 'Rechercher…',
   ariaLabel,
-  desactive = false,
+  disabled = false,
   autoFocus = false,
   className,
 }: ComboboxProps) {
@@ -67,11 +72,11 @@ export function Combobox({
 
   /* Les deux règles vivent dans `combobox.logic.ts`, où elles sont éprouvées :
      ce qui compte comme choix, et ce que le champ montre. */
-  const choix = React.useMemo(() => choixReels(options), [options]);
-  const contenu = contenuAffiche(options, valeur, ouvert, frappe);
-  const invite = invitAffichee(options, valeur, ouvert, placeholder);
+  const choices = React.useMemo(() => realChoices(options), [options]);
+  const contenu = displayedText(options, value, ouvert, frappe);
+  const invite = displayedPlaceholder(options, value, ouvert, placeholder);
 
-  const fermer = () => {
+  const close = () => {
     setOuvert(false);
     setFrappe('');
   };
@@ -83,27 +88,27 @@ export function Combobox({
       loop
       className="w-full"
       onKeyDown={(e) => {
-        if (e.key === 'Escape') fermer();
+        if (e.key === 'Escape') close();
       }}
     >
-      <Popover open={ouvert && !desactive} onOpenChange={(o) => !o && fermer()}>
+      <Popover open={ouvert && !disabled} onOpenChange={(o) => !o && close()}>
         <PopoverAnchor asChild>
           <div
             ref={ancre}
             className={cn(
-              'flex h-[32px] w-full items-center gap-sm rounded-control',
+              'flex h-(--arq-control-md) w-full items-center gap-sm rounded-control',
               // Les mêmes traits que la gâchette de `Select`, au pixel : un
               // champ à menu doit avoir la même tête, court ou long.
               'border border-border bg-bg px-md shadow-card',
               'focus-within:ring-2 focus-within:ring-primary',
-              desactive && 'pointer-events-none opacity-50',
+              disabled && 'pointer-events-none opacity-50',
               className,
             )}
           >
             <CommandPrimitive.Input
               ref={champ}
               autoFocus={autoFocus}
-              disabled={desactive}
+              disabled={disabled}
               value={contenu}
               onValueChange={(v) => {
                 setFrappe(v);
@@ -119,7 +124,7 @@ export function Combobox({
               )}
             />
             <Icon
-              role="deplier"
+              role="expand"
               size="sm"
               className={cn(
                 'shrink-0 text-text-subtle transition-transform',
@@ -153,28 +158,45 @@ export function Combobox({
           collisionPadding={8}
         >
           {/*
-            La liste prend la place disponible plutôt qu'une hauteur fixe. À 240
-            pixels elle montrait sept marques sur trois cents ; chercher revenait
-            à faire défiler, ce que le champ cherchable est censé éviter.
+            **La densité d'un MENU, pas celle de la palette.** Sans ce
+            fournisseur, `CommandItem` et `CommandEmpty` héritaient de la taille
+            par défaut : entrées de 35,6 px, retraits de seize, état vide à
+            `px-base py-xl` pour une ligne de texte. Louis, le 30/08/2026 : « je
+            les trouve grossiers, avec un padding de tous les côtés inutile ».
+
+            Ce composant s'adresse directement à `cmdk` — il lui faut son champ
+            et son ancrage — donc il ne pouvait pas hériter de la taille par
+            `Command`. Il la déclare.
           */}
-          <CommandList className="max-h-[min(320px,45vh)]">
-            <CommandEmpty>Aucun choix ne correspond.</CommandEmpty>
-            {choix.map((o) => (
-              <CommandItem
-                key={o.valeur}
-                value={o.libelle}
-                onSelect={() => {
-                  onValeur(o.valeur);
-                  fermer();
-                }}
-                className={cn(
-                  o.valeur === valeur && 'bg-info-bg font-semibold text-on-info-bg',
-                )}
-              >
-                {o.libelle}
-              </CommandItem>
-            ))}
-          </CommandList>
+          <CommandSizeProvider size="sm">
+            {/*
+              **Treize entières, et pas douze et demie.** Deux exigences se
+              rejoignent ici. Une entrée coupée en deux se lit comme un défaut
+              même quand elle sert d'indice de défilement — Louis l'a signalé deux
+              fois, sur le sélecteur d'agence. Et la liste doit montrer assez de
+              choix pour qu'on n'ait pas à faire défiler pour chercher : à 240
+              pixels elle montrait sept marques sur trois cents. 13 × 24 + 4 + 4
+              = 320, la hauteur que `main` avait retenue, tombe juste.
+            */}
+            <CommandList className="max-h-[320px]">
+              <CommandEmpty>Aucun choix ne correspond.</CommandEmpty>
+              {choices.map((o) => (
+                <CommandItem
+                  key={o.value}
+                  value={o.label}
+                  onSelect={() => {
+                    onValue(o.value);
+                    close();
+                  }}
+                  className={cn(
+                    o.value === value && 'bg-info-bg font-semibold text-on-info-bg',
+                  )}
+                >
+                  {o.label}
+                </CommandItem>
+              ))}
+            </CommandList>
+          </CommandSizeProvider>
         </PopoverContent>
       </Popover>
     </CommandPrimitive>
@@ -189,4 +211,4 @@ export function Combobox({
  * cinquante, cent quatorze, trois cent soixante-seize. Entre les deux il n'y a
  * personne, et la frontière peut donc être franche.
  */
-export const SEUIL_RECHERCHE = 12;
+export const SEARCH_THRESHOLD = 12;

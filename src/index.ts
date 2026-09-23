@@ -5,7 +5,10 @@
 // Pour avoir tous les tokens d'un coup :
 //   import { tokens } from '@arquos/design-system';
 
-export { palette, core, colors, type ColorToken } from './colors';
+export {
+  palette, core, colors, tagPalette, tagTone, TAG_TONES,
+  type ColorToken, type TagTone,
+} from './colors';
 // Le site vitrine, à part : voir src/site.ts.
 export { site, type SiteColorToken } from './site';
 export {
@@ -26,35 +29,61 @@ export { duration, easing, type DurationToken } from './motion';
 export { layers, type LayerToken } from './layers';
 export { borderWidth, type BorderWidthToken } from './border';
 export { controlHeight, type ControlHeightToken } from './control';
-export { largeur, type LargeurToken } from './sizes';
+export { width, type WidthToken } from './sizes';
 
 // --- Logique métier partagée -------------------------------------------
 // Ce que les composants métier savent de l'ascenseur, sans une ligne de React :
 // le vocabulaire et les règles, lisibles et testables des deux plateformes.
 export {
-  menuDeChoix,
-  texteDeValeur,
-  estVide,
-  VIDE,
-  TEXTE_STATUT,
-  TEXTE_SAUVEGARDE,
+  choiceMenu,
+  valueText,
+  isEmpty,
+  EMPTY,
+  STATUS_TEXT,
+  SAVE_TEXT,
   type FieldKind,
-  type FieldStatut,
-  type FieldSauvegarde,
+  type FieldStatus,
+  type FieldSave,
   type FieldOption,
 } from '../components/field-row/field-row.logic';
-export { NON_PRISE, estEnTravers } from '../components/photo-tile/photo-tile.logic';
 export {
-  ECHECS,
-  REESSAYER,
-  natureDeLEchec,
-  type NatureDeLEchec,
-  type FormulationDEchec,
+  toISO,
+  toDisplay,
+  isISO,
+  todayISO,
+  mask,
+  inRange,
+  refusal,
+  monthGrid,
+  monthLabel,
+  shiftDay,
+  shiftMonth,
+  shiftMonthKeepingDay,
+  daysInMonth,
+  cellLabel,
+  cursorFor,
+  splitISO,
+  DISPLAY_FORMAT,
+  MONTHS,
+  WEEKDAYS,
+  WEEKDAYS_LONG,
+  TODAY_LABEL,
+  INVALID_TEXT,
+  type DateCell,
+  type MonthCursor,
+} from '../components/date-field/date-field.logic';
+export { NOT_TAKEN, estEnTravers } from '../components/photo-tile/photo-tile.logic';
+export {
+  FAILURES,
+  RETRY,
+  failureKind,
+  type FailureKind,
+  type FailureWording,
 } from '../components/empty-state/empty-state.logic';
 export {
   iconSize,
   iconWeight,
-  icones,
+  icons,
   type IconSizeToken,
   type IconWeightToken,
   type IconRole,
@@ -78,8 +107,8 @@ import { duration, easing } from './motion';
 import { layers } from './layers';
 import { borderWidth } from './border';
 import { controlHeight } from './control';
-import { largeur } from './sizes';
-import { iconSize, iconWeight, icones } from './icons';
+import { width } from './sizes';
+import { iconSize, iconWeight, icons } from './icons';
 
 export const tokens = {
   palette,
@@ -101,8 +130,8 @@ export const tokens = {
   layers,
   borderWidth,
   controlHeight,
-  largeur,
+  width,
   iconSize,
   iconWeight,
-  icones,
+  icons,
 } as const;

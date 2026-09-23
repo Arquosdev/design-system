@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { EmptyState, EmptyStateErreur } from '../../components/empty-state/empty-state.web';
+import { EmptyState, EmptyStateError } from '../../components/empty-state/empty-state.web';
 import specification from '../../components/empty-state/empty-state.spec.md?raw';
 import { docsDe } from '../fiche';
 
@@ -9,9 +9,9 @@ const meta = {
   component: EmptyState,
   parameters: docsDe(specification),
   args: {
-    icone: 'document' as const,
-    titre: 'Aucun document',
-    conseil: 'Les pièces jointes au relevé apparaîtront ici.',
+    icon: 'document' as const,
+    title: 'Aucun document',
+    hint: 'Les pièces jointes au relevé apparaîtront ici.',
   },
 } satisfies Meta<typeof EmptyState>;
 
@@ -26,9 +26,9 @@ export const Defaut: Story = {};
  */
 export const AvecUneAction: Story = {
   args: {
-    icone: 'filtrer',
-    titre: 'Aucun écart ne correspond',
-    conseil: 'Le filtre « Non résolus » masque les quatre écarts de cet appareil.',
+    icon: 'filter',
+    title: 'Aucun écart ne correspond',
+    hint: 'Le filtre « Non résolus » masque les quatre écarts de cet appareil.',
     actionLabel: 'Retirer le filtre',
     onAction: () => {},
   },
@@ -45,8 +45,8 @@ export const AvecUneAction: Story = {
 export const LErreurChoisitSesMots: Story = {
   render: () => (
     <div className="flex flex-col divide-y divide-border-soft">
-      <EmptyStateErreur erreur={new Error('Failed to fetch')} onReessayer={() => {}} />
-      <EmptyStateErreur erreur={new Error('500 Internal Server Error')} onReessayer={() => {}} />
+      <EmptyStateError error={new Error('Failed to fetch')} onReessayer={() => {}} />
+      <EmptyStateError error={new Error('500 Internal Server Error')} onReessayer={() => {}} />
     </div>
   ),
 };

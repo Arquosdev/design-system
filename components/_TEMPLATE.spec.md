@@ -14,17 +14,17 @@ name: NomDuComposant
 #
 # Promouvoir plus tôt, c'est promettre une stabilité qu'on n'a pas encore
 # éprouvée ; ne jamais promouvoir, c'est vider le champ de son sens.
-statut: beta # stable | beta | déprécié
+status: beta # stable | beta | déprécié
 # generique = une mécanique que n'importe quelle application aurait (bouton,
 # modale, onglets) — elle vient de shadcn/Radix, ou elle le pourrait.
 # metier = elle porte l'ascenseur : son vocabulaire, ses états, ses règles.
 # Le doute se tranche ainsi : « une application de comptabilité en voudrait-elle
 # telle quelle ? » Oui → generique.
-couche: generique # generique | metier
+layer: generique # generique | metier
 role: Une phrase — ce que le composant fait, à la voix active.
-mots_cles: [bouton, action, cta] # termes qu'un agent chercherait pour tomber ici
-plateformes: [web, mobile] # où l'implémentation existe réellement
-remplace:
+keywords: [bouton, action, cta] # termes qu'un agent chercherait pour tomber ici
+platforms: [web, mobile] # où l'implémentation existe réellement
+replaces:
   mobile: [components/Button.tsx] # fichiers d'app que ce composant remplace
   web: []
 ---
@@ -71,7 +71,7 @@ Des exemples **copiables tels quels**, pas des fragments à compléter.
 ## Logique partagée
 
 Si le composant porte du **métier** — un vocabulaire, un seuil, une règle de
-décision — cela vit dans `<nom>.logic.ts`, qui n'importe pas React. Le fichier
+décision — cela vit dans `<name>.logic.ts`, qui n'importe pas React. Le fichier
 de plateforme n'y garde que le rendu.
 
 Ce qui va dans la logique : les mots (« Non renseigné »), les seuils, les règles.

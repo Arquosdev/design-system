@@ -25,7 +25,7 @@ AccordionItem.displayName = 'AccordionItem';
 
 export interface AccordionTriggerProps
   extends Omit<React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>, 'children'> {
-  titre: string;
+  title: string;
   /** Compteur ou précision affichée à droite du titre (« 4 champs renseignés »). */
   meta?: string;
   /**
@@ -38,7 +38,7 @@ export interface AccordionTriggerProps
    * les deux, et celui qui déplie n'occupe plus que la place qui reste.
    */
   action?: {
-    libelle: string;
+    label: string;
     onClick: () => void;
     /** Ce qu'un lecteur d'écran annonce, quand le libellé seul ne suffit pas. */
     ariaLabel?: string;
@@ -48,7 +48,7 @@ export interface AccordionTriggerProps
 export const AccordionTrigger = React.forwardRef<
   React.ComponentRef<typeof AccordionPrimitive.Trigger>,
   AccordionTriggerProps
->(({ className, titre, meta, action, ...props }, ref) => (
+>(({ className, title, meta, action, ...props }, ref) => (
   <AccordionPrimitive.Header
     className={cn('flex items-stretch', action && 'border-b border-border-soft bg-bg-subtle')}
   >
@@ -67,11 +67,11 @@ export const AccordionTrigger = React.forwardRef<
           comportement de la fiche. Pivoter de 180° mettrait une pointe vers le
           haut, qui se lit « remonter » plutôt que « ouvert ». */}
       <Icon
-        role="deplier"
+        role="expand"
         size="xs"
         className="-rotate-90 text-text-muted transition-transform duration-(--arq-duration-normal) group-data-[state=open]:rotate-0"
       />
-      <span className="text-small font-bold text-text">{titre}</span>
+      <span className="text-small font-bold text-text">{title}</span>
       {meta ? <span className="text-caption text-text-muted">{meta}</span> : null}
     </AccordionPrimitive.Trigger>
     {action ? (
@@ -89,7 +89,7 @@ export const AccordionTrigger = React.forwardRef<
           'hover:decoration-current focus-visible:ring-2 focus-visible:ring-primary',
         )}
       >
-        {action.libelle}
+        {action.label}
       </button>
     ) : null}
   </AccordionPrimitive.Header>

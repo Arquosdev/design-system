@@ -8,12 +8,12 @@
 
 import type { IconRole } from '../../src/icons';
 
-export type NatureDeLEchec = 'hors-ligne' | 'inconnu';
+export type FailureKind = 'offline' | 'unknown';
 
-export interface FormulationDEchec {
-  icone: IconRole;
-  titre: string;
-  conseil: string;
+export interface FailureWording {
+  icon: IconRole;
+  title: string;
+  hint: string;
 }
 
 /**
@@ -24,21 +24,21 @@ export interface FormulationDEchec {
  * message générique enverrait le technicien appuyer en boucle dans une gaine
  * sans réseau.
  */
-export const ECHECS: Record<NatureDeLEchec, FormulationDEchec> = {
-  'hors-ligne': {
-    icone: 'horsLigne',
-    titre: 'Pas de connexion',
-    conseil: 'Vérifiez votre connexion internet, puis réessayez.',
+export const FAILURES: Record<FailureKind, FailureWording> = {
+  'offline': {
+    icon: 'offline',
+    title: 'Pas de connexion',
+    hint: 'Vérifiez votre connexion internet, puis réessayez.',
   },
-  inconnu: {
-    icone: 'attention',
-    titre: 'Une erreur est survenue',
-    conseil: 'Veuillez réessayer dans quelques instants.',
+  unknown: {
+    icon: 'warning',
+    title: 'Une erreur est survenue',
+    hint: 'Veuillez réessayer dans quelques instants.',
   },
 };
 
 /** Le libellé du bouton de reprise. Un seul mot, le même partout. */
-export const REESSAYER = 'Réessayer';
+export const RETRY = 'Réessayer';
 
 /**
  * La nature d'un échec, lue sur l'erreur elle-même.
@@ -48,10 +48,10 @@ export const REESSAYER = 'Réessayer';
  * faux négatif coûte un message générique ; un faux positif enverrait attendre
  * un réseau qui n'est pas en cause.
  */
-export function natureDeLEchec(erreur: unknown): NatureDeLEchec {
-  if (typeof navigator !== 'undefined' && navigator.onLine === false) return 'hors-ligne';
-  const message = erreur instanceof Error ? erreur.message : String(erreur ?? '');
+export function failureKind(error: unknown): FailureKind {
+  if (typeof navigator !== 'undefined' && navigator.onLine === false) return 'offline';
+  const message = error instanceof Error ? error.message : String(error ?? '');
   return /network|fetch failed|offline|ERR_INTERNET|Failed to fetch|NetworkError/i.test(message)
-    ? 'hors-ligne'
-    : 'inconnu';
+    ? 'offline'
+    : 'unknown';
 }

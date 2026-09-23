@@ -11,7 +11,7 @@ const MARQUES = [
   'ELEMOL', 'ETI', 'FERMATOR', 'GMV', 'KONE', 'MICROLIFT', 'MONITOR',
   'OCTE', 'ORONA', 'OTIS', 'SASSI', 'SCHINDLER', 'SEMATIC', 'THYSSEN',
   'WITTUR',
-].map((m) => ({ valeur: m.toLowerCase().replace(/ /g, '_'), libelle: m }));
+].map((m) => ({ value: m.toLowerCase().replace(/ /g, '_'), label: m }));
 
 const meta = {
   title: 'Composants/Générique/Combobox',
@@ -20,7 +20,7 @@ const meta = {
   // Chaque histoire rend son propre exemple, mais `StoryObj<typeof meta>` exige
   // quand même les props obligatoires : sans ces valeurs par défaut, `tsc`
   // refuse les histoires qui n'ont qu'un `render`.
-  args: { options: MARQUES, valeur: 'otis', onValeur: () => {} },
+  args: { options: MARQUES, value: 'otis', onValue: () => {} },
 } satisfies Meta<typeof Combobox>;
 
 export default meta;
@@ -29,13 +29,13 @@ type Story = StoryObj<typeof meta>;
 /** Un champ, et la liste qui se resserre dessous à mesure qu'on tape. */
 export const Defaut: Story = {
   render: function Rendu() {
-    const [valeur, setValeur] = React.useState('otis');
+    const [value, setValue] = React.useState('otis');
     return (
       <div className="w-[280px]">
         <Combobox
           options={MARQUES}
-          valeur={valeur}
-          onValeur={setValeur}
+          value={value}
+          onValue={setValue}
           ariaLabel="Marque machine"
           placeholder="Rechercher une marque"
         />
@@ -47,13 +47,13 @@ export const Defaut: Story = {
 /** Rien de retenu : le champ invite à taper plutôt qu'à dérouler. */
 export const Vide: Story = {
   render: function Rendu() {
-    const [valeur, setValeur] = React.useState('');
+    const [value, setValue] = React.useState('');
     return (
       <div className="w-[280px]">
         <Combobox
           options={MARQUES}
-          valeur={valeur}
-          onValeur={setValeur}
+          value={value}
+          onValue={setValue}
           ariaLabel="Marque machine"
           placeholder="Rechercher une marque"
         />
@@ -68,14 +68,41 @@ export const Vide: Story = {
  */
 export const HorsCatalogue: Story = {
   render: function Rendu() {
-    const [valeur, setValeur] = React.useState('ASCENSEURS DU MIDI');
+    const [value, setValue] = React.useState('ASCENSEURS DU MIDI');
     return (
       <div className="w-[280px]">
         <Combobox
           options={MARQUES}
-          valeur={valeur}
-          onValeur={setValeur}
+          value={value}
+          onValue={setValue}
           ariaLabel="Marque machine"
+        />
+      </div>
+    );
+  },
+};
+
+/**
+ * **Une liste qui déborde, et qui ne coupe pas d'entrée en deux.**
+ *
+ * C'est le cas du sélecteur d'agence, celui que Louis ouvre en premier. La liste
+ * est bornée à dix entrées — 10 × 24 px, plus quatre de marge en haut et en bas
+ * — donc ce qu'on voit du bord est une entrée entière, jamais un demi-glyphe.
+ *
+ * Et les entrées ont la densité d'un MENU : elles héritaient de celle de la
+ * palette ⌘K, trente-six pixels de haut pour un mot.
+ */
+export const ListeQuiDeborde: Story = {
+  render: function Rendu() {
+    const [value, setValue] = React.useState('');
+    return (
+      <div className="h-[420px] w-[280px]">
+        <Combobox
+          options={MARQUES}
+          value={value}
+          onValue={setValue}
+          ariaLabel="Marque machine"
+          placeholder="Rechercher une marque"
         />
       </div>
     );

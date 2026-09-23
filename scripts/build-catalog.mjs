@@ -74,7 +74,7 @@ function parseFrontmatter(source, file) {
   return out;
 }
 
-const REQUIRED = ['name', 'statut', 'role', 'mots_cles', 'plateformes', 'couche'];
+const REQUIRED = ['name', 'status', 'role', 'keywords', 'platforms', 'layer'];
 
 /**
  * Les deux couches, et ce qui les sépare.
@@ -84,16 +84,16 @@ const REQUIRED = ['name', 'statut', 'role', 'mots_cles', 'plateformes', 'couche'
  * tous les jours — « est-ce que je touche à une brique que tout le monde
  * partage, ou à quelque chose qui ne vaut que pour l'ascenseur ? »
  */
-const COUCHES = {
+const LAYERS = {
   generique: {
-    titre: 'Générique',
-    quoi:
+    title: 'Générique',
+    what:
       "Une mécanique que n'importe quelle application aurait — bouton, modale, " +
       'onglets. Elle vient de shadcn/Radix, ou elle le pourrait.',
   },
   metier: {
-    titre: 'Métier',
-    quoi:
+    title: 'Métier',
+    what:
       "Elle porte l'ascenseur : son vocabulaire, ses états, ses règles. " +
       "shadcn n'a rien d'équivalent, et c'est normal.",
   },
@@ -117,16 +117,16 @@ function collect() {
       throw new Error(`${spec} : clés manquantes dans l'en-tête — ${missing.join(', ')}`);
     }
 
-    if (!COUCHES[meta.couche]) {
+    if (!LAYERS[meta.layer]) {
       throw new Error(
-        `${spec} : couche « ${meta.couche} » inconnue — attendu ${Object.keys(COUCHES).join(' ou ')}`,
+        `${spec} : couche « ${meta.layer} » inconnue — attendu ${Object.keys(LAYERS).join(' ou ')}`,
       );
     }
 
     // Une plateforme déclarée sans implémentation est un piège : l'agent croirait
     // le composant disponible et écrirait un import qui n'existe pas.
     const fichiers = {};
-    for (const plateforme of meta.plateformes) {
+    for (const plateforme of meta.platforms) {
       const ext = plateforme === 'mobile' ? 'native.tsx' : 'web.tsx';
       const impl = join(COMPONENTS, dir.name, `${dir.name}.${ext}`);
       if (!existsSync(impl)) {
@@ -148,7 +148,7 @@ function collect() {
     // Les dépôts d'app ne sont pas toujours présents (la CI ne cloue que
     // celui-ci). On ne vérifie donc QUE ce qu'on peut voir, et on se tait sur
     // le reste plutôt que de bloquer sur une absence qui n'est pas une faute.
-    for (const [plateforme, chemins] of Object.entries(meta.remplace ?? {})) {
+    for (const [plateforme, chemins] of Object.entries(meta.replaces ?? {})) {
       const depot = REPOS[plateforme];
       if (!depot || !existsSync(depot)) continue;
       for (const brut of chemins) {
@@ -175,7 +175,7 @@ function collect() {
     entries.push({
       ...meta,
       dossier: `components/${dir.name}`,
-      fiche: `components/${dir.name}/${dir.name}.spec.md`,
+      specFile: `components/${dir.name}/${dir.name}.spec.md`,
       fichiers,
     });
   }
@@ -192,7 +192,7 @@ function buildJson(entries) {
           "chercher ici : si le rôle recherché y figure, réutiliser plutôt que réécrire. " +
           "Chaque entrée pointe vers sa fiche (`fiche`), qui décrit les props, les états et " +
           "surtout les cas où le composant ne doit PAS être employé.",
-        couches: COUCHES,
+        couches: LAYERS,
         composants: entries,
       },
       null,
@@ -202,28 +202,28 @@ function buildJson(entries) {
 }
 
 function buildReadme(entries) {
-  const table = (liste) => [
+  const table = (list) => [
     '| Composant | Rôle | Plateformes | Statut |',
     '| --- | --- | --- | --- |',
-    ...(liste.length
-      ? liste.map((c) => {
-          const plateformes = c.plateformes
+    ...(list.length
+      ? list.map((c) => {
+          const platforms = c.platforms
             .map((p) => (p === 'mobile' ? '📱' : '🖥️'))
             .join(' ');
           // Lien relatif à components/, tiré du chemin réel : le nom du
           // composant (FieldRow) ne donne pas toujours celui du dossier.
-          const lien = c.fiche.replace(/^components\//, '');
-          return `| [${c.name}](${lien}) | ${c.role} | ${plateformes} | ${c.statut} |`;
+          const lien = c.specFile.replace(/^components\//, '');
+          return `| [${c.name}](${lien}) | ${c.role} | ${platforms} | ${c.status} |`;
         })
       : ["| _(aucun pour l'instant)_ | | | |"]),
   ];
 
-  const sections = Object.entries(COUCHES).flatMap(([cle, { titre, quoi }]) => [
-    `## ${titre}`,
+  const sections = Object.entries(LAYERS).flatMap(([id, { title, what }]) => [
+    `## ${title}`,
     '',
-    quoi,
+    what,
     '',
-    ...table(entries.filter((c) => c.couche === cle)),
+    ...table(entries.filter((c) => c.layer === id)),
     '',
   ]);
 

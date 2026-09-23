@@ -19,7 +19,7 @@ export const Defaut: Story = {
     <RadioGroup defaultValue="traction">
       <Label className="gap-sm font-normal"><RadioGroupItem value="traction" /> Traction à câbles</Label>
       <Label className="gap-sm font-normal"><RadioGroupItem value="hydraulique" /> Hydraulique</Label>
-      <Label className="gap-sm font-normal"><RadioGroupItem value="inconnu" /> Non déterminé</Label>
+      <Label className="gap-sm font-normal"><RadioGroupItem value="unknown" /> Non déterminé</Label>
     </RadioGroup>
   ),
 };

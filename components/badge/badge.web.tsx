@@ -31,7 +31,7 @@ export const badgeVariants = cva(
         outline: 'border-border text-muted-foreground',
         success: 'border-transparent bg-success-bg text-on-success-bg',
         warning: 'border-transparent bg-warning-bg text-on-warning-bg',
-        info: 'border-transparent bg-info-bg text-on-info-bg',
+        info: 'border-transparent bg-info-bg text-text-on-info-bg',
         muted: 'border-transparent bg-muted text-muted-foreground',
       },
     },

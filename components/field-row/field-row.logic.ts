@@ -8,9 +8,17 @@
 // Rien dans ce fichier n'importe React : il se lit et se teste sans navigateur
 // ni simulateur.
 
-export type FieldKind = 'text' | 'number' | 'choice' | 'multi';
-export type FieldStatut = 'renseigne' | 'manquant' | 'a_verifier';
-export type FieldSauvegarde = 'encours' | 'ok' | 'echec';
+/*
+  Le premier import d'un module de logique par un autre, et l'extension `.ts` y
+  est OBLIGATOIRE : ces fichiers tournent sous Node nu — `npm run test` les
+  exécute par `--experimental-strip-types`, sans bundler pour deviner un
+  chemin. Les `.web.tsx` voisins peuvent l'omettre, eux passent par Vite.
+*/
+import { isISO, toDisplay } from '../date-field/date-field.logic.ts';
+
+export type FieldKind = 'text' | 'number' | 'choice' | 'multi' | 'date';
+export type FieldStatus = 'filled' | 'missing' | 'to_check';
+export type FieldSave = 'saving' | 'ok' | 'error';
 export interface FieldOption {
   value: string;
   label: string;
@@ -24,13 +32,13 @@ export interface FieldOption {
  * métier, pas cosmétique : un relevé où l'on ne sait pas n'est pas un relevé
  * où il n'y a rien à savoir.
  */
-export const VIDE = 'Non renseigné';
+export const EMPTY = 'Non renseigné';
 
 /** Ce que chaque statut de champ s'appelle. Les mots, pas la couleur. */
-export const TEXTE_STATUT: Record<FieldStatut, string> = {
-  renseigne: 'Renseigné',
-  manquant: 'Manquant',
-  a_verifier: 'À vérifier',
+export const STATUS_TEXT: Record<FieldStatus, string> = {
+  filled: 'Renseigné',
+  missing: 'Manquant',
+  to_check: 'À vérifier',
 };
 
 /**
@@ -39,10 +47,10 @@ export const TEXTE_STATUT: Record<FieldStatut, string> = {
  * Formulations reprises telles quelles du module Bubble (index.html:4671) : le
  * vocabulaire de la fiche ne change pas parce qu'on la réécrit.
  */
-export const TEXTE_SAUVEGARDE: Record<FieldSauvegarde, string> = {
-  encours: 'Enregistrement…',
+export const SAVE_TEXT: Record<FieldSave, string> = {
+  saving: 'Enregistrement…',
   ok: '✓ Enregistré',
-  echec: '⚠ Non enregistré',
+  error: '⚠ Non enregistré',
 };
 
 /**
@@ -57,19 +65,19 @@ export const TEXTE_SAUVEGARDE: Record<FieldSauvegarde, string> = {
  * a laissé — reste en tête du menu : la retirer reviendrait à la remplacer en
  * silence dès l'ouverture.
  */
-export function menuDeChoix(
+export function choiceMenu(
   value: string | string[] | null,
   options: readonly FieldOption[],
-): { choix: FieldOption[]; retenue: string } {
+): { choices: FieldOption[]; chosen: string } {
   const brut = typeof value === 'string' ? value : '';
   const retenu = options.find((o) => o.value === brut || o.label === brut);
-  const choix: FieldOption[] = [];
+  const choices: FieldOption[] = [];
 
-  if (!brut) choix.push({ value: '', label: '— choisir —' });
-  if (brut && !retenu) choix.push({ value: brut, label: brut });
-  choix.push(...options);
+  if (!brut) choices.push({ value: '', label: '— choisir —' });
+  if (brut && !retenu) choices.push({ value: brut, label: brut });
+  choices.push(...options);
 
-  return { choix, retenue: retenu ? retenu.value : brut };
+  return { choices, chosen: retenu ? retenu.value : brut };
 }
 
 /**
@@ -79,15 +87,32 @@ export function menuDeChoix(
  * chaque endroit qui affiche un champ — c'est ainsi qu'un écran finit par
  * afficher un tiret quand les autres disent « Non renseigné ».
  */
-export function texteDeValeur(value: string | string[] | null | undefined): string {
-  if (Array.isArray(value)) return value.length ? value.join(', ') : VIDE;
+export function valueText(value: string | string[] | null | undefined): string {
+  if (Array.isArray(value)) return value.length ? value.join(', ') : EMPTY;
   const t = (value ?? '').trim();
-  return t === '' ? VIDE : t;
+  return t === '' ? EMPTY : t;
 }
 
 /** Vrai quand la valeur est à combler — ce qui rend la ligne cliquable. */
-export function estVide(value: string | string[] | null | undefined): boolean {
-  return texteDeValeur(value) === VIDE;
+export function isEmpty(value: string | string[] | null | undefined): boolean {
+  return valueText(value) === EMPTY;
+}
+
+/**
+ * Le texte d'une valeur de genre `date` — l'ISO qu'on stocke, rendu lisible.
+ *
+ * La ligne affiche `12/09/2026`, le service reçoit `2026-09-12`. Sans ce
+ * passage, une fiche montrerait son ISO nu à l'utilisateur : c'est l'autre
+ * moitié de la confusion qui a corrompu les données côté `web` — le format de
+ * stockage n'est pas un format de lecture.
+ *
+ * Une valeur qui n'est pas de l'ISO passe telle quelle : un champ peut porter
+ * une date approximative saisie à la main (« vers 1978 ») que rien n'oblige à
+ * cacher.
+ */
+export function dateText(value: string | string[] | null | undefined): string {
+  if (typeof value === 'string' && isISO(value)) return toDisplay(value);
+  return valueText(value);
 }
 
 /**
@@ -104,15 +129,15 @@ export function estVide(value: string | string[] | null | undefined): boolean {
  * que le service accepte, et refuser ici ce qu'il refusera de toute façon vaut
  * mieux que de le découvrir après l'envoi.
  */
-export function partagerLeChoixMultiple(
-  valeurs: readonly string[],
+export function splitMultipleChoice(
+  values: readonly string[],
   options: readonly FieldOption[],
   /* Le mot que le relevé écrit dans la colonne pour dire « il y a un texte à
      côté ». Il n'est pas dans le catalogue — l'extraction l'en retire — et ce
      n'est pas pour autant la valeur saisie : le prendre pour elle remplissait la
      saisie avec le mot « Autre » au lieu du texte réel. */
-  libelleAutre = 'Autre',
-): { connues: string[]; libre: string; marquee: boolean } {
+  otherLabel = 'Autre',
+): { known: string[]; free: string; marked: boolean } {
   /*
     LES CONNUES SORTENT EN VALEUR DE MENU, PAS COMME ELLES SONT ENTRÉES.
 
@@ -120,7 +145,7 @@ export function partagerLeChoixMultiple(
     (« Came fixe ») : la fiche équipement affiche le libellé, le menu porte la
     valeur, et les deux se ressemblent assez souvent pour que la différence ait
     passé longtemps inaperçue. Les reconnaître ne suffisait donc pas — l'appelant
-    comparait ensuite `connues` à `o.value`, et sur un jeu où les deux diffèrent
+    comparait ensuite `known` à `o.value`, et sur un jeu où les deux diffèrent
     aucune pastille ne s'allumait. Les neuf champs à choix multiples de la fiche
     étaient dans ce cas, « type de came » compris. Constaté le 22/09/2026.
 
@@ -130,8 +155,8 @@ export function partagerLeChoixMultiple(
   */
   const retenu = (v: string) => options.find((o) => o.value === v || o.label === v);
   const marque = (v: string) =>
-    v.trim().toLowerCase() === libelleAutre.trim().toLowerCase();
-  const connues = valeurs.map(retenu).filter((o): o is FieldOption => Boolean(o)).map((o) => o.value);
-  const libre = valeurs.find((v) => !retenu(v) && !marque(v) && v.trim() !== '') ?? '';
-  return { connues, libre, marquee: valeurs.some(marque) };
+    v.trim().toLowerCase() === otherLabel.trim().toLowerCase();
+  const known = values.map(retenu).filter((o): o is FieldOption => Boolean(o)).map((o) => o.value);
+  const free = values.find((v) => !retenu(v) && !marque(v) && v.trim() !== '') ?? '';
+  return { known, free, marked: values.some(marque) };
 }

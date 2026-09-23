@@ -1,11 +1,11 @@
 ---
 name: FilterChips
-statut: beta
-couche: generique
+status: beta
+layer: generique
 role: Restreindre une liste à une de ses parties, par une barre de puces.
-mots_cles: [filtre, puces, chips, section, zone, restreindre, categorie]
-plateformes: [web]
-remplace:
+keywords: [filtre, puces, chips, section, zone, restreindre, categorie]
+platforms: [web]
+replaces:
   web: [public/fiche/index.html — photoChips]
   mobile: [components/ChoicePills.tsx]
 ---
@@ -51,8 +51,8 @@ import { FilterChips } from '@arquos/design-system/web';
   value={zone}
   onValueChange={setZone}
   chips={[
-    { value: 'toutes', label: 'Toutes', compteur: 57 },
-    ...zones.map((z) => ({ value: z.zone, label: z.zone, compteur: z.items.length })),
+    { value: 'allChecked', label: 'Toutes', count: 57 },
+    ...zones.map((z) => ({ value: z.zone, label: z.zone, count: z.items.length })),
   ]}
 />;
 ```

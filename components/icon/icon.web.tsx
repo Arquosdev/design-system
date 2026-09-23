@@ -6,6 +6,19 @@ import {
   Briefcase,
   Buildings,
   Calculator,
+  ClipboardText,
+  Crosshair,
+  Elevator,
+  Handshake,
+  PaperPlaneTilt,
+  Receipt,
+  Truck,
+  UploadSimple,
+  ArrowsDownUp,
+  Calendar,
+  CaretCircleDown,
+  ChartBar,
+  BookmarkSimple,
   Camera,
   CameraRotate,
   CameraSlash,
@@ -16,25 +29,34 @@ import {
   ChatCircleDots,
   Check,
   CheckCircle,
-  ClipboardText,
   Copy,
   DotsThreeVertical,
   DownloadSimple,
-  Elevator,
+  Columns,
+  DotsSixVertical,
+  Eye,
+  EyeSlash,
+  GearSix,
+  FileCsv,
+  FilePdf,
   FileText,
   Folder,
   Images,
   ImageSquare,
+  Hash,
   Info,
   Lightning,
   LightningSlash,
+  LinkSimple,
+  LockSimple,
   MagnifyingGlass,
-  MagnifyingGlassPlus,
+  MapPin,
   MapTrifold,
   Microphone,
   MinusCircle,
   PencilSimple,
   Plus,
+  Rows,
   Ruler,
   ShieldCheck,
   SignOut,
@@ -42,6 +64,8 @@ import {
   Sparkle,
   Stop,
   Tag,
+  TextAa,
+  ToggleLeft,
   Trash,
   User,
   UserCircle,
@@ -57,67 +81,104 @@ import {
 import { iconSize, iconWeight, type IconRole } from '../../src/icons';
 import { cn } from '../_lib/cn';
 
-// Le vocabulaire de `src/icons.ts` résolu en composants. Les 36 dessins sont
+// Le vocabulaire de `src/icons.ts` résolu en composants. Les dessins sont
 // importés ici et nulle part ailleurs : c'est ce qui garantit qu'un rôle donne
 // le même dessin dans tout le produit.
 //
+// **Le compte a été retiré de ce commentaire le 31/08/2026** : il disait « les
+// 35 dessins » alors qu’il y en avait 65, et il n'avait aucune raison de rester
+// juste — un rôle s'ajoute sans que personne pense à recompter. `Record` le
+// vérifie, lui, à chaque compilation.
+//
 // Les clés doivent couvrir `IconRole` — TypeScript le vérifie via `Record`.
-const DESSINS: Record<IconRole, PhosphorIcon> = {
-  suivant: CaretRight,
-  precedent: CaretLeft,
-  deplier: CaretDown,
-  replier: CaretUp,
-  aller: ArrowRight,
-  fermer: X,
+const GLYPHS: Record<IconRole, PhosphorIcon> = {
+  next: CaretRight,
+  previous: CaretLeft,
+  expand: CaretDown,
+  collapse: CaretUp,
+  go: ArrowRight,
+  close: X,
 
-  rechercher: MagnifyingGlass,
-  ajouter: Plus,
-  modifier: PencilSimple,
-  supprimer: Trash,
-  telecharger: DownloadSimple,
-  ouvrirAilleurs: ArrowSquareOut,
-  filtrer: Sliders,
-  plusDActions: DotsThreeVertical,
-  dicter: Microphone,
-  arreter: Stop,
+  search: MagnifyingGlass,
+  add: Plus,
+  edit: PencilSimple,
+  delete: Trash,
+  download: DownloadSimple,
+  openExternal: ArrowSquareOut,
+  filter: Sliders,
+  moreActions: DotsThreeVertical,
+  dictate: Microphone,
+  stop: Stop,
+  revealPassword: Eye,
+  hidePassword: EyeSlash,
+  settings: GearSix,
 
-  conforme: CheckCircle,
-  coche: Check,
-  ecart: Warning,
-  bloquant: WarningOctagon,
-  attention: WarningCircle,
-  information: Info,
-  sansObjet: MinusCircle,
-  horsLigne: WifiSlash,
-  synchronisation: Lightning,
-  synchronisationSuspendue: LightningSlash,
+  compliant: CheckCircle,
+  check: Check,
+  discrepancy: Warning,
+  blocking: WarningOctagon,
+  warning: WarningCircle,
+  info: Info,
+  notApplicable: MinusCircle,
+  offline: WifiSlash,
+  sync: Lightning,
+  syncPaused: LightningSlash,
 
   photo: ImageSquare,
   photos: Images,
-  prendreUnePhoto: Camera,
-  photoIndisponible: CameraSlash,
-  changerDeCamera: CameraRotate,
+  takePhoto: Camera,
+  photoUnavailable: CameraSlash,
+  switchCamera: CameraRotate,
+
+  columns: Columns,
+  reorder: DotsSixVertical,
+  sortNeutral: ArrowsDownUp,
+  lock: LockSimple,
+  bookmark: BookmarkSimple,
+  list: Rows,
+  map: MapTrifold,
+  pdf: FilePdf,
+  csv: FileCsv,
 
   document: FileText,
-  etiquette: Tag,
-  securite: ShieldCheck,
-  intervention: Wrench,
-  mesure: Ruler,
-  calculer: Calculator,
-  assistanceIA: Sparkle,
+  tag: Tag,
+  safety: ShieldCheck,
+  maintenance: Wrench,
+  measure: Ruler,
+  aiAssist: Sparkle,
+  calculate: Calculator,
 
-  equipement: Elevator,
-  releve: ClipboardText,
-  immeuble: Buildings,
+  survey: ClipboardText,
+  equipment: Elevator,
+  building: Buildings,
   client: Briefcase,
   contact: User,
-  utilisateur: UserCircle,
-  carte: MapTrifold,
+  supplier: Truck,
+  sector: MapTrifold,
+  technician: Wrench,
+  deal: Handshake,
+  contract: FileText,
+  quote: Receipt,
+  campaign: Crosshair,
+  import: UploadSimple,
+  request: PaperPlaneTilt,
+
+  user: UserCircle,
   conversation: ChatCircleDots,
-  copier: Copy,
-  classeur: Folder,
-  archiver: Archive,
-  deconnexion: SignOut,
+  copy: Copy,
+  folder: Folder,
+  archive: Archive,
+  signOut: SignOut,
+
+  fieldText: TextAa,
+  fieldNumber: Hash,
+  fieldDate: Calendar,
+  fieldChoice: CaretCircleDown,
+  fieldLink: LinkSimple,
+  fieldPerson: User,
+  fieldGauge: ChartBar,
+  fieldPlace: MapPin,
+  fieldYesNo: ToggleLeft,
 };
 
 export interface IconProps extends Omit<React.SVGProps<SVGSVGElement>, 'role' | 'ref'> {
@@ -151,11 +212,23 @@ export function Icon({
   className,
   ...props
 }: IconProps) {
-  const Dessin = DESSINS[role];
+  const Glyph = GLYPHS[role];
   return (
-    <Dessin
+    <Glyph
       size={iconSize[size]}
       weight={iconWeight[weight]}
+      /*
+        Le rôle est écrit dans le DOM, et ce n'est pas décoratif.
+
+        Le dessin seul ne se distingue pas : Phosphor rend un `svg` nu, sans
+        classe ni marqueur, si bien qu'un harnais ne peut pas dire si un bouton
+        porte trois points ou un chevron. Un test qui cherchait les trois points
+        passait donc au vert alors qu'ils étaient là — il ne mesurait rien.
+
+        Un attribut de données ne change rien au rendu et rend l'intention
+        lisible, ce qui est exactement ce qu'un rôle d'icône veut dire.
+      */
+      data-role={role}
       className={cn('shrink-0', className)}
       {...(label
         ? { role: 'img', 'aria-label': label }

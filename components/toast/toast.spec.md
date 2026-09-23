@@ -1,11 +1,11 @@
 ---
 name: Toast
-statut: beta
-couche: generique
+status: beta
+layer: generique
 role: Annoncer sans quitter la page ce qui vient de réussir ou d'échouer.
-mots_cles: [toast, notification, message, annonce, confirmation, echec, bandeau]
-plateformes: [web]
-remplace:
+keywords: [toast, notification, message, annonce, confirmation, echec, bandeau]
+platforms: [web]
+replaces:
   web: [public/fiche/index.html — this.toast() / this.toastErreur()]
 ---
 
@@ -23,7 +23,7 @@ dépendance et son thème propre pour un bandeau dont on maîtrise déjà l'aspe
 
 ## Quand NE PAS l'utiliser
 
-- **Pour l'état d'un enregistrement en cours sur une ligne** → la prop `sauvegarde` de `FieldRow`. Le retour appartient à la ligne éditée, pas au bas de l'écran : un bandeau ne dit pas *quel* champ a échoué.
+- **Pour l'état d'un enregistrement en cours sur une ligne** → la prop `save` de `FieldRow`. Le retour appartient à la ligne éditée, pas au bas de l'écran : un bandeau ne dit pas *quel* champ a échoué.
 - **Pour une erreur qui empêche d'utiliser l'écran** → l'état d'erreur plein cadre. Un toast disparaît ; une impasse doit rester.
 - **Pour une confirmation destructrice** → une boîte de dialogue. Un toast informe, il ne demande rien.
 
@@ -42,9 +42,9 @@ plus haut de l'écran.
 
 | Retour     | Type                                                     | Rôle                     |
 | ---------- | -------------------------------------------------------- | ------------------------ |
-| `annoncer` | `(message: string, options?: { ton?: ToastTon }) => void` | Publier un message       |
+| `announce` | `(message: string, options?: { tone?: ToastTone }) => void` | Publier un message       |
 
-`ToastTon` vaut `'info'` (défaut) ou `'echec'`.
+`ToastTone` vaut `'info'` (défaut) ou `'error'`.
 
 ## Exemples
 
@@ -57,9 +57,9 @@ import { ToastProvider, useToast } from '@arquos/design-system/web';
 </ToastProvider>;
 
 // Partout dessous :
-const { annoncer } = useToast();
-annoncer('Document poussé vers le téléchargement.');
-annoncer("La correction n'a pas pu être enregistrée.", { ton: 'echec' });
+const { announce } = useToast();
+announce('Document poussé vers le téléchargement.');
+announce("La correction n'a pas pu être enregistrée.", { tone: 'error' });
 ```
 
 ## États
@@ -72,6 +72,6 @@ annoncer("La correction n'a pas pu être enregistrée.", { ton: 'echec' });
 
 ## Accessibilité
 
-- `echec` interrompt le lecteur d'écran (`type="foreground"`), `info` attend qu'il ait fini (`type="background"`).
+- `error` interrompt le lecteur d'écran (`type="foreground"`), `info` attend qu'il ait fini (`type="background"`).
 - Le bandeau se ferme au clavier ; Radix pose le raccourci F6 vers la zone.
 - La zone d'affichage ne capte pas les clics — seuls les bandeaux le font.

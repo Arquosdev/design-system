@@ -1,5 +1,5 @@
 /** La boîte d'un élément, en pixels, dans le repère de son parent positionné. */
-export interface Boite {
+export interface Box {
   l: number;
   t: number;
   w: number;
@@ -22,10 +22,10 @@ export interface Boite {
  * pour toujours si elle ne charge jamais. On rend alors la boîte de l'élément :
  * faute de mieux, elle ne place rien en dehors de l'écran.
  */
-export function boiteDessinee(
-  element: Boite,
+export function drawnBox(
+  element: Box,
   naturelle: { w: number; h: number },
-): Boite {
+): Box {
   if (naturelle.w <= 0 || naturelle.h <= 0) return element;
 
   const echelle = Math.min(element.w / naturelle.w, element.h / naturelle.h);

@@ -1,11 +1,11 @@
 ---
 name: Label
-statut: stable
-couche: generique
+status: stable
+layer: generique
 role: Nommer un champ, et agrandir sa cible de clic à tout l'intitulé.
-mots_cles: [label, intitule, libelle, etiquette, champ, formulaire]
-plateformes: [web, mobile]
-remplace:
+keywords: [label, intitule, libelle, etiquette, champ, formulaire]
+platforms: [web, mobile]
+replaces:
   web: []
   mobile: [components/FormField.tsx]
 ---

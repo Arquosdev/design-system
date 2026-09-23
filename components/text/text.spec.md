@@ -1,11 +1,11 @@
 ---
 name: Text
-statut: beta
-couche: generique
+status: beta
+layer: generique
 role: Écrire du texte avec un préréglage typographique et un ton de couleur, sans jamais recomposer une taille à la main.
-mots_cles: [texte, text, typographie, police, dm sans, libellé, paragraphe, titre]
-plateformes: [mobile]
-remplace:
+keywords: [texte, text, typographie, police, dm sans, libellé, paragraphe, titre]
+platforms: [mobile]
+replaces:
   web: []
   mobile: [components/AppText.tsx]
 ---

@@ -2,14 +2,15 @@ import { deepStrictEqual, strictEqual } from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
 import {
-  estVide,
-  menuDeChoix,
-  partagerLeChoixMultiple,
-  texteDeValeur,
-  VIDE,
+  isEmpty,
+  choiceMenu,
+  dateText,
+  splitMultipleChoice,
+  valueText,
+  EMPTY,
 } from './field-row.logic.ts';
 
-const ETATS = [
+const STATES = [
   { value: 'bon', label: 'Bon' },
   { value: 'moyen', label: 'Moyen' },
   { value: 'mauvais', label: 'Mauvais' },
@@ -17,15 +18,15 @@ const ETATS = [
 
 describe('menuDeChoix', () => {
   it('propose « — choisir — » quand rien n’est retenu, et ne retient rien', () => {
-    const { choix, retenue } = menuDeChoix('', ETATS);
-    strictEqual(choix[0].label, '— choisir —');
-    strictEqual(retenue, '');
+    const { choices, chosen } = choiceMenu('', STATES);
+    strictEqual(choices[0].label, '— choisir —');
+    strictEqual(chosen, '');
   });
 
   it('retient la valeur en base quand elle correspond à une option', () => {
-    const { choix, retenue } = menuDeChoix('moyen', ETATS);
-    strictEqual(retenue, 'moyen');
-    strictEqual(choix.length, ETATS.length, 'aucune entrée ne s’ajoute');
+    const { choices, chosen } = choiceMenu('moyen', STATES);
+    strictEqual(chosen, 'moyen');
+    strictEqual(choices.length, STATES.length, 'aucune entrée ne s’ajoute');
   });
 
   /**
@@ -35,7 +36,7 @@ describe('menuDeChoix', () => {
    * menu s’ouvre en annonçant « Bon » sur un composant qui est « Moyen ».
    */
   it('retrouve la valeur quand on lui donne le libellé', () => {
-    strictEqual(menuDeChoix('Moyen', ETATS).retenue, 'moyen');
+    strictEqual(choiceMenu('Moyen', STATES).chosen, 'moyen');
   });
 
   /**
@@ -43,47 +44,73 @@ describe('menuDeChoix', () => {
    * reviendrait à la remplacer en silence dès l’ouverture du menu.
    */
   it('garde en tête une valeur absente du catalogue', () => {
-    const { choix, retenue } = menuDeChoix('SCHINDLR', ETATS);
-    strictEqual(retenue, 'SCHINDLR');
-    deepStrictEqual(choix[0], { value: 'SCHINDLR', label: 'SCHINDLR' });
-    strictEqual(choix.length, ETATS.length + 1);
+    const { choices, chosen } = choiceMenu('SCHINDLR', STATES);
+    strictEqual(chosen, 'SCHINDLR');
+    deepStrictEqual(choices[0], { value: 'SCHINDLR', label: 'SCHINDLR' });
+    strictEqual(choices.length, STATES.length + 1);
   });
 
   it('traite une valeur multiple comme vide — ce menu est à choix unique', () => {
-    strictEqual(menuDeChoix(['bon', 'moyen'], ETATS).retenue, '');
+    strictEqual(choiceMenu(['bon', 'moyen'], STATES).chosen, '');
   });
 
   it('traite null comme vide', () => {
-    strictEqual(menuDeChoix(null, ETATS).choix[0].label, '— choisir —');
+    strictEqual(choiceMenu(null, STATES).choices[0].label, '— choisir —');
   });
 });
 
 describe('texteDeValeur', () => {
   it('dit « Non renseigné » plutôt qu’un tiret, pour tout ce qui est vide', () => {
-    for (const vide of [null, undefined, '', '   ', [] as string[]]) {
-      strictEqual(texteDeValeur(vide), VIDE, `échoue sur ${JSON.stringify(vide)}`);
+    for (const empty of [null, undefined, '', '   ', [] as string[]]) {
+      strictEqual(valueText(empty), EMPTY, `échoue sur ${JSON.stringify(empty)}`);
     }
   });
 
   it('rend la valeur telle quelle quand il y en a une', () => {
-    strictEqual(texteDeValeur('630'), '630');
+    strictEqual(valueText('630'), '630');
   });
 
   it('joint les valeurs multiples par des virgules', () => {
-    strictEqual(texteDeValeur(['Cuvette', 'Gaine']), 'Cuvette, Gaine');
+    strictEqual(valueText(['Cuvette', 'Gaine']), 'Cuvette, Gaine');
   });
 
   it('ne confond pas « 0 » avec du vide — c’est une mesure', () => {
-    strictEqual(texteDeValeur('0'), '0');
+    strictEqual(valueText('0'), '0');
   });
 });
 
 describe('estVide', () => {
   it('suit texteDeValeur, y compris sur les espaces seuls', () => {
-    strictEqual(estVide('  '), true);
-    strictEqual(estVide('0'), false);
-    strictEqual(estVide([]), true);
-    strictEqual(estVide(['Cuvette']), false);
+    strictEqual(isEmpty('  '), true);
+    strictEqual(isEmpty('0'), false);
+    strictEqual(isEmpty([]), true);
+    strictEqual(isEmpty(['Cuvette']), false);
+  });
+});
+
+describe('texteDeDate — l’ISO qu’on stocke, rendu lisible', () => {
+  it('rend une date ISO en français', () => {
+    strictEqual(dateText('2026-09-12'), '12/09/2026');
+    strictEqual(dateText('1978-03-04'), '04/03/1978');
+  });
+
+  it('dit « Non renseigné » sur une date absente, comme les autres genres', () => {
+    strictEqual(dateText(null), EMPTY);
+    strictEqual(dateText(''), EMPTY);
+    strictEqual(dateText(undefined), EMPTY);
+  });
+
+  /*
+    Un champ peut porter une date approximative saisie à la main. La cacher
+    parce qu'elle n'est pas de l'ISO serait pire que la montrer.
+  */
+  it('laisse passer ce qui n’est pas de l’ISO', () => {
+    strictEqual(dateText('vers 1978'), 'vers 1978');
+    strictEqual(dateText('12/09/2026'), '12/09/2026');
+  });
+
+  it('ne prétend pas lire une date ISO impossible', () => {
+    strictEqual(dateText('2026-02-31'), '2026-02-31');
   });
 });
 
@@ -94,12 +121,12 @@ describe('partagerLeChoixMultiple', () => {
   ] as const;
 
   it('sépare les valeurs du catalogue de la valeur saisie', () => {
-    const { connues, libre } = partagerLeChoixMultiple(
+    const { known, free } = splitMultipleChoice(
       ['digicode', 'Clé plate n°4', 'badge'],
       ACCES,
     );
-    deepStrictEqual(connues, ['digicode', 'badge']);
-    strictEqual(libre, 'Clé plate n°4');
+    deepStrictEqual(known, ['digicode', 'badge']);
+    strictEqual(free, 'Clé plate n°4');
   });
 
   /* L'attente a changé le 22/09/2026, et c'est la correction elle-même : le
@@ -107,20 +134,20 @@ describe('partagerLeChoixMultiple', () => {
      `o.value`, et sur un jeu où les deux diffèrent aucune pastille ne
      s'allumait. Reconnaître et traduire sont la même opération. */
   it('reconnaît une valeur donnée par son libellé, et rend celle du menu', () => {
-    const { connues, libre } = partagerLeChoixMultiple(['Digicode'], ACCES);
-    deepStrictEqual(connues, ['digicode']);
-    strictEqual(libre, '');
+    const { known, free } = splitMultipleChoice(['Digicode'], ACCES);
+    deepStrictEqual(known, ['digicode']);
+    strictEqual(free, '');
   });
 
   it('ne retient qu’une valeur libre — la colonne jumelle n’en porte qu’une', () => {
-    const { libre } = partagerLeChoixMultiple(['Clé plate', 'Clé carrée'], ACCES);
-    strictEqual(libre, 'Clé plate');
+    const { free } = splitMultipleChoice(['Clé plate', 'Clé carrée'], ACCES);
+    strictEqual(free, 'Clé plate');
   });
 
   it('ignore les valeurs blanches', () => {
-    const { connues, libre } = partagerLeChoixMultiple(['  ', 'badge'], ACCES);
-    deepStrictEqual(connues, ['badge']);
-    strictEqual(libre, '');
+    const { known, free } = splitMultipleChoice(['  ', 'badge'], ACCES);
+    deepStrictEqual(known, ['badge']);
+    strictEqual(free, '');
   });
 });
 
@@ -131,26 +158,26 @@ describe('partagerLeChoixMultiple — le mot « Autre »', () => {
   ] as const;
 
   it('ne prend pas le mot « Autre » pour la valeur saisie', () => {
-    const { connues, libre, marquee } = partagerLeChoixMultiple(
+    const { known, free, marked } = splitMultipleChoice(
       ['digicode', 'Autre'],
       ACCES,
     );
-    deepStrictEqual(connues, ['digicode']);
-    strictEqual(libre, '');
-    strictEqual(marquee, true);
+    deepStrictEqual(known, ['digicode']);
+    strictEqual(free, '');
+    strictEqual(marked, true);
   });
 
   it('rend le texte réel quand il est là, à côté du mot', () => {
-    const { libre, marquee } = partagerLeChoixMultiple(
+    const { free, marked } = splitMultipleChoice(
       ['Autre', 'Clé plate n°4'],
       ACCES,
     );
-    strictEqual(libre, 'Clé plate n°4');
-    strictEqual(marquee, true);
+    strictEqual(free, 'Clé plate n°4');
+    strictEqual(marked, true);
   });
 
   it('dit non quand le mot n’y est pas', () => {
-    strictEqual(partagerLeChoixMultiple(['digicode'], ACCES).marquee, false);
+    strictEqual(splitMultipleChoice(['digicode'], ACCES).marked, false);
   });
 });
 
@@ -164,24 +191,24 @@ describe('partagerLeChoixMultiple — libellé reçu, valeur rendue', () => {
     // Le cas réel : la fiche équipement affiche « Came fixe », le menu porte
     // `came_fixe`. Sans traduction, l'appelant compare à `o.value` et aucune
     // pastille ne s'allume.
-    const r = partagerLeChoixMultiple(['Came fixe', 'Came mobile'], CAMES);
-    deepStrictEqual(r.connues, ['came_fixe', 'came_mobile']);
-    strictEqual(r.libre, '');
+    const r = splitMultipleChoice(['Came fixe', 'Came mobile'], CAMES);
+    deepStrictEqual(r.known, ['came_fixe', 'came_mobile']);
+    strictEqual(r.free, '');
   });
 
   it('rend la valeur inchangée quand on lui donne déjà la valeur', () => {
-    const r = partagerLeChoixMultiple(['came_mobile'], CAMES);
-    deepStrictEqual(r.connues, ['came_mobile']);
+    const r = splitMultipleChoice(['came_mobile'], CAMES);
+    deepStrictEqual(r.known, ['came_mobile']);
   });
 
   it('mélange les deux formes sans se tromper', () => {
-    const r = partagerLeChoixMultiple(['Came fixe', 'came_mobile'], CAMES);
-    deepStrictEqual(r.connues, ['came_fixe', 'came_mobile']);
+    const r = splitMultipleChoice(['Came fixe', 'came_mobile'], CAMES);
+    deepStrictEqual(r.known, ['came_fixe', 'came_mobile']);
   });
 
   it("laisse la valeur libre hors du menu, telle qu'elle est écrite", () => {
-    const r = partagerLeChoixMultiple(['Came fixe', 'une came bricolée'], CAMES);
-    deepStrictEqual(r.connues, ['came_fixe']);
-    strictEqual(r.libre, 'une came bricolée');
+    const r = splitMultipleChoice(['Came fixe', 'une came bricolée'], CAMES);
+    deepStrictEqual(r.known, ['came_fixe']);
+    strictEqual(r.free, 'une came bricolée');
   });
 });

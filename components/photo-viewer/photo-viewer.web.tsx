@@ -4,13 +4,13 @@ import * as React from 'react';
 import { Dialog } from 'radix-ui';
 
 import { cn } from '../_lib/cn';
-import { boiteDessinee, type Boite } from './photo-viewer.logic';
+import { drawnBox, type Box } from './photo-viewer.logic';
 import { Icon } from '../icon/icon.web';
 import type { IconRole } from '../../src/icons';
 
-export interface PhotoVue {
+export interface PhotoView {
   /** Ce que la photo montre — sert de légende ET de texte alternatif. */
-  nom: string;
+  name: string;
   /** Absent = la photo n'existe pas ou n'est pas affichable. */
   url?: string;
   /** D'où elle vient : « Machinerie », « Schéma de mesure · A14 »… */
@@ -39,14 +39,14 @@ export interface PhotoViewerAction {
    * libellé est ce qu'un lecteur d'écran annonce et ce que l'infobulle
    * affiche. Il reste donc obligatoire : une icône seule ne se nomme pas.
    */
-  libelle: string;
+  label: string;
   /** Le dessin, par son rôle du vocabulaire — jamais par son nom Phosphor. */
-  icone: IconRole;
-  onAction: (photo: PhotoVue) => void;
+  icon: IconRole;
+  onAction: (photo: PhotoView) => void;
 }
 
 export interface PhotoViewerProps {
-  photos: readonly PhotoVue[];
+  photos: readonly PhotoView[];
   /** L'indice affiché. Piloté par l'appelant, pour qu'il sache où on en est. */
   index: number;
   onIndex: (index: number) => void;
@@ -72,12 +72,12 @@ export function PhotoViewer({
   actions,
 }: PhotoViewerProps) {
   const nb = photos.length;
-  const courante = photos[index];
+  const current = photos[index];
 
   // Une URL qui ne charge pas retombe sur le cadre « photo indisponible ».
   // L'icône brisée du navigateur laisserait croire à une panne du module.
-  const [cassees, setCassees] = React.useState<Record<string, true>>({});
-  const url = courante?.url && !cassees[courante.url] ? courante.url : '';
+  const [broken, setBroken] = React.useState<Record<string, true>>({});
+  const url = current?.url && !broken[current.url] ? current.url : '';
 
   const deplacer = React.useCallback(
     (d: number) => nb > 1 && onIndex((index + d + nb) % nb),
@@ -91,7 +91,7 @@ export function PhotoViewer({
    * elle s'ouvre depuis n'importe laquelle de sept vignettes. Sans ça, le focus
    * retombe sur le corps de la page et la tabulation repart du rail.
    */
-  const origine = React.useRef<HTMLElement | null>(null);
+  const origin = React.useRef<HTMLElement | null>(null);
 
   /**
    * Où la photo est réellement dessinée dans son cadre.
@@ -113,32 +113,32 @@ export function PhotoViewer({
    * mesure ne peut pas se mordre la queue.
    */
   const photoRef = React.useRef<HTMLImageElement | null>(null);
-  const [boite, setBoite] = React.useState<Boite | null>(null);
+  const [box, setBox] = React.useState<Box | null>(null);
 
   React.useLayoutEffect(() => {
     const img = photoRef.current;
     if (!img) {
-      setBoite(null);
+      setBox(null);
       return;
     }
-    const mesurer = () =>
-      setBoite(
-        boiteDessinee(
+    const measure = () =>
+      setBox(
+        drawnBox(
           { l: img.offsetLeft, t: img.offsetTop, w: img.offsetWidth, h: img.offsetHeight },
           { w: img.naturalWidth, h: img.naturalHeight },
         ),
       );
-    mesurer();
+    measure();
     // La fenêtre qu'on redimensionne, la photo suivante qui n'a pas le même
     // format : deux façons de bouger. La troisième — l'image qui finit de
     // charger — passe par `onLoad`, seul moment où ses dimensions naturelles
     // deviennent connues.
-    const observateur = new ResizeObserver(mesurer);
-    observateur.observe(img);
-    return () => observateur.disconnect();
+    const observer = new ResizeObserver(measure);
+    observer.observe(img);
+    return () => observer.disconnect();
   }, [url, open]);
 
-  if (!courante) return null;
+  if (!current) return null;
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
@@ -151,13 +151,13 @@ export function PhotoViewer({
           // Radix n'a pas encore déplacé le focus quand cet événement part :
           // `activeElement`, c'est encore la vignette cliquée.
           onOpenAutoFocus={() => {
-            origine.current = document.activeElement as HTMLElement | null;
+            origin.current = document.activeElement as HTMLElement | null;
           }}
           onCloseAutoFocus={(e) => {
             // Couper la reprise de Radix — elle viserait un `Trigger` absent —
             // et rendre le focus nous-mêmes.
             e.preventDefault();
-            origine.current?.focus();
+            origin.current?.focus();
           }}
           onKeyDown={(e) => {
             if (e.key === 'ArrowLeft') deplacer(-1);
@@ -175,12 +175,12 @@ export function PhotoViewer({
               photo, elle, restait petite. */}
           <div className="flex min-h-0 max-w-full flex-1 items-center gap-base">
             {nb > 1 ? (
-              <Fleche sens="prec" onClick={() => deplacer(-1)} />
+              <Arrow direction="prec" onClick={() => deplacer(-1)} />
             ) : null}
 
             {url ? (
               /* Le cadre donne au bouton un parent positionné. Il ne serre pas
-                 la photo — c'est la mesure qui s'en charge, voir `boite`. Et on
+                 la photo — c'est la mesure qui s'en charge, voir `box`. Et on
                  n'y touche plus : lui donner `items-center` suffit à faire
                  tomber le plafond de hauteur de la photo, qui s'affiche alors
                  en pleine taille et déborde de l'écran. */
@@ -190,11 +190,11 @@ export function PhotoViewer({
                 <img
                   ref={photoRef}
                   src={url}
-                  alt={courante.nom}
-                  onError={() => setCassees((c) => ({ ...c, [url]: true }))}
+                  alt={current.name}
+                  onError={() => setBroken((c) => ({ ...c, [url]: true }))}
                   onLoad={(e) =>
-                    setBoite(
-                      boiteDessinee(
+                    setBox(
+                      drawnBox(
                         {
                           l: e.currentTarget.offsetLeft,
                           t: e.currentTarget.offsetTop,
@@ -209,8 +209,8 @@ export function PhotoViewer({
                   // recadrée peut perdre le chiffre qu'on est venu lire.
                   className="max-h-full max-w-[76vw] rounded-md object-contain"
                 />
-                {actions?.length && boite ? (
-                  <Rangee actions={actions} photo={courante} coin={boite} />
+                {actions?.length && box ? (
+                  <ActionRow actions={actions} photo={current} corner={box} />
                 ) : null}
               </div>
             ) : (
@@ -218,28 +218,30 @@ export function PhotoViewer({
               // sombre de la visionneuse. Aucune surface sémantique ne
               // convient — `bgMuted` disparaîtrait, `border` n'est pas un fond.
               <div className="flex h-full max-h-[500px] w-[76vw] max-w-[760px] items-center justify-center rounded-md bg-grey-200 px-lg text-center text-body text-text-muted">
-                Photo indisponible — {courante.nom}
+                Photo indisponible — {current.name}
               </div>
             )}
 
-            {nb > 1 ? <Fleche sens="suiv" onClick={() => deplacer(1)} /> : null}
+            {nb > 1 ? <Arrow direction="suiv" onClick={() => deplacer(1)} /> : null}
           </div>
 
           <div className="max-w-[76vw] shrink-0 text-center text-text-on-dark">
             <Dialog.Title className="text-subhead font-semibold text-pretty">
-              {courante.nom}
+              {current.name}
             </Dialog.Title>
             <p className="mt-xxs text-small opacity-75">
               {nb > 1 ? `${index + 1}/${nb}` : null}
-              {nb > 1 && courante.zone ? ' · ' : null}
-              {courante.zone}
+              {nb > 1 && current.zone ? ' · ' : null}
+              {current.zone}
             </p>
           </div>
 
           <Dialog.Close
             aria-label="Fermer"
             className={cn(
-              'absolute top-base right-lg size-[36px] rounded-control bg-white/15 text-body text-text-on-dark',
+              /* `--arq-control-md` et non `36px` : c'était la septième écriture du même
+                 nombre, et `src/control.ts` la nomme depuis. */
+              'absolute top-base right-lg size-(--arq-control-md) rounded-control bg-white/15 text-body text-text-on-dark',
               'outline-none hover:bg-white/25 focus-visible:ring-2 focus-visible:ring-white',
             )}
           >
@@ -270,21 +272,21 @@ export function PhotoViewer({
  * Elles ne ferment pas la visionneuse : c'est à l'appelant de décider si son
  * action l'emporte sur ce qu'on était en train de regarder.
  */
-function Rangee({
+function ActionRow({
   actions,
   photo,
-  coin,
+  corner,
 }: {
   actions: readonly PhotoViewerAction[];
-  photo: PhotoVue;
+  photo: PhotoView;
   /** La boîte dessinée par la photo, dans le cadre — mesurée, pas déduite. */
-  coin: Boite;
+  corner: Box;
 }) {
   return (
     <div
       // Le coin bas-droit de la photo, puis on rentre la rangée à l'intérieur
       // d'une marge — la translation garde l'espacement en token.
-      style={{ left: coin.l + coin.w, top: coin.t + coin.h }}
+      style={{ left: corner.l + corner.w, top: corner.t + corner.h }}
       className={cn(
         'absolute flex gap-sm',
         '-translate-x-[calc(100%+var(--spacing-sm))] -translate-y-[calc(100%+var(--spacing-sm))]',
@@ -292,11 +294,11 @@ function Rangee({
     >
       {actions.map((action) => (
         <button
-          key={action.libelle}
+          key={action.label}
           type="button"
           onClick={() => action.onAction(photo)}
-          aria-label={action.libelle}
-          title={action.libelle}
+          aria-label={action.label}
+          title={action.label}
           className={cn(
             'grid size-[40px] place-items-center',
             // Blanc et marine en dur, comme les flèches et la croix : la
@@ -307,25 +309,25 @@ function Rangee({
             'outline-none hover:bg-white/85 focus-visible:ring-2 focus-visible:ring-white',
           )}
         >
-          <Icon role={action.icone} size="lg" />
+          <Icon role={action.icon} size="lg" />
         </button>
       ))}
     </div>
   );
 }
 
-function Fleche({ sens, onClick }: { sens: 'prec' | 'suiv'; onClick: () => void }) {
+function Arrow({ direction, onClick }: { direction: 'prec' | 'suiv'; onClick: () => void }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      aria-label={sens === 'prec' ? 'Photo précédente' : 'Photo suivante'}
+      aria-label={direction === 'prec' ? 'Photo précédente' : 'Photo suivante'}
       className={cn(
         'size-[44px] shrink-0 rounded-control bg-white/15 text-subhead text-text-on-dark',
         'outline-none hover:bg-white/25 focus-visible:ring-2 focus-visible:ring-white',
       )}
     >
-      {sens === 'prec' ? '‹' : '›'}
+      {direction === 'prec' ? '‹' : '›'}
     </button>
   );
 }

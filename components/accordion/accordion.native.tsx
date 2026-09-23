@@ -72,7 +72,7 @@ export function Accordion({
         accessibilityLabel={meta !== undefined ? `${titre}, ${meta}` : titre}
         style={({ pressed }) => [styles.entete, pressed && styles.entetePressee]}
       >
-        <Icon role={icone} size="lg" weight="actif" color={colors.primary} />
+        <Icon role={icone} size="lg" weight="active" color={colors.primary} />
 
         <View style={styles.textes}>
           <Text variant="body" style={styles.titre} numberOfLines={1}>
@@ -97,7 +97,7 @@ export function Accordion({
         ) : null}
 
         <Icon
-          role={lien ? 'aller' : ouvert ? 'replier' : 'deplier'}
+          role={lien ? 'go' : ouvert ? 'replier' : 'expand'}
           size="md"
           color={colors.textSubtle}
         />

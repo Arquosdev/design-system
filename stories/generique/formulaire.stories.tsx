@@ -59,7 +59,7 @@ export const UnFormulaireEntier: Story = {
               <RadioGroupItem value="hydraulique" /> Hydraulique
             </Label>
             <Label className="gap-sm font-normal">
-              <RadioGroupItem value="inconnu" /> Non déterminé
+              <RadioGroupItem value="unknown" /> Non déterminé
             </Label>
           </RadioGroup>
         </fieldset>
@@ -152,27 +152,27 @@ export const Desactive: Story = {
  */
 export const CasePartielle: Story = {
   render: function Partielle() {
-    const [etats, setEtats] = React.useState([true, false, false]);
-    const tout = etats.every(Boolean);
-    const rien = etats.every((e) => !e);
+    const [states, setStates] = React.useState([true, false, false]);
+    const tout = states.every(Boolean);
+    const rien = states.every((e) => !e);
     const noms = ['Cuvette', 'Gaine', 'Machinerie'];
     return (
       <div className="flex flex-col gap-sm">
         <Label className="gap-sm">
           <Checkbox
             checked={tout ? true : rien ? false : 'indeterminate'}
-            onCheckedChange={(v) => setEtats(etats.map(() => v === true))}
+            onCheckedChange={(v) => setStates(states.map(() => v === true))}
           />
           Toutes les zones
         </Label>
         <div className="ml-lg flex flex-col gap-sm">
-          {noms.map((nom, i) => (
-            <Label key={nom} className="gap-sm font-normal">
+          {noms.map((name, i) => (
+            <Label key={name} className="gap-sm font-normal">
               <Checkbox
-                checked={etats[i]}
-                onCheckedChange={(v) => setEtats(etats.map((e, j) => (j === i ? v === true : e)))}
+                checked={states[i]}
+                onCheckedChange={(v) => setStates(states.map((e, j) => (j === i ? v === true : e)))}
               />
-              {nom}
+              {name}
             </Label>
           ))}
         </div>

@@ -3,15 +3,15 @@ import * as React from 'react';
 import { Button } from '../button/button.web';
 import { Icon } from '../icon/icon.web';
 import { cn } from '../_lib/cn';
-import { ECHECS, natureDeLEchec, REESSAYER } from './empty-state.logic';
+import { FAILURES, failureKind, RETRY } from './empty-state.logic';
 import type { IconRole } from '../../src/icons';
 
 export interface EmptyStateProps {
   /** Le rôle de l'icône — voir le vocabulaire dans `src/icons.ts`. */
-  icone: IconRole;
-  titre: string;
+  icon: IconRole;
+  title: string;
   /** Ce qu'il faut comprendre, et si possible ce qu'on peut faire. */
-  conseil: string;
+  hint: string;
   actionLabel?: string;
   onAction?: () => void;
   className?: string;
@@ -24,9 +24,9 @@ export interface EmptyStateProps {
  * vide, et si possible quoi faire — c'est ce qui le sépare d'un blanc.
  */
 export function EmptyState({
-  icone,
-  titre,
-  conseil,
+  icon,
+  title,
+  hint,
   actionLabel,
   onAction,
   className,
@@ -43,20 +43,20 @@ export function EmptyState({
         produits qu'on regarde n'en ont plus — Figma n'a pas d'icône du tout,
         Family en garde une, grande et en trait, sans cadre.
 
-        `discret` (le trait) et non `actif` (le plein) : posée seule, une icône
+        `subtle` (le trait) et non `active` (le plein) : posée seule, une icône
         pleine pèse comme un pictogramme d'alerte, alors qu'un vide n'est pas
         un incident. `textSubtle` est sa couleur — la fiche du vocabulaire la
         réserve aux icônes, et elle est ici décorative : le titre dit tout.
       */}
-      <Icon role={icone} size="xl" weight="discret" className="mb-md text-text-subtle" />
-      <p className="text-subhead font-semibold text-text">{titre}</p>
+      <Icon role={icon} size="xl" weight="subtle" className="mb-md text-text-subtle" />
+      <p className="text-subhead font-semibold text-text">{title}</p>
       {/*
         `small` et non `body` : à 16 sur un titre de 18, le conseil concurrençait
         ce qu'il précise et les deux lignes faisaient un pavé. La hiérarchie se
         creuse d'un cran, et la largeur se resserre pour qu'il tienne en deux
         lignes courtes.
       */}
-      <p className="mt-xs max-w-[38ch] text-small text-text-muted">{conseil}</p>
+      <p className="mt-xs max-w-[38ch] text-small text-text-muted">{hint}</p>
       {actionLabel && onAction ? (
         <Button className="mt-base" onClick={onAction}>
           {actionLabel}
@@ -72,22 +72,22 @@ export function EmptyState({
  * Hors ligne, réessayer tout de suite ne sert à rien : le message le dit et
  * envoie vérifier la connexion, plutôt que de faire appuyer en boucle.
  */
-export function EmptyStateErreur({
-  erreur,
+export function EmptyStateError({
+  error,
   onReessayer,
   className,
 }: {
-  erreur: unknown;
+  error: unknown;
   onReessayer?: () => void;
   className?: string;
 }) {
-  const { icone, titre, conseil } = ECHECS[natureDeLEchec(erreur)];
+  const { icon, title, hint } = FAILURES[failureKind(error)];
   return (
     <EmptyState
-      icone={icone}
-      titre={titre}
-      conseil={conseil}
-      actionLabel={onReessayer ? REESSAYER : undefined}
+      icon={icon}
+      title={title}
+      hint={hint}
+      actionLabel={onReessayer ? RETRY : undefined}
       onAction={onReessayer}
       className={className}
     />

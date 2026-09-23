@@ -82,6 +82,8 @@
   --arq-color-on-warning-bg: #996315;
   --arq-color-info-bg: #E1ECFA;
   --arq-color-on-info-bg: #0D5AB7;
+  --arq-color-inactive-bg: #EAEEF1;
+  --arq-color-on-inactive-bg: #4D5B66;
   --arq-color-bg: #FFFFFF;
   --arq-color-bg-subtle: #FCFDFE;
   --arq-color-bg-muted: #F6F7F9;
@@ -91,8 +93,7 @@
   --arq-color-text-muted: #5D6D79;
   --arq-color-text-subtle: #8094A3;
   --arq-color-text-on-dark: #FFFFFF;
-  --arq-color-inactive-bg: #EAEEF1;
-  --arq-color-on-inactive-bg: #4D5B66;
+  --arq-color-text-on-info-bg: #073B6F;
   --arq-color-black: #000000;
 
   /* Site vitrine arquos.eu — pas l'application (voir src/site.ts) */
@@ -101,6 +102,11 @@
   --arq-site-color-text-on-night-muted: #C6D4E6;
   --arq-site-color-text-on-night-subtle: #93A9C6;
   --arq-site-color-device-frame: #0B1220;
+
+  /* Hauteurs de contrôle — bouton, sélecteur, ligne de titre */
+  --arq-control-sm: 30px;
+  --arq-control-md: 36px;
+  --arq-control-lg: 44px;
 
   /* Espacements (base 4) */
   --arq-space-none: 0px;
@@ -117,13 +123,13 @@
   --arq-space-5xl: 64px;
 
   /* Arrondis */
-  --arq-largeur-saisie-courte: 200px;
-  --arq-largeur-saisie-longue: 420px;
-  --arq-largeur-planche: 620px;
-  --arq-largeur-panneau: 460px;
-  --arq-largeur-panneau-large: 860px;
-  --arq-largeur-lecture: 720px;
-  --arq-largeur-rail: 284px;
+  --arq-width-input-short: 200px;
+  --arq-width-input-long: 420px;
+  --arq-width-plate: 620px;
+  --arq-width-panel: 460px;
+  --arq-width-panel-wide: 860px;
+  --arq-width-reading: 720px;
+  --arq-width-rail: 284px;
   --arq-radius-none: 0px;
   --arq-radius-control: 5px;
   --arq-radius-sm: 4px;

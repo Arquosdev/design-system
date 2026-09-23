@@ -6,35 +6,35 @@ import { Icon } from '../icon/icon.web';
 import { cn } from '../_lib/cn';
 
 export interface NavItem {
-  cle: string;
+  id: string;
   label: string;
   /**
    * Ce que contient la rubrique. Une chaîne est acceptée pour pouvoir dire
    * « … » tant qu'on ne sait pas — `0` affirmerait qu'il n'y a rien.
    */
-  compteur?: number | string;
-  desactive?: boolean;
+  count?: number | string;
+  disabled?: boolean;
   /**
    * La rubrique existe mais n'a encore rien à montrer : son libellé s'atténue,
    * et elle RESTE cliquable — c'est en y allant qu'on la remplit. À ne pas
-   * confondre avec `desactive`, qui dit « hors sujet sur cet objet » et retire
+   * confondre avec `disabled`, qui dit « hors sujet sur cet objet » et retire
    * le clic. Né dans la fiche équipement le 21/09/2026 : un client trouvait
    * les champs vides « trop lourds » ; la fiche les cache désormais en lecture,
    * et le menu doit alors dire, sans interdire, où il n'y a rien.
    */
-  vide?: boolean;
+  empty?: boolean;
   /**
    * Les sous-rubriques de cette entrée. L'entrée devient dépliante : elle
    * garde l'aspect des autres — même casse, même hauteur, même pastille quand
    * elle est courante — et porte un chevron à droite. Un clic ouvre la rubrique
    * ET déplie ; il n'y a donc pas deux gestes à apprendre pour une seule ligne.
    *
-   * À ne pas confondre avec `titre` + `repliable`, qui coiffe une LISTE d'un
+   * À ne pas confondre avec `title` + `collapsible`, qui coiffe une LISTE d'un
    * intitulé en capitales : celui-ci est un titre de section, et il jure au
    * milieu d'entrées écrites en minuscules — c'est ce qu'a montré le rail de la
    * fiche équipement le 21/09/2026.
    */
-  enfants?: NavItem[];
+  children?: NavItem[];
 }
 
 export interface NavListProps {
@@ -42,70 +42,70 @@ export interface NavListProps {
    * Intitulé du groupe. À omettre quand ce qui précède le dit déjà — un onglet
    * « Composants » suivi d'un intitulé « COMPOSANTS » ne fait que répéter.
    */
-  titre?: string;
+  title?: string;
   items: readonly NavItem[];
-  courant?: string;
-  onChoisir: (cle: string) => void;
+  current?: string;
+  onChoose: (id: string) => void;
   /** Rend l'intitulé cliquable, pour replier le groupe. */
-  repliable?: boolean;
+  collapsible?: boolean;
   /** Ouvert au premier rendu. Sans effet si le groupe n'est pas repliable. */
-  ouvertParDefaut?: boolean;
+  defaultOpen?: boolean;
   className?: string;
 }
 
 export function NavList({
-  titre,
+  title,
   items,
-  courant,
-  onChoisir,
-  repliable = false,
-  ouvertParDefaut = true,
+  current,
+  onChoose,
+  collapsible = false,
+  defaultOpen = true,
   className,
 }: NavListProps) {
-  const [ouvert, setOuvert] = React.useState(ouvertParDefaut);
+  const [ouvert, setOuvert] = React.useState(defaultOpen);
   // Un groupe replié qui contient la rubrique ouverte la cacherait : on le
   // laisse déplié tant qu'elle est dedans.
-  const contientCourant = items.some((i) => i.cle === courant);
-  const deplie = !repliable || ouvert || contientCourant;
+  const containsCurrent = items.some((i) => i.id === current);
+  const expanded = !collapsible || ouvert || containsCurrent;
 
-  const intitule = (
+  const heading = (
     <span className="flex-1 text-left text-caption font-bold tracking-wide uppercase">
-      {titre}
+      {title}
     </span>
   );
 
   return (
     <div className={cn('shrink-0', className)}>
-      {!titre ? null : repliable ? (
+      {!title ? null : collapsible ? (
         <button
           type="button"
-          aria-expanded={deplie}
-          onClick={() => setOuvert(!deplie)}
+          aria-expanded={expanded}
+          onClick={() => setOuvert(!expanded)}
           className="flex w-full items-center gap-sm rounded-control px-md pb-sm text-text-muted outline-none hover:text-text focus-visible:ring-2 focus-visible:ring-primary"
         >
           <Icon
-            role="deplier"
+            role="expand"
             size="xs"
-            className={cn('transition-transform duration-(--arq-duration-normal)', deplie ? 'rotate-0' : '-rotate-90')}
+            className={cn('transition-transform duration-(--arq-duration-normal)', expanded ? 'rotate-0' : '-rotate-90')}
           />
-          {intitule}
+          {heading}
           <span className="shrink-0 tabular-nums text-small">{items.length}</span>
         </button>
       ) : (
-        <div className="flex px-md pb-sm text-text-muted">{intitule}</div>
+        <div className="flex px-md pb-sm text-text-muted">{heading}</div>
       )}
 
-      <div className={cn('flex flex-col gap-xxs', !deplie && 'hidden')}>
+      <div className={cn('flex flex-col gap-xxs', !expanded && 'hidden')}>
         {items.map((item) =>
-          item.enfants?.length ? (
-            <EntreeDepliante
-              key={item.cle}
+          item.children?.length ? (
+            <ExpandableEntry
+              key={item.id}
               item={item}
-              courant={courant}
-              onChoisir={onChoisir}
+              current={current}
+              onChoose={onChoose}
             />
           ) : (
-            <Entree key={item.cle} item={item} courant={courant} onChoisir={onChoisir} />
+            <Entry key={item.id} item={item} current={current} onChoose={onChoose} />
           ),
         )}
       </div>
@@ -119,17 +119,17 @@ export function NavList({
  * Elle reste ouverte tant que la rubrique courante est l'une des siennes —
  * sinon ouvrir une sous-rubrique refermerait le chemin qu'on vient de prendre.
  */
-function EntreeDepliante({
+function ExpandableEntry({
   item,
-  courant,
-  onChoisir,
+  current,
+  onChoose,
 }: {
   item: NavItem;
-  courant?: string;
-  onChoisir: (cle: string) => void;
+  current?: string;
+  onChoose: (id: string) => void;
 }) {
-  const enfants = item.enfants ?? [];
-  const tientLeCourant = enfants.some((e) => e.cle === courant);
+  const children = item.children ?? [];
+  const tientLeCourant = children.some((e) => e.id === current);
   /*
     LE REPLI APPARTIENT À CELUI QUI CLIQUE, MÊME DEPUIS UNE SOUS-RUBRIQUE.
 
@@ -148,7 +148,7 @@ function EntreeDepliante({
   React.useEffect(() => {
     if (tientLeCourant) setOuvert(true);
   }, [tientLeCourant]);
-  const deplie = ouvert;
+  const expanded = ouvert;
   /* Replié sur une sous-rubrique courante, c'est l'entrée MÈRE qui porte la
      pastille : sinon le rail ne dirait plus où l'on est, et refermer
      reviendrait à se perdre. */
@@ -159,18 +159,18 @@ function EntreeDepliante({
      lignes s'allumaient ensemble — deux pastilles empilées se lisent comme un
      défaut. C'est l'enfant qui s'allume, parce que c'est lui qu'on a visé ;
      la mère ne reprend la pastille que repliée, où l'enfant ne se voit plus. */
-  const enfantHomonyme = enfants.some((e) => e.cle === item.cle);
+  const enfantHomonyme = children.some((e) => e.id === item.id);
   const portePastille =
-    (!enfantHomonyme && item.cle === courant) || (!deplie && tientLeCourant);
+    (!enfantHomonyme && item.id === current) || (!expanded && tientLeCourant);
   return (
     <div className="flex flex-col gap-xxs">
-      <Entree
+      <Entry
         item={item}
-        /* `undefined` et non `courant` : cette ligne-ci ne se compare qu'à
-           elle-même, et lui repasser `courant` la rallumait dès que la clé
+        /* `undefined` et non `current` : cette ligne-ci ne se compare qu'à
+           elle-même, et lui repasser `current` la rallumait dès que la clé
            correspondait — ce qui est justement le cas d'une mère dont un enfant
            porte sa clé. `portePastille` reste alors le seul juge. */
-        courant={portePastille ? item.cle : undefined}
+        current={portePastille ? item.id : undefined}
         /*
           TOUTE LA LIGNE REPLIE, DÈS QU'ON EST DANS LE GROUPE.
 
@@ -194,30 +194,30 @@ function EntreeDepliante({
           « Dedans » comprend la clé de la mère elle-même : sur « Toutes », on
           est bien dans le groupe.
         */
-        onChoisir={(cle) => {
-          const dedans = tientLeCourant || item.cle === courant;
+        onChoose={(id) => {
+          const dedans = tientLeCourant || item.id === current;
           if (dedans) {
-            setOuvert(!deplie);
+            setOuvert(!expanded);
             return;
           }
           /* Dehors, la ligne mène — même si le groupe était resté ouvert
              derrière nous. La refermer alors surprendrait : on visait Photos. */
           setOuvert(true);
-          onChoisir(cle);
+          onChoose(id);
         }}
-        chevron={deplie}
-        surChevron={() => setOuvert(!deplie)}
+        chevron={expanded}
+        onChevron={() => setOuvert(!expanded)}
       />
       {/* Le filet rattache les sous-rubriques à la leur : sans lui, le retrait
           seul se lit comme un défaut d'alignement. */}
       <div
         className={cn(
           'ml-md flex flex-col gap-xxs border-l border-border-soft pl-xs',
-          !deplie && 'hidden',
+          !expanded && 'hidden',
         )}
       >
-        {enfants.map((e) => (
-          <Entree key={e.cle} item={e} courant={courant} onChoisir={onChoisir} />
+        {children.map((e) => (
+          <Entry key={e.id} item={e} current={current} onChoose={onChoose} />
         ))}
       </div>
     </div>
@@ -235,11 +235,11 @@ function EntreeDepliante({
   `semibold` — un échelon la sépare toujours des autres, et c'est ce contraste,
   pas la graisse en soi, qui dit où l'on est.
 */
-const LIGNE = 'flex w-full items-center gap-sm rounded-control text-left text-small';
-const ETAT = (actif: boolean, vide?: boolean) =>
-  actif
+const ROW = 'flex w-full items-center gap-sm rounded-control text-left text-small';
+const STATE = (active: boolean, empty?: boolean) =>
+  active
     ? 'bg-info-bg font-semibold text-on-info-bg'
-    : vide
+    : empty
       ? /* Atténuée, jamais éteinte : `textMuted` reste un texte lisible
            (5,34 sur blanc), et le survol la rend à l'encre pleine — c'est une
            entrée qu'on peut prendre, pas une entrée qui refuse. */
@@ -247,8 +247,8 @@ const ETAT = (actif: boolean, vide?: boolean) =>
       : 'font-medium text-text hover:bg-bg-muted';
 
 /** Le compteur, s'il y en a un. */
-function Compteur({ item, actif }: { item: NavItem; actif: boolean }) {
-  if (item.compteur === undefined || item.compteur === '') return null;
+function Count({ item, active }: { item: NavItem; active: boolean }) {
+  if (item.count === undefined || item.count === '') return null;
   return (
     // Chasse fixe : sans elle les nombres dansent d'une ligne à l'autre. Sur la
     // ligne courante, le compteur prend l'encre appairée du fond `infoBg` :
@@ -256,28 +256,28 @@ function Compteur({ item, actif }: { item: NavItem; actif: boolean }) {
     // parent et la couleur sur l'enfant, donc le contrôle de contraste ne peut
     // pas le voir.
     <span
-      className={cn('shrink-0 tabular-nums text-small', actif ? 'text-on-info-bg' : 'text-text-muted')}
+      className={cn('shrink-0 tabular-nums text-small', active ? 'text-on-info-bg' : 'text-text-muted')}
     >
-      {item.compteur}
+      {item.count}
     </span>
   );
 }
 
-function Entree({
+function Entry({
   item,
-  courant,
-  onChoisir,
+  current,
+  onChoose,
   chevron,
-  surChevron,
+  onChevron,
 }: {
   item: NavItem;
-  courant?: string;
-  onChoisir: (cle: string) => void;
+  current?: string;
+  onChoose: (id: string) => void;
   /** Présent : l'entrée porte un chevron, tourné vers le haut quand c'est vrai. */
   chevron?: boolean;
-  surChevron?: () => void;
+  onChevron?: () => void;
 }) {
-  const actif = item.cle === courant;
+  const active = item.id === current;
 
   if (chevron === undefined) {
     return (
@@ -285,18 +285,18 @@ function Entree({
         type="button"
         // `aria-current` en plus du fond teinté : la couleur seule ne dit rien à
         // un lecteur d'écran.
-        aria-current={actif ? 'page' : undefined}
-        disabled={item.desactive}
-        onClick={() => onChoisir(item.cle)}
+        aria-current={active ? 'page' : undefined}
+        disabled={item.disabled}
+        onClick={() => onChoose(item.id)}
         className={cn(
-          LIGNE,
+          ROW,
           'px-md py-sm outline-none focus-visible:ring-2 focus-visible:ring-primary',
           'disabled:pointer-events-none disabled:opacity-50',
-          ETAT(actif, item.vide),
+          STATE(active, item.empty),
         )}
       >
         <span className="flex-1">{item.label}</span>
-        <Compteur item={item} actif={actif} />
+        <Count item={item} active={active} />
       </button>
     );
   }
@@ -312,12 +312,12 @@ function Entree({
     vivent dedans.
   */
   return (
-    <div className={cn(LIGNE, ETAT(actif, item.vide), 'pr-xxs', item.desactive && 'opacity-50')}>
+    <div className={cn(ROW, STATE(active, item.empty), 'pr-xxs', item.disabled && 'opacity-50')}>
       <button
         type="button"
-        aria-current={actif ? 'page' : undefined}
-        disabled={item.desactive}
-        onClick={() => onChoisir(item.cle)}
+        aria-current={active ? 'page' : undefined}
+        disabled={item.disabled}
+        onClick={() => onChoose(item.id)}
         className={cn(
           'flex flex-1 items-center gap-sm rounded-control py-sm pl-md text-left outline-none',
           'focus-visible:ring-2 focus-visible:ring-primary',
@@ -325,22 +325,22 @@ function Entree({
         )}
       >
         <span className="flex-1">{item.label}</span>
-        <Compteur item={item} actif={actif} />
+        <Count item={item} active={active} />
       </button>
       <button
         type="button"
         aria-expanded={chevron}
         aria-label={`${chevron ? 'Replier' : 'Déplier'} ${item.label}`}
-        disabled={item.desactive}
-        onClick={() => surChevron?.()}
+        disabled={item.disabled}
+        onClick={() => onChevron?.()}
         className={cn(
           'shrink-0 rounded-control p-xs outline-none focus-visible:ring-2 focus-visible:ring-primary',
           'disabled:pointer-events-none',
-          actif ? 'text-on-info-bg' : 'text-text-muted hover:text-text',
+          active ? 'text-on-info-bg' : 'text-text-muted hover:text-text',
         )}
       >
         <Icon
-          role="deplier"
+          role="expand"
           size="xs"
           className={cn(
             /*

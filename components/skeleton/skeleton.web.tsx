@@ -4,7 +4,7 @@ import { cn } from '../_lib/cn';
 
 export interface SkeletonProps extends React.ComponentProps<'div'> {
   /** Un bloc rond — pour une pastille, une vignette carrée, un avatar. */
-  rond?: boolean;
+  round?: boolean;
 }
 
 /**
@@ -18,7 +18,7 @@ export interface SkeletonProps extends React.ComponentProps<'div'> {
  * — la liste de relevés, la fiche d'équipement — restent dans l'app, parce
  * qu'ils épousent une mise en page qui n'appartient pas au design system.
  */
-export function Skeleton({ rond = false, className, ...props }: SkeletonProps) {
+export function Skeleton({ round = false, className, ...props }: SkeletonProps) {
   return (
     <div
       data-slot="skeleton"
@@ -27,7 +27,7 @@ export function Skeleton({ rond = false, className, ...props }: SkeletonProps) {
       aria-hidden="true"
       className={cn(
         'animate-pulse bg-bg-muted',
-        rond ? 'rounded-full' : 'rounded-sm',
+        round ? 'rounded-full' : 'rounded-sm',
         className,
       )}
       {...props}

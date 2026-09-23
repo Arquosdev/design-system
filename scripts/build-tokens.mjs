@@ -26,11 +26,12 @@ import {
 import { spacing } from '../src/spacing.ts';
 import { radius } from '../src/radius.ts';
 import { shadow } from '../src/elevation.ts';
-import { iconSize, iconWeight, icones } from '../src/icons.ts';
+import { iconSize, iconWeight, icons } from '../src/icons.ts';
 import { duration, easing } from '../src/motion.ts';
 import { layers } from '../src/layers.ts';
 import { borderWidth } from '../src/border.ts';
-import { largeur } from '../src/sizes.ts';
+import { width } from '../src/sizes.ts';
+import { controlHeight } from '../src/control.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
@@ -55,7 +56,7 @@ const DESCRIPTIONS = {
     primary: 'Accent interactif principal — CTA, liens, état actif.',
     primaryDark: 'Variante foncée de primary — état pressé, survol.',
     brand: 'Surface de marque dominante — en-têtes, blocs héros.',
-    accent: "Mise en avant, attention — à réserver aux éléments qui doivent capter l'œil.",
+    highlight: "Mise en avant — à réserver aux éléments qui doivent capter l'œil. Distinct de `warning`, qui alerte.",
     success: 'État de réussite — validation, conformité, synchronisation terminée.',
     successBg: 'Fond des éléments en état de réussite (pastilles, bandeaux).',
     onSuccessBg: "L'encre à poser sur `successBg`, et nulle part ailleurs. `success` seul n'y est pas lisible (2,77 pour 1).",
@@ -67,6 +68,10 @@ const DESCRIPTIONS = {
     onWarningBg: "L'encre à poser sur `warningBg`.",
     infoBg: "Fond des éléments retenus ou renseignés — entrée de menu courante, option choisie, décision prise.",
     onInfoBg: "L'encre à poser sur `infoBg`.",
+    inactiveBg:
+      "Fond d'un contrôle NON CLIQUABLE — bouton dont l'action est impossible ici. Un fond plein, pas une opacité : il ne doit ressembler à aucune variante active.",
+    onInactiveBg:
+      "L'encre à poser sur `inactiveBg` (5,99 pour 1). Le libellé d'un contrôle inactif reste du texte : il lui faut 4,5, ce que `opacity-50` ne donnait pas (2,33).",
     bg: 'Fond de page par défaut.',
     bgSubtle:
       "En-tête de section, de tableau, du rail — presque blanc. Détache l'en-tête de son contenu sans grisser l'écran.",
@@ -99,13 +104,13 @@ const DESCRIPTIONS = {
     '4xl': 'Séparation très large.',
     '5xl': 'Respiration maximale — écrans vides, écrans de démarrage.',
   },
-  largeur: {
-    saisieCourte: "Un nombre, une date, un code — ce qui se lit d'un coup d'œil.",
-    saisieLongue: 'Un texte libre ou un menu — assez large pour un libellé entier.',
-    planche:
+  width: {
+    inputShort: "Un nombre, une date, un code — ce qui se lit d'un coup d'œil.",
+    inputLong: 'Un texte libre ou un menu — assez large pour un libellé entier.',
+    plate:
       "Une planche de mesure intercalée dans un formulaire — assez large pour que ses repères se lisent, assez étroite pour rester une illustration.",
-    panneau: 'Le panneau latéral courant — une tâche annexe, quelques champs.',
-    panneauLarge:
+    panel: 'Le panneau latéral courant — une tâche annexe, quelques champs.',
+    panelWide:
       "Le panneau qui porte un formulaire ET ce qui l'explique — une planche cotée, un tableau. En dessous, les repères d'un dessin ne se lisent plus.",
   },
   duration: {
@@ -113,13 +118,18 @@ const DESCRIPTIONS = {
     normal: 'Une bascule visible — un chevron qui pivote, un onglet qui glisse.',
     lent: 'Une surface qui entre ou sort — panneau, modale, feuille.',
   },
+  controlHeight: {
+    sm: "30px — l'action discrète : fin de ligne, barre de sélection, éditeur en place. Sous la cible tactile de 44 pt.",
+    md: '36px — LA RÉFÉRENCE. Bouton, bouton d\'icône, sélecteur, et toute ligne qui doit valoir exactement la hauteur d\'un bouton. À prendre en cas de doute : c\'est elle qui aligne trois contrôles sur une même barre.',
+    lg: '44px — la cible tactile confortable. L\'action principale d\'un écran tactile.',
+  },
   borderWidth: {
     fin: 'Le trait courant — cartes, champs, séparateurs, tableaux.',
     epais: "Ce qui est en cours d'édition ou retenu. Un demi-pixel suffit à le distinguer sans décaler la mise en page.",
   },
   layers: {
     base: 'Le contenu de la page.',
-    panneau: "Une surface qui recouvre une partie de l'écran et reste manipulable. Passe SOUS `flottant`, parce qu'elle peut en contenir.",
+    panel: "Une surface qui recouvre une partie de l'écran et reste manipulable. Passe SOUS `flottant`, parce qu'elle peut en contenir.",
     flottant: "Menu, sélecteur, infobulle, popover — passe au-dessus de la surface qui l'a ouvert.",
     pleinEcran: "Ce qui prend l'écran entier et suspend le reste — visionneuse, palette de recherche.",
     notification: 'Ce qui doit rester visible quoi qu’il arrive.',
@@ -179,14 +189,19 @@ function buildCss() {
     lines.push(`  --${NS}-site-color-${kebab(key)}: ${value};`);
   }
 
+  section('Hauteurs de contrôle — bouton, sélecteur, ligne de titre');
+  for (const [key, value] of Object.entries(controlHeight)) {
+    lines.push(`  --${NS}-control-${kebab(key)}: ${value}px;`);
+  }
+
   section('Espacements (base 4)');
   for (const [key, value] of Object.entries(spacing)) {
     lines.push(`  --${NS}-space-${kebab(key)}: ${value}px;`);
   }
 
   section('Arrondis');
-  for (const [key, value] of Object.entries(largeur)) {
-    lines.push(`  --${NS}-largeur-${kebab(key)}: ${value}px;`);
+  for (const [key, value] of Object.entries(width)) {
+    lines.push(`  --${NS}-width-${kebab(key)}: ${value}px;`);
   }
 
   for (const [key, value] of Object.entries(radius)) {
@@ -315,10 +330,10 @@ function buildJson() {
       $description: 'Échelle base 4. `base` (16px) est le padding par défaut.',
       ...group(spacing, 'dimension', 'px', DESCRIPTIONS.spacing),
     },
-    largeur: {
+    width: {
       $description:
         "Largeurs nommées. Une saisie prend la largeur de ce qu'elle reçoit ; un panneau, celle de ce qu'il doit montrer.",
-      ...group(largeur, 'dimension', 'px', DESCRIPTIONS.largeur),
+      ...group(width, 'dimension', 'px', DESCRIPTIONS.width),
     },
     radius: {
       $description: 'Arrondis. `md` (8px) est la référence.',
@@ -333,6 +348,11 @@ function buildJson() {
       $type: 'cubicBezier',
       $value: easing,
       $description: 'La courbe par défaut — sortie douce.',
+    },
+    controlHeight: {
+      $description:
+        "Hauteur d'un contrôle interactif. Trois valeurs, ce sont les trois tailles de `Button`. S'écrit `h-(--arq-control-md)`.",
+      ...group(controlHeight, 'dimension', 'px', DESCRIPTIONS.controlHeight),
     },
     borderWidth: {
       $description:
@@ -354,10 +374,10 @@ function buildJson() {
         "Graisses Phosphor retenues. Le choix est sémantique : `actif` (fill) quand l'icône EST la chose, `default` (bold) quand elle accompagne un texte.",
       ...group(iconWeight, 'other'),
     },
-    icones: {
+    icons: {
       $description:
         "Vocabulaire d'icônes d'Arquos : un rôle métier → le nom du dessin Phosphor. Passer par le rôle, jamais par le nom du dessin. Ajouter un rôle manquant dans src/icons.ts plutôt qu'importer Phosphor dans une app.",
-      ...group(icones, 'other'),
+      ...group(icons, 'other'),
     },
     shadow: {
       $description: 'Trois niveaux d\'élévation, chacun attaché à un usage précis.',
@@ -452,7 +472,7 @@ function buildTailwind() {
   // `--container-*` est l'espace que lisent `w-*` et `max-w-*` : `--container-
   // saisie-longue` donne `max-w-saisie-longue`.
   theme.push('', '  /* Largeurs nommées */');
-  for (const [key, value] of Object.entries(largeur)) {
+  for (const [key, value] of Object.entries(width)) {
     push(`--container-${kebab(key)}`, `${value}px`);
   }
 
@@ -487,6 +507,10 @@ function buildTailwind() {
     push(`--${NS}-duration-${kebab(key)}`, `${value}ms`);
   }
   push('--ease-arquos', easing);
+  for (const [key, value] of Object.entries(controlHeight)) {
+    push(`--${NS}-control-${kebab(key)}`, `${value}px`);
+  }
+
   for (const [key, value] of Object.entries(borderWidth)) {
     push(`--${NS}-border-${kebab(key)}`, `${value}px`);
   }

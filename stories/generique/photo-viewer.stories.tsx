@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { PhotoViewer, type PhotoVue } from '../../components/photo-viewer/photo-viewer.web';
+import { PhotoViewer, type PhotoView } from '../../components/photo-viewer/photo-viewer.web';
 import { Button } from '../../components/button/button.web';
 import specification from '../../components/photo-viewer/photo-viewer.spec.md?raw';
 import { docsDe } from '../fiche';
@@ -34,10 +34,10 @@ const debout = (fond: string, texte: string) =>
     `<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1600"><rect width="900" height="1600" fill="${fond}"/><text x="450" y="820" font-family="sans-serif" font-size="56" fill="#ffffff" text-anchor="middle">${texte}</text></svg>`,
   );
 
-const SERIE: PhotoVue[] = [
-  { nom: 'Façade de l’immeuble', url: carre('#0D5AB7', 'Façade'), zone: 'Environnement' },
-  { nom: 'Plaque de charge', url: carre('#00295B', 'Plaque de charge'), zone: 'Cabine' },
-  { nom: 'Machinerie', url: carre('#17A679', 'Machinerie'), zone: 'Machinerie' },
+const SERIE: PhotoView[] = [
+  { name: 'Façade de l’immeuble', url: carre('#0D5AB7', 'Façade'), zone: 'Environnement' },
+  { name: 'Plaque de charge', url: carre('#00295B', 'Plaque de charge'), zone: 'Cabine' },
+  { name: 'Machinerie', url: carre('#17A679', 'Machinerie'), zone: 'Machinerie' },
 ];
 
 export const Defaut: Story = {
@@ -65,7 +65,7 @@ export const UneSeule: Story = { ...Defaut, args: { ...Defaut.args, photos: [SER
 /** Image absente ou illisible — un HEIC, par exemple. On nomme quand même. */
 export const Indisponible: Story = {
   ...Defaut,
-  args: { ...Defaut.args, photos: [{ nom: 'Toit de cabine', zone: 'Cabine' }] },
+  args: { ...Defaut.args, photos: [{ name: 'Toit de cabine', zone: 'Cabine' }] },
 };
 
 /**
@@ -78,12 +78,12 @@ export const AvecActions: Story = {
   args: {
     ...Defaut.args,
     photos: [
-      { nom: 'Porte palière — niveau principal', url: debout('#00295B', 'Porte palière'), zone: 'Palier' },
+      { name: 'Porte palière — niveau principal', url: debout('#00295B', 'Porte palière'), zone: 'Palier' },
       ...SERIE,
     ],
     actions: [
-      { libelle: 'Télécharger', icone: 'telecharger', onAction: () => {} },
-      { libelle: 'Ouvrir dans un nouvel onglet', icone: 'ouvrirAilleurs', onAction: () => {} },
+      { label: 'Télécharger', icon: 'download', onAction: () => {} },
+      { label: 'Ouvrir dans un nouvel onglet', icon: 'openExternal', onAction: () => {} },
     ],
   },
   render: function Rendu(args) {

@@ -19,29 +19,77 @@ import { cn } from '../_lib/cn';
     `lucide-react` pour une loupe serait une deuxième convention d'icônes.
 */
 
+/**
+ * Deux tailles, et la raison n'est pas cosmétique.
+ *
+ * Ces pièces ont été dessinées pour la palette ⌘K : six cent soixante pixels
+ * de large, une entrée de cinquante-deux pixels de haut, du texte de sous-titre
+ * et des retraits de seize. Posées dans un menu de deux cent quatre-vingts
+ * pixels, elles débordent — l'invite se coupe, et dix lignes remplissent
+ * l'écran.
+ *
+ * `Combobox` avait déjà rencontré le problème et l'avait contourné en
+ * s'adressant directement à la primitive `cmdk`, ce que sa fiche explique. La
+ * taille est maintenant déclarée plutôt que contournée, et le contournement
+ * peut disparaître le jour où quelqu'un y reviendra.
+ *
+ * `default` est la palette, `sm` un menu. La taille se pose UNE FOIS sur
+ * `Command` et descend à ses pièces : la poser cellule par cellule laisserait
+ * une entrée de palette au-dessus d'une liste de menu.
+ */
+export type CommandSize = 'default' | 'sm';
+
+const TailleCommand = React.createContext<CommandSize>('default');
+
+/**
+ * Déclarer la taille sans passer par `Command`.
+ *
+ * `Combobox` s'adresse directement à la primitive `cmdk` — il lui faut son
+ * propre champ de saisie et son propre ancrage — donc il ne pouvait pas hériter
+ * de la taille, et ses entrées rendaient à la densité de la PALETTE : trente-six
+ * pixels de haut, retraits de seize. C'est ce que Louis a vu le 30/08/2026 :
+ * « je les trouve grossiers, avec un padding de tous les côtés inutile ».
+ *
+ * Le commentaire ci-dessus annonçait que le contournement disparaîtrait « le
+ * jour où quelqu'un y reviendra ». C'est ce jour.
+ */
+export function CommandSizeProvider({
+  size,
+  children,
+}: {
+  size: CommandSize;
+  children: React.ReactNode;
+}) {
+  return <TailleCommand.Provider value={size}>{children}</TailleCommand.Provider>;
+}
+
 export function Command({
   className,
+  size = 'default',
   ...props
-}: React.ComponentProps<typeof CommandPrimitive>) {
+}: React.ComponentProps<typeof CommandPrimitive> & { size?: CommandSize }) {
   return (
-    <CommandPrimitive
-      data-slot="command"
-      className={cn('flex h-full w-full flex-col overflow-hidden rounded-lg bg-bg text-text', className)}
-      {...props}
-    />
+    <TailleCommand.Provider value={size}>
+      <CommandPrimitive
+        data-slot="command"
+        data-size={size}
+        className={cn('flex h-full w-full flex-col overflow-hidden rounded-lg bg-bg text-text', className)}
+        {...props}
+      />
+    </TailleCommand.Provider>
   );
 }
 
 export function CommandDialog({
-  titre,
+  title,
   open,
   onOpenChange,
   children,
   className,
-  ...commande
+  ...command
 }: {
   /** Nom du dialogue pour les lecteurs d'écran. Jamais affiché. */
-  titre: string;
+  title: string;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   children: React.ReactNode;
@@ -59,8 +107,8 @@ export function CommandDialog({
             className,
           )}
         >
-          <Dialog.Title className="sr-only">{titre}</Dialog.Title>
-          <Command {...commande}>{children}</Command>
+          <Dialog.Title className="sr-only">{title}</Dialog.Title>
+          <Command {...command}>{children}</Command>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
@@ -71,13 +119,23 @@ export function CommandInput({
   className,
   ...props
 }: React.ComponentProps<typeof CommandPrimitive.Input>) {
+  const taille = React.useContext(TailleCommand);
   return (
-    <div className="flex items-center gap-md border-b border-border-soft px-base">
-      <Icon role="rechercher" size="sm" className="text-text-muted" />
+    <div
+      className={cn(
+        'flex items-center border-b border-border-soft',
+        taille === 'sm' ? 'gap-sm px-sm' : 'gap-md px-base',
+      )}
+    >
+      <Icon role="search" size="sm" className="shrink-0 text-text-muted" />
       <CommandPrimitive.Input
         data-slot="command-input"
         className={cn(
-          'h-[52px] w-full bg-transparent text-subhead font-normal text-text outline-none',
+          'w-full bg-transparent font-normal text-text outline-none',
+          // `min-w-0` : sans lui l'entrée garde sa largeur intrinsèque, la
+          // boîte déborde, et c'est l'invite qui se coupe.
+          'min-w-0',
+          taille === 'sm' ? 'h-(--arq-control-md) text-small' : 'h-[52px] text-subhead',
           'placeholder:text-text-muted',
           className,
         )}
@@ -91,6 +149,7 @@ export function CommandList({
   className,
   ...props
 }: React.ComponentProps<typeof CommandPrimitive.List>) {
+  const taille = React.useContext(TailleCommand);
   return (
     <CommandPrimitive.List
       data-slot="command-list"
@@ -101,7 +160,23 @@ export function CommandList({
         04/09/2026 sur la fenêtre de complétion de la fiche).
       */
       className={cn(
-        'max-h-[400px] scroll-py-sm overflow-x-hidden overflow-y-auto overscroll-contain py-xs',
+        'scroll-py-sm overflow-x-hidden overflow-y-auto overscroll-contain py-xs',
+        /*
+          Un menu ne monte pas à quatre cents pixels : dix agences y
+          rempliraient l'écran.
+
+          **Et la borne tombe sur un nombre entier de lignes.** Une entrée
+          coupée en deux se lit comme un défaut, même quand elle sert d'indice
+          de défilement : Louis l'a signalé le 30/08/2026 sur le sélecteur
+          d'agence.
+
+          **Et il tombe EXACTEMENT, plus au pixel près.** L'entrée valait 23,59 px
+          — la hauteur d'une ligne de `small`, plus quatre — donc aucun multiple
+          n'était entier et la borne restait approchée. Elle porte maintenant une
+          hauteur minimale de 24, et le compte se pose : 11 × 24 + 4 + 4 en haut
+          et en bas = 272.
+        */
+        taille === 'sm' ? 'max-h-[272px]' : 'max-h-[400px]',
         className,
       )}
       {...props}
@@ -110,10 +185,14 @@ export function CommandList({
 }
 
 export function CommandEmpty(props: React.ComponentProps<typeof CommandPrimitive.Empty>) {
+  const taille = React.useContext(TailleCommand);
   return (
     <CommandPrimitive.Empty
       data-slot="command-empty"
-      className="px-base py-xl text-center text-small text-text-muted"
+      className={cn(
+        'text-center text-small text-text-muted',
+        taille === 'sm' ? 'px-sm py-sm' : 'px-base py-xl',
+      )}
       {...props}
     />
   );
@@ -123,12 +202,19 @@ export function CommandGroup({
   className,
   ...props
 }: React.ComponentProps<typeof CommandPrimitive.Group>) {
+  const taille = React.useContext(TailleCommand);
   return (
     <CommandPrimitive.Group
       data-slot="command-group"
       className={cn(
         'overflow-hidden text-text',
-        '[&_[cmdk-group-heading]]:px-base [&_[cmdk-group-heading]]:pt-md [&_[cmdk-group-heading]]:pb-xxs',
+        /* L'intitulé suit la taille comme le reste : à `sm`, il était retiré
+           de seize pixels pendant que ses propres entrées l'étaient de douze,
+           et il ajoutait de la respiration en haut d'un menu dont tout le
+           propos est de ne pas respirer. */
+        taille === 'sm'
+          ? '[&_[cmdk-group-heading]]:px-sm [&_[cmdk-group-heading]]:pt-xs [&_[cmdk-group-heading]]:pb-xxs'
+          : '[&_[cmdk-group-heading]]:px-base [&_[cmdk-group-heading]]:pt-md [&_[cmdk-group-heading]]:pb-xxs',
         '[&_[cmdk-group-heading]]:text-caption [&_[cmdk-group-heading]]:font-bold',
         '[&_[cmdk-group-heading]]:tracking-wide [&_[cmdk-group-heading]]:uppercase',
         '[&_[cmdk-group-heading]]:text-text-muted',
@@ -143,11 +229,19 @@ export function CommandItem({
   className,
   ...props
 }: React.ComponentProps<typeof CommandPrimitive.Item>) {
+  const taille = React.useContext(TailleCommand);
   return (
     <CommandPrimitive.Item
       data-slot="command-item"
       className={cn(
-        'flex cursor-pointer items-center gap-base px-base py-sm text-small outline-none select-none',
+        'flex cursor-pointer items-center text-small outline-none select-none',
+        /*
+          `min-h` et non `h` : une entrée dont le libellé passe à la ligne doit
+          grandir. Vingt-quatre est la hauteur naturelle d'une ligne de `small`
+          plus ses deux `xxs`, arrondie au pixel — ce qui rend la borne de la
+          liste exactement divisible, et donc jamais coupée en deux.
+        */
+        taille === 'sm' ? 'min-h-[24px] gap-sm px-sm py-xxs' : 'gap-base px-base py-sm',
         'data-[selected=true]:bg-info-bg',
         'data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50',
         className,

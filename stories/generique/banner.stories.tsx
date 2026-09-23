@@ -2,14 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Banner } from '../../components/banner/banner.web';
 import specification from '../../components/banner/banner.spec.md?raw';
-import { choix, docsDe } from '../fiche';
+import { choices, docsDe } from '../fiche';
 
 const meta = {
   title: 'Composants/Générique/Banner',
   component: Banner,
   parameters: docsDe(specification),
-  args: { children: 'Jeu de démonstration — aucune donnée réelle.', icone: 'information' as const },
-  argTypes: { ton: choix(['info', 'attention', 'danger'], 'Le registre du bandeau.') },
+  args: { children: 'Jeu de démonstration — aucune donnée réelle.', icon: 'info' as const },
+  argTypes: { tone: choices(['info', 'warning', 'danger'], 'Le registre du bandeau.') },
 } satisfies Meta<typeof Banner>;
 
 export default meta;
@@ -27,11 +27,11 @@ export const Defaut: Story = {};
 export const LesTroisTons: Story = {
   render: () => (
     <div className="flex w-[620px] flex-col gap-sm">
-      <Banner icone="information">Jeu de démonstration — aucune donnée réelle.</Banner>
-      <Banner ton="attention" icone="horsLigne">
-        Hors ligne — les modifications partiront à la reconnexion.
+      <Banner icon="info">Jeu de démonstration — aucune donnée réelle.</Banner>
+      <Banner tone="warning" icon="offline">
+        Hors row — les modifications partiront à la reconnexion.
       </Banner>
-      <Banner ton="danger" icone="bloquant">
+      <Banner tone="danger" icon="blocking">
         Session expirée — rechargez la page pour continuer.
       </Banner>
     </div>
@@ -43,7 +43,7 @@ export const AvecUneAction: Story = {
   render: () => (
     <Banner
       className="w-[620px]"
-      icone="information"
+      icon="info"
       action={
         <a href="#" className="shrink-0 underline underline-offset-2">
           Ouvrir un appareil

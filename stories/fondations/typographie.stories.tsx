@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Fondation, Section, groupe } from '../atelier';
+import { Fondation, Section, group } from '../atelier';
 
 const meta: Meta = {
   title: 'Fondations/Typographie',
@@ -13,20 +13,20 @@ export const Typographie: Story = {
   name: 'Typographie',
   render: () => (
     <Fondation
-      titre="Typographie"
-      quoi="DM Sans, et des préréglages plutôt que des briques à recombiner. L'échelle est calibrée sur l'usage réel du produit — ne jamais y ajouter de taille, toute taille supplémentaire est du drift."
+      title="Typographie"
+      what="DM Sans, et des préréglages plutôt que des briques à recombiner. L'échelle est calibrée sur l'usage réel du produit — ne jamais y ajouter de taille, toute taille supplémentaire est du drift."
     >
       <Section
-        titre="Préréglages"
-        quoi="Chacun combine une taille, une graisse et un interligne. Préférer `typography.body` à la recomposition manuelle : c'est ce qui empêche deux écrans d'avoir deux « textes courants » différents."
+        title="Préréglages"
+        what="Chacun combine une taille, une graisse et un interligne. Préférer `typography.body` à la recomposition manuelle : c'est ce qui empêche deux écrans d'avoir deux « textes courants » différents."
       >
         <div className="flex flex-col gap-base">
-          {groupe('typography').map(([nom, t]) => {
+          {group('typography').map(([name, t]) => {
             const p = t as unknown as Record<string, string>;
             return (
-              <div key={nom} className="border-b border-border-soft pb-base last:border-b-0">
+              <div key={name} className="border-b border-border-soft pb-base last:border-b-0">
                 <div className="text-caption tabular-nums text-text-muted">
-                  {nom} — {p.fontSize ?? ''} / {p.fontWeight ?? ''}
+                  {name} — {p.fontSize ?? ''} / {p.fontWeight ?? ''}
                 </div>
                 <div
                   className="mt-xxs text-text"
@@ -46,8 +46,8 @@ export const Typographie: Story = {
       </Section>
 
       <Section
-        titre="Côté mobile, la graisse se nomme"
-        quoi="React Native ne synthétise pas correctement le gras sur Android : il faut désigner la variante chargée, d'où `fontFamilyNative`. Sur le web, `fontWeight` suffit."
+        title="Côté mobile, la graisse se nomme"
+        what="React Native ne synthétise pas correctement le gras sur Android : il faut désigner la variante chargée, d'où `fontFamilyNative`. Sur le web, `fontWeight` suffit."
       >
         <div className="flex flex-wrap gap-md">
           {[400, 500, 600, 700].map((g) => (

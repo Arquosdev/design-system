@@ -22,6 +22,8 @@
   --color-on-warning-bg: #996315;
   --color-info-bg: #E1ECFA;
   --color-on-info-bg: #0D5AB7;
+  --color-inactive-bg: #EAEEF1;
+  --color-on-inactive-bg: #4D5B66;
   --color-bg: #FFFFFF;
   --color-bg-subtle: #FCFDFE;
   --color-bg-muted: #F6F7F9;
@@ -31,8 +33,7 @@
   --color-text-muted: #5D6D79;
   --color-text-subtle: #8094A3;
   --color-text-on-dark: #FFFFFF;
-  --color-inactive-bg: #EAEEF1;
-  --color-on-inactive-bg: #4D5B66;
+  --color-text-on-info-bg: #073B6F;
   --color-black: #000000;
 
   /* Palette — pour les cas que le sémantique ne couvre pas */
@@ -107,12 +108,12 @@
   --spacing-5xl: 64px;
 
   /* Largeurs nommées */
-  --container-saisie-courte: 200px;
-  --container-saisie-longue: 420px;
-  --container-planche: 620px;
-  --container-panneau: 460px;
-  --container-panneau-large: 860px;
-  --container-lecture: 720px;
+  --container-input-short: 200px;
+  --container-input-long: 420px;
+  --container-plate: 620px;
+  --container-panel: 460px;
+  --container-panel-wide: 860px;
+  --container-reading: 720px;
   --container-rail: 284px;
 
   /* Arrondis */
@@ -182,6 +183,9 @@
   --arq-duration-normal: 200ms;
   --arq-duration-lent: 300ms;
   --ease-arquos: cubic-bezier(0.2, 0, 0, 1);
+  --arq-control-sm: 30px;
+  --arq-control-md: 36px;
+  --arq-control-lg: 44px;
   --arq-border-fin: 1px;
   --arq-border-epais: 1.5px;
   --arq-layer-base: 0;

@@ -57,12 +57,12 @@ export const EnListe: Story = {
           ['Machine', 'success', 'Bon'],
           ['Armoire de manœuvre', 'warning', 'Moyen'],
           ['Cabine', 'destructive', 'Mauvais'],
-        ].map(([nom, variant, texte]) => (
+        ].map(([name, variant, texte]) => (
           <div
-            key={nom}
+            key={name}
             className="flex items-center justify-between gap-md border-b border-border-soft px-base py-sm last:border-b-0"
           >
-            <span className="text-small text-text">{nom}</span>
+            <span className="text-small text-text">{name}</span>
             <Badge variant={variant as 'success'}>{texte}</Badge>
           </div>
         ))}

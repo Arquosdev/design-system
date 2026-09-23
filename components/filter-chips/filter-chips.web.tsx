@@ -9,7 +9,7 @@ export interface FilterChip {
   value: string;
   label: string;
   /** Compteur affiché après le libellé (« Cabine 18 »). */
-  compteur?: number | string;
+  count?: number | string;
 }
 
 export interface FilterChipsProps {
@@ -46,18 +46,18 @@ export function FilterChips({ chips, value, onValueChange, label, className }: F
           key={chip.value}
           value={chip.value}
           className={cn(
-            'h-[32px] rounded-control border px-md text-small font-semibold outline-none',
+            'h-(--arq-control-md) rounded-control border px-md text-small font-semibold outline-none',
             'focus-visible:ring-2 focus-visible:ring-primary',
             'border-border bg-bg text-text-muted hover:bg-bg-muted',
             'data-[state=on]:border-primary data-[state=on]:bg-info-bg data-[state=on]:text-on-info-bg',
           )}
         >
           {chip.label}
-          {chip.compteur !== undefined ? (
+          {chip.count !== undefined ? (
             // Pas d'`opacity` : elle mélange la couleur au fond et fait tomber
             // le compteur à 2,9 pour 1. La graisse suffit à le mettre en retrait,
             // et elle ne coûte rien à la lisibilité.
-            <span className="ml-xs font-normal">{chip.compteur}</span>
+            <span className="ml-xs font-normal">{chip.count}</span>
           ) : null}
         </ToggleGroup.Item>
       ))}

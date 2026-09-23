@@ -1,8 +1,8 @@
 // Ce que `Combobox` sait des menus longs, indépendamment de la plateforme.
 
 export interface ComboboxOption {
-  valeur: string;
-  libelle: string;
+  value: string;
+  label: string;
 }
 
 /**
@@ -18,10 +18,10 @@ export interface ComboboxOption {
  * l'avait saisi, et la première frappe s'y collait — « — choisir —SEMA » — pour
  * finir sur « Aucun choix ne correspond ».
  */
-export function choixReels(
+export function realChoices(
   options: readonly ComboboxOption[],
 ): readonly ComboboxOption[] {
-  return options.filter((o) => o.valeur !== '');
+  return options.filter((o) => o.value !== '');
 }
 
 /**
@@ -34,15 +34,15 @@ export function choixReels(
  *
  * Rien retenu, rien tapé : la chaîne vide, pour que le placeholder paraisse.
  */
-export function contenuAffiche(
+export function displayedText(
   options: readonly ComboboxOption[],
-  valeur: string,
+  value: string,
   ouvert: boolean,
   frappe: string,
 ): string {
   if (ouvert) return frappe;
-  const retenue = choixReels(options).find((o) => o.valeur === valeur);
-  return retenue?.libelle ?? valeur;
+  const retenue = realChoices(options).find((o) => o.value === value);
+  return retenue?.label ?? value;
 }
 
 /**
@@ -53,13 +53,13 @@ export function contenuAffiche(
  * sait plus ce qu'on est en train de changer. Elle revient donc en filigrane,
  * qu'on efface d'une frappe. Rien de retenu : l'invite ordinaire.
  */
-export function invitAffichee(
+export function displayedPlaceholder(
   options: readonly ComboboxOption[],
-  valeur: string,
+  value: string,
   ouvert: boolean,
   placeholder: string,
 ): string {
-  if (!ouvert || valeur === '') return placeholder;
-  const retenue = choixReels(options).find((o) => o.valeur === valeur);
-  return retenue?.libelle ?? valeur;
+  if (!ouvert || value === '') return placeholder;
+  const retenue = realChoices(options).find((o) => o.value === value);
+  return retenue?.label ?? value;
 }

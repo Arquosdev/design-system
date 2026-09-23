@@ -9,7 +9,7 @@ import { cn } from '../_lib/cn';
 /**
  * Une case à cocher.
  *
- * La coche vient du vocabulaire d'icônes (`role="coche"`), pas de Lucide :
+ * La coche vient du vocabulaire d'icônes (`role="check"`), pas de Lucide :
  * shadcn livre ses composants avec Lucide, et le jeu officiel d'Arquos est
  * Phosphor. Un seul dessin de coche dans tout le produit.
  *
@@ -45,7 +45,7 @@ export function Checkbox({
           // devienne illisible.
           <span aria-hidden="true" className="block h-[2px] w-[9px] rounded-full bg-current" />
         ) : (
-          <Icon role="coche" size="xs" />
+          <Icon role="check" size="xs" />
         )}
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>

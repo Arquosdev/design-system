@@ -44,7 +44,7 @@ export const Defaut: Story = {
                 <SheetCloseButton />
               </div>
               <SheetDescription>
-                4 champs à renseigner sur cette section uniquement.
+                4 champs à fill sur cette section uniquement.
               </SheetDescription>
             </SheetHeader>
             <SheetBody className="flex flex-col gap-base">

@@ -42,9 +42,9 @@ export const iconWeight = {
   /** Le trait courant — l'icône accompagne un libellé ou une action. */
   default: 'bold',
   /** L'icône est elle-même l'objet : pastille d'état, onglet sélectionné. */
-  actif: 'fill',
+  active: 'fill',
   /** Trait fin — décor discret, jamais porteur d'information seule. */
-  discret: 'regular',
+  subtle: 'regular',
 } as const;
 
 /**
@@ -66,95 +66,171 @@ export const iconWeight = {
  *   import { MagnifyingGlass } from '@phosphor-icons/react';   // web
  *   import { MagnifyingGlass } from 'phosphor-react-native';   // mobile
  */
-export const icones = {
+export const icons = {
   // -- Se déplacer ---------------------------------------------------------
-  suivant: 'CaretRight',
-  precedent: 'CaretLeft',
-  deplier: 'CaretDown',
-  replier: 'CaretUp',
-  aller: 'ArrowRight',
-  fermer: 'X',
+  next: 'CaretRight',
+  previous: 'CaretLeft',
+  expand: 'CaretDown',
+  collapse: 'CaretUp',
+  go: 'ArrowRight',
+  close: 'X',
 
   // -- Agir ----------------------------------------------------------------
-  rechercher: 'MagnifyingGlass',
-  ajouter: 'Plus',
-  modifier: 'PencilSimple',
-  supprimer: 'Trash',
-  telecharger: 'DownloadSimple',
+  search: 'MagnifyingGlass',
+  add: 'Plus',
+  edit: 'PencilSimple',
+  delete: 'Trash',
+  download: 'DownloadSimple',
   /** Sortir de l'écran courant pour voir la chose ailleurs — un onglet neuf,
    *  une autre application. La flèche qui quitte son cadre, jamais une loupe :
    *  on ne grossit pas ce qu'on a sous les yeux, on l'ouvre autre part. */
-  ouvrirAilleurs: 'ArrowSquareOut',
-  filtrer: 'Sliders',
-  plusDActions: 'DotsThreeVertical',
-  dicter: 'Microphone',
-  arreter: 'Stop',
+  openExternal: 'ArrowSquareOut',
+  filter: 'Sliders',
+  moreActions: 'DotsThreeVertical',
+  dictate: 'Microphone',
+  stop: 'Stop',
+  /*
+    Afficher ou masquer un mot de passe. **DEUX rôles pour une seule bascule**,
+    et c'est délibéré : une icône d'œil unique est ambiguë dans les deux sens —
+    personne ne sait si elle décrit l'état courant ou l'action à venir. Deux
+    rôles obligent l'appelant à choisir lequel il montre, et le nom dit
+    l'ACTION, comme partout ailleurs dans ce vocabulaire (`delete`, `download`).
+
+    Ajoutés le 31/08/2026 : la page de connexion de l'app Bubble porte cette
+    icône depuis toujours, et l'app web la contournait par un lien « Afficher »
+    faute de rôle.
+  */
+  revealPassword: 'Eye',
+  hidePassword: 'EyeSlash',
+  /*
+    **RÉGLER quelque chose, et c'est différent de le FILTRER.**
+
+    `filter` porte déjà `Sliders`, qui est le glyphe des réglages chez Phosphor
+    autant que celui des filtres — mais un filtre agit sur ce qu'on REGARDE, un
+    réglage sur ce qui le COMMANDE. Les deux se croisent sur le même écran :
+    l'en-tête de la liste des contrats porte « Configuration » pendant que sa
+    barre d'outils porte le filtre, et deux boutons au même dessin auraient
+    annoncé la même chose.
+
+    Ajouté le 01/09/2026 à la demande de Louis, qui voulait « un bouton actif
+    avec une icône, un truc qui symbolise la configuration » et n'en trouvait
+    aucun : les soixante-dix rôles couvraient les objets, les états et les gestes
+    de liste, jamais le réglage d'un écran.
+  */
+  settings: 'GearSix',
 
   // -- Dire un état --------------------------------------------------------
-  conforme: 'CheckCircle',
-  coche: 'Check', // la coche nue d'une case, sans son cercle
-  ecart: 'Warning',
-  bloquant: 'WarningOctagon',
-  attention: 'WarningCircle',
-  information: 'Info',
-  sansObjet: 'MinusCircle',
-  horsLigne: 'WifiSlash',
-  synchronisation: 'Lightning',
-  synchronisationSuspendue: 'LightningSlash',
+  compliant: 'CheckCircle',
+  check: 'Check', // la coche nue d'une case, sans son cercle
+  discrepancy: 'Warning',
+  blocking: 'WarningOctagon',
+  warning: 'WarningCircle',
+  info: 'Info',
+  notApplicable: 'MinusCircle',
+  offline: 'WifiSlash',
+  sync: 'Lightning',
+  syncPaused: 'LightningSlash',
 
   // -- Photos --------------------------------------------------------------
   photo: 'ImageSquare',
   photos: 'Images',
-  prendreUnePhoto: 'Camera',
-  photoIndisponible: 'CameraSlash',
-  changerDeCamera: 'CameraRotate',
+  takePhoto: 'Camera',
+  photoUnavailable: 'CameraSlash',
+  switchCamera: 'CameraRotate',
+
+  // -- Composer un tableau -------------------------------------------------
+  columns: 'Columns',
+  reorder: 'DotsSixVertical',
+  sortNeutral: 'ArrowsDownUp',
+  lock: 'LockSimple',
+  bookmark: 'BookmarkSimple',
+  list: 'Rows',
+  map: 'MapTrifold',
+  pdf: 'FilePdf',
+  csv: 'FileCsv',
 
   // -- Le métier -----------------------------------------------------------
   document: 'FileText',
-  etiquette: 'Tag',
-  securite: 'ShieldCheck',
-  intervention: 'Wrench',
-  mesure: 'Ruler',
+  tag: 'Tag',
+  safety: 'ShieldCheck',
+  maintenance: 'Wrench',
+  measure: 'Ruler',
+  aiAssist: 'Sparkle',
   /** Une valeur que l'écran SAIT calculer — la course d'une gaine, tirée de
    *  trois hauteurs ou de la somme des entre-niveaux. Le rôle dit « je peux la
    *  calculer pour toi », jamais « voici une calculatrice ». */
-  calculer: 'Calculator',
-  assistanceIA: 'Sparkle',
+  calculate: 'Calculator',
 
-  /*
-    Les OBJETS du métier, ajoutés le 22/09/2026 pour myArquos : ses onglets et
-    ses dix-neuf états vides dessinaient l'appareil, le relevé, l'immeuble ou la
-    conversation en important Phosphor directement dans l'écran — quatre
-    dessins différents pour « équipement » selon la page. Un rôle par objet,
-    et le dessin est le même partout. L'app web nomme les mêmes objets
-    (`entity-icon.ts`) ; le jour où elle passe par ce vocabulaire, ce sont ces
-    rôles-là qu'elle prend.
-  */
-  equipement: 'Elevator',
-  releve: 'ClipboardText',
-  immeuble: 'Buildings',
+  // -- Les objets du produit -----------------------------------------------
+  //
+  // La navigation d'un produit qui porte douze objets a besoin d'une icône par
+  // objet : c'est elle qu'on vise du coin de l'œil, et c'est la seule chose qui
+  // reste quand le rail est réduit. Le vocabulaire n'en avait aucune, et l'app
+  // web posait des classes Phosphor à la main — exactement la dérive que ce
+  // fichier existe pour empêcher.
+  //
+  // Un rôle par objet, même quand deux partagent un dessin : « secteur » et
+  // « carte » sont la même carte dépliée aujourd'hui, et rien n'oblige à ce
+  // qu'ils le restent. Passer par le rôle laisse la possibilité de les séparer
+  // sans toucher aux écrans.
+  survey: 'ClipboardText',
+  equipment: 'Elevator',
+  building: 'Buildings',
   client: 'Briefcase',
   contact: 'User',
-  utilisateur: 'UserCircle',
-  carte: 'MapTrifold',
-  conversation: 'ChatCircleDots',
-  copier: 'Copy',
-  classeur: 'Folder',
-  archiver: 'Archive',
+  supplier: 'Truck',
+  sector: 'MapTrifold',
+  technician: 'Wrench',
+  deal: 'Handshake',
+  contract: 'FileText',
+  quote: 'Receipt',
+  // Trois entrées de navigation qui ne sont pas des objets : une campagne de
+  // relevés, un import de données, une sollicitation envoyée à un fournisseur.
+  campaign: 'Crosshair',
+  import: 'UploadSimple',
+  request: 'PaperPlaneTilt',
 
   /*
-    Sortir de son compte. Ajouté le 22/09/2026 : le profil de myArquos
-    importait `SignOut` de Phosphor directement, et la refonte l'avait replié
-    sur `fermer` — une croix. Or une croix FERME ce qu'on regarde ; elle ne
-    sort pas d'un compte. C'est la faute que le rôle `settings` a corrigée en
-    son temps : un glyphe qui va n'est pas un rôle qui dit.
+    Ajoutés le 22/09/2026 pour myArquos : ses onglets, son profil et ses états
+    vides importaient Phosphor directement dans l'écran. Les objets qu'ils
+    dessinaient existaient déjà ici (`equipment`, `survey`, `building`…) ; ne
+    manquaient que ces six-là.
   */
-  deconnexion: 'SignOut',
+  user: 'UserCircle',
+  conversation: 'ChatCircleDots',
+  copy: 'Copy',
+  folder: 'Folder',
+  archive: 'Archive',
+  /*
+    Sortir de son compte. Le profil de myArquos importait `SignOut` de Phosphor
+    directement, et la refonte l'avait replié sur `close` — une croix. Or une
+    croix FERME ce qu'on regarde ; elle ne sort pas d'un compte. C'est la faute
+    que le rôle `settings` a corrigée en son temps : un glyphe qui va n'est pas
+    un rôle qui dit.
+  */
+  signOut: 'SignOut',
+
+  // -- La nature d'une colonne ---------------------------------------------
+  //
+  // Un tableau du produit peut proposer près de cinq cents colonnes, presque
+  // toutes techniques. L'icône de l'en-tête dit ce qu'on va lire avant même
+  // d'avoir lu : « Course » avec une règle est une mesure, « Marque machine »
+  // avec un A est du texte. C'est ce que fait Attio, et c'est ce qui manque
+  // quand une liste n'est qu'une grille de gris.
+  fieldText: 'TextAa',
+  fieldNumber: 'Hash',
+  fieldDate: 'Calendar',
+  fieldChoice: 'CaretCircleDown',
+  fieldLink: 'LinkSimple',
+  fieldPerson: 'User',
+  fieldGauge: 'ChartBar',
+  fieldPlace: 'MapPin',
+  fieldYesNo: 'ToggleLeft',
 } as const;
 
 export type IconSizeToken = keyof typeof iconSize;
 export type IconWeightToken = keyof typeof iconWeight;
-/** Un rôle du vocabulaire — `'supprimer'`, `'ecart'`… */
-export type IconRole = keyof typeof icones;
+/** Un rôle du vocabulaire — `'delete'`, `'discrepancy'`… */
+export type IconRole = keyof typeof icons;
 /** Le nom Phosphor correspondant — `'Trash'`, `'Warning'`… */
-export type IconName = (typeof icones)[IconRole];
+export type IconName = (typeof icons)[IconRole];

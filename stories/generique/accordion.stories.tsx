@@ -25,9 +25,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const GROUPES = [
-  { cle: 'general', titre: 'Données techniques générales', meta: '33 renseignés · 20 vides' },
-  { cle: 'gsm', titre: 'Module GSM et boitier téléalarme', meta: '14 renseignés' },
-  { cle: 'histo', titre: 'Historique', meta: '21 renseignés · 1 vide' },
+  { id: 'general', title: 'Données techniques générales', meta: '33 renseignés · 20 vides' },
+  { id: 'gsm', title: 'Module GSM et boitier téléalarme', meta: '14 renseignés' },
+  { id: 'histo', title: 'Historique', meta: '21 renseignés · 1 vide' },
 ];
 
 /**
@@ -36,12 +36,12 @@ const GROUPES = [
  */
 export const Defaut: Story = {
   render: () => (
-    <Accordion type="multiple" defaultValue={GROUPES.map((g) => g.cle)} className="max-w-[560px]">
+    <Accordion type="multiple" defaultValue={GROUPES.map((g) => g.id)} className="max-w-[560px]">
       {GROUPES.map((g) => (
-        <AccordionItem key={g.cle} value={g.cle}>
-          <AccordionTrigger titre={g.titre} meta={g.meta} />
+        <AccordionItem key={g.id} value={g.id}>
+          <AccordionTrigger title={g.title} meta={g.meta} />
           <AccordionContent>
-            <p className="text-small text-text-muted">Les champs du groupe.</p>
+            <p className="text-small text-text-muted">Les champs du group.</p>
           </AccordionContent>
         </AccordionItem>
       ))}
@@ -54,10 +54,10 @@ export const Replie: Story = {
   render: () => (
     <Accordion type="multiple" className="max-w-[560px]">
       {GROUPES.map((g) => (
-        <AccordionItem key={g.cle} value={g.cle}>
-          <AccordionTrigger titre={g.titre} meta={g.meta} />
+        <AccordionItem key={g.id} value={g.id}>
+          <AccordionTrigger title={g.title} meta={g.meta} />
           <AccordionContent>
-            <p className="text-small text-text-muted">Les champs du groupe.</p>
+            <p className="text-small text-text-muted">Les champs du group.</p>
           </AccordionContent>
         </AccordionItem>
       ))}

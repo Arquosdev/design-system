@@ -2,14 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Gauge } from '../../components/gauge/gauge.web';
 import specification from '../../components/gauge/gauge.spec.md?raw';
-import { choix, docsDe } from '../fiche';
+import { choices, docsDe } from '../fiche';
 
 const meta = {
   title: 'Composants/Métier/Gauge',
   component: Gauge,
   parameters: docsDe(specification),
-  args: { valeur: 82, label: 'Taux de connaissance' },
-  argTypes: { tone: choix(['success', 'warning', 'danger'], 'Force la teinte.') },
+  args: { value: 82, label: 'Taux de connaissance' },
+  argTypes: { tone: choices(['success', 'warning', 'danger'], 'Force la teinte.') },
 } satisfies Meta<typeof Gauge>;
 
 export default meta;
@@ -21,9 +21,9 @@ export const Defaut: Story = {};
 export const Paliers: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-xl">
-      <Gauge valeur={18} label="Points statués" />
-      <Gauge valeur={54} label="Points statués" />
-      <Gauge valeur={91} label="Points statués" />
+      <Gauge value={18} label="Points statués" />
+      <Gauge value={54} label="Points statués" />
+      <Gauge value={91} label="Points statués" />
     </div>
   ),
 };
@@ -31,9 +31,9 @@ export const Paliers: Story = {
 export const Taille: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-xl">
-      <Gauge valeur={82} label="Petite" taille={56} />
-      <Gauge valeur={82} label="Par défaut" />
-      <Gauge valeur={82} label="Grande" taille={120} />
+      <Gauge value={82} label="Petite" size={56} />
+      <Gauge value={82} label="Par défaut" />
+      <Gauge value={82} label="Grande" size={120} />
     </div>
   ),
 };
@@ -46,9 +46,9 @@ export const Taille: Story = {
  */
 export const AvecCentre: Story = {
   args: {
-    valeur: 87,
+    value: 87,
     label: 'Taux de connaissance',
-    centre: (
+    centered: (
       <button
         type="button"
         aria-label="Photos essentielles"

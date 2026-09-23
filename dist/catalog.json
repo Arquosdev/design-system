@@ -2,21 +2,21 @@
   "$description": "Catalogue des composants du design system Arquos. Avant de créer un composant, chercher ici : si le rôle recherché y figure, réutiliser plutôt que réécrire. Chaque entrée pointe vers sa fiche (`fiche`), qui décrit les props, les états et surtout les cas où le composant ne doit PAS être employé.",
   "couches": {
     "generique": {
-      "titre": "Générique",
-      "quoi": "Une mécanique que n'importe quelle application aurait — bouton, modale, onglets. Elle vient de shadcn/Radix, ou elle le pourrait."
+      "title": "Générique",
+      "what": "Une mécanique que n'importe quelle application aurait — bouton, modale, onglets. Elle vient de shadcn/Radix, ou elle le pourrait."
     },
     "metier": {
-      "titre": "Métier",
-      "quoi": "Elle porte l'ascenseur : son vocabulaire, ses états, ses règles. shadcn n'a rien d'équivalent, et c'est normal."
+      "title": "Métier",
+      "what": "Elle porte l'ascenseur : son vocabulaire, ses états, ses règles. shadcn n'a rien d'équivalent, et c'est normal."
     }
   },
   "composants": [
     {
       "name": "Accordion",
-      "statut": "stable",
-      "couche": "generique",
+      "status": "stable",
+      "layer": "generique",
       "role": "Grouper des champs sous un titre pliable, pour qu'une page longue reste parcourable.",
-      "mots_cles": [
+      "keywords": [
         "accordeon",
         "groupe",
         "section",
@@ -24,27 +24,52 @@
         "deplier",
         "replier"
       ],
-      "plateformes": [
+      "platforms": [
         "web",
         "mobile"
       ],
-      "remplace": {
+      "replaces": {
         "web": [],
         "mobile": []
       },
       "dossier": "components/accordion",
-      "fiche": "components/accordion/accordion.spec.md",
+      "specFile": "components/accordion/accordion.spec.md",
       "fichiers": {
         "web": "components/accordion/accordion.web.tsx",
         "mobile": "components/accordion/accordion.native.tsx"
       }
     },
     {
+      "name": "ActiveFilters",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Montrer ce qui restreint la liste, et permettre de le défaire d'un clic.",
+      "keywords": [
+        "filtres",
+        "actifs",
+        "pastilles",
+        "retirer",
+        "liste"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/active-filters",
+      "specFile": "components/active-filters/active-filters.spec.md",
+      "fichiers": {
+        "web": "components/active-filters/active-filters.web.tsx"
+      }
+    },
+    {
       "name": "Avatar",
-      "statut": "stable",
-      "couche": "generique",
+      "status": "stable",
+      "layer": "generique",
       "role": "Représenter une personne par sa photo, ou à défaut par ses initiales.",
-      "mots_cles": [
+      "keywords": [
         "avatar",
         "photo",
         "initiales",
@@ -53,27 +78,27 @@
         "pastille",
         "personne"
       ],
-      "plateformes": [
+      "platforms": [
         "web"
       ],
-      "remplace": {
+      "replaces": {
         "web": [],
         "mobile": [
           "components/Avatar.tsx"
         ]
       },
       "dossier": "components/avatar",
-      "fiche": "components/avatar/avatar.spec.md",
+      "specFile": "components/avatar/avatar.spec.md",
       "fichiers": {
         "web": "components/avatar/avatar.web.tsx"
       }
     },
     {
       "name": "Badge",
-      "statut": "stable",
-      "couche": "generique",
+      "status": "stable",
+      "layer": "generique",
       "role": "Poser une étiquette courte qui qualifie l'élément à côté duquel elle se trouve.",
-      "mots_cles": [
+      "keywords": [
         "badge",
         "pastille",
         "etiquette",
@@ -82,16 +107,16 @@
         "echeance",
         "compteur"
       ],
-      "plateformes": [
+      "platforms": [
         "web",
         "mobile"
       ],
-      "remplace": {
+      "replaces": {
         "web": [],
         "mobile": []
       },
       "dossier": "components/badge",
-      "fiche": "components/badge/badge.spec.md",
+      "specFile": "components/badge/badge.spec.md",
       "fichiers": {
         "web": "components/badge/badge.web.tsx",
         "mobile": "components/badge/badge.native.tsx"
@@ -99,10 +124,10 @@
     },
     {
       "name": "Banner",
-      "statut": "stable",
-      "couche": "generique",
+      "status": "stable",
+      "layer": "generique",
       "role": "Informer d'une condition qui dure, en haut d'une zone, sans interrompre.",
-      "mots_cles": [
+      "keywords": [
         "bandeau",
         "banner",
         "hors ligne",
@@ -111,16 +136,16 @@
         "permanent",
         "statut"
       ],
-      "plateformes": [
+      "platforms": [
         "web",
         "mobile"
       ],
-      "remplace": {
+      "replaces": {
         "web": [],
         "mobile": []
       },
       "dossier": "components/banner",
-      "fiche": "components/banner/banner.spec.md",
+      "specFile": "components/banner/banner.spec.md",
       "fichiers": {
         "web": "components/banner/banner.web.tsx",
         "mobile": "components/banner/banner.native.tsx"
@@ -128,10 +153,10 @@
     },
     {
       "name": "Button",
-      "statut": "stable",
-      "couche": "generique",
+      "status": "stable",
+      "layer": "generique",
       "role": "Déclencher une action. Le poids visuel dit l'importance de l'action, pas sa nature.",
-      "mots_cles": [
+      "keywords": [
         "bouton",
         "action",
         "cta",
@@ -139,29 +164,30 @@
         "enregistrer",
         "annuler"
       ],
-      "plateformes": [
+      "platforms": [
         "web",
         "mobile"
       ],
-      "remplace": {
+      "replaces": {
         "web": [
           "public/fiche/index.html — boutons inline recopiés 13 fois"
         ],
         "mobile": []
       },
       "dossier": "components/button",
-      "fiche": "components/button/button.spec.md",
+      "specFile": "components/button/button.spec.md",
       "fichiers": {
         "web": "components/button/button.web.tsx",
-        "mobile": "components/button/button.native.tsx"
+        "mobile": "components/button/button.native.tsx",
+        "logique": "components/button/button.logic.ts"
       }
     },
     {
       "name": "Card",
-      "statut": "stable",
-      "couche": "generique",
+      "status": "stable",
+      "layer": "generique",
       "role": "Poser un groupe d'éléments dans une surface délimitée, avec un en-tête facultatif.",
-      "mots_cles": [
+      "keywords": [
         "carte",
         "surface",
         "encart",
@@ -169,11 +195,11 @@
         "bloc",
         "panneau"
       ],
-      "plateformes": [
+      "platforms": [
         "web",
         "mobile"
       ],
-      "remplace": {
+      "replaces": {
         "web": [
           "public/fiche/index.html — sections bordées recopiées inline"
         ],
@@ -182,7 +208,7 @@
         ]
       },
       "dossier": "components/card",
-      "fiche": "components/card/card.spec.md",
+      "specFile": "components/card/card.spec.md",
       "fichiers": {
         "web": "components/card/card.web.tsx",
         "mobile": "components/card/card.native.tsx"
@@ -190,10 +216,10 @@
     },
     {
       "name": "Checkbox",
-      "statut": "stable",
-      "couche": "generique",
+      "status": "stable",
+      "layer": "generique",
       "role": "Cocher une option indépendante, ou plusieurs, dans un formulaire qui se valide.",
-      "mots_cles": [
+      "keywords": [
         "case",
         "cocher",
         "checkbox",
@@ -202,25 +228,25 @@
         "multiple",
         "selection"
       ],
-      "plateformes": [
+      "platforms": [
         "web"
       ],
-      "remplace": {
+      "replaces": {
         "web": [],
         "mobile": []
       },
       "dossier": "components/checkbox",
-      "fiche": "components/checkbox/checkbox.spec.md",
+      "specFile": "components/checkbox/checkbox.spec.md",
       "fichiers": {
         "web": "components/checkbox/checkbox.web.tsx"
       }
     },
     {
       "name": "Combobox",
-      "statut": "beta",
-      "couche": "generique",
+      "status": "beta",
+      "layer": "generique",
       "role": "Choisir dans une liste trop longue pour être parcourue, en la filtrant.",
-      "mots_cles": [
+      "keywords": [
         "combobox",
         "recherche",
         "autocompletion",
@@ -229,10 +255,10 @@
         "marque",
         "modele"
       ],
-      "plateformes": [
+      "platforms": [
         "web"
       ],
-      "remplace": {
+      "replaces": {
         "web": [
           "public/fiche/index.html — les menus de marque et de modèle"
         ],
@@ -241,7 +267,7 @@
         ]
       },
       "dossier": "components/combobox",
-      "fiche": "components/combobox/combobox.spec.md",
+      "specFile": "components/combobox/combobox.spec.md",
       "fichiers": {
         "web": "components/combobox/combobox.web.tsx",
         "logique": "components/combobox/combobox.logic.ts"
@@ -249,10 +275,10 @@
     },
     {
       "name": "Command",
-      "statut": "beta",
-      "couche": "generique",
+      "status": "beta",
+      "layer": "generique",
       "role": "Atteindre n'importe quoi dans un écran dense, en tapant son nom.",
-      "mots_cles": [
+      "keywords": [
         "recherche",
         "palette",
         "commande",
@@ -261,10 +287,10 @@
         "aller a",
         "chercher"
       ],
-      "plateformes": [
+      "platforms": [
         "web"
       ],
-      "remplace": {
+      "replaces": {
         "web": [
           "public/fiche/index.html — palette ⌘K"
         ],
@@ -273,17 +299,17 @@
         ]
       },
       "dossier": "components/command",
-      "fiche": "components/command/command.spec.md",
+      "specFile": "components/command/command.spec.md",
       "fichiers": {
         "web": "components/command/command.web.tsx"
       }
     },
     {
       "name": "DataTable",
-      "statut": "beta",
-      "couche": "metier",
+      "status": "beta",
+      "layer": "metier",
       "role": "Présenter des mesures en lignes et colonnes, quand la comparaison colonne par colonne est le sujet.",
-      "mots_cles": [
+      "keywords": [
         "tableau",
         "table",
         "grille",
@@ -292,27 +318,84 @@
         "colonnes",
         "lignes"
       ],
-      "plateformes": [
+      "platforms": [
         "web"
       ],
-      "remplace": {
+      "replaces": {
         "web": [],
         "mobile": [
           "components/full-form/NiveauxTable.tsx"
         ]
       },
       "dossier": "components/data-table",
-      "fiche": "components/data-table/data-table.spec.md",
+      "specFile": "components/data-table/data-table.spec.md",
       "fichiers": {
         "web": "components/data-table/data-table.web.tsx"
       }
     },
     {
+      "name": "DateField",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Saisir une date au clavier, ou la choisir dans un calendrier, et la rendre en ISO.",
+      "keywords": [
+        "date",
+        "calendrier",
+        "jour",
+        "mois",
+        "annee",
+        "saisie",
+        "champ",
+        "iso",
+        "echeance"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/date-field",
+      "specFile": "components/date-field/date-field.spec.md",
+      "fichiers": {
+        "web": "components/date-field/date-field.web.tsx",
+        "logique": "components/date-field/date-field.logic.ts"
+      }
+    },
+    {
+      "name": "Drawer",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Ouvrir un panneau latéral pour régler ce qu'on regarde, sans quitter l'écran.",
+      "keywords": [
+        "tiroir",
+        "panneau",
+        "filtres",
+        "colonnes",
+        "réglages",
+        "latéral",
+        "drawer"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/drawer",
+      "specFile": "components/drawer/drawer.spec.md",
+      "fichiers": {
+        "web": "components/drawer/drawer.web.tsx"
+      }
+    },
+    {
       "name": "EmptyState",
-      "statut": "stable",
-      "couche": "generique",
+      "status": "stable",
+      "layer": "generique",
       "role": "Dire pourquoi une zone est vide, et ce qu'on peut y faire.",
-      "mots_cles": [
+      "keywords": [
         "vide",
         "empty",
         "aucun",
@@ -321,11 +404,11 @@
         "reessayer",
         "rien"
       ],
-      "plateformes": [
+      "platforms": [
         "web",
         "mobile"
       ],
-      "remplace": {
+      "replaces": {
         "web": [
           "src/app/fiche/sections/documents.tsx — messages de liste vide écrits sur place"
         ],
@@ -334,7 +417,7 @@
         ]
       },
       "dossier": "components/empty-state",
-      "fiche": "components/empty-state/empty-state.spec.md",
+      "specFile": "components/empty-state/empty-state.spec.md",
       "fichiers": {
         "web": "components/empty-state/empty-state.web.tsx",
         "mobile": "components/empty-state/empty-state.native.tsx",
@@ -343,10 +426,10 @@
     },
     {
       "name": "FieldRow",
-      "statut": "beta",
-      "couche": "metier",
+      "status": "beta",
+      "layer": "metier",
       "role": "Afficher un champ en lecture, et le passer en saisie d'un clic sans quitter la page.",
-      "mots_cles": [
+      "keywords": [
         "champ",
         "ligne",
         "libelle",
@@ -356,16 +439,16 @@
         "saisie",
         "formulaire"
       ],
-      "plateformes": [
+      "platforms": [
         "web",
         "mobile"
       ],
-      "remplace": {
+      "replaces": {
         "web": [],
         "mobile": []
       },
       "dossier": "components/field-row",
-      "fiche": "components/field-row/field-row.spec.md",
+      "specFile": "components/field-row/field-row.spec.md",
       "fichiers": {
         "web": "components/field-row/field-row.web.tsx",
         "mobile": "components/field-row/field-row.native.tsx",
@@ -374,10 +457,10 @@
     },
     {
       "name": "FilterChips",
-      "statut": "beta",
-      "couche": "generique",
+      "status": "beta",
+      "layer": "generique",
       "role": "Restreindre une liste à une de ses parties, par une barre de puces.",
-      "mots_cles": [
+      "keywords": [
         "filtre",
         "puces",
         "chips",
@@ -386,10 +469,10 @@
         "restreindre",
         "categorie"
       ],
-      "plateformes": [
+      "platforms": [
         "web"
       ],
-      "remplace": {
+      "replaces": {
         "web": [
           "public/fiche/index.html — photoChips"
         ],
@@ -398,17 +481,17 @@
         ]
       },
       "dossier": "components/filter-chips",
-      "fiche": "components/filter-chips/filter-chips.spec.md",
+      "specFile": "components/filter-chips/filter-chips.spec.md",
       "fichiers": {
         "web": "components/filter-chips/filter-chips.web.tsx"
       }
     },
     {
       "name": "Gauge",
-      "statut": "beta",
-      "couche": "metier",
+      "status": "beta",
+      "layer": "metier",
       "role": "Montrer une proportion d'un coup d'œil, avec son chiffre écrit à côté.",
-      "mots_cles": [
+      "keywords": [
         "jauge",
         "anneau",
         "donut",
@@ -417,10 +500,10 @@
         "taux",
         "completude"
       ],
-      "plateformes": [
+      "platforms": [
         "web"
       ],
-      "remplace": {
+      "replaces": {
         "web": [
           "public/fiche/index.html — anneau du taux de connaissance"
         ],
@@ -429,17 +512,17 @@
         ]
       },
       "dossier": "components/gauge",
-      "fiche": "components/gauge/gauge.spec.md",
+      "specFile": "components/gauge/gauge.spec.md",
       "fichiers": {
         "web": "components/gauge/gauge.web.tsx"
       }
     },
     {
       "name": "Icon",
-      "statut": "stable",
-      "couche": "generique",
+      "status": "stable",
+      "layer": "generique",
       "role": "Poser une icône du vocabulaire Arquos, désignée par son rôle et non par son dessin.",
-      "mots_cles": [
+      "keywords": [
         "icone",
         "icon",
         "phosphor",
@@ -448,16 +531,16 @@
         "svg",
         "glyphe"
       ],
-      "plateformes": [
+      "platforms": [
         "web",
         "mobile"
       ],
-      "remplace": {
+      "replaces": {
         "web": [],
         "mobile": []
       },
       "dossier": "components/icon",
-      "fiche": "components/icon/icon.spec.md",
+      "specFile": "components/icon/icon.spec.md",
       "fichiers": {
         "web": "components/icon/icon.web.tsx",
         "mobile": "components/icon/icon.native.tsx"
@@ -465,10 +548,10 @@
     },
     {
       "name": "IconButton",
-      "statut": "stable",
-      "couche": "generique",
+      "status": "stable",
+      "layer": "generique",
       "role": "Déclencher une action représentée par une icône seule, sans perdre son nom accessible.",
-      "mots_cles": [
+      "keywords": [
         "bouton",
         "icone",
         "action",
@@ -477,18 +560,18 @@
         "fermer",
         "supprimer"
       ],
-      "plateformes": [
+      "platforms": [
         "web",
         "mobile"
       ],
-      "remplace": {
+      "replaces": {
         "web": [
           "public/fiche/index.html — boutons carrés recopiés inline"
         ],
         "mobile": []
       },
       "dossier": "components/icon-button",
-      "fiche": "components/icon-button/icon-button.spec.md",
+      "specFile": "components/icon-button/icon-button.spec.md",
       "fichiers": {
         "web": "components/icon-button/icon-button.web.tsx",
         "mobile": "components/icon-button/icon-button.native.tsx"
@@ -496,10 +579,10 @@
     },
     {
       "name": "Input",
-      "statut": "stable",
-      "couche": "generique",
+      "status": "stable",
+      "layer": "generique",
       "role": "Recueillir une valeur courte tapée au clavier, dans un formulaire.",
-      "mots_cles": [
+      "keywords": [
         "champ",
         "saisie",
         "input",
@@ -508,16 +591,16 @@
         "formulaire",
         "taper"
       ],
-      "plateformes": [
+      "platforms": [
         "web",
         "mobile"
       ],
-      "remplace": {
+      "replaces": {
         "web": [],
         "mobile": []
       },
       "dossier": "components/input",
-      "fiche": "components/input/input.spec.md",
+      "specFile": "components/input/input.spec.md",
       "fichiers": {
         "web": "components/input/input.web.tsx",
         "mobile": "components/input/input.native.tsx"
@@ -525,10 +608,10 @@
     },
     {
       "name": "Label",
-      "statut": "stable",
-      "couche": "generique",
+      "status": "stable",
+      "layer": "generique",
       "role": "Nommer un champ, et agrandir sa cible de clic à tout l'intitulé.",
-      "mots_cles": [
+      "keywords": [
         "label",
         "intitule",
         "libelle",
@@ -536,29 +619,57 @@
         "champ",
         "formulaire"
       ],
-      "plateformes": [
+      "platforms": [
         "web",
         "mobile"
       ],
-      "remplace": {
+      "replaces": {
         "web": [],
         "mobile": [
           "components/FormField.tsx"
         ]
       },
       "dossier": "components/label",
-      "fiche": "components/label/label.spec.md",
+      "specFile": "components/label/label.spec.md",
       "fichiers": {
         "web": "components/label/label.web.tsx",
         "mobile": "components/label/label.native.tsx"
       }
     },
     {
+      "name": "Meter",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Montrer une proportion dans une série, quand plusieurs valeurs se comparent ligne à ligne.",
+      "keywords": [
+        "barre",
+        "proportion",
+        "pourcentage",
+        "taux",
+        "jauge",
+        "série",
+        "colonne",
+        "progression"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/meter",
+      "specFile": "components/meter/meter.spec.md",
+      "fichiers": {
+        "web": "components/meter/meter.web.tsx"
+      }
+    },
+    {
       "name": "NavList",
-      "statut": "beta",
-      "couche": "metier",
+      "status": "beta",
+      "layer": "metier",
       "role": "Lister les rubriques d'un écran, avec ce que chacune contient, et dire laquelle est ouverte.",
-      "mots_cles": [
+      "keywords": [
         "navigation",
         "menu",
         "rail",
@@ -567,27 +678,81 @@
         "sommaire",
         "compteur"
       ],
-      "plateformes": [
+      "platforms": [
         "web"
       ],
-      "remplace": {
+      "replaces": {
         "web": [],
         "mobile": [
           "components/full-form/RubriqueNav.tsx"
         ]
       },
       "dossier": "components/nav-list",
-      "fiche": "components/nav-list/nav-list.spec.md",
+      "specFile": "components/nav-list/nav-list.spec.md",
       "fichiers": {
         "web": "components/nav-list/nav-list.web.tsx"
       }
     },
     {
+      "name": "PageHeader",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Dire en haut d'un écran d'où l'on vient, ce qu'on regarde et ce qu'on peut en faire.",
+      "keywords": [
+        "en-tête",
+        "titre",
+        "fil d'Ariane",
+        "navigation",
+        "retour",
+        "écran"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/page-header",
+      "specFile": "components/page-header/page-header.spec.md",
+      "fichiers": {
+        "web": "components/page-header/page-header.web.tsx"
+      }
+    },
+    {
+      "name": "PasswordInput",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Recueillir un mot de passe, avec une bascule masqué / en clair.",
+      "keywords": [
+        "mot de passe",
+        "password",
+        "connexion",
+        "login",
+        "oeil",
+        "masquer",
+        "afficher"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/password-input",
+      "specFile": "components/password-input/password-input.spec.md",
+      "fichiers": {
+        "web": "components/password-input/password-input.web.tsx",
+        "logique": "components/password-input/password-input.logic.ts"
+      }
+    },
+    {
       "name": "PhotoTile",
-      "statut": "beta",
-      "couche": "metier",
+      "status": "beta",
+      "layer": "metier",
       "role": "Montrer une photo attendue — prise ou non — avec ce qu'elle est censée montrer.",
-      "mots_cles": [
+      "keywords": [
         "photo",
         "vignette",
         "image",
@@ -595,10 +760,10 @@
         "cliche",
         "apercu"
       ],
-      "plateformes": [
+      "platforms": [
         "web"
       ],
-      "remplace": {
+      "replaces": {
         "web": [
           "public/fiche/index.html — vignettes de la vue d'ensemble et de la rubrique Photos"
         ],
@@ -607,7 +772,7 @@
         ]
       },
       "dossier": "components/photo-tile",
-      "fiche": "components/photo-tile/photo-tile.spec.md",
+      "specFile": "components/photo-tile/photo-tile.spec.md",
       "fichiers": {
         "web": "components/photo-tile/photo-tile.web.tsx",
         "logique": "components/photo-tile/photo-tile.logic.ts"
@@ -615,10 +780,10 @@
     },
     {
       "name": "PhotoViewer",
-      "statut": "beta",
-      "couche": "generique",
+      "status": "beta",
+      "layer": "generique",
       "role": "Regarder une photo en grand, et passer aux suivantes de la même série.",
-      "mots_cles": [
+      "keywords": [
         "visionneuse",
         "lightbox",
         "photo",
@@ -627,10 +792,10 @@
         "agrandir",
         "schema"
       ],
-      "plateformes": [
+      "platforms": [
         "web"
       ],
-      "remplace": {
+      "replaces": {
         "web": [
           "public/fiche/index.html — lightbox"
         ],
@@ -639,7 +804,7 @@
         ]
       },
       "dossier": "components/photo-viewer",
-      "fiche": "components/photo-viewer/photo-viewer.spec.md",
+      "specFile": "components/photo-viewer/photo-viewer.spec.md",
       "fichiers": {
         "web": "components/photo-viewer/photo-viewer.web.tsx",
         "logique": "components/photo-viewer/photo-viewer.logic.ts"
@@ -647,34 +812,34 @@
     },
     {
       "name": "Popover",
-      "statut": "beta",
-      "couche": "generique",
+      "status": "beta",
+      "layer": "generique",
       "role": "Poser un petit panneau au-dessus de la page, ancré à ce qui l'a ouvert.",
-      "mots_cles": [
+      "keywords": [
         "popover",
         "bulle",
         "panneau",
         "ancre",
         "flottant"
       ],
-      "plateformes": [
+      "platforms": [
         "web"
       ],
-      "remplace": {
+      "replaces": {
         "web": []
       },
       "dossier": "components/popover",
-      "fiche": "components/popover/popover.spec.md",
+      "specFile": "components/popover/popover.spec.md",
       "fichiers": {
         "web": "components/popover/popover.web.tsx"
       }
     },
     {
       "name": "RadioGroup",
-      "statut": "stable",
-      "couche": "generique",
+      "status": "stable",
+      "layer": "generique",
       "role": "Choisir une seule option parmi quelques-unes, toutes visibles à la fois.",
-      "mots_cles": [
+      "keywords": [
         "radio",
         "choix",
         "unique",
@@ -682,25 +847,82 @@
         "exclusif",
         "bouton radio"
       ],
-      "plateformes": [
+      "platforms": [
         "web"
       ],
-      "remplace": {
+      "replaces": {
         "web": [],
         "mobile": []
       },
       "dossier": "components/radio-group",
-      "fiche": "components/radio-group/radio-group.spec.md",
+      "specFile": "components/radio-group/radio-group.spec.md",
       "fichiers": {
         "web": "components/radio-group/radio-group.web.tsx"
       }
     },
     {
+      "name": "RecordLayout",
+      "status": "beta",
+      "layer": "metier",
+      "role": "Poser la fiche d'un objet — deux colonnes, chacune avec son propre défilement.",
+      "keywords": [
+        "fiche",
+        "gabarit",
+        "rail",
+        "rubriques",
+        "deux colonnes",
+        "defilement",
+        "sommaire"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": []
+      },
+      "dossier": "components/record-layout",
+      "specFile": "components/record-layout/record-layout.spec.md",
+      "fichiers": {
+        "web": "components/record-layout/record-layout.web.tsx"
+      }
+    },
+    {
+      "name": "RecordTable",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Parcourir une collection d'enregistrements, en comparer quelques attributs, en sélectionner plusieurs et en ouvrir un.",
+      "keywords": [
+        "liste",
+        "listing",
+        "tableau",
+        "collection",
+        "sélection",
+        "tri",
+        "colonnes",
+        "équipements",
+        "affaires",
+        "relevés"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/record-table",
+      "specFile": "components/record-table/record-table.spec.md",
+      "fichiers": {
+        "web": "components/record-table/record-table.web.tsx",
+        "logique": "components/record-table/record-table.logic.ts"
+      }
+    },
+    {
       "name": "SegmentedTabs",
-      "statut": "beta",
-      "couche": "generique",
+      "status": "beta",
+      "layer": "generique",
       "role": "Basculer entre deux ou trois vues d'un même écran, toutes également importantes.",
-      "mots_cles": [
+      "keywords": [
         "onglets",
         "segments",
         "bascule",
@@ -708,11 +930,11 @@
         "vues",
         "selecteur"
       ],
-      "plateformes": [
+      "platforms": [
         "web",
         "mobile"
       ],
-      "remplace": {
+      "replaces": {
         "web": [
           "public/fiche/index.html — bascule Fiche / Composants du rail"
         ],
@@ -721,7 +943,7 @@
         ]
       },
       "dossier": "components/segmented-tabs",
-      "fiche": "components/segmented-tabs/segmented-tabs.spec.md",
+      "specFile": "components/segmented-tabs/segmented-tabs.spec.md",
       "fichiers": {
         "web": "components/segmented-tabs/segmented-tabs.web.tsx",
         "mobile": "components/segmented-tabs/segmented-tabs.native.tsx"
@@ -729,10 +951,10 @@
     },
     {
       "name": "Select",
-      "statut": "beta",
-      "couche": "generique",
+      "status": "beta",
+      "layer": "generique",
       "role": "Choisir une valeur dans une liste fermée, sans quitter la ligne où on est.",
-      "mots_cles": [
+      "keywords": [
         "select",
         "menu",
         "liste",
@@ -741,27 +963,53 @@
         "dropdown",
         "action"
       ],
-      "plateformes": [
+      "platforms": [
         "web"
       ],
-      "remplace": {
+      "replaces": {
         "web": [
           "public/fiche/index.html — les menus natifs des écarts et des champs à choix"
         ],
         "mobile": []
       },
       "dossier": "components/select",
-      "fiche": "components/select/select.spec.md",
+      "specFile": "components/select/select.spec.md",
       "fichiers": {
         "web": "components/select/select.web.tsx"
       }
     },
     {
+      "name": "SelectionBar",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Offrir en bas de liste ce qu'on peut faire des enregistrements cochés.",
+      "keywords": [
+        "sélection",
+        "actions",
+        "masse",
+        "cochés",
+        "barre",
+        "liste"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/selection-bar",
+      "specFile": "components/selection-bar/selection-bar.spec.md",
+      "fichiers": {
+        "web": "components/selection-bar/selection-bar.web.tsx"
+      }
+    },
+    {
       "name": "Sheet",
-      "statut": "beta",
-      "couche": "generique",
+      "status": "beta",
+      "layer": "generique",
       "role": "Un panneau qui entre par le bord pour une tâche annexe, sans quitter l'écran.",
-      "mots_cles": [
+      "keywords": [
         "tiroir",
         "panneau",
         "drawer",
@@ -770,27 +1018,27 @@
         "completer",
         "formulaire"
       ],
-      "plateformes": [
+      "platforms": [
         "web"
       ],
-      "remplace": {
+      "replaces": {
         "web": [
           "public/fiche/index.html — panneau « Compléter »"
         ],
         "mobile": []
       },
       "dossier": "components/sheet",
-      "fiche": "components/sheet/sheet.spec.md",
+      "specFile": "components/sheet/sheet.spec.md",
       "fichiers": {
         "web": "components/sheet/sheet.web.tsx"
       }
     },
     {
       "name": "Skeleton",
-      "statut": "stable",
-      "couche": "generique",
+      "status": "stable",
+      "layer": "generique",
       "role": "Occuper la place de ce qui charge, pour que l'écran ne mente pas en paraissant vide.",
-      "mots_cles": [
+      "keywords": [
         "squelette",
         "skeleton",
         "chargement",
@@ -798,18 +1046,18 @@
         "pulse",
         "placeholder"
       ],
-      "plateformes": [
+      "platforms": [
         "web",
         "mobile"
       ],
-      "remplace": {
+      "replaces": {
         "web": [],
         "mobile": [
           "components/Skeleton.tsx"
         ]
       },
       "dossier": "components/skeleton",
-      "fiche": "components/skeleton/skeleton.spec.md",
+      "specFile": "components/skeleton/skeleton.spec.md",
       "fichiers": {
         "web": "components/skeleton/skeleton.web.tsx",
         "mobile": "components/skeleton/skeleton.native.tsx"
@@ -817,10 +1065,10 @@
     },
     {
       "name": "StatTile",
-      "statut": "beta",
-      "couche": "metier",
+      "status": "beta",
+      "layer": "metier",
       "role": "Mettre en avant une mesure d'identité, celle qu'on veut lire sans chercher.",
-      "mots_cles": [
+      "keywords": [
         "tuile",
         "chiffre",
         "mesure",
@@ -829,10 +1077,10 @@
         "carte",
         "valeur"
       ],
-      "plateformes": [
+      "platforms": [
         "web"
       ],
-      "remplace": {
+      "replaces": {
         "web": [
           "public/fiche/index.html — grille .arq-tuiles"
         ],
@@ -841,17 +1089,17 @@
         ]
       },
       "dossier": "components/stat-tile",
-      "fiche": "components/stat-tile/stat-tile.spec.md",
+      "specFile": "components/stat-tile/stat-tile.spec.md",
       "fichiers": {
         "web": "components/stat-tile/stat-tile.web.tsx"
       }
     },
     {
       "name": "Switch",
-      "statut": "stable",
-      "couche": "generique",
+      "status": "stable",
+      "layer": "generique",
       "role": "Basculer un réglage qui s'applique immédiatement.",
-      "mots_cles": [
+      "keywords": [
         "interrupteur",
         "switch",
         "bascule",
@@ -860,27 +1108,51 @@
         "reglage",
         "toggle"
       ],
-      "plateformes": [
+      "platforms": [
         "web"
       ],
-      "remplace": {
+      "replaces": {
         "web": [],
         "mobile": [
           "components/ResolvedToggle.tsx"
         ]
       },
       "dossier": "components/switch",
-      "fiche": "components/switch/switch.spec.md",
+      "specFile": "components/switch/switch.spec.md",
       "fichiers": {
         "web": "components/switch/switch.web.tsx"
       }
     },
     {
+      "name": "Tag",
+      "status": "stable",
+      "layer": "generique",
+      "role": "Distinguer une valeur de référentiel par sa couleur, sans la juger.",
+      "keywords": [
+        "tag",
+        "pastille",
+        "valeur",
+        "categorie",
+        "type",
+        "nature",
+        "role",
+        "couleur"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "dossier": "components/tag",
+      "specFile": "components/tag/tag.spec.md",
+      "fichiers": {
+        "web": "components/tag/tag.web.tsx"
+      }
+    },
+    {
       "name": "Text",
-      "statut": "beta",
-      "couche": "generique",
+      "status": "beta",
+      "layer": "generique",
       "role": "Écrire du texte avec un préréglage typographique et un ton de couleur, sans jamais recomposer une taille à la main.",
-      "mots_cles": [
+      "keywords": [
         "texte",
         "text",
         "typographie",
@@ -890,27 +1162,27 @@
         "paragraphe",
         "titre"
       ],
-      "plateformes": [
+      "platforms": [
         "mobile"
       ],
-      "remplace": {
+      "replaces": {
         "web": [],
         "mobile": [
           "components/AppText.tsx"
         ]
       },
       "dossier": "components/text",
-      "fiche": "components/text/text.spec.md",
+      "specFile": "components/text/text.spec.md",
       "fichiers": {
         "mobile": "components/text/text.native.tsx"
       }
     },
     {
       "name": "Textarea",
-      "statut": "stable",
-      "couche": "generique",
+      "status": "stable",
+      "layer": "generique",
       "role": "Recueillir un texte de plusieurs lignes — une observation, un commentaire.",
-      "mots_cles": [
+      "keywords": [
         "textarea",
         "commentaire",
         "observation",
@@ -919,25 +1191,25 @@
         "multiligne",
         "note"
       ],
-      "plateformes": [
+      "platforms": [
         "web"
       ],
-      "remplace": {
+      "replaces": {
         "web": [],
         "mobile": []
       },
       "dossier": "components/textarea",
-      "fiche": "components/textarea/textarea.spec.md",
+      "specFile": "components/textarea/textarea.spec.md",
       "fichiers": {
         "web": "components/textarea/textarea.web.tsx"
       }
     },
     {
       "name": "Toast",
-      "statut": "beta",
-      "couche": "generique",
+      "status": "beta",
+      "layer": "generique",
       "role": "Annoncer sans quitter la page ce qui vient de réussir ou d'échouer.",
-      "mots_cles": [
+      "keywords": [
         "toast",
         "notification",
         "message",
@@ -946,18 +1218,45 @@
         "echec",
         "bandeau"
       ],
-      "plateformes": [
+      "platforms": [
         "web"
       ],
-      "remplace": {
+      "replaces": {
         "web": [
           "public/fiche/index.html — this.toast() / this.toastErreur()"
         ]
       },
       "dossier": "components/toast",
-      "fiche": "components/toast/toast.spec.md",
+      "specFile": "components/toast/toast.spec.md",
       "fichiers": {
         "web": "components/toast/toast.web.tsx"
+      }
+    },
+    {
+      "name": "Toolbar",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Réunir au-dessus d'une liste ce qu'on peut lui faire — filtrer, composer, exporter, changer de vue.",
+      "keywords": [
+        "barre",
+        "outils",
+        "actions",
+        "liste",
+        "filtres",
+        "colonnes",
+        "export"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/toolbar",
+      "specFile": "components/toolbar/toolbar.spec.md",
+      "fichiers": {
+        "web": "components/toolbar/toolbar.web.tsx"
       }
     }
   ]

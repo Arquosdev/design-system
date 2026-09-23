@@ -7,7 +7,7 @@
  * d'une photo attendue se constate et se réclame. Un cadre gris muet laisserait
  * croire à un chargement qui traîne.
  */
-export const NON_PRISE = 'Non prise';
+export const NOT_TAKEN = 'Non prise';
 
 /**
  * Une photo dans le sens du cadre se recadre ; une photo en travers se contient.
@@ -19,8 +19,8 @@ export const NON_PRISE = 'Non prise';
  * Le rapport du cadre est un paramètre : le web et le mobile n'ont pas la même
  * densité, et c'est justement ce qui a le droit de diverger.
  */
-export function estEnTravers(largeur: number, hauteur: number, rapportDuCadre: number): boolean {
-  if (!largeur || !hauteur) return false;
-  const rapport = largeur / hauteur;
+export function estEnTravers(width: number, height: number, rapportDuCadre: number): boolean {
+  if (!width || !height) return false;
+  const rapport = width / height;
   return Math.abs(rapport - rapportDuCadre) > rapportDuCadre * 0.35;
 }

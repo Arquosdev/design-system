@@ -1,11 +1,11 @@
 ---
 name: Accordion
-statut: stable
-couche: generique
+status: stable
+layer: generique
 role: Grouper des champs sous un titre pliable, pour qu'une page longue reste parcourable.
-mots_cles: [accordeon, groupe, section, plier, deplier, replier]
-plateformes: [web, mobile]
-remplace:
+keywords: [accordeon, groupe, section, plier, deplier, replier]
+platforms: [web, mobile]
+replaces:
   web:
     - public/fiche/index.html — motif recopié aux lignes 411, 496, 991
   mobile:
@@ -57,6 +57,8 @@ qui porte les deux, et celui qui déplie n'occupe plus que la place qui reste.
 Née le 22/09/2026 pour la fiche équipement, où le compte des champs vides d'un
 bloc mène au panneau « Modifier », onglet « À renseigner ».
 
+`AccordionTrigger` : `title: string`, `meta?: string` (compteur à droite du titre).
+
 `AccordionContent` : le contenu du groupe.
 
 ## Exemples
@@ -67,7 +69,7 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent }
 
 <Accordion type="multiple" defaultValue={['client']}>
   <AccordionItem value="client">
-    <AccordionTrigger titre="Client" meta="4 champs renseignés" />
+    <AccordionTrigger title="Client" meta="4 champs renseignés" />
     <AccordionContent>{/* les champs */}</AccordionContent>
   </AccordionItem>
 </Accordion>

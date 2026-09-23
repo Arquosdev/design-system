@@ -1,11 +1,11 @@
 ---
 name: Gauge
-statut: beta
-couche: metier
+status: beta
+layer: metier
 role: Montrer une proportion d'un coup d'œil, avec son chiffre écrit à côté.
-mots_cles: [jauge, anneau, donut, pourcentage, progression, taux, completude]
-plateformes: [web]
-remplace:
+keywords: [jauge, anneau, donut, pourcentage, progression, taux, completude]
+platforms: [web]
+replaces:
   web: [public/fiche/index.html — anneau du taux de connaissance]
   mobile: [components/KnowledgeRateBadge.tsx]
 ---
@@ -27,11 +27,11 @@ remplace:
 
 | Prop      | Type                                  | Défaut      | Rôle                          |
 | --------- | ------------------------------------- | ----------- | ----------------------------- |
-| `valeur`  | `number`                              | —           | De 0 à 100. Borné             |
+| `value`  | `number`                              | —           | De 0 à 100. Borné             |
 | `label`   | `string`                              | —           | Ce que la proportion mesure    |
-| `taille`  | `number`                              | `64`        | Diamètre en pixels             |
+| `size`  | `number`                              | `64`        | Diamètre en pixels             |
 | `tone`    | `'success' \| 'warning' \| 'danger'`  | automatique | Force la couleur               |
-| `centre`   | `ReactNode` | —         | Ce qui se pose au creux de l'anneau — prévu pour un bouton |
+| `centered`   | `ReactNode` | —         | Ce qui se pose au creux de l'anneau — prévu pour un bouton |
 
 Sans `tone`, la couleur suit la valeur : rouge en dessous de 34, orange en
 dessous de 67, vert au-delà. **Elle ne porte jamais l'information seule** — le
@@ -42,14 +42,14 @@ pourcentage est toujours écrit.
 ```tsx
 import { Gauge } from '@arquos/design-system/web';
 
-<Gauge valeur={100} label="Taux de connaissance" />
-<Gauge valeur={42} label="Couverture EDS" taille={48} />
+<Gauge value={100} label="Taux de connaissance" />
+<Gauge value={42} label="Couverture EDS" size={48} />
 ```
 
 ## Anatomie
 
 - Creux de l'anneau : libre par défaut, et c'est le seul endroit de la jauge
-  qui le soit. `centre` y pose un bouton — le taux dit combien on sait, le
+  qui le soit. `centered` y pose un bouton — le taux dit combien on sait, le
   creux ouvre le détail de ce qui manque. Pas un chiffre : il se confondrait
   avec le pourcentage, à deux centimètres de lui.
 

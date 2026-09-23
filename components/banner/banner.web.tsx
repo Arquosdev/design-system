@@ -4,18 +4,18 @@ import { Icon } from '../icon/icon.web';
 import { cn } from '../_lib/cn';
 import type { IconRole } from '../../src/icons';
 
-export type BannerTon = 'info' | 'attention' | 'danger';
+export type BannerTone = 'info' | 'warning' | 'danger';
 
 export interface BannerProps extends React.ComponentProps<'div'> {
-  ton?: BannerTon;
-  icone?: IconRole;
+  tone?: BannerTone;
+  icon?: IconRole;
   /** Ce que la personne peut faire — un lien, un bouton. */
   action?: React.ReactNode;
 }
 
-const TONS: Record<BannerTon, string> = {
-  info: 'bg-info-bg text-on-info-bg',
-  attention: 'bg-warning-bg text-on-warning-bg',
+const TONES: Record<BannerTone, string> = {
+  info: 'bg-info-bg text-text-on-info-bg',
+  warning: 'bg-warning-bg text-on-warning-bg',
   danger: 'bg-danger-bg text-on-danger-bg',
 };
 
@@ -31,8 +31,8 @@ const TONS: Record<BannerTon, string> = {
  * contexte réseau, ses délais et ses règles.
  */
 export function Banner({
-  ton = 'info',
-  icone,
+  tone = 'info',
+  icon,
   action,
   className,
   children,
@@ -40,15 +40,31 @@ export function Banner({
 }: BannerProps) {
   return (
     <div
-      role="status"
+      /*
+        Un ton `danger` porte une ALERTE, pas un statut : `role="status"` est
+        annoncé quand le lecteur d'écran en a le loisir, `role="alert"`
+        interrompt. Un mot de passe refusé doit interrompre, sans quoi la
+        personne rejoue la même saisie sans savoir pourquoi elle a échoué.
+      */
+      role={tone === 'danger' ? 'alert' : 'status'}
       className={cn(
-        'flex w-full items-center gap-sm px-base py-sm text-small font-medium',
-        TONS[ton],
+        /*
+          **Arrondi par défaut, et c'est un changement du 01/09/2026.** Ce
+          bandeau a été dessiné pleine largeur en tête de page, où il n'y a rien
+          à arrondir — d'où l'oubli. Dès qu'il vit DANS une carte, l'angle vif se
+          voit : Louis l'a signalé sur la page de connexion.
+
+          Un emploi vraiment bord à bord passe `rounded-none`, ce qui fonctionne
+          depuis que `cn` déclare l'échelle d'espacement à tailwind-merge — avant
+          cette date, une surcharge de ce genre était silencieusement ignorée.
+        */
+        'flex w-full items-center gap-sm rounded-control px-base py-sm text-small font-medium',
+        TONES[tone],
         className,
       )}
       {...props}
     >
-      {icone ? <Icon role={icone} size="sm" /> : null}
+      {icon ? <Icon role={icon} size="sm" /> : null}
       <span className="min-w-0 flex-1">{children}</span>
       {action}
     </div>
