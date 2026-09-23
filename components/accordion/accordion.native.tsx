@@ -26,8 +26,14 @@ import { Text } from '../text/text.native';
 */
 
 export interface AccordionProps {
-  /** Le rôle de l'icône, à gauche du titre. */
-  icon: IconRole;
+  /**
+   * Le rôle de l'icône, à gauche du titre. **Facultative, et absente par
+   * défaut** : un titre de section se lit seul, et l'icône posée à côté ne
+   * lui ajoutait rien — Louis, le 23/09/2026, devant « Données techniques » :
+   * « enlève les icônes inutiles ». On la garde pour le cas où elle DIT
+   * quelque chose que le titre ne dit pas.
+   */
+  icon?: IconRole;
   title: string;
   /** Sous le titre : ce que la section contient. */
   description?: string;
@@ -72,7 +78,7 @@ export function Accordion({
         accessibilityLabel={meta !== undefined ? `${title}, ${meta}` : title}
         style={({ pressed }) => [styles.entete, pressed && styles.entetePressee]}
       >
-        <Icon role={icon} size="lg" weight="active" color={colors.primary} />
+        {icon ? <Icon role={icon} size="lg" weight="active" color={colors.primary} /> : null}
 
         <View style={styles.textes}>
           <Text variant="body" style={styles.title} numberOfLines={1}>
