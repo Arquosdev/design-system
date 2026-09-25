@@ -41,7 +41,7 @@ export const CardHeader = React.forwardRef<HTMLDivElement, React.ComponentPropsW
            relevé le 22/09/2026 : « ça semble varié d'un bloc à un autre ».
            C'est le blanc cassé qui l'emporte parce que c'est lui que la fiche
            emploie partout ailleurs, en-têtes de tableau compris. */
-        'flex items-baseline gap-md border-b border-border-soft bg-bg-subtle px-base py-md',
+        'flex items-baseline gap-md border-b border-border-soft px-base py-md',
         className,
       )}
       {...props}
