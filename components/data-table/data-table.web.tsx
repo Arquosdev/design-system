@@ -9,6 +9,8 @@ export interface DataTableProps extends Omit<React.ComponentPropsWithoutRef<'sec
   columns: readonly string[];
   /** Une entrée par ligne, chacune dans l'ordre des colonnes. */
   rows: readonly (readonly string[])[];
+  /** Les colonnes de chiffres, par leur rang : alignées à droite, en chiffres tabulaires. */
+  numeric?: readonly number[];
 }
 
 /** Une valeur absente s'annonce, elle ne laisse pas une case blanche. */
@@ -19,6 +21,7 @@ export function DataTable({
   note,
   columns,
   rows,
+  numeric = [],
   className,
   ...props
 }: DataTableProps) {
@@ -27,7 +30,7 @@ export function DataTable({
       className={cn('overflow-hidden rounded-none border border-border bg-bg', className)}
       {...props}
     >
-      <div className="flex items-baseline gap-md border-b border-border-soft bg-bg-subtle px-base py-md">
+      <div className="flex items-baseline gap-md border-b border-border-soft px-base py-md">
         <span className="text-small font-bold text-text">{title}</span>
         {note ? <span className="text-caption text-text-muted">{note}</span> : null}
       </div>
@@ -41,11 +44,14 @@ export function DataTable({
           <table className="w-full border-collapse text-left">
             <thead>
               <tr>
-                {columns.map((column) => (
+                {columns.map((column, j) => (
                   <th
                     key={column}
                     scope="col"
-                    className="whitespace-nowrap px-sm pb-sm text-caption font-medium text-text-muted first:pl-0"
+                    className={cn(
+                      'whitespace-nowrap px-sm pb-sm text-caption font-medium text-text-muted first:pl-0',
+                      numeric.includes(j) && 'text-right',
+                    )}
                   >
                     {column}
                   </th>
@@ -63,6 +69,7 @@ export function DataTable({
                         key={column}
                         className={cn(
                           'whitespace-nowrap px-sm py-sm text-small first:pl-0',
+                          numeric.includes(j) && 'text-right tabular-nums',
                           missing ? 'text-text-muted' : 'text-text',
                         )}
                       >

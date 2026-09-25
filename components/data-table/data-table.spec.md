@@ -19,6 +19,10 @@ replaces:
   niveau à l'autre, une section de gaine.
 - Quand les mêmes colonnes se répètent pour chaque ligne.
 
+`numeric` : les rangs des colonnes de chiffres (quantités, montants). Elles
+s'alignent à droite en chiffres tabulaires, pour que les unités tombent les
+unes sous les autres.
+
 ## Quand NE PAS l'utiliser
 
 - **Pour une liste de champs d'un seul objet** → `FieldRow` dans un `Accordion`.
