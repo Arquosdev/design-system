@@ -69,7 +69,7 @@ export function NavList({
   const expanded = !collapsible || ouvert || containsCurrent;
 
   const heading = (
-    <span className="flex-1 text-left font-mono text-plate uppercase">
+    <span className="flex-1 text-left text-caption font-medium">
       {title}
     </span>
   );

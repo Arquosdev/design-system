@@ -231,7 +231,7 @@ export function RecordTable<T>({
   // Les en-têtes : petites capitales, sur le fond discret, collées en haut.
   const headerStyle =
     'sticky top-0 border-b border-border-soft bg-bg-subtle px-md py-sm ' +
-    'font-mono text-plate uppercase whitespace-nowrap text-text-muted';
+    'text-caption font-medium whitespace-nowrap text-text-muted';
 
   /**
    * La poignée de redimensionnement, au bord droit d'un en-tête.
@@ -334,7 +334,7 @@ export function RecordTable<T>({
         // `uppercase` explicite : un bouton n'hérite pas de `text-transform`,
         // et les en-têtes triables s'affichaient en casse normale à côté des
         // non triables, en capitales.
-        className="inline-flex max-w-full items-center gap-xs rounded-control uppercase hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        className="inline-flex max-w-full items-center gap-xs rounded-control hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
       >
         {contenu}
         {active && (
@@ -400,7 +400,7 @@ export function RecordTable<T>({
               // Pas de `relative` ici : `sticky` sert déjà de repère aux
               // enfants positionnés, et les deux classes se disputeraient — la
               // dernière gagne, et l'en-tête cesserait de coller au défilement.
-              className={cn(stickyIdentity, headerStyle)}
+              className={cn(stickyIdentity, headerStyle, 'border-r border-border-soft')}
               aria-sort={
                 sort?.state?.column === 'identity'
                   ? sort.state.direction === 'asc'
@@ -426,6 +426,7 @@ export function RecordTable<T>({
                 }
                 className={cn(
                   headerStyle,
+                  'border-r border-border-soft last:border-r-0',
                   c.numeric && 'text-right',
                   i === columns.length - 1 && 'pr-xl',
                 )}
@@ -490,8 +491,8 @@ export function RecordTable<T>({
                     stickyIdentity,
                     fond,
                     !check && 'group-hover:bg-bg-muted',
-                    'border-b border-border-soft px-md py-[10px] font-semibold whitespace-nowrap',
-                    identity.mono && 'font-mono font-medium',
+                    'border-r border-b border-border-soft px-md py-[10px] font-semibold whitespace-nowrap',
+                    identity.mono && 'font-mono font-normal',
                   )}
                 >
                   {onOpen ? (
@@ -510,7 +511,7 @@ export function RecordTable<T>({
                   <td
                     key={c.id}
                     className={cn(
-                      'border-b border-border-soft px-md py-[10px] whitespace-nowrap',
+                      'border-r border-b border-border-soft px-md py-[10px] whitespace-nowrap last:border-r-0',
                       c.numeric && 'text-right tabular-nums',
                       i === columns.length - 1 && 'pr-xl',
                     )}

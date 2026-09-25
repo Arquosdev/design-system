@@ -38,21 +38,13 @@ export function Tag({ children, tone, colors, className }: TagProps) {
   return (
     <span
       className={cn(
-        'inline-flex max-w-full items-center gap-xs truncate',
-        'text-small whitespace-nowrap text-text',
+        'inline-flex max-w-full items-center truncate rounded-control px-sm py-[2px]',
+        'text-caption font-semibold whitespace-nowrap',
         className,
       )}
-      /* Variante design-eu : la couleur est un POINT, le texte reste en encre.
-         Le fond de la paire sert de halo au point pour que les teintes claires
-         restent visibles sur le blanc. */
-      data-tag-background={fond}
+      style={{ backgroundColor: fond, color: encre }}
     >
-      <span
-        aria-hidden
-        className="size-[8px] shrink-0 rounded-full"
-        style={{ backgroundColor: encre, boxShadow: `0 0 0 2px ${fond}` }}
-      />
-      <span className="truncate">{children}</span>
+      {children}
     </span>
   );
 }
