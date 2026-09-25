@@ -14,7 +14,13 @@ export function StatTile({ label, value, unit, detail, className, ...props }: St
   const empty = !value;
   return (
     <div
-      className={cn('rounded-none border border-border border-t-2 border-t-brand bg-bg p-base', className)}
+      className={cn(
+        'rounded-none border border-border bg-bg p-base',
+        // L'arête marine signale un chiffre ; une tuile vide n'en porte pas,
+        // sans quoi six cases « — » pesaient autant que six mesures.
+        empty ? 'border-border-soft' : 'border-t-2 border-t-brand',
+        className,
+      )}
       {...props}
     >
       <div className="text-caption font-medium text-text-muted">{label}</div>
