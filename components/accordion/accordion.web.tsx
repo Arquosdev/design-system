@@ -50,13 +50,13 @@ export const AccordionTrigger = React.forwardRef<
   AccordionTriggerProps
 >(({ className, title, meta, action, ...props }, ref) => (
   <AccordionPrimitive.Header
-    className={cn('flex items-stretch', action && 'border-b border-border-soft bg-bg-subtle')}
+    className={cn('flex items-stretch', action && 'border-b border-border-soft')}
   >
     <AccordionPrimitive.Trigger
       ref={ref}
       className={cn(
         'group flex w-full items-center gap-sm',
-        !action && 'border-b border-border-soft bg-bg-subtle',
+        !action && 'border-b border-border-soft',
         'px-base py-md text-left outline-none',
         'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
         className,
@@ -71,7 +71,7 @@ export const AccordionTrigger = React.forwardRef<
         size="xs"
         className="-rotate-90 text-text-muted transition-transform duration-(--arq-duration-normal) group-data-[state=open]:rotate-0"
       />
-      <span className="text-small font-bold text-text">{title}</span>
+      <span className="text-small font-semibold text-text">{title}</span>
       {meta ? <span className="text-caption text-text-muted">{meta}</span> : null}
     </AccordionPrimitive.Trigger>
     {action ? (
