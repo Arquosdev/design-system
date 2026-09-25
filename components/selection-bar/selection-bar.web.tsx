@@ -28,20 +28,24 @@ export function SelectionBar({
       role="region"
       aria-label="Actions sur la sélection"
       className={cn(
-        'flex shrink-0 items-center gap-md overflow-x-auto border-t border-border-soft bg-brand px-xl py-md',
+        // Variante design-eu : une barre FLOTTANTE, compacte et centrée, à la
+        // manière de Linear et Mercury, au lieu d'un bandeau marine pleine
+        // largeur. Elle flotte, donc elle garde un arrondi et une ombre.
+        'absolute bottom-5xl left-1/2 z-(--arq-layer-barre) flex max-w-[calc(100%-48px)] -translate-x-1/2 items-center gap-sm overflow-x-auto',
+        'rounded-lg border border-border bg-bg py-xs pr-xs pl-base shadow-pop',
         className,
       )}
     >
-      <span className="shrink-0 text-small font-semibold whitespace-nowrap text-text-on-dark">
+      <span className="shrink-0 text-small font-semibold whitespace-nowrap text-text">
         {text}
       </span>
-      <span className="h-6 w-px shrink-0 bg-primary-dark" aria-hidden />
+      <span className="mx-xxs h-5 w-px shrink-0 bg-border" aria-hidden />
       {children}
       <button
         type="button"
         onClick={onClear}
         aria-label="Effacer la sélection"
-        className="ml-auto grid size-(--arq-control-sm) shrink-0 place-items-center rounded-control text-text-on-dark hover:bg-primary-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg"
+        className="ml-xs grid size-(--arq-control-sm) shrink-0 place-items-center rounded-control text-text-muted hover:bg-bg-muted hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
       >
         <Icon role="close" className="size-4" aria-hidden />
       </button>
@@ -63,9 +67,11 @@ export const SelectionAction = React.forwardRef<HTMLButtonElement, SelectionActi
         ref={ref}
         type="button"
         className={cn(
-          'h-(--arq-control-sm) shrink-0 rounded-control px-md text-small font-semibold whitespace-nowrap text-text-on-dark',
-          'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg',
-          primary ? 'bg-primary hover:bg-primary-dark' : 'bg-primary-dark hover:bg-primary',
+          'h-(--arq-control-sm) shrink-0 rounded-control px-md text-small font-semibold whitespace-nowrap',
+          'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
+          primary
+            ? 'bg-primary text-text-on-dark hover:bg-primary-dark'
+            : 'text-text hover:bg-bg-muted',
           className,
         )}
         {...reste}

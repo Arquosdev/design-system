@@ -16,6 +16,12 @@ export const layers = {
   /** Le contenu de la page. Rien à déclarer. */
   base: 0,
   /**
+   * Une barre qui flotte AU-DESSUS du contenu d'un écran sans le suspendre :
+   * la barre de sélection multiple. Au-dessus des cellules et en-têtes
+   * collants d'un tableau (jusqu'à 30), sous un panneau qu'elle peut ouvrir.
+   */
+  barre: 40,
+  /**
    * Une surface qui recouvre une partie de l'écran et reste manipulable :
    * panneau latéral, tiroir. Elle peut contenir des éléments flottants, donc
    * elle passe dessous.

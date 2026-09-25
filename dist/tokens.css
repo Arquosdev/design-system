@@ -166,6 +166,7 @@
 
   /* Empilement */
   --arq-layer-base: 0;
+  --arq-layer-barre: 40;
   --arq-layer-panneau: 50;
   --arq-layer-flottant: 60;
   --arq-layer-plein-ecran: 70;
