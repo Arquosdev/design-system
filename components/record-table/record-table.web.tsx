@@ -463,14 +463,14 @@ export function RecordTable<T>({
               // `group` : les cellules figées portent leur propre fond opaque, sans
               // quoi le contenu défilant passerait dessous. Ce fond recouvre le
               // survol de la ligne, et seule une partie du tableau grisait.
-              <tr key={id} className={cn('group', fond, !check && 'hover:bg-bg-muted')}>
+              <tr key={id} className={cn('group transition-colors duration-(--arq-duration-rapide)', fond, !check && 'hover:bg-bg-muted')}>
                 {selection && (
                   <td
                     style={{ width: LARGEUR_CASE }}
                     className={cn(
                       stickyBox,
                       fond,
-                      !check && 'group-hover:bg-bg-muted',
+                      !check && 'transition-colors duration-(--arq-duration-rapide) group-hover:bg-bg-muted',
                       'border-b border-border-soft py-0 pr-0 pl-xl',
                     )}
                   >
@@ -490,7 +490,7 @@ export function RecordTable<T>({
                   className={cn(
                     stickyIdentity,
                     fond,
-                    !check && 'group-hover:bg-bg-muted',
+                    !check && 'transition-colors duration-(--arq-duration-rapide) group-hover:bg-bg-muted',
                     'border-r border-b border-border-soft px-md py-[10px] font-semibold whitespace-nowrap',
                     identity.mono && 'font-mono font-normal',
                   )}

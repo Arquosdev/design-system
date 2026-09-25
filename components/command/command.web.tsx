@@ -98,7 +98,7 @@ export function CommandDialog({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-(--arq-layer-plein-ecran) bg-brand/35" />
+        <Dialog.Overlay className="fixed inset-0 z-(--arq-layer-plein-ecran) bg-brand/15 backdrop-blur-[2px]" />
         <Dialog.Content
           aria-describedby={undefined}
           className={cn(
@@ -215,8 +215,7 @@ export function CommandGroup({
         taille === 'sm'
           ? '[&_[cmdk-group-heading]]:px-sm [&_[cmdk-group-heading]]:pt-xs [&_[cmdk-group-heading]]:pb-xxs'
           : '[&_[cmdk-group-heading]]:px-base [&_[cmdk-group-heading]]:pt-md [&_[cmdk-group-heading]]:pb-xxs',
-        '[&_[cmdk-group-heading]]:text-caption [&_[cmdk-group-heading]]:font-bold',
-        '[&_[cmdk-group-heading]]:tracking-wide [&_[cmdk-group-heading]]:uppercase',
+        '[&_[cmdk-group-heading]]:text-caption [&_[cmdk-group-heading]]:font-medium',
         '[&_[cmdk-group-heading]]:text-text-muted',
         className,
       )}

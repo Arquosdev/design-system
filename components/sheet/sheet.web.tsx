@@ -44,7 +44,7 @@ export const SheetContent = React.forwardRef<
   <SheetPrimitive.Portal>
     <SheetPrimitive.Overlay
       className={cn(
-        'fixed inset-0 z-(--arq-layer-panneau) bg-brand/35',
+        'fixed inset-0 z-(--arq-layer-panneau) bg-brand/15',
         'data-[state=open]:animate-voile-entree data-[state=closed]:animate-voile-sortie',
       )}
     />
