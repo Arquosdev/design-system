@@ -49,7 +49,7 @@ export function PhotoTile({ name, url, essential = false, onOpen, className }: P
   const thumbnail = missing ? (
     <div
       className={cn(
-        'flex w-full items-center justify-center rounded-none border text-caption',
+        'flex w-full items-center justify-center rounded-none border border-dashed text-caption',
         ASPECT,
         essential
           ? 'border-danger bg-bg text-danger'
