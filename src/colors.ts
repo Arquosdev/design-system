@@ -243,6 +243,20 @@ export const colors = {
    * Le nom suit `textOnDark` : une encre nommée par le fond qu'elle habite.
    */
   textOnInfoBg: palette.blue[700],
+  /**
+   * Variante « design-eu » (25/09/2026) : la navigation prend la nuit du site
+   * arquos.eu. Les encres sont nommées par le fond qu'elles habitent, comme
+   * `textOnDark`. Mesuré : textOnNav sur navBg 17,9 ; textOnNavMuted sur
+   * navBgActive 5,56 (le fond actif est le plus clair des trois).
+   */
+  navBg: '#04122A',
+  navBgHover: '#0C1E3A',
+  navBgActive: '#16304F',
+  navBorder: '#1A2E4C',
+  textOnNav: '#EEF3F9',
+  textOnNavMuted: '#93A9C6',
+  /** L'orange de la marque comme MARQUEUR : trait, barre, jamais un texte. */
+  brandAccent: core.orange,
   black: palette.black,
 } as const;
 

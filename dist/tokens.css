@@ -94,6 +94,13 @@
   --arq-color-text-subtle: #8094A3;
   --arq-color-text-on-dark: #FFFFFF;
   --arq-color-text-on-info-bg: #073B6F;
+  --arq-color-nav-bg: #04122A;
+  --arq-color-nav-bg-hover: #0C1E3A;
+  --arq-color-nav-bg-active: #16304F;
+  --arq-color-nav-border: #1A2E4C;
+  --arq-color-text-on-nav: #EEF3F9;
+  --arq-color-text-on-nav-muted: #93A9C6;
+  --arq-color-brand-accent: #FFA522;
   --arq-color-black: #000000;
 
   /* Site vitrine arquos.eu — pas l'application (voir src/site.ts) */
@@ -190,6 +197,7 @@
   --arq-letter-spacing-tight: -0.5px;
   --arq-letter-spacing-normal: 0px;
   --arq-letter-spacing-wide: 0.5px;
+  --arq-letter-spacing-wider: 1.5px;
 }
 
 /* Presets typographiques prêts à l'emploi. */
@@ -206,6 +214,14 @@
   font-weight: 600;
   line-height: 16.799999999999997px;
   letter-spacing: 0.5px;
+}
+
+.arq-text-plate {
+  font-family: var(--arq-font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16.799999999999997px;
+  letter-spacing: 1.5px;
 }
 
 .arq-text-small {

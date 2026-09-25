@@ -106,8 +106,8 @@ export function SegmentedTabs({
             {segment.count !== undefined && segment.count !== '' ? (
               <span
                 className={cn(
-                  'tabular-nums',
-                  active ? 'font-semibold text-primary' : 'text-text-muted',
+                  'font-mono tabular-nums',
+                  active ? 'text-brand' : 'text-text-muted',
                 )}
               >
                 {segment.count}

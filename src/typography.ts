@@ -68,6 +68,7 @@ export const letterSpacing = {
   tight: -0.5,
   normal: 0,
   wide: 0.5,
+  wider: 1.5, // plaques en capitales — composées en DM Mono
 } as const;
 
 // Combinaisons sémantiques prêtes à l'emploi. Préfère ces tokens dans le code
@@ -100,6 +101,17 @@ export function scaleFrom(fs: Record<keyof typeof fontSize, number>) {
       fontWeight: fontWeight.semibold,
       lineHeight: fs.caption * lineHeight.normal,
       letterSpacing: letterSpacing.wide,
+    },
+    /**
+     * La PLAQUE du site arquos.eu : une étiquette courte en capitales, composée
+     * en DM Mono (`font-mono`, que ce préréglage ne porte pas). Surtitre d'un
+     * écran, en-tête de colonne, libellé d'un chiffre.
+     */
+    plate: {
+      fontSize: fs.caption,
+      fontWeight: fontWeight.medium,
+      lineHeight: fs.caption * lineHeight.normal,
+      letterSpacing: letterSpacing.wider,
     },
     small: {
       fontSize: fs.small,

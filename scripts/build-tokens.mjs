@@ -82,6 +82,13 @@ const DESCRIPTIONS = {
     textSubtle:
       "Gris le plus clair — JAMAIS pour du texte (3,14 pour 1 sur blanc, il en faut 4,5). Réservé aux icônes, chevrons et bordures. Pour un texte discret, prendre `textMuted`.",
     textOnDark: 'Texte posé sur une surface foncée (brand, primary).',
+    navBg: 'Fond de la navigation principale (variante design-eu) : la nuit du site arquos.eu.',
+    navBgHover: 'Survol d’une entrée de navigation sur fond de nuit.',
+    navBgActive: 'Entrée de navigation active sur fond de nuit.',
+    navBorder: 'Séparateurs posés sur le fond de nuit.',
+    textOnNav: 'Texte principal sur le fond de nuit (17,9 sur navBg).',
+    textOnNavMuted: 'Texte secondaire sur le fond de nuit — titres de bloc, entrées inactives (5,56 sur navBgActive).',
+    brandAccent: 'L’orange de la marque comme marqueur : trait d’entrée active, barre. Jamais un texte.',
     black: 'Noir pur — overlays, ombres. Éviter pour du texte, préférer `text`.',
     borderSoft: 'Bordure discrète — séparateurs internes, contour de carte.',
   },

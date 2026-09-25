@@ -183,6 +183,9 @@ const PAIRES = [
   ['infoBg', 'onInfoBg'],
   ['infoBg', 'textOnInfoBg'],
   ['inactiveBg', 'onInactiveBg'],
+  ['navBg', 'textOnNav'],
+  ['navBg', 'textOnNavMuted'],
+  ['navBgActive', 'textOnNavMuted'],
 ];
 
 const pairesFaibles = [];

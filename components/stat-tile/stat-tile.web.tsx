@@ -17,12 +17,12 @@ export function StatTile({ label, value, unit, detail, className, ...props }: St
       className={cn('rounded-md border border-border-soft bg-bg p-base', className)}
       {...props}
     >
-      <div className="text-caption text-text-muted">{label}</div>
+      <div className="font-mono text-plate uppercase text-text-muted">{label}</div>
       <div className="mt-xs flex items-baseline gap-xs">
         <span
           className={cn(
             'text-headline font-bold break-words',
-            empty ? 'text-text-muted' : 'text-text',
+            empty ? 'text-text-muted' : 'text-brand',
           )}
         >
           {empty ? '—' : value}

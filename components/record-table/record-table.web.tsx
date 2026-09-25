@@ -229,7 +229,7 @@ export function RecordTable<T>({
   // Les en-têtes : petites capitales, sur le fond discret, collées en haut.
   const headerStyle =
     'sticky top-0 border-b border-border-soft bg-bg-subtle px-md py-sm ' +
-    'text-caption font-bold tracking-[.5px] whitespace-nowrap text-text-muted uppercase';
+    'font-mono text-plate uppercase whitespace-nowrap text-text-muted';
 
   /**
    * La poignée de redimensionnement, au bord droit d'un en-tête.

@@ -40,11 +40,11 @@ export function Meter({
       <span
         role="img"
         aria-label={`${label} : ${pct} %`}
-        className="h-1 shrink-0 overflow-hidden rounded-full bg-border-soft"
+        className="h-1 shrink-0 overflow-hidden rounded-none bg-border-soft"
         style={{ width: width }}
       >
         <span
-          className={cn('block h-full rounded-full', TONES[tone ?? proportionTone(pct)])}
+          className={cn('block h-full rounded-none', TONES[tone ?? proportionTone(pct)])}
           style={{ width: `${pct}%` }}
         />
       </span>

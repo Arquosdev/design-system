@@ -45,7 +45,7 @@ export function DataTable({
                   <th
                     key={column}
                     scope="col"
-                    className="whitespace-nowrap px-sm pb-sm text-caption font-bold tracking-wide text-text-muted uppercase first:pl-0"
+                    className="whitespace-nowrap px-sm pb-sm font-mono text-plate uppercase text-text-muted first:pl-0"
                   >
                     {column}
                   </th>
