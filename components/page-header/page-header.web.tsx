@@ -92,7 +92,7 @@ export function PageHeader({
         <span className="flex items-baseline gap-sm">
           <h1 className="text-headline text-brand">{title}</h1>
           {count !== undefined && (
-            <span className="font-mono text-title font-normal tabular-nums text-text-muted">{count}</span>
+            <span className="text-title font-normal tabular-nums text-text-muted">{count}</span>
           )}
         </span>
         {actions && <span className="ml-auto flex items-center gap-sm">{actions}</span>}
