@@ -244,17 +244,17 @@ export const colors = {
    */
   textOnInfoBg: palette.blue[700],
   /**
-   * Variante « design-eu » (25/09/2026) : la navigation prend la nuit du site
-   * arquos.eu. Les encres sont nommées par le fond qu'elles habitent, comme
-   * `textOnDark`. Mesuré : textOnNav sur navBg 17,9 ; textOnNavMuted sur
-   * navBgActive 5,56 (le fond actif est le plus clair des trois).
+   * Variante « design-eu » (25/09/2026) : la navigation principale est un rail
+   * GRIS clair, le contenu une feuille blanche posée à côté. L'entrée active
+   * est un fond blanc cerné d'un filet (Fingerprint, Resend), sans barre de
+   * couleur : Louis a écarté le trait orange à gauche, « ça fait trop IA ».
    */
-  navBg: '#04122A',
-  navBgHover: '#0C1E3A',
-  navBgActive: '#16304F',
-  navBorder: '#1A2E4C',
-  textOnNav: '#EEF3F9',
-  textOnNavMuted: '#93A9C6',
+  navBg: palette.grey[50],
+  navBgHover: palette.grey[100],
+  navBgActive: palette.white,
+  navBorder: palette.grey[200],
+  textOnNav: palette.grey[800],
+  textOnNavMuted: palette.grey[500],
   /** L'orange de la marque comme MARQUEUR : trait, barre, jamais un texte. */
   brandAccent: core.orange,
   black: palette.black,

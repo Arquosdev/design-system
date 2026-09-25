@@ -34,12 +34,12 @@
   --color-text-subtle: #8094A3;
   --color-text-on-dark: #FFFFFF;
   --color-text-on-info-bg: #073B6F;
-  --color-nav-bg: #04122A;
-  --color-nav-bg-hover: #0C1E3A;
-  --color-nav-bg-active: #16304F;
-  --color-nav-border: #1A2E4C;
-  --color-text-on-nav: #EEF3F9;
-  --color-text-on-nav-muted: #93A9C6;
+  --color-nav-bg: #F6F7F9;
+  --color-nav-bg-hover: #EAEEF1;
+  --color-nav-bg-active: #FFFFFF;
+  --color-nav-border: #C8D3DA;
+  --color-text-on-nav: #232B2F;
+  --color-text-on-nav-muted: #5D6D79;
   --color-brand-accent: #FFA522;
   --color-black: #000000;
 

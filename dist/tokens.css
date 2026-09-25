@@ -94,12 +94,12 @@
   --arq-color-text-subtle: #8094A3;
   --arq-color-text-on-dark: #FFFFFF;
   --arq-color-text-on-info-bg: #073B6F;
-  --arq-color-nav-bg: #04122A;
-  --arq-color-nav-bg-hover: #0C1E3A;
-  --arq-color-nav-bg-active: #16304F;
-  --arq-color-nav-border: #1A2E4C;
-  --arq-color-text-on-nav: #EEF3F9;
-  --arq-color-text-on-nav-muted: #93A9C6;
+  --arq-color-nav-bg: #F6F7F9;
+  --arq-color-nav-bg-hover: #EAEEF1;
+  --arq-color-nav-bg-active: #FFFFFF;
+  --arq-color-nav-border: #C8D3DA;
+  --arq-color-text-on-nav: #232B2F;
+  --arq-color-text-on-nav-muted: #5D6D79;
   --arq-color-brand-accent: #FFA522;
   --arq-color-black: #000000;
 
