@@ -73,7 +73,10 @@ export function PageHeader({
         contrôle » — il en a un depuis, et quatre composants le lisent.
       */}
       {eyebrow && !parent && (
-        <div className="mb-xxs font-mono text-plate uppercase text-primary">{eyebrow}</div>
+        <div className="mb-xs flex items-center gap-sm font-mono text-plate uppercase text-primary">
+          <span aria-hidden className="h-px w-[18px] bg-primary" />
+          {eyebrow}
+        </div>
       )}
       <div className="flex min-h-(--arq-control-md) items-center gap-sm">
         {/*
@@ -87,7 +90,7 @@ export function PageHeader({
           règle la place du titre dedans.
         */}
         <span className="flex items-baseline gap-sm">
-          <h1 className="text-title-large text-text">{title}</h1>
+          <h1 className="text-headline text-brand">{title}</h1>
           {count !== undefined && (
             <span className="font-mono text-title font-normal tabular-nums text-text-muted">{count}</span>
           )}

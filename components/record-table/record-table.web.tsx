@@ -45,6 +45,8 @@ export interface RecordTableProps<T> {
    * horizontal : sans elle, on ne sait plus de quelle ligne on lit les valeurs.
    */
   identity: {
+    /** Un numéro, une référence : composé en mono, comme une plaque. Pas pour un nom. */
+    mono?: boolean;
     header: string;
     render: (row: T) => React.ReactNode;
     value?: (row: T) => string | number;
@@ -489,6 +491,7 @@ export function RecordTable<T>({
                     fond,
                     !check && 'group-hover:bg-bg-muted',
                     'border-b border-border-soft px-md py-[10px] font-semibold whitespace-nowrap',
+                    identity.mono && 'font-mono font-medium',
                   )}
                 >
                   {onOpen ? (

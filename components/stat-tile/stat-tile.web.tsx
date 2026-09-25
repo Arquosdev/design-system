@@ -14,14 +14,14 @@ export function StatTile({ label, value, unit, detail, className, ...props }: St
   const empty = !value;
   return (
     <div
-      className={cn('rounded-md border border-border-soft bg-bg p-base', className)}
+      className={cn('rounded-none border border-border border-t-2 border-t-brand bg-bg p-base', className)}
       {...props}
     >
       <div className="font-mono text-plate uppercase text-text-muted">{label}</div>
       <div className="mt-xs flex items-baseline gap-xs">
         <span
           className={cn(
-            'text-headline font-bold break-words',
+            'text-display font-bold tracking-tight break-words',
             empty ? 'text-text-muted' : 'text-brand',
           )}
         >
