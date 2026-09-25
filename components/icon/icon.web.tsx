@@ -69,6 +69,8 @@ import {
   Trash,
   User,
   UserCircle,
+  Phone,
+  EnvelopeSimple,
   Warning,
   WarningCircle,
   WarningOctagon,
@@ -164,6 +166,8 @@ const GLYPHS: Record<IconRole, PhosphorIcon> = {
   request: PaperPlaneTilt,
 
   user: UserCircle,
+  phone: Phone,
+  email: EnvelopeSimple,
   conversation: ChatCircleDots,
   copy: Copy,
   folder: Folder,

@@ -95,7 +95,7 @@ export function PageHeader({
             <span className="font-mono text-title font-normal tabular-nums text-text-muted">{count}</span>
           )}
         </span>
-        {actions && <span className="ml-auto">{actions}</span>}
+        {actions && <span className="ml-auto flex items-center gap-sm">{actions}</span>}
       </div>
     </div>
   );

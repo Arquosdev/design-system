@@ -197,6 +197,10 @@ export const icons = {
     manquaient que ces six-là.
   */
   user: 'UserCircle',
+  // Ajoutés le 25/09/2026 (design-eu) : les actions rapides d'une fiche contact
+  // appelaient et écrivaient derrière une silhouette et un maillon.
+  phone: 'Phone',
+  email: 'EnvelopeSimple',
   conversation: 'ChatCircleDots',
   copy: 'Copy',
   folder: 'Folder',
