@@ -14,6 +14,7 @@ export { site, type SiteColorToken } from './site';
 export {
   fontFamily,
   fontFamilyMono,
+  fontFamilyMonoNative,
   fontFamilyNative,
   fontSize,
   fontWeight,

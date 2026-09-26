@@ -36,6 +36,16 @@ export const fontFamilyNative = {
   900: 'DMSans_900Black',
 } as const;
 
+/**
+ * DM Mono côté React Native : les numéros d'équipement, composés en plaque
+ * comme sur le web (design-eu, 26/09/2026). Deux graisses seulement, celles
+ * que `@expo-google-fonts/dm-mono` fournit.
+ */
+export const fontFamilyMonoNative = {
+  400: 'DMMono_400Regular',
+  500: 'DMMono_500Medium',
+} as const;
+
 export const fontSize = {
   caption: 12,
   small: 14,

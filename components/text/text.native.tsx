@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 import { colors } from '../../src/colors';
-import { fontFamilyNative, typography, type TypographyToken } from '../../src/typography';
+import { fontFamilyMonoNative, fontFamilyNative, typography, type TypographyToken } from '../../src/typography';
 
 export type TextTone = 'text' | 'muted' | 'onDark' | 'primary' | 'danger' | 'success' | 'warning';
 
@@ -31,6 +31,12 @@ export interface TextProps extends RNTextProps {
   variant?: TypographyToken;
   /** La couleur, par son rôle. `text` par défaut. */
   tone?: TextTone;
+  /**
+   * Composé en DM Mono : un numéro d'équipement, une référence, comme une
+   * plaque (design-eu). Deux graisses : 400, et 500 pour tout ce qui est plus
+   * gras — DM Mono n'en a pas d'autre, et un faux gras serait flou.
+   */
+  mono?: boolean;
 }
 
 /*
@@ -46,7 +52,7 @@ function famille(poids: TextStyle['fontWeight']): string {
 }
 
 export const Text = React.forwardRef<RNText, TextProps>(function Text(
-  { variant = 'body', tone = 'text', style, ...props },
+  { variant = 'body', tone = 'text', mono = false, style, ...props },
   ref,
 ) {
   const preset = typography[variant];
@@ -81,7 +87,13 @@ export const Text = React.forwardRef<RNText, TextProps>(function Text(
         // Après `style`, exprès : c'est la famille qui porte la graisse, et un
         // `fontWeight` laissé en place ferait synthétiser un second gras.
         // L'interligne aussi, puisqu'il se déduit de la taille finale.
-        { lineHeight: interligne, fontFamily: famille(poids), fontWeight: 'normal' },
+        {
+          lineHeight: interligne,
+          fontFamily: mono
+            ? fontFamilyMonoNative[Number(poids === 'bold' ? 700 : poids ?? 400) > 400 ? 500 : 400]
+            : famille(poids),
+          fontWeight: 'normal',
+        },
       ]}
     />
   );
