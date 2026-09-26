@@ -42,7 +42,11 @@ export function Drawer({
   primary,
   className,
 }: DrawerProps) {
-  /* Échap ferme, comme le `Sheet` : les deux panneaux latéraux du produit se
+  /* Pas de voile (design-eu) : la critique indépendante a relevé que le gris
+     cachait la liste qu'on est en train de filtrer. Le clic dehors ferme
+     toujours ; on voit simplement ce qu'on règle.
+
+     Échap ferme, comme le `Sheet` : les deux panneaux latéraux du produit se
      manipulent pareil (design-eu, 26/09/2026). Le Drawer ne l'écoutait pas, et
      Filtres et Colonnes restaient ouverts sous le clavier. */
   React.useEffect(() => {
@@ -62,7 +66,7 @@ export function Drawer({
         type="button"
         aria-label={`Fermer ${title.toLowerCase()}`}
         onClick={onClose}
-        className="absolute inset-0 z-(--arq-layer-flottant) cursor-default bg-brand/15"
+        className="absolute inset-0 z-(--arq-layer-flottant) cursor-default bg-transparent"
       />
       <div
         role="dialog"

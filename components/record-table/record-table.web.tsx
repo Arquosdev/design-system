@@ -149,6 +149,23 @@ export function RecordTable<T>({
     largeur le temps d'une image.
   */
   const [enCours, setEnCours] = React.useState<Record<string, number> | null>(null);
+  const boite = React.useRef<HTMLDivElement>(null);
+  const [bords, setBords] = React.useState({ droite: false });
+  const mesurerLesBords = React.useCallback(() => {
+    const b = boite.current;
+    if (!b) return;
+    const droite = b.scrollLeft + b.clientWidth < b.scrollWidth - 1;
+    setBords((a) => (a.droite === droite ? a : { droite }));
+  }, []);
+  React.useEffect(() => {
+    mesurerLesBords();
+    const b = boite.current;
+    if (!b || typeof ResizeObserver === 'undefined') return;
+    const o = new ResizeObserver(mesurerLesBords);
+    o.observe(b);
+    if (b.firstElementChild) o.observe(b.firstElementChild);
+    return () => o.disconnect();
+  }, [mesurerLesBords]);
 
   const memesLargeurs = (a: Record<string, number>, b?: Record<string, number>) => {
     const cles = Object.keys(a);
@@ -349,7 +366,16 @@ export function RecordTable<T>({
   }
 
   return (
-    <div className={cn('min-h-0 flex-1 overflow-auto', className)}>
+    /*
+      Variante design-eu (26/09/2026) : le tableau DIT qu'il déborde. Mesuré par
+      la critique indépendante : 713 px de colonnes cachés sur les affaires,
+      537 sur les équipements, sans rien qui le signale — la barre de
+      défilement de macOS est invisible. Une ombre au bord droit tant qu'il
+      reste des colonnes à droite (et au bord gauche dès qu'on a défilé),
+      comme chez Linear et Attio.
+    */
+    <div className={cn('relative flex min-h-0 flex-1 flex-col', className)}>
+    <div ref={boite} onScroll={mesurerLesBords} className="min-h-0 flex-1 overflow-auto">
       <table
         style={largeurTable ? { width: largeurTable } : undefined}
         className={cn(
@@ -555,6 +581,17 @@ export function RecordTable<T>({
           {selectionLabel(checkedCount, selection.name, selection.plural, selection.feminine)}
         </p>
       )}
+      {/* De l'air sous la dernière ligne quand la barre de sélection flotte :
+          elle la recouvrait. */}
+      {selection && checkedCount > 0 ? <div aria-hidden className="h-[72px]" /> : null}
+    </div>
+    <span
+      aria-hidden
+      className={cn(
+        'pointer-events-none absolute inset-y-0 right-0 z-30 w-10 bg-gradient-to-l from-text/[0.14] to-transparent transition-opacity duration-(--arq-duration-normal)',
+        bords.droite ? 'opacity-100' : 'opacity-0',
+      )}
+    />
     </div>
   );
 }
