@@ -82,7 +82,7 @@ const DESCRIPTIONS = {
     textSubtle:
       "Gris le plus clair — JAMAIS pour du texte (3,14 pour 1 sur blanc, il en faut 4,5). Réservé aux icônes, chevrons et bordures. Pour un texte discret, prendre `textMuted`.",
     textOnDark: 'Texte posé sur une surface foncée (brand, primary).',
-    navBg: 'Fond du rail de navigation principal (variante design-eu) : gris clair, à côté de la feuille blanche du contenu.',
+    navBg: 'Fond du rail de navigation principal : gris clair, à côté de la feuille blanche du contenu.',
     navBgHover: 'Survol d’une entrée du rail.',
     navBgActive: 'Entrée active du rail : fond blanc, cerné de navBorder. Pas de barre de couleur.',
     navBorder: 'Filet du rail : séparateurs de blocs et contour de l’entrée active.',
