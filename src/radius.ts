@@ -9,6 +9,7 @@
 
 export const radius = {
   none: 0,
+  block: 3,  // blocs de contenu : cartes, panneaux, tableaux — « presque anguleux » (Louis, 26/09/2026)
   control: 5, // pastilles et petits contrôles — hérité de l'identité de marque
   sm: 4,
   md: 8,     // ← défaut (cartes, inputs, boutons standards)

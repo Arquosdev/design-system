@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { Dialog as SheetPrimitive } from 'radix-ui';
 
+import { Icon } from '../icon/icon.web';
 import { cn } from '../_lib/cn';
 
 /*
@@ -67,12 +68,22 @@ export const SheetContent = React.forwardRef<
 ));
 SheetContent.displayName = 'SheetContent';
 
-export function SheetHeader({ className, ...props }: React.ComponentProps<'div'>) {
+/**
+ * L'en-tête porte sa croix de fermeture (design-eu, 26/09/2026) : vingt panneaux
+ * sur vingt-deux n'en avaient pas, alors que Filtres et Colonnes en ont une.
+ * `close={false}` pour un panneau qu'on ne doit pas quitter sans répondre.
+ */
+export function SheetHeader({
+  className, children, close = true, ...props
+}: React.ComponentProps<'div'> & { close?: boolean }) {
   return (
     <div
-      className={cn('shrink-0 border-b border-border-soft px-lg py-base', className)}
+      className={cn('flex shrink-0 items-start gap-md border-b border-border-soft px-lg py-base', className)}
       {...props}
-    />
+    >
+      <div className="min-w-0 flex-1">{children}</div>
+      {close ? <SheetCloseButton /> : null}
+    </div>
   );
 }
 
@@ -123,12 +134,12 @@ export function SheetCloseButton({ className }: { className?: string }) {
     <SheetPrimitive.Close
       aria-label="Fermer"
       className={cn(
-        'size-(--arq-control-sm) shrink-0 rounded-control bg-bg-muted text-text-muted outline-none',
-        'hover:opacity-70 focus-visible:ring-2 focus-visible:ring-primary',
+        'grid size-(--arq-control-sm) shrink-0 place-items-center rounded-control bg-bg-muted text-text-muted outline-none',
+        'hover:text-text focus-visible:ring-2 focus-visible:ring-primary',
         className,
       )}
     >
-      <span aria-hidden="true">✕</span>
+      <Icon role="close" className="size-3.5" aria-hidden />
     </SheetPrimitive.Close>
   );
 }

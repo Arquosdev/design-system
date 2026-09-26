@@ -150,6 +150,7 @@ const DESCRIPTIONS = {
   },
   radius: {
     none: 'Angles droits.',
+    block: 'Blocs de contenu — cartes, panneaux, tableaux : presque anguleux, comme le site arquos.eu.',
     control: 'Pastilles et petits contrôles — hérité de l\'identité de marque.',
     sm: 'Léger — petits éléments, pastilles carrées.',
     md: 'Défaut — cartes, champs, boutons.',

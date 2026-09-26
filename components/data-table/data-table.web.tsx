@@ -27,7 +27,7 @@ export function DataTable({
 }: DataTableProps) {
   return (
     <section
-      className={cn('overflow-hidden rounded-none border border-border bg-bg', className)}
+      className={cn('overflow-hidden rounded-block border border-border bg-bg', className)}
       {...props}
     >
       <div className="flex items-baseline gap-md border-b border-border-soft px-base py-md">

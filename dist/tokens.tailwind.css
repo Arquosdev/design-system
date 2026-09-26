@@ -125,6 +125,7 @@
 
   /* Arrondis */
   --radius-none: 0px;
+  --radius-block: 3px;
   --radius-control: 5px;
   --radius-sm: 4px;
   --radius-md: 8px;

@@ -42,13 +42,27 @@ export function Drawer({
   primary,
   className,
 }: DrawerProps) {
+  /* Échap ferme, comme le `Sheet` : les deux panneaux latéraux du produit se
+     manipulent pareil (design-eu, 26/09/2026). Le Drawer ne l'écoutait pas, et
+     Filtres et Colonnes restaient ouverts sous le clavier. */
+  React.useEffect(() => {
+    const auClavier = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape' || e.defaultPrevented) return;
+      // Un menu ouvert DANS le panneau se ferme d'abord : on le laisse faire.
+      if (document.querySelector('[data-radix-popper-content-wrapper]')) return;
+      onClose();
+    };
+    window.addEventListener('keydown', auClavier);
+    return () => window.removeEventListener('keydown', auClavier);
+  }, [onClose]);
+
   return (
     <>
       <button
         type="button"
         aria-label={`Fermer ${title.toLowerCase()}`}
         onClick={onClose}
-        className="absolute inset-0 z-(--arq-layer-flottant) cursor-default bg-brand/35"
+        className="absolute inset-0 z-(--arq-layer-flottant) cursor-default bg-brand/15"
       />
       <div
         role="dialog"
@@ -61,7 +75,7 @@ export function Drawer({
       >
         <div className="flex shrink-0 items-center gap-md border-b border-border-soft px-lg py-base">
           <div className="min-w-0 flex-1">
-            <div className="text-body-large font-bold">{title}</div>
+            <div className="text-subhead font-bold text-text">{title}</div>
             {detail && <div className="mt-[2px] truncate text-small text-text-muted">{detail}</div>}
           </div>
           <button

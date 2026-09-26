@@ -49,7 +49,7 @@ export function PhotoTile({ name, url, essential = false, onOpen, className }: P
   const thumbnail = missing ? (
     <div
       className={cn(
-        'flex w-full items-center justify-center rounded-none border border-dashed text-caption',
+        'flex w-full items-center justify-center rounded-block border border-dashed text-caption',
         ASPECT,
         essential
           ? 'border-danger bg-bg text-danger'
@@ -71,7 +71,7 @@ export function PhotoTile({ name, url, essential = false, onOpen, className }: P
         setEnTravers(img.naturalWidth > img.naturalHeight);
       }}
       className={cn(
-        'w-full rounded-none border border-border-soft',
+        'w-full rounded-block border border-border-soft',
         ASPECT,
         // Le fond ne se voit que sous une photo contenue, dans les deux bandes
         // que le cadre laisse libres. Sans lui, elles seraient blanches et la
