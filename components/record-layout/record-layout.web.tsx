@@ -85,6 +85,13 @@ export function RecordRail({
   current,
   onChoose,
 }: RecordRailProps) {
+  /*
+    Un menu d'UNE rubrique ne mène nulle part (design-eu, critique
+    indépendante P9) : sur une fiche Écart, « Constat » seul occupait 284 px de
+    large. Sans recherche ni onglets, il se retire et le contenu prend la
+    place. Deux rubriques et plus, il revient.
+  */
+  if (items.length <= 1 && !recherche && !onglets) return null;
   return (
     <nav
       aria-label={ariaLabel}
