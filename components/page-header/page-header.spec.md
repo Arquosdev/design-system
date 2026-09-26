@@ -17,10 +17,6 @@ replaces:
 En haut de tout écran nommé : une liste, une fiche. Sur une fiche, **toujours
 avec son `parent`** : c'est le seul chemin de retour que l'écran offre.
 
-`eyebrow` : un surtitre en plaque mono au-dessus du titre, le bloc du rail
-(« Parc », « Activité »). Il ne se pose pas avec `parent` : une fiche a déjà
-son chemin.
-
 ## Quand NE PAS l'utiliser
 
 - **Dans un tiroir ou une modale** : ils ont leur propre en-tête, et un fil

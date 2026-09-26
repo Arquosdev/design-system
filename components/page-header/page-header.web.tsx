@@ -8,8 +8,6 @@ import { cn } from '../_lib/cn';
 export interface PageHeaderProps {
   /** Le nom de l'écran. Pluriel pour une liste, singulier pour une fiche. */
   title: string;
-  /** Surtitre en plaque mono — le bloc du rail : « Parc », « Activité ». Pas avec `parent`. */
-  eyebrow?: string;
   /**
    * D'où l'on vient. Sur une fiche, c'est la liste dont elle sort.
    *
@@ -34,7 +32,6 @@ export interface PageHeaderProps {
  */
 export function PageHeader({
   title,
-  eyebrow,
   parent,
   current,
   count,
@@ -72,12 +69,6 @@ export function PageHeader({
         01/09/2026, que « le design system n'a pas de token de hauteur de
         contrôle » — il en a un depuis, et quatre composants le lisent.
       */}
-      {eyebrow && !parent && (
-        <div className="mb-xs flex h-5 items-center gap-sm font-mono text-plate uppercase text-primary">
-          <span aria-hidden className="h-px w-[18px] bg-primary" />
-          {eyebrow}
-        </div>
-      )}
       <div className="flex min-h-(--arq-control-md) items-center gap-sm">
         {/*
           Le titre et son décompte s'alignent sur la LIGNE DE BASE entre eux —
