@@ -1,5 +1,22 @@
 # Monter une app vers la version courante
 
+## 2.36.0-refonte.2 — une option de `Combobox` se trouve par ses mots-clés
+
+**`ComboboxOption.keywords`, facultatif et additif** : d'autres mots par
+lesquels l'option se trouve, en plus de son libellé. Ils servent à chercher,
+jamais à afficher, et passent tels quels à `cmdk`. Rien ne change pour qui ne
+les donne pas.
+
+Né dans le panneau de filtres de l'application web le 26/09/2026 : un filtre
+se cherche aussi par les valeurs qu'il offre — « hors parc » trouve « Contrat
+de maintenance ». C'était une demande de Louis du 29/08/2026 (« certains
+utilisateurs se plaignent de trouver difficilement des filtres basiques »),
+perdue quand le panneau est passé à une palette par filtre.
+
+```tsx
+<Combobox options={[{ value: 'contract', label: 'Contrat de maintenance', keywords: ['Au contrat', 'Hors parc'] }]} … />
+```
+
 ## v2.15.0 — les dates s'éditent, et elles sortent en ISO
 
 **`DateField` est neuf, et `FieldRow` a un `kind="date"`.** C'est additif des

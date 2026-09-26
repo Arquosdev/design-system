@@ -184,6 +184,7 @@ export function Combobox({
                 <CommandItem
                   key={o.value}
                   value={o.label}
+                  keywords={o.keywords ? [...o.keywords] : undefined}
                   onSelect={() => {
                     onValue(o.value);
                     close();

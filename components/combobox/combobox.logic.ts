@@ -3,6 +3,13 @@
 export interface ComboboxOption {
   value: string;
   label: string;
+  /**
+   * D'autres mots par lesquels l'option se trouve, en plus de son libellé.
+   * Né dans le panneau de filtres de l'application web (26/09/2026) : un
+   * filtre se cherche aussi par les valeurs qu'il offre — « hors parc » trouve
+   * « Contrat de maintenance ». Ils servent à chercher, jamais à afficher.
+   */
+  keywords?: readonly string[];
 }
 
 /**
