@@ -51,6 +51,9 @@ export const SelectTrigger = React.forwardRef<
         restent d'accord.
       */
       'flex h-(--arq-control-md) w-fit items-center justify-between gap-sm rounded-control',
+      // Une ligne, toujours : dans une colonne étroite, « + (ajoute au prix) »
+      // passait sur deux lignes et débordait du champ (design-eu).
+      'whitespace-nowrap [&>span]:min-w-0 [&>span]:truncate',
       // `px-md` comme le `px-3` de shadcn : à quatre pixels, le mot touchait
       // son contour et le champ se lisait comme une étiquette serrée.
       'border border-border bg-bg px-md text-small font-medium text-text',

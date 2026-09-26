@@ -113,7 +113,20 @@ SheetDescription.displayName = 'SheetDescription';
 
 /** Le corps qui défile. Le panneau, lui, garde son en-tête et son pied en place. */
 export function SheetBody({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div className={cn('min-h-0 flex-1 overflow-y-auto px-lg py-base', className)} {...props} />;
+  /* Dans un formulaire de panneau, une liste déroulante prend la largeur de
+     sa colonne, comme le champ voisin (design-eu, 26/09/2026) : dix panneaux
+     la gardaient à la largeur de son texte, « Divers », « 20 % ». Une largeur
+     posée par l'écran ne l'emporte pas : dans un panneau, la règle est la colonne. */
+  return (
+    <div
+      className={cn(
+        'min-h-0 flex-1 overflow-y-auto px-lg py-base',
+        '[&_button[role=combobox]]:w-full',
+        className,
+      )}
+      {...props}
+    />
+  );
 }
 
 export function SheetFooter({ className, ...props }: React.ComponentProps<'div'>) {
