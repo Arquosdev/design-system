@@ -70,6 +70,7 @@ import {
   User,
   UserCircle,
   Phone,
+  ClockCounterClockwise,
   EnvelopeSimple,
   Warning,
   WarningCircle,
@@ -167,6 +168,7 @@ const GLYPHS: Record<IconRole, PhosphorIcon> = {
 
   user: UserCircle,
   phone: Phone,
+  recent: ClockCounterClockwise,
   email: EnvelopeSimple,
   conversation: ChatCircleDots,
   copy: Copy,

@@ -200,6 +200,8 @@ export const icons = {
   // Ajoutés le 25/09/2026 (design-eu) : les actions rapides d'une fiche contact
   // appelaient et écrivaient derrière une silhouette et un maillon.
   phone: 'Phone',
+  // Les fiches récentes de la palette ⌘K (design-eu).
+  recent: 'ClockCounterClockwise',
   email: 'EnvelopeSimple',
   conversation: 'ChatCircleDots',
   copy: 'Copy',
