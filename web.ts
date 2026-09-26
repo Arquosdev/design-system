@@ -48,6 +48,7 @@ export { PhotoTile, type PhotoTileProps } from './components/photo-tile/photo-ti
 export {
   PhotoViewer,
   type PhotoViewerProps,
+  type PhotoViewerAction,
   type PhotoView,
 } from './components/photo-viewer/photo-viewer.web';
 export {
