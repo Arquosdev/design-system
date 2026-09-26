@@ -46,7 +46,7 @@ export function PageHeader({
       className={cn('shrink-0 border-b border-border-soft px-xl pt-base pb-md', className)}
     >
       {parent && (
-        <nav aria-label="Fil d’Ariane" className="mb-xs flex items-center gap-sm text-small text-text-muted">
+        <nav aria-label="Fil d’Ariane" className="mb-xs flex h-5 items-center gap-sm text-small text-text-muted">
           <a
             href={parent.href}
             className="rounded-control font-medium text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
@@ -73,7 +73,7 @@ export function PageHeader({
         contrôle » — il en a un depuis, et quatre composants le lisent.
       */}
       {eyebrow && !parent && (
-        <div className="mb-xs flex items-center gap-sm font-mono text-plate uppercase text-primary">
+        <div className="mb-xs flex h-5 items-center gap-sm font-mono text-plate uppercase text-primary">
           <span aria-hidden className="h-px w-[18px] bg-primary" />
           {eyebrow}
         </div>
