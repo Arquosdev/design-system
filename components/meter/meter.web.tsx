@@ -5,7 +5,9 @@ import * as React from 'react';
 import { cn } from '../_lib/cn';
 import { borner, proportionTone, type ProportionTone } from '../_lib/proportion';
 
-const TONES: Record<ProportionTone, string> = {
+const TONES: Record<ProportionTone | 'info', string> = {
+  // Un état prévu, normal, qui n'appelle aucun regard (design-eu).
+  info: 'bg-primary',
   success: 'bg-success',
   // `warning` et non `accent` : voir la note de `Gauge`, même défaut.
   warning: 'bg-warning',
@@ -17,7 +19,7 @@ export interface MeterProps extends Omit<React.ComponentPropsWithoutRef<'span'>,
   value: number;
   /** Ce que la proportion mesure. Lu par les lecteurs d'écran avec la valeur. */
   label: string;
-  tone?: ProportionTone;
+  tone?: ProportionTone | 'info';
   /** Largeur de la barre. Une série n'est comparable que si elle est constante. */
   width?: number;
   /** Le chiffre à côté de la barre. Le masquer ne se justifie que dans une cellule déjà chiffrée. */
