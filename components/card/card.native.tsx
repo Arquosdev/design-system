@@ -51,7 +51,7 @@ export function CardFooter({ style, ...props }: ViewProps) {
 const styles = StyleSheet.create({
   card: {
     overflow: 'hidden',
-    borderRadius: radius.md,
+    borderRadius: radius.block,
     borderWidth: 1,
     borderColor: colors.borderSoft,
     backgroundColor: colors.bg,

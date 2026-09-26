@@ -88,7 +88,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: spacing.xxs,
     borderRadius: radius.md,
-    backgroundColor: colors.bgMuted,
+    // Un cran plus soutenu que la toile grise des listes (design-eu).
+    backgroundColor: colors.inactiveBg,
     padding: spacing.xxs,
   },
   segment: {
