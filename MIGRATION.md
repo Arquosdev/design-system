@@ -1,15 +1,19 @@
 # Monter une app vers la version courante
 
-## 2.36.0-refonte.3 — un seul rayon, 3 px, hors cercles
+## 2.36.0-refonte.4 — un seul rayon, 4 px, hors cercles
 
-**`radius.control` passe de 5 à 3 px**, comme `radius.block` depuis le
-26/09/2026. Louis, le 27/09/2026 : les coins des boutons et des champs, « on a
-5, 6 ou 7, on sait rien » ; se rapprocher des angles du site sans les copier.
+**`radius.block` et `radius.control` valent tous deux 4 px.** Louis, le
+27/09/2026, sur la page Immeubles : le bloc était à 3 px, les boutons à 5, la
+recherche à 8 — « je trouve pas ça cohérent ». La règle est l'unicité ; la
+valeur, 4 px, se lit comme un arrondi voulu tout en restant proche des angles
+du site, et tombe sur la grille de 4 px. Un essai à 3 px (refonte.3) a
+précédé.
 
-**Ce qui bouge** : tout ce qui porte `rounded-control` — `Button`,
-`IconButton`, `Input`, `Textarea`, `PasswordInput`, `Select`, `Combobox`,
-`DateField`, `Badge`, `Tag`, `Banner`, `Toast`, `FieldRow`, `NavList`,
-`SegmentedTabs` — et, côté natif, les sept composants qui lisent
+**Ce qui bouge** : tout ce qui porte `rounded-control` ou `rounded-block` —
+`Button`, `IconButton`, `Input`, `Textarea`, `PasswordInput`, `Select`,
+`Combobox`, `DateField`, `Badge`, `Tag`, `Banner`, `Toast`, `FieldRow`,
+`NavList`, `SegmentedTabs`, `Card`, `Accordion`, `DataTable`, `StatTile`,
+`PhotoTile` — et, côté natif, les sept composants qui lisent
 `radius.control`. Dix emplacements qui écrivaient leur propre rayon le
 reprennent : les menus de `Select` et de `Popover`, la palette `Command`, la
 `SelectionBar` et la visionneuse de photos passent sur `rounded-block` (8 et
@@ -20,8 +24,8 @@ radio, avatar, compteur) et les jetons `sm` à `3xl`, que plus aucun composant
 web n'emploie.
 
 **À vérifier chez l'appelant** : un rayon écrit en dur (`rounded-md`,
-`rounded-[4px]`) à côté d'un composant se voit maintenant, puisqu'il ne suit
-plus. Aucun calcul de cote ne dépend d'un rayon.
+`rounded-[4px]`) à côté d'un composant se voit maintenant. Aucun calcul de
+cote ne dépend d'un rayon.
 
 ## 2.36.0-refonte.2 — une option de `Combobox` se trouve par ses mots-clés
 
