@@ -207,7 +207,7 @@ export function PhotoViewer({
                   }
                   // `contain` : ne rien rogner. Une photo de plaque de charge
                   // recadrée peut perdre le chiffre qu'on est venu lire.
-                  className="max-h-full max-w-[76vw] rounded-md object-contain"
+                  className="max-h-full max-w-[76vw] rounded-block object-contain"
                 />
                 {actions?.length && box ? (
                   <ActionRow actions={actions} photo={current} corner={box} />
@@ -217,7 +217,7 @@ export function PhotoViewer({
               // palette-brute-ok: plaque de remplacement posée sur le voile
               // sombre de la visionneuse. Aucune surface sémantique ne
               // convient — `bgMuted` disparaîtrait, `border` n'est pas un fond.
-              <div className="flex h-full max-h-[500px] w-[76vw] max-w-[760px] items-center justify-center rounded-md bg-grey-200 px-lg text-center text-body text-text-muted">
+              <div className="flex h-full max-h-[500px] w-[76vw] max-w-[760px] items-center justify-center rounded-block bg-grey-200 px-lg text-center text-body text-text-muted">
                 Photo indisponible — {current.name}
               </div>
             )}

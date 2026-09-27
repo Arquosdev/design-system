@@ -1,5 +1,28 @@
 # Monter une app vers la version courante
 
+## 2.36.0-refonte.3 — un seul rayon, 3 px, hors cercles
+
+**`radius.control` passe de 5 à 3 px**, comme `radius.block` depuis le
+26/09/2026. Louis, le 27/09/2026 : les coins des boutons et des champs, « on a
+5, 6 ou 7, on sait rien » ; se rapprocher des angles du site sans les copier.
+
+**Ce qui bouge** : tout ce qui porte `rounded-control` — `Button`,
+`IconButton`, `Input`, `Textarea`, `PasswordInput`, `Select`, `Combobox`,
+`DateField`, `Badge`, `Tag`, `Banner`, `Toast`, `FieldRow`, `NavList`,
+`SegmentedTabs` — et, côté natif, les sept composants qui lisent
+`radius.control`. Dix emplacements qui écrivaient leur propre rayon le
+reprennent : les menus de `Select` et de `Popover`, la palette `Command`, la
+`SelectionBar` et la visionneuse de photos passent sur `rounded-block` (8 et
+12 px auparavant), la `Checkbox` et les squelettes sur `rounded-control`.
+
+**Ce qui ne bouge pas** : les cercles (`rounded-full` : interrupteur, bouton
+radio, avatar, compteur) et les jetons `sm` à `3xl`, que plus aucun composant
+web n'emploie.
+
+**À vérifier chez l'appelant** : un rayon écrit en dur (`rounded-md`,
+`rounded-[4px]`) à côté d'un composant se voit maintenant, puisqu'il ne suit
+plus. Aucun calcul de cote ne dépend d'un rayon.
+
 ## 2.36.0-refonte.2 — une option de `Combobox` se trouve par ses mots-clés
 
 **`ComboboxOption.keywords`, facultatif et additif** : d'autres mots par

@@ -10,7 +10,9 @@
 export const radius = {
   none: 0,
   block: 3,  // blocs de contenu : cartes, panneaux, tableaux — « presque anguleux » (Louis, 26/09/2026)
-  control: 5, // pastilles et petits contrôles — hérité de l'identité de marque
+  // Boutons, champs, menus, pastilles : 3 px comme les blocs (Louis, 27/09/2026 :
+  // « on sait rien » entre 5, 6 et 7). Un rayon pour toute l'interface, hors cercles.
+  control: 3,
   sm: 4,
   md: 8,     // ← défaut (cartes, inputs, boutons standards)
   lg: 12,

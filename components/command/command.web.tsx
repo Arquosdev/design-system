@@ -73,7 +73,7 @@ export function Command({
       <CommandPrimitive
         data-slot="command"
         data-size={size}
-        className={cn('flex h-full w-full flex-col overflow-hidden rounded-lg bg-bg text-text', className)}
+        className={cn('flex h-full w-full flex-col overflow-hidden rounded-block bg-bg text-text', className)}
         {...props}
       />
     </TailleCommand.Provider>
@@ -103,7 +103,7 @@ export function CommandDialog({
           aria-describedby={undefined}
           className={cn(
             'fixed top-[96px] left-1/2 z-(--arq-layer-plein-ecran) w-[660px] max-w-[calc(100vw-32px)] -translate-x-1/2',
-            'overflow-hidden rounded-lg bg-bg shadow-pop outline-none',
+            'overflow-hidden rounded-block bg-bg shadow-pop outline-none',
             className,
           )}
         >

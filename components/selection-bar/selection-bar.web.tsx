@@ -32,7 +32,7 @@ export function SelectionBar({
         // manière de Linear et Mercury, au lieu d'un bandeau marine pleine
         // largeur. Elle flotte, donc elle garde un arrondi et une ombre.
         'absolute bottom-5xl left-1/2 z-(--arq-layer-barre) flex max-w-[calc(100%-48px)] -translate-x-1/2 items-center gap-sm overflow-x-auto',
-        'rounded-lg border border-border bg-bg py-xs pr-xs pl-base shadow-pop',
+        'rounded-block border border-border bg-bg py-xs pr-xs pl-base shadow-pop',
         className,
       )}
     >

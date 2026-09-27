@@ -84,7 +84,7 @@ export const SelectContent = React.forwardRef<
       ref={ref}
       position={position}
       className={cn(
-        'relative z-(--arq-layer-flottant) max-h-[320px] min-w-[8rem] overflow-hidden rounded-md',
+        'relative z-(--arq-layer-flottant) max-h-[320px] min-w-[8rem] overflow-hidden rounded-block',
         'border border-border-soft bg-bg text-text shadow-pop',
       /*
         PAS d'animation de sortie ici. Mesuré le 07/09/2026 dans la fiche : sur

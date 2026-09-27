@@ -27,7 +27,7 @@ export function Skeleton({ round = false, className, ...props }: SkeletonProps) 
       aria-hidden="true"
       className={cn(
         'animate-pulse bg-bg-muted',
-        round ? 'rounded-full' : 'rounded-sm',
+        round ? 'rounded-full' : 'rounded-control',
         className,
       )}
       {...props}

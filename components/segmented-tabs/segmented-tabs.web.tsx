@@ -47,7 +47,7 @@ export function SegmentedTabs({
       role="tablist"
       aria-label={ariaLabel}
       onKeyDown={auClavier}
-      className={cn('flex gap-xxs rounded-md bg-bg-muted p-xxs', className)}
+      className={cn('flex gap-xxs rounded-control bg-bg-muted p-xxs', className)}
     >
       {segments.map((segment) => {
         const active = segment.id === value;

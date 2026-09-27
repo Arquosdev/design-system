@@ -147,7 +147,7 @@ export function RecordRailSkeleton() {
       className={`flex h-full ${LARGEUR_RAIL} shrink-0 flex-col gap-sm border-r border-border-soft bg-bg-subtle p-base`}
     >
       <div className="h-(--arq-control-md) animate-pulse rounded-control bg-bg-muted" />
-      <div className="mt-xs h-[32px] animate-pulse rounded-md bg-bg-muted" />
+      <div className="mt-xs h-[32px] animate-pulse rounded-control bg-bg-muted" />
       {/* Neuf lignes : assez pour occuper la colonne, sans prétendre annoncer
           le nombre exact de rubriques qu'on ne connaît pas encore. */}
       {Array.from({ length: 9 }, (_, i) => (
