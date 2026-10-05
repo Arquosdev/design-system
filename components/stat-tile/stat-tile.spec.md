@@ -61,6 +61,17 @@ import { StatTile } from '@arquos/design-system/web';
   `colors.bgSubtle` au survol, anneau de focus au clavier. Rien d'autre ne change
   — la tuile garde sa forme, on ne la transforme pas en bouton d'action.
 
+## StatTileDouble — deux mesures sœurs
+
+Une tuile partagée en deux moitiés côte à côte, chacune avec son libellé, sa
+valeur, son détail et son propre clic (`moities: [MoitieTuile, MoitieTuile]`).
+Pour deux données qui répondent à la même question — le module GSM et le
+boîtier téléalarme : « comment la cabine appelle-t-elle à l'aide ? ». Le chiffre
+y descend d'un cran (`typography.title`) : deux mesures en `headline` ne
+tiennent pas dans un tiers de grille. Côte à côte et non empilées, pour garder
+la hauteur des tuiles voisines (choisi par Thomas le 05/10/2026 parmi trois
+maquettes).
+
 ## Accessibilité
 
 Le label et la valeur se lisent à la suite. Ne pas mettre l'unité dans un

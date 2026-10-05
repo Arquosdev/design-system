@@ -97,3 +97,97 @@ export function StatTile({
     </div>
   );
 }
+
+/** Une moitié de `StatTileDouble` — les mêmes champs qu'une tuile. */
+export interface MoitieTuile {
+  label: string;
+  valeur: string;
+  unite?: string;
+  detail?: string;
+  /** La moitié mène à SA donnée ; sans, elle reste inerte. */
+  onOuvrir?: () => void;
+  libelleOuvrir?: string;
+  libelleVide?: string;
+}
+
+export interface StatTileDoubleProps extends React.ComponentPropsWithoutRef<'div'> {
+  moities: readonly [MoitieTuile, MoitieTuile];
+}
+
+/**
+ * DEUX MESURES SŒURS DANS UNE TUILE — le module GSM et le boîtier téléalarme.
+ *
+ * Deux appareils, deux marques, mais une seule question pour qui lit la fiche :
+ * « comment cette cabine appelle-t-elle à l'aide ? ». En deux tuiles, la
+ * téléalarme restait seule sur une quatrième rangée ; réunies, la grille
+ * retombe sur trois par trois. Retenu par Thomas le 05/10/2026 parmi trois
+ * maquettes : côte à côte plutôt qu'empilées, pour que la tuile garde la
+ * hauteur de ses voisines.
+ *
+ * Chaque moitié se lit et se clique pour elle-même : un seul bouton pour deux
+ * données ne saurait pas laquelle ouvrir. Le chiffre descend d'un cran
+ * (`text-title`) — deux mesures en `text-headline` ne tiennent pas dans un tiers
+ * de grille.
+ */
+export function StatTileDouble({ moities, className, ...props }: StatTileDoubleProps) {
+  return (
+    <div
+      className={cn(
+        'grid grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] gap-xs rounded-md border border-border-soft bg-bg p-sm',
+        className,
+      )}
+      {...props}
+    >
+      <Moitie {...moities[0]} />
+      <div className="my-xs bg-border-soft" aria-hidden="true" />
+      <Moitie {...moities[1]} />
+    </div>
+  );
+}
+
+function Moitie({
+  label,
+  valeur,
+  unite,
+  detail,
+  onOuvrir,
+  libelleOuvrir,
+  libelleVide = 'À compléter',
+}: MoitieTuile) {
+  const vide = !valeur;
+  const invite = vide && Boolean(onOuvrir);
+  const contenu = (
+    <>
+      <div className="text-caption text-text-muted">{label}</div>
+      <div className="mt-xs flex items-baseline gap-xs">
+        <span
+          className={cn(
+            invite ? 'text-body font-semibold text-primary' : 'text-title font-bold break-words',
+            !invite && (vide ? 'text-text-muted' : 'text-text'),
+          )}
+        >
+          {invite ? libelleVide : vide ? '—' : valeur}
+        </span>
+        {unite && !vide ? <span className="text-small text-text-muted">{unite}</span> : null}
+      </div>
+      {detail ? <div className="mt-xxs text-caption text-text-muted">{detail}</div> : null}
+    </>
+  );
+  const zone = 'h-full rounded-control px-sm py-xs';
+  if (!onOuvrir) return <div className={zone}>{contenu}</div>;
+  return (
+    <button
+      type="button"
+      onClick={onOuvrir}
+      aria-label={`${libelleOuvrir ?? `Voir ${label}`} — ${vide ? libelleVide.toLowerCase() : [valeur, unite].filter(Boolean).join(' ')}`}
+      className={cn(
+        zone,
+        'block w-full cursor-pointer text-left outline-none',
+        'transition-colors duration-(--arq-duration-normal) hover:bg-bg-muted',
+        'focus-visible:ring-2 focus-visible:ring-primary',
+      )}
+    >
+      {contenu}
+    </button>
+  );
+}

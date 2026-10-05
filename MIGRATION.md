@@ -7,6 +7,10 @@ et on applique tout d'un coup quand il est solide.
 Une bascule groupée se fait à l'aveugle si personne n'a noté, au fil de l'eau, ce
 qu'elle coûtera. C'est ce que ce fichier note.
 
+## 2.41.0 — `StatTileDouble`, deux mesures dans une tuile
+
+Nouveau composant, exporté à côté de `StatTile`. Rien ne change pour l'existant.
+
 ## 2.40.0 — une tuile vide et cliquable dit « À compléter »
 
 `StatTile` vide AVEC `onOuvrir` affiche `libelleVide` (« À compléter » par défaut)

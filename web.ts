@@ -27,7 +27,13 @@ export {
 } from './components/card/card.web';
 export { DataTable, type DataTableProps } from './components/data-table/data-table.web';
 export { Gauge, type GaugeProps } from './components/gauge/gauge.web';
-export { StatTile, type StatTileProps } from './components/stat-tile/stat-tile.web';
+export {
+  StatTile,
+  StatTileDouble,
+  type MoitieTuile,
+  type StatTileDoubleProps,
+  type StatTileProps,
+} from './components/stat-tile/stat-tile.web';
 export { PhotoTile, type PhotoTileProps } from './components/photo-tile/photo-tile.web';
 export {
   PhotoViewer,
