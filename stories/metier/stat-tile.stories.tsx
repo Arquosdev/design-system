@@ -33,3 +33,11 @@ export const RangeeDIdentite: Story = {
     </div>
   ),
 };
+
+/**
+ * La tuile qui MÈNE à sa donnée : survol au contour primaire, focus au clavier.
+ * Dans la fiche, un clic emmène au champ des données techniques qu'elle résume.
+ */
+export const Cliquable: Story = {
+  args: { onOuvrir: () => {}, libelleOuvrir: 'Voir la charge utile' },
+};

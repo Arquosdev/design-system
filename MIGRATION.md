@@ -7,6 +7,11 @@ et on applique tout d'un coup quand il est solide.
 Une bascule groupée se fait à l'aveugle si personne n'a noté, au fil de l'eau, ce
 qu'elle coûtera. C'est ce que ce fichier note.
 
+## 2.39.0 — une tuile peut mener à sa donnée
+
+`StatTile` gagne `onOuvrir` et `libelleOuvrir` : donnée, la tuile devient un
+bouton. Sans elles, rien ne change. Rien à reprendre.
+
 ## 2.38.0 — le bouton secondaire écrit dans le bleu de la charte
 
 `--secondary-foreground` passe de `blue[700]` (`#073B6F`) à `colors.primary`
