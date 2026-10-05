@@ -47,6 +47,13 @@ import { Popover, PopoverContent, PopoverTrigger } from '@arquos/design-system/w
 
 - Aligné au bord de son déclencheur, 4 px en dessous — Radix le retourne au-dessus quand la place manque
 
+## Où il se pose
+
+À la racine du document, comme le veut Radix — **sauf dans un `Sheet`**, qui lui
+prête son propre nœud (`ConteneurFlottant`). Le panneau bloque le défilement de
+tout ce qui est hors de lui : posée à la racine, une liste ne défilait plus ni à
+la molette ni au doigt. Signalé le 05/10/2026 sur le choix du client.
+
 ## Accessibilité
 
 Radix pose le focus dans le panneau à l'ouverture, le rend au déclencheur à la

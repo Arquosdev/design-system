@@ -93,6 +93,13 @@ import {
   pour qu'on voie qu'il y a quelque chose derrière. Mesuré en `large` sur un
   poste en 1280 : le panneau tient ses 860 px et laisse 420 px de page lisible.
 
+## Ce qui flotte dedans
+
+Le panneau fournit son nœud à ce qui flotte en lui — la liste d'un `Combobox`,
+un `Popover` —, qui s'y pose au lieu de la racine du document. Le panneau bloque
+le défilement de tout le reste de la page ; sans ce prêt, ces listes ne
+défilaient plus. `Select` n'est pas concerné : il gère son propre verrou.
+
 ## Accessibilité
 
 - Radix pose le rôle `dialog`, le piège à focus, Échap, et masque le reste de la page aux lecteurs d'écran.
