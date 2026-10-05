@@ -18,6 +18,14 @@ export interface StatTileProps extends React.ComponentPropsWithoutRef<'div'> {
   onOuvrir?: () => void;
   /** Ce que le clic fait, pour qui ne voit pas la tuile. Par défaut, « Voir {label} ». */
   libelleOuvrir?: string;
+  /**
+   * Ce que dit une tuile VIDE qui mène quelque part — par défaut « À compléter ».
+   *
+   * Vide et inerte, la tuile dit « — » : un manque constaté. Vide et cliquable,
+   * elle invite à le combler, et le dit (Att_05, Thomas, 05/10/2026 : « garder
+   * les vides, en les marquant À compléter et cliquables »).
+   */
+  libelleVide?: string;
 }
 
 export function StatTile({
@@ -28,20 +36,26 @@ export function StatTile({
   className,
   onOuvrir,
   libelleOuvrir,
+  libelleVide = 'À compléter',
   ...props
 }: StatTileProps) {
   const vide = !valeur;
+  /* Un manque qu'on peut combler ne se dit pas comme un manque constaté. Le mot
+     prend le bleu des actions et la taille du texte courant : c'est une
+     invitation, pas une mesure — en caractères de mesure, il écraserait les
+     tuiles voisines qui, elles, portent un chiffre. */
+  const invite = vide && Boolean(onOuvrir);
   const contenu = (
     <>
       <div className="text-caption text-text-muted">{label}</div>
       <div className="mt-xs flex items-baseline gap-xs">
         <span
           className={cn(
-            'text-headline font-bold break-words',
-            vide ? 'text-text-muted' : 'text-text',
+            invite ? 'text-body font-semibold text-primary' : 'text-headline font-bold break-words',
+            !invite && (vide ? 'text-text-muted' : 'text-text'),
           )}
         >
-          {vide ? '—' : valeur}
+          {invite ? libelleVide : vide ? '—' : valeur}
         </span>
         {/* Une unité sans nombre devant ne veut rien dire. */}
         {unite && !vide ? <span className="text-small text-text-muted">{unite}</span> : null}
@@ -61,7 +75,7 @@ export function StatTile({
       <button
         type="button"
         onClick={onOuvrir}
-        aria-label={`${libelleOuvrir ?? `Voir ${label.toLowerCase()}`} — ${vide ? 'non renseigné' : [valeur, unite].filter(Boolean).join(' ')}`}
+        aria-label={`${libelleOuvrir ?? `Voir ${label.toLowerCase()}`} — ${vide ? libelleVide.toLowerCase() : [valeur, unite].filter(Boolean).join(' ')}`}
         className={cn(
           cadre,
           'block w-full cursor-pointer text-left outline-none',

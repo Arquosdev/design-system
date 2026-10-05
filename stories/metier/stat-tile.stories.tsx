@@ -41,3 +41,11 @@ export const RangeeDIdentite: Story = {
 export const Cliquable: Story = {
   args: { onOuvrir: () => {}, libelleOuvrir: 'Voir la charge utile' },
 };
+
+/**
+ * Vide ET cliquable : la tuile invite à compléter au lieu de constater un
+ * manque. Le mot prend le bleu des actions, à la taille du texte courant.
+ */
+export const ACompleter: Story = {
+  args: { valeur: '', onOuvrir: () => {}, libelleOuvrir: 'Compléter la charge utile' },
+};
