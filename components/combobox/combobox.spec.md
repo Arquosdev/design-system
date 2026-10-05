@@ -51,6 +51,23 @@ qui habille la palette plein écran et porte sa hauteur.
 | `autoFocus`   | `boolean`                     | `false`         | Le champ prend le focus dès qu'il paraît |
 | `ariaLabel`   | `string`                      | —               | Quand aucun libellé visible ne nomme la gâchette |
 | `desactive`   | `boolean`                     | `false`         | |
+| `onRecherche` | `(frappe: string) => void`    | —               | **Recherche déléguée** : le champ ne filtre plus, il transmet chaque frappe (et la frappe vide à l'ouverture) ; l'écran rend les résultats dans `options` |
+| `chargement`  | `boolean`                     | `false`         | La réponse à la dernière frappe n'est pas arrivée — la liste vide dit « Recherche… » |
+| `libelleValeur` | `string`                    | —               | Le libellé de `valeur` quand les options ne le portent pas ; la règle en recherche déléguée |
+
+## Recherche déléguée
+
+Pour les listes **trop longues pour être chargées d'avance** — les clients d'une
+agence montent à cinq mille. Le champ garde sa forme et ses états ; ce qui change :
+
+- il ne filtre plus rien (`cmdk` refiltrerait sur le libellé ce que la recherche
+  a trouvé sur autre chose, un numéro de client par exemple) ;
+- il appelle `onRecherche` à chaque frappe, et une fois à l'ouverture avec la
+  frappe vide : l'écran rend alors les premiers par ordre alphabétique, comme le
+  menu de Bubble ;
+- l'attente entre deux frappes est l'affaire de l'écran, pas du champ ;
+- la valeur retenue n'est presque jamais dans les résultats : son libellé vient
+  de `libelleValeur`, sans quoi un identifiant s'afficherait tel quel.
 
 ## Anatomie
 

@@ -4,6 +4,7 @@ import {
   choixReels,
   contenuAffiche,
   invitAffichee,
+  messageVide,
   type ComboboxOption,
 } from './combobox.logic.ts';
 
@@ -30,6 +31,24 @@ export interface ComboboxProps {
   /** Le champ prend le focus dès qu'il paraît — il remplace une valeur. */
   autoFocus?: boolean;
   className?: string;
+  /**
+   * RECHERCHE DÉLÉGUÉE. Donné, le champ ne filtre plus rien lui-même : il
+   * transmet chaque frappe — et la frappe vide à l'ouverture —, et l'écran lui
+   * rend dans `options` ce qui correspond.
+   *
+   * Pour les listes trop longues pour être chargées d'avance : les clients
+   * d'une agence montent à cinq mille. L'écran se charge de l'attente entre deux
+   * frappes ; le champ, lui, n'attend rien.
+   */
+  onRecherche?: (frappe: string) => void;
+  /** La réponse à la dernière frappe n'est pas encore arrivée. */
+  chargement?: boolean;
+  /**
+   * Le libellé de `valeur`, quand les options ne le portent pas — ce qui est la
+   * règle en recherche déléguée. Sans lui, une valeur qui est un identifiant
+   * s'afficherait telle quelle.
+   */
+  libelleValeur?: string;
 }
 
 /**
@@ -59,6 +78,9 @@ export function Combobox({
   desactive = false,
   autoFocus = false,
   className,
+  onRecherche,
+  chargement = false,
+  libelleValeur,
 }: ComboboxProps) {
   const [ouvert, setOuvert] = React.useState(false);
   const [frappe, setFrappe] = React.useState('');
@@ -68,8 +90,17 @@ export function Combobox({
   /* Les deux règles vivent dans `combobox.logic.ts`, où elles sont éprouvées :
      ce qui compte comme choix, et ce que le champ montre. */
   const choix = React.useMemo(() => choixReels(options), [options]);
-  const contenu = contenuAffiche(options, valeur, ouvert, frappe);
-  const invite = invitAffichee(options, valeur, ouvert, placeholder);
+  const contenu = contenuAffiche(options, valeur, ouvert, frappe, libelleValeur);
+  const invite = invitAffichee(options, valeur, ouvert, placeholder, libelleValeur);
+  const delegue = onRecherche !== undefined;
+
+  /* Ouvrir le champ demande aussi la liste : sans frappe, l'écran rend les
+     premiers par ordre alphabétique, comme le menu de Bubble. Une liste qui ne
+     paraît qu'à la première lettre laisserait croire qu'il n'y a rien. */
+  const ouvrir = () => {
+    if (!ouvert) onRecherche?.(frappe);
+    setOuvert(true);
+  };
 
   const fermer = () => {
     setOuvert(false);
@@ -80,6 +111,10 @@ export function Combobox({
     <CommandPrimitive
       // Le filtrage est celui de cmdk, sur le libellé. Une liste de trois cents
       // marques n'a pas besoin de plus : on tape le début du nom.
+      // En recherche déléguée, c'est l'écran qui filtre : cmdk refiltrerait
+      // sur le libellé ce que la recherche a trouvé sur autre chose — un client
+      // trouvé par son numéro disparaîtrait de la liste.
+      shouldFilter={!delegue}
       loop
       className="w-full"
       onKeyDown={(e) => {
@@ -108,9 +143,10 @@ export function Combobox({
               onValueChange={(v) => {
                 setFrappe(v);
                 setOuvert(true);
+                onRecherche?.(v);
               }}
-              onFocus={() => setOuvert(true)}
-              onMouseDown={() => setOuvert(true)}
+              onFocus={ouvrir}
+              onMouseDown={ouvrir}
               placeholder={invite}
               aria-label={ariaLabel}
               className={cn(
@@ -158,7 +194,7 @@ export function Combobox({
             à faire défiler, ce que le champ cherchable est censé éviter.
           */}
           <CommandList className="max-h-[min(320px,45vh)]">
-            <CommandEmpty>Aucun choix ne correspond.</CommandEmpty>
+            <CommandEmpty>{messageVide(delegue, chargement)}</CommandEmpty>
             {choix.map((o) => (
               <CommandItem
                 key={o.valeur}

@@ -39,10 +39,10 @@ export function contenuAffiche(
   valeur: string,
   ouvert: boolean,
   frappe: string,
+  libelleValeur?: string,
 ): string {
   if (ouvert) return frappe;
-  const retenue = choixReels(options).find((o) => o.valeur === valeur);
-  return retenue?.libelle ?? valeur;
+  return libelleDe(options, valeur, libelleValeur);
 }
 
 /**
@@ -58,8 +58,41 @@ export function invitAffichee(
   valeur: string,
   ouvert: boolean,
   placeholder: string,
+  libelleValeur?: string,
 ): string {
   if (!ouvert || valeur === '') return placeholder;
+  return libelleDe(options, valeur, libelleValeur);
+}
+
+/**
+ * Le libellé de la valeur retenue.
+ *
+ * Trouvé dans les options d'abord. À défaut, celui que l'écran a fourni — et
+ * c'est le cas ordinaire en **recherche déléguée** : les options ne sont que les
+ * résultats de la dernière frappe, et la valeur retenue n'y figure presque
+ * jamais. Sans ce libellé, un champ dont la valeur est un identifiant afficherait
+ * l'identifiant (« 1759219354084x16… ») au lieu du nom.
+ *
+ * Et en dernier recours la valeur telle quelle : une valeur hors catalogue reste
+ * légitime, la taire effacerait à l'écran ce que la base contient.
+ */
+function libelleDe(
+  options: readonly ComboboxOption[],
+  valeur: string,
+  libelleValeur?: string,
+): string {
   const retenue = choixReels(options).find((o) => o.valeur === valeur);
-  return retenue?.libelle ?? valeur;
+  return retenue?.libelle ?? (libelleValeur || valeur);
+}
+
+/**
+ * Ce que la liste dit quand elle n'a rien à montrer.
+ *
+ * Filtrée sur place, la liste vide veut toujours dire la même chose : rien ne
+ * correspond. En recherche déléguée, elle peut aussi vouloir dire « on cherche
+ * encore » ou « rien n'a été demandé » — et afficher « Aucun choix ne
+ * correspond » pendant que la réponse arrive ferait croire à une liste vide.
+ */
+export function messageVide(delegue: boolean, chargement: boolean): string {
+  return delegue && chargement ? 'Recherche…' : 'Aucun choix ne correspond.';
 }
