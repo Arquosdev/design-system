@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { StatTile } from '../../components/stat-tile/stat-tile.web';
+import { StatTile, StatTileDouble } from '../../components/stat-tile/stat-tile.web';
 import specification from '../../components/stat-tile/stat-tile.spec.md?raw';
 import { docsDe } from '../fiche';
 
@@ -48,4 +48,23 @@ export const Cliquable: Story = {
  */
 export const ACompleter: Story = {
   args: { valeur: '', onOuvrir: () => {}, libelleOuvrir: 'Compléter la charge utile' },
+};
+
+/**
+ * DEUX MESURES SŒURS côte à côte — le module GSM et le boîtier téléalarme.
+ * Chaque moitié se clique pour elle-même ; vide, elle invite à compléter.
+ */
+export const Double: Story = {
+  render: () => (
+    <div className="grid max-w-[720px] grid-cols-3 gap-md">
+      <StatTile label="Faces de service" valeur="2" />
+      <StatTile label="Machinerie" valeur="Sans (MRL)" detail="gaine pylône" />
+      <StatTileDouble
+        moities={[
+          { label: 'GSM', valeur: 'SODIMAS', detail: '4G · GSM SOD 4.0', onOuvrir: () => {} },
+          { label: 'Téléalarme', valeur: '', onOuvrir: () => {} },
+        ]}
+      />
+    </div>
+  ),
 };
