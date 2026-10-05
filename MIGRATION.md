@@ -7,6 +7,12 @@ et on applique tout d'un coup quand il est solide.
 Une bascule groupée se fait à l'aveugle si personne n'a noté, au fil de l'eau, ce
 qu'elle coûtera. C'est ce que ce fichier note.
 
+## 2.37.0 — une liste ouverte dans un panneau défile
+
+`PopoverContent` (et donc la liste de `Combobox`) se pose dans le `Sheet` qui le
+contient au lieu de la racine du document : le panneau bloquait sa molette.
+Aucune API ne change. Rien à reprendre.
+
 ## 2.36.0 — `FieldRow` sait chercher son menu
 
 Une prop facultative, `recherche`, qui fait ouvrir à la ligne un `Combobox` en

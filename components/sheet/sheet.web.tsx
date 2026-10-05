@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Dialog as SheetPrimitive } from 'radix-ui';
 
 import { cn } from '../_lib/cn';
+import { ConteneurFlottant } from '../_lib/conteneur-flottant';
 
 /*
   Repris de shadcn/ui (`npx shadcn@latest add sheet`), habillé aux tokens Arquos.
@@ -40,7 +41,20 @@ export interface SheetContentProps
 export const SheetContent = React.forwardRef<
   React.ComponentRef<typeof SheetPrimitive.Content>,
   SheetContentProps
->(({ className, children, side = 'right', taille = 'standard', ...props }, ref) => (
+>(({ className, children, side = 'right', taille = 'standard', ...props }, ref) => {
+  /* Le panneau prête son propre nœud à ce qui flotte dedans : une liste posée
+     hors de lui ne défilait plus — il bloque le défilement de tout le reste.
+     Voir `conteneur-flottant`. */
+  const [noeud, setNoeud] = React.useState<HTMLDivElement | null>(null);
+  const relier = React.useCallback(
+    (el: HTMLDivElement | null) => {
+      setNoeud(el);
+      if (typeof ref === 'function') ref(el);
+      else if (ref) ref.current = el;
+    },
+    [ref],
+  );
+  return (
   <SheetPrimitive.Portal>
     <SheetPrimitive.Overlay
       className={cn(
@@ -49,7 +63,7 @@ export const SheetContent = React.forwardRef<
       )}
     />
     <SheetPrimitive.Content
-      ref={ref}
+      ref={relier}
       data-side={side}
       data-taille={taille}
       className={cn(
@@ -61,10 +75,11 @@ export const SheetContent = React.forwardRef<
       )}
       {...props}
     >
-      {children}
+      <ConteneurFlottant.Provider value={noeud}>{children}</ConteneurFlottant.Provider>
     </SheetPrimitive.Content>
   </SheetPrimitive.Portal>
-));
+  );
+});
 SheetContent.displayName = 'SheetContent';
 
 export function SheetHeader({ className, ...props }: React.ComponentProps<'div'>) {
