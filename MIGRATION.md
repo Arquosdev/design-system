@@ -7,6 +7,11 @@ et on applique tout d'un coup quand il est solide.
 Une bascule groupée se fait à l'aveugle si personne n'a noté, au fil de l'eau, ce
 qu'elle coûtera. C'est ce que ce fichier note.
 
+## 2.40.0 — une tuile vide et cliquable dit « À compléter »
+
+`StatTile` vide AVEC `onOuvrir` affiche `libelleVide` (« À compléter » par défaut)
+en bleu d'action, au lieu de « — ». Une tuile vide sans `onOuvrir` ne change pas.
+
 ## 2.39.0 — une tuile peut mener à sa donnée
 
 `StatTile` gagne `onOuvrir` et `libelleOuvrir` : donnée, la tuile devient un

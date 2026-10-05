@@ -37,6 +37,7 @@ remplace:
 | `detail` | `string` | —      | Précision sous la mesure (« 4 personnes »)      |
 | `onOuvrir` | `() => void` | —      | La tuile **mène** à la donnée qu'elle résume : elle devient un bouton (survol, focus, nom accessible) |
 | `libelleOuvrir` | `string` | `Voir {label}` | Ce que le clic fait, pour un lecteur d'écran |
+| `libelleVide` | `string` | `À compléter` | Ce que dit une tuile vide ET cliquable — une invitation, en bleu d'action et à la taille du texte courant |
 
 ## Exemples
 
@@ -54,6 +55,8 @@ import { StatTile } from '@arquos/design-system/web';
 - **Valeur longue** (« Habitation collective ») : elle passe à la ligne. La
   tronquer ferait perdre l'information que la tuile existe pour montrer.
 
+- **Vide et cliquable** : « À compléter » (`libelleVide`) au lieu de « — ». Un
+  manque qu'on peut combler ne se dit pas comme un manque constaté.
 - **Cliquable** (`onOuvrir`) : un vrai `button`, contour `colors.primary` et fond
   `colors.bgSubtle` au survol, anneau de focus au clavier. Rien d'autre ne change
   — la tuile garde sa forme, on ne la transforme pas en bouton d'action.
