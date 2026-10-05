@@ -1,7 +1,7 @@
 import { deepStrictEqual, strictEqual } from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { choixReels, contenuAffiche, invitAffichee } from './combobox.logic.ts';
+import { choixReels, contenuAffiche, invitAffichee, messageVide } from './combobox.logic.ts';
 
 /* Ce que `menuDeChoix` fabrique pour un champ vide : la sentinelle du `Select`
    en tête, puis les vraies marques. */
@@ -62,5 +62,41 @@ describe('invitAffichee', () => {
   it('rend l’invite ordinaire une fois le champ fermé', () => {
     // Fermé, c'est `contenuAffiche` qui montre la valeur : l'invite ne sert plus.
     strictEqual(invitAffichee(AVEC_SENTINELLE, 'SEMATIC', false, 'Rechercher…'), 'Rechercher…');
+  });
+});
+
+describe('le libellé fourni par l’écran — recherche déléguée', () => {
+  /* Les options ne sont que les résultats de la dernière frappe : la valeur
+     retenue n'y est presque jamais. */
+  const RESULTATS = [{ valeur: '17xA', libelle: 'FONCIA PARIS' }];
+
+  it('montre le libellé fourni quand la valeur n’est pas dans les options', () => {
+    strictEqual(contenuAffiche(RESULTATS, '17xB', false, '', 'NEXITY LYON'), 'NEXITY LYON');
+  });
+
+  it('le garde aussi en filigrane pendant qu’on tape', () => {
+    strictEqual(invitAffichee(RESULTATS, '17xB', true, 'Rechercher…', 'NEXITY LYON'), 'NEXITY LYON');
+  });
+
+  it('préfère le libellé des options quand il y est', () => {
+    strictEqual(contenuAffiche(RESULTATS, '17xA', false, '', 'ANCIEN NOM'), 'FONCIA PARIS');
+  });
+
+  it('retombe sur la valeur sans libellé fourni', () => {
+    strictEqual(contenuAffiche(RESULTATS, '17xB', false, ''), '17xB');
+  });
+});
+
+describe('messageVide', () => {
+  it('dit « Recherche… » tant que la réponse n’est pas là', () => {
+    strictEqual(messageVide(true, true), 'Recherche…');
+  });
+
+  it('dit qu’il n’y a rien une fois la réponse arrivée', () => {
+    strictEqual(messageVide(true, false), 'Aucun choix ne correspond.');
+  });
+
+  it('ne dit jamais « Recherche… » quand la liste est filtrée sur place', () => {
+    strictEqual(messageVide(false, true), 'Aucun choix ne correspond.');
   });
 });

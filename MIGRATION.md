@@ -7,6 +7,12 @@ et on applique tout d'un coup quand il est solide.
 Une bascule groupée se fait à l'aveugle si personne n'a noté, au fil de l'eau, ce
 qu'elle coûtera. C'est ce que ce fichier note.
 
+## 2.35.0 — `Combobox` sait déléguer sa recherche
+
+Trois props facultatives — `onRecherche`, `chargement`, `libelleValeur` — pour un
+champ dont la liste est trop longue pour être chargée d'avance. Sans elles, le
+composant se comporte exactement comme avant. Rien à reprendre dans les apps.
+
 ## 2.24.0 — le site vitrine a son propre espace
 
 `colors.night` et les quatre jetons de la 2.23.0 (`textOnNight`, `textOnNightMuted`, `textOnNightSubtle`, `deviceFrame`) quittent `colors` pour `site.color` (`src/site.ts`). En CSS, `--arq-color-night` devient `--arq-site-color-night`, et les autres `--arq-site-color-*`. Le site arquos.eu est le seul consommateur ; l'application n'a rien à changer.
