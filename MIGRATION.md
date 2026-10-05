@@ -7,6 +7,12 @@ et on applique tout d'un coup quand il est solide.
 Une bascule groupée se fait à l'aveugle si personne n'a noté, au fil de l'eau, ce
 qu'elle coûtera. C'est ce que ce fichier note.
 
+## 2.42.0 — une tuile vide peut rester cliquable sans dire « À compléter »
+
+`StatTile` et chaque moitié de `StatTileDouble` gagnent `inviter` (vrai par
+défaut). `false` garde le « — » sur une tuile vide qui reste cliquable. Rien ne
+change sans la prop.
+
 ## 2.41.0 — `StatTileDouble`, deux mesures dans une tuile
 
 Nouveau composant, exporté à côté de `StatTile`. Rien ne change pour l'existant.

@@ -38,6 +38,7 @@ remplace:
 | `onOuvrir` | `() => void` | —      | La tuile **mène** à la donnée qu'elle résume : elle devient un bouton (survol, focus, nom accessible) |
 | `libelleOuvrir` | `string` | `Voir {label}` | Ce que le clic fait, pour un lecteur d'écran |
 | `libelleVide` | `string` | `À compléter` | Ce que dit une tuile vide ET cliquable — une invitation, en bleu d'action et à la taille du texte courant |
+| `inviter` | `boolean` | `true` | `false` : une tuile vide et cliquable garde le « — » ordinaire au lieu de `libelleVide` |
 
 ## Exemples
 
