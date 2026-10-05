@@ -26,6 +26,13 @@ export interface StatTileProps extends React.ComponentPropsWithoutRef<'div'> {
    * les vides, en les marquant À compléter et cliquables »).
    */
   libelleVide?: string;
+  /**
+   * Vide et cliquable, la tuile dit-elle `libelleVide` en bleu d'action ? Par
+   * défaut oui. `false` garde le « — » ordinaire, même cliquable : Thomas n'a
+   * pas aimé « À compléter » sur la vue d'ensemble (05/10/2026) et a voulu
+   * retrouver le tiret, sans perdre le clic qui mène au champ.
+   */
+  inviter?: boolean;
 }
 
 export function StatTile({
@@ -37,6 +44,7 @@ export function StatTile({
   onOuvrir,
   libelleOuvrir,
   libelleVide = 'À compléter',
+  inviter = true,
   ...props
 }: StatTileProps) {
   const vide = !valeur;
@@ -44,7 +52,7 @@ export function StatTile({
      prend le bleu des actions et la taille du texte courant : c'est une
      invitation, pas une mesure — en caractères de mesure, il écraserait les
      tuiles voisines qui, elles, portent un chiffre. */
-  const invite = vide && Boolean(onOuvrir);
+  const invite = vide && Boolean(onOuvrir) && inviter;
   const contenu = (
     <>
       <div className="text-caption text-text-muted">{label}</div>
@@ -75,7 +83,7 @@ export function StatTile({
       <button
         type="button"
         onClick={onOuvrir}
-        aria-label={`${libelleOuvrir ?? `Voir ${label.toLowerCase()}`} — ${vide ? libelleVide.toLowerCase() : [valeur, unite].filter(Boolean).join(' ')}`}
+        aria-label={`${libelleOuvrir ?? `Voir ${label.toLowerCase()}`} — ${vide ? (inviter ? libelleVide.toLowerCase() : 'non renseigné') : [valeur, unite].filter(Boolean).join(' ')}`}
         className={cn(
           cadre,
           'block w-full cursor-pointer text-left outline-none',
@@ -108,6 +116,8 @@ export interface MoitieTuile {
   onOuvrir?: () => void;
   libelleOuvrir?: string;
   libelleVide?: string;
+  /** Voir `StatTileProps.inviter`. */
+  inviter?: boolean;
 }
 
 export interface StatTileDoubleProps extends React.ComponentPropsWithoutRef<'div'> {
@@ -153,9 +163,10 @@ function Moitie({
   onOuvrir,
   libelleOuvrir,
   libelleVide = 'À compléter',
+  inviter = true,
 }: MoitieTuile) {
   const vide = !valeur;
-  const invite = vide && Boolean(onOuvrir);
+  const invite = vide && Boolean(onOuvrir) && inviter;
   const contenu = (
     <>
       <div className="text-caption text-text-muted">{label}</div>
@@ -179,7 +190,7 @@ function Moitie({
     <button
       type="button"
       onClick={onOuvrir}
-      aria-label={`${libelleOuvrir ?? `Voir ${label}`} — ${vide ? libelleVide.toLowerCase() : [valeur, unite].filter(Boolean).join(' ')}`}
+      aria-label={`${libelleOuvrir ?? `Voir ${label}`} — ${vide ? (inviter ? libelleVide.toLowerCase() : 'non renseigné') : [valeur, unite].filter(Boolean).join(' ')}`}
       className={cn(
         zone,
         'block w-full cursor-pointer text-left outline-none',
