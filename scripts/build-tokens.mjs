@@ -513,7 +513,12 @@ function buildTailwind() {
        aligne le vocabulaire shadcn dessus plutôt que de forker ses composants :
        un `variant="secondary"` collé depuis leur site sort ainsi juste. */
     ['--secondary', palette.blue[50]],
-    ['--secondary-foreground', palette.blue[700]],
+    /* Le TEXTE est le bleu primaire de la charte, `#0D5AB7` — celui du bouton
+       « Historique » de Bubble (`ST_button-blue-2` : fond `CL_blue-1`, texte et
+       icône `CL_blue-6`). Il était en `blue[700]`, un marine plus sombre :
+       « le bleu du texte n'est pas le bon », Thomas, le 05/10/2026 (Att_04).
+       5,56:1 sur le fond, au-dessus du seuil de 4,5. */
+    ['--secondary-foreground', colors.primary],
     ['--muted', colors.bgMuted],
     ['--muted-foreground', colors.textMuted],
     ['--accent', palette.blue[50]], // survol / état actif discret, pas l'orange

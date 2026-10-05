@@ -7,6 +7,13 @@ et on applique tout d'un coup quand il est solide.
 Une bascule groupée se fait à l'aveugle si personne n'a noté, au fil de l'eau, ce
 qu'elle coûtera. C'est ce que ce fichier note.
 
+## 2.38.0 — le bouton secondaire écrit dans le bleu de la charte
+
+`--secondary-foreground` passe de `blue[700]` (`#073B6F`) à `colors.primary`
+(`#0D5AB7`), le bleu du bouton « Historique » de Bubble. Touche le texte du
+`Button` et du `Badge` en variante `secondary`. Contraste 5,56:1 sur leur fond.
+Aucune API ne change.
+
 ## 2.37.0 — une liste ouverte dans un panneau défile
 
 `PopoverContent` (et donc la liste de `Combobox`) se pose dans le `Sheet` qui le
