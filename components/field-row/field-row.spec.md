@@ -49,6 +49,7 @@ de la fiche : c'est lui qui la rend modifiable sans formulaire séparé.
 | `demandeOuverture` | `number`                              | —          | Rouvre l'éditeur depuis l'extérieur. C'est le **changement** de valeur qui ouvre |
 | `origine`    | `string`                                    | —          | Provenance de la valeur, en infobulle          |
 | `readOnly`   | `boolean`                                   | `false`    | Force la lecture seule                         |
+| `recherche`  | `{ onRecherche, options, chargement? }`     | —          | Un choix dont la liste se **cherche** à la frappe au lieu d'être chargée (`Combobox` en recherche déléguée). `value` reste le libellé affiché ; `onSave` reçoit la valeur du résultat choisi. Ni « Autre » ni entrée vide |
 
 ## Exemple
 

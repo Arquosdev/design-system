@@ -109,6 +109,21 @@ export interface FieldRowProps {
   repere?: boolean;
   readOnly?: boolean;
   className?: string;
+  /**
+   * UN MENU QU'ON CHERCHE au lieu de le charger — `Combobox` en recherche
+   * déléguée, voir sa spécification. Pour un choix (`kind: 'choice'`) dont la
+   * liste est trop longue pour voyager avec l'écran : les clients d'une agence
+   * montent à cinq mille.
+   *
+   * L'écran transmet les résultats de la dernière frappe dans `options` et dit
+   * quand il attend. `value` reste ce que la ligne affiche — le libellé —, et
+   * ce que l'éditeur rend à `onSave` est la VALEUR du résultat choisi.
+   */
+  recherche?: {
+    onRecherche: (frappe: string) => void;
+    options: readonly FieldOption[];
+    chargement?: boolean;
+  };
 }
 
 /**
@@ -198,6 +213,7 @@ export function FieldRow({
   repere = false,
   readOnly = false,
   className,
+  recherche,
 }: FieldRowProps) {
   const [enSaisie, setEnSaisie] = React.useState(false);
   const editable = Boolean(onSave) && !readOnly;
@@ -268,6 +284,7 @@ export function FieldRow({
             value={value}
             options={options}
             autre={autre}
+            recherche={recherche}
             onValider={valider}
             onAnnuler={() => setEnSaisie(false)}
           />
@@ -375,13 +392,54 @@ interface EditeurProps {
   value: string | string[] | null;
   options: readonly FieldOption[];
   autre?: boolean;
+  recherche?: FieldRowProps['recherche'];
   onValider: (v: string | string[]) => void;
   onAnnuler: () => void;
 }
 
-function Editeur({ kind, label, value, options, autre, onValider, onAnnuler }: EditeurProps) {
+function Editeur({
+  kind,
+  label,
+  value,
+  options,
+  autre,
+  recherche,
+  onValider,
+  onAnnuler,
+}: EditeurProps) {
   // « Autre » bascule le menu en saisie libre, sans refermer la ligne.
   const [libre, setLibre] = React.useState(false);
+
+  /* Le menu cherché. Pas de « Autre », pas d'entrée vide : on choisit parmi ce
+     que la recherche trouve, et rien d'autre. La valeur affichée reste en
+     filigrane — c'est un libellé, et les résultats ne la portent presque jamais. */
+  if (kind === 'choice' && recherche) {
+    const affichee = typeof value === 'string' ? value : '';
+    return (
+      <div
+        className="flex flex-wrap items-center gap-sm"
+        onKeyDown={(e) => e.key === 'Escape' && onAnnuler()}
+      >
+        <div className="min-w-0 flex-1">
+          <Combobox
+            options={recherche.options.map((o) => ({ valeur: o.value, libelle: o.label }))}
+            valeur=""
+            libelleValeur={affichee}
+            onValeur={(v) => (v ? onValider(v) : onAnnuler())}
+            onRecherche={recherche.onRecherche}
+            chargement={recherche.chargement}
+            ariaLabel={label}
+            autoFocus
+            placeholder={affichee || `Rechercher — ${label.toLowerCase()}`}
+            className="h-[30px] border-(length:--arq-border-epais) border-primary"
+          />
+        </div>
+        <Button variant="secondary" size="sm" onClick={onAnnuler}>
+          Annuler
+        </Button>
+      </div>
+    );
+  }
   if (kind === 'multi') {
     return (
       <EditeurMulti

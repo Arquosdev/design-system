@@ -7,6 +7,11 @@ et on applique tout d'un coup quand il est solide.
 Une bascule groupée se fait à l'aveugle si personne n'a noté, au fil de l'eau, ce
 qu'elle coûtera. C'est ce que ce fichier note.
 
+## 2.36.0 — `FieldRow` sait chercher son menu
+
+Une prop facultative, `recherche`, qui fait ouvrir à la ligne un `Combobox` en
+recherche déléguée (2.35.0). Sans elle, rien ne change. Rien à reprendre.
+
 ## 2.35.0 — `Combobox` sait déléguer sa recherche
 
 Trois props facultatives — `onRecherche`, `chargement`, `libelleValeur` — pour un
