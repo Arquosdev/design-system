@@ -1,5 +1,23 @@
 # Monter une app vers la version courante
 
+## Non publié — un contenant a la bordure douce, un contrôle la bordure marquée
+
+**`Card`, `Accordion`, `StatTile` et `DataTable` passent de `border-border`
+(#C8D3DA) à `border-border-soft` (#EAEEF1)**, la teinte des lignes de
+`RecordTable`. Louis, le 06/10/2026 : les cadres étaient « trop foncés », il
+préférait « les lignes des tableaux, plus douces ». La règle : ce qui CONTIENT
+prend la bordure douce ; ce qui SE MANIPULE — champ, bouton, case, menu —
+garde la bordure marquée, qui dit où cliquer.
+
+**À vérifier chez l'appelant** : un bloc dessiné à la main avec
+`border-border` à côté d'une carte se voit maintenant plus dur qu'elle. Aucune
+cote ne bouge.
+
+**Et la fiche de `Button` change de conseil** : `secondary` (le bleu pâle) ne
+sert plus à une action. Un seul bouton plein par page, l'action principale ;
+tout le reste en `outline`. Le bleu pâle dit déjà « sélectionné » dans une
+navigation, et un bouton qui le porte se lit comme un état.
+
 ## 2.36.0-refonte.4 — un seul rayon, 4 px, hors cercles
 
 **`radius.block` et `radius.control` valent tous deux 4 px.** Louis, le

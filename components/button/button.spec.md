@@ -75,11 +75,12 @@ chercher le droit qui manque.
 
 Plus tous les attributs d'un `<button>` HTML.
 
-**Choisir la variante :** `default` pour l'action principale, `secondary` pour une
-action secondaire fréquente (c'est la plus courante dans la fiche), `outline` pour une
-action de second plan posée sur fond blanc, `ghost` pour une action discrète en fin de
-ligne, `destructive` pour une action irréversible, `link` pour ce qui se comporte comme
-un lien sans en être un.
+**Choisir la variante :** `default` pour l'action principale — **une seule par page**,
+l'étape suivante du travail ou, à défaut, « Modifier » ; `outline` pour toutes les
+autres actions ; `ghost` pour une action discrète en fin de ligne ; `destructive` pour
+une action irréversible ; `link` pour ce qui se comporte comme un lien sans en être un.
+**`secondary` ne sert plus à une action** (Louis, 06/10/2026) : son bleu pâle dit
+« sélectionné » dans une navigation, et un bouton qui le porte se lit comme un état.
 
 > **Base shadcn/ui.** Les noms de variantes et de tailles sont ceux de shadcn : un extrait de leur documentation se colle sans retouche. Seules les couleurs changent, et elles viennent des tokens.
 
@@ -89,7 +90,7 @@ un lien sans en être un.
 import { Button } from '@arquos/design-system/web';
 
 <Button onClick={completer}>Compléter</Button>
-<Button variant="secondary" onClick={annuler}>Annuler</Button>
+<Button variant="outline" onClick={annuler}>Annuler</Button>
 <Button variant="ghost" size="sm" onClick={voirVides}>Afficher les champs vides</Button>
 <Button variant="outline" onClick={add}>Ajouter un document</Button>
 <Button variant="destructive" onClick={delete}>Supprimer le constat</Button>

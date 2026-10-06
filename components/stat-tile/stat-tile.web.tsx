@@ -15,7 +15,7 @@ export function StatTile({ label, value, unit, detail, className, ...props }: St
   return (
     <div
       className={cn(
-        'rounded-block border border-border bg-bg p-base',
+        'rounded-block border border-border-soft bg-bg p-base',
         // L'arête marine signale un chiffre ; une tuile vide n'en porte pas,
         // sans quoi six cases « — » pesaient autant que six mesures.
         empty ? 'border-border-soft' : 'border-t-2 border-t-brand',
