@@ -77,6 +77,7 @@ import {
   WarningCircle,
   WarningOctagon,
   WifiSlash,
+  HardHat,
   Wrench,
   X,
   type Icon as PhosphorIcon,
@@ -146,7 +147,9 @@ const DESSINS: Record<IconRole, PhosphorIcon> = {
   contact: User,
   supplier: Truck,
   sector: MapTrifold,
-  technician: Wrench,
+  // Un casque et non une clé : la clé est déjà `maintenance`, et deux entrées
+  // du rail (Visites, Techniciens) portaient le même dessin. Louis, 06/10/2026.
+  technician: HardHat,
   deal: Handshake,
   contract: FileText,
   quote: Receipt,
