@@ -34,7 +34,14 @@ export function Switch({
         data-slot="switch-thumb"
         className={cn(
           'pointer-events-none block size-4 rounded-full bg-bg shadow-card ring-0 transition-transform',
-          'data-[state=checked]:translate-x-[calc(100%-2px)] data-[state=unchecked]:translate-x-0',
+          /* Le rond garde 2 px de marge sur ses quatre côtés : 1 px de bordure
+             plus 1 px de décalage, comme les 2 px qu'il laisse en haut et en
+             bas. Il glisse donc de 34 px de dedans moins ses 16 px moins 1 px,
+             soit 17 px. `calc(100% - 2px)` valait 14 px — le pourcentage d'un
+             translate se lit sur l'élément qui bouge, pas sur son parent — et
+             le rond s'arrêtait à 5 px du bord droit. Signalé par Louis le
+             06/10/2026. */
+          'data-[state=checked]:translate-x-4.25 data-[state=unchecked]:translate-x-px',
         )}
       />
     </SwitchPrimitive.Root>
