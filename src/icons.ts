@@ -180,10 +180,13 @@ export const icons = {
   contact: 'User',
   supplier: 'Truck',
   sector: 'MapTrifold',
-  technician: 'Wrench',
+  // Un casque : la clé est déjà la maintenance (06/10/2026).
+  technician: 'HardHat',
   deal: 'Handshake',
   contract: 'FileText',
   quote: 'Receipt',
+  // La facture (0155 du POC GMAO) : un document chiffré, distinct du devis.
+  invoice: 'Invoice',
   // Trois entrées de navigation qui ne sont pas des objets : une campagne de
   // relevés, un import de données, une sollicitation envoyée à un fournisseur.
   campaign: 'Crosshair',
