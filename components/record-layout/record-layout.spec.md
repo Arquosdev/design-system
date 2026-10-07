@@ -85,3 +85,10 @@ endroits sans qu'on sache lequel faisait foi.
 
 L'en-tête n'en fait pas partie : le fil d'Ariane d'une fiche sort de la
 déclaration de son objet, qui appartient à l'application.
+
+## Sur un téléphone
+
+Sous 768 px, les deux colonnes s'empilent : le rail passe en tête, et ses
+rubriques se lisent en une rangée d'onglets qui défile de côté, l'onglet courant
+ramené dans le champ. Les sous-rubriques s'y lisent à plat. La zone prend toute
+la largeur. Choix par défaut du 07/10/2026, réversible (un menu tiendrait aussi).

@@ -23,7 +23,21 @@ import { SegmentedTabs, type Segment } from '../segmented-tabs/segmented-tabs.we
  * Le squelette doit la partager, sinon la fiche saute de seize pixels au moment
  * où le menu arrive.
  */
-const LARGEUR_RAIL = 'w-[284px]';
+const LARGEUR_RAIL = 'w-full min-[768px]:w-[284px]';
+
+/*
+  SUR UN TÉLÉPHONE, LE RAIL PASSE EN TÊTE ET SES RUBRIQUES EN ONGLETS.
+
+  Sous 768 pixels, le rail gardait ses 284 pixels de large : à 375, une fiche
+  à plusieurs rubriques ne montrait QUE son rail, et la zone partait hors de
+  l'écran (manque n° 12 du web, mesuré le 06/10/2026 sur la fiche Appel).
+  Les deux colonnes s'empilent donc, et les rubriques se lisent en une rangée
+  d'onglets qui défile de côté — le motif des fiches mobiles. Choix par défaut
+  du 07/10/2026, réversible : un menu déroulant tiendrait aussi.
+*/
+const ETROIT = 'min-[768px]:hidden';
+const LARGE = 'hidden min-[768px]:block';
+// La rangée elle-même n'est rendue que sous 768 px (voir `estEtroit`) : la classe ne sert qu'à la transition.
 
 export interface RecordLayoutProps {
   children: React.ReactNode;
@@ -40,7 +54,7 @@ export interface RecordLayoutProps {
  */
 export function RecordLayout({ children, className = '' }: RecordLayoutProps) {
   return (
-    <div className={`flex items-stretch overflow-hidden bg-bg ${className}`}>
+    <div className={`flex flex-col items-stretch overflow-hidden bg-bg min-[768px]:flex-row ${className}`}>
       {children}
     </div>
   );
@@ -91,6 +105,11 @@ export function RecordRail({
     large. Sans recherche ni onglets, il se retire et le contenu prend la
     place. Deux rubriques et plus, il revient.
   */
+  /* La rangée d'onglets n'existe QUE sur un écran étroit, et pas seulement
+     cachée : rendue partout, elle doublait chaque libellé de rubrique dans la
+     page, et une recherche par texte en trouvait deux. Côté serveur, on rend
+     le rail large ; un téléphone bascule à l'hydratation. */
+  const etroit = React.useSyncExternalStore(abonnerAuxLargeurs, estEtroit, () => false);
   if (items.length <= 1 && !recherche && !onglets) return null;
   return (
     <nav
@@ -100,7 +119,7 @@ export function RecordRail({
          de retrait intérieur, et sans cette rallonge « États & remplacements »
          repassait sur deux lignes. La marge de gauche valait la moitié de celle
          du haut, ce qui se voyait. */
-      className={`flex h-full ${LARGEUR_RAIL} shrink-0 flex-col gap-base overflow-y-auto border-r border-border-soft bg-bg-subtle p-base`}
+      className={`flex ${LARGEUR_RAIL} shrink-0 flex-col gap-base border-b border-border-soft bg-bg-subtle p-base min-[768px]:h-full min-[768px]:overflow-y-auto min-[768px]:border-r min-[768px]:border-b-0`}
     >
       {recherche ? (
         <button
@@ -129,8 +148,56 @@ export function RecordRail({
         />
       ) : null}
 
-      <NavList items={items} current={current} onChoose={onChoose} />
+      <NavList items={items} current={current} onChoose={onChoose} className={LARGE} />
+      {etroit ? <OngletsEtroits items={items} current={current} onChoose={onChoose} /> : null}
     </nav>
+  );
+}
+
+const REQUETE_ETROITE = '(max-width: 767px)';
+const abonnerAuxLargeurs = (rappel: () => void) => {
+  const m = window.matchMedia(REQUETE_ETROITE);
+  m.addEventListener('change', rappel);
+  return () => m.removeEventListener('change', rappel);
+};
+const estEtroit = () => window.matchMedia(REQUETE_ETROITE).matches;
+
+/**
+ * Les rubriques en une rangée d'onglets, sur un écran étroit. Les
+ * sous-rubriques se lisent à plat : une rangée qui défile n'a pas de place pour
+ * un dépliant.
+ */
+function OngletsEtroits({ items, current, onChoose }: { items: readonly NavItem[]; current?: string; onChoose: (id: string) => void }) {
+  // Une entrée à sous-rubriques se lit par elles ; elle-même aussi, sauf si l'une porte déjà sa clé.
+  const aPlat = items.flatMap((i) => {
+    const enfants = i.children ?? [];
+    if (!enfants.length) return [i];
+    return enfants.some((e) => e.id === i.id) ? enfants : [i, ...enfants];
+  });
+  // L'onglet courant se montre : sans cela, une rubrique du bout de la rangée s'ouvrait coupée au bord.
+  const rangee = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    rangee.current?.querySelector('[aria-current="page"]')?.scrollIntoView({ block: 'nearest', inline: 'center' });
+  }, [current]);
+  return (
+    <div ref={rangee} className={`-mx-base flex gap-xs overflow-x-auto px-base ${ETROIT}`}>
+      {aPlat.map((i) => {
+        const actif = i.id === current;
+        return (
+          <button
+            key={i.id}
+            type="button"
+            disabled={i.disabled}
+            aria-current={actif ? 'page' : undefined}
+            onClick={() => onChoose(i.id)}
+            className={`flex h-(--arq-control-sm) shrink-0 items-center gap-xs whitespace-nowrap rounded-control px-md text-small outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-50 ${actif ? 'bg-info-bg font-semibold text-on-info-bg' : 'text-text-muted hover:bg-bg-muted hover:text-text'}`}
+          >
+            {i.label}
+            {i.count !== undefined ? <span className="tabular-nums text-caption">{i.count}</span> : null}
+          </button>
+        );
+      })}
+    </div>
   );
 }
 
@@ -144,14 +211,14 @@ export function RecordRailSkeleton() {
   return (
     <div
       aria-hidden="true"
-      className={`flex h-full ${LARGEUR_RAIL} shrink-0 flex-col gap-sm border-r border-border-soft bg-bg-subtle p-base`}
+      className={`flex ${LARGEUR_RAIL} shrink-0 flex-col gap-sm border-b border-border-soft bg-bg-subtle p-base min-[768px]:h-full min-[768px]:border-r min-[768px]:border-b-0`}
     >
       <div className="h-(--arq-control-md) animate-pulse rounded-control bg-bg-muted" />
       <div className="mt-xs h-[32px] animate-pulse rounded-control bg-bg-muted" />
       {/* Neuf lignes : assez pour occuper la colonne, sans prétendre annoncer
           le nombre exact de rubriques qu'on ne connaît pas encore. */}
       {Array.from({ length: 9 }, (_, i) => (
-        <div key={i} className="h-(--arq-control-sm) animate-pulse rounded-control bg-bg-muted" />
+        <div key={i} className={`h-(--arq-control-sm) animate-pulse rounded-control bg-bg-muted ${i > 0 ? 'hidden min-[768px]:block' : ''}`} />
       ))}
     </div>
   );
@@ -169,7 +236,7 @@ export interface RecordZoneProps {
  */
 export function RecordZone({ children }: RecordZoneProps) {
   return (
-    <div className="min-w-0 flex-1 overflow-y-auto">
+    <div className="min-h-0 min-w-0 flex-1 overflow-y-auto">
       {children}
     </div>
   );
