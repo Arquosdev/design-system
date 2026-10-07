@@ -123,7 +123,7 @@ export const icons = {
   notification: 'Bell',
   // Un rapport : des chiffres mis en graphique (Louis, 07/10/2026 : l'entrée
   // Rapports portait la même icône que le Tableau de bord).
-  report: 'ChartBar',
+  report: 'ChartLineUp',
 
   // -- Dire un état --------------------------------------------------------
   compliant: 'CheckCircle',
