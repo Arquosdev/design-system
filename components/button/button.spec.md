@@ -75,6 +75,12 @@ chercher le droit qui manque.
 
 Plus tous les attributs d'un `<button>` HTML.
 
+**Web et mobile n'ont pas la même forme** (Louis, 07/10/2026). Sur le mobile
+(`button.native.tsx`), le bouton est une pilule (`radius.full`) : c'est la forme
+des applications iPhone, et elle se prend au pouce. Sur le web
+(`button.web.tsx`), il garde ses angles (`radius.control`), comme les champs et
+les barres d'outils qu'il côtoie. Ne pas aligner l'un sur l'autre.
+
 **Choisir la variante :** `default` pour l'action principale — **une seule par page**,
 l'étape suivante du travail ou, à défaut, « Modifier » ; `outline` pour toutes les
 autres actions — gris pâle à bordure douce depuis le 07/10/2026 (Louis), comme les

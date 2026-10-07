@@ -134,7 +134,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: spacing.sm,
-    borderRadius: radius.control,
+    // **En pilule sur le mobile, et seulement là** (Louis, 07/10/2026 : « ça va
+    // bien avec le format appli mobile […] il faut réserver ce style
+    // uniquement à l'app mobile »). Le bouton web garde `radius.control`.
+    borderRadius: radius.full,
   },
   normal: { minHeight: controlHeight.lg, paddingHorizontal: spacing.base },
   petit: { minHeight: controlHeight.md, paddingHorizontal: spacing.md },
