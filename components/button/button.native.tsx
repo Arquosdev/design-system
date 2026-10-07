@@ -46,8 +46,8 @@ export interface ButtonProps extends Omit<PressableProps, 'style' | 'children'> 
 
 /*
   Les six variantes du web, aux mêmes teintes, lues dans `tokens.tailwind.css` :
-  `secondary` est `infoBg` / `onInfoBg`, `outline` une bordure sur fond blanc
-  avec une encre mutée, `destructive` le rouge `danger` sous du blanc.
+  `secondary` est `infoBg` / `onInfoBg`, `outline` un gris pâle à bordure douce
+  (07/10/2026), `destructive` le rouge `danger` sous du blanc.
 
   **L'état inactif est la même plaque grise pour toutes les variantes**, comme
   sur le web : un bouton indisponible doit cesser de ressembler à la variante
@@ -58,10 +58,11 @@ export interface ButtonProps extends Omit<PressableProps, 'style' | 'children'> 
 const VARIANTES: Record<ButtonVariant, { fond: ViewStyle; encre: string; presse: ViewStyle }> = {
   default: { fond: { backgroundColor: colors.primary }, encre: colors.textOnDark, presse: { backgroundColor: colors.primaryDark } },
   secondary: { fond: { backgroundColor: colors.infoBg }, encre: colors.onInfoBg, presse: { opacity: 0.8 } },
+  // Gris pâle à bordure douce, comme sur le web (Louis, 07/10/2026).
   outline: {
-    fond: { backgroundColor: colors.bg, borderWidth: 1, borderColor: colors.border },
-    encre: colors.textMuted,
-    presse: { backgroundColor: colors.bgMuted },
+    fond: { backgroundColor: colors.bgMuted, borderWidth: 1, borderColor: colors.borderSoft },
+    encre: colors.text,
+    presse: { backgroundColor: colors.borderSoft },
   },
   ghost: { fond: { backgroundColor: 'transparent' }, encre: colors.textMuted, presse: { backgroundColor: colors.bgMuted } },
   destructive: { fond: { backgroundColor: colors.danger }, encre: colors.textOnDark, presse: { opacity: 0.9 } },
