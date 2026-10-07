@@ -87,7 +87,8 @@ const styles = StyleSheet.create({
   piste: {
     flexDirection: 'row',
     gap: spacing.xxs,
-    borderRadius: radius.md,
+    // En pilule sur le mobile seulement, comme le bouton (Louis, 07/10/2026).
+    borderRadius: radius.full,
     // Un cran plus soutenu que la toile grise des listes (design-eu).
     backgroundColor: colors.inactiveBg,
     padding: spacing.xxs,
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: spacing.sm,
-    borderRadius: radius.control,
+    borderRadius: radius.full,
     paddingHorizontal: spacing.sm,
     paddingVertical: spacing.sm,
   },
