@@ -120,11 +120,18 @@ export function Accordion({
 }
 
 const styles = StyleSheet.create({
+  /*
+    La carte de « Ma journée » (myArquos, 07/10/2026) : blanche et sans bordure
+    visible sur le fond gris, au grand arrondi des cartes du mobile. La bordure
+    reste, à la couleur de la carte, pour que l'ouverture la fasse paraître sans
+    décaler le contenu d'un point. Ce dessin vit dans le seul fichier natif : le
+    web garde ses angles.
+  */
   section: {
     backgroundColor: colors.bg,
-    borderRadius: radius.md,
+    borderRadius: radius.xl,
     borderWidth: 1,
-    borderColor: colors.borderSoft,
+    borderColor: colors.bg,
     overflow: 'hidden',
   },
   /*
