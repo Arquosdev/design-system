@@ -64,7 +64,8 @@ const styles = StyleSheet.create({
     flexShrink: 0,
     borderRadius: radius.full, // En pilule sur le mobile seulement (07/10/2026).
     borderWidth: 1,
-    paddingHorizontal: spacing.xs,
+    // Une pilule demande un peu d'air sur les côtés.
+    paddingHorizontal: spacing.sm,
     paddingVertical: spacing.xxs,
   },
 });
