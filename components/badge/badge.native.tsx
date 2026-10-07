@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     flexShrink: 0,
-    borderRadius: radius.control,
+    borderRadius: radius.full, // En pilule sur le mobile seulement (07/10/2026).
     borderWidth: 1,
     paddingHorizontal: spacing.xs,
     paddingVertical: spacing.xxs,
