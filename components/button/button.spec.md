@@ -77,7 +77,8 @@ Plus tous les attributs d'un `<button>` HTML.
 
 **Choisir la variante :** `default` pour l'action principale — **une seule par page**,
 l'étape suivante du travail ou, à défaut, « Modifier » ; `outline` pour toutes les
-autres actions ; `ghost` pour une action discrète en fin de ligne ; `destructive` pour
+autres actions — gris pâle à bordure douce depuis le 07/10/2026 (Louis), comme les
+boutons de la barre d'outils ; `ghost` pour une action discrète en fin de ligne ; `destructive` pour
 une action irréversible ; `link` pour ce qui se comporte comme un lien sans en être un.
 **`secondary` ne sert plus à une action** (Louis, 06/10/2026) : son bleu pâle dit
 « sélectionné » dans une navigation, et un bouton qui le porte se lit comme un état.

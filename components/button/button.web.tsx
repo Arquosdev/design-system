@@ -27,7 +27,9 @@ export const buttonVariants = cva(
       variant: {
         default: 'bg-primary text-primary-foreground hover:bg-primary/90',
         secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-        outline: 'border border-input bg-background text-muted-foreground hover:bg-muted',
+        // Gris pâle et bordure douce, à la manière d'Attio (Louis, 07/10/2026 :
+        // « pas très fan des boutons secondaires blanc avec bordures grises »).
+        outline: 'border border-border-soft bg-bg-muted text-text hover:border-border hover:bg-border-soft',
         ghost: 'text-muted-foreground hover:text-primary',
         destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
         link: 'text-primary underline-offset-4 hover:underline',

@@ -7,8 +7,9 @@ import { type IconRole } from '../../src/icons';
 import { cn } from '../_lib/cn';
 
 const BOUTON =
-  'flex h-9 items-center gap-sm rounded-control border border-border bg-bg px-md ' +
-  'text-small font-semibold whitespace-nowrap text-text-muted hover:border-text-subtle ' +
+  // Le même que le bouton secondaire depuis le 07/10/2026 : gris pâle, bordure douce.
+  'flex h-9 items-center gap-sm rounded-control border border-border-soft bg-bg-muted px-md ' +
+  'text-small font-semibold whitespace-nowrap text-text hover:border-border hover:bg-border-soft ' +
   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary';
 
 /** La barre au-dessus d'une liste : ce qu'on peut lui faire. */
