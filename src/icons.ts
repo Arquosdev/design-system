@@ -118,6 +118,9 @@ export const icons = {
     de liste, jamais le réglage d'un écran.
   */
   settings: 'GearSix',
+  // Ce qui est arrivé et demande l'attention (Louis, 07/10/2026 : la page
+  // Notifications du rail).
+  notification: 'Bell',
 
   // -- Dire un état --------------------------------------------------------
   compliant: 'CheckCircle',
