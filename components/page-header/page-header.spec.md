@@ -42,6 +42,8 @@ coup de molette.
   `colors.textSubtle`, courant en `colors.text`
 - Titre : `typography.titleLarge`
 - Décompte : `typography.title` en `colors.textMuted`, chiffres à chasse fixe
+- Écran étroit : les actions passent à la ligne sous le titre, et entre elles,
+  calées à droite. Rien ne sort de l'écran à 375 px.
 
 ## Exemple
 

@@ -69,7 +69,15 @@ export function PageHeader({
         01/09/2026, que « le design system n'a pas de token de hauteur de
         contrôle » — il en a un depuis, et quatre composants le lisent.
       */}
-      <div className="flex min-h-(--arq-control-md) items-center gap-sm">
+      {/*
+        Sur un écran étroit, les actions PASSENT À LA LIGNE sous le titre, et
+        entre elles. Sans cela, une liste qui porte deux boutons en plus de sa
+        création les poussait hors de l'écran à 375 pixels : vu le 07/10/2026
+        sur la liste Factures, « Journal des ventes » et « Configuration »
+        sortaient à droite. Les envelopper chez l'appelant n'y faisait rien,
+        la ligne du titre ne se repliait pas.
+      */}
+      <div className="flex min-h-(--arq-control-md) flex-wrap items-center gap-sm">
         {/*
           Le titre et son décompte s'alignent sur la LIGNE DE BASE entre eux —
           deux corps différents alignés autrement se lisent de travers — mais
@@ -86,7 +94,7 @@ export function PageHeader({
             <span className="text-title font-normal tabular-nums text-text-muted">{count}</span>
           )}
         </span>
-        {actions && <span className="ml-auto flex items-center gap-sm">{actions}</span>}
+        {actions && <span className="ml-auto flex min-w-0 max-w-full flex-wrap items-center justify-end gap-sm">{actions}</span>}
       </div>
     </div>
   );
