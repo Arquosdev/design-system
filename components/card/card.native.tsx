@@ -51,9 +51,10 @@ export function CardFooter({ style, ...props }: ViewProps) {
 const styles = StyleSheet.create({
   card: {
     overflow: 'hidden',
-    borderRadius: radius.block,
-    borderWidth: 1,
-    borderColor: colors.borderSoft,
+    // Mobile seulement : sans bordure, grand arrondi, blanche sur le fond gris
+    // des écrans (Louis, 07/10/2026). Pas d'ombre : `overflow: hidden`, qui
+    // garde l'en-tête dans les coins, la couperait sur iOS.
+    borderRadius: radius.xl,
     backgroundColor: colors.bg,
   },
   header: {
