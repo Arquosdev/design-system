@@ -121,6 +121,9 @@ export const icons = {
   // Ce qui est arrivé et demande l'attention (Louis, 07/10/2026 : la page
   // Notifications du rail).
   notification: 'Bell',
+  // Un rapport : des chiffres mis en graphique (Louis, 07/10/2026 : l'entrée
+  // Rapports portait la même icône que le Tableau de bord).
+  report: 'ChartBar',
 
   // -- Dire un état --------------------------------------------------------
   compliant: 'CheckCircle',
