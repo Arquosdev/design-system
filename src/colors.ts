@@ -50,7 +50,10 @@ export const palette = {
   },
   red: {
     50: '#FDF7F7',
-    100: '#F1C0C1',
+    // Éclairci le 07/10/2026 (Louis : le rouge pâle des étiquettes et des
+    // alertes, « un peu trop foncé ») : #F1C0C1 pesait deux fois plus que le
+    // vert et l'orange pâles qu'il côtoie.
+    100: '#FCE6E6',
     200: '#EB9E9F',
     300: '#E26F71',
     400: '#DA494B',
@@ -128,7 +131,7 @@ export const colors = {
   onSuccessBg: palette.green[700], // 4,63 sur successBg
   danger: palette.red[500],
   dangerBg: palette.red[100],
-  onDangerBg: palette.red[600], // 4,79 sur dangerBg
+  onDangerBg: palette.red[600], // 6,46 sur dangerBg (4,79 avant le 07/10/2026)
   warning: palette.orange[500],
   warningBg: palette.orange[50],
   onWarningBg: palette.orange[700], // 4,61 sur warningBg
