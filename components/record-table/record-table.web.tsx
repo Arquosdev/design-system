@@ -426,7 +426,11 @@ export function RecordTable<T>({
               // Pas de `relative` ici : `sticky` sert déjà de repère aux
               // enfants positionnés, et les deux classes se disputeraient — la
               // dernière gagne, et l'en-tête cesserait de coller au défilement.
-              className={cn(stickyIdentity, headerStyle, 'border-r border-border-soft')}
+              // Sans case à cocher, la première colonne prend la marge de la page
+              // (`pl-xl`), comme la case quand elle est là : sinon le tableau
+              // part 12 px plus à gauche que le titre et la barre d'outils
+              // (Louis, 07/10/2026, sur la Facturation puis sur les Pièces).
+              className={cn(stickyIdentity, headerStyle, 'border-r border-border-soft', !selection && 'pl-xl')}
               aria-sort={
                 sort?.state?.column === 'identity'
                   ? sort.state.direction === 'asc'
@@ -518,6 +522,7 @@ export function RecordTable<T>({
                     fond,
                     !check && 'transition-colors duration-(--arq-duration-rapide) group-hover:bg-bg-muted',
                     'border-r border-b border-border-soft px-md py-[10px] font-semibold whitespace-nowrap',
+                    !selection && 'pl-xl',
                     identity.mono && 'font-mono font-normal',
                   )}
                 >
