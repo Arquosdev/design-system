@@ -48,6 +48,7 @@ Une mécanique que n'importe quelle application aurait — bouton, modale, ongle
 | [Tag](tag/tag.spec.md) | Distinguer une valeur de référentiel par sa couleur, sans la juger. | 🖥️ | stable |
 | [Text](text/text.spec.md) | Écrire du texte avec un préréglage typographique et un ton de couleur, sans jamais recomposer une taille à la main. | 📱 | beta |
 | [Textarea](textarea/textarea.spec.md) | Recueillir un texte de plusieurs lignes — une observation, un commentaire. | 🖥️ | stable |
+| [ThinkingDots](thinking-dots/thinking-dots.spec.md) | Dire que l'assistant réfléchit, par la constellation de son icône animée en vague. | 🖥️ 📱 | beta |
 | [Toast](toast/toast.spec.md) | Annoncer sans quitter la page ce qui vient de réussir ou d'échouer. | 🖥️ | beta |
 | [Toolbar](toolbar/toolbar.spec.md) | Réunir au-dessus d'une liste ce qu'on peut lui faire — filtrer, composer, exporter, changer de vue. | 🖥️ | beta |
 

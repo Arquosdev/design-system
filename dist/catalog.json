@@ -1205,6 +1205,36 @@
       }
     },
     {
+      "name": "ThinkingDots",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Dire que l'assistant réfléchit, par la constellation de son icône animée en vague.",
+      "keywords": [
+        "assistant",
+        "ia",
+        "attente",
+        "réflexion",
+        "chargement",
+        "chat",
+        "points",
+        "animation"
+      ],
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/thinking-dots",
+      "specFile": "components/thinking-dots/thinking-dots.spec.md",
+      "fichiers": {
+        "web": "components/thinking-dots/thinking-dots.web.tsx",
+        "mobile": "components/thinking-dots/thinking-dots.native.tsx"
+      }
+    },
+    {
       "name": "Toast",
       "status": "beta",
       "layer": "generique",

@@ -18,6 +18,7 @@
 export { Text, type TextProps, type TextTone } from './components/text/text.native';
 export { Icon, type IconProps } from './components/icon/icon.native';
 export { type IconRole, type IconName } from './src/icons';
+export { ThinkingDots, type ThinkingDotsProps } from './components/thinking-dots/thinking-dots.native';
 export {
   Button,
   type ButtonProps,
