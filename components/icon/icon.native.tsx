@@ -51,6 +51,7 @@ import {
   MapTrifold,
   Microphone,
   MinusCircle,
+  PaperPlaneRight,
   PaperPlaneTilt,
   PencilSimple,
   Plus,
@@ -59,12 +60,10 @@ import {
   Ruler,
   ShieldCheck,
   SignOut,
-  ArrowUp,
   ArrowsOutSimple,
   ArrowsInSimple,
   NotePencil,
   Sliders,
-  Sparkle,
   Stop,
   Tag,
   TextAa,
@@ -90,8 +89,21 @@ import {
   type Icon as PhosphorIcon,
 } from 'phosphor-react-native';
 
+import { Circle, Svg } from 'react-native-svg';
+
 import { colors } from '../../src/colors';
 import { iconSize, iconWeight, type IconRole } from '../../src/icons';
+import { CONSTELLATION } from './constellation';
+
+/** Le dessin de `aiAssist`, tracé ici comme sur le web (voir ./constellation.ts). */
+function Constellation({ size = 18, color = colors.text, weight, ...props }: { size?: number; color?: string; weight?: string; style?: StyleProp<ViewStyle> } & Record<string, unknown>) {
+  void weight; // des points pleins n'ont pas de graisse
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill={color} {...props}>
+      {CONSTELLATION.map((p) => <Circle key={`${p.x}-${p.y}`} cx={p.x} cy={p.y} r={p.r} />)}
+    </Svg>
+  );
+}
 
 // Le MÊME tableau que `icon.web.tsx`, dessin pour dessin : les deux lisent
 // `IconRole`, et TypeScript refuse qu'un rôle manque d'un côté. Les 37 dessins
@@ -147,7 +159,7 @@ const DESSINS: Record<IconRole, PhosphorIcon> = {
   safety: ShieldCheck,
   maintenance: Wrench,
   measure: Ruler,
-  aiAssist: Sparkle,
+  aiAssist: Constellation as unknown as PhosphorIcon,
   calculate: Calculator,
   survey: ClipboardText,
   equipment: Elevator,
@@ -175,7 +187,7 @@ const DESSINS: Record<IconRole, PhosphorIcon> = {
   folder: Folder,
   archive: Archive,
   signOut: SignOut,
-  send: ArrowUp,
+  send: PaperPlaneRight,
   maximize: ArrowsOutSimple,
   minimize: ArrowsInSimple,
   newConversation: NotePencil,

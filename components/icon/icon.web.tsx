@@ -10,6 +10,7 @@ import {
   Crosshair,
   Elevator,
   Handshake,
+  PaperPlaneRight,
   PaperPlaneTilt,
   Receipt,
   Truck,
@@ -60,12 +61,10 @@ import {
   Ruler,
   ShieldCheck,
   SignOut,
-  ArrowUp,
   ArrowsOutSimple,
   ArrowsInSimple,
   NotePencil,
   Sliders,
-  Sparkle,
   Stop,
   Tag,
   TextAa,
@@ -91,6 +90,24 @@ import {
 
 import { iconSize, iconWeight, type IconRole } from '../../src/icons';
 import { cn } from '../_lib/cn';
+import { CONSTELLATION } from './constellation';
+
+type ProprietesDeDessin = React.SVGProps<SVGSVGElement> & { size?: number | string; weight?: string; mirrored?: boolean };
+
+/** Le dessin de `aiAssist`, tracé ici : Phosphor n'en a pas de ce genre (voir ./constellation.ts). */
+const Constellation = React.forwardRef<SVGSVGElement, ProprietesDeDessin>(function Constellation(
+  { size = '1em', weight, mirrored, color = 'currentColor', ...props },
+  ref,
+) {
+  // La graisse et le miroir n'ont pas de sens pour des points pleins et symétriques.
+  void weight;
+  void mirrored;
+  return (
+    <svg ref={ref} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill={color} {...props}>
+      {CONSTELLATION.map((p) => <circle key={`${p.x}-${p.y}`} cx={p.x} cy={p.y} r={p.r} />)}
+    </svg>
+  );
+}) as unknown as PhosphorIcon;
 
 // Le vocabulaire de `src/icons.ts` résolu en composants. Les dessins sont
 // importés ici et nulle part ailleurs : c'est ce qui garantit qu'un rôle donne
@@ -158,7 +175,7 @@ const GLYPHS: Record<IconRole, PhosphorIcon> = {
   safety: ShieldCheck,
   maintenance: Wrench,
   measure: Ruler,
-  aiAssist: Sparkle,
+  aiAssist: Constellation,
   calculate: Calculator,
 
   survey: ClipboardText,
@@ -188,7 +205,7 @@ const GLYPHS: Record<IconRole, PhosphorIcon> = {
   folder: Folder,
   archive: Archive,
   signOut: SignOut,
-  send: ArrowUp,
+  send: PaperPlaneRight,
   maximize: ArrowsOutSimple,
   minimize: ArrowsInSimple,
   newConversation: NotePencil,

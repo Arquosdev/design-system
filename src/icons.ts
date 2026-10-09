@@ -161,7 +161,9 @@ export const icons = {
   safety: 'ShieldCheck',
   maintenance: 'Wrench',
   measure: 'Ruler',
-  aiAssist: 'Sparkle',
+  /** Une constellation de points, dessinée par le design system : Phosphor n'a
+   *  rien de ce genre, et son étincelle faisait daté (Louis, 09/10/2026). */
+  aiAssist: 'Constellation',
   /** Une valeur que l'écran SAIT calculer — la course d'une gaine, tirée de
    *  trois hauteurs ou de la somme des entre-niveaux. Le rôle dit « je peux la
    *  calculer pour toi », jamais « voici une calculatrice ». */
@@ -227,10 +229,12 @@ export const icons = {
   /*
     L'assistant d'Arquos (09/10/2026, à la demande de Louis : « il faut que cet
     assistant soit la fonctionnalité wahou ») : envoyer un message, agrandir ou
-    réduire le panneau, et repartir d'une conversation neuve. Les outils d'IA de
-    référence (ChatGPT, Claude) envoient par une flèche vers le haut.
+    réduire le panneau, et repartir d'une conversation neuve. Envoyer est un
+    avion en papier, comme dans myArquos depuis ses débuts : la flèche vers le
+    haut de ChatGPT et de Claude ne plaisait pas à Louis (09/10/2026), et les
+    deux applications disent le même geste avec le même dessin.
   */
-  send: 'ArrowUp',
+  send: 'PaperPlaneRight',
   maximize: 'ArrowsOutSimple',
   minimize: 'ArrowsInSimple',
   newConversation: 'NotePencil',
