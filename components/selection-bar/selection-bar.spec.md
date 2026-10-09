@@ -25,16 +25,20 @@ la sélection commence et porte ce qu'on peut en faire.
 
 ## Anatomie
 
-- Barre : fond `colors.brand`, `spacing.xl` horizontal, dans le flux
-- Décompte : `small` en `semibold` sur `colors.textOnDark`, suivi d'un filet
-- Actions : 30 px de haut ; la première en `colors.primary`, les suivantes en
-  `colors.primaryDark`
+- Barre : FLOTTANTE, centrée en bas de la liste, `rounded-block`, ombre `pop`.
+  Fond `colors.text` et encre `colors.bg` : l'inverse de la page, comme
+  l'infobulle du rail (Louis, 09/10/2026). Blanche, elle se confondait avec le
+  tableau qu'elle survole.
+- Décompte : `small` en `semibold`, suivi d'un filet clair (`bg/20`)
+- Actions : `control-sm` de haut ; l'action principale en `colors.primary`, les
+  autres sans fond, en encre claire, éclaircies au survol (`bg/10`)
 - Fermeture : à droite, elle vide la sélection
 
 ## Deux règles
 
-**Elle est dans le flux, jamais flottante.** Une barre flottante masque la
-dernière ligne du tableau, souvent celle qu'on vient de cocher.
+**Elle flotte, et elle est sombre.** Elle flotte pour ne pas déplacer le
+tableau quand on coche ; elle est sombre pour ressortir de lui. Ce qui flotte
+au-dessus de la page (infobulle, barre de sélection) parle d'une seule voix.
 
 **Une seule action principale.** Deux boutons qui se détachent ne se détachent
 plus.

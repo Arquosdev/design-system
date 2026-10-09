@@ -1,5 +1,20 @@
 # Monter une app vers la version courante
 
+## Non publié — la barre de sélection est sombre
+
+**`SelectionBar` passe du blanc au sombre** : fond `text`, encre `bg`, comme
+l'infobulle d'une entrée de rail réduit (Louis, 09/10/2026 : « comme ça, ça
+ressort vraiment bien »). `SelectionAction` suit : encre claire, survol `bg/10`,
+l'action principale reste en `primary`.
+
+**À vérifier chez l'appelant** : tout enfant de la barre qui n'est pas une
+`SelectionAction` et qui écrit sa propre encre (`text-text`) devient sombre sur
+sombre. Aucune cote ne bouge.
+
+**Et deux dessins changent** : `aiAssist` devient une constellation de points
+dessinée par le design system (et `ThinkingDots` l'anime pendant que
+l'assistant réfléchit) ; `send` passe de `ArrowUp` à `PaperPlaneRight`.
+
 ## Non publié — un contenant a la bordure douce, un contrôle la bordure marquée
 
 **`Card`, `Accordion`, `StatTile` et `DataTable` passent de `border-border`

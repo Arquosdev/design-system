@@ -31,21 +31,26 @@ export function SelectionBar({
         // Variante design-eu : une barre FLOTTANTE, compacte et centrée, à la
         // manière de Linear et Mercury, au lieu d'un bandeau marine pleine
         // largeur. Elle flotte, donc elle garde un arrondi et une ombre.
+        //
+        // **Sombre, comme l'infobulle du rail** (Louis, 09/10/2026) : l'encre
+        // en fond et le fond en encre. Blanche, elle se confondait avec le
+        // tableau qu'elle survole ; sombre, ce qui flotte au-dessus de la page
+        // parle d'une seule voix, et la barre ressort.
         'absolute bottom-5xl left-1/2 z-(--arq-layer-barre) flex max-w-[calc(100%-48px)] -translate-x-1/2 items-center gap-sm overflow-x-auto',
-        'rounded-block border border-border bg-bg py-xs pr-xs pl-base shadow-pop',
+        'rounded-block bg-text py-xs pr-xs pl-base text-bg shadow-pop',
         className,
       )}
     >
-      <span className="shrink-0 text-small font-semibold whitespace-nowrap text-text">
+      <span className="shrink-0 text-small font-semibold whitespace-nowrap text-bg">
         {text}
       </span>
-      <span className="mx-xxs h-5 w-px shrink-0 bg-border" aria-hidden />
+      <span className="mx-xxs h-5 w-px shrink-0 bg-bg/20" aria-hidden />
       {children}
       <button
         type="button"
         onClick={onClear}
         aria-label="Effacer la sélection"
-        className="ml-xs grid size-(--arq-control-sm) shrink-0 place-items-center rounded-control text-text-muted hover:bg-bg-muted hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        className="ml-xs grid size-(--arq-control-sm) shrink-0 place-items-center rounded-control text-bg/70 hover:bg-bg/10 hover:text-bg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg"
       >
         <Icon role="close" className="size-4" aria-hidden />
       </button>
@@ -68,10 +73,11 @@ export const SelectionAction = React.forwardRef<HTMLButtonElement, SelectionActi
         type="button"
         className={cn(
           'h-(--arq-control-sm) shrink-0 rounded-control px-md text-small font-semibold whitespace-nowrap',
-          'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
+          'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg',
+          'disabled:opacity-50',
           primary
             ? 'bg-primary text-text-on-dark hover:bg-primary-dark'
-            : 'text-text hover:bg-bg-muted',
+            : 'text-bg hover:bg-bg/10',
           className,
         )}
         {...reste}
