@@ -224,6 +224,16 @@ export const icons = {
     un rôle qui dit.
   */
   signOut: 'SignOut',
+  /*
+    L'assistant d'Arquos (09/10/2026, à la demande de Louis : « il faut que cet
+    assistant soit la fonctionnalité wahou ») : envoyer un message, agrandir ou
+    réduire le panneau, et repartir d'une conversation neuve. Les outils d'IA de
+    référence (ChatGPT, Claude) envoient par une flèche vers le haut.
+  */
+  send: 'ArrowUp',
+  maximize: 'ArrowsOutSimple',
+  minimize: 'ArrowsInSimple',
+  newConversation: 'NotePencil',
 
   // -- La nature d'une colonne ---------------------------------------------
   //
