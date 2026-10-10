@@ -21,7 +21,7 @@ replaces:
 
 ## Quand NE PAS l'utiliser
 
-- **Pour annoncer un résultat** → `Toast`. « ✓ Enregistré » n'est pas une condition, c'est un événement : il passe.
+- **Pour annoncer un résultat** → `Toast`. « ✓ Enregistré » n'est pas une condition, c'est un événement : il passe. Le ton `success` n'est PAS cela : voir « Choisir le ton ».
 - **Pour une erreur de champ** → le message sous le champ, relié par `aria-describedby`. Un bandeau en haut oblige à chercher lequel des vingt champs est en cause.
 - **Quand la zone est vide** → `EmptyState`. Un bandeau au-dessus du néant explique un contenu qui n'est pas là.
 - **En rafale.** Deux bandeaux empilés, personne n'en lit aucun. S'il y en a deux, c'est qu'un seul dit vraiment quelque chose.
@@ -37,14 +37,22 @@ replaces:
 
 | Prop | Type | Défaut | Rôle |
 | --- | --- | --- | --- |
-| `tone` | `'info' \| 'warning' \| 'danger'` | `'info'` | Le registre |
+| `tone` | `'info' \| 'success' \| 'warning' \| 'danger'` | `'info'` | Le registre |
 | `icon` | `IconRole` | — | Un rôle du vocabulaire, facultatif |
 | `action` | `ReactNode` | — | Ce qu'on peut faire — un lien, un bouton |
 | `children` | `ReactNode` | — | Le message |
 
 **Choisir le ton** : `info` pour une condition neutre qu'il faut connaître
-(démonstration, lecture seule), `warning` pour ce qui dégrade sans bloquer
-(hors ligne, envoi en attente), `danger` pour ce qui empêche.
+(démonstration, lecture seule), `success` pour un état RÉUSSI qui dure sur la
+page, `warning` pour ce qui dégrade sans bloquer (hors ligne, envoi en
+attente), `danger` pour ce qui empêche.
+
+**`success` est une condition, pas un événement.** Il dit ce qui EST vrai tant
+qu'on regarde la page — « Votre devis est enregistré » au bout du formulaire
+public d'un fournisseur, qui n'a ni compte ni seconde page où vérifier. Un
+« Enregistré » qui passe reste un `Toast`. Ajouté le 10/10/2026 : l'app le
+contournait en `info` avec l'icône `compliant`, ce qui disait le succès par
+l'icône seule.
 
 ## Exemples
 
@@ -72,6 +80,6 @@ pas lui.
 
 ## Mobile
 
-Identique : trois tons, une icône facultative, une action. Le bandeau annonce
+Identique : quatre tons, une icône facultative, une action. Le bandeau annonce
 son changement en `accessibilityLiveRegion="polite"`, le pendant de
 `role="status"`.

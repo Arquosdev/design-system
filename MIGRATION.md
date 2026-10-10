@@ -1,5 +1,14 @@
 # Monter une app vers la version courante
 
+## Non publié — Banner sait dire que ça a marché
+
+**Un quatrième ton, `success`** (web et mobile), sur la paire de jetons
+`success-bg` / `on-success-bg` : un état réussi qui DURE sur la page, comme la
+confirmation laissée à un fournisseur au bout d'un formulaire public. Rien ne
+change pour les appelants existants. **À reprendre chez l'appelant** : un
+bandeau écrit en `tone="info"` avec l'icône `compliant` pour dire un succès
+passe en `tone="success"`.
+
 ## Non publié — ColorField, un sélecteur de couleur
 
 **Nouveau composant, `ColorField`** (web) : une zone de couleur, une barre de

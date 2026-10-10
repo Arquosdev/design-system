@@ -4,7 +4,7 @@ import { Icon } from '../icon/icon.web';
 import { cn } from '../_lib/cn';
 import type { IconRole } from '../../src/icons';
 
-export type BannerTone = 'info' | 'warning' | 'danger';
+export type BannerTone = 'info' | 'success' | 'warning' | 'danger';
 
 export interface BannerProps extends React.ComponentProps<'div'> {
   tone?: BannerTone;
@@ -15,6 +15,8 @@ export interface BannerProps extends React.ComponentProps<'div'> {
 
 const TONES: Record<BannerTone, string> = {
   info: 'bg-info-bg text-text-on-info-bg',
+  // Un état réussi qui DURE sur la page (10/10/2026) : la paire de jetons du succès, jamais dissociée.
+  success: 'bg-success-bg text-on-success-bg',
   warning: 'bg-warning-bg text-on-warning-bg',
   danger: 'bg-danger-bg text-on-danger-bg',
 };

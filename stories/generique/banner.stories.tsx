@@ -24,10 +24,13 @@ export const Defaut: Story = {};
  * Le ton passe par la couleur **et par les mots** : un bandeau orange sans texte
  * explicite n'est lisible ni d'un daltonien, ni en balayage rapide.
  */
-export const LesTroisTons: Story = {
+export const LesQuatreTons: Story = {
   render: () => (
     <div className="flex w-[620px] flex-col gap-sm">
       <Banner icon="info">Jeu de démonstration — aucune donnée réelle.</Banner>
+      <Banner tone="success" icon="compliant">
+        Votre devis est enregistré : l’agence le reçoit et vous répondra.
+      </Banner>
       <Banner tone="warning" icon="offline">
         Hors row — les modifications partiront à la reconnexion.
       </Banner>

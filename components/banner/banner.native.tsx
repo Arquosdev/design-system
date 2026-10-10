@@ -7,7 +7,7 @@ import { spacing } from '../../src/spacing';
 import { Icon } from '../icon/icon.native';
 import { Text } from '../text/text.native';
 
-export type BannerTone = 'info' | 'warning' | 'danger';
+export type BannerTone = 'info' | 'success' | 'warning' | 'danger';
 
 export interface BannerProps {
   tone?: BannerTone;
@@ -21,6 +21,7 @@ export interface BannerProps {
 // Les paires d'état, jamais dissociées : le fond et son encre vont ensemble.
 const TONES: Record<BannerTone, { background: string; ink: string }> = {
   info: { background: colors.infoBg, ink: colors.onInfoBg },
+  success: { background: colors.successBg, ink: colors.onSuccessBg },
   warning: { background: colors.warningBg, ink: colors.onWarningBg },
   danger: { background: colors.dangerBg, ink: colors.onDangerBg },
 };
