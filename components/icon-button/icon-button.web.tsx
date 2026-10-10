@@ -15,6 +15,9 @@ const iconButton = cva(
         outline: 'border border-border bg-bg text-text-muted hover:bg-bg-muted',
         soft: 'bg-info-bg text-on-info-bg hover:opacity-80',
         ghost: 'bg-transparent text-text-muted hover:bg-bg-muted',
+        // L'action d'un compositeur : envoyer. Pleine et marine, comme l'avion en
+        // papier de myArquos ; l'assistant du web la peignait à la main (10/10/2026).
+        solid: 'border-0 bg-brand text-text-on-dark hover:opacity-90',
       },
       size: {
         sm: 'size-(--arq-control-sm)',

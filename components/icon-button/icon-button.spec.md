@@ -35,7 +35,7 @@ replaces:
 | ----------- | --------------------------------------- | ------------ | --------------------------------------- |
 | `label`     | `string`                                | —            | **Obligatoire.** Nom accessible et infobulle |
 | `icon`      | `ReactNode`                             | —            | L'icône, en `currentColor`               |
-| `variant`   | `'outline' \| 'soft' \| 'ghost'`        | `'outline'`  | Poids visuel                             |
+| `variant`   | `'outline' \| 'soft' \| 'ghost' \| 'solid'` | `'outline'`  | Poids visuel. `solid` : l'action d'un compositeur (envoyer), pleine et marine ; une seule par compositeur |
 | `size`      | `'sm' \| 'md'`                          | `'md'`       | 30px ou 36px de côté                     |
 | `inactive`  | `boolean`                               | `false`      | Le geste est impossible ici, et on peut dire pourquoi |
 | `inactiveReason` | `string`                           | —            | La raison — s'ajoute au `label` dans l'infobulle |

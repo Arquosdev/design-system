@@ -1,5 +1,12 @@
 # Monter une app vers la version courante
 
+## Non publié — IconButton `solid`
+
+**Une quatrième variante, `solid`** (web) : pleine et marine, pour l'action
+d'un compositeur — envoyer un message. Rien ne change pour les appelants
+existants. **À reprendre chez l'appelant** : un `IconButton` dont le
+`className` peignait `bg-brand` à la main.
+
 ## Non publié — quatre rôles d'icône
 
 **`recalculate`** (deux flèches qui tournent), **`split`** (une flèche qui se
