@@ -1,5 +1,13 @@
 # Monter une app vers la version courante
 
+## Non publié — AiMark, la marque de l'assistant
+
+**Nouveau composant, `AiMark`** (web et mobile) : la constellation `aiAssist`
+en blanc sur le dégradé du bouton de l'assistant (aplat `primary` sur le
+mobile), en trois tailles, et animée avec `thinking`. Rien ne change pour les
+appelants existants. **À reprendre chez l'appelant** : un titre « Assistant IA »
+sans signature, et un `ThinkingDots` posé à côté de la place d'une réponse.
+
 ## Non publié — trois rôles d'icône pour l'assistant
 
 **`thumbsUp`, `thumbsDown`** (l'avis sur une réponse) et **`scrollDown`**

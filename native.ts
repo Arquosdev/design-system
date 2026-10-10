@@ -21,6 +21,7 @@ export { texteBrut as texteBrutDuMarkdown } from './components/markdown/markdown
 export { Icon, type IconProps } from './components/icon/icon.native';
 export { type IconRole, type IconName } from './src/icons';
 export { ThinkingDots, type ThinkingDotsProps } from './components/thinking-dots/thinking-dots.native';
+export { AiMark, type AiMarkProps } from './components/ai-mark/ai-mark.native';
 export {
   Button,
   type ButtonProps,
