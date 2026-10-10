@@ -78,3 +78,10 @@ Hauteur **44** (`controlHeight.lg`, celle du `Button` natif) et corps **16**
 `invalid` est le pendant d'`aria-invalid`. Au focus, la bordure passe à
 `primary` et s'épaissit d'un point, le retrait reculant d'autant pour que le
 texte ne saute pas.
+
+**Arrondi : une pilule sur une ligne, `xl` (16) sur plusieurs** (10/10/2026).
+Sur le téléphone, le `Button` et les `SegmentedTabs` sont des pilules ; un
+champ à l'arrondi `control` (4) détonnait à côté d'eux. Le retrait passe à
+`base` (16) pour que le texte ne touche pas la courbe. Un champ `multiline`
+prend l'arrondi d'une carte, une hauteur libre (88 au moins) et son texte en
+haut. Le web garde l'arrondi `control` : ses boutons ne sont pas des pilules.

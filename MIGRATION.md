@@ -1,5 +1,14 @@
 # Monter une app vers la version courante
 
+## Non publié — le champ natif est une pilule
+
+**`Input` (mobile seulement)** : arrondi `full` sur une ligne (comme le
+`Button` et les `SegmentedTabs` natifs), `xl` sur plusieurs lignes, et un
+retrait de `base` (16) au lieu de `sm`. **Une cote bouge** : le texte commence
+8 points plus à droite. **À vérifier chez l'appelant** : un champ posé dans
+une rangée serrée, ou un `style` qui recopiait l'ancien retrait. Le web ne
+change pas.
+
 ## Non publié — FieldRow connaît l'email
 
 **Un sixième genre, `kind="email"`** (web et mobile) : clavier d'adresse, ni

@@ -22,8 +22,17 @@ export interface InputProps extends TextInputProps {
   `small` (14) : on tape dehors, en marchant, et le texte qu'on tape est celui
   qu'on relit le moins bien.
 
+  **Et une troisième, depuis le 10/10/2026 : l'arrondi.** Sur le téléphone, le
+  bouton et les onglets sont des pilules ; un champ à 4 points d'arrondi
+  détonnait à côté d'eux (Louis : « les inputs mobile ne sont pas très
+  cohérents avec le reste […] coins peu arrondis alors que tout le reste est
+  très arrondi »). Sur une ligne, le champ est donc une pilule, comme le bouton
+  qu'il côtoie ; sur plusieurs lignes, `xl` (16) : une pilule haute se lit
+  comme une bulle, pas comme un champ. Le retrait suit l'arrondi, pour que le
+  texte ne touche pas la courbe.
+
   Le reste est identique : bordure `border`, `primary` au focus, `danger`
-  quand la valeur est refusée, arrondi `control`, retrait `sm`.
+  quand la valeur est refusée.
 */
 export const Input = React.forwardRef<TextInput, InputProps>(function Input(
   { invalid = false, editable = true, style, onFocus, onBlur, ...props },
@@ -49,6 +58,7 @@ export const Input = React.forwardRef<TextInput, InputProps>(function Input(
       {...props}
       style={[
         styles.champ,
+        props.multiline ? styles.plusieursLignes : null,
         focus && styles.focus,
         invalid && styles.invalide,
         !editable && styles.inactif,
@@ -63,11 +73,11 @@ const styles = StyleSheet.create({
     height: controlHeight.lg,
     width: '100%',
     minWidth: 0,
-    borderRadius: radius.control,
+    borderRadius: radius.full,
     borderWidth: 1,
     borderColor: colors.border,
     backgroundColor: colors.bg,
-    paddingHorizontal: spacing.sm,
+    paddingHorizontal: spacing.base,
     paddingVertical: 0,
     fontSize: typography.body.fontSize,
     fontFamily: fontFamilyNative[400],
@@ -78,7 +88,15 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     // La bordure s'épaissit d'un point : le retrait recule d'autant, pour que
     // le texte ne saute pas au focus.
-    paddingHorizontal: spacing.sm - 1,
+    paddingHorizontal: spacing.base - 1,
+  },
+  // Plusieurs lignes : un arrondi de carte, la hauteur libre, le texte en haut.
+  plusieursLignes: {
+    borderRadius: radius.xl,
+    height: undefined,
+    minHeight: controlHeight.lg * 2,
+    paddingVertical: spacing.sm,
+    textAlignVertical: 'top',
   },
   invalide: {
     borderColor: colors.danger,
