@@ -77,3 +77,21 @@ export function paginationLabel(premier: number, dernier: number, total: number)
   if (total === 0) return 'Aucun élément';
   return `${premier} à ${dernier} sur ${total}`;
 }
+
+/**
+ * De combien descendre l'en-tête pour qu'il reste en haut de ce qui défile.
+ *
+ * `sticky top-0` ne sert que si le tableau défile lui-même verticalement. Sur
+ * une fiche, c'est la ZONE qui défile, et l'enveloppe horizontale du tableau
+ * capte le collant (une boîte `overflow-x: auto` est un conteneur de
+ * défilement sur les deux axes). L'en-tête est donc décalé à la main, de ce
+ * qui manque pour rejoindre le haut de la zone, sans jamais sortir du tableau.
+ *
+ * `haut` : le haut visible de l'ancêtre qui défile ; `tableHaut` et
+ * `tableHauteur` : le tableau à l'écran ; `enteteHauteur` : la ligne d'en-tête.
+ */
+export function decalageEntete(haut: number, tableHaut: number, tableHauteur: number, enteteHauteur: number): number {
+  const manque = haut - tableHaut;
+  if (manque <= 0) return 0;
+  return Math.round(Math.min(manque, Math.max(0, tableHauteur - enteteHauteur)));
+}

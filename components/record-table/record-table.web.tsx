@@ -8,6 +8,7 @@ import type { IconRole } from '../../src/icons';
 import { cn } from '../_lib/cn';
 import {
   compare,
+  decalageEntete,
   selectionLabel,
   nextSort,
   type SortState,
@@ -180,6 +181,57 @@ export function RecordTable<T>({
     if (b.firstElementChild) o.observe(b.firstElementChild);
     return () => o.disconnect();
   }, [mesurerLesBords]);
+
+  /*
+    L'EN-TÊTE QUI SUIT LA ZONE QUI DÉFILE (07/09/2026, posé le 10/10/2026).
+
+    `sticky top-0` colle l'en-tête à l'enveloppe ci-dessous, qui défile en
+    largeur : une boîte `overflow-x: auto` est un conteneur de défilement sur
+    les DEUX axes. Dans une liste, elle a une hauteur bornée et défile aussi en
+    hauteur, et le collant marche. Sur une fiche, c'est la zone qui défile, pas
+    elle : mesuré sur un barème de 78 lignes, l'en-tête était à -671 px après
+    1 200 px de défilement.
+
+    Quand l'enveloppe ne défile pas en hauteur, l'en-tête se décale donc à la
+    main, du défilement de l'ancêtre qui défile vraiment. Quand elle défile,
+    rien ne change : le collant suffit, et le décalage vaut zéro.
+  */
+  const entete = React.useRef<HTMLTableSectionElement>(null);
+  React.useEffect(() => {
+    const b = boite.current;
+    const t = entete.current;
+    if (!b || !t) return;
+    /* L'ancêtre qui défile se cherche à CHAQUE fois, parmi ceux qui débordent
+       vraiment : une enveloppe en `overflow-y: auto` qui ne déborde pas n'est
+       pas celle qu'on fait défiler, et s'arrêter à la première trompait. */
+    const ancetreQuiDefile = () => {
+      let a = b.parentElement;
+      while (a && !(a.scrollHeight > a.clientHeight + 1 && /(auto|scroll|overlay)/.test(getComputedStyle(a).overflowY))) a = a.parentElement;
+      return a;
+    };
+    let image = 0;
+    const suivre = () => {
+      image = 0;
+      const table = t.parentElement;
+      if (!table) return;
+      const defileSeule = b.scrollHeight > b.clientHeight + 1;
+      const ancetre = defileSeule ? null : ancetreQuiDefile();
+      const haut = ancetre ? Math.max(0, ancetre.getBoundingClientRect().top) : 0;
+      const r = table.getBoundingClientRect();
+      const d = defileSeule ? 0 : decalageEntete(haut, r.top, r.height, t.offsetHeight);
+      t.style.transform = d ? `translateY(${d}px)` : '';
+    };
+    const demander = () => { if (!image) image = requestAnimationFrame(suivre); };
+    suivre();
+    // En capture sur le document : le défilement d'un ancêtre ne remonte pas, mais il s'y capte.
+    document.addEventListener('scroll', demander, { capture: true, passive: true });
+    window.addEventListener('resize', demander);
+    return () => {
+      document.removeEventListener('scroll', demander, { capture: true });
+      window.removeEventListener('resize', demander);
+      if (image) cancelAnimationFrame(image);
+    };
+  }, [rows.length]);
 
   const memesLargeurs = (a: Record<string, number>, b?: Record<string, number>) => {
     const cles = Object.keys(a);
@@ -404,7 +456,7 @@ export function RecordTable<T>({
           lignes qui défilent dessous. Les plans des cellules figées redeviennent
           ainsi les mêmes que dans le corps.
         */}
-        <thead className="relative z-30">
+        <thead ref={entete} className="relative z-30">
           <tr>
             {selection && (
               <th

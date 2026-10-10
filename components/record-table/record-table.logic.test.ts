@@ -3,6 +3,7 @@ import { describe, it } from 'node:test';
 
 import {
   compare,
+  decalageEntete,
   paginationLabel,
   selectionLabel,
   nextSort,
@@ -90,5 +91,20 @@ describe('libellePagination', () => {
 
   it('dit le vide plutôt que « 0 à 0 sur 0 »', () => {
     strictEqual(paginationLabel(0, 0, 0), 'Aucun élément');
+  });
+});
+
+describe('decalageEntete', () => {
+  it('ne bouge pas tant que le tableau est entièrement sous le haut de la zone', () => {
+    strictEqual(decalageEntete(100, 140, 2000, 36), 0);
+    strictEqual(decalageEntete(100, 100, 2000, 36), 0);
+  });
+
+  it('descend de ce que le tableau a passé sous le haut de la zone', () => {
+    strictEqual(decalageEntete(100, -1100, 4000, 36), 1200);
+  });
+
+  it('ne sort jamais du tableau : il s’arrête sur la dernière ligne', () => {
+    strictEqual(decalageEntete(100, -5000, 4000, 36), 3964);
   });
 });

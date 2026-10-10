@@ -1,5 +1,12 @@
 # Monter une app vers la version courante
 
+## Non publié — l'en-tête de RecordTable colle sur une fiche
+
+**L'en-tête reste visible quand c'est la page ou la zone d'une fiche qui
+défile**, plus seulement quand le tableau défile lui-même. Aucune prop ne
+change. **À retirer chez l'appelant** : un contournement qui bornait la hauteur
+du tableau ou recopiait un en-tête pour le garder visible. Aucune cote ne bouge.
+
 ## Non publié — RecordTable a une densité
 
 **Nouvelle prop `density`** (`'standard'` par défaut, ou `'compact'`) : le mode

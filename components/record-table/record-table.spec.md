@@ -106,6 +106,12 @@ const [chosen, setChosen] = React.useState<Set<string>>(new Set());
 - En-tête collé en haut (`sticky top-0`) : le tableau défile, ses en-têtes non.
   Sans cela on lit une valeur sans savoir de quelle colonne elle vient dès la
   dixième ligne.
+  **Il colle aussi quand c'est la page ou la zone d'une fiche qui défile**, et
+  pas le tableau. Le collant seul n'y suffit pas : l'enveloppe qui fait défiler
+  les colonnes en largeur est un conteneur de défilement sur les deux axes, et
+  `sticky` s'y accroche. Le composant décale alors l'en-tête du défilement de
+  l'ancêtre qui défile vraiment, sans jamais le sortir du tableau
+  (`decalageEntete`). L'appelant n'a rien à faire.
 - Ligne : fond `colors.bg`, séparateur `colors.borderSoft`, survol `colors.bgMuted`
 - Ligne cochée : `colors.infoBg` — la même teinte que la barre d'actions qu'elle
   alimente, pour qu'on voie d'où vient le décompte
