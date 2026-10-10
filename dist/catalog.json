@@ -65,6 +65,34 @@
       }
     },
     {
+      "name": "AiMark",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Dire « c'est l'assistant » : sa constellation en blanc sur le dégradé de la marque, immobile ou animée quand il travaille.",
+      "keywords": [
+        "assistant",
+        "ia",
+        "marque",
+        "avatar",
+        "chat",
+        "constellation"
+      ],
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/ai-mark",
+      "specFile": "components/ai-mark/ai-mark.spec.md",
+      "fichiers": {
+        "web": "components/ai-mark/ai-mark.web.tsx",
+        "mobile": "components/ai-mark/ai-mark.native.tsx"
+      }
+    },
+    {
       "name": "Avatar",
       "status": "stable",
       "layer": "generique",

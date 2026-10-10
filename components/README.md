@@ -16,6 +16,7 @@ Une mécanique que n'importe quelle application aurait — bouton, modale, ongle
 | --- | --- | --- | --- |
 | [Accordion](accordion/accordion.spec.md) | Grouper des champs sous un titre pliable, pour qu'une page longue reste parcourable. | 🖥️ 📱 | stable |
 | [ActiveFilters](active-filters/active-filters.spec.md) | Montrer ce qui restreint la liste, et permettre de le défaire d'un clic. | 🖥️ | beta |
+| [AiMark](ai-mark/ai-mark.spec.md) | Dire « c'est l'assistant » : sa constellation en blanc sur le dégradé de la marque, immobile ou animée quand il travaille. | 🖥️ 📱 | beta |
 | [Avatar](avatar/avatar.spec.md) | Représenter une personne par sa photo, ou à défaut par ses initiales. | 🖥️ | stable |
 | [Badge](badge/badge.spec.md) | Poser une étiquette courte qui qualifie l'élément à côté duquel elle se trouve. | 🖥️ 📱 | stable |
 | [Banner](banner/banner.spec.md) | Informer d'une condition qui dure, en haut d'une zone, sans interrompre. | 🖥️ 📱 | stable |
