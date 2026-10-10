@@ -1,6 +1,9 @@
 import * as React from 'react';
 import {
   Archive,
+  ArrowsClockwise,
+  ArrowsSplit,
+  BoxArrowUp,
   ArrowRight,
   ArrowSquareOut,
   Briefcase,
@@ -86,6 +89,7 @@ import {
   Wrench,
   X,
   type Icon as PhosphorIcon,
+  Siren,
 } from '@phosphor-icons/react';
 
 import { iconSize, iconWeight, type IconRole } from '../../src/icons';
@@ -177,6 +181,9 @@ const GLYPHS: Record<IconRole, PhosphorIcon> = {
   measure: Ruler,
   aiAssist: Constellation,
   calculate: Calculator,
+  recalculate: ArrowsClockwise,
+  split: ArrowsSplit,
+  restore: BoxArrowUp,
 
   survey: ClipboardText,
   equipment: Elevator,
@@ -198,6 +205,7 @@ const GLYPHS: Record<IconRole, PhosphorIcon> = {
 
   user: UserCircle,
   phone: Phone,
+  emergencyPhone: Siren,
   recent: ClockCounterClockwise,
   email: EnvelopeSimple,
   conversation: ChatCircleDots,

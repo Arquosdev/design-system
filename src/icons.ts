@@ -168,6 +168,26 @@ export const icons = {
    *  trois hauteurs ou de la somme des entre-niveaux. Le rôle dit « je peux la
    *  calculer pour toi », jamais « voici une calculatrice ». */
   calculate: 'Calculator',
+  /*
+    REFAIRE un calcul à la demande (Louis : « Recalculer le chiffrage » sur la
+    fiche Contrat). Deux flèches qui tournent, et pas `sync` : l'éclair promet
+    l'automatique là où ce geste est justement explicite. Ajouté le 10/10/2026
+    (manque 5 du web).
+  */
+  recalculate: 'ArrowsClockwise',
+  /*
+    Couper un objet en deux (« Scinder l'affaire »). Une flèche qui se sépare,
+    et pas `columns` : un rectangle coupé en deux est une mise en page, pas un
+    geste. Ajouté le 10/10/2026 (manque 4 du web).
+  */
+  split: 'ArrowsSplit',
+  /*
+    Ressortir ce qu'on avait retiré : un fournisseur remis dans la base, une
+    conversation sortie des archives. L'inverse exact d'`archive` — la même
+    boîte, une flèche qui en sort — là où l'entrée de menu empruntait
+    `archive`, qui disait le geste contraire. Ajouté le 10/10/2026 (manque 10).
+  */
+  restore: 'BoxArrowUp',
 
   // -- Les objets du produit -----------------------------------------------
   //
@@ -211,6 +231,13 @@ export const icons = {
   // Ajoutés le 25/09/2026 (design-eu) : les actions rapides d'une fiche contact
   // appelaient et écrivaient derrière une silhouette et un maillon.
   phone: 'Phone',
+  /*
+    La TÉLÉALARME, l'appareil de la cabine qui appelle le centre d'écoute.
+    Elle empruntait `phone`, comme les Appels, et les deux entrées se suivaient
+    dans le rail de la Maintenance avec le même combiné : le combiné dit l'appel
+    REÇU, la sirène dit l'appareil d'alerte. Ajouté le 10/10/2026 (manque 13).
+  */
+  emergencyPhone: 'Siren',
   // Les fiches récentes de la palette ⌘K (design-eu).
   recent: 'ClockCounterClockwise',
   email: 'EnvelopeSimple',

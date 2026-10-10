@@ -1,5 +1,14 @@
 # Monter une app vers la version courante
 
+## Non publié — quatre rôles d'icône
+
+**`recalculate`** (deux flèches qui tournent), **`split`** (une flèche qui se
+sépare), **`restore`** (la boîte d'archive d'où sort une flèche) et
+**`emergencyPhone`** (une sirène, pour la téléalarme), web et mobile. Rien ne
+change pour les appelants existants. **À reprendre chez l'appelant** : le bouton
+« Recalculer » sans icône, l'entrée « Scinder » sans icône, une remise en base
+qui empruntait `archive`, et la téléalarme qui empruntait `phone`.
+
 ## Non publié — FileField, un contrôle de fichier
 
 **Nouveau composant, `FileField`** (web) : une zone qu'on clique ou sur

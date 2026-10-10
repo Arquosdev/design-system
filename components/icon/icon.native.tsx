@@ -2,6 +2,9 @@ import * as React from 'react';
 import type { StyleProp, ViewStyle } from 'react-native';
 import {
   Archive,
+  ArrowsClockwise,
+  ArrowsSplit,
+  BoxArrowUp,
   ArrowRight,
   ArrowSquareOut,
   ArrowsDownUp,
@@ -87,6 +90,7 @@ import {
   Wrench,
   X,
   type Icon as PhosphorIcon,
+  Siren,
 } from 'phosphor-react-native';
 
 import { Circle, Svg } from 'react-native-svg';
@@ -161,6 +165,9 @@ const DESSINS: Record<IconRole, PhosphorIcon> = {
   measure: Ruler,
   aiAssist: Constellation as unknown as PhosphorIcon,
   calculate: Calculator,
+  recalculate: ArrowsClockwise,
+  split: ArrowsSplit,
+  restore: BoxArrowUp,
   survey: ClipboardText,
   equipment: Elevator,
   building: Buildings,
@@ -180,6 +187,7 @@ const DESSINS: Record<IconRole, PhosphorIcon> = {
   request: PaperPlaneTilt,
   user: UserCircle,
   phone: Phone,
+  emergencyPhone: Siren,
   recent: ClockCounterClockwise,
   email: EnvelopeSimple,
   conversation: ChatCircleDots,
