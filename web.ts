@@ -27,6 +27,7 @@ export {
   CardList,
   CardFooter,
 } from './components/card/card.web';
+export { ColorField, type ColorFieldProps } from './components/color-field/color-field.web';
 export { ThinkingDots, type ThinkingDotsProps } from './components/thinking-dots/thinking-dots.web';
 export { DataTable, type DataTableProps } from './components/data-table/data-table.web';
 export { Gauge, type GaugeProps } from './components/gauge/gauge.web';

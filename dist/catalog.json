@@ -242,6 +242,35 @@
       }
     },
     {
+      "name": "ColorField",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Choisir une couleur de marque dans une zone de couleur, par son code, ou parmi des couleurs proposées.",
+      "keywords": [
+        "couleur",
+        "palette",
+        "marque",
+        "teinte",
+        "hexadecimal",
+        "hex",
+        "nuancier",
+        "portail"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/color-field",
+      "specFile": "components/color-field/color-field.spec.md",
+      "fichiers": {
+        "web": "components/color-field/color-field.web.tsx",
+        "logique": "components/color-field/color-field.logic.ts"
+      }
+    },
+    {
       "name": "Combobox",
       "status": "beta",
       "layer": "generique",

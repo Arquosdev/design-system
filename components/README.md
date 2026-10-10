@@ -22,6 +22,7 @@ Une mécanique que n'importe quelle application aurait — bouton, modale, ongle
 | [Button](button/button.spec.md) | Déclencher une action. Le poids visuel dit l'importance de l'action, pas sa nature. | 🖥️ 📱 | stable |
 | [Card](card/card.spec.md) | Poser un groupe d'éléments dans une surface délimitée, avec un en-tête facultatif. | 🖥️ 📱 | stable |
 | [Checkbox](checkbox/checkbox.spec.md) | Cocher une option indépendante, ou plusieurs, dans un formulaire qui se valide. | 🖥️ | stable |
+| [ColorField](color-field/color-field.spec.md) | Choisir une couleur de marque dans une zone de couleur, par son code, ou parmi des couleurs proposées. | 🖥️ | beta |
 | [Combobox](combobox/combobox.spec.md) | Choisir dans une liste trop longue pour être parcourue, en la filtrant. | 🖥️ | beta |
 | [Command](command/command.spec.md) | Atteindre n'importe quoi dans un écran dense, en tapant son nom. | 🖥️ | beta |
 | [DateField](date-field/date-field.spec.md) | Saisir une date au clavier, ou la choisir dans un calendrier, et la rendre en ISO. | 🖥️ | beta |

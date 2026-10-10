@@ -1,5 +1,13 @@
 # Monter une app vers la version courante
 
+## Non publié — ColorField, un sélecteur de couleur
+
+**Nouveau composant, `ColorField`** (web) : une zone de couleur, une barre de
+teinte, le code hexadécimal et dix couleurs proposées, toutes lisibles avec un
+texte blanc. Il remplace partout un `Input` où l'on tapait `#RRGGBB` à la main,
+et jamais un `<input type="color">`. Rien ne change pour les appelants
+existants.
+
 ## Non publié — la barre de sélection est sombre
 
 **`SelectionBar` passe du blanc au sombre** : fond `text`, encre `bg`, comme
