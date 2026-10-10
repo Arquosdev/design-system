@@ -265,6 +265,13 @@ export const icons = {
   maximize: 'ArrowsOutSimple',
   minimize: 'ArrowsInSimple',
   newConversation: 'NotePencil',
+  /** L'avis sur une réponse de l'assistant (Louis, 10/10/2026), comme chez Claude,
+   *  ChatGPT et Gemini : utile, pas utile. */
+  thumbsUp: 'ThumbsUp',
+  thumbsDown: 'ThumbsDown',
+  /** Revenir au bas d'un fil qu'on a remonté : une flèche, pas un chevron, parce
+   *  qu'on DESCEND d'un coup, on ne déplie rien. */
+  scrollDown: 'ArrowDown',
 
   // -- La nature d'une colonne ---------------------------------------------
   //

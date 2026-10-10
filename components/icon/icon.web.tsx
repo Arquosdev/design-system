@@ -90,6 +90,9 @@ import {
   X,
   type Icon as PhosphorIcon,
   Siren,
+  ThumbsUp,
+  ThumbsDown,
+  ArrowDown,
 } from '@phosphor-icons/react';
 
 import { iconSize, iconWeight, type IconRole } from '../../src/icons';
@@ -217,6 +220,9 @@ const GLYPHS: Record<IconRole, PhosphorIcon> = {
   maximize: ArrowsOutSimple,
   minimize: ArrowsInSimple,
   newConversation: NotePencil,
+  thumbsUp: ThumbsUp,
+  thumbsDown: ThumbsDown,
+  scrollDown: ArrowDown,
 
   fieldText: TextAa,
   fieldNumber: Hash,

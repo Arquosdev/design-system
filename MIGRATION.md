@@ -1,5 +1,11 @@
 # Monter une app vers la version courante
 
+## Non publié — trois rôles d'icône pour l'assistant
+
+**`thumbsUp`, `thumbsDown`** (l'avis sur une réponse) et **`scrollDown`**
+(revenir au bas d'un fil), web et mobile. Rien ne change pour les appelants
+existants.
+
 ## Non publié — Markdown, le texte d'une réponse mis en forme
 
 **Nouveau composant, `Markdown`** (web et mobile) : titres, listes (un niveau
