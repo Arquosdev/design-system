@@ -1,5 +1,14 @@
 # Monter une app vers la version courante
 
+## Non publié — RecordTable a une densité
+
+**Nouvelle prop `density`** (`'standard'` par défaut, ou `'compact'`) : le mode
+compact serre le retrait vertical des cellules du corps (10 px par côté →
+jeton `xs`, 4 px), pour une table qu'on lit d'un bout à l'autre. Rien ne
+change pour les appelants existants : la valeur par défaut est la hauteur
+d'aujourd'hui. **À vérifier chez l'appelant** : une cote d'ici qui recopie la
+hauteur d'une ligne de `RecordTable` ne vaut que pour `standard`.
+
 ## Non publié — Banner sait dire que ça a marché
 
 **Un quatrième ton, `success`** (web et mobile), sur la paire de jetons

@@ -47,6 +47,16 @@ toutes.
 | `selection` | `{ values, onChange, name, plural?, feminine? }` | — | Sans elle, pas de colonne de cases. `feminine` accorde le décompte : « 3 affaires sélectionnées » |
 | `sort`       | `{ state, onChange }`                   | —      | Sans lui, les en-têtes ne sont pas cliquables             |
 | `empty`      | `ReactNode`                            | —      | Ce qui remplace le tableau quand il n'y a aucune ligne    |
+| `density`    | `'standard' \| 'compact'`              | `'standard'` | La hauteur des lignes : voir « Choisir la densité » |
+
+**Choisir la densité.** `standard` pour une liste qu'on parcourt pour OUVRIR un
+enregistrement : la ligne laisse de l'air autour du lien. `compact` pour une
+table qu'on LIT d'un bout à l'autre, longue et à une valeur par cellule — un
+barème, une grille de prix. Seul le retrait vertical des cellules change
+(10 px par côté, ou le jeton `xs`) ; l'en-tête, les colonnes et la sélection
+ne bougent pas. Ajouté le 10/10/2026 : un barème de 78 lignes faisait près de
+4 000 pixels en `standard`, et l'appelant n'avait aucun moyen de serrer sans
+écrire une cote en dur.
 
 `RecordColumn<T>` : `{ id, header, render, value?, width?, numeric?, sortable? }`.
 `render` produit la cellule ; `value` dit sur quoi trier quand ce n'est pas ce

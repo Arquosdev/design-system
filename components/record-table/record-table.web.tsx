@@ -80,8 +80,20 @@ export interface RecordTableProps<T> {
    */
   widths?: Record<string, number>;
   onWidths?: (w: Record<string, number>) => void;
+  /**
+   * La hauteur des lignes. `standard` pour une liste qu'on parcourt pour ouvrir
+   * un enregistrement ; `compact` pour une table qu'on LIT d'un bout à l'autre,
+   * longue et à une valeur par cellule — un barème de 78 lignes faisait près de
+   * 4 000 pixels en `standard` (mesuré le 07/09/2026).
+   */
+  density?: RecordTableDensity;
   className?: string;
 }
+
+export type RecordTableDensity = 'standard' | 'compact';
+
+/** Le retrait vertical d'une cellule du corps, par densité. */
+const RETRAIT: Record<RecordTableDensity, string> = { standard: 'py-[10px]', compact: 'py-xs' };
 
 export function RecordTable<T>({
   rows,
@@ -94,8 +106,10 @@ export function RecordTable<T>({
   empty,
   widths,
   onWidths,
+  density = 'standard',
   className,
 }: RecordTableProps<T>) {
+  const retrait = RETRAIT[density] ?? RETRAIT.standard;
   const sorted = React.useMemo(() => {
     if (!sort?.state) return rows;
     const col = columns.find((c) => c.id === sort.state!.column);
@@ -521,7 +535,8 @@ export function RecordTable<T>({
                     stickyIdentity,
                     fond,
                     !check && 'transition-colors duration-(--arq-duration-rapide) group-hover:bg-bg-muted',
-                    'border-r border-b border-border-soft px-md py-[10px] font-semibold whitespace-nowrap',
+                    'border-r border-b border-border-soft px-md font-semibold whitespace-nowrap',
+                    retrait,
                     !selection && 'pl-xl',
                     identity.mono && 'font-mono font-normal',
                   )}
@@ -542,7 +557,8 @@ export function RecordTable<T>({
                   <td
                     key={c.id}
                     className={cn(
-                      'border-r border-b border-border-soft px-md py-[10px] whitespace-nowrap last:border-r-0',
+                      'border-r border-b border-border-soft px-md whitespace-nowrap last:border-r-0',
+                      retrait,
                       c.numeric && 'text-right tabular-nums',
                       i === columns.length - 1 && 'pr-xl',
                     )}

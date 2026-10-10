@@ -35,6 +35,7 @@ export { Meter, type MeterProps } from './components/meter/meter.web';
 export {
   RecordTable,
   type RecordTableProps,
+  type RecordTableDensity,
   type RecordColumn,
 } from './components/record-table/record-table.web';
 export {
