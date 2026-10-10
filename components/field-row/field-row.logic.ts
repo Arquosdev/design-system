@@ -16,7 +16,7 @@
 */
 import { isISO, toDisplay } from '../date-field/date-field.logic.ts';
 
-export type FieldKind = 'text' | 'number' | 'choice' | 'multi' | 'date';
+export type FieldKind = 'text' | 'number' | 'choice' | 'multi' | 'date' | 'email';
 export type FieldStatus = 'filled' | 'missing' | 'to_check';
 export type FieldSave = 'saving' | 'ok' | 'error';
 export interface FieldOption {
@@ -159,4 +159,17 @@ export function splitMultipleChoice(
   const known = values.map(retenu).filter((o): o is FieldOption => Boolean(o)).map((o) => o.value);
   const free = values.find((v) => !retenu(v) && !marque(v) && v.trim() !== '') ?? '';
   return { known, free, marked: values.some(marque) };
+}
+
+/**
+ * Une adresse email plausible : un seul @, une partie locale, un domaine à
+ * point, sans espace. Vide passe : effacer une adresse est un geste permis.
+ *
+ * Volontairement simple : le serveur juge en dernier, et une règle plus
+ * savante refuserait des adresses réelles. Elle sert à dire la faute de
+ * frappe AVANT l'aller-retour, pas à remplacer le contrôle du serveur.
+ */
+export function emailValide(v: string): boolean {
+  const t = v.trim();
+  return t === '' || /^[^\s@]+@[^\s@]+\.[^\s@.]+$/.test(t);
 }

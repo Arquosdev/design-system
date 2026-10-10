@@ -8,6 +8,7 @@ import { spacing } from '../../src/spacing';
 import { fontFamilyNative, typography } from '../../src/typography';
 import { Text } from '../text/text.native';
 import {
+  emailValide,
   isEmpty as estVideLogique,
   valueText,
   SAVE_TEXT,
@@ -97,8 +98,15 @@ export function FieldRow({
     setEnSaisie(true);
   };
 
+  const [enFaute, setEnFaute] = React.useState(false);
   const valider = (v: string) => {
-    onSave?.(v);
+    // Une adresse mal formée ne part pas : la ligne reste ouverte et le dit.
+    if (kind === 'email' && !emailValide(v)) {
+      setEnFaute(true);
+      return;
+    }
+    setEnFaute(false);
+    onSave?.(kind === 'email' ? v.trim() : v);
     setEnSaisie(false);
   };
 
@@ -110,17 +118,30 @@ export function FieldRow({
 
       <View style={styles.colonneValeur}>
         {enSaisie && kind !== 'choice' ? (
+          <>
           <TextInput
             autoFocus
             value={brouillon}
-            onChangeText={setBrouillon}
+            onChangeText={(t) => {
+              setBrouillon(t);
+              if (enFaute) setEnFaute(false);
+            }}
             onBlur={() => valider(brouillon)}
             onSubmitEditing={() => valider(brouillon)}
-            keyboardType={kind === 'number' ? 'numeric' : 'default'}
+            keyboardType={kind === 'number' ? 'numeric' : kind === 'email' ? 'email-address' : 'default'}
+            autoCapitalize={kind === 'email' ? 'none' : undefined}
+            autoCorrect={kind === 'email' ? false : undefined}
+            textContentType={kind === 'email' ? 'emailAddress' : undefined}
             accessibilityLabel={label}
             selectionColor={colors.primary}
-            style={styles.saisie}
+            style={[styles.saisie, enFaute && styles.saisieEnFaute]}
           />
+          {enFaute ? (
+            <Text variant="caption" style={styles.faute} accessibilityLiveRegion="polite">
+              Cette adresse email est mal formée.
+            </Text>
+          ) : null}
+          </>
         ) : enSaisie ? (
           <View style={styles.choix}>
             {options.map((o) => (
@@ -225,6 +246,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.xs,
     paddingVertical: spacing.xxs,
   },
+  saisieEnFaute: { borderColor: colors.danger },
+  faute: { color: colors.danger, marginTop: spacing.xs },
   saisie: {
     height: controlHeight.md,
     borderRadius: radius.control,

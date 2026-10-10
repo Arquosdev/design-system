@@ -2,6 +2,7 @@ import { deepStrictEqual, strictEqual } from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
 import {
+  emailValide,
   isEmpty,
   choiceMenu,
   dateText,
@@ -210,5 +211,19 @@ describe('partagerLeChoixMultiple — libellé reçu, valeur rendue', () => {
     const r = splitMultipleChoice(['Came fixe', 'une came bricolée'], CAMES);
     deepStrictEqual(r.known, ['came_fixe']);
     strictEqual(r.free, 'une came bricolée');
+  });
+});
+
+describe('emailValide', () => {
+  it('accepte une adresse ordinaire, et le vide', () => {
+    strictEqual(emailValide('contact@ascenseurs-dupont.fr'), true);
+    strictEqual(emailValide('  jean.dupont+devis@exemple.co.uk '), true);
+    strictEqual(emailValide(''), true);
+  });
+
+  it('refuse une faute de frappe', () => {
+    for (const v of ['contact', 'contact@', '@exemple.fr', 'contact@exemple', 'jean dupont@exemple.fr', 'a@@b.fr', 'contact@exemple.']) {
+      strictEqual(emailValide(v), false, v);
+    }
   });
 });

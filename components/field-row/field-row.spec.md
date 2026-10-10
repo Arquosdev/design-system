@@ -36,7 +36,7 @@ de la fiche : c'est lui qui la rend modifiable sans formulaire séparé.
 | ------------ | ------------------------------------------- | ---------- | --------------------------------------------- |
 | `label`      | `string`                                    | —          | Le libellé du champ                            |
 | `value`      | `string \| string[] \| null`                | —          | La valeur courante ; `null` = non renseignée   |
-| `kind`       | `'text' \| 'number' \| 'choice' \| 'multi' \| 'date'` | `'text'`   | Détermine l'éditeur qui s'ouvre à la saisie    |
+| `kind`       | `'text' \| 'number' \| 'choice' \| 'multi' \| 'date' \| 'email'` | `'text'`   | Détermine l'éditeur qui s'ouvre à la saisie    |
 | `options`    | `{ value: string; label: string }[]`        | `[]`       | Requis pour `choice` et `multi`                |
 | `onSave`     | `(v: string \| string[]) => void`           | —          | Appelé à la validation. Absent = lecture seule |
 | `status`     | `'filled' \| 'missing' \| 'to_check'` | —          | Pastille affichée à droite de la valeur        |
@@ -59,11 +59,30 @@ de la fiche : c'est lui qui la rend modifiable sans formulaire séparé.
 <FieldRow label="Accès" value={['Badge', 'Interphone']} kind="multi" options={acces} onSave={enregistrer} />
 <FieldRow label="Taux de connaissance" value="82 %" readOnly />
 <FieldRow label="Date de mise en service" value="1978-03-04" kind="date" onSave={enregistrer} />
+<FieldRow label="Email générique" value="contact@ascenseurs-dupont.fr" kind="email" onSave={enregistrer} />
 ```
+
+## `kind="email"` — une adresse se refuse avant l'aller-retour
+
+L'éditeur ouvre le **clavier d'adresse** du téléphone (`inputMode="email"`,
+`keyboardType="email-address"` en natif), sans correcteur ni majuscule
+automatique : un correcteur qui « répare » `jdupont@` en `Jdupont@` change
+l'adresse.
+
+**Une adresse mal formée ne part pas.** La ligne reste ouverte, sa bordure passe
+en `danger` et une ligne le dit : « Cette adresse email est mal formée. ».
+Entrée garde la main dans le champ ; cliquer ailleurs laisse le champ ouvert
+sans le reprendre, pour ne pas enfermer la personne. Échap annule. La règle
+(`emailValide`) est volontairement simple — un @, un domaine à point, pas
+d'espace — et **le vide passe** : effacer une adresse est un geste permis.
+`onSave` reçoit l'adresse sans ses espaces de bord.
+
+**Le serveur juge en dernier.** Ce contrôle dit la faute de frappe tôt ; il ne
+remplace pas celui du chemin d'écriture, qu'un appel fabriqué contourne.
 
 ## `kind="date"` — la seule valeur dont l'affichage n'est pas le stockage
 
-Les quatre autres genres montrent leur `value` telle quelle. Une date, non :
+Les autres genres montrent leur `value` telle quelle. Une date, non :
 `value="1978-03-04"` s'affiche **« 04/03/1978 »**, et `onSave` rend
 **`'1978-03-04'`**. L'éditeur est un `DateField`.
 

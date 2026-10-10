@@ -10,6 +10,7 @@ import { toISO } from '../date-field/date-field.logic';
 import {
   choiceMenu,
   dateText,
+  emailValide,
   splitMultipleChoice,
   valueText,
   SAVE_TEXT,
@@ -493,6 +494,10 @@ function Editor({ kind, label, value, options, other, onValider, onAnnuler }: Ed
     return <DateEditor label={label} value={value} onValider={onValider} onAnnuler={onAnnuler} />;
   }
 
+  if (kind === 'email') {
+    return <EmailEditor label={label} value={value} onValider={onValider} onAnnuler={onAnnuler} />;
+  }
+
   return (
     <input
       autoFocus
@@ -508,6 +513,59 @@ function Editor({ kind, label, value, options, other, onValider, onAnnuler }: Ed
       onBlur={(e) => onValider(e.currentTarget.value)}
       className="h-(--arq-control-sm) w-full rounded-control border-(length:--arq-border-epais) border-primary px-sm text-small text-text outline-none"
     />
+  );
+}
+
+/**
+ * L'éditeur d'une adresse : le clavier d'adresse sur un téléphone, ni
+ * correcteur ni majuscule, et la faute de frappe dite AVANT l'aller-retour.
+ * Une adresse mal formée n'est pas envoyée : la ligne reste ouverte et le dit,
+ * plutôt que d'attendre le refus du serveur.
+ */
+function EmailEditor({ label, value, onValider, onAnnuler }: Pick<EditorProps, 'label' | 'value' | 'onValider' | 'onAnnuler'>) {
+  const [enFaute, setEnFaute] = React.useState(false);
+  const champ = React.useRef<HTMLInputElement>(null);
+  // Entrée garde la main dans le champ ; la perte de focus le laisse ouvert sans le reprendre.
+  const valider = (v: string, reprendre = false) => {
+    if (!emailValide(v)) {
+      setEnFaute(true);
+      if (reprendre) champ.current?.focus();
+      return;
+    }
+    onValider(v.trim());
+  };
+  const idMessage = React.useId();
+  return (
+    <div className="flex w-full flex-col gap-xs">
+      <input
+        ref={champ}
+        autoFocus
+        aria-label={label}
+        type="email"
+        inputMode="email"
+        autoComplete="email"
+        autoCapitalize="none"
+        spellCheck={false}
+        aria-invalid={enFaute || undefined}
+        aria-describedby={enFaute ? idMessage : undefined}
+        defaultValue={typeof value === 'string' ? value : ''}
+        onChange={() => enFaute && setEnFaute(false)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') valider(e.currentTarget.value, true);
+          if (e.key === 'Escape') onAnnuler();
+        }}
+        onBlur={(e) => valider(e.currentTarget.value)}
+        className={cn(
+          'h-(--arq-control-sm) w-full rounded-control border-(length:--arq-border-epais) px-sm text-small text-text outline-none',
+          enFaute ? 'border-danger' : 'border-primary',
+        )}
+      />
+      {enFaute ? (
+        <p id={idMessage} role="alert" className="text-caption text-danger">
+          Cette adresse email est mal formée.
+        </p>
+      ) : null}
+    </div>
   );
 }
 

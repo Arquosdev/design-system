@@ -39,6 +39,7 @@ export {
   choiceMenu,
   valueText,
   isEmpty,
+  emailValide,
   EMPTY,
   STATUS_TEXT,
   SAVE_TEXT,

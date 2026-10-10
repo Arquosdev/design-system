@@ -85,6 +85,7 @@ export {
   splitMultipleChoice,
   valueText,
   isEmpty,
+  emailValide,
   EMPTY,
   STATUS_TEXT,
   SAVE_TEXT,

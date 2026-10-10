@@ -1,5 +1,13 @@
 # Monter une app vers la version courante
 
+## Non publié — FieldRow connaît l'email
+
+**Un sixième genre, `kind="email"`** (web et mobile) : clavier d'adresse, ni
+correcteur ni majuscule, et une adresse mal formée refusée dans la ligne, avec
+la raison, avant d'être envoyée. Rien ne change pour les appelants existants.
+**À reprendre chez l'appelant** : un email édité en `kind="text"` passe en
+`kind="email"`. Aucune cote ne bouge.
+
 ## Non publié — l'en-tête de RecordTable colle sur une fiche
 
 **L'en-tête reste visible quand c'est la page ou la zone d'une fiche qui
