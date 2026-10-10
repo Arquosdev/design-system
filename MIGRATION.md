@@ -1,5 +1,14 @@
 # Monter une app vers la version courante
 
+## Non publié — FieldRow sépare ce qui s'affiche de ce qui s'édite
+
+**Nouvelle prop `display`** (web et mobile) : le texte de la ligne en lecture,
+quand il diffère de la valeur éditée — « 3 000,00 € » pour `3000`. `value`
+reste la valeur brute, que l'éditeur reçoit. Rien ne change pour les appelants
+existants. **À reprendre chez l'appelant** : une unité mise dans le libellé
+(« Prix (€) ») pour contourner le manque, et toute valeur mise en forme passée
+en `value` à une ligne éditable — son éditeur s'ouvrait vide.
+
 ## Non publié — IconButton `solid`
 
 **Une quatrième variante, `solid`** (web) : pleine et marine, pour l'action

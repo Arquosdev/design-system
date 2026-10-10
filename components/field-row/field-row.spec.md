@@ -35,7 +35,8 @@ de la fiche : c'est lui qui la rend modifiable sans formulaire séparé.
 | Prop         | Type                                        | Défaut     | Rôle                                          |
 | ------------ | ------------------------------------------- | ---------- | --------------------------------------------- |
 | `label`      | `string`                                    | —          | Le libellé du champ                            |
-| `value`      | `string \| string[] \| null`                | —          | La valeur courante ; `null` = non renseignée   |
+| `value`      | `string \| string[] \| null`                | —          | La valeur courante ; `null` = non renseignée. C'est elle que l'éditeur reçoit : brute (`3000`), jamais mise en forme |
+| `display`    | `string`                                  | —          | Ce que la ligne montre quand ce n'est pas ce qu'on édite : « 3 000,00 € » pour `3000`. Ignoré quand la valeur est vide |
 | `kind`       | `'text' \| 'number' \| 'choice' \| 'multi' \| 'date' \| 'email'` | `'text'`   | Détermine l'éditeur qui s'ouvre à la saisie    |
 | `options`    | `{ value: string; label: string }[]`        | `[]`       | Requis pour `choice` et `multi`                |
 | `onSave`     | `(v: string \| string[]) => void`           | —          | Appelé à la validation. Absent = lecture seule |

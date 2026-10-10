@@ -22,6 +22,15 @@ import {
 export interface FieldRowProps {
   label: string;
   value: string | string[] | null;
+  /**
+   * Ce que la ligne MONTRE, quand ce n'est pas ce qu'on édite : « 3 000,00 € »
+   * pour une valeur `3000`. `value` reste la valeur brute, que l'éditeur reçoit ;
+   * sans cette séparation, un montant mis en forme remplissait un champ
+   * numérique d'une chaîne qu'il refuse, et l'éditeur s'ouvrait VIDE (manque 2
+   * du web, 01/09/2026). Ignoré quand la valeur est vide : l'absence se dit
+   * pareil partout.
+   */
+  display?: string;
   kind?: FieldKind;
   options?: readonly FieldOption[];
   /** Absent = lecture seule. */
@@ -77,6 +86,7 @@ const SAVE_TINT: Record<FieldSave, string> = {
 export function FieldRow({
   label,
   value,
+  display,
   kind = 'text',
   options = [],
   onSave,
@@ -91,6 +101,8 @@ export function FieldRow({
   const [enSaisie, setEnSaisie] = React.useState(false);
   const [brouillon, setBrouillon] = React.useState('');
   const vide = estVideLogique(value);
+  // Ce que la ligne montre et annonce ; l'éditeur, lui, part de la valeur brute.
+  const lu = display && !vide ? display : valueText(value);
 
   const ouvrir = () => {
     if (!editable) return;
@@ -163,9 +175,9 @@ export function FieldRow({
               accessibilityRole={editable || onPress ? 'button' : undefined}
               accessibilityLabel={
                 onPress
-                  ? `${label} : ${valueText(value)}, ouvrir`
+                  ? `${label} : ${lu}, ouvrir`
                   : editable
-                    ? `${label} : ${valueText(value)}, modifier`
+                    ? `${label} : ${lu}, modifier`
                     : undefined
               }
               style={styles.zoneValeur}
@@ -179,7 +191,7 @@ export function FieldRow({
                   editable && { borderBottomColor: vide ? colors.border : colors.textSubtle },
                 ]}
               >
-                {valueText(value)}
+                {lu}
               </Text>
             </Pressable>
 

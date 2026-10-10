@@ -54,6 +54,15 @@ const EMPTY_CHOICE = '__vide__';
 export interface FieldRowProps {
   label: string;
   value: string | string[] | null;
+  /**
+   * Ce que la ligne MONTRE, quand ce n'est pas ce qu'on édite : « 3 000,00 € »
+   * pour une valeur `3000`. `value` reste la valeur brute, que l'éditeur reçoit ;
+   * sans cette séparation, un montant mis en forme remplissait un champ
+   * numérique d'une chaîne qu'il refuse, et l'éditeur s'ouvrait VIDE (manque 2
+   * du web, 01/09/2026). Ignoré quand la valeur est vide : l'absence se dit
+   * pareil partout.
+   */
+  display?: string;
   kind?: FieldKind;
   options?: readonly FieldOption[];
   onSave?: (value: string | string[]) => void;
@@ -195,6 +204,7 @@ function afficher(value: string | string[] | null, kind: FieldKind): string {
 export function FieldRow({
   label,
   value,
+  display,
   kind = 'text',
   options = [],
   onSave,
@@ -326,7 +336,7 @@ export function FieldRow({
                   : 'text-text border-text-subtle',
               )}
             >
-              {afficher(value, kind)}
+              {display && !isEmpty ? display : afficher(value, kind)}
             </span>
             {onViewPhotos && photos && photos.length > 0 ? (
               // Discret par construction : rien à l'écran tant qu'on ne le
