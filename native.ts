@@ -16,6 +16,8 @@
 // développement, l'exclusion tombe.
 
 export { Text, type TextProps, type TextTone } from './components/text/text.native';
+export { Markdown, type MarkdownProps } from './components/markdown/markdown.native';
+export { texteBrut as texteBrutDuMarkdown } from './components/markdown/markdown.logic';
 export { Icon, type IconProps } from './components/icon/icon.native';
 export { type IconRole, type IconName } from './src/icons';
 export { ThinkingDots, type ThinkingDotsProps } from './components/thinking-dots/thinking-dots.native';

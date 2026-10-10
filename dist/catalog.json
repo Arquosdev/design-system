@@ -698,6 +698,40 @@
       }
     },
     {
+      "name": "Markdown",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Mettre en forme un texte écrit en markdown, comme la réponse d'un assistant IA, pareil sur le web et le téléphone.",
+      "keywords": [
+        "markdown",
+        "texte",
+        "reponse",
+        "assistant",
+        "ia",
+        "chat",
+        "titre",
+        "liste",
+        "tableau",
+        "lien",
+        "mise en forme"
+      ],
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/markdown",
+      "specFile": "components/markdown/markdown.spec.md",
+      "fichiers": {
+        "web": "components/markdown/markdown.web.tsx",
+        "mobile": "components/markdown/markdown.native.tsx",
+        "logique": "components/markdown/markdown.logic.ts"
+      }
+    },
+    {
       "name": "Meter",
       "status": "beta",
       "layer": "generique",

@@ -1,5 +1,15 @@
 # Monter une app vers la version courante
 
+## Non publié — Markdown, le texte d'une réponse mis en forme
+
+**Nouveau composant, `Markdown`** (web et mobile) : titres, listes (un niveau
+d'imbrication), tableaux, citations, code et liens, sur un seul analyseur que
+les deux plateformes partagent (`markdown.logic.ts`, testé sans navigateur).
+Un lien se rend par `renderLink` (web) ou s'ouvre par `onLink` (mobile) : seuls
+les chemins, adresses web, courriels et téléphones sont des liens. `texteBrut`
+rend le texte nu, pour copier. Rien ne change pour les appelants existants.
+**À reprendre chez l'appelant** : un rendu de markdown écrit à la main.
+
 ## Non publié — FieldRow sépare ce qui s'affiche de ce qui s'édite
 
 **Nouvelle prop `display`** (web et mobile) : le texte de la ligne en lecture,

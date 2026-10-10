@@ -34,6 +34,7 @@ Une mécanique que n'importe quelle application aurait — bouton, modale, ongle
 | [IconButton](icon-button/icon-button.spec.md) | Déclencher une action représentée par une icône seule, sans perdre son nom accessible. | 🖥️ 📱 | stable |
 | [Input](input/input.spec.md) | Recueillir une valeur courte tapée au clavier, dans un formulaire. | 🖥️ 📱 | stable |
 | [Label](label/label.spec.md) | Nommer un champ, et agrandir sa cible de clic à tout l'intitulé. | 🖥️ 📱 | stable |
+| [Markdown](markdown/markdown.spec.md) | Mettre en forme un texte écrit en markdown, comme la réponse d'un assistant IA, pareil sur le web et le téléphone. | 🖥️ 📱 | beta |
 | [Meter](meter/meter.spec.md) | Montrer une proportion dans une série, quand plusieurs valeurs se comparent ligne à ligne. | 🖥️ | beta |
 | [PageHeader](page-header/page-header.spec.md) | Dire en haut d'un écran d'où l'on vient, ce qu'on regarde et ce qu'on peut en faire. | 🖥️ | beta |
 | [PasswordInput](password-input/password-input.spec.md) | Recueillir un mot de passe, avec une bascule masqué / en clair. | 🖥️ | beta |

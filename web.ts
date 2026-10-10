@@ -96,6 +96,8 @@ export {
 } from './components/field-row/field-row.logic';
 
 export { DateField, type DateFieldProps } from './components/date-field/date-field.web';
+export { Markdown, type MarkdownProps } from './components/markdown/markdown.web';
+export { analyser as analyserMarkdown, texteBrut as texteBrutDuMarkdown, hrefSur as lienSur } from './components/markdown/markdown.logic';
 export { FileField, type FileFieldProps } from './components/file-field/file-field.web';
 export { tailleLisible, correspond as fichierCorrespond, refus as refusDeFichier, trier as trierFichiers, type FichierLu } from './components/file-field/file-field.logic';
 /*
