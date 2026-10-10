@@ -28,6 +28,7 @@ Une mécanique que n'importe quelle application aurait — bouton, modale, ongle
 | [DateField](date-field/date-field.spec.md) | Saisir une date au clavier, ou la choisir dans un calendrier, et la rendre en ISO. | 🖥️ | beta |
 | [Drawer](drawer/drawer.spec.md) | Ouvrir un panneau latéral pour régler ce qu'on regarde, sans quitter l'écran. | 🖥️ | beta |
 | [EmptyState](empty-state/empty-state.spec.md) | Dire pourquoi une zone est vide, et ce qu'on peut y faire. | 🖥️ 📱 | stable |
+| [FileField](file-field/file-field.spec.md) | Joindre un ou plusieurs fichiers, en disant ce qui est permis et en refusant sur le champ ce qui ne l'est pas. | 🖥️ | beta |
 | [FilterChips](filter-chips/filter-chips.spec.md) | Restreindre une liste à une de ses parties, par une barre de puces. | 🖥️ | beta |
 | [Icon](icon/icon.spec.md) | Poser une icône du vocabulaire Arquos, désignée par son rôle et non par son dessin. | 🖥️ 📱 | stable |
 | [IconButton](icon-button/icon-button.spec.md) | Déclencher une action représentée par une icône seule, sans perdre son nom accessible. | 🖥️ 📱 | stable |

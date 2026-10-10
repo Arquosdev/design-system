@@ -1,5 +1,16 @@
 # Monter une app vers la version courante
 
+## Non publié — FileField, un contrôle de fichier
+
+**Nouveau composant, `FileField`** (web) : une zone qu'on clique ou sur
+laquelle on dépose un fichier, qui dit les formats et le poids permis, et qui
+refuse sur le champ, avec la raison, un fichier du mauvais type ou trop lourd.
+Un choix refusé vide le champ natif, si bien qu'un formulaire envoyé tel quel
+(`name`) ne part jamais avec. Deux formes : `zone` (le cadre en pointillés) et
+`compact` (un bouton, quand l'appelant liste lui-même ce qu'il a joint). Rien
+ne change pour les appelants existants. **À reprendre chez l'appelant** : un
+`<input type="file">` rendu invisible dans une zone dessinée à la main.
+
 ## Non publié — le champ natif est une pilule
 
 **`Input` (mobile seulement)** : arrondi `full` sur une ligne (comme le

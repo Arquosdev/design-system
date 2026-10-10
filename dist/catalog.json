@@ -485,6 +485,38 @@
       }
     },
     {
+      "name": "FileField",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Joindre un ou plusieurs fichiers, en disant ce qui est permis et en refusant sur le champ ce qui ne l'est pas.",
+      "keywords": [
+        "fichier",
+        "joindre",
+        "televerser",
+        "upload",
+        "depot",
+        "glisser",
+        "deposer",
+        "pdf",
+        "photo",
+        "document",
+        "piece jointe"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/file-field",
+      "specFile": "components/file-field/file-field.spec.md",
+      "fichiers": {
+        "web": "components/file-field/file-field.web.tsx",
+        "logique": "components/file-field/file-field.logic.ts"
+      }
+    },
+    {
       "name": "FilterChips",
       "status": "beta",
       "layer": "generique",

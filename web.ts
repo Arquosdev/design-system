@@ -96,6 +96,8 @@ export {
 } from './components/field-row/field-row.logic';
 
 export { DateField, type DateFieldProps } from './components/date-field/date-field.web';
+export { FileField, type FileFieldProps } from './components/file-field/file-field.web';
+export { tailleLisible, correspond as fichierCorrespond, refus as refusDeFichier, trier as trierFichiers, type FichierLu } from './components/file-field/file-field.logic';
 /*
   La logique de `DateField` est servie par les deux portes, comme celle de
   `FieldRow`. Elle n'est pas là par symétrie : `todayISO` et `toDisplay` sont ce
