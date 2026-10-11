@@ -218,7 +218,7 @@ export { Switch } from './components/switch/switch.web';
 // équipements, et la liste des affaires en aura besoin à l'identique.
 export { Drawer, DrawerSection, type DrawerProps } from './components/drawer/drawer.web';
 export {
-  Toolbar, ToolButton, ToolbarSpacer, type ToolButtonProps,
+  Toolbar, ToolButton, ToolbarSearch, ToolbarSpacer, type ToolButtonProps, type ToolbarSearchProps,
 } from './components/toolbar/toolbar.web';
 export {
   SelectionBar, SelectionAction, type SelectionActionProps,

@@ -1,5 +1,12 @@
 # Monter une app vers la version courante
 
+## Non publié — ToolbarSearch, la recherche d'une liste
+
+**Nouveau composant, `ToolbarSearch`** (web), en tête de `Toolbar` : champ
+contrôlé, « / » pour y aller, Échap pour vider. La `Toolbar` prend une
+gouttière de 16 px sur un téléphone (24 px au-delà). **À reprendre chez
+l'appelant** : chaque liste pose sa recherche et la garde dans l'adresse.
+
 ## Non publié — PageBody et la largeur de page
 
 **Nouveau composant, `PageBody`** (web), et **nouveau jeton `width.page`**

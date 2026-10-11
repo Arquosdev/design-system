@@ -9,13 +9,13 @@ import { cn } from '../_lib/cn';
 const BOUTON =
   // Le même que le bouton secondaire depuis le 07/10/2026 : gris pâle, bordure douce.
   'flex h-9 items-center gap-sm rounded-control border border-border-soft bg-bg-muted px-md ' +
-  'text-small font-semibold whitespace-nowrap text-text hover:border-border hover:bg-border-soft ' +
+  'text-small-bold whitespace-nowrap text-text hover:border-border hover:bg-border-soft ' +
   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary';
 
 /** La barre au-dessus d'une liste : ce qu'on peut lui faire. */
 export function Toolbar({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={cn('flex flex-wrap items-center gap-sm px-xl py-md', className)}>{children}</div>
+    <div className={cn('flex flex-wrap items-center gap-sm px-base py-md sm:px-xl', className)}>{children}</div>
   );
 }
 
@@ -50,7 +50,7 @@ export const ToolButton = React.forwardRef<HTMLButtonElement, ToolButtonProps>(
         {children}
         {extra && <span className="font-normal">{extra}</span>}
         {count !== undefined && count > 0 && (
-          <span className="inline-flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-primary px-xs text-caption font-bold text-text-on-dark">
+          <span className="inline-flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-primary px-xs text-caption-bold text-text-on-dark">
             {count}
           </span>
         )}
@@ -58,6 +58,63 @@ export const ToolButton = React.forwardRef<HTMLButtonElement, ToolButtonProps>(
     );
   },
 );
+
+export interface ToolbarSearchProps {
+  value: string;
+  onChange: (value: string) => void;
+  /** Ce qu'on peut taper : « Numéro, adresse, client ». Défaut : « Rechercher ». */
+  placeholder?: string;
+  /** Le nom du champ pour un lecteur d'écran. Défaut : le texte d'attente. */
+  label?: string;
+  className?: string;
+}
+
+/**
+ * La recherche d'une liste, en tête de sa barre d'outils (audit design du
+ * 11/10/2026, A1-02, A2-04, A3-15 : aucune liste n'en avait, il fallait
+ * cinq gestes dans le panneau des filtres pour retrouver un numéro).
+ *
+ * La touche « / » y place le curseur, comme chez Linear et GitHub, tant
+ * qu'on n'écrit pas déjà ailleurs ; Échap la vide.
+ */
+export function ToolbarSearch({ value, onChange, placeholder = 'Rechercher', label, className }: ToolbarSearchProps) {
+  const ref = React.useRef<HTMLInputElement>(null);
+  React.useEffect(() => {
+    const surTouche = (e: KeyboardEvent) => {
+      if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return;
+      const cible = e.target as HTMLElement | null;
+      if (cible && (cible.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(cible.tagName))) return;
+      e.preventDefault();
+      ref.current?.focus();
+    };
+    window.addEventListener('keydown', surTouche);
+    return () => window.removeEventListener('keydown', surTouche);
+  }, []);
+  return (
+    <label
+      className={cn(
+        'flex h-9 w-full items-center gap-sm rounded-control border border-border bg-bg px-md sm:w-64',
+        'focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-primary',
+        className,
+      )}
+    >
+      <Icon role="search" className="size-4 shrink-0 text-text-muted" aria-hidden />
+      <input
+        ref={ref}
+        type="search"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => { if (e.key === 'Escape' && value) { e.preventDefault(); onChange(''); } }}
+        placeholder={placeholder}
+        aria-label={label ?? placeholder}
+        className="min-w-0 flex-1 bg-transparent text-small text-text outline-none placeholder:text-text-muted [&::-webkit-search-cancel-button]:hidden"
+      />
+      {value ? null : (
+        <kbd aria-hidden className="rounded-control border border-border-soft px-xs text-caption text-text-muted">/</kbd>
+      )}
+    </label>
+  );
+}
 
 /** Pousse ce qui suit à droite de la barre. */
 export function ToolbarSpacer() {

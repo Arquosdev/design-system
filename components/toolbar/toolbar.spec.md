@@ -28,7 +28,7 @@ affiché** : ouvrir les filtres, choisir les colonnes, exporter, basculer de vue
 
 ## Anatomie
 
-- Barre : `spacing.xl` horizontal, `spacing.md` vertical, `spacing.sm` entre
+- Barre : `spacing.base` horizontal sur un téléphone, `spacing.xl` au-delà, `spacing.md` vertical, `spacing.sm` entre
   boutons, repliable sur plusieurs lignes quand l'écran est étroit
 - Bouton : 36 px de haut, bord `colors.border`, texte `small` en `semibold`
   `colors.textMuted`, icône de 16 px
@@ -36,6 +36,14 @@ affiché** : ouvrir les filtres, choisir les colonnes, exporter, basculer de vue
   réglage qu'il ouvre est en cours
 - Compteur : pastille `colors.primary`, pour ce qui est actif et se compte
 - Précision : en graisse normale, pour ce qui se lit sans compter (« 9 / 24 »)
+
+## La recherche
+
+`ToolbarSearch` se pose EN TÊTE de la barre, avant les filtres : chercher est
+le premier geste sur une liste, chez Linear comme chez Attio. Le champ est
+contrôlé — la liste décide quand interroger (au fil de la frappe, après une
+courte pause) et garde la recherche dans l'adresse. « / » y place le curseur,
+Échap la vide. Pleine largeur sur un téléphone, 256 px au-delà.
 
 ## Ce qu'il faut savoir
 
@@ -51,6 +59,7 @@ action pèsent dans une barre déjà chargée.
 
 ```tsx
 <Toolbar>
+  <ToolbarSearch value={q} onChange={setQ} placeholder="Numéro, adresse, client" />
   <ToolButton icon="filter" count={3} active onClick={ouvrirFiltres}>Filtres</ToolButton>
   <ToolButton icon="columns" extra="9 / 24" onClick={ouvrirColonnes}>Colonnes</ToolButton>
   <ToolbarSpacer />
