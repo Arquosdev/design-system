@@ -1,12 +1,23 @@
 # Monter une app vers la version courante
 
-## Non publié — Quatre rôles d'icône pour myArquos
+## Non publié — Rôles d'icône pour myArquos
 
 **`today`** (le calendrier coché : la journée du technicien), **`print`**,
 **`home`** et **`rating`** (l'étoile de la note). Rien ne change pour les
 appelants existants. **À reprendre chez l'appelant** : un `CalendarCheck`,
 `Printer`, `House` ou `Star` importé de Phosphor dans une app passe par
 `<Icon role=…>`.
+
+Puis dix-huit autres le 11/10/2026 (audit A5-09, plus aucun import de Phosphor
+dans myArquos) : **`view`** (Eye, voir une photo), **`zoomIn`**
+(MagnifyingGlassPlus), **`listen`** (SpeakerHigh), **`play`** et **`pause`**,
+**`flash`** et **`flashOff`** (Lightning, LightningSlash : le flash de l'appareil
+photo, pas la synchronisation), **`undo`** (ArrowCounterClockwise),
+**`loading`** (Spinner, que l'appelant fait tourner), **`pending`** (Circle) et
+**`partial`** (CircleHalf), et sept zones du formulaire de relevé :
+**`zoneBottom`** (ArrowLineDown), **`zoneTop`** (ArrowLineUp), **`door`**
+(DoorOpen), **`secondEntrance`** (Copy), **`cabin`** (Elevator), **`mechanism`**
+(Gear) et **`controls`** (Sliders). Rien ne change pour les appelants existants.
 
 ## Non publié — Un focus, un état vide, un squelette
 

@@ -289,6 +289,50 @@ export const icons = {
   /** La note donnée à un relevé ou à une intervention (satisfaction). */
   rating: 'Star',
 
+  // Ajoutés le 11/10/2026 pour myArquos (audit A5-09) : ses écrans importaient
+  // encore ces dessins de Phosphor directement.
+  /** REGARDER une chose en grand (« Voir la photo »). Le même œil que
+   *  `revealPassword`, pour un autre sens : on ouvre, on ne dévoile pas. */
+  view: 'Eye',
+  /** Agrandir ce qu'on a sous les yeux (une page de manuel, une photo). */
+  zoomIn: 'MagnifyingGlassPlus',
+  /** Écouter un texte lu à voix haute (la réponse de l'assistant). */
+  listen: 'SpeakerHigh',
+  /** Lire un enregistrement (une note vocale). */
+  play: 'Play',
+  /** Mettre en pause un enregistrement qu'on écoute. */
+  pause: 'Pause',
+  /** Le flash de l'appareil photo, allumé ou automatique. Le même éclair que
+   *  `sync`, pour un autre sens : l'appareil, pas la synchronisation. */
+  flash: 'Lightning',
+  /** Le flash de l'appareil photo, éteint. */
+  flashOff: 'LightningSlash',
+  /** Défaire un marquage qu'on vient de poser (« Annuler le marquage non prenable »). */
+  undo: 'ArrowCounterClockwise',
+  /** Une attente en cours. Immobile : c'est l'appelant qui le fait tourner. */
+  loading: 'Spinner',
+  /** Pas encore commencé : le cercle vide d'un point ou d'une zone sans réponse. */
+  pending: 'Circle',
+  /** Commencé, pas fini : une zone dont une partie des points a sa réponse. */
+  partial: 'CircleHalf',
+  /** Une zone basse de l'équipement, dans le formulaire de relevé : la cuvette, la gaine. */
+  zoneBottom: 'ArrowLineDown',
+  /** Une zone haute de l'équipement, dans le formulaire de relevé : le toit de cabine. */
+  zoneTop: 'ArrowLineUp',
+  /** Une porte et ce qui la tient, dans le formulaire de relevé : le palier, la gâche. */
+  door: 'DoorOpen',
+  /** La seconde face d'un équipement à deux accès (« Face 2 »). Le dessin de
+   *  `copy`, pour un autre sens : le double d'une face, pas le geste de copier. */
+  secondEntrance: 'Copy',
+  /** L'intérieur de la cabine, dans le formulaire de relevé (« En cabine »). */
+  cabin: 'Elevator',
+  /** Un ensemble mécanique, dans le formulaire de relevé : le moteur, le local poulie.
+   *  Pas `settings`, qui dit RÉGLER un écran. */
+  mechanism: 'Gear',
+  /** Les commandes d'un composant (« Platine de commande »). Le dessin de
+   *  `filter`, pour un autre sens : ce qui commande l'équipement, pas la liste. */
+  controls: 'Sliders',
+
   // -- La nature d'une colonne ---------------------------------------------
   //
   // Un tableau du produit peut proposer près de cinq cents colonnes, presque
