@@ -207,11 +207,13 @@ export const icons = {
   client: 'Briefcase',
   contact: 'User',
   supplier: 'Truck',
-  sector: 'MapTrifold',
+  /** Une zone dessinée sur la carte : le polygone, pas la carte elle-même (`map`). */
+  sector: 'Polygon',
   // Un casque : la clé est déjà la maintenance (06/10/2026).
   technician: 'HardHat',
   deal: 'Handshake',
-  contract: 'FileText',
+  /** Le contrat se signe : la signature, pas la feuille de `document`. */
+  contract: 'Signature',
   quote: 'Receipt',
   // La facture (0155 du POC GMAO) : un document chiffré, distinct du devis.
   invoice: 'Invoice',
@@ -240,6 +242,9 @@ export const icons = {
   emergencyPhone: 'Siren',
   // Les fiches récentes de la palette ⌘K (design-eu).
   recent: 'ClockCounterClockwise',
+  /** Le planning des visites : le calendrier de la semaine. Pas `recent`, qui dit
+   *  « historique », ni `today`, la journée d'un technicien. */
+  planning: 'CalendarDots',
   email: 'EnvelopeSimple',
   conversation: 'ChatCircleDots',
   copy: 'Copy',

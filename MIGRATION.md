@@ -1,5 +1,13 @@
 # Monter une app vers la version courante
 
+## Non publié — Des icônes d'objet qui ne se confondent plus
+
+**`contract`** dessine une signature (il partageait la feuille de `document`),
+**`sector`** un polygone (il partageait la carte de `map`), et le rôle neuf
+**`planning`** un calendrier de semaine. **À reprendre chez l'appelant** : le
+Planning qui empruntait `recent` (l'horloge qui recule, « historique ») passe à
+`planning`.
+
 ## Non publié — ScreenHeader (mobile)
 
 **Composant neuf, `ScreenHeader`** : l'en-tête d'un écran poussé de myArquos,
