@@ -39,6 +39,11 @@ export const width = {
    *  contenu garde la page. Le squelette de chargement doit la partager, sinon
    *  la mise en page saute à l'arrivée des données. */
   rail: 284,
+  /** Le contenu d'une page de réglages, de configuration ou de compte : une
+   *  seule largeur pour toutes (elles en prenaient quatre, de 760 à 1040, et la
+   *  page « sautait » d'un réglage à l'autre ; audit du 11/10/2026, A5-11).
+   *  Les listes et les fiches prennent toute la largeur. `PageBody` la pose. */
+  page: 960,
 } as const;
 
 export type WidthToken = keyof typeof width;

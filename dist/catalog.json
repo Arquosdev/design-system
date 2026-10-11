@@ -817,6 +817,30 @@
       }
     },
     {
+      "name": "PageBody",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Poser le corps d'une page sous son en-tête, à la largeur et à la gouttière communes.",
+      "keywords": [
+        "page",
+        "corps",
+        "largeur",
+        "gouttiere",
+        "conteneur",
+        "mise en page",
+        "reglages",
+        "configuration"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "dossier": "components/page-body",
+      "specFile": "components/page-body/page-body.spec.md",
+      "fichiers": {
+        "web": "components/page-body/page-body.web.tsx"
+      }
+    },
+    {
       "name": "PageHeader",
       "status": "beta",
       "layer": "generique",

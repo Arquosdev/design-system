@@ -228,6 +228,7 @@ export {
 } from './components/active-filters/active-filters.web';
 
 export { PageHeader, type PageHeaderProps } from './components/page-header/page-header.web';
+export { PageBody, type PageBodyProps } from './components/page-body/page-body.web';
 
 export { cn } from './components/_lib/cn';
 export { StatusBadge, type StatusBadgeProps } from './components/status-badge/status-badge.web';

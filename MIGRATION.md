@@ -1,5 +1,13 @@
 # Monter une app vers la version courante
 
+## Non publié — PageBody et la largeur de page
+
+**Nouveau composant, `PageBody`** (web), et **nouveau jeton `width.page`**
+(960 px, `max-w-page`) : le corps d'une page de réglages ou de configuration,
+à la largeur et à la gouttière communes (16 px, 24 px au-delà de 640 px). Rien
+ne change pour les appelants existants. **À reprendre chez l'appelant** : tout
+`max-w-[…] px-xl pt-lg pb-xl` écrit à la main sous un `PageHeader`.
+
 ## Non publié — deux préréglages appuyés, et la hiérarchie en cinq rôles
 
 **`smallBold`** (14/600) et **`captionBold`** (12/600), web (`text-small-bold`,
