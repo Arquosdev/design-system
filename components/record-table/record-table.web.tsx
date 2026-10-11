@@ -35,6 +35,12 @@ export interface RecordColumn<T> {
    * cellule. Les rôles `field*` sont là pour ça.
    */
   icon?: IconRole;
+  /**
+   * Montrée sur la carte d'une ligne, sur un téléphone (sous 640 px, une ligne
+   * devient une carte : l'identité, puis deux colonnes au plus). Sans aucune
+   * colonne marquée, ce sont les deux premières.
+   */
+  phone?: boolean;
 }
 
 export interface RecordTableProps<T> {
@@ -431,6 +437,11 @@ export function RecordTable<T>({
     );
   }
 
+  // Les colonnes d'une carte de téléphone : celles marquées `phone`, ou les
+  // deux premières ; deux au plus.
+  const marquees = columns.some((c) => c.phone);
+  const surCarte = new Set(columns.filter((c, i) => (marquees ? c.phone : i < 2)).slice(0, 2).map((c) => c.id));
+
   return (
     /*
       Variante design-eu (26/09/2026) : le tableau DIT qu'il déborde. Mesuré par
@@ -447,6 +458,15 @@ export function RecordTable<T>({
         className={cn(
           'border-separate border-spacing-0 text-left text-small',
           regle ? 'table-fixed' : 'w-max min-w-full',
+          /*
+            **Sur un téléphone, une ligne devient une CARTE à deux niveaux**
+            (audit A2-11, comme Linear et Attio mobiles) : l'identité en titre,
+            puis les deux premières colonnes, précédées de leur nom. Les
+            colonnes de bureau dans un cadre qui défilait en largeur ne
+            montraient que « Prévue le » et « Échéance ». Le DOM reste le même :
+            seule la mise en page change, en CSS.
+          */
+          'max-sm:block max-sm:!w-full',
         )}
       >
         {/*
@@ -456,7 +476,7 @@ export function RecordTable<T>({
           lignes qui défilent dessous. Les plans des cellules figées redeviennent
           ainsi les mêmes que dans le corps.
         */}
-        <thead ref={entete} className="relative z-30">
+        <thead ref={entete} className="relative z-30 max-sm:hidden">
           <tr>
             {selection && (
               <th
@@ -550,7 +570,7 @@ export function RecordTable<T>({
           </tr>
         </thead>
 
-        <tbody>
+        <tbody className="max-sm:block">
           {sorted.map((row) => {
             const id = rowKey(row);
             const check = selection?.values.has(id) ?? false;
@@ -559,7 +579,9 @@ export function RecordTable<T>({
               // `group` : les cellules figées portent leur propre fond opaque, sans
               // quoi le contenu défilant passerait dessous. Ce fond recouvre le
               // survol de la ligne, et seule une partie du tableau grisait.
-              <tr key={id} className={cn('group transition-colors duration-(--arq-duration-rapide)', fond, !check && 'hover:bg-bg-muted')}>
+              <tr key={id} className={cn('group transition-colors duration-(--arq-duration-rapide)', fond, !check && 'hover:bg-bg-muted',
+                'max-sm:grid max-sm:items-baseline max-sm:gap-x-sm max-sm:gap-y-xxs max-sm:border-b max-sm:border-border-soft max-sm:px-base max-sm:py-sm',
+                selection ? 'max-sm:grid-cols-[auto_minmax(0,1fr)]' : 'max-sm:grid-cols-[minmax(0,1fr)]')}>
                 {selection && (
                   <td
                     style={{ width: LARGEUR_CASE }}
@@ -568,6 +590,7 @@ export function RecordTable<T>({
                       fond,
                       !check && 'transition-colors duration-(--arq-duration-rapide) group-hover:bg-bg-muted',
                       'border-b border-border-soft py-0 pr-0 pl-xl',
+                      'max-sm:static max-sm:row-span-3 max-sm:block max-sm:border-0 max-sm:p-0 max-sm:pt-[2px]',
                     )}
                   >
                     {/* `block` : voir la case de l'en-tête, même raison. */}
@@ -591,6 +614,7 @@ export function RecordTable<T>({
                     retrait,
                     !selection && 'pl-xl',
                     identity.mono && 'font-mono font-normal',
+                    'max-sm:static max-sm:block max-sm:truncate max-sm:border-0 max-sm:p-0',
                   )}
                 >
                   {onOpen ? (
@@ -613,8 +637,13 @@ export function RecordTable<T>({
                       retrait,
                       c.numeric && 'text-right tabular-nums',
                       i === columns.length - 1 && 'pr-xl',
+                      surCarte.has(c.id)
+                        ? 'max-sm:flex max-sm:items-center max-sm:gap-xs max-sm:border-0 max-sm:p-0 max-sm:text-left max-sm:text-caption max-sm:text-text-muted'
+                        : 'max-sm:hidden',
+                      selection && 'max-sm:col-start-2',
                     )}
                   >
+                    {surCarte.has(c.id) ? <span className="shrink-0 sm:hidden">{c.header} :</span> : null}
                     {regle ? (
                       /*
                         `[&>*]:max-w-full` : quand une largeur est réglée, c'est
@@ -635,11 +664,13 @@ export function RecordTable<T>({
                         c'est l'enfant qui porte `truncate`, donc c'est lui qui
                         doit connaître sa borne pour poser les points de suite.
                       */
-                      <span className="block overflow-hidden text-ellipsis [&>*]:max-w-full">
+                      <span className="block overflow-hidden text-ellipsis max-sm:min-w-0 [&>*]:max-w-full">
                         {c.render(row)}
                       </span>
                     ) : (
-                      c.render(row)
+                      // Sans boîte au-delà de 640 px ; en dessous, la valeur se
+                      // tronque à côté du nom de sa colonne.
+                      <div className="contents max-sm:block max-sm:min-w-0 max-sm:truncate">{c.render(row)}</div>
                     )}
                   </td>
                 ))}
@@ -661,7 +692,7 @@ export function RecordTable<T>({
     <span
       aria-hidden
       className={cn(
-        'pointer-events-none absolute inset-y-0 right-0 z-30 w-10 bg-gradient-to-l from-text/[0.14] to-transparent transition-opacity duration-(--arq-duration-normal)',
+        'pointer-events-none absolute inset-y-0 right-0 z-30 w-10 max-sm:hidden bg-gradient-to-l from-text/[0.14] to-transparent transition-opacity duration-(--arq-duration-normal)',
         bords.droite ? 'opacity-100' : 'opacity-0',
       )}
     />

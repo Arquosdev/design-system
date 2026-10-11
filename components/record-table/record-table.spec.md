@@ -135,6 +135,15 @@ Le tableau utilise `border-separate` et porte ses traits sur les cellules, non
 sur les lignes : en `border-collapse`, une cellule figée perd sa bordure au
 défilement.
 
+## Sur un téléphone
+
+Sous 640 px, une ligne devient une **carte à deux niveaux** : la case de
+sélection, l'identité en titre, puis deux colonnes au plus, chacune précédée de
+son nom (« Immeuble : Les Tilleuls »). Ce sont les colonnes marquées `phone`,
+ou à défaut les deux premières : marquer celles qu'on cherche du regard sur le
+terrain (où, qui), pas forcément celles qui ouvrent le tableau. L'en-tête, le
+tri et l'ombre de débordement disparaissent ; le DOM reste le même.
+
 ## États
 
 - **Aucune ligne** : passer un `EmptyState` en `empty`. Un tableau vide avec ses

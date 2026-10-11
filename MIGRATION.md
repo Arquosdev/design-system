@@ -7,7 +7,9 @@
 « Actions » qui les ouvre en colonne. **`ToolButton`** : l'icône seule sous
 640 px (le libellé reste pour un lecteur d'écran). **`PageHeader`** : les
 actions prennent leur ligne, alignées à gauche, sous le titre. **`ToolbarSearch`**
-ne montre plus « / » sur un écran tactile. Rien à faire chez l'appelant ; un
+ne montre plus « / » sur un écran tactile. **`RecordTable`** : sous 640 px, une ligne
+devient une carte (l'identité, puis deux colonnes nommées) ; une colonne
+marquée `phone` y passe en priorité. Rien à faire chez l'appelant ; un
 test qui lit le texte d'un `ToolButton` à 375 px le trouve toujours (masqué,
 pas retiré).
 
