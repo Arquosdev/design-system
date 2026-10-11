@@ -45,6 +45,13 @@ contrôlé — la liste décide quand interroger (au fil de la frappe, après un
 courte pause) et garde la recherche dans l'adresse. « / » y place le curseur,
 Échap la vide. Pleine largeur sur un téléphone, 256 px au-delà.
 
+## Sur un téléphone
+
+Sous 640 px, un `ToolButton` ne garde que son icône (son libellé reste, masqué,
+pour un lecteur d'écran) et sa précision `extra` disparaît ; son compte reste.
+La barre tient ainsi sur une ligne au lieu de quatre. Le repère « / » de la
+recherche disparaît aussi sur un écran tactile : il n'y a pas de clavier.
+
 ## Ce qu'il faut savoir
 
 **Le bouton transmet sa ref.** Un menu ancré dessus par `PopoverTrigger asChild`

@@ -1,5 +1,16 @@
 # Monter une app vers la version courante
 
+## Non publié — Le web sous 640 px
+
+**`FieldRow`** : sous 640 px, le libellé passe au-dessus de la valeur.
+**`SelectionBar`** : sous 640 px, les actions passent derrière un bouton
+« Actions » qui les ouvre en colonne. **`ToolButton`** : l'icône seule sous
+640 px (le libellé reste pour un lecteur d'écran). **`PageHeader`** : les
+actions prennent leur ligne, alignées à gauche, sous le titre. **`ToolbarSearch`**
+ne montre plus « / » sur un écran tactile. Rien à faire chez l'appelant ; un
+test qui lit le texte d'un `ToolButton` à 375 px le trouve toujours (masqué,
+pas retiré).
+
 ## Non publié — Rôles d'icône pour myArquos
 
 **`today`** (le calendrier coché : la journée du technicien), **`print`**,

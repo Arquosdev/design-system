@@ -34,6 +34,13 @@ la sélection commence et porte ce qu'on peut en faire.
   autres sans fond, en encre claire, éclaircies au survol (`bg/10`)
 - Fermeture : à droite, elle vide la sélection
 
+## Sur un téléphone
+
+Sous 640 px, les actions passent derrière un bouton **« Actions »**, qui les
+ouvre en colonne au-dessus de la barre (Échap ou un second appui les referme).
+En ligne, elles sortaient de l'écran sans que rien ne dise qu'on pouvait les
+faire glisser. Rien à faire chez l'appelant.
+
 ## Deux règles
 
 **Elle flotte, et elle est sombre.** Elle flotte pour ne pas déplacer le

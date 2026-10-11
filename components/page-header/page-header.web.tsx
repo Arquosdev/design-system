@@ -115,7 +115,10 @@ export function PageHeader({
             </span>
           ) : null}
         </span>
-        {actions && <span className="ml-auto flex max-w-full shrink-0 flex-wrap items-center justify-end gap-sm">{actions}</span>}
+        {/* Sur un téléphone, les actions prennent leur ligne entière, alignées à
+            gauche sous le titre : à droite, chacune passait sur sa propre ligne
+            et le contenu commençait à 330 px (A3-14). */}
+        {actions && <span className="flex w-full shrink-0 flex-wrap items-center gap-sm sm:ml-auto sm:w-auto sm:max-w-full sm:justify-end">{actions}</span>}
       </div>
     </div>
   );

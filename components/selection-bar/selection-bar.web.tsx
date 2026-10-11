@@ -1,6 +1,9 @@
 'use client';
 
 import * as React from 'react';
+import { createPortal } from 'react-dom';
+
+import { spacing } from '../../src/spacing';
 
 import { Icon } from '../icon/icon.web';
 import { cn } from '../_lib/cn';
@@ -23,8 +26,23 @@ export function SelectionBar({
   children: React.ReactNode;
   className?: string;
 }) {
+  const [ouvert, setOuvert] = React.useState(false);
+  const barre = React.useRef<HTMLDivElement>(null);
+  const [place, setPlace] = React.useState<{ gauche: number; largeur: number; bas: number } | null>(null);
+  const basculer = () => {
+    const r = barre.current?.getBoundingClientRect();
+    if (r) setPlace({ gauche: r.left, largeur: r.width, bas: window.innerHeight - r.top + spacing.sm });
+    setOuvert((o) => !o);
+  };
+  React.useEffect(() => {
+    if (!ouvert) return;
+    const fermer = (e: KeyboardEvent) => { if (e.key === 'Escape') setOuvert(false); };
+    document.addEventListener('keydown', fermer);
+    return () => document.removeEventListener('keydown', fermer);
+  }, [ouvert]);
   return (
     <div
+      ref={barre}
       role="region"
       aria-label="Actions sur la sélection"
       className={cn(
@@ -45,7 +63,37 @@ export function SelectionBar({
         {text}
       </span>
       <span className="mx-xxs h-5 w-px shrink-0 bg-bg/20" aria-hidden />
-      {children}
+      {/* Au-delà de 640 px, les actions dans la barre. */}
+      <div className="hidden sm:contents">{children}</div>
+      {/*
+        **Sur un téléphone, un bouton « Actions »** qui les ouvre en colonne
+        au-dessus de la barre (audit A1-10) : en ligne, elles sortaient de
+        l'écran et rien ne disait qu'on pouvait les faire glisser.
+      */}
+      <div className="relative sm:hidden">
+        <button
+          type="button"
+          aria-expanded={ouvert}
+          onClick={basculer}
+          className="flex h-(--arq-control-sm) shrink-0 items-center gap-xs rounded-control px-md text-small font-semibold whitespace-nowrap text-bg hover:bg-bg/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg"
+        >
+          Actions
+          <Icon role={ouvert ? 'collapse' : 'expand'} className="size-4" aria-hidden />
+        </button>
+        {ouvert && place
+          ? createPortal(
+              // Par un portail : la barre est décalée par une transformation et
+              // coupe ce qui dépasse. Le panneau se cale sur sa position réelle.
+              <div
+                className="fixed z-(--arq-layer-flottant) flex flex-col items-stretch gap-xxs rounded-block bg-text p-xs shadow-pop [&>button]:text-left"
+                style={{ left: place.gauche, width: place.largeur, bottom: place.bas }}
+              >
+                {children}
+              </div>,
+              document.body,
+            )
+          : null}
+      </div>
       <button
         type="button"
         onClick={onClear}

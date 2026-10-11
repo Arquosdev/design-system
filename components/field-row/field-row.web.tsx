@@ -267,12 +267,13 @@ export function FieldRow({
       ref={landmark ? amener : undefined}
       className={cn(
         /*
-          **Le libellé prend 190 px, sauf sur un téléphone.** Sous 640 px, une
-          carte de fiche ne fait plus que 240 px utiles : 190 px de libellé
-          laissaient 37 px à la valeur, qui se coupait lettre à lettre
-          (« Non renseigné », une date). Le libellé y prend deux cinquièmes.
+          **Le libellé prend 190 px, sauf sur un téléphone, où il passe AU-DESSUS
+          de la valeur.** Sous 640 px, une carte de fiche ne fait plus que
+          300 px utiles : en deux colonnes, la valeur se coupait en deux lignes
+          étroites (« Les Allées du / Maine B », audit A1-09). Empilés, libellé
+          et valeur ont toute la largeur, comme dans les réglages d'iOS.
         */
-        'grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] items-start gap-md py-sm sm:grid-cols-[190px_1fr]',
+        'grid grid-cols-1 items-start gap-xxs py-sm sm:grid-cols-[190px_1fr] sm:gap-md',
         /*
           Le filet, et le `last:` qui le retire en bas de la pile.
 

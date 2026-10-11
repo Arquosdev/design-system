@@ -43,12 +43,14 @@ export const ToolButton = React.forwardRef<HTMLButtonElement, ToolButtonProps>(
         ref={ref}
         type="button"
         aria-pressed={reste.onClick && !('aria-haspopup' in reste) ? active : undefined}
-        className={cn(BOUTON, active && 'border-primary bg-info-bg text-on-info-bg hover:border-primary', className)}
+        className={cn(BOUTON, 'max-sm:px-sm', active && 'border-primary bg-info-bg text-on-info-bg hover:border-primary', className)}
         {...reste}
       >
         <Icon role={icon} className="size-4 shrink-0" aria-hidden />
-        {children}
-        {extra && <span className="font-normal">{extra}</span>}
+        {/* Sur un téléphone, l'icône seule : le libellé reste pour un lecteur
+            d'écran, et la barre tient sur une ligne au lieu de quatre (A3-14). */}
+        <span className="max-sm:sr-only">{children}</span>
+        {extra && <span className="font-normal max-sm:hidden">{extra}</span>}
         {count !== undefined && count > 0 && (
           <span className="inline-flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-primary px-xs text-caption-bold text-text-on-dark">
             {count}
@@ -110,7 +112,7 @@ export function ToolbarSearch({ value, onChange, placeholder = 'Rechercher', lab
         className="min-w-0 flex-1 bg-transparent text-small text-text outline-none placeholder:text-text-muted [&::-webkit-search-cancel-button]:hidden"
       />
       {value ? null : (
-        <kbd aria-hidden className="rounded-control border border-border-soft px-xs text-caption text-text-muted">/</kbd>
+        <kbd aria-hidden className="rounded-control border border-border-soft px-xs text-caption text-text-muted max-md:hidden pointer-coarse:hidden">/</kbd>
       )}
     </label>
   );

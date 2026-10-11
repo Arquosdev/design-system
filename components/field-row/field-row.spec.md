@@ -111,6 +111,7 @@ est une corruption de données réelle.
 ## Anatomie
 
 - Valeur éditable : **soulignement pointillé** en `colors.textSubtle` — le signal « ceci se corrige d'un clic ».
+- Au-delà de 640 px, le libellé à gauche (190 px) et la valeur à droite ; **en dessous, le libellé au-dessus de la valeur**, chacun sur toute la largeur.
 
 ## `FieldRow` suppose une pile, et l'écran doit le savoir
 
