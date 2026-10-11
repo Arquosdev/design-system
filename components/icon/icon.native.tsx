@@ -94,6 +94,7 @@ import {
   ThumbsUp,
   ThumbsDown,
   ArrowDown,
+  Question,
 } from 'phosphor-react-native';
 
 import { Circle, Svg } from 'react-native-svg';
@@ -205,6 +206,7 @@ const DESSINS: Record<IconRole, PhosphorIcon> = {
   thumbsUp: ThumbsUp,
   thumbsDown: ThumbsDown,
   scrollDown: ArrowDown,
+  help: Question,
   fieldText: TextAa,
   fieldNumber: Hash,
   fieldDate: Calendar,

@@ -272,6 +272,10 @@ export const icons = {
   /** Revenir au bas d'un fil qu'on a remonté : une flèche, pas un chevron, parce
    *  qu'on DESCEND d'un coup, on ne déplie rien. */
   scrollDown: 'ArrowDown',
+  /** L'aide d'Arquos (Louis, 11/10/2026) : « Aide et support » dans le rail,
+   *  l'aide de myArquos dans le Profil. Le point d'interrogation, que tout le
+   *  monde lit comme « comment faire ? ». */
+  help: 'Question',
 
   // -- La nature d'une colonne ---------------------------------------------
   //

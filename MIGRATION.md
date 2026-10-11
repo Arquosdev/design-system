@@ -1,5 +1,11 @@
 # Monter une app vers la version courante
 
+## Non publié — un rôle d'icône pour l'aide
+
+**`help`** (web et mobile), le point d'interrogation de Phosphor : l'entrée
+« Aide et support » du rail et l'aide de myArquos. Rien ne change pour les
+appelants existants.
+
 ## Non publié — Markdown : les liens sortants d'une réponse de modèle
 
 **Nouvelle prop `externes`** (web et mobile), `lien` par défaut : rien ne change

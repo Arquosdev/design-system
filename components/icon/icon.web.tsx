@@ -93,6 +93,7 @@ import {
   ThumbsUp,
   ThumbsDown,
   ArrowDown,
+  Question,
 } from '@phosphor-icons/react';
 
 import { iconSize, iconWeight, type IconRole } from '../../src/icons';
@@ -223,6 +224,7 @@ const GLYPHS: Record<IconRole, PhosphorIcon> = {
   thumbsUp: ThumbsUp,
   thumbsDown: ThumbsDown,
   scrollDown: ArrowDown,
+  help: Question,
 
   fieldText: TextAa,
   fieldNumber: Hash,
