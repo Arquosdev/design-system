@@ -37,18 +37,34 @@ coup de molette.
 
 ## Anatomie
 
-- Bande : `spacing.xl` horizontal, trait `colors.borderSoft` en bas
+- Bande : `spacing.base` horizontal sur un téléphone, `spacing.xl` au-delà, trait `colors.borderSoft` en bas
 - Fil : `small` en `colors.textMuted`, parent en `colors.primary`, chevron
   `colors.textSubtle`, courant en `colors.text`
-- Titre : `typography.titleLarge`
+- Titre : `typography.headline`, deux lignes au plus (tronqué au-delà, le titre entier en infobulle)
+- Statut et chiffre (`status`, `figure`) : à la suite du titre, le statut d'une fiche (`StatusBadge`) puis le chiffre qui la résume en `typography.title` (« 13 118,60 € TTC »)
 - Décompte : `typography.title` en `colors.textMuted`, chiffres à chasse fixe
 - Écran étroit : les actions passent à la ligne sous le titre, et entre elles,
-  calées à droite. Rien ne sort de l'écran à 375 px.
+  calées à droite. Rien ne sort de l'écran à 375 px. Au-delà de 640 px, la
+  ligne ne se replie plus : les actions restent à droite, à hauteur constante,
+  quel que soit le titre (A2-10).
+
+## Une fiche : le statut et le chiffre dans l'en-tête
+
+Une fiche commerciale dit, sans ouvrir de rubrique, où elle en est et combien
+elle vaut (Stripe : « C28AF58A-0002 pour 16,99 $ » et la pastille « Open » sur
+la ligne du titre). Le seul bouton bleu vif de la page est dans `actions`.
 
 ## Exemple
 
 ```tsx
 <PageHeader title="Équipements" count={31500} />
+
+<PageHeader
+  title="Devis 20539"
+  status={<StatusBadge object="quote" status="envoye" />}
+  figure="13 118,60 € TTC"
+  actions={<Button>Marquer accepté</Button>}
+/>
 
 <PageHeader
   title="Équipement"

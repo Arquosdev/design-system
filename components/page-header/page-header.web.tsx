@@ -21,6 +21,13 @@ export interface PageHeaderProps {
   count?: string | number;
   /** Ce qui s'aligne à droite : une action sur l'écran entier. */
   actions?: React.ReactNode;
+  /**
+   * Le statut d'une fiche, à côté de son titre (`StatusBadge`). Stripe le pose
+   * là : on sait où en est l'objet sans ouvrir une rubrique.
+   */
+  status?: React.ReactNode;
+  /** Le chiffre qui le résume, après le statut : le montant TTC d'un devis, le prix annuel d'un contrat. */
+  figure?: React.ReactNode;
   className?: string;
 }
 
@@ -36,11 +43,13 @@ export function PageHeader({
   current,
   count,
   actions,
+  status,
+  figure,
   className,
 }: PageHeaderProps) {
   return (
     <div
-      className={cn('shrink-0 border-b border-border-soft px-xl pt-base pb-md', className)}
+      className={cn('shrink-0 border-b border-border-soft px-base pt-base pb-md sm:px-xl', className)}
     >
       {parent && (
         <nav aria-label="Fil d’Ariane" className="mb-xs flex h-5 items-center gap-sm text-small text-text-muted">
@@ -77,7 +86,13 @@ export function PageHeader({
         sortaient à droite. Les envelopper chez l'appelant n'y faisait rien,
         la ligne du titre ne se repliait pas.
       */}
-      <div className="flex min-h-(--arq-control-md) flex-wrap items-center gap-sm">
+      {/*
+        Au-delà d'un téléphone, la ligne NE SE REPLIE PLUS : le titre se tronque
+        (deux lignes au plus) et les actions restent à droite, à hauteur
+        constante (audit design du 11/10/2026, A2-10 : sur un appel au titre
+        long, les boutons passaient sous le titre, et sur une visite à droite).
+      */}
+      <div className="flex min-h-(--arq-control-md) flex-wrap items-center gap-sm sm:flex-nowrap">
         {/*
           Le titre et son décompte s'alignent sur la LIGNE DE BASE entre eux —
           deux corps différents alignés autrement se lisent de travers — mais
@@ -88,13 +103,19 @@ export function PageHeader({
           hauteur minimale de la ligne réglait la hauteur de l'en-tête ; celle-ci
           règle la place du titre dedans.
         */}
-        <span className="flex items-baseline gap-sm">
-          <h1 className="text-headline text-brand">{title}</h1>
+        <span className="flex min-w-0 flex-wrap items-baseline gap-x-sm gap-y-xxs">
+          <h1 className="line-clamp-2 min-w-0 text-headline text-brand [overflow-wrap:anywhere]" title={title}>{title}</h1>
           {count !== undefined && (
             <span className="text-title font-normal tabular-nums text-text-muted">{count}</span>
           )}
+          {status || figure ? (
+            <span className="flex shrink-0 items-center gap-sm self-center">
+              {status}
+              {figure ? <span className="text-title tabular-nums text-text">{figure}</span> : null}
+            </span>
+          ) : null}
         </span>
-        {actions && <span className="ml-auto flex min-w-0 max-w-full flex-wrap items-center justify-end gap-sm">{actions}</span>}
+        {actions && <span className="ml-auto flex max-w-full shrink-0 flex-wrap items-center justify-end gap-sm">{actions}</span>}
       </div>
     </div>
   );

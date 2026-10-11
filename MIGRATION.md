@@ -1,5 +1,14 @@
 # Monter une app vers la version courante
 
+## Non publié — PageHeader : statut et chiffre d'une fiche
+
+**Deux props neuves, `status` et `figure`** (web) : le statut d'une fiche et le
+chiffre qui la résume, sur la ligne du titre. Au-delà de 640 px, la ligne ne se
+replie plus (titre tronqué sur deux lignes, actions à droite) ; la gouttière
+descend à 16 px sur un téléphone. Rien ne change pour les appelants existants.
+**À reprendre chez l'appelant** : le statut et le montant d'une fiche quittent
+leur rubrique pour l'en-tête.
+
 ## Non publié — ToolbarSearch, la recherche d'une liste
 
 **Nouveau composant, `ToolbarSearch`** (web), en tête de `Toolbar` : champ
