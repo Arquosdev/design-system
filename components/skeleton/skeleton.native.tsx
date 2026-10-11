@@ -46,7 +46,7 @@ export function Skeleton({ round = false, style }: SkeletonProps) {
       accessibilityElementsHidden
       importantForAccessibility="no"
       style={[
-        { backgroundColor: colors.bgMuted, borderRadius: round ? radius.full : radius.sm, opacity: opacite },
+        { backgroundColor: colors.borderSoft, borderRadius: round ? radius.full : radius.sm, opacity: opacite },
         style,
       ]}
     />

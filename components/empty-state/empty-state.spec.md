@@ -38,7 +38,8 @@ replaces:
 | --- | --- | --- |
 | `icon` | `IconRole` | Un rôle du vocabulaire, pas un dessin |
 | `title` | `string` | Ce qui se passe, en trois mots |
-| `hint` | `string` | Ce qu'il faut comprendre, et si possible quoi faire |
+| `hint` | `string` | Ce qu'il faut comprendre, et si possible quoi faire. Facultatif |
+| `density` | `'page' \| 'section'` | Un écran entier (défaut), ou une rubrique et un bloc de fiche, serré et aligné à gauche (web) |
 | `actionLabel` + `onAction` | `string` + `() => void` | Les deux ou aucun |
 
 `EmptyStateError` prend `error` et `onReessayer`, et se débrouille du reste.
@@ -106,3 +107,9 @@ garde une, grande et en trait, sans cadre.
 
 Et le conseil est passé de `body` à `small` : à 16 sur un titre de 18, il
 concurrençait ce qu'il précise.
+
+## Un seul état vide, deux densités
+
+Une rubrique vide prend `density="section"`, jamais une ligne grise « Aucun… »
+en texte nu (A1-13 : trois styles dans une même fiche client). L'action d'un
+état vide est en contour : le bleu vif de la page est dans son en-tête.

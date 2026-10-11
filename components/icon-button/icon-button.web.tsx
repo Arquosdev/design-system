@@ -7,7 +7,7 @@ import { INACTIVE_SURFACE } from '../button/button.web';
 
 const iconButton = cva(
   'inline-flex shrink-0 items-center justify-center rounded-control outline-none ' +
-    'transition-colors focus-visible:ring-2 focus-visible:ring-primary ' +
+    'transition-colors focus-ring ' +
     'disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {

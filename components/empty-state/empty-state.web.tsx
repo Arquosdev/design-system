@@ -10,10 +10,17 @@ export interface EmptyStateProps {
   /** Le rôle de l'icône — voir le vocabulaire dans `src/icons.ts`. */
   icon: IconRole;
   title: string;
-  /** Ce qu'il faut comprendre, et si possible ce qu'on peut faire. */
-  hint: string;
+  /** Ce qu'il faut comprendre, et si possible ce qu'on peut faire. Une ligne ; facultatif quand le titre suffit. */
+  hint?: string;
   actionLabel?: string;
   onAction?: () => void;
+  /**
+   * `page` (défaut) : une liste ou un écran entier qui n'a rien. `section` :
+   * une rubrique ou un bloc d'une fiche, plus serré, aligné à gauche — le même
+   * état vide partout au lieu d'une ligne grise ici et d'une illustration là
+   * (audit design du 11/10/2026, A1-13).
+   */
+  density?: 'page' | 'section';
   className?: string;
 }
 
@@ -29,8 +36,23 @@ export function EmptyState({
   hint,
   actionLabel,
   onAction,
+  density = 'page',
   className,
 }: EmptyStateProps) {
+  if (density === 'section') {
+    return (
+      <div className={cn('flex items-start gap-md rounded-block border border-dashed border-border-soft px-base py-md', className)}>
+        <Icon role={icon} size="md" weight="subtle" className="mt-xxs shrink-0 text-text-subtle" />
+        <div className="flex min-w-0 flex-1 flex-col gap-xxs">
+          <p className="text-small-bold text-text">{title}</p>
+          {hint ? <p className="text-small text-text-muted">{hint}</p> : null}
+        </div>
+        {actionLabel && onAction ? (
+          <Button variant="outline" size="sm" className="shrink-0" onClick={onAction}>{actionLabel}</Button>
+        ) : null}
+      </div>
+    );
+  }
   return (
     <div className={cn('flex flex-col items-center px-xl py-2xl text-center', className)}>
       {/*
@@ -56,9 +78,10 @@ export function EmptyState({
         creuse d'un cran, et la largeur se resserre pour qu'il tienne en deux
         lignes courtes.
       */}
-      <p className="mt-xs max-w-[38ch] text-small text-text-muted">{hint}</p>
+      {hint ? <p className="mt-xs max-w-[38ch] text-small text-text-muted">{hint}</p> : null}
+      {/* En contour : l'action principale de la page est dans son en-tête, et il n'y a qu'un bleu vif par page. */}
       {actionLabel && onAction ? (
-        <Button className="mt-base" onClick={onAction}>
+        <Button variant="outline" className="mt-base" onClick={onAction}>
           {actionLabel}
         </Button>
       ) : null}

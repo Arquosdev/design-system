@@ -417,7 +417,7 @@ export function RecordTable<T>({
         // `uppercase` explicite : un bouton n'hérite pas de `text-transform`,
         // et les en-têtes triables s'affichaient en casse normale à côté des
         // non triables, en capitales.
-        className="inline-flex max-w-full items-center gap-xs rounded-control hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        className="inline-flex max-w-full items-center gap-xs rounded-control hover:text-text focus-ring"
       >
         {contenu}
         {active && (
@@ -597,7 +597,7 @@ export function RecordTable<T>({
                     <button
                       type="button"
                       onClick={() => onOpen(row)}
-                      className="rounded-control text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                      className="rounded-control text-primary hover:underline focus-ring"
                     >
                       {identity.render(row)}
                     </button>

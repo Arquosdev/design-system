@@ -26,7 +26,7 @@ export function Checkbox({
       data-slot="checkbox"
       className={cn(
         'peer size-[18px] shrink-0 rounded-control border border-border bg-bg outline-none transition-colors',
-        'focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary',
+        'focus-visible:border-primary focus-ring',
         'disabled:pointer-events-none disabled:opacity-50',
         'aria-invalid:border-danger',
         'data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=checked]:text-text-on-dark',

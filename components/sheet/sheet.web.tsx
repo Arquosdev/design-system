@@ -163,7 +163,7 @@ export function SheetCloseButton({ className }: { className?: string }) {
       aria-label="Fermer"
       className={cn(
         'grid size-(--arq-control-sm) shrink-0 place-items-center rounded-control bg-bg-muted text-text-muted outline-none',
-        'hover:text-text focus-visible:ring-2 focus-visible:ring-primary',
+        'hover:text-text focus-ring',
         className,
       )}
     >

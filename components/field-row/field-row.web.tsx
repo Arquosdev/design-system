@@ -157,7 +157,7 @@ function RowButton({
       title={label}
       className={cn(
         'inline-flex h-[24px] shrink-0 items-center justify-center rounded-control',
-        'outline-none focus-visible:ring-2 focus-visible:ring-primary',
+        'outline-none focus-ring',
         word
           ? 'gap-xxs border border-border bg-bg px-xs text-caption font-semibold text-primary hover:bg-bg-muted'
           : 'w-[24px] text-text-subtle hover:bg-bg-muted hover:text-text-muted',
@@ -330,7 +330,7 @@ export function FieldRow({
                 // corrige d'un clic ». Sans lui, rien ne distingue une donnée
                 // modifiable d'une donnée figée. Il pâlit avec la valeur quand
                 // le champ est vide, pour ne pas attirer l'œil sur un manque.
-                editable && 'cursor-text border-b border-dashed pb-px outline-none focus-visible:ring-2 focus-visible:ring-primary',
+                editable && 'cursor-text border-b border-dashed pb-px outline-none focus-ring',
                 isEmpty
                   ? 'text-text-muted border-border'
                   : 'text-text border-text-subtle',
@@ -648,7 +648,7 @@ function MultiEditor({
               onClick={() => toggle(o.value)}
               className={cn(
                 'rounded-control px-sm py-xxs text-caption font-semibold outline-none',
-                'focus-visible:ring-2 focus-visible:ring-primary',
+                'focus-ring',
                 active
                   ? 'bg-primary text-text-on-dark'
                   : 'bg-bg-muted text-text-muted hover:bg-info-bg',
@@ -671,7 +671,7 @@ function MultiEditor({
             }}
             className={cn(
               'rounded-control px-sm py-xxs text-caption font-semibold outline-none',
-              'focus-visible:ring-2 focus-visible:ring-primary',
+              'focus-ring',
               inputOpen
                 ? 'bg-primary text-text-on-dark'
                 : 'bg-bg-muted text-text-muted hover:bg-info-bg',

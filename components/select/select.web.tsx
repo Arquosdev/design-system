@@ -58,7 +58,7 @@ export const SelectTrigger = React.forwardRef<
       // son contour et le champ se lisait comme une étiquette serrée.
       'border border-border bg-bg px-md text-small font-medium text-text',
       'shadow-card outline-none transition-colors hover:bg-bg-muted',
-      'focus-visible:ring-2 focus-visible:ring-primary',
+      'focus-ring',
       'disabled:pointer-events-none disabled:opacity-50',
       // Le caret pivote quand le menu s'ouvre — c'est lui qui dit que ce champ
       // en cache d'autres.

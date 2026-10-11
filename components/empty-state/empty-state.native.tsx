@@ -12,7 +12,8 @@ import { FAILURES, failureKind, RETRY } from './empty-state.logic';
 export interface EmptyStateProps {
   icon: IconRole;
   title: string;
-  hint: string;
+  /** Une ligne ; facultatif quand le titre suffit. */
+  hint?: string;
   actionLabel?: string;
   onAction?: () => void;
   style?: StyleProp<ViewStyle>;
@@ -30,9 +31,11 @@ export function EmptyState({ icon, title, hint, actionLabel, onAction, style }: 
       <Text variant="subhead" style={[styles.centre, styles.title]}>
         {title}
       </Text>
-      <Text variant="small" tone="muted" style={[styles.centre, styles.hint]}>
-        {hint}
-      </Text>
+      {hint ? (
+        <Text variant="small" tone="muted" style={[styles.centre, styles.hint]}>
+          {hint}
+        </Text>
+      ) : null}
       {actionLabel && onAction ? (
         <Button onPress={onAction} style={styles.action}>
           {actionLabel}

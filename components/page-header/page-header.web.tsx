@@ -55,7 +55,7 @@ export function PageHeader({
         <nav aria-label="Fil d’Ariane" className="mb-xs flex h-5 items-center gap-sm text-small text-text-muted">
           <a
             href={parent.href}
-            className="rounded-control font-medium text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            className="rounded-control font-medium text-primary hover:underline focus-ring"
           >
             {parent.label}
           </a>

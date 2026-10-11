@@ -35,7 +35,7 @@ export function RadioGroupItem({
       className={cn(
         'aspect-square size-[18px] shrink-0 rounded-full border border-border bg-bg text-primary',
         'outline-none transition-colors',
-        'focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary',
+        'focus-visible:border-primary focus-ring',
         'disabled:pointer-events-none disabled:opacity-50',
         'aria-invalid:border-danger',
         'data-[state=checked]:border-primary',

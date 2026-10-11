@@ -26,7 +26,7 @@ export function Skeleton({ round = false, className, ...props }: SkeletonProps) 
       // attend. C'est la zone en train de charger qui doit porter `aria-busy`.
       aria-hidden="true"
       className={cn(
-        'animate-pulse bg-bg-muted',
+        'animate-pulse bg-border-soft',
         round ? 'rounded-full' : 'rounded-control',
         className,
       )}

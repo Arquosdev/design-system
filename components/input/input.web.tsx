@@ -25,7 +25,7 @@ export function Input({ className, type, ...props }: React.ComponentProps<'input
         'outline-none transition-colors',
         'placeholder:text-text-muted',
         'selection:bg-primary selection:text-text-on-dark',
-        'focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary',
+        'focus-visible:border-primary focus-ring',
         // `disabled` retire le pointeur : un champ grisé qui garde le curseur
         // texte promet une saisie qui n'arrivera pas.
         'disabled:pointer-events-none disabled:opacity-50',

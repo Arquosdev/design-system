@@ -102,7 +102,7 @@ export function PasswordInput({ className, disabled, ...props }: PasswordInputPr
           // L'anneau est vers l'INTÉRIEUR : posé dehors, il serait coupé par le
           // `overflow-hidden` de l'enveloppe et la mise au point deviendrait
           // invisible au clavier.
-          'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary',
+          'focus-ring focus-visible:-outline-offset-2',
           'disabled:pointer-events-none',
         )}
       >

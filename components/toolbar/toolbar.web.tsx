@@ -10,7 +10,7 @@ const BOUTON =
   // Le même que le bouton secondaire depuis le 07/10/2026 : gris pâle, bordure douce.
   'flex h-9 items-center gap-sm rounded-control border border-border-soft bg-bg-muted px-md ' +
   'text-small-bold whitespace-nowrap text-text hover:border-border hover:bg-border-soft ' +
-  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary';
+  'focus-ring';
 
 /** La barre au-dessus d'une liste : ce qu'on peut lui faire. */
 export function Toolbar({ children, className }: { children: React.ReactNode; className?: string }) {
@@ -94,7 +94,7 @@ export function ToolbarSearch({ value, onChange, placeholder = 'Rechercher', lab
     <label
       className={cn(
         'flex h-9 w-full items-center gap-sm rounded-control border border-border bg-bg px-md sm:w-64',
-        'focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-primary',
+        'focus-ring-within',
         className,
       )}
     >

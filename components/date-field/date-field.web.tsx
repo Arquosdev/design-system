@@ -412,7 +412,7 @@ function Calendar({
                   className={cn(
                     'flex size-(--arq-control-sm) shrink-0 items-center justify-center rounded-control',
                     'text-small outline-none transition-colors',
-                    'focus-visible:ring-2 focus-visible:ring-primary',
+                    'focus-ring',
                     'disabled:pointer-events-none',
                     retenu
                       ? 'bg-primary font-semibold text-text-on-dark'
@@ -475,7 +475,7 @@ function Calendar({
         onClick={() => onChoose(today)}
         className={cn(
           'h-(--arq-control-sm) rounded-control px-md text-small font-semibold text-primary outline-none',
-          'hover:bg-bg-muted focus-visible:ring-2 focus-visible:ring-primary',
+          'hover:bg-bg-muted focus-ring',
           // Même règle que les cases : la paire nommée, pas le fondu. Ce bouton
           // est inerte quand aujourd'hui tombe hors des bornes.
           'disabled:pointer-events-none disabled:bg-inactive-bg disabled:text-on-inactive-bg',
@@ -506,7 +506,7 @@ function Fleche({
       className={cn(
         'flex size-(--arq-control-sm) shrink-0 items-center justify-center rounded-control',
         'text-text-muted outline-none hover:bg-bg-muted hover:text-text',
-        'focus-visible:ring-2 focus-visible:ring-primary',
+        'focus-ring',
       )}
     >
       <Icon role={role} size="sm" />

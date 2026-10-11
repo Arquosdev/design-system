@@ -1,5 +1,16 @@
 # Monter une app vers la version courante
 
+## Non publié — Un focus, un état vide, un squelette
+
+**`focus-ring` et `focus-ring-within`** (utilitaires Tailwind) : le seul style de
+focus clavier, contour de 2 px décalé de 2 px ; les composants du système les
+prennent. **`EmptyState`** : `hint` devient facultatif, `density="section"`
+(web) pour une rubrique, l'action passe en contour. **`Skeleton`** prend
+`borderSoft`, visible sur une page grise. **À reprendre chez l'appelant** :
+`focus-visible:ring-2`, `focus-visible:outline-2…` → `focus-ring` ; un `<p>`
+« Aucun… » → `EmptyState density="section"` ; un `animate-pulse` fait main →
+`Skeleton`.
+
 ## Non publié — Rubriques instantanées : liens, squelette, retour en haut
 
 **`NavItem.href`** (web) : une entrée avec une adresse est un vrai lien (Cmd+clic

@@ -93,7 +93,7 @@ export function ColorField({
           aria-label={ariaLabel}
           className={cn(
             'flex h-(--arq-control-md) w-full max-w-[14rem] items-center gap-sm rounded-control border border-border bg-bg px-sm text-small text-text',
-            'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-50',
+            'focus-ring disabled:cursor-not-allowed disabled:opacity-50',
             className,
           )}
         >
@@ -116,7 +116,7 @@ export function ColorField({
             e.preventDefault();
             poser({ ...tsv, s: Math.min(1, Math.max(0, tsv.s + d[0])), v: Math.min(1, Math.max(0, tsv.v + d[1])) });
           }}
-          className="relative h-36 w-full cursor-crosshair touch-none rounded-control focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          className="relative h-36 w-full cursor-crosshair touch-none rounded-control focus-ring"
           style={{
             backgroundColor: versHex({ t: tsv.t, s: 1, v: 1 }),
             backgroundImage: 'linear-gradient(to top, #000, transparent), linear-gradient(to right, #FFF, transparent)',
@@ -139,7 +139,7 @@ export function ColorField({
             e.preventDefault();
             poser({ ...tsv, t: (tsv.t + d + 360) % 360 });
           }}
-          className="relative h-3 w-full cursor-pointer touch-none rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          className="relative h-3 w-full cursor-pointer touch-none rounded-full focus-ring"
           style={{ backgroundImage: HUES }}
         >
           <span aria-hidden className="pointer-events-none absolute top-1/2 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-bg shadow-pop"
@@ -169,7 +169,7 @@ export function ColorField({
               aria-pressed={value === hex}
               onClick={() => choisir(hex)}
               className={cn(
-                'h-7 rounded-control border border-border-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
+                'h-7 rounded-control border border-border-soft focus-ring',
                 value === hex && 'ring-2 ring-primary ring-offset-2',
               )}
               style={{ backgroundColor: hex }}

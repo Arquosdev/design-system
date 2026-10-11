@@ -123,7 +123,7 @@ export function NavList({
           type="button"
           aria-expanded={expanded}
           onClick={() => setOuvert(!expanded)}
-          className="flex w-full items-center gap-sm rounded-control px-md pb-sm text-text-muted outline-none hover:text-text focus-visible:ring-2 focus-visible:ring-primary"
+          className="flex w-full items-center gap-sm rounded-control px-md pb-sm text-text-muted outline-none hover:text-text focus-ring"
         >
           <Icon
             role="expand"
@@ -332,7 +332,7 @@ function Entry({
         onActivate={() => onChoose(item.id)}
         className={cn(
           ROW,
-          'px-md py-sm outline-none focus-visible:ring-2 focus-visible:ring-primary',
+          'px-md py-sm outline-none focus-ring',
           'disabled:pointer-events-none disabled:opacity-50',
           STATE(active, item.empty),
         )}
@@ -362,7 +362,7 @@ function Entry({
         onActivate={() => onChoose(item.id)}
         className={cn(
           'flex flex-1 items-center gap-sm rounded-control py-sm pl-md text-left outline-none',
-          'focus-visible:ring-2 focus-visible:ring-primary',
+          'focus-ring',
           'disabled:pointer-events-none',
         )}
       >
@@ -376,7 +376,7 @@ function Entry({
         disabled={item.disabled}
         onClick={() => onChevron?.()}
         className={cn(
-          'shrink-0 rounded-control p-xs outline-none focus-visible:ring-2 focus-visible:ring-primary',
+          'shrink-0 rounded-control p-xs outline-none focus-ring',
           'disabled:pointer-events-none',
           active ? 'text-on-info-bg' : 'text-text-muted hover:text-text',
         )}

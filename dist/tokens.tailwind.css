@@ -346,3 +346,22 @@
     }
   }
 }
+
+/* LE FOCUS CLAVIER, UN SEUL (audit design du 11/10/2026, A5-16 : trente
+ * éléments en contour décalé, vingt-six en anneau collé, trois en bordure).
+ * Un contour de 2 px, décalé de 2 px, à la couleur d’action, comme Geist.
+ * `focus-ring` sur un élément qui reçoit le focus, `focus-ring-within` sur
+ * l’étiquette qui enveloppe son champ. */
+@utility focus-ring {
+  outline: none;
+  &:focus-visible {
+    outline: 2px solid #0D5AB7;
+    outline-offset: 2px;
+  }
+}
+@utility focus-ring-within {
+  &:focus-within {
+    outline: 2px solid #0D5AB7;
+    outline-offset: 2px;
+  }
+}

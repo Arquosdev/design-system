@@ -58,7 +58,7 @@ export const AccordionTrigger = React.forwardRef<
         'group flex w-full items-center gap-sm',
         !action && 'border-b border-border-soft',
         'px-base py-md text-left outline-none',
-        'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
+        'focus-ring',
         className,
       )}
       {...props}
@@ -86,7 +86,7 @@ export const AccordionTrigger = React.forwardRef<
         className={cn(
           'shrink-0 self-center rounded-control px-base py-xs text-caption font-semibold',
           'text-primary underline decoration-transparent underline-offset-2 outline-none',
-          'hover:decoration-current focus-visible:ring-2 focus-visible:ring-primary',
+          'hover:decoration-current focus-ring',
         )}
       >
         {action.label}

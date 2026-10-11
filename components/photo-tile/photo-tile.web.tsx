@@ -98,7 +98,7 @@ export function PhotoTile({ name, url, essential = false, onOpen, className }: P
       onClick={onOpen}
       aria-label={`Agrandir : ${name}`}
       className={cn(
-        'flex flex-col text-left outline-none hover:opacity-80 focus-visible:ring-2 focus-visible:ring-primary',
+        'flex flex-col text-left outline-none hover:opacity-80 focus-ring',
         className,
       )}
     >

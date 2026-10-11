@@ -68,3 +68,10 @@ arrive. Il n'a pas d'état d'échec : c'est `EmptyState` qui le dit.
 La taille se donne par `style` (`{ width, height }`) et non par des classes.
 La pulsation est une opacité, pas un dégradé qui glisse : celui-ci saccade sur
 un Android d'entrée de gamme.
+
+## Sa teinte
+
+`borderSoft` (gris 100), et non `bgMuted` (gris 50) : posé sur une page en
+`bgMuted`, le squelette disparaissait et l'écran restait vide jusqu'à l'arrivée
+de tout (audit design du 11/10/2026, A4-10). Le gris 100 se voit sur le blanc
+comme sur le gris 50.

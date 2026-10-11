@@ -75,7 +75,7 @@ export function SegmentedTabs({
               // le compteur — « Tous les champs239 », collés. `min-w-fit` pose
               // le plancher ; la part égale ne joue qu'au-dessus.
               'min-w-fit',
-              'focus-visible:ring-2 focus-visible:ring-primary',
+              'focus-ring',
               // Même règle que `NavList` : un segment au repos est en `medium`,
               // le segment courant garde `semibold`. Les deux composants se
               // touchent en haut du rail, un écart de graisse entre eux se

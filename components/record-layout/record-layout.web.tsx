@@ -162,7 +162,7 @@ export function RecordRail({
              loupe s'attend. Le libellé est donc en retrait des entrées, et
              c'est assumé : un champ de recherche se reconnaît à son icône avant
              de se lire. */
-          className="flex h-(--arq-control-md) shrink-0 items-center gap-sm rounded-control border border-border bg-bg px-md text-left text-small text-text-muted outline-none hover:bg-bg-muted focus-visible:ring-2 focus-visible:ring-primary"
+          className="flex h-(--arq-control-md) shrink-0 items-center gap-sm rounded-control border border-border bg-bg px-md text-left text-small text-text-muted outline-none hover:bg-bg-muted focus-ring"
         >
           <Icon role="search" size="sm" />
           <span className="min-w-0 flex-1 truncate">{recherche.label}</span>
@@ -221,7 +221,7 @@ function OngletsEtroits({ items, current, onChoose }: { items: readonly NavItem[
             disabled={i.disabled}
             aria-current={actif ? 'page' : undefined}
             onActivate={() => onChoose(i.id)}
-            className={`flex h-(--arq-control-sm) shrink-0 items-center gap-xs whitespace-nowrap rounded-control px-md text-small outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-50 ${actif ? 'bg-info-bg font-semibold text-on-info-bg' : 'text-text-muted hover:bg-bg-muted hover:text-text'}`}
+            className={`flex h-(--arq-control-sm) shrink-0 items-center gap-xs whitespace-nowrap rounded-control px-md text-small outline-none focus-ring disabled:opacity-50 ${actif ? 'bg-info-bg font-semibold text-on-info-bg' : 'text-text-muted hover:bg-bg-muted hover:text-text'}`}
           >
             {i.label}
             {i.count !== undefined ? <span className="tabular-nums text-caption">{i.count}</span> : null}

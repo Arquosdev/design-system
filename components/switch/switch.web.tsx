@@ -23,7 +23,7 @@ export function Switch({
       className={cn(
         'peer group/switch inline-flex h-5 w-9 shrink-0 items-center rounded-full border border-transparent',
         'outline-none transition-colors',
-        'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1',
+        'focus-ring',
         'disabled:pointer-events-none disabled:opacity-50',
         'data-[state=checked]:bg-primary data-[state=unchecked]:bg-border',
         className,
