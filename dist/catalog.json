@@ -1065,6 +1065,36 @@
       }
     },
     {
+      "name": "ScreenHeader",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Poser l'en-tête d'un écran mobile, le même partout : la flèche de retour, des boutons d'icône, puis le titre dans le corps.",
+      "keywords": [
+        "en-tête",
+        "entête",
+        "titre",
+        "retour",
+        "header",
+        "écran",
+        "navigation"
+      ],
+      "platforms": [
+        "mobile"
+      ],
+      "replaces": {
+        "mobile": [
+          "les en-têtes dessinés à la main de app/survey/[id].tsx",
+          "app/equipment/[id].tsx et des formulaires"
+        ],
+        "web": []
+      },
+      "dossier": "components/screen-header",
+      "specFile": "components/screen-header/screen-header.spec.md",
+      "fichiers": {
+        "mobile": "components/screen-header/screen-header.native.tsx"
+      }
+    },
+    {
       "name": "SegmentedTabs",
       "status": "beta",
       "layer": "generique",

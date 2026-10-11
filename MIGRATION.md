@@ -1,5 +1,14 @@
 # Monter une app vers la version courante
 
+## Non publié — ScreenHeader (mobile)
+
+**Composant neuf, `ScreenHeader`** : l'en-tête d'un écran poussé de myArquos,
+la flèche de retour et des boutons d'icône sur une rangée, puis le titre dans
+le corps, aligné à gauche. **À reprendre chez l'appelant** : un en-tête dessiné
+à la main (titre centré entre « Retour » et un lien texte) passe par
+`ScreenHeader`, et l'action principale qu'il portait en haut à droite descend
+dans le pied fixe.
+
 ## Non publié — Le web sous 640 px
 
 **`FieldRow`** : sous 640 px, le libellé passe au-dessus de la valeur.

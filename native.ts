@@ -35,6 +35,7 @@ export {
   type IconButtonSize,
 } from './components/icon-button/icon-button.native';
 export { Badge, type BadgeProps, type BadgeVariant } from './components/badge/badge.native';
+export { ScreenHeader, type ScreenHeaderProps } from './components/screen-header/screen-header.native';
 export {
   Card,
   CardHeader,
