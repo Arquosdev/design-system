@@ -45,7 +45,7 @@ Le rouge ne dit jamais un refus : un devis refusé est clos, pas en danger. Un t
 | --- | --- | --- | --- |
 | `object` | `StatusObject` | — | L'objet, donc sa table |
 | `status` | `string \| null` | — | Clé, code de la base ou mot de Bubble : `statusKey` le ramène à une clé |
-| `audience` | `'agency' \| 'client'` | `'agency'` | Web seulement : le portail lit les mots du client (« À valider ») |
+| `audience` | `'agency' \| 'client'` | `'agency'` | Web seulement : le portail lit les mots du client (« À valider »), et sa couleur quand le statut attend un geste de lui (ambre) |
 | `fallback` | `string` | — | Le mot d'un statut inconnu, rendu en gris |
 
 Un statut inconnu garde son mot, en gris : on ne colore pas ce qu'on ne connaît pas.

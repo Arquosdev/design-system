@@ -28,6 +28,8 @@ export function StatusBadge({ object, status, audience = 'agency', fallback, cla
     const mot = fallback ?? status;
     return mot ? <Badge variant="muted" className={className}>{mot}</Badge> : null;
   }
-  const label = audience === 'client' ? (entry.clientLabel ?? entry.label) : entry.label;
-  return <Badge variant={entry.tone} className={className}>{label}</Badge>;
+  const client = audience === 'client';
+  const label = client ? (entry.clientLabel ?? entry.label) : entry.label;
+  const tone = client ? (entry.clientTone ?? entry.tone) : entry.tone;
+  return <Badge variant={tone} className={className}>{label}</Badge>;
 }

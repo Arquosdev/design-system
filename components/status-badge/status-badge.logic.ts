@@ -29,6 +29,8 @@ export interface StatusEntry {
   tone: StatusTone;
   /** Le mot que lit le client au portail, quand il diffère de celui de l'agence. */
   clientLabel?: string;
+  /** La couleur au portail, quand le statut demande au client un geste que l'agence attend. */
+  clientTone?: StatusTone;
 }
 
 export const STATUSES = {
@@ -50,11 +52,11 @@ export const STATUSES = {
     toFix: { label: 'À corriger', tone: 'warning' },
     observation: { label: 'Observation', tone: 'muted' },
   },
-  /** Un devis. Envoyé, il attend la réponse du client : au portail, il est « À valider ». */
+  /** Un devis. Envoyé, il attend la réponse du client : au portail, il est « À valider », en ambre. */
   quote: {
     draft: { label: 'Brouillon', tone: 'warning' },
-    sent: { label: 'Envoyé', tone: 'info', clientLabel: 'À valider' },
-    awaitingMeeting: { label: 'En attente d’AG', tone: 'info', clientLabel: 'En attente d’AG' },
+    sent: { label: 'Envoyé', tone: 'info', clientLabel: 'À valider', clientTone: 'warning' },
+    awaitingMeeting: { label: 'En attente d’AG', tone: 'info', clientLabel: 'À valider', clientTone: 'warning' },
     accepted: { label: 'Accepté', tone: 'success' },
     refused: { label: 'Refusé', tone: 'muted' },
     scheduled: { label: 'Planifié', tone: 'info', clientLabel: 'Travaux planifiés' },
@@ -63,8 +65,8 @@ export const STATUSES = {
   /** Une facture. « En retard » n'est pas en base : il se déduit de l'échéance. */
   invoice: {
     draft: { label: 'Brouillon', tone: 'warning' },
-    issued: { label: 'Émise', tone: 'info', clientLabel: 'À payer' },
-    sent: { label: 'Envoyée', tone: 'info', clientLabel: 'À payer' },
+    issued: { label: 'Émise', tone: 'info', clientLabel: 'À payer', clientTone: 'warning' },
+    sent: { label: 'Envoyée', tone: 'info', clientLabel: 'À payer', clientTone: 'warning' },
     late: { label: 'En retard', tone: 'destructive' },
     paid: { label: 'Payée', tone: 'success' },
   },

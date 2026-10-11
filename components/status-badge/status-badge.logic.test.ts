@@ -45,5 +45,6 @@ describe('la table', () => {
     strictEqual(statusLabel('quote', 'sent', 'client'), 'À valider');
     strictEqual(statusLabel('quote', 'sent'), 'Envoyé');
     strictEqual(statusLabel('quote', 'draft', 'client'), 'Brouillon');
+    strictEqual(statusEntry('quote', 'sent')?.clientTone, 'warning');
   });
 });
