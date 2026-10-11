@@ -1,5 +1,11 @@
 # Monter une app vers la version courante
 
+## Non publié — un rôle d'icône pour la documentation
+
+**`documentation`** (web et mobile), le livre ouvert de Phosphor : le même
+dessin pour la Documentation dans le rail du web et dans la barre d'onglets
+de myArquos. Rien ne change pour les appelants existants.
+
 ## Non publié — un rôle d'icône pour l'aide
 
 **`help`** (web et mobile), le point d'interrogation de Phosphor : l'entrée

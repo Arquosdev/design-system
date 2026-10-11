@@ -276,6 +276,9 @@ export const icons = {
    *  l'aide de myArquos dans le Profil. Le point d'interrogation, que tout le
    *  monde lit comme « comment faire ? ». */
   help: 'Question',
+  /** La documentation technique (manuels) : le livre ouvert, le même dans le
+   *  rail du web et la barre d'onglets de myArquos (Louis, 11/10/2026). */
+  documentation: 'BookOpenText',
 
   // -- La nature d'une colonne ---------------------------------------------
   //
