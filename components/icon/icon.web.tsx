@@ -95,6 +95,10 @@ import {
   ArrowDown,
   Question,
   BookOpenText,
+  CalendarCheck,
+  Printer,
+  House,
+  Star,
 } from '@phosphor-icons/react';
 
 import { iconSize, iconWeight, type IconRole } from '../../src/icons';
@@ -227,6 +231,10 @@ const GLYPHS: Record<IconRole, PhosphorIcon> = {
   scrollDown: ArrowDown,
   help: Question,
   documentation: BookOpenText,
+  today: CalendarCheck,
+  print: Printer,
+  home: House,
+  rating: Star,
 
   fieldText: TextAa,
   fieldNumber: Hash,

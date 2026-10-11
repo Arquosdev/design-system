@@ -96,6 +96,10 @@ import {
   ArrowDown,
   Question,
   BookOpenText,
+  CalendarCheck,
+  Printer,
+  House,
+  Star,
 } from 'phosphor-react-native';
 
 import { Circle, Svg } from 'react-native-svg';
@@ -209,6 +213,10 @@ const DESSINS: Record<IconRole, PhosphorIcon> = {
   scrollDown: ArrowDown,
   help: Question,
   documentation: BookOpenText,
+  today: CalendarCheck,
+  print: Printer,
+  home: House,
+  rating: Star,
   fieldText: TextAa,
   fieldNumber: Hash,
   fieldDate: Calendar,

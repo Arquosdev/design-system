@@ -1,5 +1,13 @@
 # Monter une app vers la version courante
 
+## Non publié — Quatre rôles d'icône pour myArquos
+
+**`today`** (le calendrier coché : la journée du technicien), **`print`**,
+**`home`** et **`rating`** (l'étoile de la note). Rien ne change pour les
+appelants existants. **À reprendre chez l'appelant** : un `CalendarCheck`,
+`Printer`, `House` ou `Star` importé de Phosphor dans une app passe par
+`<Icon role=…>`.
+
 ## Non publié — Un focus, un état vide, un squelette
 
 **`focus-ring` et `focus-ring-within`** (utilitaires Tailwind) : le seul style de

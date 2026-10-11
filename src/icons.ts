@@ -279,6 +279,15 @@ export const icons = {
   /** La documentation technique (manuels) : le livre ouvert, le même dans le
    *  rail du web et la barre d'onglets de myArquos (Louis, 11/10/2026). */
   documentation: 'BookOpenText',
+  /** La journée du technicien (onglet « Journée » de myArquos) : le calendrier coché,
+   *  ce qui est à faire aujourd'hui. Pas `fieldDate`, qui dit la NATURE d'une colonne. */
+  today: 'CalendarCheck',
+  /** Imprimer ou produire le document papier d'un objet (le rapport d'un relevé). */
+  print: 'Printer',
+  /** Revenir au début d'un parcours (le sommaire d'un formulaire de relevé). */
+  home: 'House',
+  /** La note donnée à un relevé ou à une intervention (satisfaction). */
+  rating: 'Star',
 
   // -- La nature d'une colonne ---------------------------------------------
   //
