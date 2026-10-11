@@ -42,7 +42,7 @@ suffisent à un écran.
 
 | Prop      | Type                                                                                  | Défaut   | Rôle                                   |
 | --------- | ------------------------------------------------------------------------------------- | -------- | -------------------------------------- |
-| `variant` | `TypographyToken` — `caption`, `small`, `body`, `bodyMedium`, `bodyBold`, `subhead`, `title`, `titleLarge`, `headline`, `display` | `'body'` | Le préréglage : taille, graisse, interligne |
+| `variant` | `TypographyToken` — `caption`, `captionBold`, `small`, `smallBold`, `body`, `bodyMedium`, `bodyBold`, `subhead`, `title`, `titleLarge`, `headline`, `display` | `'body'` | Le préréglage : taille, graisse, interligne |
 | `tone`    | `'text' \| 'muted' \| 'onDark' \| 'primary' \| 'danger' \| 'success' \| 'warning'`      | `'text'` | La couleur, par son rôle                |
 
 Plus toutes les props de `Text` de React Native (`numberOfLines`,

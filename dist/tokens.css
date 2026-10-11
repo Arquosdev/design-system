@@ -210,6 +210,13 @@
   line-height: 16.799999999999997px;
 }
 
+.arq-text-caption-bold {
+  font-family: var(--arq-font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16.799999999999997px;
+}
+
 .arq-text-overline {
   font-family: var(--arq-font-sans);
   font-size: 12px;
@@ -230,6 +237,13 @@
   font-family: var(--arq-font-sans);
   font-size: 14px;
   font-weight: 400;
+  line-height: 19.599999999999998px;
+}
+
+.arq-text-small-bold {
+  font-family: var(--arq-font-sans);
+  font-size: 14px;
+  font-weight: 600;
   line-height: 19.599999999999998px;
 }
 

@@ -46,6 +46,20 @@ export const Typographie: Story = {
       </Section>
 
       <Section
+        title="La hiérarchie d'un écran"
+        what="Cinq rôles, toujours les mêmes préréglages, jamais une graisse ajoutée à côté : titre de page `headline` (le PageHeader le pose), titre de section `title`, sous-titre ou titre de carte `subhead`, texte `body` ou `small` (appuyé : `bodyBold`, `smallBold`), légende `caption` (appuyée : `captionBold`), étiquette de formulaire `overline` en capitales. Le web refuse `font-*` et `tracking-*` posés à côté d'un préréglage."
+      >
+        <div className="flex flex-col gap-sm">
+          <div className="text-headline text-text">Équipements</div>
+          <div className="text-title text-text">Composants</div>
+          <div className="text-subhead text-text">Machinerie</div>
+          <div className="text-small-bold text-text">53 A 30894 03</div>
+          <div className="text-small text-text">Moteur Leroy-Somer, 7,5 kW</div>
+          <div className="text-caption text-text-muted">Relevé le 12/09/2026</div>
+        </div>
+      </Section>
+
+      <Section
         title="Côté mobile, la graisse se nomme"
         what="React Native ne synthétise pas correctement le gras sur Android : il faut désigner la variante chargée, d'où `fontFamilyNative`. Sur le web, `fontWeight` suffit."
       >

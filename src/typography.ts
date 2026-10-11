@@ -98,6 +98,12 @@ export function scaleFrom(fs: Record<keyof typeof fontSize, number>) {
       fontWeight: fontWeight.regular,
       lineHeight: fs.caption * lineHeight.normal,
     },
+    /** La légende appuyée : un compteur, une pastille, une valeur sous un libellé. */
+    captionBold: {
+      fontSize: fs.caption,
+      fontWeight: fontWeight.semibold,
+      lineHeight: fs.caption * lineHeight.normal,
+    },
     // Le titre d'une section À L'INTÉRIEUR d'un formulaire : « OUVERTURE »,
     // « FINITION ». Il range sans peser — dans un formulaire, ce qui doit
     // ressortir est le libellé du champ, pas le nom de la section qui le range.
@@ -126,6 +132,16 @@ export function scaleFrom(fs: Record<keyof typeof fontSize, number>) {
     small: {
       fontSize: fs.small,
       fontWeight: fontWeight.regular,
+      lineHeight: fs.small * lineHeight.normal,
+    },
+    /*
+      Le petit texte APPUYÉ : la première colonne d'un tableau, le libellé d'une
+      ligne, un nom dans une carte. Il remplace `text-small font-semibold`, la
+      recombinaison la plus répandue du web (149 fois, audit du 11/10/2026).
+    */
+    smallBold: {
+      fontSize: fs.small,
+      fontWeight: fontWeight.semibold,
       lineHeight: fs.small * lineHeight.normal,
     },
     body: {

@@ -1,5 +1,14 @@
 # Monter une app vers la version courante
 
+## Non publié — deux préréglages appuyés, et la hiérarchie en cinq rôles
+
+**`smallBold`** (14/600) et **`captionBold`** (12/600), web (`text-small-bold`,
+`text-caption-bold`) et mobile : ils remplacent `text-small font-semibold` et
+`text-caption font-semibold`, les recombinaisons les plus répandues du web.
+Rien ne change pour les appelants existants. **À reprendre chez l'appelant** :
+aucune graisse ni approche posée à côté d'un préréglage (`text-title font-bold`
+devient `text-title`) ; la page Fondations › Typographie dit les cinq rôles.
+
 ## Non publié — StatusBadge, et Tag passe au point coloré
 
 **Nouveau composant, `StatusBadge`** (web et mobile), et sa table
