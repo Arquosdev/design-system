@@ -49,6 +49,12 @@ retirait les astérisques et rendait tout en un paragraphe.
   mot parce qu'une syntaxe est inconnue.
 - **Un lien n'est un lien que s'il est sûr** : chemin de l'application,
   `http(s)`, `mailto:`, `tel:`. `javascript:` et `data:` restent du texte.
+- **Ce qu'écrit un modèle ne cache pas de lien sortant** : avec
+  `externes="texte"`, un lien qui sort de l'application (adresse web, courriel
+  ou téléphone avec paramètres) se montre en texte, son domaine à côté, et ne
+  se clique pas. Un contenu piégé — une note, un fichier joint — pouvait faire
+  écrire au modèle un lien « Ouvrir la fiche » qui portait des données dans son
+  adresse. Les chemins de l'application restent des liens.
 - **Un astérisque isolé reste un astérisque** (« 3 * 4 »), un nom à tirets bas
   aussi (`type_galets`).
 - Un tableau large et un bloc de code défilent de côté, jamais la page.

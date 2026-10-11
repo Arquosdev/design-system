@@ -3,7 +3,7 @@
 import * as React from 'react';
 
 import { cn } from '../_lib/cn';
-import { analyser, type Bloc, type EnLigne } from './markdown.logic';
+import { analyser, domaineDe, lienSansSortie, type Bloc, type EnLigne } from './markdown.logic';
 
 /*
   Le texte d'une réponse de l'assistant, mis en forme : titres, listes,
@@ -26,12 +26,18 @@ export interface MarkdownProps {
   children: string;
   /** Comment rendre un lien ; `href` est déjà vérifié (chemin, web, courriel, téléphone). */
   renderLink?: (href: string, enfants: React.ReactNode, cle: string) => React.ReactNode;
+  /**
+   * Un lien qui sort de l'application : un lien (`lien`, par défaut) ou du TEXTE
+   * suivi de son domaine (`texte`). `texte` pour ce qu'écrit un modèle : un
+   * contenu piégé ne peut plus y cacher des données dans l'adresse d'un lien.
+   */
+  externes?: 'lien' | 'texte';
   className?: string;
 }
 
 const externe = (href: string) => /^https?:\/\//i.test(href);
 
-export function Markdown({ children, renderLink, className }: MarkdownProps) {
+export function Markdown({ children, renderLink, externes = 'lien', className }: MarkdownProps) {
   const blocs = React.useMemo(() => analyser(children), [children]);
   const lien = (href: string, enfants: React.ReactNode, cle: string) =>
     renderLink ? renderLink(href, enfants, cle) : (
@@ -48,7 +54,16 @@ export function Markdown({ children, renderLink, className }: MarkdownProps) {
       case 'gras': return <strong key={c} className="font-semibold text-text">{ligne(m.enfants, c)}</strong>;
       case 'italique': return <em key={c}>{ligne(m.enfants, c)}</em>;
       case 'code': return <code key={c} className="rounded-control bg-bg-muted px-[5px] py-px font-mono text-[0.92em] text-text">{m.texte}</code>;
-      case 'lien': return lien(m.href, ligne(m.enfants, c), c);
+      case 'lien':
+        if (externes === 'texte' && !lienSansSortie(m.href)) {
+          return (
+            <React.Fragment key={c}>
+              {ligne(m.enfants, c)}
+              <span className="text-text-muted"> ({domaineDe(m.href)})</span>
+            </React.Fragment>
+          );
+        }
+        return lien(m.href, ligne(m.enfants, c), c);
     }
   });
 

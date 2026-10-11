@@ -1,7 +1,7 @@
 import { deepStrictEqual, ok, strictEqual } from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { analyser, enLigne, hrefSur, texteBrut } from './markdown.logic.ts';
+import { analyser, domaineDe, enLigne, hrefSur, lienSansSortie, texteBrut } from './markdown.logic.ts';
 
 describe('Markdown : en ligne', () => {
   it('lit le gras, l’italique, le code et les liens', () => {
@@ -65,5 +65,20 @@ describe('Markdown : blocs', () => {
 
   it('rend un texte nu pour copier', () => {
     strictEqual(texteBrut('**Bonjour** [ici](/a)\n\n- un\n- deux'), 'Bonjour ici\n\n• un\n• deux');
+  });
+});
+
+describe('Markdown : les liens qui sortent de l’application', () => {
+  it('reconnaît ce qui ne sort pas : chemin, ancre, courriel et téléphone sans paramètre', () => {
+    ok(lienSansSortie('/equipment/12'));
+    ok(lienSansSortie('#haut'));
+    ok(lienSansSortie('mailto:contact@exemple.fr'));
+    ok(lienSansSortie('tel:+33612345678'));
+    ok(!lienSansSortie('https://evil.example/f?d=clients'));
+    ok(!lienSansSortie('//evil.example'));
+    ok(!lienSansSortie('mailto:x@evil.example?body=donnees'));
+  });
+  it('dit le domaine d’une adresse', () => {
+    strictEqual(domaineDe('https://evil.example/f?d=1'), 'evil.example');
   });
 });

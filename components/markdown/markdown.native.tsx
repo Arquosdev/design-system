@@ -6,7 +6,7 @@ import { radius } from '../../src/radius';
 import { spacing } from '../../src/spacing';
 import { typography } from '../../src/typography';
 import { Text } from '../text/text.native';
-import { analyser, type Bloc, type EnLigne } from './markdown.logic';
+import { analyser, domaineDe, lienSansSortie, type Bloc, type EnLigne } from './markdown.logic';
 
 /*
   Le texte d'une réponse de l'assistant, mis en forme, sur le téléphone : le
@@ -24,10 +24,12 @@ export interface MarkdownProps {
   children: string;
   /** Ouvrir un lien ; `href` est déjà vérifié (chemin, web, courriel, téléphone). */
   onLink?: (href: string) => void;
+  /** Comme sur le web : `texte` montre un lien qui sort de l'application en texte, son domaine à côté. */
+  externes?: 'lien' | 'texte';
   style?: StyleProp<ViewStyle>;
 }
 
-export function Markdown({ children, onLink, style }: MarkdownProps) {
+export function Markdown({ children, onLink, externes = 'lien', style }: MarkdownProps) {
   const blocs = React.useMemo(() => analyser(children), [children]);
   const ouvrir = (href: string) => (onLink ? onLink(href) : void Linking.openURL(href));
 
@@ -39,6 +41,9 @@ export function Markdown({ children, onLink, style }: MarkdownProps) {
       case 'italique': return <Text key={c} style={styles.italique}>{ligne(m.enfants, c)}</Text>;
       case 'code': return <Text key={c} mono style={styles.codeEnLigne}>{m.texte}</Text>;
       case 'lien':
+        if (externes === 'texte' && !lienSansSortie(m.href)) {
+          return <Text key={c}>{ligne(m.enfants, c)}<Text style={styles.domaine}> ({domaineDe(m.href)})</Text></Text>;
+        }
         return (
           <Text key={c} style={styles.lien} accessibilityRole="link" onPress={() => ouvrir(m.href)} suppressHighlighting={false}>
             {ligne(m.enfants, c)}
@@ -114,6 +119,7 @@ const styles = StyleSheet.create({
   italique: { fontStyle: 'italic' },
   codeEnLigne: { fontSize: typography.small.fontSize, backgroundColor: colors.bgMuted, color: colors.text },
   lien: { color: colors.primary, textDecorationLine: 'underline' },
+  domaine: { color: colors.textMuted },
   titre: { fontSize: typography.body.fontSize, fontWeight: '600', color: colors.text, marginTop: spacing.xs },
   titre1: { fontSize: typography.subhead.fontSize },
   liste: { gap: spacing.xs },

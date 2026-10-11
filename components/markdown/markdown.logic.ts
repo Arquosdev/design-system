@@ -272,3 +272,20 @@ export function texteBrut(source: string): string {
   };
   return blocs.map(ligne).filter(Boolean).join('\n\n');
 }
+
+/**
+ * Un lien qui ne mène pas HORS de l'application : un chemin, une ancre, un
+ * courriel ou un téléphone sans paramètre. Avec `externes="texte"`, tout autre
+ * lien se montre en texte, son domaine à côté, sans se cliquer : une réponse de
+ * modèle influencée par un contenu piégé pouvait porter des données dans
+ * l'adresse d'un lien « Ouvrir la fiche » (audit de sécurité du 11/10/2026).
+ */
+export function lienSansSortie(href: string): boolean {
+  const h = href.trim();
+  return /^(\/(?!\/)|#)/.test(h) || /^(mailto|tel):[^?]*$/i.test(h);
+}
+
+/** Le domaine d'une adresse web, pour le dire à côté d'un lien montré en texte. */
+export function domaineDe(href: string): string {
+  try { return new URL(href).hostname; } catch { return href; }
+}

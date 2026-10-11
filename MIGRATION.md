@@ -1,5 +1,13 @@
 # Monter une app vers la version courante
 
+## Non publié — Markdown : les liens sortants d'une réponse de modèle
+
+**Nouvelle prop `externes`** (web et mobile), `lien` par défaut : rien ne change
+pour les appelants existants. Avec `externes="texte"`, un lien qui sort de
+l'application se montre en texte suivi de son domaine, sans se cliquer.
+**À reprendre chez l'appelant** : l'assistant (web et mobile) le pose, parce que
+son texte vient d'un modèle qui lit des contenus saisis par d'autres.
+
 ## Non publié — AiMark, la marque de l'assistant
 
 **Nouveau composant, `AiMark`** (web et mobile) : la constellation `aiAssist`
