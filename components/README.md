@@ -49,7 +49,7 @@ Une mécanique que n'importe quelle application aurait — bouton, modale, ongle
 | [Sheet](sheet/sheet.spec.md) | Un panneau qui entre par le bord pour une tâche annexe, sans quitter l'écran. | 🖥️ | beta |
 | [Skeleton](skeleton/skeleton.spec.md) | Occuper la place de ce qui charge, pour que l'écran ne mente pas en paraissant vide. | 🖥️ 📱 | stable |
 | [Switch](switch/switch.spec.md) | Basculer un réglage qui s'applique immédiatement. | 🖥️ | stable |
-| [Tag](tag/tag.spec.md) | Distinguer une valeur de référentiel par sa couleur, sans la juger. | 🖥️ | stable |
+| [Tag](tag/tag.spec.md) | Distinguer une valeur de référentiel par sa couleur, sans la juger. | 🖥️ 📱 | stable |
 | [Text](text/text.spec.md) | Écrire du texte avec un préréglage typographique et un ton de couleur, sans jamais recomposer une taille à la main. | 📱 | beta |
 | [Textarea](textarea/textarea.spec.md) | Recueillir un texte de plusieurs lignes — une observation, un commentaire. | 🖥️ | stable |
 | [ThinkingDots](thinking-dots/thinking-dots.spec.md) | Dire que l'assistant réfléchit, par la constellation de son icône animée en vague. | 🖥️ 📱 | beta |
@@ -69,6 +69,7 @@ Elle porte l'ascenseur : son vocabulaire, ses états, ses règles. shadcn n'a ri
 | [PhotoTile](photo-tile/photo-tile.spec.md) | Montrer une photo attendue — prise ou non — avec ce qu'elle est censée montrer. | 🖥️ | beta |
 | [RecordLayout](record-layout/record-layout.spec.md) | Poser la fiche d'un objet — deux colonnes, chacune avec son propre défilement. | 🖥️ | beta |
 | [StatTile](stat-tile/stat-tile.spec.md) | Mettre en avant une mesure d'identité, celle qu'on veut lire sans chercher. | 🖥️ | beta |
+| [StatusBadge](status-badge/status-badge.spec.md) | Dire où en est un objet (relevé, écart, devis, facture, contrat, appel, visite, demande de pièce, équipement), du même mot et de la même couleur dans toutes les applications. | 🖥️ 📱 | beta |
 
 ## Ajouter un composant
 

@@ -4,12 +4,18 @@ status: stable
 layer: generique
 role: Distinguer une valeur de référentiel par sa couleur, sans la juger.
 keywords: [tag, pastille, valeur, categorie, type, nature, role, couleur]
-platforms: [web]
+platforms: [web, mobile]
 ---
 
 # Tag
 
-Une pastille de valeur. Elle **distingue**, elle ne juge pas.
+Une pastille de valeur : **un point de couleur et le mot, sur un fond neutre**.
+Elle **distingue**, elle ne juge pas.
+
+Depuis la 2.36.0-refonte.5, le fond n'est plus teinté (audit design du 11/10/2026,
+A5-15 et A4-33) : « Étude sécurité » en aplat vert se lisait comme « Soumis »
+en aplat vert juste à côté. Les fonds teintés sont aux états (`StatusBadge`,
+`Badge`) ; le point garde ce qui faisait l'intérêt de la couleur, le balayage.
 
 ## Pourquoi elle existe
 
@@ -29,8 +35,8 @@ relevé, un rôle. Sa teinte est tirée du libellé et ne veut rien dire. Si
 
 ## Teintes
 
-Dix paires (`tagPalette`), chacune un fond très clair et son encre. Toutes
-au-dessus de 4,6 pour 1 sur leur fond et de 4,5 sur blanc.
+Dix paires (`tagPalette`) ; seule l'encre sert, au point. Le mot reste dans
+la couleur du texte.
 
 Le même libellé reçoit toujours la même teinte, dans tout le produit : la
 fonction `tagTone` hache le texte. Pas de table à tenir à jour — le référentiel
@@ -41,15 +47,13 @@ des types compte des dizaines de valeurs et bouge sans nous.
 ```tsx
 <Tag>Ascenseur</Tag>                    {/* teinte déduite du libellé */}
 <Tag tone="green">Au contrat</Tag>      {/* teinte imposée */}
-<Tag colors={{ background: '#DFF7F3', foreground: '#2EB89A' }}>Soumis</Tag>
 ```
 
-La troisième forme sert aux valeurs qui arrivent avec leurs couleurs : les
-statuts de relevé viennent de Bubble avec les leurs, et la pastille doit être la
-même ici et là-bas.
+`colors` est déprécié : il servait aux statuts de relevé venus de Bubble, qui
+prennent désormais `StatusBadge`. Seule son encre sert encore, au point.
 
 ## À ne pas faire
 
-- Ne pas s'en servir pour un état. `Badge`.
+- Ne pas s'en servir pour un état. `StatusBadge`, ou `Badge`.
 - Ne pas la poser sur une valeur libre à forte cardinalité : une adresse ou un
   nom de client donneraient un tableau bariolé où plus rien ne ressort.

@@ -230,3 +230,14 @@ export {
 export { PageHeader, type PageHeaderProps } from './components/page-header/page-header.web';
 
 export { cn } from './components/_lib/cn';
+export { StatusBadge, type StatusBadgeProps } from './components/status-badge/status-badge.web';
+export {
+  STATUSES,
+  statusEntry,
+  statusKey,
+  statusLabel,
+  type StatusEntry,
+  type StatusKey,
+  type StatusObject,
+  type StatusTone,
+} from './components/status-badge/status-badge.logic';

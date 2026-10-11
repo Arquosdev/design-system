@@ -1,5 +1,23 @@
 # Monter une app vers la version courante
 
+## Non publié — StatusBadge, et Tag passe au point coloré
+
+**Nouveau composant, `StatusBadge`** (web et mobile), et sa table
+`status-badge.logic.ts` : le statut d'un relevé, d'un écart, d'une gravité, d'un
+devis, d'une facture, d'un contrat, d'un appel, d'une visite, d'une demande de
+pièce et l'état d'un équipement, un mot et une couleur par statut. La couleur
+suit le sens, le même pour tous les objets (bleu prévu, ambre en cours ou à
+faire, vert abouti, rouge bloqué, gris clos). `statusKey` ramène un code de la
+base ou un mot de Bubble à la clé. **À reprendre chez l'appelant** : toute table
+statut → ton recopiée dans l'app (`couleursDeStatut`, `STATUTS_DEVIS.ton`,
+`StatusPill`) laisse la place à `<StatusBadge object=… status=… />`.
+
+**`Tag` change d'allure, pas d'API** : un point de couleur et le mot, sur un
+fond neutre à bordure douce, au lieu d'un aplat teinté. Une catégorie ne se lit
+plus comme un état. La prop `colors` est dépréciée (seule son encre sert, au
+point) : les statuts de relevé qui la passaient prennent `StatusBadge`. **`Tag`
+existe désormais sur le mobile.**
+
 ## Non publié — un rôle d'icône pour la documentation
 
 **`documentation`** (web et mobile), le livre ouvert de Phosphor : le même

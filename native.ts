@@ -69,3 +69,15 @@ export {
   type FieldSave,
   type FieldStatus,
 } from './components/field-row/field-row.logic';
+export { StatusBadge, type StatusBadgeProps } from './components/status-badge/status-badge.native';
+export { Tag, type TagProps } from './components/tag/tag.native';
+export {
+  STATUSES,
+  statusEntry,
+  statusKey,
+  statusLabel,
+  type StatusEntry,
+  type StatusKey,
+  type StatusObject,
+  type StatusTone,
+} from './components/status-badge/status-badge.logic';

@@ -1218,6 +1218,41 @@
       }
     },
     {
+      "name": "StatusBadge",
+      "status": "beta",
+      "layer": "metier",
+      "role": "Dire où en est un objet (relevé, écart, devis, facture, contrat, appel, visite, demande de pièce, équipement), du même mot et de la même couleur dans toutes les applications.",
+      "keywords": [
+        "statut",
+        "etat",
+        "pastille",
+        "badge",
+        "releve",
+        "ecart",
+        "devis",
+        "facture",
+        "contrat",
+        "appel",
+        "visite",
+        "cycle"
+      ],
+      "platforms": [
+        "web",
+        "mobile"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/status-badge",
+      "specFile": "components/status-badge/status-badge.spec.md",
+      "fichiers": {
+        "web": "components/status-badge/status-badge.web.tsx",
+        "mobile": "components/status-badge/status-badge.native.tsx",
+        "logique": "components/status-badge/status-badge.logic.ts"
+      }
+    },
+    {
       "name": "Switch",
       "status": "stable",
       "layer": "generique",
@@ -1262,12 +1297,14 @@
         "couleur"
       ],
       "platforms": [
-        "web"
+        "web",
+        "mobile"
       ],
       "dossier": "components/tag",
       "specFile": "components/tag/tag.spec.md",
       "fichiers": {
-        "web": "components/tag/tag.web.tsx"
+        "web": "components/tag/tag.web.tsx",
+        "mobile": "components/tag/tag.native.tsx"
       }
     },
     {
