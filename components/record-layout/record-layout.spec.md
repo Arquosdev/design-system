@@ -92,3 +92,12 @@ Sous 768 px, les deux colonnes s'empilent : le rail passe en tête, et ses
 rubriques se lisent en une rangée d'onglets qui défile de côté, l'onglet courant
 ramené dans le champ. Les sous-rubriques s'y lisent à plat. La zone prend toute
 la largeur. Choix par défaut du 07/10/2026, réversible (un menu tiendrait aussi).
+
+## Le chargement d'une rubrique
+
+Le cadre partage avec sa zone un état « en chargement ». `useRecordZone()`
+(web) le donne au rail de l'application : `setBusy(true)` au clic remonte la
+zone en haut et y pose un squelette, `setBusy(false)` à la réponse rend le
+contenu (A1-03, A1-B-02 : un clic ne changeait rien à l'écran pendant une
+demi-seconde, et la rubrique suivante s'ouvrait au défilement de la
+précédente). La rubrique choisie s'allume dans le rail au clic, sans attendre.

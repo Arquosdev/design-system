@@ -131,3 +131,10 @@ import { NavList } from '@arquos/design-system/web';
 
 - Un `<nav>` avec `aria-label`, et `aria-current="page"` sur l'entrée ouverte : c'est ce qui permet à un lecteur d'écran d'annoncer où l'on se trouve.
 - Le compteur est lu à la suite du libellé.
+
+## Une entrée qui a une adresse
+
+`href` fait de l'entrée un vrai lien : Cmd+clic ou le clic molette l'ouvrent
+dans un onglet (A2-22, comme les onglets de Linear et de Vercel). Le clic simple
+passe toujours par `onChoose`, qui peut naviguer sans recharger. `NavTarget`
+est exporté pour les rangées d'onglets qui suivent la même règle.

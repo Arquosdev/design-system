@@ -1,5 +1,14 @@
 # Monter une app vers la version courante
 
+## Non publié — Rubriques instantanées : liens, squelette, retour en haut
+
+**`NavItem.href`** (web) : une entrée avec une adresse est un vrai lien (Cmd+clic
+pour un onglet), le clic simple reste à `onChoose`. **`useRecordZone()`** : le
+rail d'une application dit que la zone charge ; elle remonte en haut et montre
+un squelette. Rien ne change pour les appelants existants. **À reprendre chez
+l'appelant** : le rail d'une fiche qui navigue par l'adresse passe `href`,
+allume la rubrique visée au clic et appelle `setBusy` pendant la navigation.
+
 ## Non publié — PageHeader : statut et chiffre d'une fiche
 
 **Deux props neuves, `status` et `figure`** (web) : le statut d'une fiche et le

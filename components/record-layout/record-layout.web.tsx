@@ -1,8 +1,34 @@
 import * as React from 'react';
 
 import { Icon } from '../icon/icon.web';
-import { NavList, type NavItem } from '../nav-list/nav-list.web';
+import { NavList, NavTarget, type NavItem } from '../nav-list/nav-list.web';
 import { SegmentedTabs, type Segment } from '../segmented-tabs/segmented-tabs.web';
+import { Skeleton } from '../skeleton/skeleton.web';
+
+/*
+  LE CHARGEMENT D'UNE RUBRIQUE SE VOIT (audit design du 11/10/2026, A1-03,
+  A1-B-02). Une rubrique vient du serveur : entre le clic et sa réponse, rien
+  ne bougeait, et la nouvelle s'ouvrait au défilement de l'ancienne. Le cadre
+  partage donc avec sa zone un état « en chargement » : le rail l'allume au
+  clic, la zone remonte en haut et montre un squelette jusqu'à la réponse.
+*/
+type ChargementDeZone = { busy: boolean; setBusy: (busy: boolean) => void; zone: React.RefObject<HTMLDivElement | null> };
+const ContexteDeZone = React.createContext<ChargementDeZone | null>(null);
+
+/**
+ * Pour le rail d'une application : dire que la zone charge (le squelette
+ * paraît, le défilement remonte). Nul hors d'un `RecordLayout`.
+ */
+export function useRecordZone() {
+  const c = React.useContext(ContexteDeZone);
+  return React.useMemo(() => (c ? {
+    busy: c.busy,
+    setBusy: (busy: boolean) => {
+      c.setBusy(busy);
+      if (busy) c.zone.current?.scrollTo({ top: 0 });
+    },
+  } : null), [c]);
+}
 
 /*
   La mise en page d'une fiche : deux colonnes, chacune avec son défilement.
@@ -53,10 +79,15 @@ export interface RecordLayoutProps {
  * la fiche, et on ne sait plus où l'on est.
  */
 export function RecordLayout({ children, className = '' }: RecordLayoutProps) {
+  const [busy, setBusy] = React.useState(false);
+  const zone = React.useRef<HTMLDivElement | null>(null);
+  const valeur = React.useMemo(() => ({ busy, setBusy, zone }), [busy]);
   return (
-    <div className={`flex flex-col items-stretch overflow-hidden bg-bg min-[768px]:flex-row ${className}`}>
-      {children}
-    </div>
+    <ContexteDeZone.Provider value={valeur}>
+      <div className={`flex flex-col items-stretch overflow-hidden bg-bg min-[768px]:flex-row ${className}`}>
+        {children}
+      </div>
+    </ContexteDeZone.Provider>
   );
 }
 
@@ -184,17 +215,17 @@ function OngletsEtroits({ items, current, onChoose }: { items: readonly NavItem[
       {aPlat.map((i) => {
         const actif = i.id === current;
         return (
-          <button
+          <NavTarget
             key={i.id}
-            type="button"
+            href={i.href}
             disabled={i.disabled}
             aria-current={actif ? 'page' : undefined}
-            onClick={() => onChoose(i.id)}
+            onActivate={() => onChoose(i.id)}
             className={`flex h-(--arq-control-sm) shrink-0 items-center gap-xs whitespace-nowrap rounded-control px-md text-small outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-50 ${actif ? 'bg-info-bg font-semibold text-on-info-bg' : 'text-text-muted hover:bg-bg-muted hover:text-text'}`}
           >
             {i.label}
             {i.count !== undefined ? <span className="tabular-nums text-caption">{i.count}</span> : null}
-          </button>
+          </NavTarget>
         );
       })}
     </div>
@@ -235,9 +266,19 @@ export interface RecordZoneProps {
  * imbriqués sont une faute que les lecteurs d'écran signalent.
  */
 export function RecordZone({ children }: RecordZoneProps) {
+  const c = React.useContext(ContexteDeZone);
+  const busy = c?.busy ?? false;
   return (
-    <div className="min-h-0 min-w-0 flex-1 overflow-y-auto">
-      {children}
+    <div ref={c?.zone} aria-busy={busy || undefined} className="min-h-0 min-w-0 flex-1 overflow-y-auto">
+      {busy ? (
+        <div aria-hidden className="flex flex-col gap-base px-base pt-lg sm:px-xl">
+          <Skeleton className="h-6 w-48" />
+          <Skeleton className="h-40 w-full" />
+          <Skeleton className="h-24 w-full" />
+        </div>
+      ) : null}
+      {/* `contents` : l'enveloppe n'existe pas pour la mise en page tant qu'on ne charge pas. */}
+      <div className={busy ? 'hidden' : 'contents'}>{children}</div>
     </div>
   );
 }

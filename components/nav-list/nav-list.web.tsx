@@ -35,6 +35,48 @@ export interface NavItem {
    * fiche équipement le 21/09/2026.
    */
   children?: NavItem[];
+  /**
+   * L'adresse de la rubrique. Présente, l'entrée est un vrai lien : Cmd+clic
+   * l'ouvre dans un onglet, comme chez Linear et Vercel (audit design du
+   * 11/10/2026, A2-22). Un clic simple passe toujours par `onChoose`.
+   */
+  href?: string;
+}
+
+/**
+ * Le bouton d'une entrée, ou son lien quand elle a une adresse. Un clic simple
+ * reste à `onChoose` ; un clic avec Cmd, Ctrl, Maj ou la molette laisse faire
+ * le navigateur (nouvel onglet, nouvelle fenêtre).
+ */
+export function NavTarget({ href, disabled, onActivate, className, children, ...aria }: {
+  href?: string;
+  disabled?: boolean;
+  onActivate: () => void;
+  className?: string;
+  children: React.ReactNode;
+  'aria-current'?: 'page';
+}) {
+  if (href && !disabled) {
+    return (
+      <a
+        href={href}
+        onClick={(e) => {
+          if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+          e.preventDefault();
+          onActivate();
+        }}
+        className={className}
+        {...aria}
+      >
+        {children}
+      </a>
+    );
+  }
+  return (
+    <button type="button" disabled={disabled} onClick={onActivate} className={className} {...aria}>
+      {children}
+    </button>
+  );
 }
 
 export interface NavListProps {
@@ -281,13 +323,13 @@ function Entry({
 
   if (chevron === undefined) {
     return (
-      <button
-        type="button"
+      <NavTarget
+        href={item.href}
         // `aria-current` en plus du fond teinté : la couleur seule ne dit rien à
         // un lecteur d'écran.
         aria-current={active ? 'page' : undefined}
         disabled={item.disabled}
-        onClick={() => onChoose(item.id)}
+        onActivate={() => onChoose(item.id)}
         className={cn(
           ROW,
           'px-md py-sm outline-none focus-visible:ring-2 focus-visible:ring-primary',
@@ -297,7 +339,7 @@ function Entry({
       >
         <span className="flex-1">{item.label}</span>
         <Count item={item} active={active} />
-      </button>
+      </NavTarget>
     );
   }
 
@@ -313,11 +355,11 @@ function Entry({
   */
   return (
     <div className={cn(ROW, STATE(active, item.empty), 'pr-xxs', item.disabled && 'opacity-50')}>
-      <button
-        type="button"
+      <NavTarget
+        href={item.href}
         aria-current={active ? 'page' : undefined}
         disabled={item.disabled}
-        onClick={() => onChoose(item.id)}
+        onActivate={() => onChoose(item.id)}
         className={cn(
           'flex flex-1 items-center gap-sm rounded-control py-sm pl-md text-left outline-none',
           'focus-visible:ring-2 focus-visible:ring-primary',
@@ -326,7 +368,7 @@ function Entry({
       >
         <span className="flex-1">{item.label}</span>
         <Count item={item} active={active} />
-      </button>
+      </NavTarget>
       <button
         type="button"
         aria-expanded={chevron}
