@@ -62,12 +62,13 @@ export const STATUSES = {
     scheduled: { label: 'Planifié', tone: 'info', clientLabel: 'Travaux planifiés' },
     done: { label: 'Réalisé', tone: 'success', clientLabel: 'Travaux réalisés' },
   },
-  /** Une facture. « En retard » n'est pas en base : il se déduit de l'échéance. */
+  /** Une facture. « En retard » et « Payée en partie » ne sont pas en base : ils se déduisent de l'échéance et des paiements. */
   invoice: {
     draft: { label: 'Brouillon', tone: 'warning' },
     issued: { label: 'Émise', tone: 'info', clientLabel: 'À payer', clientTone: 'warning' },
     sent: { label: 'Envoyée', tone: 'info', clientLabel: 'À payer', clientTone: 'warning' },
     late: { label: 'En retard', tone: 'destructive' },
+    partiallyPaid: { label: 'Payée en partie', tone: 'warning' },
     paid: { label: 'Payée', tone: 'success' },
   },
   /** Un contrat de maintenance. */
