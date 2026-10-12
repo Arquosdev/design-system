@@ -68,26 +68,44 @@ export interface ToolbarSearchProps {
   placeholder?: string;
   /** Le nom du champ pour un lecteur d'écran. Défaut : le texte d'attente. */
   label?: string;
+  /**
+   * Replié en loupe tant qu'on ne cherche pas (défaut). Faux : le champ reste
+   * toujours ouvert, pour une page dont la recherche EST le sujet.
+   */
+  repliable?: boolean;
   className?: string;
 }
 
 /**
- * La recherche d'une liste, en tête de sa barre d'outils (audit design du
- * 11/10/2026, A1-02, A2-04, A3-15 : aucune liste n'en avait, il fallait
- * cinq gestes dans le panneau des filtres pour retrouver un numéro).
+ * La recherche d'une liste, dans sa barre d'outils (audit design du
+ * 11/10/2026, A1-02, A2-04, A3-15 : aucune liste n'en avait).
  *
- * La touche « / » y place le curseur, comme chez Linear et GitHub, tant
- * qu'on n'écrit pas déjà ailleurs ; Échap la vide.
+ * **Repliée en loupe, comme chez ClickUp** (Louis, 12/10/2026 : « la double
+ * barre de recherche noie un peu l'utilisateur »). Sous la recherche globale de
+ * l'en-tête, un second champ ouvert se lisait comme un doublon. La loupe
+ * s'ouvre au clic en champ, d'un glissement de sa largeur, et se replie quand
+ * on la quitte vide ; une recherche en cours la garde ouverte, pour qu'on voie
+ * ce qui filtre la liste.
+ *
+ * La touche « / » l'ouvre et y place le curseur, comme chez Linear et GitHub,
+ * tant qu'on n'écrit pas déjà ailleurs ; Échap la vide.
  */
-export function ToolbarSearch({ value, onChange, placeholder = 'Rechercher', label, className }: ToolbarSearchProps) {
+export function ToolbarSearch({ value, onChange, placeholder = 'Rechercher', label, repliable = true, className }: ToolbarSearchProps) {
   const ref = React.useRef<HTMLInputElement>(null);
+  const [focus, setFocus] = React.useState(false);
+  const ouverte = !repliable || focus || value !== '';
+  const ouvrir = () => {
+    setFocus(true);
+    // Après le rendu qui déplie le champ : un champ replié ne prend pas le focus.
+    requestAnimationFrame(() => ref.current?.focus());
+  };
   React.useEffect(() => {
     const surTouche = (e: KeyboardEvent) => {
       if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return;
       const cible = e.target as HTMLElement | null;
       if (cible && (cible.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(cible.tagName))) return;
       e.preventDefault();
-      ref.current?.focus();
+      ouvrir();
     };
     window.addEventListener('keydown', surTouche);
     return () => window.removeEventListener('keydown', surTouche);
@@ -95,25 +113,42 @@ export function ToolbarSearch({ value, onChange, placeholder = 'Rechercher', lab
   return (
     <label
       className={cn(
-        'flex h-9 w-full items-center gap-sm rounded-control border border-border bg-bg px-md sm:w-64',
-        'focus-ring-within',
+        'relative flex h-9 items-center overflow-hidden rounded-control border',
+        'transition-[width,background-color,border-color] duration-200 ease-out motion-reduce:transition-none',
+        ouverte
+          ? 'w-full gap-sm border-border bg-bg px-md focus-ring-within sm:w-64'
+          : 'w-9 cursor-pointer justify-center border-border-soft bg-bg-muted hover:border-border hover:bg-border-soft',
         className,
       )}
+      onMouseDown={(e) => {
+        if (!ouverte) { e.preventDefault(); ouvrir(); }
+      }}
     >
-      <Icon role="search" className="size-4 shrink-0 text-text-muted" aria-hidden />
+      <Icon role="search" className={cn('size-4 shrink-0', ouverte ? 'text-text-muted' : 'text-text')} aria-hidden />
       <input
         ref={ref}
         type="search"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        onKeyDown={(e) => { if (e.key === 'Escape' && value) { e.preventDefault(); onChange(''); } }}
+        onFocus={() => setFocus(true)}
+        onBlur={() => setFocus(false)}
+        onKeyDown={(e) => {
+          if (e.key !== 'Escape') return;
+          e.preventDefault();
+          if (value) onChange('');
+          else ref.current?.blur();
+        }}
         placeholder={placeholder}
         aria-label={label ?? placeholder}
-        className="min-w-0 flex-1 bg-transparent text-small text-text outline-none placeholder:text-text-muted [&::-webkit-search-cancel-button]:hidden"
+        // Replié, le champ reste dans la page (le clavier et un lecteur d'écran l'atteignent) mais sans largeur.
+        className={cn(
+          'min-w-0 bg-transparent text-small text-text outline-none placeholder:text-text-muted [&::-webkit-search-cancel-button]:hidden',
+          ouverte ? 'flex-1 opacity-100' : 'absolute inset-0 w-full cursor-pointer opacity-0',
+        )}
       />
-      {value ? null : (
+      {ouverte && !value ? (
         <kbd aria-hidden className="rounded-control border border-border-soft px-xs text-caption text-text-muted max-md:hidden pointer-coarse:hidden">/</kbd>
-      )}
+      ) : null}
     </label>
   );
 }

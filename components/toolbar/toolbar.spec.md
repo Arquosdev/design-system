@@ -39,11 +39,15 @@ affiché** : ouvrir les filtres, choisir les colonnes, exporter, basculer de vue
 
 ## La recherche
 
-`ToolbarSearch` se pose EN TÊTE de la barre, avant les filtres : chercher est
-le premier geste sur une liste, chez Linear comme chez Attio. Le champ est
-contrôlé — la liste décide quand interroger (au fil de la frappe, après une
-courte pause) et garde la recherche dans l'adresse. « / » y place le curseur,
-Échap la vide. Pleine largeur sur un téléphone, 256 px au-delà.
+`ToolbarSearch` se pose **avec les outils, à droite de la barre** (après
+`ToolbarSpacer`), **repliée en loupe** : elle s'ouvre au clic d'un glissement
+de largeur et se replie quand on la quitte vide, comme chez ClickUp (Louis,
+12/10/2026 : sous la recherche globale de l'en-tête, un second champ ouvert
+« noie un peu l'utilisateur »). Une recherche en cours la garde ouverte. Le
+champ est contrôlé — la liste décide quand interroger et garde la recherche
+dans l'adresse. « / » l'ouvre et y place le curseur ; Échap la vide, puis la
+referme. Pleine largeur sur un téléphone, 256 px au-delà. `repliable={false}`
+la garde toujours ouverte, pour une page dont chercher est le sujet.
 
 ## Sur un téléphone
 

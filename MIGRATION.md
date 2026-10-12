@@ -1,5 +1,14 @@
 # Monter une app vers la version courante
 
+## Non publié — ToolbarSearch repliée en loupe
+
+**`ToolbarSearch`** se replie en loupe tant qu'on ne cherche pas, et s'ouvre au
+clic ou à « / ». **À reprendre chez l'appelant** : la poser après
+`ToolbarSpacer`, avec les outils, plutôt qu'en tête de barre ; un test qui
+remplit le champ l'atteint toujours par son nom (`getByRole('searchbox')`),
+mais doit cliquer la loupe s'il cherche le texte d'attente. `repliable={false}`
+retrouve le champ toujours ouvert.
+
 ## Non publié — IconButton mobile : `solid` et `rond`
 
 Le bouton à icône mobile prend la variante **`solid`** du web (pleine, encre
