@@ -624,19 +624,21 @@ export function RecordTable<T>({
                     retrait,
                     !selection && 'pl-xl',
                     identity.mono && 'font-mono font-normal',
-                    'max-sm:static max-sm:block max-sm:truncate max-sm:border-0 max-sm:p-0',
+                    // Sur une carte, le titre passe sur deux lignes au plus, avec ses points de suspension :
+                    // il était coupé net au bord (« Remplacement complet OPH DES ACACI », renotation du 12/10/2026).
+                    'max-sm:static max-sm:block max-sm:whitespace-normal max-sm:border-0 max-sm:p-0',
                   )}
                 >
                   {onOpen ? (
                     <button
                       type="button"
                       onClick={() => onOpen(row)}
-                      className="rounded-control text-primary hover:underline focus-ring"
+                      className="rounded-control text-primary hover:underline focus-ring max-sm:line-clamp-2 max-sm:text-left max-sm:[overflow-wrap:anywhere]"
                     >
                       {identity.render(row)}
                     </button>
                   ) : (
-                    <span>{identity.render(row)}</span>
+                    <span className="max-sm:line-clamp-2 max-sm:[overflow-wrap:anywhere]">{identity.render(row)}</span>
                   )}
                 </td>
                 {columns.map((c, i) => {
