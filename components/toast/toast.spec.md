@@ -42,9 +42,35 @@ plus haut de l'écran.
 
 | Retour     | Type                                                     | Rôle                     |
 | ---------- | -------------------------------------------------------- | ------------------------ |
-| `announce` | `(message: string, options?: { tone?: ToastTone }) => void` | Publier un message       |
+| `announce` | `(message: string, options?: AnnounceOptions) => void` | Publier un message       |
 
 `ToastTone` vaut `'info'` (défaut) ou `'error'`.
+
+`AnnounceOptions` :
+
+| Option    | Type                                        | Rôle |
+| --------- | ------------------------------------------- | ---- |
+| `tone`    | `ToastTone`                                 | Le ton du message |
+| `action`  | `{ label: string; onAction: () => void }`   | Un geste dans le message, « Annuler » le plus souvent. Le message reste alors **5 secondes** |
+| `onClose` | `() => void`                                | Appelé quand le message part **sans** que l'action ait été prise (délai écoulé, bandeau fermé, ou poussé par un quatrième) |
+
+### Défaire plutôt que confirmer
+
+Pour un retrait qui se rattrape (une ligne de devis), le geste part tout de
+suite à l'écran et ne s'exécute qu'à la fermeture du message : `action`
+l'annule, `onClose` l'exécute. C'est le modèle de Linear et de Gmail (audit
+design du 11/10/2026, A3-10). Il ne remplace pas une confirmation pour ce qui
+touche au carnet d'entretien, à la facturation ou au client : là, une boîte de
+dialogue qui dit les conséquences.
+
+```tsx
+const { announce } = useToast();
+masquer(ligne);
+announce('Ligne retirée', {
+  action: { label: 'Annuler', onAction: () => remontrer(ligne) },
+  onClose: () => retirerPourDeBon(ligne),
+});
+```
 
 ## Exemples
 

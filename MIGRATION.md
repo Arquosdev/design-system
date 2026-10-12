@@ -1,5 +1,13 @@
 # Monter une app vers la version courante
 
+## Non publié — Toast : « Annuler » pendant cinq secondes
+
+**`useToast().announce`** accepte `action` (`{ label, onAction }`) et `onClose`.
+Un message porteur d'une action reste 5 s ; `onClose` part quand il se ferme
+sans que l'action ait été prise. Rien à faire chez l'appelant : l'ancienne
+signature `{ tone }` reste valable. Types neufs exportés : `ToastAction`,
+`AnnounceOptions`.
+
 ## Non publié — Des icônes d'objet qui ne se confondent plus
 
 **`contract`** dessine une signature (il partageait la feuille de `document`),

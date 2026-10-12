@@ -15,6 +15,22 @@ export type ToastTone = 'info' | 'error';
 const DURATIONS: Record<ToastTone, number> = { info: 2200, error: 12000 };
 
 /**
+ * Le temps de se raviser (audit design du 11/10/2026, A3-10) : cinq secondes,
+ * celles de Linear et de Gmail. Un message à défaire reste plus longtemps
+ * qu'une simple confirmation, sans quoi « Annuler » partirait avant d'être lu.
+ */
+const DUREE_ANNULABLE = 5000;
+
+/**
+ * Le geste qu'un message propose : « Annuler » le plus souvent. Il n'est pas
+ * un second bouton d'action ; il défait ce qui vient d'être fait.
+ */
+export interface ToastAction {
+  label: string;
+  onAction: () => void;
+}
+
+/**
  * Au-delà, l'empilement couvre le bas de l'écran et cache ce qui vient d'être
  * corrigé. Le plus ancien s'efface.
  */
@@ -24,11 +40,23 @@ export interface Announcement {
   id: number;
   message: string;
   tone: ToastTone;
+  action?: ToastAction;
+}
+
+export interface AnnounceOptions {
+  tone?: ToastTone;
+  /** Un geste dans le message (« Annuler ») ; il le garde cinq secondes. */
+  action?: ToastAction;
+  /**
+   * Appelé quand le message part SANS que son action ait été prise : délai
+   * écoulé ou bandeau fermé. C'est là qu'un retrait différé s'exécute.
+   */
+  onClose?: () => void;
 }
 
 export interface ToastContext {
   /** Un message passager en bas d'écran. */
-  announce: (message: string, options?: { tone?: ToastTone }) => void;
+  announce: (message: string, options?: AnnounceOptions) => void;
 }
 
 const Context = React.createContext<ToastContext | null>(null);
@@ -62,18 +90,42 @@ export interface ToastProviderProps {
 export function ToastProvider({ children }: ToastProviderProps) {
   const [announcements, setAnnouncements] = React.useState<Announcement[]>([]);
   const prochain = React.useRef(0);
+  /* Ce qu'il faut appeler quand un message part sans que son action ait été
+     prise. Gardé hors de l'état : on l'appelle une fois, à la fermeture. */
+  const fermetures = React.useRef(new Map<number, () => void>());
+
+  const retirer = React.useCallback((id: number) => {
+    const f = fermetures.current.get(id);
+    fermetures.current.delete(id);
+    setAnnouncements((list) => list.filter((a) => a.id !== id));
+    f?.();
+  }, []);
 
   const announce = React.useCallback(
-    (message: string, options?: { tone?: ToastTone }) => {
+    (message: string, options?: AnnounceOptions) => {
       const id = ++prochain.current;
       const tone = options?.tone ?? 'info';
-      setAnnouncements((list) => [...list, { id, message, tone }].slice(-MAX_VISIBLE));
+      if (options?.onClose) fermetures.current.set(id, options.onClose);
+      setAnnouncements((list) => {
+        const suivante = [...list, { id, message, tone, action: options?.action }];
+        /* Le plus ancien s'efface au-delà de trois : son retrait différé doit
+           s'exécuter quand même, sinon il ne partirait jamais. */
+        for (const vieux of suivante.slice(0, -MAX_VISIBLE)) {
+          const f = fermetures.current.get(vieux.id);
+          fermetures.current.delete(vieux.id);
+          if (f) queueMicrotask(f);
+        }
+        return suivante.slice(-MAX_VISIBLE);
+      });
     },
     [],
   );
 
-  const retirer = React.useCallback((id: number) => {
-    setAnnouncements((list) => list.filter((a) => a.id !== id));
+  const agir = React.useCallback((a: Announcement) => {
+    // L'action prise, le message part SANS sa fermeture : le geste est défait.
+    fermetures.current.delete(a.id);
+    setAnnouncements((list) => list.filter((x) => x.id !== a.id));
+    a.action?.onAction();
   }, []);
 
   const value = React.useMemo(() => ({ announce }), [announce]);
@@ -88,7 +140,7 @@ export function ToastProvider({ children }: ToastProviderProps) {
         {announcements.map((a) => (
           <ToastPrimitive.Root
             key={a.id}
-            duration={DURATIONS[a.tone]}
+            duration={a.action ? DUREE_ANNULABLE : DURATIONS[a.tone]}
             // `foreground` interrompt le lecteur d'écran, `background` attend
             // qu'il ait fini. Un refus ne peut pas attendre.
             type={a.tone === 'error' ? 'foreground' : 'background'}
@@ -101,6 +153,18 @@ export function ToastProvider({ children }: ToastProviderProps) {
             )}
           >
             <ToastPrimitive.Title className="text-pretty">{a.message}</ToastPrimitive.Title>
+            {a.action ? (
+              <ToastPrimitive.Action
+                altText={a.action.label}
+                onClick={(e) => { e.preventDefault(); agir(a); }}
+                className={cn(
+                  'shrink-0 rounded-control px-xs text-small font-semibold text-text-on-dark underline-offset-2',
+                  'outline-none hover:underline focus-visible:ring-2 focus-visible:ring-white',
+                )}
+              >
+                {a.action.label}
+              </ToastPrimitive.Action>
+            ) : null}
             <ToastPrimitive.Close
               aria-label="Masquer ce message"
               title="Masquer ce message"

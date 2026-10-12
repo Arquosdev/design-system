@@ -61,6 +61,8 @@ export {
   type ToastProviderProps,
   type ToastContext,
   type ToastTone,
+  type ToastAction,
+  type AnnounceOptions,
 } from './components/toast/toast.web';
 export { SegmentedTabs, type SegmentedTabsProps, type Segment } from './components/segmented-tabs/segmented-tabs.web';
 export { NavList, type NavListProps, type NavItem } from './components/nav-list/nav-list.web';
