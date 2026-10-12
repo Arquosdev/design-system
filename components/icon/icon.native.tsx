@@ -115,6 +115,7 @@ import {
   ArrowLineUp,
   DoorOpen,
   Gear,
+  NavigationArrow,
 } from 'phosphor-react-native';
 
 import { Circle, Svg } from 'react-native-svg';
@@ -233,6 +234,7 @@ const DESSINS: Record<IconRole, PhosphorIcon> = {
   print: Printer,
   home: House,
   rating: Star,
+  locateMe: NavigationArrow,
   view: Eye,
   zoomIn: MagnifyingGlassPlus,
   listen: SpeakerHigh,

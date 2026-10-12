@@ -1,5 +1,10 @@
 # Monter une app vers la version courante
 
+## Non publié — Un rôle d'icône « locateMe »
+
+**`locateMe`** (la flèche de navigation) : se recentrer sur sa position, sur
+une carte. Rien à faire chez l'appelant.
+
 ## Non publié — Un seul focus pour les champs
 
 **`PasswordInput`** prend le contour de `Input` (2 px décalé de 2 px, la

@@ -293,6 +293,9 @@ export const icons = {
   home: 'House',
   /** La note donnée à un relevé ou à une intervention (satisfaction). */
   rating: 'Star',
+  /** Se recentrer sur sa position, sur une carte : la flèche de navigation d'iOS
+   *  et de Google Maps. Pas `fieldPlace` (l'épingle), qui dit un LIEU (A4-09). */
+  locateMe: 'NavigationArrow',
 
   // Ajoutés le 11/10/2026 pour myArquos (audit A5-09) : ses écrans importaient
   // encore ces dessins de Phosphor directement.

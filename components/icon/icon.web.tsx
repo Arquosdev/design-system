@@ -114,6 +114,7 @@ import {
   ArrowLineUp,
   DoorOpen,
   Gear,
+  NavigationArrow,
 } from '@phosphor-icons/react';
 
 import { iconSize, iconWeight, type IconRole } from '../../src/icons';
@@ -251,6 +252,7 @@ const GLYPHS: Record<IconRole, PhosphorIcon> = {
   print: Printer,
   home: House,
   rating: Star,
+  locateMe: NavigationArrow,
   view: Eye,
   zoomIn: MagnifyingGlassPlus,
   listen: SpeakerHigh,
