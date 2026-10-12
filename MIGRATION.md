@@ -1,5 +1,11 @@
 # Monter une app vers la version courante
 
+## Non publié · Une carte de téléphone tait les valeurs absentes
+
+**`RecordTable`** ne montre plus « Type : — » sur la carte d'une ligne, sous
+640 px. Rien à faire chez l'appelant, si son « — » est une chaîne ou un élément
+qui ne porte que lui.
+
 ## Non publié · Une colonne bornée se centre, avec son titre
 
 **`PageBody`** centre sa colonne (`width` `page` ou `reading`) ; `align="start"`

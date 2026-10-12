@@ -441,6 +441,16 @@ export function RecordTable<T>({
   // deux premières ; deux au plus.
   const marquees = columns.some((c) => c.phone);
   const surCarte = new Set(columns.filter((c, i) => (marquees ? c.phone : i < 2)).slice(0, 2).map((c) => c.id));
+  /*
+    Une valeur absente ne prend pas de ligne sur la carte d'un téléphone :
+    « Type : — » se lisait sous chaque appel sans type (renotation du
+    12/10/2026). Sur le bureau, la cellule garde son « — », qui tient la
+    colonne. Absent : rien, une chaîne vide, ou le symbole de vide, nu ou dans
+    un seul élément (`<span className="text-text-muted">—</span>`).
+  */
+  const vide = (v: React.ReactNode): boolean => v === null || v === undefined || v === false
+    || (typeof v === 'string' && (v.trim() === '' || v.trim() === '—'))
+    || (React.isValidElement<{ children?: React.ReactNode }>(v) && typeof v.type === 'string' && vide(v.props.children ?? null));
 
   return (
     /*
@@ -629,7 +639,9 @@ export function RecordTable<T>({
                     <span>{identity.render(row)}</span>
                   )}
                 </td>
-                {columns.map((c, i) => (
+                {columns.map((c, i) => {
+                  const contenu = c.render(row);
+                  return (
                   <td
                     key={c.id}
                     className={cn(
@@ -637,13 +649,13 @@ export function RecordTable<T>({
                       retrait,
                       c.numeric && 'text-right tabular-nums',
                       i === columns.length - 1 && 'pr-xl',
-                      surCarte.has(c.id)
+                      surCarte.has(c.id) && !vide(contenu)
                         ? 'max-sm:flex max-sm:items-center max-sm:gap-xs max-sm:border-0 max-sm:p-0 max-sm:text-left max-sm:text-caption max-sm:text-text-muted'
                         : 'max-sm:hidden',
                       selection && 'max-sm:col-start-2',
                     )}
                   >
-                    {surCarte.has(c.id) ? <span className="shrink-0 sm:hidden">{c.header} :</span> : null}
+                    {surCarte.has(c.id) && !vide(contenu) ? <span className="shrink-0 sm:hidden">{c.header} :</span> : null}
                     {regle ? (
                       /*
                         `[&>*]:max-w-full` : quand une largeur est réglée, c'est
@@ -665,15 +677,16 @@ export function RecordTable<T>({
                         doit connaître sa borne pour poser les points de suite.
                       */
                       <span className="block overflow-hidden text-ellipsis max-sm:min-w-0 [&>*]:max-w-full">
-                        {c.render(row)}
+                        {contenu}
                       </span>
                     ) : (
                       // Sans boîte au-delà de 640 px ; en dessous, la valeur se
                       // tronque à côté du nom de sa colonne.
-                      <div className="contents max-sm:block max-sm:min-w-0 max-sm:truncate">{c.render(row)}</div>
+                      <div className="contents max-sm:block max-sm:min-w-0 max-sm:truncate">{contenu}</div>
                     )}
                   </td>
-                ))}
+                  );
+                })}
               </tr>
             );
           })}

@@ -144,6 +144,10 @@ ou à défaut les deux premières : marquer celles qu'on cherche du regard sur l
 terrain (où, qui), pas forcément celles qui ouvrent le tableau. L'en-tête, le
 tri et l'ombre de débordement disparaissent ; le DOM reste le même.
 
+Une valeur absente (rien, chaîne vide, ou « — » seul) ne prend pas de ligne sur
+la carte : « Type : — » ne dit rien qu'on ne voie à son absence. Sur le bureau,
+la cellule garde son « — ».
+
 ## États
 
 - **Aucune ligne** : passer un `EmptyState` en `empty`. Un tableau vide avec ses
