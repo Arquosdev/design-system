@@ -38,6 +38,12 @@ export interface FileFieldProps {
   max?: number;
   /** `zone` : le cadre en pointillés d'un formulaire. `compact` : un bouton, quand l'appelant liste lui-même ce qu'il a joint. */
   variant?: 'zone' | 'compact';
+  /**
+   * `grande` : une zone haute et centrée, pour un écran dont joindre le fichier
+   * est le seul geste (l'import). La zone de 70 px sur 910 se perdait (audit
+   * design A1-05).
+   */
+  taille?: 'normale' | 'grande';
   /** Le libellé de l'action. Par défaut « Choisir le fichier », ou « Choisir des fichiers ». */
   placeholder?: string;
   /** Le fichier déjà enregistré, quand on peut le remplacer : son nom s'affiche tant qu'on n'en choisit pas d'autre. */
@@ -61,6 +67,7 @@ export function FileField({
   multiple = false,
   max,
   variant = 'zone',
+  taille = 'normale',
   placeholder,
   current,
   hint,
@@ -174,15 +181,17 @@ export function FileField({
         className={cn(
           // Un contrôle, donc la bordure marquée ; en pointillés parce qu'on y dépose.
           'relative flex cursor-pointer items-center gap-sm rounded-block border border-dashed border-border bg-bg px-md py-base',
-          'hover:bg-bg-muted focus-within:ring-2 focus-within:ring-primary',
+          taille === 'grande' && 'min-h-48 flex-col justify-center gap-md px-xl py-2xl text-center',
+          // Le focus de tout le produit (P3-07), et non l'ancien anneau collé.
+          'hover:bg-bg-muted focus-ring-within',
           survol && 'border-primary bg-info-bg',
           raison && 'border-danger',
           disabled && 'pointer-events-none opacity-50',
         )}
       >
         {champ}
-        <Icon role="import" size="md" className="shrink-0 text-text-muted" aria-hidden />
-        <span className="flex min-w-0 flex-col">
+        <Icon role="import" size={taille === 'grande' ? 'xl' : 'md'} className="shrink-0 text-text-muted" aria-hidden />
+        <span className={cn('flex min-w-0 flex-col', taille === 'grande' && 'items-center gap-xxs')}>
           <span className="truncate text-small font-medium text-text">{titre}</span>
           {sousTitre ? <span className="text-caption text-text-muted">{sousTitre}</span> : null}
         </span>

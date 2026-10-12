@@ -1,5 +1,11 @@
 # Monter une app vers la version courante
 
+## Non publié — FileField : `taille="grande"`, et le focus commun
+
+**`FileField`** accepte `taille="grande"` (zone haute et centrée) et prend le
+focus de tout le produit (`focus-ring-within`) au lieu de l'anneau collé. Rien
+à faire chez l'appelant.
+
 ## Non publié — ToolbarSearch repliée en loupe
 
 **`ToolbarSearch`** se replie en loupe tant qu'on ne cherche pas, et s'ouvre au

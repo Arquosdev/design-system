@@ -56,6 +56,7 @@ règle.
 | `multiple`     | `boolean`                  | `false` | Plusieurs fichiers par choix. |
 | `max`          | `number`                   | —      | Le nombre de fichiers qu'un choix peut encore porter. |
 | `variant`      | `'zone' \| 'compact'`      | `'zone'` | Le cadre en pointillés, ou un bouton `outline`. |
+| `taille`    | `'normale' \| 'grande'` | `'normale'` | `grande` : zone haute et centrée, pour un écran dont joindre est le seul geste (l'import) |
 | `placeholder`  | `string`                   | « Choisir le fichier » | Le libellé de l'action. |
 | `current`      | `string \| null`           | —      | Le nom du fichier déjà enregistré, qu'un choix remplacera. |
 | `hint`         | `string`                   | calculée | Remplace la ligne d'aide. |
