@@ -70,6 +70,8 @@ export const STATUSES = {
     late: { label: 'En retard', tone: 'destructive' },
     partiallyPaid: { label: 'Payée en partie', tone: 'warning' },
     paid: { label: 'Payée', tone: 'success' },
+    /** Soldée par un avoir émis : ni due, ni en retard (P1-3). */
+    credited: { label: 'Annulée par avoir', tone: 'muted' },
   },
   /** Un contrat de maintenance. */
   contract: {

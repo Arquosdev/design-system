@@ -1,5 +1,11 @@
 # Monter une app vers la version courante
 
+## Non publié — Une facture annulée par avoir
+
+**Statut neuf `invoice.credited`** (« Annulée par avoir », gris) : une facture
+qu'un avoir émis solde, ni due ni en retard. Rien ne change pour les appelants
+existants.
+
 ## Non publié · Le rôle d'icône `mobileApp`
 
 L'application de terrain (un téléphone, Phosphor `DeviceMobile`), pour la page
