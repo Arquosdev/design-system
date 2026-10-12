@@ -1,5 +1,16 @@
 # Monter une app vers la version courante
 
+## Non publié — Un seul focus pour les champs
+
+**`PasswordInput`** prend le contour de `Input` (2 px décalé de 2 px, la
+`focus-ring-within`) au lieu de l'anneau collé de 2 px : l'email et le mot de
+passe d'un même formulaire se ressemblent enfin au focus. Un champ en erreur
+colore ce contour en rouge sur `Input`, `Textarea` et `PasswordInput` (la
+classe `ring-danger` ne faisait plus rien depuis que le focus est un contour).
+Rien à faire chez l'appelant. **À vérifier chez l'appelant** : un champ posé
+sans bordure dans un cadre qui porte le focus éteint le sien avec
+`focus-visible:outline-none`, plus avec `focus-visible:ring-0`.
+
 ## Non publié — Toast : « Annuler » pendant cinq secondes
 
 **`useToast().announce`** accepte `action` (`{ label, onAction }`) et `onClose`.

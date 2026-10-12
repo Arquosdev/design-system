@@ -19,7 +19,7 @@ export function Textarea({ className, ...props }: React.ComponentProps<'textarea
         'placeholder:text-text-muted',
         'focus-visible:border-primary focus-ring',
         'disabled:pointer-events-none disabled:opacity-50',
-        'aria-invalid:border-danger aria-invalid:focus-visible:ring-danger',
+        'aria-invalid:border-danger aria-invalid:focus-visible:outline-danger',
         className,
       )}
       {...props}

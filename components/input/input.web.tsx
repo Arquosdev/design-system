@@ -30,7 +30,7 @@ export function Input({ className, type, ...props }: React.ComponentProps<'input
         // texte promet une saisie qui n'arrivera pas.
         'disabled:pointer-events-none disabled:opacity-50',
         // L'erreur se dit par la bordure, jamais par la couleur seule du texte.
-        'aria-invalid:border-danger aria-invalid:focus-visible:ring-danger',
+        'aria-invalid:border-danger aria-invalid:focus-visible:outline-danger',
         className,
       )}
       {...props}

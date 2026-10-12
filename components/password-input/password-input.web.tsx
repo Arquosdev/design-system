@@ -42,15 +42,17 @@ export function PasswordInput({ className, disabled, ...props }: PasswordInputPr
       className={cn(
         'flex h-9 w-full items-stretch overflow-hidden rounded-control border border-border bg-bg',
         // La mise au point se voit sur l'enveloppe : le champ n'a pas de bordure,
-        // un anneau posé sur lui serait avalé par le `overflow-hidden`.
-        'focus-within:border-primary focus-within:ring-2 focus-within:ring-primary',
+        // un contour posé sur lui serait avalé par le `overflow-hidden`. Le MÊME
+        // contour que `Input` (2 px décalé de 2 px) : un anneau collé, plus épais,
+        // distinguait le mot de passe de l'email juste au-dessus (Louis, 12/10/2026).
+        'focus-within:border-primary focus-ring-within',
         'transition-colors',
         // L'erreur se dit par la bordure, comme sur `Input`. Elle est lue sur le
         // champ parce que c'est LUI que l'appelant marque `aria-invalid` — le
         // porter sur l'enveloppe le retirerait de ce qu'annonce un lecteur
         // d'écran, qui lit le champ et non son décor.
         'has-[input[aria-invalid="true"]]:border-danger',
-        'has-[input[aria-invalid="true"]]:focus-within:ring-danger',
+        'has-[input[aria-invalid="true"]]:focus-within:outline-danger',
         'has-[input:disabled]:opacity-50',
         className,
       )}
