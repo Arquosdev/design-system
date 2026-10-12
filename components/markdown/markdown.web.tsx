@@ -120,7 +120,7 @@ export function Markdown({ children, renderLink, externes = 'lien', className }:
           </div>
         );
       case 'citation':
-        return <blockquote key={cle} className="flex flex-col gap-sm border-l-2 border-border pl-md text-text-muted">{b.blocs.map((x, k) => bloc(x, `${cle}.${k}`))}</blockquote>;
+        return <blockquote key={cle} className="flex flex-col gap-sm border-l-2 border-border-soft pl-md text-text-muted">{b.blocs.map((x, k) => bloc(x, `${cle}.${k}`))}</blockquote>;
       case 'code':
         return (
           <pre key={cle} className="max-w-full overflow-x-auto rounded-block bg-bg-muted px-md py-sm font-mono text-caption leading-relaxed text-text">

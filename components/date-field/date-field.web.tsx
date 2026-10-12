@@ -241,6 +241,7 @@ export function DateField({
                 title="Choisir dans le calendrier"
                 className={cn(
                   'flex w-(--arq-control-md) shrink-0 items-center justify-center',
+                  // Le bouton fait partie du champ ; bordure: contrôle
                   'border-l border-border text-text-muted outline-none',
                   'hover:bg-bg-muted hover:text-text',
                   'focus-visible:bg-bg-muted focus-visible:text-primary',

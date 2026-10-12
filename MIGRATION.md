@@ -1,5 +1,15 @@
 # Monter une app vers la version courante
 
+## Non publié · Un contenant ne porte jamais la bordure marquée
+
+**`scripts/check-bordures.mjs`** (dans `npm run check`) refuse `border-border`
+sur un contenant : bloc `rounded-block`, séparateur `divide-border`, trait
+`border-t/b/l/r`. Un contenant prend `border-border-soft` ; la bordure marquée
+reste aux contrôles. Un contrôle en forme de bloc se déclare par le commentaire
+« bordure: contrôle ». La citation de `Markdown` passe au trait doux.
+**À reprendre chez l'appelant** : lancer le script sur ses dossiers
+(`node node_modules/@arquos/design-system/scripts/check-bordures.mjs app components`).
+
 ## Non publié — FileField : `taille="grande"`, et le focus commun
 
 **`FileField`** accepte `taille="grande"` (zone haute et centrée) et prend le

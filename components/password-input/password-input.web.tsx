@@ -98,6 +98,7 @@ export function PasswordInput({ className, disabled, ...props }: PasswordInputPr
             L'aspect suit la hauteur qu'on lui donne, quelle que soit celle du
             champ.
           */
+          // Le bouton fait partie du champ ; bordure: contrôle
           'flex aspect-square shrink-0 items-center justify-center border-l border-border',
           'text-text-muted transition-colors',
           'hover:bg-bg-muted hover:text-text',

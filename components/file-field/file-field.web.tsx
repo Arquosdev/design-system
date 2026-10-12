@@ -179,7 +179,7 @@ export function FileField({
         onDragLeave={() => setSurvol(false)}
         onDrop={surDepot}
         className={cn(
-          // Un contrôle, donc la bordure marquée ; en pointillés parce qu'on y dépose.
+          // Un contrôle, donc la bordure marquée ; en pointillés parce qu'on y dépose. bordure: contrôle
           'relative flex cursor-pointer items-center gap-sm rounded-block border border-dashed border-border bg-bg px-md py-base',
           taille === 'grande' && 'min-h-48 flex-col justify-center gap-md px-xl py-2xl text-center',
           // Le focus de tout le produit (P3-07), et non l'ancien anneau collé.
