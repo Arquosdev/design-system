@@ -240,6 +240,8 @@ export const icons = {
     REÇU, la sirène dit l'appareil d'alerte. Ajouté le 10/10/2026 (manque 13).
   */
   emergencyPhone: 'Siren',
+  // L'application de terrain, myArquos : la page qui la fait installer (12/10/2026).
+  mobileApp: 'DeviceMobile',
   // Les fiches récentes de la palette ⌘K (design-eu).
   recent: 'ClockCounterClockwise',
   /** Le planning des visites : le calendrier de la semaine. Pas `recent`, qui dit

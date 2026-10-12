@@ -1,5 +1,10 @@
 # Monter une app vers la version courante
 
+## Non publié · Le rôle d'icône `mobileApp`
+
+L'application de terrain (un téléphone, Phosphor `DeviceMobile`), pour la page
+qui fait installer myArquos. Rien à faire chez l'appelant.
+
 ## Non publié · Une carte de téléphone tait les valeurs absentes
 
 **`RecordTable`** ne montre plus « Type : — » sur la carte d'une ligne, sous
