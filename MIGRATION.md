@@ -1,5 +1,10 @@
 # Monter une app vers la version courante
 
+## Non publié — IconButton mobile : `solid` et `rond`
+
+Le bouton à icône mobile prend la variante **`solid`** du web (pleine, encre
+blanche) et l'option **`rond`**. Rien à faire chez l'appelant.
+
 ## Non publié — Un rôle d'icône « locateMe »
 
 **`locateMe`** (la flèche de navigation) : se recentrer sur sa position, sur

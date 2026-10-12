@@ -7,7 +7,7 @@ import type { IconRole } from '../../src/icons';
 import { radius } from '../../src/radius';
 import { Icon } from '../icon/icon.native';
 
-export type IconButtonVariant = 'outline' | 'soft' | 'ghost';
+export type IconButtonVariant = 'outline' | 'soft' | 'ghost' | 'solid';
 export type IconButtonSize = 'sm' | 'md';
 
 export interface IconButtonProps extends Omit<PressableProps, 'style' | 'children'> {
@@ -22,6 +22,11 @@ export interface IconButtonProps extends Omit<PressableProps, 'style' | 'childre
   variant?: IconButtonVariant;
   /** `sm` 36, `md` 44 — les crans du mobile, ceux du `Button` natif. */
   size?: IconButtonSize;
+  /**
+   * Un rond plutôt qu'un carré arrondi : à côté d'un avatar, dans l'en-tête
+   * d'une liste, le « + » carré détonnait (Louis, 12/10/2026 : « pas ouf »).
+   */
+  rond?: boolean;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -29,6 +34,8 @@ const ENCRE: Record<IconButtonVariant, string> = {
   outline: colors.textMuted,
   soft: colors.onInfoBg,
   ghost: colors.textMuted,
+  // L'action principale d'un écran, pleine : la même que `solid` sur le web.
+  solid: colors.textOnDark,
 };
 
 export function IconButton({
@@ -36,6 +43,7 @@ export function IconButton({
   icon,
   variant = 'outline',
   size = 'md',
+  rond = false,
   disabled,
   style,
   ...props
@@ -52,6 +60,7 @@ export function IconButton({
       style={({ pressed }) => [
         styles.bouton,
         { width: cote, height: cote },
+        rond && { borderRadius: cote / 2 },
         styles[variant],
         pressed && !disabled && styles[`${variant}Presse` as const],
         disabled && styles.inactif,
@@ -76,5 +85,7 @@ const styles = StyleSheet.create({
   softPresse: { opacity: 0.8 },
   ghost: { backgroundColor: 'transparent' },
   ghostPresse: { backgroundColor: colors.bgMuted },
+  solid: { backgroundColor: colors.primary },
+  solidPresse: { backgroundColor: colors.primaryDark },
   inactif: { opacity: 0.5 },
 });

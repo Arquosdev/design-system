@@ -35,7 +35,8 @@ replaces:
 | ----------- | --------------------------------------- | ------------ | --------------------------------------- |
 | `label`     | `string`                                | —            | **Obligatoire.** Nom accessible et infobulle |
 | `icon`      | `ReactNode`                             | —            | L'icône, en `currentColor`               |
-| `variant`   | `'outline' \| 'soft' \| 'ghost' \| 'solid'` | `'outline'`  | Poids visuel. `solid` : l'action d'un compositeur (envoyer), pleine et marine ; une seule par compositeur |
+| `variant`   | `'outline' \| 'soft' \| 'ghost' \| 'solid'` | `'outline'`  | Poids visuel. `solid` : l'action d'un compositeur (envoyer), pleine et marine ; une seule par compositeur. Sur mobile, `solid` sert aussi le « + » de l'en-tête d'une liste, la seule action pleine de l'écran |
+| `rond`      | `boolean` (mobile) | `false` | Un rond plutôt qu'un carré arrondi, à côté d'un avatar |
 | `size`      | `'sm' \| 'md'`                          | `'md'`       | 30px ou 36px de côté                     |
 | `inactive`  | `boolean`                               | `false`      | Le geste est impossible ici, et on peut dire pourquoi |
 | `inactiveReason` | `string`                           | —            | La raison — s'ajoute au `label` dans l'infobulle |
