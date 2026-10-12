@@ -1,5 +1,11 @@
 # Monter une app vers la version courante
 
+## Non publié · La carte terrain dans la fiche `card`
+
+La fiche `card` écrit la variante mobile de myArquos (blanche, sans bordure,
+rayon `xl`, ombre `shadowNative.card`, sur fond `bgMuted`). Rien à faire chez
+l'appelant.
+
 ## Non publié · Un contenant ne porte jamais la bordure marquée
 
 **`scripts/check-bordures.mjs`** (dans `npm run check`) refuse `border-border`

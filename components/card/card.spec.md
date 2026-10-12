@@ -92,8 +92,13 @@ ne doit les distinguer à l'œil.**
 
 ## Mobile
 
-Les sept parties, aux mêmes tokens. **Pas d'ombre par défaut**, et c'est un
-changement pour myArquos, dont la `Card` en posait une sur chaque ligne de
-liste ; une carte qui doit se détacher d'un fond blanc prend
-`shadowNative.card` par `style`. Pas de `onPress` : une carte cliquable est un
-composant dédié.
+Les sept parties, aux mêmes tokens. **Pas d'ombre par défaut** ; une carte qui
+doit se détacher d'un fond blanc prend `shadowNative.card` par `style`. Pas de
+`onPress` : une carte cliquable est un composant dédié.
+
+**La carte terrain** (Louis, 07/10/2026 : myArquos doit plaire aux techniciens,
+le web reste sobre). Sur un écran de myArquos, dont les pages sont sur le fond
+gris `bgMuted`, la carte est blanche, **sans bordure**, au rayon `xl` et à
+l'ombre `shadowNative.card`. C'est une décision du système et non de l'app : le
+web garde ses blocs au rayon `block`, à la bordure douce et sans ombre. Deux
+styles de carte, un par support, et jamais les deux sur un même écran.
