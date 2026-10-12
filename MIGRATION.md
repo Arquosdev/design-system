@@ -1,5 +1,13 @@
 # Monter une app vers la version courante
 
+## Non publié · Une colonne bornée se centre, avec son titre
+
+**`PageBody`** centre sa colonne (`width` `page` ou `reading`) ; `align="start"`
+l'ancre à gauche contre un rail de rubriques. **`PageHeader`** prend `width` pour
+aligner son titre sur cette colonne. **À reprendre chez l'appelant** : une page
+sans rail passe la même `width` à son `PageHeader` ; une page à rail qui emploie
+`PageBody` passe `align="start"`.
+
 ## Non publié · La carte terrain dans la fiche `card`
 
 La fiche `card` écrit la variante mobile de myArquos (blanche, sans bordure,

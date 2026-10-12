@@ -54,6 +54,14 @@ Une fiche commerciale dit, sans ouvrir de rubrique, où elle en est et combien
 elle vaut (Stripe : « C28AF58A-0002 pour 16,99 $ » et la pastille « Open » sur
 la ligne du titre). Le seul bouton bleu vif de la page est dans `actions`.
 
+## Une colonne centrée : `width`
+
+Sur une page sans rail, la colonne de son `PageBody` se centre (Louis, 12/10/2026).
+L'en-tête reçoit la même `width` (`page` ou `reading`) : son titre et ses actions
+s'alignent sur la colonne, et son filet traverse toujours l'écran. Sans elle, le
+titre reste collé à gauche au-dessus d'une colonne centrée. Une page à rail garde
+`width="full"`, le défaut.
+
 ## Exemple
 
 ```tsx

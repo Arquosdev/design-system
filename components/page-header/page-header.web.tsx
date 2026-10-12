@@ -28,6 +28,12 @@ export interface PageHeaderProps {
   status?: React.ReactNode;
   /** Le chiffre qui le résume, après le statut : le montant TTC d'un devis, le prix annuel d'un contrat. */
   figure?: React.ReactNode;
+  /**
+   * La largeur de sa ligne, celle du `PageBody` qui le suit (12/10/2026) : sur
+   * une page sans rail, la colonne se centre et le titre s'aligne sur elle. Le
+   * filet du bas traverse toujours l'écran. Défaut `full` : la largeur de la page.
+   */
+  width?: 'page' | 'reading' | 'full';
   className?: string;
 }
 
@@ -45,12 +51,15 @@ export function PageHeader({
   actions,
   status,
   figure,
+  width = 'full',
   className,
 }: PageHeaderProps) {
+  const borne = width !== 'full';
   return (
     <div
-      className={cn('shrink-0 border-b border-border-soft px-base pt-base pb-md sm:px-xl', className)}
+      className={cn('shrink-0 border-b border-border-soft pt-base pb-md', !borne && 'px-base sm:px-xl', className)}
     >
+      <div className={borne ? cn('mx-auto w-full px-base sm:px-xl', width === 'page' ? 'max-w-page' : 'max-w-reading') : 'contents'}>
       {parent && (
         <nav aria-label="Fil d’Ariane" className="mb-xs flex h-5 items-center gap-sm text-small text-text-muted">
           <a
@@ -119,6 +128,7 @@ export function PageHeader({
             gauche sous le titre : à droite, chacune passait sur sa propre ligne
             et le contenu commençait à 330 px (A3-14). */}
         {actions && <span className="flex w-full shrink-0 flex-wrap items-center gap-sm sm:ml-auto sm:w-auto sm:max-w-full sm:justify-end">{actions}</span>}
+      </div>
       </div>
     </div>
   );
