@@ -7,7 +7,7 @@ import type { IconRole } from '../../src/icons';
 import { radius } from '../../src/radius';
 import { Icon } from '../icon/icon.native';
 
-export type IconButtonVariant = 'outline' | 'soft' | 'ghost' | 'solid';
+export type IconButtonVariant = 'outline' | 'soft' | 'ghost' | 'solid' | 'surface';
 export type IconButtonSize = 'sm' | 'md';
 
 export interface IconButtonProps extends Omit<PressableProps, 'style' | 'children'> {
@@ -36,6 +36,9 @@ const ENCRE: Record<IconButtonVariant, string> = {
   ghost: colors.textMuted,
   // L'action principale d'un écran, pleine : la même que `solid` sur le web.
   solid: colors.textOnDark,
+  // Blanc sans bordure, sur le fond gris d'un écran : comme le champ de
+  // recherche voisin (Louis, 12/10/2026, le bouton carte « rond lui aussi »).
+  surface: colors.text,
 };
 
 export function IconButton({
@@ -87,5 +90,7 @@ const styles = StyleSheet.create({
   ghostPresse: { backgroundColor: colors.bgMuted },
   solid: { backgroundColor: colors.primary },
   solidPresse: { backgroundColor: colors.primaryDark },
+  surface: { backgroundColor: colors.bg },
+  surfacePresse: { backgroundColor: colors.bgMuted },
   inactif: { opacity: 0.5 },
 });
