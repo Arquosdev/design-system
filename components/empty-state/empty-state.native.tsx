@@ -37,7 +37,9 @@ export function EmptyState({ icon, title, hint, actionLabel, onAction, style }: 
         </Text>
       ) : null}
       {actionLabel && onAction ? (
-        <Button onPress={onAction} style={styles.action}>
+        // En contour, comme sur le web (P3-07) : le bleu vif reste à l'action principale de
+        // l'écran, et un état vide en ajoutait un second (renotation du 12/10/2026).
+        <Button variant="outline" onPress={onAction} style={styles.action}>
           {actionLabel}
         </Button>
       ) : null}
