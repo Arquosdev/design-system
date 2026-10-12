@@ -180,7 +180,10 @@ export function ToastProvider({ children }: ToastProviderProps) {
 
         {/* `pointer-events-none` sur la zone, rétabli sur chaque bandeau : sinon
             une bande invisible au bas de l'écran avalerait les clics. */}
+        {/* En français, et pas « Notifications » : la zone se confondait avec la
+            page Notifications du produit (Radix l'annonce « Notifications (F8) »). */}
         <ToastPrimitive.Viewport
+          label="Messages ({hotkey})"
           className={cn(
             'pointer-events-none fixed bottom-lg left-1/2 z-(--arq-layer-notification) flex -translate-x-1/2',
             'flex-col-reverse items-center gap-sm outline-none',
