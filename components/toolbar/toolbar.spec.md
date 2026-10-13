@@ -46,15 +46,16 @@ de largeur et se replie quand on la quitte vide, comme chez ClickUp (Louis,
 « noie un peu l'utilisateur »). Une recherche en cours la garde ouverte. Le
 champ est contrôlé — la liste décide quand interroger et garde la recherche
 dans l'adresse. « / » l'ouvre et y place le curseur ; Échap la vide, puis la
-referme. Pleine largeur sur un téléphone, 256 px au-delà. `repliable={false}`
+referme. Le champ n'affiche plus de repère « / » (Louis, 13/10/2026) : il ne
+paraissait qu'une fois le champ ouvert, quand on n'en avait plus besoin ; le
+raccourci se lit dans l'aide du clavier. Pleine largeur sur un téléphone, 256 px au-delà. `repliable={false}`
 la garde toujours ouverte, pour une page dont chercher est le sujet.
 
 ## Sur un téléphone
 
 Sous 640 px, un `ToolButton` ne garde que son icône (son libellé reste, masqué,
 pour un lecteur d'écran) et sa précision `extra` disparaît ; son compte reste.
-La barre tient ainsi sur une ligne au lieu de quatre. Le repère « / » de la
-recherche disparaît aussi sur un écran tactile : il n'y a pas de clavier.
+La barre tient ainsi sur une ligne au lieu de quatre.
 
 ## Ce qu'il faut savoir
 

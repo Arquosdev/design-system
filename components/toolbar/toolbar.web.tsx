@@ -88,7 +88,9 @@ export interface ToolbarSearchProps {
  * ce qui filtre la liste.
  *
  * La touche « / » l'ouvre et y place le curseur, comme chez Linear et GitHub,
- * tant qu'on n'écrit pas déjà ailleurs ; Échap la vide.
+ * tant qu'on n'écrit pas déjà ailleurs ; Échap la vide. Le champ ne l'affiche
+ * plus (Louis, 13/10/2026) : le repère ne paraissait qu'une fois le champ
+ * ouvert, c'est-à-dire quand on n'en avait plus besoin.
  */
 export function ToolbarSearch({ value, onChange, placeholder = 'Rechercher', label, repliable = true, className }: ToolbarSearchProps) {
   const ref = React.useRef<HTMLInputElement>(null);
@@ -146,9 +148,6 @@ export function ToolbarSearch({ value, onChange, placeholder = 'Rechercher', lab
           ouverte ? 'flex-1 opacity-100' : 'absolute inset-0 w-full cursor-pointer opacity-0',
         )}
       />
-      {ouverte && !value ? (
-        <kbd aria-hidden className="rounded-control border border-border-soft px-xs text-caption text-text-muted max-md:hidden pointer-coarse:hidden">/</kbd>
-      ) : null}
     </label>
   );
 }

@@ -1,5 +1,10 @@
 # Monter une app vers la version courante
 
+## Non publié · `ToolbarSearch` ne montre plus « / »
+
+Le repère du raccourci a quitté le champ ouvert (Louis, 13/10/2026) ; la touche
+« / » l'ouvre toujours. Rien à faire chez l'appelant.
+
 ## Non publié · `PhotoTile` prend une `action`
 
 Un geste sur la photo, en haut à droite de la vignette. Rien à faire chez l'appelant.
