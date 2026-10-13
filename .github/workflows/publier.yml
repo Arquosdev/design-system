@@ -1,0 +1,67 @@
+# Publie le design system en paquet privé sur GitHub Packages
+# (`@arquosdev/design-system`), quand un tag `v…` est poussé.
+#
+# **Deux lignes, deux étiquettes, jamais mêlées** (Louis, 13/10/2026) :
+#   - `main`, la production (fiche équipement et EDS embarqués dans Bubble),
+#     publie sous l'étiquette `production`, en versions `2.x.y` ;
+#   - `refonte`, la V2, publie sous l'étiquette `refonte`, en versions
+#     `2.x.y-refonte.n`.
+# L'étiquette vient de `publishConfig.tag` dans `package.json`, propre à chaque
+# branche. Le contrôle « Ligne » refuse un tag dont la version ne porte pas la
+# marque de sa ligne : une version de la refonte publiée sous `production`
+# serait installée par qui croit prendre la production.
+#
+# Les consommateurs épinglent une version EXACTE, sous l'alias
+# `"@arquos/design-system": "npm:@arquosdev/design-system@<version>"` : les
+# imports ne changent pas. GitHub exige que la portée du paquet soit le nom du
+# propriétaire du dépôt, d'où `@arquosdev` et non `@arquos`.
+#
+# Rien ne part sans un tag : un envoi de code ne publie rien.
+
+name: publier
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: publier-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # `check-version` lit les tags pour vérifier que celui-ci pointe ici.
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          registry-url: https://npm.pkg.github.com
+          scope: '@arquosdev'
+      - name: Ligne
+        run: |
+          version=$(node -p "require('./package.json').version")
+          etiquette=$(node -p "require('./package.json').publishConfig.tag")
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "Le tag $GITHUB_REF_NAME ne correspond pas à la version $version de package.json."; exit 1
+          fi
+          case "$etiquette:$version" in
+            refonte:*-refonte.*) ;;
+            production:*-*) echo "Une préversion ($version) ne se publie pas sous « production »."; exit 1 ;;
+            production:*) ;;
+            *) echo "Étiquette « $etiquette » et version $version : ligne inconnue."; exit 1 ;;
+          esac
+          echo "Ligne « $etiquette », version $version."
+      - run: npm ci
+      - run: npm run check
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

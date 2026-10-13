@@ -7,6 +7,10 @@ et on applique tout d'un coup quand il est solide.
 Une bascule groupée se fait à l'aveugle si personne n'a noté, au fil de l'eau, ce
 qu'elle coûtera. C'est ce que ce fichier note.
 
+## 2.42.1 — le paquet se publie sur GitHub Packages
+
+Aucun composant ne change. Le paquet s’appelle `@arquosdev/design-system` (GitHub impose la portée du propriétaire du dépôt) et se publie à chaque tag. Une app qui le prend par le registre garde ses imports avec l’alias `"@arquos/design-system": "npm:@arquosdev/design-system@2.42.1"`. Une app épinglée sur un tag git n’a rien à faire.
+
 ## 2.42.0 — une tuile vide peut rester cliquable sans dire « À compléter »
 
 `StatTile` et chaque moitié de `StatTileDouble` gagnent `inviter` (vrai par
