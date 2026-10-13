@@ -620,7 +620,8 @@ export function RecordTable<T>({
                     stickyIdentity,
                     fond,
                     !check && 'transition-colors duration-(--arq-duration-rapide) group-hover:bg-bg-muted',
-                    'border-r border-b border-border-soft px-md font-semibold whitespace-nowrap',
+                    // Une colonne rétrécie coupe son lien au lieu de le laisser passer sur la voisine (recette, 13/10/2026).
+                    'border-r border-b border-border-soft px-md font-semibold whitespace-nowrap sm:overflow-hidden',
                     retrait,
                     !selection && 'pl-xl',
                     identity.mono && 'font-mono font-normal',
@@ -633,12 +634,12 @@ export function RecordTable<T>({
                     <button
                       type="button"
                       onClick={() => onOpen(row)}
-                      className="rounded-control text-primary hover:underline focus-ring max-sm:line-clamp-2 max-sm:text-left max-sm:[overflow-wrap:anywhere]"
+                      className="rounded-control text-primary hover:underline focus-ring max-sm:line-clamp-2 max-sm:text-left max-sm:[overflow-wrap:anywhere] sm:block sm:max-w-full sm:truncate sm:text-left"
                     >
                       {identity.render(row)}
                     </button>
                   ) : (
-                    <span className="max-sm:line-clamp-2 max-sm:[overflow-wrap:anywhere]">{identity.render(row)}</span>
+                    <span className="max-sm:line-clamp-2 max-sm:[overflow-wrap:anywhere] sm:block sm:truncate">{identity.render(row)}</span>
                   )}
                 </td>
                 {columns.map((c, i) => {
