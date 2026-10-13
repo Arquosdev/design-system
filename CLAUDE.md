@@ -69,6 +69,19 @@ place donc sous `flottant`.
 3. Prendre un **numéro de version libre** (la CI refuse un numéro déjà taggé)
 4. Committer `src/` et `dist/` ensemble
 
+## Publier
+
+Le paquet est privé, sur GitHub Packages : `@arquosdev/design-system` (GitHub
+impose la portée du propriétaire du dépôt). Les apps l'installent sous l'alias
+`"@arquos/design-system": "npm:@arquosdev/design-system@<version exacte>"`,
+donc leurs imports ne changent pas.
+
+Un tag `v<version>` poussé publie (`.github/workflows/publier.yml`). Deux lignes,
+jamais mêlées : `main` publie sous l'étiquette `production` (`2.x.y`), `refonte`
+sous l'étiquette `refonte` (`2.x.y-refonte.n`). Le workflow refuse une version
+qui ne porte pas la marque de sa ligne. Une app ne voit un changement qu'après
+la publication ET la montée de son numéro épinglé.
+
 ## Saisir une valeur : quel composant
 
 | La valeur… | Prendre |
