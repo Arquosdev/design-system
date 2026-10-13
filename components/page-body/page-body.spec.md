@@ -25,11 +25,11 @@ platforms: [web]
 | Prop | Type | Défaut | Rôle |
 | --- | --- | --- | --- |
 | `width` | `'page' \| 'reading' \| 'full'` | `'page'` | 960 px, la mesure de lecture (720 px), ou toute la largeur |
-| `align` | `'center' \| 'start'` | `'center'` | La colonne bornée se centre ; contre un rail de rubriques, `start` l'ancre à gauche |
+| `align` | `'center' \| 'start'` | `'start'` | La colonne bornée s'ancre à gauche ; `center` pour une page à part (le portail client) |
 
-**Une colonne bornée se centre, avec son titre** (Louis, 12/10/2026) : une page sans rail
-passe la même `width` à son `PageHeader`, qui aligne son titre sur la colonne. Une page à
-rail (fiche, Paramètres) garde sa zone ancrée contre le rail : `align="start"`.
+**Une colonne bornée s'ancre à gauche, au bord des listes et des fiches** (Louis,
+13/10/2026, qui revient sur le centrage du 12/10) : une page sans rail passe la même
+`width` à son `PageHeader`, dont les actions s'arrêtent au bord de la colonne.
 | `className` | `string` | — | L'espace entre les blocs (`gap-lg`), rien d'autre |
 
 La gouttière vaut 16 px sur un téléphone et 24 px au-delà de 640 px : elle ne se règle pas page par page.

@@ -1,5 +1,16 @@
 # Monter une app vers la version courante
 
+## Non publié · `PhotoTile` prend une `action`
+
+Un geste sur la photo, en haut à droite de la vignette. Rien à faire chez l'appelant.
+
+## Non publié · Une colonne bornée s'ancre à gauche
+
+**`PageBody`** a désormais `align="start"` par défaut, et **`PageHeader`** borné ne
+centre plus sa ligne de titre (Louis, 13/10/2026). À reprendre chez l'appelant : une page
+qui doit rester centrée (portail client) passe `align="center"` ; les `mx-auto` écrits à
+la main autour d'une colonne de page se retirent.
+
 ## Non publié — Une facture annulée par avoir
 
 **Statut neuf `invoice.credited`** (« Annulée par avoir », gris) : une facture

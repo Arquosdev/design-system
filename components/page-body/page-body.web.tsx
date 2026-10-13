@@ -11,8 +11,9 @@ export interface PageBodyProps extends React.ComponentPropsWithoutRef<'div'> {
    */
   width?: 'page' | 'reading' | 'full';
   /**
-   * `center` (défaut) centre la colonne bornée ; `start` l'ancre à gauche, contre
-   * un rail de rubriques (fiche, Paramètres) : le rail et sa zone se lisent d'un bloc.
+   * `start` (défaut) ancre la colonne bornée à gauche, au même bord que les listes et
+   * les fiches (Louis, 13/10/2026 : « aligne sur la gauche ») ; `center` la centre,
+   * pour une page à part qui n'a pas d'autre page à côté (le portail client).
    */
   align?: 'center' | 'start';
 }
@@ -22,13 +23,13 @@ export interface PageBodyProps extends React.ComponentPropsWithoutRef<'div'> {
  * les mêmes partout. Seize pixels de gouttière sur un téléphone, vingt-quatre
  * au-delà ; l'espace entre les blocs se règle par `className` (`gap-lg`).
  */
-export function PageBody({ width = 'page', align = 'center', className, ...props }: PageBodyProps) {
+export function PageBody({ width = 'page', align = 'start', className, ...props }: PageBodyProps) {
   return (
     <div
       className={cn(
         'flex w-full flex-col gap-base px-base pt-lg pb-xl sm:px-xl',
-        // Une colonne bornée se CENTRE (Louis, 12/10/2026) ; son PageHeader prend la même largeur.
-        // Contre un rail de rubriques, elle reste ancrée à gauche (align="start").
+        // Une colonne bornée s'ANCRE À GAUCHE, comme les listes et les fiches (Louis,
+        // 13/10/2026, qui revient sur le centrage du 12/10) ; son PageHeader prend la même largeur.
         width === 'page' && 'max-w-page',
         width === 'reading' && 'max-w-reading',
         width !== 'full' && align === 'center' && 'mx-auto',

@@ -59,7 +59,8 @@ export function PageHeader({
     <div
       className={cn('shrink-0 border-b border-border-soft pt-base pb-md', !borne && 'px-base sm:px-xl', className)}
     >
-      <div className={borne ? cn('mx-auto w-full px-base sm:px-xl', width === 'page' ? 'max-w-page' : 'max-w-reading') : 'contents'}>
+      {/* Bornée, la ligne du titre garde la largeur de la colonne, ancrée à gauche comme elle (13/10/2026). */}
+      <div className={borne ? cn('w-full px-base sm:px-xl', width === 'page' ? 'max-w-page' : 'max-w-reading') : 'contents'}>
       {parent && (
         <nav aria-label="Fil d’Ariane" className="mb-xs flex h-5 items-center gap-sm text-small text-text-muted">
           <a
