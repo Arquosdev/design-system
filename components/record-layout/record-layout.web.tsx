@@ -150,7 +150,7 @@ export function RecordRail({
          de retrait intérieur, et sans cette rallonge « États & remplacements »
          repassait sur deux lignes. La marge de gauche valait la moitié de celle
          du haut, ce qui se voyait. */
-      className={`flex ${LARGEUR_RAIL} shrink-0 flex-col gap-base border-b border-border-soft bg-bg-subtle p-base min-[768px]:h-full min-[768px]:overflow-y-auto min-[768px]:border-r min-[768px]:border-b-0`}
+      className={`flex ${LARGEUR_RAIL} shrink-0 flex-col gap-base border-b border-border-soft bg-bg p-base min-[768px]:h-full min-[768px]:overflow-y-auto min-[768px]:border-r min-[768px]:border-b-0`}
     >
       {recherche ? (
         <button
@@ -242,7 +242,7 @@ export function RecordRailSkeleton() {
   return (
     <div
       aria-hidden="true"
-      className={`flex ${LARGEUR_RAIL} shrink-0 flex-col gap-sm border-b border-border-soft bg-bg-subtle p-base min-[768px]:h-full min-[768px]:border-r min-[768px]:border-b-0`}
+      className={`flex ${LARGEUR_RAIL} shrink-0 flex-col gap-sm border-b border-border-soft bg-bg p-base min-[768px]:h-full min-[768px]:border-r min-[768px]:border-b-0`}
     >
       <div className="h-(--arq-control-md) animate-pulse rounded-control bg-bg-muted" />
       <div className="mt-xs h-[32px] animate-pulse rounded-control bg-bg-muted" />

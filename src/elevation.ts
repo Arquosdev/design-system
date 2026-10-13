@@ -1,13 +1,16 @@
 // Arquos design system — élévation (ombres).
 //
-// Trois niveaux seulement, chacun attaché à un usage précis. L'ombre est le
+// Quatre niveaux seulement, chacun attaché à un usage précis. L'ombre est le
 // token le plus facile à réinventer au call site : s'en tenir à ces trois-là.
 //
 // Le web consomme `--arq-shadow-*`, le mobile consomme `shadowNative.*`
 // (React Native ne comprend pas la syntaxe CSS `box-shadow`).
 
 export const shadow = {
-  card: '0 2px 8px rgba(0, 0, 0, 0.04)', // cartes, surfaces posées sur le fond
+  card: '0 2px 8px rgba(0, 0, 0, 0.04)', // un contrôle en relief : curseur, onglet actif, déclencheur
+  // Une carte ou un bloc posé sur le fond, qui doit ressortir (Thomas, 13/10/2026).
+  // Teintée du marine de `pop`, deux couches : un trait net près du bord, un halo doux.
+  block: '0 1px 2px rgba(0, 41, 91, 0.06), 0 4px 12px rgba(0, 41, 91, 0.07)',
   pop: '0 8px 24px rgba(0, 41, 91, 0.12)', // menus, popovers, feuilles modales
   fab: '0 4px 12px rgba(13, 90, 183, 0.30)', // bouton flottant — teintée de bleu
 } as const;
@@ -21,6 +24,13 @@ export const shadowNative = {
     shadowOpacity: 0.04,
     shadowRadius: 8,
     elevation: 1,
+  },
+  block: {
+    shadowColor: '#00295B',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.08,
+    shadowRadius: 10,
+    elevation: 2,
   },
   pop: {
     shadowColor: '#00295B',

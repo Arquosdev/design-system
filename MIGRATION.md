@@ -1,5 +1,15 @@
 # Monter une app vers la version courante
 
+## Non publié · Les cartes ressortent, le rail de fiche est blanc
+
+**Ombre `block`, neuve** (Thomas, 13/10/2026) : une carte ou un bloc posé sur le fond.
+`Card` la porte. `card` reste l'ombre d'un contrôle en relief (curseur, onglet actif,
+déclencheur). À reprendre chez l'appelant : un bloc dessiné à la main
+(`rounded-block border border-border-soft bg-bg`) ajoute `shadow-block`.
+
+**Le rail de `RecordLayout` passe en blanc** (`bg-bg`, Louis, 13/10/2026) ; son filet
+droit le sépare toujours de la zone. Rien à faire chez l'appelant.
+
 ## Non publié · `ToolbarSearch` ne montre plus « / »
 
 Le repère du raccourci a quitté le champ ouvert (Louis, 13/10/2026) ; la touche

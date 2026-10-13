@@ -93,7 +93,8 @@ const DESCRIPTIONS = {
     borderSoft: 'Bordure discrète — séparateurs internes, contour de carte.',
   },
   shadow: {
-    card: 'Cartes et surfaces posées sur le fond de page.',
+    card: 'Un contrôle en relief : curseur d’interrupteur, onglet actif, déclencheur de liste.',
+    block: 'Une carte ou un bloc posé sur le fond de page, qu’elle fait ressortir.',
     pop: 'Menus, popovers, feuilles modales.',
     fab: 'Bouton flottant — ombre teintée de bleu.',
   },
