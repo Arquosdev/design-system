@@ -9,8 +9,9 @@
 export const shadow = {
   card: '0 2px 8px rgba(0, 0, 0, 0.04)', // un contrôle en relief : curseur, onglet actif, déclencheur
   // Une carte ou un bloc posé sur le fond, qui doit ressortir (Thomas, 13/10/2026).
-  // Teintée du marine de `pop`, deux couches : un trait net près du bord, un halo doux.
-  block: '0 1px 2px rgba(0, 41, 91, 0.06), 0 4px 12px rgba(0, 41, 91, 0.07)',
+  // Teintée du marine de `pop`, à peine posée : la première, à deux couches, était
+  // « trop prononcée » (Louis, 13/10/2026).
+  block: '0 1px 3px rgba(0, 41, 91, 0.04)',
   pop: '0 8px 24px rgba(0, 41, 91, 0.12)', // menus, popovers, feuilles modales
   fab: '0 4px 12px rgba(13, 90, 183, 0.30)', // bouton flottant — teintée de bleu
 } as const;
@@ -27,9 +28,9 @@ export const shadowNative = {
   },
   block: {
     shadowColor: '#00295B',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.08,
-    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.04,
+    shadowRadius: 3,
     elevation: 2,
   },
   pop: {

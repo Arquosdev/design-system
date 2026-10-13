@@ -214,7 +214,7 @@
   --arq-layer-plein-ecran: 70;
   --arq-layer-notification: 80;
   --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04);
-  --shadow-block: 0 1px 2px rgba(0, 41, 91, 0.06), 0 4px 12px rgba(0, 41, 91, 0.07);
+  --shadow-block: 0 1px 3px rgba(0, 41, 91, 0.04);
   --shadow-pop: 0 8px 24px rgba(0, 41, 91, 0.12);
   --shadow-fab: 0 4px 12px rgba(13, 90, 183, 0.30);
 }
