@@ -53,7 +53,7 @@ endroits sans qu'on sache lequel faisait foi.
 | `RecordLayout` | Le cadre des deux colonnes |
 | `RecordRail` | La colonne de gauche : recherche, bascule, rubriques |
 | `RecordRailSkeleton` | Le rail pendant le chargement |
-| `RecordZone` | La zone lue, avec son défilement |
+| `RecordZone` | La zone lue, avec son défilement. C'est un conteneur (`@container`) : son contenu se règle sur sa largeur (`@min-[52rem]:grid-cols-2`), qu'un panneau ouvert à côté rétrécit sans changer la fenêtre |
 
 ## Props
 

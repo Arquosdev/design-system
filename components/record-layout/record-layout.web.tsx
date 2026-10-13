@@ -269,7 +269,9 @@ export function RecordZone({ children }: RecordZoneProps) {
   const c = React.useContext(ContexteDeZone);
   const busy = c?.busy ?? false;
   return (
-    <div ref={c?.zone} aria-busy={busy || undefined} className="min-h-0 min-w-0 flex-1 overflow-y-auto">
+    // `@container` : ce qui s'y pose se règle sur la largeur de la zone, pas sur celle de
+    // la fenêtre. Un panneau ouvert à côté (l'assistant) la rétrécit sans changer la fenêtre.
+    <div ref={c?.zone} aria-busy={busy || undefined} className="@container min-h-0 min-w-0 flex-1 overflow-y-auto">
       {busy ? (
         <div aria-hidden className="flex flex-col gap-base px-base pt-lg sm:px-xl">
           <Skeleton className="h-6 w-48" />
