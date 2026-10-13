@@ -4,7 +4,8 @@
 
 **Ombre `block`, neuve** (Thomas, 13/10/2026) : une carte ou un bloc posé sur le fond.
 `Card` la porte. `card` reste l'ombre d'un contrôle en relief (curseur, onglet actif,
-déclencheur). À reprendre chez l'appelant : un bloc dessiné à la main
+déclencheur). Sur mobile, `Card` et `Accordion` la portent sur deux couches (l'ombre
+dehors, le rognage dedans) ; une carte dessinée à la main prend `...shadowNative.block`. À reprendre chez l'appelant : un bloc dessiné à la main
 (`rounded-block border border-border-soft bg-bg`) ajoute `shadow-block`.
 
 **Le rail de `RecordLayout` passe en blanc** (`bg-bg`, Louis, 13/10/2026) ; son filet

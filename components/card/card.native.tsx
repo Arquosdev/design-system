@@ -2,6 +2,7 @@ import * as React from 'react';
 import { StyleSheet, View, type ViewProps } from 'react-native';
 
 import { colors } from '../../src/colors';
+import { shadowNative } from '../../src/elevation';
 import { radius } from '../../src/radius';
 import { spacing } from '../../src/spacing';
 import { Text, type TextProps } from '../text/text.native';
@@ -11,17 +12,20 @@ import { Text, type TextProps } from '../text/text.native';
   `borderSoft` et arrondi `md`, en-tête teinté `bgMuted` sous un filet, contenu
   à `base`, liste sans retrait, pied sous un filet.
 
-  Pas d'ombre par défaut, et c'est un changement pour myArquos : sa `Card`
-  posait `shadowOpacity 0.04` sur chaque carte, donc sur chaque ligne de liste,
-  et cent ombres douces font un écran gris. Le web n'en pose pas non plus.
-  Une carte posée sur du blanc qui doit se détacher prend `shadowNative.card`
-  par `style`, à l'appelant de le dire.
+  L'ombre `block`, la même que sur le web, depuis le 13/10/2026 (Thomas : faire
+  ressortir les cartes). Deux couches pour la porter : l'ombre dehors, le
+  rognage dedans, sans quoi `overflow: hidden` la couperait sur iOS. Une ligne
+  de liste n'est pas une `Card` : elle a son composant (`EquipmentCard`…).
 
   Pas de `onPress` non plus : la fiche le dit, une carte cliquable dans une
   liste est un composant dédié (`EquipmentCard`, `SurveyCard`), pas une prop.
 */
-export function Card({ style, ...props }: ViewProps) {
-  return <View style={[styles.card, style]} {...props} />;
+export function Card({ style, children, ...props }: ViewProps) {
+  return (
+    <View style={[styles.ombre, style]} {...props}>
+      <View style={styles.card}>{children}</View>
+    </View>
+  );
 }
 
 export function CardHeader({ style, ...props }: ViewProps) {
@@ -49,7 +53,13 @@ export function CardFooter({ style, ...props }: ViewProps) {
 }
 
 const styles = StyleSheet.create({
+  ombre: {
+    borderRadius: radius.xl,
+    backgroundColor: colors.bg,
+    ...shadowNative.block,
+  },
   card: {
+    flexGrow: 1,
     overflow: 'hidden',
     // Mobile seulement : sans bordure, grand arrondi, blanche sur le fond gris
     // des écrans (Louis, 07/10/2026). Pas d'ombre : `overflow: hidden`, qui

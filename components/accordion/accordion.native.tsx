@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from 'rea
 
 import { colors } from '../../src/colors';
 import type { IconRole } from '../../src/icons';
+import { shadowNative } from '../../src/elevation';
 import { radius } from '../../src/radius';
 import { spacing } from '../../src/spacing';
 import { Icon } from '../icon/icon.native';
@@ -70,7 +71,10 @@ export function Accordion({
   style,
 }: AccordionProps) {
   return (
-    <View style={[styles.section, open && !link && styles.sectionOuverte, style]}>
+    /* Deux couches : l'ombre dehors, le rognage dedans. `overflow: hidden`, qui garde
+       l'en-tête pressé dans les coins, couperait l'ombre sur iOS (Louis, 13/10/2026). */
+    <View style={[styles.ombre, style]}>
+    <View style={[styles.section, open && !link && styles.sectionOuverte]}>
       <Pressable
         onPress={onToggle}
         accessibilityRole="button"
@@ -116,6 +120,7 @@ export function Accordion({
 
       {open && !link ? <View style={styles.corps}>{children}</View> : null}
     </View>
+    </View>
   );
 }
 
@@ -127,6 +132,12 @@ const styles = StyleSheet.create({
     décaler le contenu d'un point. Ce dessin vit dans le seul fichier natif : le
     web garde ses angles.
   */
+  // La carte ressort sur le fond gris (Thomas, 13/10/2026) : `shadowNative.block`.
+  ombre: {
+    backgroundColor: colors.bg,
+    borderRadius: radius.xl,
+    ...shadowNative.block,
+  },
   section: {
     backgroundColor: colors.bg,
     borderRadius: radius.xl,

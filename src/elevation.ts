@@ -26,12 +26,13 @@ export const shadowNative = {
     shadowRadius: 8,
     elevation: 1,
   },
+  // Sur le fond gris du mobile, un rien plus marquée que sur le blanc du web.
   block: {
     shadowColor: '#00295B',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.04,
-    shadowRadius: 3,
-    elevation: 2,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 6,
+    elevation: 1,
   },
   pop: {
     shadowColor: '#00295B',
