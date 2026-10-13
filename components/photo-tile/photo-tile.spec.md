@@ -73,3 +73,10 @@ l'appel.
 - Le texte alternatif est le nom de l'emplacement, jamais « photo » — un lecteur
   d'écran doit savoir ce qui est montré.
 - Sans `onOpen`, la tuile n'est ni un bouton ni atteignable au clavier.
+
+
+## Un geste sur la photo : `action`
+
+Un `IconButton` (« Modifier la photo ») posé en haut à droite de la vignette, visible au
+survol et au clavier, toujours sur un écran tactile (13/10/2026, fiche équipement). Il
+ouvre un panneau : une grille de photos ne se modifie jamais en place.

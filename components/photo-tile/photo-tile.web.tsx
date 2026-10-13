@@ -11,6 +11,12 @@ export interface PhotoTileProps {
   url?: string;
   essential?: boolean;
   onOpen?: () => void;
+  /**
+   * Un geste sur la photo (« Modifier la photo », un IconButton), posé en haut à
+   * droite de la vignette : visible au survol et au clavier, toujours sur un écran
+   * tactile. Hors du bouton qui agrandit : deux boutons ne s'emboîtent pas.
+   */
+  action?: React.ReactNode;
   className?: string;
 }
 
@@ -28,7 +34,20 @@ export interface PhotoTileProps {
  */
 const ASPECT = 'aspect-[3/4]';
 
-export function PhotoTile({ name, url, essential = false, onOpen, className }: PhotoTileProps) {
+export function PhotoTile({ name, url, essential = false, onOpen, action, className }: PhotoTileProps) {
+  const tuile = <Tuile name={name} url={url} essential={essential} onOpen={onOpen} className={action ? undefined : className} />;
+  if (!action) return tuile;
+  return (
+    <div className={cn('group/tuile relative', className)}>
+      {tuile}
+      <div className="absolute top-xs right-xs opacity-0 transition-opacity group-hover/tuile:opacity-100 focus-within:opacity-100 [@media(hover:none)]:opacity-100">
+        {action}
+      </div>
+    </div>
+  );
+}
+
+function Tuile({ name, url, essential = false, onOpen, className }: Omit<PhotoTileProps, 'action'>) {
   // Une image cassée retombe sur « non prise » : l'icône brisée du navigateur
   // ne dit rien d'utile, et laisse croire à une panne plutôt qu'à un manque.
   const [broken, setBroken] = React.useState(false);
