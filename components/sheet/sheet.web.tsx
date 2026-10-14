@@ -42,7 +42,13 @@ export interface SheetContentProps
 export const SheetContent = React.forwardRef<
   React.ComponentRef<typeof SheetPrimitive.Content>,
   SheetContentProps
->(({ className, children, side = 'right', size = 'standard', ...props }, ref) => {
+>(({ className, children, side = 'right', size = 'standard', onCloseAutoFocus, ...props }, ref) => {
+  /* Ce qui avait le focus à l'ouverture, lu au premier rendu, avant que le
+     panneau ne le prenne. Radix rend le focus au `SheetTrigger` en se fermant ;
+     un panneau ouvert par son état n'en a pas, et le focus tombait sur la page
+     (exploratoire du 14/10/2026 : « Nouvel immeuble », puis Échap). */
+  const [avant] = React.useState<HTMLElement | null>(() =>
+    typeof document === 'undefined' ? null : (document.activeElement as HTMLElement | null));
   /* Le panneau prête son propre nœud à ce qui flotte dedans : une liste posée
      hors de lui ne défilait plus, il bloque le défilement de tout le reste.
      Voir `conteneur-flottant` (repris de la v2.37.0, #80, le 08/10/2026). */
@@ -75,6 +81,14 @@ export const SheetContent = React.forwardRef<
         className,
       )}
       {...props}
+      onCloseAutoFocus={(e) => {
+        onCloseAutoFocus?.(e);
+        if (e.defaultPrevented) return;
+        if (avant && avant.isConnected && avant !== document.body) {
+          e.preventDefault();
+          avant.focus();
+        }
+      }}
     >
       <ConteneurFlottant.Provider value={noeud}>{children}</ConteneurFlottant.Provider>
     </SheetPrimitive.Content>
