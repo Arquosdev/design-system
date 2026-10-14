@@ -28,6 +28,9 @@ describe('Markdown : en ligne', () => {
   it('refuse un lien qui exécuterait quelque chose', () => {
     ok(!hrefSur('javascript:alert(1)'));
     ok(!hrefSur('//ailleurs.com'));
+    // Le navigateur lit « /\ » comme « // » et retire tabulations et sauts de ligne : un autre domaine.
+    ok(!hrefSur('/\\ailleurs.com'));
+    ok(!hrefSur('/\t/ailleurs.com'));
     ok(hrefSur('/clients/3'));
     deepStrictEqual(enLigne('[clic](javascript:alert(1))')[0].type, 'texte');
   });

@@ -111,6 +111,9 @@ function trouverFermante(s: string, debut: number, ouvre: string, ferme: string)
  * réponse de modèle n'exécute rien.
  */
 export function hrefSur(href: string): boolean {
+  // Le navigateur lit « /\ » comme « // » et retire tabulations et sauts de
+  // ligne avant de lire l'adresse : « /\ailleurs.com » mènerait à un autre domaine.
+  if (/[\\\u0000-\u001f\u007f]/.test(href)) return false;
   return /^(\/(?!\/)|#|https?:\/\/|mailto:|tel:)/i.test(href.trim());
 }
 
