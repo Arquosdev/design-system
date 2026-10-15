@@ -161,8 +161,12 @@ export function RecordRail({
              verticale que les entrées du menu ; Thomas la veut à gauche, où une
              loupe s'attend. Le libellé est donc en retrait des entrées, et
              c'est assumé : un champ de recherche se reconnaît à son icône avant
-             de se lire. */
-          className="flex h-(--arq-control-md) shrink-0 items-center gap-sm rounded-control border border-border bg-bg px-md text-left text-small text-text-muted outline-none hover:bg-bg-muted focus-ring"
+             de se lire.
+
+             **Elle reste en tête quand le rail défile** (Ergonomie du web,
+             motif J) : elle sortait de l'écran avec les entrées, et il fallait
+             remonter le rail pour chercher un champ. */
+          className="flex h-(--arq-control-md) shrink-0 items-center gap-sm rounded-control border border-border bg-bg px-md text-left text-small text-text-muted outline-none hover:bg-bg-muted focus-ring min-[768px]:sticky min-[768px]:top-0"
         >
           <Icon role="search" size="sm" />
           <span className="min-w-0 flex-1 truncate">{recherche.label}</span>
