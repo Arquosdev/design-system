@@ -57,6 +57,12 @@ export interface RecordTableProps<T> {
     header: string;
     render: (row: T) => React.ReactNode;
     value?: (row: T) => string | number;
+    /**
+     * Comment la ligne se nomme pour un lecteur d'écran (« Sélectionner EE-L1-001,
+     * 20 oct. »), quand la valeur de tri ne la désigne pas : une date ne dit pas
+     * quelle visite on coche. À défaut, la valeur de tri.
+     */
+    label?: (row: T) => string;
     /** La nature de la colonne d'identité, comme pour les autres. */
     icon?: IconRole;
   };
@@ -610,7 +616,7 @@ export function RecordTable<T>({
                       onCheckedChange={() => toggle(id)}
                       // Le nom de la ligne, pas sa clé : un lecteur d'écran qui
                       // annonce « Sélectionner 84b01673-fa05… » ne dit rien.
-                      aria-label={`Sélectionner ${identity.value?.(row) ?? id}`}
+                      aria-label={`Sélectionner ${identity.label?.(row) ?? identity.value?.(row) ?? id}`}
                     />
                   </td>
                 )}
