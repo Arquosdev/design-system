@@ -6,7 +6,7 @@ import { cn } from '../_lib/cn';
 import { Icon } from '../icon/icon.web';
 import { Input } from '../input/input.web';
 import { Popover, PopoverContent, PopoverTrigger } from '../popover/popover.web';
-import { SUGGESTIONS, blancLisible, normaliser, versHex, versTsv, type Tsv } from './color-field.logic';
+import { NOMS_DES_SUGGESTIONS, SUGGESTIONS, blancLisible, normaliser, versHex, versTsv, type Tsv } from './color-field.logic';
 
 /*
   Choisir une couleur de marque (Louis, 10/10/2026 : un sélecteur de couleur
@@ -165,7 +165,7 @@ export function ColorField({
             <button
               key={hex}
               type="button"
-              aria-label={hex}
+              aria-label={NOMS_DES_SUGGESTIONS[hex] ?? hex}
               aria-pressed={value === hex}
               onClick={() => choisir(hex)}
               className={cn(

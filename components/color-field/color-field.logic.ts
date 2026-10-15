@@ -72,3 +72,13 @@ export const SUGGESTIONS: readonly string[] = [
   '#0D5AB7', '#1D4ED8', '#0F766E', '#15803D', '#B45309',
   '#B91C1C', '#BE185D', '#7E22CE', '#4338CA', '#334155',
 ];
+
+/**
+ * Le nom de chaque couleur proposée, pour un lecteur d'écran : « #0F766E » ne se
+ * lit pas (Exploratoire du web, parcours 6). Une couleur saisie à la main garde
+ * son code.
+ */
+export const NOMS_DES_SUGGESTIONS: Readonly<Record<string, string>> = {
+  '#0D5AB7': 'Bleu', '#1D4ED8': 'Bleu roi', '#0F766E': 'Sarcelle', '#15803D': 'Vert', '#B45309': 'Ambre',
+  '#B91C1C': 'Rouge', '#BE185D': 'Framboise', '#7E22CE': 'Violet', '#4338CA': 'Indigo', '#334155': 'Ardoise',
+};
