@@ -65,7 +65,8 @@ export const STATUSES = {
   /** Une facture. « En retard » et « Payée en partie » ne sont pas en base : ils se déduisent de l'échéance et des paiements. */
   invoice: {
     draft: { label: 'Brouillon', tone: 'warning' },
-    issued: { label: 'Émise', tone: 'info', clientLabel: 'À payer', clientTone: 'warning' },
+    /** Émise mais pas encore partie chez le client : « Émise » seule se confondait avec « Envoyée » (Ergonomie, ticket 42). */
+    issued: { label: 'Émise (non envoyée)', tone: 'info', clientLabel: 'À payer', clientTone: 'warning' },
     sent: { label: 'Envoyée', tone: 'info', clientLabel: 'À payer', clientTone: 'warning' },
     late: { label: 'En retard', tone: 'destructive' },
     partiallyPaid: { label: 'Payée en partie', tone: 'warning' },
