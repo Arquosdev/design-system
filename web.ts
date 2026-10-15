@@ -233,6 +233,7 @@ export { PageHeader, type PageHeaderProps } from './components/page-header/page-
 export { PageBody, type PageBodyProps } from './components/page-body/page-body.web';
 
 export { cn } from './components/_lib/cn';
+export { dateCourte, type OptionsDeDate } from './components/_lib/date';
 export { StatusBadge, type StatusBadgeProps } from './components/status-badge/status-badge.web';
 export {
   STATUSES,

@@ -82,3 +82,6 @@ export {
   type StatusObject,
   type StatusTone,
 } from './components/status-badge/status-badge.logic';
+
+// Une seule forme de date, lue par le web et le mobile (motif E).
+export { dateCourte, type OptionsDeDate } from './components/_lib/date';
