@@ -78,26 +78,25 @@ function Tuile({ name, url, essential = false, onOpen, className }: Omit<PhotoTi
       {NOT_TAKEN}
     </div>
   ) : (
-    // eslint-disable-next-line @next/next/no-img-element -- photos servies par
-    // un stockage externe, hors des domaines de l'optimiseur d'images.
-    <img
-      src={url}
-      alt={name}
-      loading="lazy"
-      onError={() => setBroken(true)}
-      onLoad={(e) => {
-        const img = e.currentTarget;
-        setEnTravers(img.naturalWidth > img.naturalHeight);
-      }}
-      className={cn(
-        'w-full rounded-block border border-border-soft',
-        ASPECT,
-        // Le fond ne se voit que sous une photo contenue, dans les deux bandes
-        // que le cadre laisse libres. Sans lui, elles seraient blanches et la
-        // vignette paraîtrait plus petite qu'elle n'est.
-        enTravers ? 'bg-bg-muted object-contain' : 'object-cover',
-      )}
-    />
+    /* LE CADRE porte le ratio, pas l'image (Ergonomie du web, motif Q) : une
+       image pas encore chargée ne tient pas son `aspect-ratio` dans Chrome, et la
+       grille se décalait de vingt et un pixels à l'arrivée des photos. Le fond
+       neutre se voit pendant l'attente, puis sous une photo contenue. */
+    <div className={cn('relative w-full overflow-hidden rounded-block border border-border-soft bg-bg-muted', ASPECT)}>
+      {/* eslint-disable-next-line @next/next/no-img-element -- photos servies par
+          un stockage externe, hors des domaines de l'optimiseur d'images. */}
+      <img
+        src={url}
+        alt={name}
+        loading="lazy"
+        onError={() => setBroken(true)}
+        onLoad={(e) => {
+          const img = e.currentTarget;
+          setEnTravers(img.naturalWidth > img.naturalHeight);
+        }}
+        className={cn('absolute inset-0 size-full', enTravers ? 'object-contain' : 'object-cover')}
+      />
+    </div>
   );
 
   const caption = <span className="mt-xxs line-clamp-2 text-caption text-text-muted">{name}</span>;
