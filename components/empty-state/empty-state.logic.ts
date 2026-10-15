@@ -51,7 +51,9 @@ export const RETRY = 'Réessayer';
 export function failureKind(error: unknown): FailureKind {
   if (typeof navigator !== 'undefined' && navigator.onLine === false) return 'offline';
   const message = error instanceof Error ? error.message : String(error ?? '');
-  return /network|fetch failed|offline|ERR_INTERNET|Failed to fetch|NetworkError/i.test(message)
+  // Les formulations de React Native et de Hermes s'y ajoutent (mobile, lib/errors.ts) :
+  // la détection d'un seul endroit, pour une seule enveloppe d'état vide.
+  return /network|fetch failed|offline|ERR_INTERNET|Failed to fetch|NetworkError|enotfound|etimedout|econnreset|econnrefused|ehostunreach/i.test(message)
     ? 'offline'
     : 'unknown';
 }

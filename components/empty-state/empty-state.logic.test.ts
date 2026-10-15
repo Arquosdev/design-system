@@ -16,6 +16,9 @@ describe('natureDeLEchec', () => {
       'net::ERR_INTERNET_DISCONNECTED',
       'The device is offline',
       'network request failed',
+      'The Internet connection appears to be offline.',
+      'getaddrinfo ENOTFOUND api.arquos.eu',
+      'connect ECONNREFUSED 127.0.0.1:443',
     ]) {
       strictEqual(failureKind(new Error(message)), 'offline', `échoue sur « ${message} »`);
     }
