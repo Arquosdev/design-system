@@ -79,6 +79,8 @@ export const STATUSES = {
     retained: { label: 'Retenu', tone: 'success' },
     discarded: { label: 'Écarté', tone: 'muted' },
     active: { label: 'En vigueur', tone: 'success' },
+    /** Signé, mais sa date d'effet n'est pas encore venue : il n'est pas « En vigueur » avant elle. */
+    upcoming: { label: 'À venir', tone: 'info' },
     terminated: { label: 'Résilié', tone: 'muted' },
   },
   /** Un appel de panne. */
@@ -146,7 +148,7 @@ const ALIASES: { [O in StatusObject]?: Record<string, StatusKey<O>> } = {
     refuse: 'refused', planifie: 'scheduled', realise: 'done',
   },
   invoice: { brouillon: 'draft', emise: 'issued', envoyee: 'sent', payee: 'paid', en_retard: 'late' },
-  contract: { propose: 'proposed', retenu: 'retained', ecarte: 'discarded', en_vigueur: 'active', resilie: 'terminated' },
+  contract: { propose: 'proposed', retenu: 'retained', ecarte: 'discarded', en_vigueur: 'active', a_venir: 'upcoming', resilie: 'terminated' },
   serviceCall: { ouverte: 'unassigned', en_route: 'onTheWay', sur_place: 'onSite', a_l_arret: 'stopped', resolue: 'resolved' },
   visit: { planifiee: 'scheduled', en_cours: 'inProgress', faite: 'done' },
   partRequest: { demandee: 'requested', commandee: 'ordered', recue: 'received', refusee: 'refused' },

@@ -14,6 +14,10 @@ describe('statusKey', () => {
     strictEqual(statusKey('discrepancy', 'Non résolu'), 'open');
   });
 
+  it('dit « À venir » d’un contrat signé dont la date d’effet n’est pas venue', () => {
+    strictEqual(statusLabel('contract', statusKey('contract', 'a_venir')!), 'À venir');
+  });
+
   it('ne devine pas un statut inconnu', () => {
     strictEqual(statusKey('quote', 'perdu'), undefined);
     strictEqual(statusKey('quote', null), undefined);
