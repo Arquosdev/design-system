@@ -1,5 +1,14 @@
 # Monter une app vers la version courante
 
+## Non publié · `RecordLayout` se replie sur SA largeur, pas sur celle de la fenêtre
+
+Le rail passe en rangée d'onglets quand la FICHE fait moins de 640 px, et non plus
+quand la fenêtre en fait moins de 768 (Recette V2, 16/10/2026) : un panneau ouvert à
+côté (l'assistant) réduisait la zone à 90 px dans une fenêtre de 1 024. Le cadre porte
+une boîte de plus (le conteneur mesuré, puis les colonnes) ; la `className` de
+l'appelant va toujours au cadre extérieur. Rien à faire chez l'appelant, sauf un test
+qui chercherait le rail et la zone comme enfants DIRECTS du cadre.
+
 ## Non publié · `RecordColumn.hint`
 
 Une infobulle sur l'en-tête d'une colonne, pour dire ce qu'elle mesure (Recette

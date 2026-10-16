@@ -12,7 +12,11 @@ import { Skeleton } from '../skeleton/skeleton.web';
   partage donc avec sa zone un état « en chargement » : le rail l'allume au
   clic, la zone remonte en haut et montre un squelette jusqu'à la réponse.
 */
-type ChargementDeZone = { busy: boolean; setBusy: (busy: boolean) => void; zone: React.RefObject<HTMLDivElement | null> };
+type ChargementDeZone = {
+  busy: boolean; setBusy: (busy: boolean) => void; zone: React.RefObject<HTMLDivElement | null>;
+  /** La FICHE est étroite (voir `SEUIL_ETROIT`), quelle que soit la fenêtre. */
+  etroit: boolean;
+};
 const ContexteDeZone = React.createContext<ChargementDeZone | null>(null);
 
 /**
@@ -49,7 +53,7 @@ export function useRecordZone() {
  * Le squelette doit la partager, sinon la fiche saute de seize pixels au moment
  * où le menu arrive.
  */
-const LARGEUR_RAIL = 'w-full min-[768px]:w-[284px]';
+const LARGEUR_RAIL = 'w-full @min-[640px]/fiche:w-[284px]';
 
 /*
   SUR UN TÉLÉPHONE, LE RAIL PASSE EN TÊTE ET SES RUBRIQUES EN ONGLETS.
@@ -61,9 +65,19 @@ const LARGEUR_RAIL = 'w-full min-[768px]:w-[284px]';
   d'onglets qui défile de côté — le motif des fiches mobiles. Choix par défaut
   du 07/10/2026, réversible : un menu déroulant tiendrait aussi.
 */
-const ETROIT = 'min-[768px]:hidden';
-const LARGE = 'hidden min-[768px]:block';
-// La rangée elle-même n'est rendue que sous 768 px (voir `estEtroit`) : la classe ne sert qu'à la transition.
+/*
+  **ÉTROITE SE JUGE SUR LA FICHE, PAS SUR LA FENÊTRE** (Recette V2 du web,
+  1246t8yt5hx). Le seuil était la fenêtre, 768 px : un panneau ouvert à côté
+  de la fiche (l'assistant) la réduisait à 400 px dans une fenêtre de 1 024, le
+  rail gardait ses 284 px, et la zone tombait à 90 px, un mot par ligne. La
+  fiche se replie donc sous 640 px de LARGE À ELLE : 284 de rail et une zone
+  qui se lit. Une requête de conteneur pour la mise en page, et la mesure du
+  cadre pour la rangée d'onglets, qui n'est rendue que sur une fiche étroite.
+*/
+const SEUIL_ETROIT = 640;
+const ETROIT = '@min-[640px]/fiche:hidden';
+const LARGE = 'hidden @min-[640px]/fiche:block';
+// La rangée elle-même n'est rendue que sur une fiche étroite : la classe ne sert qu'à la transition.
 
 export interface RecordLayoutProps {
   children: React.ReactNode;
@@ -81,11 +95,27 @@ export interface RecordLayoutProps {
 export function RecordLayout({ children, className = '' }: RecordLayoutProps) {
   const [busy, setBusy] = React.useState(false);
   const zone = React.useRef<HTMLDivElement | null>(null);
-  const valeur = React.useMemo(() => ({ busy, setBusy, zone }), [busy]);
+  const cadre = React.useRef<HTMLDivElement | null>(null);
+  // Côté serveur, la fiche est large ; la mesure tranche à l'hydratation.
+  const [etroit, setEtroit] = React.useState(false);
+  React.useLayoutEffect(() => {
+    const el = cadre.current;
+    if (!el || typeof ResizeObserver === 'undefined') return;
+    const mesurer = () => setEtroit(el.getBoundingClientRect().width < SEUIL_ETROIT);
+    mesurer();
+    const o = new ResizeObserver(mesurer);
+    o.observe(el);
+    return () => o.disconnect();
+  }, []);
+  const valeur = React.useMemo(() => ({ busy, setBusy, zone, etroit }), [busy, etroit]);
   return (
     <ContexteDeZone.Provider value={valeur}>
-      <div className={`flex flex-col items-stretch overflow-hidden bg-bg min-[768px]:flex-row ${className}`}>
-        {children}
+      {/* Deux boîtes : une requête de conteneur ne s'applique pas à l'élément qui
+          EST le conteneur. L'extérieure se mesure, l'intérieure porte les colonnes. */}
+      <div ref={cadre} className={`@container/fiche flex flex-col overflow-hidden bg-bg ${className}`}>
+        <div className="flex min-h-0 flex-1 flex-col items-stretch overflow-hidden @min-[640px]/fiche:flex-row">
+          {children}
+        </div>
       </div>
     </ContexteDeZone.Provider>
   );
@@ -140,7 +170,10 @@ export function RecordRail({
      cachée : rendue partout, elle doublait chaque libellé de rubrique dans la
      page, et une recherche par texte en trouvait deux. Côté serveur, on rend
      le rail large ; un téléphone bascule à l'hydratation. */
-  const etroit = React.useSyncExternalStore(abonnerAuxLargeurs, estEtroit, () => false);
+  const cadre = React.useContext(ContexteDeZone);
+  const fenetreEtroite = React.useSyncExternalStore(abonnerAuxLargeurs, estEtroit, () => false);
+  // Dans un cadre, sa largeur ; hors cadre, celle de la fenêtre, comme avant.
+  const etroit = cadre ? cadre.etroit : fenetreEtroite;
   if (items.length <= 1 && !recherche && !onglets) return null;
   return (
     <nav
@@ -150,7 +183,7 @@ export function RecordRail({
          de retrait intérieur, et sans cette rallonge « États & remplacements »
          repassait sur deux lignes. La marge de gauche valait la moitié de celle
          du haut, ce qui se voyait. */
-      className={`flex ${LARGEUR_RAIL} shrink-0 flex-col gap-base border-b border-border-soft bg-bg p-base min-[768px]:h-full min-[768px]:overflow-y-auto min-[768px]:border-r min-[768px]:border-b-0`}
+      className={`flex ${LARGEUR_RAIL} shrink-0 flex-col gap-base border-b border-border-soft bg-bg p-base @min-[640px]/fiche:h-full @min-[640px]/fiche:overflow-y-auto @min-[640px]/fiche:border-r @min-[640px]/fiche:border-b-0`}
     >
       {recherche ? (
         <button
@@ -166,7 +199,7 @@ export function RecordRail({
              **Elle reste en tête quand le rail défile** (Ergonomie du web,
              motif J) : elle sortait de l'écran avec les entrées, et il fallait
              remonter le rail pour chercher un champ. */
-          className="flex h-(--arq-control-md) shrink-0 items-center gap-sm rounded-control border border-border bg-bg px-md text-left text-small text-text-muted outline-none hover:bg-bg-muted focus-ring min-[768px]:sticky min-[768px]:top-0"
+          className="flex h-(--arq-control-md) shrink-0 items-center gap-sm rounded-control border border-border bg-bg px-md text-left text-small text-text-muted outline-none hover:bg-bg-muted focus-ring @min-[640px]/fiche:sticky @min-[640px]/fiche:top-0"
         >
           <Icon role="search" size="sm" />
           <span className="min-w-0 flex-1 truncate">{recherche.label}</span>
@@ -246,14 +279,14 @@ export function RecordRailSkeleton() {
   return (
     <div
       aria-hidden="true"
-      className={`flex ${LARGEUR_RAIL} shrink-0 flex-col gap-sm border-b border-border-soft bg-bg p-base min-[768px]:h-full min-[768px]:border-r min-[768px]:border-b-0`}
+      className={`flex ${LARGEUR_RAIL} shrink-0 flex-col gap-sm border-b border-border-soft bg-bg p-base @min-[640px]/fiche:h-full @min-[640px]/fiche:border-r @min-[640px]/fiche:border-b-0`}
     >
       <div className="h-(--arq-control-md) animate-pulse rounded-control bg-bg-muted" />
       <div className="mt-xs h-[32px] animate-pulse rounded-control bg-bg-muted" />
       {/* Neuf lignes : assez pour occuper la colonne, sans prétendre annoncer
           le nombre exact de rubriques qu'on ne connaît pas encore. */}
       {Array.from({ length: 9 }, (_, i) => (
-        <div key={i} className={`h-(--arq-control-sm) animate-pulse rounded-control bg-bg-muted ${i > 0 ? 'hidden min-[768px]:block' : ''}`} />
+        <div key={i} className={`h-(--arq-control-sm) animate-pulse rounded-control bg-bg-muted ${i > 0 ? 'hidden @min-[640px]/fiche:block' : ''}`} />
       ))}
     </div>
   );
