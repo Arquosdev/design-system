@@ -41,6 +41,12 @@ export interface RecordColumn<T> {
    * colonne marquée, ce sont les deux premières.
    */
   phone?: boolean;
+  /**
+   * Ce que la colonne mesure, en infobulle sur son en-tête : un chiffre dont le
+   * nom ne dit pas comment il se calcule (« Taux de connaissance », une moyenne
+   * de photos prises). Une phrase ; l'en-tête, lui, reste un nom.
+   */
+  hint?: string;
 }
 
 export interface RecordTableProps<T> {
@@ -562,6 +568,7 @@ export function RecordTable<T>({
                   c.numeric && 'text-right',
                   i === columns.length - 1 && 'pr-xl',
                 )}
+                title={c.hint}
                 aria-sort={
                   sort?.state?.column === c.id
                     ? sort.state.direction === 'asc'

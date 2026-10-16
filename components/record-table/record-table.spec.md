@@ -61,6 +61,9 @@ ne bougent pas. Ajouté le 10/10/2026 : un barème de 78 lignes faisait près de
 `RecordColumn<T>` : `{ id, header, render, value?, width?, numeric?, sortable? }`.
 `render` produit la cellule ; `value` dit sur quoi trier quand ce n'est pas ce
 qui s'affiche — une pastille « Parc » se trie sur le texte, pas sur le nœud.
+`hint` met en infobulle de l'en-tête ce que la colonne mesure, quand son nom ne
+le dit pas (un taux moyen, un compte filtré) : une phrase, et l'en-tête reste un
+nom.
 
 ## Exemples
 

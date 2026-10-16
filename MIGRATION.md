@@ -1,5 +1,10 @@
 # Monter une app vers la version courante
 
+## Non publié · `RecordColumn.hint`
+
+Une infobulle sur l'en-tête d'une colonne, pour dire ce qu'elle mesure (Recette
+V2, 16/10/2026). Facultative : rien à faire chez l'appelant.
+
 ## 2.36.0-refonte.12 · `AlertDialog`, la boîte de confirmation
 
 Composant neuf (Ergonomie du web, ticket 62, 16/10/2026) : une question qui ne se
