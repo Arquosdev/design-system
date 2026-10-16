@@ -122,7 +122,9 @@ export const SheetTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Title
     ref={ref}
-    className={cn('text-subhead font-bold text-text', className)}
+    /* La hauteur de la croix, centrée : alignés par le haut, un titre de 18 px et une
+       croix de la hauteur d'un contrôle n'avaient pas le même milieu (Recette V2, 1246t8yt213). */
+    className={cn('flex min-h-(--arq-control-sm) items-center text-subhead font-bold text-text', className)}
     {...props}
   />
 ));
