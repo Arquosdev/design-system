@@ -1,5 +1,13 @@
 # Monter une app vers la version courante
 
+## 2.36.0-refonte.12 · `AlertDialog`, la boîte de confirmation
+
+Composant neuf (Ergonomie du web, ticket 62, 16/10/2026) : une question qui ne se
+défait pas, centrée, au-dessus d'un voile, sur Radix `AlertDialog`.
+`AlertDialogAction` prend `tone="danger"` pour une suppression. Rien à faire chez
+l'appelant ; à reprendre : une suppression ouverte dans un `Sheet` presque vide
+passe dans une `AlertDialog`.
+
 ## Non publié · Les cartes ressortent, le rail de fiche est blanc
 
 **Ombre `block`, neuve** (Thomas, 13/10/2026) : une carte ou un bloc posé sur le fond.

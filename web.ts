@@ -138,6 +138,19 @@ export {
 } from './components/date-field/date-field.logic';
 
 export {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogAction,
+  AlertDialogCancel,
+  type AlertDialogActionProps,
+} from './components/alert-dialog/alert-dialog.web';
+
+export {
   Sheet,
   SheetTrigger,
   SheetClose,

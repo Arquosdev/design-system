@@ -93,6 +93,35 @@
       }
     },
     {
+      "name": "AlertDialog",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Demande de confirmer un geste qui ne se défait pas, en disant ce qu'il emporte, avant de l'accomplir.",
+      "keywords": [
+        "confirmation",
+        "confirmer",
+        "supprimer",
+        "suppression",
+        "dialogue",
+        "modale",
+        "alerte",
+        "irréversible"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [
+          "components/record/suppression.tsx — panneau latéral de suppression"
+        ]
+      },
+      "dossier": "components/alert-dialog",
+      "specFile": "components/alert-dialog/alert-dialog.spec.md",
+      "fichiers": {
+        "web": "components/alert-dialog/alert-dialog.web.tsx"
+      }
+    },
+    {
       "name": "Avatar",
       "status": "stable",
       "layer": "generique",
