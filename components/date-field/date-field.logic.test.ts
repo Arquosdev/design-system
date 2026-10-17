@@ -220,8 +220,9 @@ describe('refus — pourquoi la frappe ne peut pas être retenue', () => {
   });
 
   it('nomme la borne franchie, et la nomme en français', () => {
-    strictEqual(refusal('12/09/2020', '2026-01-01'), 'Date trop ancienne — pas avant le 01/01/2026');
-    strictEqual(refusal('12/09/2030', null, '2026-12-31'), 'Date trop lointaine — pas après le 31/12/2026');
+    strictEqual(refusal('12/09/2020', '2026-01-01'), 'Date trop ancienne : pas avant le 01/01/2026.');
+    strictEqual(refusal('12/09/2020', '2026-01-01', null, { min: 'La fin précède le début.' }), 'La fin précède le début.');
+    strictEqual(refusal('12/09/2030', null, '2026-12-31'), 'Date trop lointaine : pas après le 31/12/2026.');
   });
 });
 

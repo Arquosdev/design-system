@@ -50,6 +50,10 @@ export interface DateFieldProps {
   min?: string | null;
   /** La dernière date acceptée, en ISO. */
   max?: string | null;
+  /** Ce qu'une date avant `min` veut dire ici (« La date de l'assemblée générale est passée. »). */
+  minMessage?: string;
+  /** Ce qu'une date après `max` veut dire ici. */
+  maxMessage?: string;
   /** Nomme le champ quand aucun libellé visible ne le fait. */
   ariaLabel?: string;
   /** Ce que le champ dit quand il est vide. Le format, par défaut. */
@@ -108,6 +112,8 @@ export function DateField({
   onValue,
   min,
   max,
+  minMessage,
+  maxMessage,
   ariaLabel,
   placeholder = DISPLAY_FORMAT,
   disabled = false,
@@ -150,7 +156,7 @@ export function DateField({
     fait clignoter une alerte sous les doigts de quelqu'un qui n'a rien fait de
     mal.
   */
-  const refus = touche ? refusal(frappe, min, max) : null;
+  const refus = touche ? refusal(frappe, min, max, { min: minMessage, max: maxMessage }) : null;
   const enFaute = invalid || refus !== null;
 
   const changer = (brut: string) => {

@@ -86,11 +86,16 @@ export const TODAY_LABEL = "Aujourd’hui";
  * qu'on a tapé. Distinguer les deux demanderait à l'utilisateur de savoir
  * laquelle des deux fautes il a faite, ce qu'il voit déjà.
  */
-export const INVALID_TEXT = `Date incomplète ou impossible — attendu ${DISPLAY_FORMAT}`;
+export const INVALID_TEXT = `Date incomplète ou impossible : attendu ${DISPLAY_FORMAT}.`;
 
-/** Ce que le champ dit d'une date juste mais hors des bornes autorisées. */
-export const beforeMinText = (min: string) => `Date trop ancienne — pas avant le ${toDisplay(min)}`;
-export const afterMaxText = (max: string) => `Date trop lointaine — pas après le ${toDisplay(max)}`;
+/**
+ * Ce que le champ dit d'une date juste mais hors des bornes autorisées. Sans tiret
+ * long, qu'un texte affiché ne porte pas (Recette V2 du web, 1246t8yrvrv) ; et
+ * l'appelant peut dire la borne dans SES mots (`minMessage`, `maxMessage`) :
+ * « Date trop ancienne » pour une fin avant le début n'était pas la raison.
+ */
+export const beforeMinText = (min: string) => `Date trop ancienne : pas avant le ${toDisplay(min)}.`;
+export const afterMaxText = (max: string) => `Date trop lointaine : pas après le ${toDisplay(max)}.`;
 
 /** Une case de la grille d'un mois. */
 export interface DateCell {
@@ -233,12 +238,14 @@ export function refusal(
   frappe: string,
   min?: string | null,
   max?: string | null,
+  /** Ce que la borne veut dire chez l'appelant, à la place de la phrase générale. */
+  messages?: { min?: string; max?: string },
 ): string | null {
   if (frappe.trim() === '') return null;
   const iso = toISO(frappe);
   if (!iso) return INVALID_TEXT;
-  if (isISO(min) && iso < min) return beforeMinText(min);
-  if (isISO(max) && iso > max) return afterMaxText(max);
+  if (isISO(min) && iso < min) return messages?.min ?? beforeMinText(min);
+  if (isISO(max) && iso > max) return messages?.max ?? afterMaxText(max);
   return null;
 }
 
