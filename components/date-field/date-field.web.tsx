@@ -139,12 +139,21 @@ export function DateField({
     Même idiome que `requestOpen` dans `FieldRow`.
   */
   const [connue, setConnue] = React.useState(value);
+  /*
+    Ce que le champ vient de remonter lui-même. Une date complète HORS BORNES
+    remonte `null` : l'appelant le reprend, et sans ce repère le réalignement
+    ci-dessous effaçait la frappe, refus compris. Le champ se vidait sans un
+    mot (Recette V2 du web, contrôle technique daté de plus de douze mois,
+    20/10/2026). Ce qu'on a soi-même remonté ne se réaligne pas.
+  */
+  const [remontee, setRemontee] = React.useState<string | null | undefined>(undefined);
   if (value !== connue) {
     setConnue(value);
+    setRemontee(undefined);
     // La frappe en cours ne se réécrit que si elle dit autre chose que la
     // nouvelle valeur : sinon, le rembourrage remettrait « 01 » là où
     // l'utilisateur vient de taper « 1 », curseur compris.
-    if (toISO(frappe) !== value) setFrappe(toDisplay(value));
+    if (value !== remontee && toISO(frappe) !== value) setFrappe(toDisplay(value));
   }
 
   const [ouvert, setOuvert] = React.useState(false);
@@ -172,7 +181,7 @@ export function DateField({
     */
     const iso = toISO(texte);
     const retenu = iso && inRange(iso, min, max) ? iso : null;
-    if (retenu !== value) onValue(retenu);
+    if (retenu !== value) { setRemontee(retenu); onValue(retenu); }
   };
 
   const choisir = (iso: string) => {
