@@ -20,6 +20,12 @@ export interface ScreenHeaderProps {
   actions?: React.ReactNode;
   /** Un appui sur le titre (montrer l'adresse entière, par exemple). */
   onTitlePress?: () => void;
+  /**
+   * Le titre en petit, sur la rangée de la flèche, sans sous-titre : pour une
+   * page INTERNE d'un parcours (la rubrique d'un formulaire), dont l'écran
+   * parent a déjà dit l'objet. La place va au contenu (Thomas, 19/10/2026).
+   */
+  compact?: boolean;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -37,8 +43,24 @@ export function ScreenHeader({
   backLabel = 'Retour',
   actions,
   onTitlePress,
+  compact = false,
   style,
 }: ScreenHeaderProps) {
+  if (compact) {
+    return (
+      <View style={[styles.entete, styles.enteteCompact, style]}>
+        <View style={[styles.rangee, styles.rangeeCompacte]}>
+          {onBack ? (
+            <IconButton label={backLabel} icon={backLabel === 'Fermer' ? 'close' : 'previous'} variant="ghost" onPress={onBack} style={styles.retour} />
+          ) : null}
+          <Text variant="subhead" numberOfLines={1} accessibilityRole="header" style={styles.titreCompact}>
+            {title}
+          </Text>
+          {actions ? <View style={styles.actions}>{actions}</View> : null}
+        </View>
+      </View>
+    );
+  }
   const titre = (
     <>
       <Text variant="titleLarge" numberOfLines={2} accessibilityRole="header">
@@ -91,5 +113,8 @@ const styles = StyleSheet.create({
   retour: { marginLeft: -spacing.sm },
   actions: { flexDirection: 'row', alignItems: 'center', gap: spacing.xs },
   titre: { gap: spacing.xxs, marginTop: spacing.xs },
+  enteteCompact: { paddingBottom: spacing.xs },
+  rangeeCompacte: { justifyContent: 'flex-start', gap: spacing.xs },
+  titreCompact: { flex: 1 },
   presse: { opacity: 0.6 },
 });
