@@ -162,7 +162,10 @@ la cible tactile** :
 
 - `size` : `default` **44** (et non 36), `sm` 36 (et non 30), `icon` 44 de
   côté. Pas de `lg`. Quarante-quatre points est le seuil sous lequel un pouce
-  ganté rate le bouton.
+  ganté rate le bouton : `sm` se dessine à 36 et se touche sur 44, par un
+  `hitSlop` de 4 en tout sens, comme le petit `IconButton`. Laisser 8 points
+  entre deux petits boutons voisins, pour que leurs zones ne se chevauchent
+  pas.
 - le libellé est en `body` (16) et non `small` (14) sur `default`.
 - `icon` prend un **rôle** (`IconRole`) et non un nœud : l'icône ne sait pas
   hériter sa couleur, c'est le bouton qui la peint.

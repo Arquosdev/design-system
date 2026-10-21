@@ -1,7 +1,7 @@
 import { deepStrictEqual, ok, strictEqual } from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { availability, availabilityAttributes, blocksActivation } from './button.logic.ts';
+import { availability, availabilityAttributes, blocksActivation, debordTactile } from './button.logic.ts';
 
 describe('availability', () => {
   it('est active quand aucun drapeau n’est posé', () => {
@@ -67,5 +67,16 @@ describe('blocksActivation', () => {
     strictEqual(blocksActivation('active'), false);
     strictEqual(blocksActivation('inactive'), true);
     strictEqual(blocksActivation('disabled'), true);
+  });
+});
+
+describe('debordTactile', () => {
+  // Sur le téléphone, rien ne se touche sur moins de 44 points : le petit
+  // bouton (36) déborde de 4 de chaque côté, le normal (44) de rien.
+  it('porte un petit bouton à 44 points, et laisse le normal tel quel', () => {
+    strictEqual(debordTactile(36), 4);
+    strictEqual(debordTactile(44), 0);
+    strictEqual(debordTactile(30), 7);
+    strictEqual(debordTactile(56), 0);
   });
 });

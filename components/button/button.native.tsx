@@ -15,6 +15,7 @@ import { radius } from '../../src/radius';
 import { spacing } from '../../src/spacing';
 import { Icon } from '../icon/icon.native';
 import { Text } from '../text/text.native';
+import { debordTactile } from './button.logic';
 
 export type ButtonVariant = 'default' | 'secondary' | 'outline' | 'ghost' | 'destructive' | 'link';
 export type ButtonSize = 'default' | 'sm' | 'icon';
@@ -24,7 +25,7 @@ export interface ButtonProps extends Omit<PressableProps, 'style' | 'children'> 
   children: string;
   variant?: ButtonVariant;
   /**
-   * `default` 44, `sm` 36, `icon` 44 de côté.
+   * `default` 44, `sm` 36 (touché sur 44, par `hitSlop`), `icon` 44 de côté.
    *
    * **Ce sont les crans du MOBILE, pas ceux du web** (36 / 30 / 44), et la
    * divergence est écrite dans la fiche : 44 points est la cible tactile sous
@@ -96,6 +97,9 @@ export function Button({
       // Un bouton inactif RESTE pressable : il avale le geste, pour que le
       // lecteur d'écran puisse le trouver et lire sa raison.
       onPress={inactive ? undefined : onPress}
+      // Le petit (36) se touche sur 44 points, comme le petit `IconButton` :
+      // la cible tactile ne descend pas sous 44, le dessin si.
+      hitSlop={petit ? debordTactile(controlHeight.md) : undefined}
       {...props}
       style={({ pressed }) => [
         styles.bouton,

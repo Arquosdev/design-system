@@ -5,6 +5,7 @@ import { colors } from '../../src/colors';
 import { controlHeight } from '../../src/control';
 import type { IconRole } from '../../src/icons';
 import { radius } from '../../src/radius';
+import { debordTactile } from '../button/button.logic';
 import { Icon } from '../icon/icon.native';
 
 export type IconButtonVariant = 'outline' | 'soft' | 'ghost' | 'solid' | 'surface';
@@ -58,7 +59,7 @@ export function IconButton({
       accessibilityLabel={label}
       accessibilityState={{ disabled: !!disabled }}
       disabled={disabled}
-      hitSlop={size === 'sm' ? 4 : 0}
+      hitSlop={debordTactile(cote)}
       {...props}
       style={({ pressed }) => [
         styles.bouton,

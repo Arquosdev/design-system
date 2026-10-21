@@ -1,5 +1,13 @@
 # Monter une app vers la version courante
 
+## Non publié · `Button` natif `sm` se touche sur 44 points
+
+Le petit bouton du mobile se dessine toujours à 36, mais sa zone de toucher
+déborde de 4 points en tout sens (`hitSlop`), comme le petit `IconButton` : il
+se touchait sur 36, sous la cible tactile de 44 (Plan de recette V2, « myArquos ·
+Ergonomie du terrain », 21/10/2026). Rien à faire chez l'appelant ; un
+`hitSlop` passé par l'appelant l'emporte toujours.
+
 ## Non publié · `RecordLayout` se replie sur SA largeur, pas sur celle de la fenêtre
 
 Le rail passe en rangée d'onglets quand la FICHE fait moins de 640 px, et non plus

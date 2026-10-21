@@ -2,6 +2,18 @@
 // l'être. Sans React : la règle est la même sur les deux plateformes, seules
 // les classes changent.
 
+import { controlHeight } from '../../src/control.ts';
+
+/**
+ * Le débord de toucher (`hitSlop`, de chaque côté) qui porte un bouton natif de
+ * `cote` points à la cible tactile de 44 (`controlHeight.lg`) : un petit bouton
+ * se dessine à 36 et se touche sur 44. Zéro pour un bouton qui l'atteint déjà.
+ * `Button` et `IconButton` natifs le prennent tous deux.
+ */
+export function debordTactile(cote: number): number {
+  return Math.max(0, (controlHeight.lg - cote) / 2);
+}
+
 /**
  * Les trois disponibilités d'un bouton.
  *
