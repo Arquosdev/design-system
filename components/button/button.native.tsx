@@ -35,6 +35,12 @@ export interface ButtonProps extends Omit<PressableProps, 'style' | 'children'> 
   size?: ButtonSize;
   /** Une icône du vocabulaire, avant le libellé. */
   icon?: IconRole;
+  /**
+   * `end` pose l'icône après le libellé : la flèche d'un geste qui mène à la
+   * suite (« Continuer · Travaux → »). `start` par défaut (recette de Thomas,
+   * 21/10/2026).
+   */
+  iconPosition?: 'start' | 'end';
   /** L'action est en cours : le libellé cède la place à l'indicateur, la largeur ne bouge pas. */
   loading?: boolean;
   /** Le geste est impossible ici, et on peut dire pourquoi. Voir la fiche. */
@@ -74,6 +80,7 @@ export function Button({
   variant = 'default',
   size = 'default',
   icon,
+  iconPosition = 'start',
   loading = false,
   inactive = false,
   inactiveReason,
@@ -111,7 +118,7 @@ export function Button({
         <ActivityIndicator color={encre} />
       ) : (
         <>
-          {icon ? <Icon role={icon} size={petit ? 'sm' : 'md'} color={encre} /> : null}
+          {icon && iconPosition === 'start' ? <Icon role={icon} size={petit ? 'sm' : 'md'} color={encre} /> : null}
           <Text
             variant={petit ? 'small' : 'body'}
             numberOfLines={1}
@@ -122,6 +129,7 @@ export function Button({
           >
             {children}
           </Text>
+          {icon && iconPosition === 'end' ? <Icon role={icon} size={petit ? 'sm' : 'md'} color={encre} /> : null}
         </>
       )}
     </Pressable>
