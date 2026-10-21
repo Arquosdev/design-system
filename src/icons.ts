@@ -247,6 +247,10 @@ export const icons = {
   /** Le planning des visites : le calendrier de la semaine. Pas `recent`, qui dit
    *  « historique », ni `today`, la journée d'un technicien. */
   planning: 'CalendarDots',
+  /** Le temps qui reste avant une échéance : le délai garanti d'une panne, au
+   *  téléphone. Pas `recent`, dont la flèche arrière se lit « historique »
+   *  (recette de Thomas, 21/10/2026). */
+  deadline: 'Timer',
   email: 'EnvelopeSimple',
   conversation: 'ChatCircleDots',
   copy: 'Copy',
