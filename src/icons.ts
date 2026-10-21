@@ -78,6 +78,13 @@ export const icons = {
   // -- Agir ----------------------------------------------------------------
   search: 'MagnifyingGlass',
   add: 'Plus',
+  /*
+    Ôter UNE unité, l'inverse exact d'`add` : le « moins » d'une quantité au
+    pouce (une pièce à charger, à commander, à sortir). Pas `delete`, qui jette
+    la chose, ni `notApplicable`, un état cerclé. Le web et myArquos écrivaient
+    un « − » tapé dans le bouton, faute de rôle (Plan de recette V2, 21/10/2026).
+  */
+  subtract: 'Minus',
   edit: 'PencilSimple',
   delete: 'Trash',
   download: 'DownloadSimple',
@@ -102,6 +109,14 @@ export const icons = {
   */
   revealPassword: 'Eye',
   hidePassword: 'EyeSlash',
+  /*
+    Déployer ou réduire la barre de navigation : DEUX rôles, comme le mot de
+    passe, et le nom dit l'action à venir. Le rail du web importait ces deux
+    dessins de Phosphor en direct, seul écran à le faire (Plan de recette V2,
+    21/10/2026).
+  */
+  showSidebar: 'SidebarSimple',
+  hideSidebar: 'Sidebar',
   /*
     **RÉGLER quelque chose, et c'est différent de le FILTRER.**
 

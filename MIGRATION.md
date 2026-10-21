@@ -1,5 +1,14 @@
 # Monter une app vers la version courante
 
+## Non publié · trois rôles d'icône : `subtract`, `showSidebar`, `hideSidebar`
+
+**`subtract`** (un moins, l'inverse d'`add`) pour la quantité au pouce, et
+**`showSidebar`** / **`hideSidebar`** pour déployer ou réduire la barre de
+navigation, web et mobile (Plan de recette V2, « Règles d'ergonomie du web »,
+21/10/2026). Rien ne change pour les appelants existants. **À reprendre chez
+l'appelant** : le « − » tapé dans un bouton de quantité (myArquos,
+`app/maintenance/piece.tsx`) ; le web a repris le sien et son rail.
+
 ## Non publié · `Button` natif `sm` se touche sur 44 points
 
 Le petit bouton du mobile se dessine toujours à 36, mais sa zone de toucher
