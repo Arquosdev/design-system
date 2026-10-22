@@ -115,8 +115,13 @@ function Tuile({ name, url, essential = false, onOpen, className }: Omit<PhotoTi
       type="button"
       onClick={onOpen}
       aria-label={`Agrandir : ${name}`}
+      /* `w-full` : un bouton ne s'étire pas comme un bloc, il prend la largeur de
+         son contenu. Le cadre de la photo étant en largeur relative et l'image
+         en position absolue, c'est la LÉGENDE qui donnait sa largeur à la
+         vignette : « Sol cabine » sortait étroite, « Boîte à boutons cabine »
+         large, et le geste « Modifier » flottait à côté (Louis, 22/10/2026). */
       className={cn(
-        'flex flex-col text-left outline-none hover:opacity-80 focus-ring',
+        'flex w-full flex-col text-left outline-none hover:opacity-80 focus-ring',
         className,
       )}
     >
