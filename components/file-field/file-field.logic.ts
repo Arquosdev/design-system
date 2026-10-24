@@ -79,7 +79,14 @@ export function refus(f: FichierLu, r: Regles): string | null {
       : `« ${f.name} » n’est pas d’un type accepté.`;
   }
   if (r.maxSize !== undefined && f.size > r.maxSize) {
-    return `« ${f.name} » pèse ${tailleLisible(f.size)}, au-delà des ${tailleLisible(r.maxSize)} permis.`;
+    // Un poids arrondi à la limite ne se dit pas : « pèse 10 Mo, au-delà des
+    // 10 Mo permis » se contredit (une photo de 10,5 Mo, Plan de recette V2,
+    // 25/10/2026). Le fichier « dépasse » alors la limite, sans chiffre de plus.
+    const poids = tailleLisible(f.size);
+    const limite = tailleLisible(r.maxSize);
+    return poids === limite
+      ? `« ${f.name} » dépasse les ${limite} permis.`
+      : `« ${f.name} » pèse ${poids}, au-delà des ${limite} permis.`;
   }
   if (f.size === 0) return `« ${f.name} » est vide.`;
   return null;

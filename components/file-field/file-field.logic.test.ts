@@ -29,6 +29,8 @@ describe('FileField : le calcul', () => {
   it('dit pourquoi un fichier est refusé', () => {
     strictEqual(refus(f('plan.dwg', 'x/y'), { accept: '.pdf', acceptLabel: 'PDF' }), '« plan.dwg » n’est pas accepté. Formats acceptés : PDF.');
     strictEqual(refus(f('gros.pdf', 'application/pdf', 32 * Mo), { accept: '.pdf', maxSize: 20 * Mo }), '« gros.pdf » pèse 32 Mo, au-delà des 20 Mo permis.');
+    // Arrondi à la limite, le poids ne se dit pas : « pèse 10 Mo, au-delà des 10 Mo » se contredirait.
+    strictEqual(refus(f('photo.jpg', 'image/jpeg', 11_003_430), { accept: 'image/*', maxSize: 10 * Mo }), '« photo.jpg » dépasse les 10 Mo permis.');
     strictEqual(refus(f('vide.pdf', 'application/pdf', 0), { accept: '.pdf' }), '« vide.pdf » est vide.');
     strictEqual(refus(f('ok.pdf', 'application/pdf', Mo), { accept: '.pdf', maxSize: 20 * Mo }), null);
   });
