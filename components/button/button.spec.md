@@ -168,7 +168,9 @@ la cible tactile** :
   pas.
 - le libellé est en `body` (16) et non `small` (14) sur `default`.
 - `icon` prend un **rôle** (`IconRole`) et non un nœud : l'icône ne sait pas
-  hériter sa couleur, c'est le bouton qui la peint.
+  hériter sa couleur, c'est le bouton qui la peint. `iconPosition="end"` la pose
+  après le libellé (une flèche qui mène à la suite) ; sur le web, l'icône est un
+  enfant et se place où on l'écrit.
 
 `inactive` porte sa raison en `accessibilityHint` ; il n'y a pas d'infobulle au
 doigt, donc la raison s'écrit à côté du bouton, à l'écran. `children` est une

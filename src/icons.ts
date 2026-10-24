@@ -262,6 +262,14 @@ export const icons = {
   /** Le planning des visites : le calendrier de la semaine. Pas `recent`, qui dit
    *  « historique », ni `today`, la journée d'un technicien. */
   planning: 'CalendarDots',
+  /** Le temps qui reste avant une échéance : le délai garanti d'une panne, au
+   *  téléphone. Pas `recent`, dont la flèche arrière se lit « historique »
+   *  (recette de Thomas, 21/10/2026). */
+  deadline: 'Timer',
+  /** Sortir une pièce du stock (le véhicule du technicien) pour la poser : la boîte
+   *  d'où sort une flèche (recette de Thomas, 21/10/2026). Pas `BoxArrowUp`, qui
+   *  dit déjà `restore`. */
+  stockOut: 'Export',
   email: 'EnvelopeSimple',
   conversation: 'ChatCircleDots',
   copy: 'Copy',
