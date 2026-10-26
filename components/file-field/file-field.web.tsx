@@ -19,8 +19,13 @@ import { aide, trier } from './file-field.logic';
   Le champ natif reste dans le DOM, invisible : c'est lui qui ouvre la boîte de
   dialogue du système (aucune autre ne sait parcourir le téléphone ou le
   disque), et c'est lui qu'un formulaire envoie quand le champ porte un `name`.
-  Un choix refusé le VIDE, pour qu'un envoi ne parte jamais avec ce qu'on vient
-  de refuser.
+  Un choix refusé n'y reste pas, pour qu'un envoi ne parte jamais avec ce qu'on
+  vient de refuser : le champ REPREND le dernier choix accepté, celui dont le
+  nom reste affiché. Le vider seulement perdait ce fichier sans le dire : un
+  fournisseur qui avait choisi son PDF, puis une image par erreur, lisait
+  toujours le nom du PDF et déposait son devis sans lui (Plan de recette V2,
+  « Portail fournisseur · Lien d'accès à une sollicitation », tests agents du
+  26/10/2026).
 */
 
 export interface FileFieldProps {
@@ -79,6 +84,8 @@ export function FileField({
   className,
 }: FileFieldProps) {
   const entree = React.useRef<HTMLInputElement>(null);
+  /** Le dernier choix accepté, que le champ natif reprend après un refus. */
+  const acceptes = React.useRef<File[]>([]);
   const idErreur = React.useId();
   const [choisis, setChoisis] = React.useState<string[]>([]);
   const [raison, setRaison] = React.useState<string | null>(null);
@@ -97,15 +104,26 @@ export function FileField({
     // Un champ `compact` laisse l'appelant lister ce qu'il a joint : il
     // n'affiche pas les noms, et se rouvre vide pour le choix suivant.
     setChoisis(variant === 'zone' ? retenus.map((f) => f.name) : []);
+    acceptes.current = variant === 'zone' ? retenus : [];
     onFiles?.(retenus);
     return true;
   }
 
+  /** Le champ natif porte exactement ces fichiers, et rien d'autre. */
+  function poser(champ: HTMLInputElement, fichiers: File[]) {
+    const dt = new DataTransfer();
+    fichiers.forEach((f) => dt.items.add(f));
+    champ.files = dt.files;
+  }
+
   function surChoix(e: React.ChangeEvent<HTMLInputElement>) {
-    const ok = recevoir(Array.from(e.target.files ?? []));
-    // Refusé : rien ne doit partir avec le formulaire. Compact : l'appelant a
-    // pris les fichiers, le même fichier doit pouvoir se rechoisir.
-    if (!ok || variant === 'compact') e.target.value = '';
+    const liste = Array.from(e.target.files ?? []);
+    const ok = recevoir(liste);
+    // Compact : l'appelant a pris les fichiers, le même fichier doit pouvoir
+    // se rechoisir. Refusé (ou dialogue annulé, qui vide le champ dans certains
+    // navigateurs) : le champ reprend le dernier choix accepté.
+    if (variant === 'compact') e.target.value = '';
+    else if (!ok) poser(e.target, acceptes.current);
   }
 
   function surDepot(e: React.DragEvent<HTMLLabelElement>) {
@@ -114,12 +132,8 @@ export function FileField({
     if (disabled) return;
     const liste = Array.from(e.dataTransfer.files);
     const deposes = multiple ? liste : liste.slice(0, 1);
-    if (recevoir(deposes) && entree.current && variant === 'zone') {
-      // Le dépôt rejoint le champ natif, pour qu'un formulaire l'envoie comme un choix.
-      const dt = new DataTransfer();
-      deposes.forEach((f) => dt.items.add(f));
-      entree.current.files = dt.files;
-    }
+    // Le dépôt rejoint le champ natif, pour qu'un formulaire l'envoie comme un choix.
+    if (recevoir(deposes) && entree.current && variant === 'zone') poser(entree.current, deposes);
   }
 
   const titre = choisis.length

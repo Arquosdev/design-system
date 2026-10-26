@@ -66,8 +66,11 @@ règle.
 
 - **Un choix est accepté en entier ou pas du tout.** Garder trois photos d'un
   choix de quatre en taisant la quatrième laisserait croire qu'elle est partie.
-- **Un choix refusé vide le champ natif.** Un formulaire envoyé tel quel
-  (`name`, `FormData`) ne part donc jamais avec ce qu'on vient de refuser.
+- **Un choix refusé ne reste pas dans le champ natif : il y remet le dernier
+  choix accepté**, celui dont le nom reste affiché (rien, s'il n'y en avait
+  pas). Un formulaire envoyé tel quel (`name`, `FormData`) ne part donc jamais
+  avec ce qu'on vient de refuser, ni sans le fichier qu'on lit encore. Le vider
+  seulement faisait déposer un devis sans son PDF (26/10/2026).
 - **Un dépôt rejoint le champ natif**, pour qu'un formulaire l'envoie comme un
   choix.
 - **Un HEIC sans type** (Safari ne le connaît pas toujours) passe si son
