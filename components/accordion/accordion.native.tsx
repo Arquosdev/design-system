@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 
 import { colors } from '../../src/colors';
+import { controlHeight } from '../../src/control';
 import type { IconRole } from '../../src/icons';
 import { shadowNative } from '../../src/elevation';
 import { radius } from '../../src/radius';
@@ -82,7 +83,13 @@ export function Accordion({
         accessibilityLabel={meta !== undefined ? `${title}, ${meta}` : title}
         style={({ pressed }) => [styles.entete, pressed && styles.entetePressee]}
       >
-        {icon ? <Icon role={icon} size="lg" weight="active" color={colors.primary} /> : null}
+        {/* L'icône dans une tuile bleu pâle, comme les rubriques du formulaire complet de myArquos :
+            les deux formulaires d'un même relevé se ressemblent (Thomas, 27/10/2026). */}
+        {icon ? (
+          <View style={styles.tuile}>
+            <Icon role={icon} size="md" weight="active" color={colors.primary} />
+          </View>
+        ) : null}
 
         <View style={styles.textes}>
           <Text variant="body" style={styles.title} numberOfLines={1}>
@@ -160,6 +167,14 @@ const styles = StyleSheet.create({
     gap: spacing.md,
     paddingHorizontal: spacing.base,
     paddingVertical: spacing.md,
+  },
+  tuile: {
+    width: controlHeight.md + spacing.xs,
+    height: controlHeight.md + spacing.xs,
+    borderRadius: radius.lg,
+    backgroundColor: colors.infoBg,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   entetePressee: {
     backgroundColor: colors.bgMuted,
