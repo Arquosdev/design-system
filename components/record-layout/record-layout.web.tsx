@@ -174,7 +174,34 @@ export function RecordRail({
   const fenetreEtroite = React.useSyncExternalStore(abonnerAuxLargeurs, estEtroit, () => false);
   // Dans un cadre, sa largeur ; hors cadre, celle de la fenêtre, comme avant.
   const etroit = cadre ? cadre.etroit : fenetreEtroite;
+  /*
+    **La tête reste, les entrées passent DESSOUS, dans un fondu** (Louis,
+    28/10/2026), comme dans le rail principal. C'était le rail entier qui
+    défilait, la recherche collée en haut : les entrées se voyaient au-dessus
+    d'elle, dans la marge, et sous elle, entre ses coins arrondis — « Relevés »
+    et « Maintenance » coupés par le champ. Seule la liste défile maintenant, et
+    chaque fondu ne paraît que s'il a quelque chose à cacher.
+  */
+  const zone = React.useRef<HTMLDivElement>(null);
+  const [defile, setDefile] = React.useState(false);
+  const [auBout, setAuBout] = React.useState(true);
+  const mesurer = React.useCallback(() => {
+    const z = zone.current;
+    if (!z) return;
+    setDefile(z.scrollTop > 0);
+    setAuBout(z.scrollTop + z.clientHeight >= z.scrollHeight - 1);
+  }, []);
+  React.useEffect(() => {
+    const z = zone.current;
+    if (!z) return;
+    mesurer();
+    const observateur = new ResizeObserver(mesurer);
+    observateur.observe(z);
+    for (const enfant of Array.from(z.children)) observateur.observe(enfant);
+    return () => observateur.disconnect();
+  }, [mesurer, items]);
   if (items.length <= 1 && !recherche && !onglets) return null;
+  const tete = recherche || onglets;
   return (
     <nav
       aria-label={ariaLabel}
@@ -183,8 +210,10 @@ export function RecordRail({
          de retrait intérieur, et sans cette rallonge « États & remplacements »
          repassait sur deux lignes. La marge de gauche valait la moitié de celle
          du haut, ce qui se voyait. */
-      className={`flex ${LARGEUR_RAIL} shrink-0 flex-col gap-base border-b border-border-soft bg-bg p-base @min-[640px]/fiche:pl-xl @min-[640px]/fiche:h-full @min-[640px]/fiche:overflow-y-auto @min-[640px]/fiche:border-r @min-[640px]/fiche:border-b-0`}
+      className={`flex ${LARGEUR_RAIL} shrink-0 flex-col border-b border-border-soft bg-bg p-base @min-[640px]/fiche:pl-xl @min-[640px]/fiche:h-full @min-[640px]/fiche:min-h-0 @min-[640px]/fiche:pb-0 @min-[640px]/fiche:border-r @min-[640px]/fiche:border-b-0`}
     >
+      {tete ? (
+      <div className="flex shrink-0 flex-col gap-base pb-base">
       {recherche ? (
         <button
           type="button"
@@ -198,8 +227,9 @@ export function RecordRail({
 
              **Elle reste en tête quand le rail défile** (Ergonomie du web,
              motif J) : elle sortait de l'écran avec les entrées, et il fallait
-             remonter le rail pour chercher un champ. */
-          className="flex h-(--arq-control-md) shrink-0 items-center gap-sm rounded-control border border-border bg-bg px-md text-left text-small text-text-muted outline-none hover:bg-bg-muted focus-ring @min-[640px]/fiche:sticky @min-[640px]/fiche:top-0"
+             remonter le rail pour chercher un champ. Hors du défilement depuis le
+             28/10/2026, et non plus collée en haut de lui. */
+          className="flex h-(--arq-control-md) shrink-0 items-center gap-sm rounded-control border border-border bg-bg px-md text-left text-small text-text-muted outline-none hover:bg-bg-muted focus-ring"
         >
           <Icon role="search" size="sm" />
           <span className="min-w-0 flex-1 truncate">{recherche.label}</span>
@@ -215,9 +245,28 @@ export function RecordRail({
           className="shrink-0"
         />
       ) : null}
+      </div>
+      ) : null}
 
-      <NavList items={items} current={current} onChoose={onChoose} className={LARGE} />
-      {etroit ? <OngletsEtroits items={items} current={current} onChoose={onChoose} /> : null}
+      {/* Le fondu du HAUT : en défilant, les entrées passent sous la tête, qui reste. */}
+      <span aria-hidden className="relative z-10 block h-0 shrink-0">
+        <span className={`pointer-events-none absolute -inset-x-sm top-0 h-lg bg-linear-to-b from-bg to-transparent transition-opacity duration-(--arq-duration-normal) ${defile ? 'opacity-100' : 'opacity-0'}`} />
+      </span>
+      {/* Seule la liste défile. Les quelques pixels de part et d'autre gardent
+          entier l'anneau de focus d'une entrée, que le défilement rognerait. */}
+      <div
+        ref={zone}
+        onScroll={mesurer}
+        data-role="defilement-du-rail"
+        className="-mx-xs px-xs @min-[640px]/fiche:min-h-0 @min-[640px]/fiche:flex-1 @min-[640px]/fiche:overflow-y-auto @min-[640px]/fiche:pt-xxs @min-[640px]/fiche:pb-base"
+      >
+        <NavList items={items} current={current} onChoose={onChoose} className={LARGE} />
+        {etroit ? <OngletsEtroits items={items} current={current} onChoose={onChoose} /> : null}
+      </div>
+      {/* Le fondu du BAS : la liste continue et passe sous le bord du rail. */}
+      <span aria-hidden className="relative z-10 block h-0 shrink-0">
+        <span className={`pointer-events-none absolute -inset-x-sm bottom-0 h-2xl bg-linear-to-t from-bg via-bg/80 to-transparent transition-opacity duration-(--arq-duration-normal) ${auBout ? 'opacity-0' : 'opacity-100'}`} />
+      </span>
     </nav>
   );
 }

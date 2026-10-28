@@ -1,5 +1,14 @@
 # Monter une app vers la version courante
 
+## Non publié · `RecordRail` : la tête reste, seule la liste défile, dans un fondu
+
+La recherche de champ et les onglets forment une tête hors du défilement ; seules
+les entrées défilent, dans une boîte à elles (`data-role="defilement-du-rail"`),
+avec un fondu en haut quand la liste a défilé et en bas quand elle continue,
+comme le rail principal (Louis, 28/10/2026 : les entrées se lisaient au-dessus et
+au-dessous de la recherche collée). **À reprendre chez l'appelant** : un test qui
+lisait ou réglait le `scrollTop` du `nav` du rail doit viser cette boîte.
+
 ## Non publié · `PhotoViewer` agrandit d'un clic, et `PhotoTile` porte la loupe
 
 Dans la visionneuse, un clic agrandit la photo deux fois et demie depuis le point
