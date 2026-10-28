@@ -1,5 +1,14 @@
 # Monter une app vers la version courante
 
+## Non publié · l'identité de `RecordTable` se borne à 28rem sans largeur réglée
+
+Sans `widths`, le tableau se met en page au contenu et la cellule d'identité ne
+passe pas à la ligne : un constat d'écart de trois cents caractères la rendait
+large de 2 133 px, et, figée à gauche, elle couvrait toutes les autres colonnes
+même en faisant défiler (Louis, 28/10/2026, en production : « Colonnes 6 » et
+seul « Constat » à l'écran). Elle se coupe désormais en points de suspension à
+28rem. Avec des largeurs réglées, rien ne change. Rien à faire chez l'appelant.
+
 ## Non publié · `Combobox` cherche STRICTEMENT, et non plus en flou
 
 Chaque mot tapé doit se lire dans le libellé, accents et capitales ignorés ; le

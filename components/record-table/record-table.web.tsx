@@ -326,6 +326,15 @@ export function RecordTable<T>({
     recouvrement corrigé dans le corps le 29/08/2026 restait donc entier dans
     l'en-tête, où rien ne le mesurait.
   */
+  /*
+    **Sans largeur réglée, l'identité se borne à 28rem.** Le tableau se met alors en
+    page au contenu, et la cellule ne passe pas à la ligne : un constat d'écart de
+    trois cents caractères la rendait large de 2 133 px. Figée à gauche, elle
+    couvrait toutes les autres colonnes, même en faisant défiler — « Colonnes 6 »,
+    et seul « Constat » à l'écran (Louis, 28/10/2026, en production). Bornée, elle
+    se coupe en points de suspension ; avec des largeurs réglées, la cellule décide.
+  */
+  const borneIdentite = regle ? 'sm:max-w-full' : 'sm:max-w-[28rem]';
   // Le décalage vient du même nombre que la largeur : voir `LARGEUR_CASE`.
   const decalageIdentite = { left: selection ? LARGEUR_CASE : 0 };
 
@@ -647,12 +656,15 @@ export function RecordTable<T>({
                     <button
                       type="button"
                       onClick={() => onOpen(row)}
-                      className="rounded-control text-primary hover:underline focus-ring max-sm:line-clamp-2 max-sm:text-left max-sm:[overflow-wrap:anywhere] sm:block sm:max-w-full sm:truncate sm:text-left"
+                      className={cn(
+                        'rounded-control text-primary hover:underline focus-ring max-sm:line-clamp-2 max-sm:text-left max-sm:[overflow-wrap:anywhere] sm:block sm:truncate sm:text-left',
+                        borneIdentite,
+                      )}
                     >
                       {identity.render(row)}
                     </button>
                   ) : (
-                    <span className="max-sm:line-clamp-2 max-sm:[overflow-wrap:anywhere] sm:block sm:truncate">{identity.render(row)}</span>
+                    <span className={cn('max-sm:line-clamp-2 max-sm:[overflow-wrap:anywhere] sm:block sm:truncate', borneIdentite)}>{identity.render(row)}</span>
                   )}
                 </td>
                 {columns.map((c, i) => {
