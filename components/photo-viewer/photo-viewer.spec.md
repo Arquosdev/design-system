@@ -74,6 +74,11 @@ const [vue, setVue] = React.useState<{ photos: PhotoView[]; i: number } | null>(
 - **Image cassée ou absente** : cadre gris « Photo indisponible — {nom} ». On
   nomme quand même ce qui aurait dû s'y trouver.
 - **Série vide** : rien n'est rendu.
+- **Agrandie** : un clic sur la photo l'agrandit deux fois et demie depuis le
+  point cliqué, un glisser la déplace sans la sortir de son cadre, un second clic
+  la rend entière. Le curseur dit le geste : loupe, puis main. Changer de photo
+  ou fermer repart de la photo entière (Louis, 28/10/2026 : lire une plaque sans
+  ouvrir d'onglet).
 
 ## Accessibilité
 

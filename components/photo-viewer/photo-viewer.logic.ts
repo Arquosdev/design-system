@@ -39,3 +39,33 @@ export function drawnBox(
     h,
   };
 }
+
+/**
+ * Le grossissement d'un clic dans la visionneuse.
+ *
+ * Né le 28/10/2026 (Louis) : une photo ouverte pour lire une valeur — la plaque
+ * d'un moteur, l'étiquette d'une armoire — se lisait mal en plein écran, et il
+ * fallait l'ouvrir dans un onglet pour zoomer. Deux fois et demie suffit à lire
+ * une plaque prise à bout de bras, sans perdre où l'on est sur la photo.
+ */
+export const ZOOM = 2.5;
+
+/**
+ * Le décalage permis à une photo agrandie, pour qu'elle couvre toujours son cadre.
+ *
+ * L'agrandissement part du point cliqué (`origine`, en fractions de la boîte) ;
+ * le glisser y ajoute un décalage. Sans borne, on pouvait tirer la photo hors de
+ * son cadre et ne plus regarder qu'un fond vide. Les bornes se calculent : la
+ * photo agrandie va de `o·w·(1−z) + d` à `o·w·(1−z) + d + z·w`, et elle doit
+ * contenir `[0, w]`.
+ */
+export function clampPan(
+  decalage: { x: number; y: number },
+  boite: { w: number; h: number },
+  origine: { x: number; y: number },
+  zoom: number = ZOOM,
+): { x: number; y: number } {
+  const borne = (d: number, taille: number, o: number) =>
+    Math.min(o * taille * (zoom - 1), Math.max(-(1 - o) * taille * (zoom - 1), d));
+  return { x: borne(decalage.x, boite.w, origine.x), y: borne(decalage.y, boite.h, origine.y) };
+}

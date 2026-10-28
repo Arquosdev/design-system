@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Dialog } from 'radix-ui';
 
 import { cn } from '../_lib/cn';
-import { drawnBox, type Box } from './photo-viewer.logic';
+import { clampPan, drawnBox, ZOOM, type Box } from './photo-viewer.logic';
 import { Icon } from '../icon/icon.web';
 import type { IconRole } from '../../src/icons';
 
@@ -138,6 +138,51 @@ export function PhotoViewer({
     return () => observer.disconnect();
   }, [url, open]);
 
+  /*
+    **Un clic agrandit la photo là où l'on a cliqué, un glisser la déplace, un
+    second clic la rend** (Louis, 28/10/2026 : lire une plaque ou une étiquette
+    sans quitter la visionneuse). Une transformation CSS et non une image plus
+    grande : la mise en page de la photo, et donc la mesure de `box` et la
+    rangée d'actions, ne bougent pas. Le cadre rogne ce qui déborde.
+  */
+  const [loupe, setLoupe] = React.useState<{ ox: number; oy: number; dx: number; dy: number } | null>(null);
+  const [glisse, setGlisse] = React.useState(false);
+  const geste = React.useRef<{ sx: number; sy: number; dx0: number; dy0: number; bouge: boolean } | null>(null);
+  // Une autre photo, ou la visionneuse refermée : on repart de la photo entière.
+  React.useEffect(() => setLoupe(null), [url, open]);
+
+  const surAppui = (e: React.PointerEvent<HTMLImageElement>) => {
+    if (e.button !== 0) return;
+    geste.current = { sx: e.clientX, sy: e.clientY, dx0: loupe?.dx ?? 0, dy0: loupe?.dy ?? 0, bouge: false };
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+  const surGlisse = (e: React.PointerEvent<HTMLImageElement>) => {
+    const g = geste.current;
+    if (!g || !loupe) return;
+    const mx = e.clientX - g.sx;
+    const my = e.clientY - g.sy;
+    // Quatre pixels de tolérance : une main qui clique bouge un peu, et ce
+    // clic-là doit encore rendre la photo entière.
+    if (!g.bouge && Math.hypot(mx, my) < 4) return;
+    g.bouge = true;
+    setGlisse(true);
+    const img = e.currentTarget;
+    const d = clampPan({ x: g.dx0 + mx, y: g.dy0 + my }, { w: img.offsetWidth, h: img.offsetHeight }, { x: loupe.ox, y: loupe.oy });
+    setLoupe({ ...loupe, dx: d.x, dy: d.y });
+  };
+  const surRelache = (e: React.PointerEvent<HTMLImageElement>) => {
+    const g = geste.current;
+    geste.current = null;
+    setGlisse(false);
+    if (!g || g.bouge) return;
+    if (loupe) {
+      setLoupe(null);
+      return;
+    }
+    const r = e.currentTarget.getBoundingClientRect();
+    setLoupe({ ox: (e.clientX - r.left) / r.width, oy: (e.clientY - r.top) / r.height, dx: 0, dy: 0 });
+  };
+
   if (!current) return null;
 
   return (
@@ -184,7 +229,7 @@ export function PhotoViewer({
                  n'y touche plus : lui donner `items-center` suffit à faire
                  tomber le plafond de hauteur de la photo, qui s'affiche alors
                  en pleine taille et déborde de l'écran. */
-              <div className="relative flex max-h-full min-h-0">
+              <div className="relative flex max-h-full min-h-0 overflow-hidden rounded-block">
                 {/* eslint-disable-next-line @next/next/no-img-element -- photos
                     servies par un stockage externe, hors de l'optimiseur. */}
                 <img
@@ -205,9 +250,23 @@ export function PhotoViewer({
                       ),
                     )
                   }
+                  draggable={false}
+                  onPointerDown={surAppui}
+                  onPointerMove={surGlisse}
+                  onPointerUp={surRelache}
+                  onPointerCancel={() => { geste.current = null; setGlisse(false); }}
+                  style={loupe ? {
+                    transform: `translate(${loupe.dx}px, ${loupe.dy}px) scale(${ZOOM})`,
+                    transformOrigin: `${loupe.ox * 100}% ${loupe.oy * 100}%`,
+                  } : undefined}
+                  data-zoom={loupe ? 'on' : 'off'}
                   // `contain` : ne rien rogner. Une photo de plaque de charge
                   // recadrée peut perdre le chiffre qu'on est venu lire.
-                  className="max-h-full max-w-[76vw] rounded-block object-contain"
+                  className={cn(
+                    'max-h-full max-w-[76vw] touch-none rounded-block object-contain select-none',
+                    !glisse && 'transition-transform duration-(--arq-duration-rapide)',
+                    loupe ? (glisse ? 'cursor-grabbing' : 'cursor-grab') : 'cursor-zoom-in',
+                  )}
                 />
                 {actions?.length && box ? (
                   <ActionRow actions={actions} photo={current} corner={box} />

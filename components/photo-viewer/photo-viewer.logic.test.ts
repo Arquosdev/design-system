@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { drawnBox } from './photo-viewer.logic.ts';
+import { clampPan, drawnBox } from './photo-viewer.logic.ts';
 
 describe('boiteDessinee', () => {
   it('centre une photo debout dans une boîte large', () => {
@@ -39,5 +39,24 @@ describe('boiteDessinee', () => {
     const b = drawnBox({ l: 100, t: 50, w: 400, h: 400 }, { w: 200, h: 400 });
     assert.equal(Math.round(b.l), 200);
     assert.equal(Math.round(b.t), 50);
+  });
+});
+
+describe('clampPan', () => {
+  const boite = { w: 400, h: 300 };
+
+  it('laisse passer un décalage qui garde la photo dans son cadre', () => {
+    assert.deepEqual(clampPan({ x: 50, y: -40 }, boite, { x: 0.5, y: 0.5 }, 2.5), { x: 50, y: -40 });
+  });
+
+  it('arrête la photo au bord de son cadre, dans les deux sens', () => {
+    // Agrandie depuis le centre, elle déborde de 300 px de chaque côté en largeur.
+    assert.deepEqual(clampPan({ x: 999, y: -999 }, boite, { x: 0.5, y: 0.5 }, 2.5), { x: 300, y: -225 });
+  });
+
+  it('agrandie depuis un coin, elle ne glisse que vers lui', () => {
+    // Depuis le coin haut gauche, le bord gauche de la photo est déjà sur celui du cadre.
+    assert.deepEqual(clampPan({ x: 80, y: 80 }, boite, { x: 0, y: 0 }, 2.5), { x: 0, y: 0 });
+    assert.deepEqual(clampPan({ x: -80, y: -80 }, boite, { x: 0, y: 0 }, 2.5), { x: -80, y: -80 });
   });
 });

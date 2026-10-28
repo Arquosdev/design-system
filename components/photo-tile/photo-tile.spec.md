@@ -67,6 +67,7 @@ l'appel.
 - **Essentielle et non prise** : signalée en rouge — c'est un manque, pas un vide.
 - **Image cassée** : la tuile retombe sur l'état « non prise » plutôt que
   d'afficher l'icône brisée du navigateur.
+- **Cliquable** (`onOpen`) : le curseur est une loupe, la vignette s'agrandit.
 
 ## Accessibilité
 

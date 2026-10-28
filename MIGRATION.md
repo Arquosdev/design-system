@@ -1,5 +1,13 @@
 # Monter une app vers la version courante
 
+## Non publié · `PhotoViewer` agrandit d'un clic, et `PhotoTile` porte la loupe
+
+Dans la visionneuse, un clic agrandit la photo deux fois et demie depuis le point
+cliqué, un glisser la déplace (bornée à son cadre, `clampPan`), un second clic la
+rend entière (Louis, 28/10/2026). Une vignette cliquable de `PhotoTile` prend le
+curseur loupe. Rien à faire chez l'appelant ; une vignette écrite à la main qui
+ouvre la visionneuse prend `cursor-zoom-in` pour dire la même chose.
+
 ## Non publié · l'identité de `RecordTable` se borne à 28rem sans largeur réglée
 
 Sans `widths`, le tableau se met en page au contenu et la cellule d'identité ne

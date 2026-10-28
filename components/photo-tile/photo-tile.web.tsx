@@ -121,7 +121,8 @@ function Tuile({ name, url, essential = false, onOpen, className }: Omit<PhotoTi
          vignette : « Sol cabine » sortait étroite, « Boîte à boutons cabine »
          large, et le geste « Modifier » flottait à côté (Louis, 22/10/2026). */
       className={cn(
-        'flex w-full flex-col text-left outline-none hover:opacity-80 focus-ring',
+        // La loupe au survol : la vignette s'agrandit, elle ne mène nulle part (Louis, 28/10/2026).
+        'flex w-full cursor-zoom-in flex-col text-left outline-none hover:opacity-80 focus-ring',
         className,
       )}
     >
