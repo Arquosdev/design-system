@@ -1,5 +1,16 @@
 # Monter une app vers la version courante
 
+## Non publié · `Combobox` cherche STRICTEMENT, et non plus en flou
+
+Chaque mot tapé doit se lire dans le libellé, accents et capitales ignorés ; le
+libellé qui commence par la frappe passe devant, puis celui dont un mot commence
+par elle, puis celui qui la contient. Le tri flou de `cmdk` gardait une option
+dès que les lettres tapées s'y trouvaient dans l'ordre, à n'importe quelle
+distance : « année » trouvait « Contrat de maintenance » (Olivier, 28/10/2026).
+Les `keywords` trouvent toujours leur option, rangée derrière tout libellé.
+`matchScore` est exporté de la logique. Rien à faire chez l'appelant, sauf un
+test qui taperait des lettres éparses pour trouver une option.
+
 ## Non publié · trois rôles d'icône : `subtract`, `showSidebar`, `hideSidebar`
 
 **`subtract`** (un moins, l'inverse d'`add`) pour la quantité au pouce, et

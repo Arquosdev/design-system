@@ -70,3 +70,41 @@ export function displayedPlaceholder(
   const retenue = realChoices(options).find((o) => o.value === value);
   return retenue?.label ?? value;
 }
+
+/** Minuscules, sans accents : « Année » et « annee » se valent. */
+function plain(texte: string): string {
+  return texte.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+}
+
+/**
+ * Ce que vaut une option pour ce qu'on a tapé : 0 l'écarte, plus haut la remonte.
+ *
+ * **Une correspondance STRICTE, et non le tri flou de `cmdk`.** Celui-ci garde
+ * une option dès que les lettres tapées s'y trouvent DANS L'ORDRE, à n'importe
+ * quelle distance : « année » trouvait « Contrat de mAiNtENancE », « Type »,
+ * « Parois gaine »… Olivier l'a relevé le 28/10/2026 dans les filtres d'une
+ * opportunité, où quatorze champs sans rapport suivaient les champs d'année.
+ *
+ * La règle : chaque mot tapé doit se trouver tel quel dans le libellé, accents
+ * et capitales ignorés. Le libellé qui COMMENCE par la frappe passe devant,
+ * puis celui dont un mot commence par elle, puis celui qui la contient. Les
+ * mots-clés (`keywords`) trouvent encore leur option, mais derrière tout
+ * libellé : ils disent pourquoi elle paraît, ils ne la font pas passer devant.
+ */
+export function matchScore(
+  label: string,
+  search: string,
+  keywords: readonly string[] = [],
+): number {
+  const frappe = plain(search);
+  if (frappe === '') return 1;
+  const libelle = plain(label);
+  const mots = frappe.split(/\s+/);
+
+  if (libelle.startsWith(frappe)) return 1;
+  if (libelle.split(/[\s'’·()/-]+/).some((m) => m.startsWith(frappe))) return 0.8;
+  if (libelle.includes(frappe)) return 0.6;
+  if (mots.every((m) => libelle.includes(m))) return 0.4;
+  if (keywords.some((k) => mots.every((m) => plain(k).includes(m)))) return 0.1;
+  return 0;
+}

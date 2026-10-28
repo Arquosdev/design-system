@@ -4,6 +4,7 @@ import {
   realChoices,
   displayedText,
   displayedPlaceholder,
+  matchScore,
   type ComboboxOption,
 } from './combobox.logic.ts';
 
@@ -83,8 +84,9 @@ export function Combobox({
 
   return (
     <CommandPrimitive
-      // Le filtrage est celui de cmdk, sur le libellé. Une liste de trois cents
-      // marques n'a pas besoin de plus : on tape le début du nom.
+      // Le filtrage est STRICT, pas le tri flou de cmdk : chaque mot tapé doit
+      // se lire dans le libellé, accents ignorés. Voir `matchScore`.
+      filter={(libelle, frappe, motsCles) => matchScore(libelle, frappe, motsCles)}
       loop
       className="w-full"
       onKeyDown={(e) => {
