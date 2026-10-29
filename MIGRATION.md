@@ -1,5 +1,10 @@
 # Monter une app vers la version courante
 
+## Non publié · `SheetFooter` passe à la ligne au lieu de déborder
+
+Deux boutons trop larges pour un téléphone (375 px) sortaient du panneau par la
+droite : le pied passe à la ligne (`flex-wrap`). Rien à faire chez l'appelant.
+
 ## Non publié · `FieldRow` : « Annuler » en `outline`, et plus aucun tiret long affiché
 
 Le bouton « Annuler » de l'éditeur en place (menu, saisie, date) était en

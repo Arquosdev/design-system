@@ -164,7 +164,11 @@ export function SheetFooter({ className, ...props }: React.ComponentProps<'div'>
   return (
     <div
       className={cn(
-        'flex shrink-0 items-center justify-between gap-md border-t border-border-soft px-lg py-md',
+        /* Sur un téléphone, des boutons qui ne tiennent pas sur une ligne passent à la
+           suivante au lieu de sortir du panneau (« Créer l'affaire sœur sur ce relevé »,
+           audit ergonomie du 29/10/2026). Pas de marge automatique imposée : un pied à
+           trois boutons garde la disposition que son appelant lui donne. */
+        'flex shrink-0 flex-wrap items-center justify-between gap-md border-t border-border-soft px-lg py-md',
         className,
       )}
       {...props}
