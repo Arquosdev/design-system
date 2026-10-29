@@ -1,5 +1,12 @@
 # Monter une app vers la version courante
 
+## Non publié · `Drawer` se borne à la largeur de son conteneur
+
+Le tiroir garde ses 460 px, et ne les dépasse plus : `max-w-full`. Sur un
+téléphone (375 px), il sortait de l'écran par la gauche de 85 px, et dans le
+tiroir des filtres l'opérateur et le début des valeurs ne se lisaient plus
+(audit ergonomie du 29/10/2026). Rien à faire chez l'appelant.
+
 ## Non publié · `RecordRail` : la tête reste, seule la liste défile, dans un fondu
 
 La recherche de champ et les onglets forment une tête hors du défilement ; seules

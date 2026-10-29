@@ -72,7 +72,9 @@ export function Drawer({
         role="dialog"
         aria-label={title}
         className={cn(
-          'absolute inset-y-0 right-0 z-(--arq-layer-flottant) flex w-[460px] flex-col',
+          // Bornée à son conteneur : sur un téléphone (375 px), 460 px la poussaient hors
+          // de l'écran par la gauche, et l'opérateur d'un filtre ne se lisait plus.
+          'absolute inset-y-0 right-0 z-(--arq-layer-flottant) flex w-[460px] max-w-full flex-col',
           'border-l border-border-soft bg-bg shadow-pop',
           className,
         )}
