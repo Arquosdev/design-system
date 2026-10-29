@@ -73,7 +73,7 @@ export function choiceMenu(
   const retenu = options.find((o) => o.value === brut || o.label === brut);
   const choices: FieldOption[] = [];
 
-  if (!brut) choices.push({ value: '', label: '— choisir —' });
+  if (!brut) choices.push({ value: '', label: 'Choisir' });
   if (brut && !retenu) choices.push({ value: brut, label: brut });
   choices.push(...options);
 

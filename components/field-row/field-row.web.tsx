@@ -45,7 +45,7 @@ import {
 const OTHER = '__autre__';
 
 /*
-  L'entrée « — choisir — » vaut la chaîne vide, et Radix la refuse sur une entrée
+  L'entrée « Choisir » vaut la chaîne vide, et Radix la refuse sur une entrée
   de menu : elle lui sert à dire « rien de retenu ». Une sentinelle donc, que
   `prendre` retraduit — le service ne voit rien changer.
 */
@@ -81,7 +81,7 @@ export interface FieldRowProps {
   photos?: readonly { name: string }[];
   onViewPhotos?: () => void;
   /**
-   * Le menu accepte-t-il une valeur hors liste ? Ajoute « Autre — saisir une
+   * Le menu accepte-t-il une valeur hors liste ? Ajoute « Autre, saisir une
    * valeur… » en pied de menu, qui bascule en saisie libre.
    */
   other?: boolean;
@@ -395,15 +395,15 @@ export function FieldRow({
   );
 }
 
-/** « Photo source — Plaque de charge », ou « 3 photos sources · A · B · C ». */
+/** « Photo source : Plaque de charge », ou « 3 photos sources · A · B · C ». */
 function photosLabel(photos: readonly { name: string }[]): string {
-  if (photos.length === 1) return `Photo source — ${photos[0].name}`;
+  if (photos.length === 1) return `Photo source : ${photos[0].name}`;
   return `${photos.length} photos sources · ${photos.map((p) => p.name).join(' · ')}`;
 }
 
-/** « Schéma de mesure — MA2LV », ou « 3 schémas de mesure · A · B · C ». */
+/** « Schéma de mesure : MA2LV », ou « 3 schémas de mesure · A · B · C ». */
 function schematicsLabel(schematics: readonly { name: string }[]): string {
-  if (schematics.length === 1) return `Schéma de mesure — ${schematics[0].name}`;
+  if (schematics.length === 1) return `Schéma de mesure : ${schematics[0].name}`;
   return `${schematics.length} schémas de mesure · ${schematics.map((p) => p.name).join(' · ')}`;
 }
 
@@ -437,7 +437,7 @@ function Editor({ kind, label, value, options, other, onValider, onAnnuler }: Ed
 
   if (kind === 'choice' && !free) {
     const { choices, chosen } = choiceMenu(value, options);
-    if (other) choices.push({ value: OTHER, label: 'Autre — saisir une valeur…' });
+    if (other) choices.push({ value: OTHER, label: 'Autre, saisir une valeur…' });
 
     /* Choisir la valeur, ou l'ouvrir en saisie libre. Le même geste pour les
        deux menus, qui ne diffèrent que par la façon de trouver l'entrée. */
@@ -470,7 +470,7 @@ function Editor({ kind, label, value, options, other, onValider, onAnnuler }: Ed
               onValue={prendre}
               ariaLabel={label}
               autoFocus
-              placeholder={`Rechercher — ${label.toLowerCase()}`}
+              placeholder={`Rechercher : ${label.toLowerCase()}`}
               className="h-(--arq-control-sm) border-(length:--arq-border-epais) border-primary"
             />
           </div>
@@ -482,7 +482,7 @@ function Editor({ kind, label, value, options, other, onValider, onAnnuler }: Ed
                 aria-label={label}
                 className="h-(--arq-control-sm) w-full border-(length:--arq-border-epais) border-primary"
               >
-                <SelectValue placeholder="— choisir —" />
+                <SelectValue placeholder="Choisir" />
               </SelectTrigger>
               <SelectContent>
                 {choices.map((o) => (
@@ -494,7 +494,7 @@ function Editor({ kind, label, value, options, other, onValider, onAnnuler }: Ed
             </Select>
           </div>
         )}
-        <Button variant="secondary" size="sm" onClick={onAnnuler}>
+        <Button variant="outline" size="sm" onClick={onAnnuler}>
           Annuler
         </Button>
       </div>
@@ -686,7 +686,7 @@ function MultiEditor({
         <div className="mt-sm">
           <Input
             autoFocus
-            aria-label={`${label} — autre`}
+            aria-label={`${label}, autre`}
             value={otherText}
             placeholder="Saisir une valeur…"
             onChange={(e) => setOtherText(e.target.value)}
@@ -698,7 +698,7 @@ function MultiEditor({
         <Button size="sm" onClick={() => onValider(retained())}>
           Enregistrer
         </Button>
-        <Button variant="secondary" size="sm" onClick={onAnnuler}>
+        <Button variant="outline" size="sm" onClick={onAnnuler}>
           Annuler
         </Button>
         {/* Les libellés retenus, pas leur nombre : on relit ce qu'on vient de
@@ -707,7 +707,7 @@ function MultiEditor({
             vide, la consolidation la repeuplerait au calcul suivant. */}
         <span className="text-caption text-text-muted">
           {retained().length === 0
-            ? 'Aucune valeur retenue — un champ ne peut pas être vidé depuis la fiche.'
+            ? 'Aucune valeur retenue : un champ ne peut pas être vidé depuis la fiche.'
             : retained()
                 .map((v) => options.find((o) => o.value === v)?.label ?? v)
                 .join(' · ')}
@@ -787,7 +787,7 @@ function DateEditor({
       >
         Enregistrer
       </Button>
-      <Button variant="secondary" size="sm" onClick={onAnnuler}>
+      <Button variant="outline" size="sm" onClick={onAnnuler}>
         Annuler
       </Button>
     </div>

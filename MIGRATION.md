@@ -1,5 +1,15 @@
 # Monter une app vers la version courante
 
+## Non publié · `FieldRow` : « Annuler » en `outline`, et plus aucun tiret long affiché
+
+Le bouton « Annuler » de l'éditeur en place (menu, saisie, date) était en
+`secondary`, le bleu pâle qui dit « sélectionné » : il passe en `outline`, comme
+tout bouton qui n'est pas l'action principale. Les libellés perdent leur tiret
+long : « Choisir » (au lieu de « — choisir — »), « Autre, saisir une valeur… »,
+« Rechercher : <libellé> », « Photo source : <nom> », « Schéma de mesure :
+<nom> » (audit ergonomie du 29/10/2026, fiche d'un écart). **À reprendre chez
+l'appelant** : un test qui cherchait l'un de ces libellés à la lettre.
+
 ## Non publié · `Drawer` se borne à la largeur de son conteneur
 
 Le tiroir garde ses 460 px, et ne les dépasse plus : `max-w-full`. Sur un

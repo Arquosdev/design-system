@@ -47,7 +47,7 @@ de la fiche : c'est lui qui la rend modifiable sans formulaire séparé.
 | `schematics`    | `readonly { name: string }[]`                | —          | Schémas expliquant **comment** la mesure se prend |
 | `onViewSchematics` | `() => void`                             | —          | Ouvre ces schémas |
 | `landmark`     | `boolean`                                   | `false`    | Désigne la ligne : la recherche vient d'y emmener |
-| `other`      | `boolean`                                   | `false`    | Ajoute « Autre — saisir une valeur… » au menu, qui bascule en saisie libre |
+| `other`      | `boolean`                                   | `false`    | Ajoute « Autre, saisir une valeur… » au menu, qui bascule en saisie libre |
 | `requestOpen` | `number`                              | —          | Rouvre l'éditeur depuis l'extérieur. C'est le **changement** de valeur qui ouvre |
 | `origin`    | `string`                                    | —          | Provenance de la valeur, en infobulle          |
 | `readOnly`   | `boolean`                                   | `false`    | Force la lecture seule                         |

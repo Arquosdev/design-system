@@ -18,9 +18,9 @@ const STATES = [
 ] as const;
 
 describe('menuDeChoix', () => {
-  it('propose « — choisir — » quand rien n’est retenu, et ne retient rien', () => {
+  it('propose « Choisir » quand rien n’est retenu, et ne retient rien', () => {
     const { choices, chosen } = choiceMenu('', STATES);
-    strictEqual(choices[0].label, '— choisir —');
+    strictEqual(choices[0].label, 'Choisir');
     strictEqual(chosen, '');
   });
 
@@ -56,7 +56,7 @@ describe('menuDeChoix', () => {
   });
 
   it('traite null comme vide', () => {
-    strictEqual(choiceMenu(null, STATES).choices[0].label, '— choisir —');
+    strictEqual(choiceMenu(null, STATES).choices[0].label, 'Choisir');
   });
 });
 
