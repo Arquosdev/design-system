@@ -1,5 +1,15 @@
 # Monter une app vers la version courante
 
+## Non publié · `DateField` dit au formulaire qu'il refuse sa frappe (`onRefus`)
+
+`onValue` rend `null` pour un champ vidé comme pour une frappe refusée (date
+impossible, inachevée, hors bornes) : un formulaire qui enregistre une date
+FACULTATIVE effaçait donc en silence « 31/02/2026 » (audit ergonomie du
+29/10/2026 d'Arquos web). Le nouveau rappel `onRefus(refus | null)` remonte la
+raison dès la frappe, et `null` quand le champ n'a plus rien à reprocher ou
+disparaît. **À reprendre chez l'appelant** : tout formulaire qui enregistre une
+date facultative refuse d'enregistrer tant qu'un de ses champs de date refuse.
+
 ## Non publié · `SheetFooter` passe à la ligne au lieu de déborder
 
 Deux boutons trop larges pour un téléphone (375 px) sortaient du panneau par la

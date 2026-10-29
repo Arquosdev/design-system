@@ -67,6 +67,18 @@ export interface DateFieldProps {
    * s'affiche sans qu'on le demande.
    */
   invalid?: boolean;
+  /**
+   * Le champ dit au formulaire qu'il REFUSE sa frappe : la raison, ou `null`
+   * quand il n'a rien à reprocher (vide, ou date acceptable). Appelé à chaque
+   * changement de ce refus, et avec `null` quand le champ disparaît.
+   *
+   * `onValue` rend `null` pour un champ vidé comme pour une frappe refusée, et
+   * un formulaire qui enregistre « rien » sur une date facultative effaçait donc
+   * en silence la date impossible qu'on venait de taper (« 31/02/2026 »,
+   * audit ergonomie du 29/10/2026 d'Arquos web). Avec ce rappel, il refuse
+   * d'enregistrer tant que le champ refuse.
+   */
+  onRefus?: (refus: string | null) => void;
   className?: string;
 }
 
@@ -119,6 +131,7 @@ export function DateField({
   disabled = false,
   autoFocus = false,
   invalid = false,
+  onRefus,
   className,
 }: DateFieldProps) {
   const today = todayISO();
@@ -165,8 +178,25 @@ export function DateField({
     fait clignoter une alerte sous les doigts de quelqu'un qui n'a rien fait de
     mal.
   */
-  const refus = touche ? refusal(frappe, min, max, { min: minMessage, max: maxMessage }) : null;
+  const refusDeLaFrappe = refusal(frappe, min, max, { min: minMessage, max: maxMessage });
+  const refus = touche ? refusDeLaFrappe : null;
   const enFaute = invalid || refus !== null;
+
+  /*
+    Le refus remonte au formulaire DÈS la frappe, sans attendre la sortie du
+    champ : un clic sur « Enregistrer » fait sortir du champ et enregistre dans
+    le même geste. Seul un CHANGEMENT remonte (le rappel de l'appelant change à
+    chaque rendu), et un champ qui disparaît retire son refus.
+  */
+  const signale = React.useRef<string | null>(null);
+  const rappel = React.useRef(onRefus);
+  rappel.current = onRefus;
+  React.useEffect(() => {
+    if (refusDeLaFrappe === signale.current) return;
+    signale.current = refusDeLaFrappe;
+    rappel.current?.(refusDeLaFrappe);
+  }, [refusDeLaFrappe]);
+  React.useEffect(() => () => { if (signale.current !== null) rappel.current?.(null); }, []);
 
   const changer = (brut: string) => {
     const texte = mask(brut);

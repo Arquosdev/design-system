@@ -90,6 +90,7 @@ entrée que rien ne valide, et la carte fausse est pire que la carte absente.
 | `disabled` | `boolean` | `false` | Désactive la saisie et le calendrier |
 | `autoFocus` | `boolean` | `false` | Le champ prend le focus dès qu'il paraît |
 | `invalid` | `boolean` | `false` | L'appelant sait la valeur fautive pour une raison que le champ ne voit pas — le service l'a refusée |
+| `onRefus` | `(refus: string \| null) => void` | — | Le champ dit au formulaire qu'il refuse sa frappe (la raison), ou `null`. Un formulaire qui enregistre une date FACULTATIVE s'en sert pour refuser d'enregistrer : sans lui, une date impossible s'enregistrait comme « rien » |
 | `className` | `string` | — | — |
 
 `onValue` reçoit `null` dans trois cas qui n'ont pas à se distinguer pour
