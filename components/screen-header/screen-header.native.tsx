@@ -53,7 +53,9 @@ export function ScreenHeader({
           {onBack ? (
             <IconButton label={backLabel} icon={backLabel === 'Fermer' ? 'close' : 'previous'} variant="ghost" onPress={onBack} style={styles.retour} />
           ) : null}
-          <Text variant="subhead" numberOfLines={1} accessibilityRole="header" style={styles.titreCompact}>
+          {/* Deux lignes : « Cheminement relatif à l'IMMEUBLE » se coupait en « …IMMEUB… » sur la
+              page d'une zone de l'étude de sécurité (revue de Thomas, 30/10/2026). */}
+          <Text variant="subhead" numberOfLines={2} accessibilityRole="header" style={styles.titreCompact}>
             {title}
           </Text>
           {actions ? <View style={styles.actions}>{actions}</View> : null}
@@ -67,7 +69,9 @@ export function ScreenHeader({
         {title}
       </Text>
       {subtitle && subtitle !== title ? (
-        <Text variant="caption" tone="muted" numberOfLines={1}>
+        // Deux lignes : « État des lieux et étude de sécurité · Équipement 53 A 00145 01 » se coupait
+        // sur téléphone (revue de Thomas, 30/10/2026).
+        <Text variant="caption" tone="muted" numberOfLines={2}>
           {subtitle}
         </Text>
       ) : null}
