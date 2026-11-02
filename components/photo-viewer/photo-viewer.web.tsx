@@ -218,10 +218,19 @@ export function PhotoViewer({
               cinquante-six des cinquante-sept d'un relevé — un plafond à 70 % de
               l'écran laissait une bande vide en haut et en bas pendant que la
               photo, elle, restait petite. */}
-          <div className="flex min-h-0 max-w-full flex-1 items-center gap-base">
-            {nb > 1 ? (
+          {/*
+            **Les flèches sont FIXES, aux bords de l'écran** (Louis, 02/11/2026) : posées de
+            part et d'autre de la photo, elles suivaient sa largeur, et passer une série d'un
+            coup demandait de courir après le bouton à chaque format. Elles sont hors de la
+            rangée de la photo, ancrées au cadre plein écran, au milieu de sa hauteur.
+          */}
+          {nb > 1 ? (
+            <>
               <Arrow direction="prec" onClick={() => deplacer(-1)} />
-            ) : null}
+              <Arrow direction="suiv" onClick={() => deplacer(1)} />
+            </>
+          ) : null}
+          <div className="flex min-h-0 max-w-full flex-1 items-center gap-base">
 
             {url ? (
               /* Le cadre donne au bouton un parent positionné. Il ne serre pas
@@ -281,7 +290,6 @@ export function PhotoViewer({
               </div>
             )}
 
-            {nb > 1 ? <Arrow direction="suiv" onClick={() => deplacer(1)} /> : null}
           </div>
 
           <div className="max-w-[76vw] shrink-0 text-center text-text-on-dark">
@@ -382,8 +390,9 @@ function Arrow({ direction, onClick }: { direction: 'prec' | 'suiv'; onClick: ()
       onClick={onClick}
       aria-label={direction === 'prec' ? 'Photo précédente' : 'Photo suivante'}
       className={cn(
-        'size-[44px] shrink-0 rounded-control bg-white/15 text-subhead text-text-on-dark',
+        'absolute top-1/2 z-10 size-[44px] -translate-y-1/2 rounded-control bg-white/15 text-subhead text-text-on-dark',
         'outline-none hover:bg-white/25 focus-visible:ring-2 focus-visible:ring-white',
+        direction === 'prec' ? 'left-sm sm:left-lg' : 'right-sm sm:right-lg',
       )}
     >
       {direction === 'prec' ? '‹' : '›'}

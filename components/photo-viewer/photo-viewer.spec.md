@@ -71,6 +71,7 @@ const [vue, setVue] = React.useState<{ photos: PhotoView[]; i: number } | null>(
 ## États
 
 - **Une seule photo** : les flèches disparaissent, le compteur aussi.
+- **Les flèches ne bougent pas** : ancrées aux bords de l'écran, au milieu de sa hauteur, quel que soit le format de la photo (Louis, 02/11/2026 : on passe une série sans courir après le bouton).
 - **Image cassée ou absente** : cadre gris « Photo indisponible — {nom} ». On
   nomme quand même ce qui aurait dû s'y trouver.
 - **Série vide** : rien n'est rendu.

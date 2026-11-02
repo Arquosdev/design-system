@@ -1,5 +1,12 @@
 # Monter une app vers la version courante
 
+## Non publié · les flèches de `PhotoViewer` sont fixes
+
+Elles étaient posées de part et d'autre de la photo, donc suivaient sa largeur :
+d'un format à l'autre, le bouton changeait de place (Louis, 02/11/2026). Elles
+sont ancrées aux bords de l'écran, au milieu de sa hauteur. Rien à faire chez
+l'appelant.
+
 ## Non publié · `DateField` dit au formulaire qu'il refuse sa frappe (`onRefus`)
 
 `onValue` rend `null` pour un champ vidé comme pour une frappe refusée (date
