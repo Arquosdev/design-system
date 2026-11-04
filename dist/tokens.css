@@ -111,9 +111,9 @@
   --arq-site-color-device-frame: #0B1220;
 
   /* Hauteurs de contrôle — bouton, sélecteur, ligne de titre */
-  --arq-control-sm: 30px;
-  --arq-control-md: 36px;
-  --arq-control-lg: 44px;
+  --arq-control-sm: 28px;
+  --arq-control-md: 32px;
+  --arq-control-lg: 40px;
 
   /* Espacements (base 4) */
   --arq-space-none: 0px;
@@ -140,7 +140,7 @@
   --arq-width-page: 960px;
   --arq-radius-none: 0px;
   --arq-radius-block: 4px;
-  --arq-radius-control: 4px;
+  --arq-radius-control: 6px;
   --arq-radius-sm: 4px;
   --arq-radius-md: 8px;
   --arq-radius-lg: 12px;

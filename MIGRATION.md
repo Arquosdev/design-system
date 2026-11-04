@@ -1,5 +1,25 @@
 # Monter une app vers la version courante
 
+## Non publié · Les boutons et les contrôles à la Intercom : 6 px d'angle, 32 px de haut
+
+Thomas, 04/11/2026, relevé sur Refero (écrans de l'app Intercom : réglages,
+canaux, questionnaire d'accueil) : angles nettement arrondis, boutons bas, 14 px
+semi-gras, marges serrées. Les teintes restent celles d'Arquos. Ce qui change :
+
+- `radius.control` passe de 4 à 6 px. Les blocs gardent 4 px.
+- `controlHeight` descend : `sm` 28, `md` 32, `lg` 40 (au lieu de 30, 36, 44).
+  Tout ce qui s'écrit `h-(--arq-control-md)` suit de lui-même : boutons, boutons
+  d'icône, champs, sélecteurs, barres d'outils, ligne de titre. `Input`,
+  `Toolbar` et `PasswordInput` écrivaient `h-9` : ils lisent le jeton.
+- `Button` : marges intérieures 12 px (`px-md`), 8 pour `sm`, 16 pour `lg`.
+- **Le mobile ne bouge pas** : il lit `touchHeight` (36 / 44), nouveau jeton,
+  tenu par la cible tactile. `controlHeight` est l'échelle du web.
+
+**À reprendre chez l'appelant** : toute hauteur de 36 écrite à la main pour
+s'aligner sur un bouton (`h-9`, `size-9`, `h-[36px]`) passe à
+`h-(--arq-control-md)` ; sinon elle dépasse de 4 px. Un cercle d'avatar en
+`size-9` n'est pas concerné.
+
 ## Non publié · les flèches de `PhotoViewer` sont fixes
 
 Elles étaient posées de part et d'autre de la photo, donc suivaient sa largeur :

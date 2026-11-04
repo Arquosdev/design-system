@@ -690,7 +690,7 @@ function MultiEditor({
             value={otherText}
             placeholder="Saisir une valeur…"
             onChange={(e) => setOtherText(e.target.value)}
-            className="h-[30px]"
+            className="h-(--arq-control-sm)"
           />
         </div>
       ) : null}

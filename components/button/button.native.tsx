@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import { colors } from '../../src/colors';
-import { controlHeight } from '../../src/control';
+import { touchHeight } from '../../src/control';
 import type { IconRole } from '../../src/icons';
 import { radius } from '../../src/radius';
 import { spacing } from '../../src/spacing';
@@ -106,7 +106,7 @@ export function Button({
       onPress={inactive ? undefined : onPress}
       // Le petit (36) se touche sur 44 points, comme le petit `IconButton` :
       // la cible tactile ne descend pas sous 44, le dessin si.
-      hitSlop={petit ? debordTactile(controlHeight.md) : undefined}
+      hitSlop={petit ? debordTactile(touchHeight.sm) : undefined}
       {...props}
       style={({ pressed }) => [
         styles.bouton,
@@ -151,9 +151,9 @@ const styles = StyleSheet.create({
     // uniquement à l'app mobile »). Le bouton web garde `radius.control`.
     borderRadius: radius.full,
   },
-  normal: { minHeight: controlHeight.lg, paddingHorizontal: spacing.base },
-  petit: { minHeight: controlHeight.md, paddingHorizontal: spacing.md },
-  carre: { width: controlHeight.lg, paddingHorizontal: 0 },
+  normal: { minHeight: touchHeight.md, paddingHorizontal: spacing.base },
+  petit: { minHeight: touchHeight.sm, paddingHorizontal: spacing.md },
+  carre: { width: touchHeight.md, paddingHorizontal: 0 },
   inactif: {
     backgroundColor: colors.inactiveBg,
     borderWidth: 1,

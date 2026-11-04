@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Pressable, StyleSheet, type PressableProps, type StyleProp, type ViewStyle } from 'react-native';
 
 import { colors } from '../../src/colors';
-import { controlHeight } from '../../src/control';
+import { touchHeight } from '../../src/control';
 import type { IconRole } from '../../src/icons';
 import { radius } from '../../src/radius';
 import { debordTactile } from '../button/button.logic';
@@ -52,7 +52,7 @@ export function IconButton({
   style,
   ...props
 }: IconButtonProps) {
-  const cote = size === 'sm' ? controlHeight.md : controlHeight.lg;
+  const cote = size === 'sm' ? touchHeight.sm : touchHeight.md;
   return (
     <Pressable
       accessibilityRole="button"
