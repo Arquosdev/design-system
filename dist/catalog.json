@@ -1040,13 +1040,14 @@
       "name": "RecordLayout",
       "status": "beta",
       "layer": "metier",
-      "role": "Poser la fiche d'un objet — deux colonnes, chacune avec son propre défilement.",
+      "role": "Poser la fiche d'un objet — ses rubriques en rangée sous l'en-tête, la zone dessous avec son propre défilement.",
       "keywords": [
         "fiche",
         "gabarit",
         "rail",
+        "onglets",
         "rubriques",
-        "deux colonnes",
+        "sous-rubriques",
         "defilement",
         "sommaire"
       ],
