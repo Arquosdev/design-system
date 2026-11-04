@@ -172,7 +172,9 @@ export function RecordRail({
   const ongletCourant = mere ? mere.id : current;
 
   return (
-    <nav aria-label={ariaLabel} className="shrink-0 border-b border-border-soft bg-bg">
+    /* Le fond de la rangée : le gris très léger de la tête d'une liste (`bgSubtle`), pour que la
+       navigation se lise à part du contenu (Thomas, 04/11/2026). */
+    <nav aria-label={ariaLabel} className="shrink-0 border-b border-border-soft bg-bg-subtle">
       <div className="flex items-center gap-sm px-base @min-[640px]/fiche:px-xl">
         <div ref={rangee} role="presentation" onKeyDown={auClavier} data-role="defilement-du-rail" className={RANGEE}>
           {items.map((i) => {
@@ -282,7 +284,7 @@ function Compteur({ item }: { item: NavItem }) {
  */
 export function RecordRailSkeleton() {
   return (
-    <div aria-hidden="true" className="shrink-0 border-b border-border-soft bg-bg px-base @min-[640px]/fiche:px-xl">
+    <div aria-hidden="true" className="shrink-0 border-b border-border-soft bg-bg-subtle px-base @min-[640px]/fiche:px-xl">
       <div className="flex h-3xl items-center gap-base">
         {/* Cinq traits : de quoi occuper la rangée sans prétendre dire combien de rubriques arrivent. */}
         {Array.from({ length: 5 }, (_, i) => (
