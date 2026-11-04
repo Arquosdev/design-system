@@ -1,5 +1,25 @@
 # Monter une app vers la version courante
 
+## Non publié · Les rubriques d'une fiche en rangée sous l'en-tête (`RecordRail`)
+
+Thomas, 04/11/2026 : tous les menus de page passent à l'horizontale, comme les
+onglets d'une fiche Intercom ou Linear. `RecordLayout` n'a plus deux colonnes :
+`RecordRail` est une rangée d'onglets sous l'en-tête (40 px, filet dessous),
+la zone prend toute la largeur. Mêmes props, même `NavItem` : rien à changer
+chez l'appelant. Ce qui change à l'écran :
+
+- la recherche de champ (`recherche`) est une loupe au bout de la rangée, et
+  non plus un champ de 284 px ;
+- une entrée à `children` ne se déplie plus : son onglet s'allume quand on est
+  chez elle ou chez l'un des siens, et les enfants se lisent en pastilles dans
+  une seconde rangée, sur le gris de la surface ;
+- plus de variante « étroite » : la rangée défile de côté à toute largeur ;
+- `RecordRailSkeleton` est une rangée, à la même hauteur.
+
+Les tests qui cherchaient le rail par `[data-role="defilement-du-rail"]` le
+trouvent toujours : c'est la rangée qui le porte. Ceux qui mesuraient sa
+largeur ou son défilement vertical sont à relire.
+
 ## Non publié · Les boutons et les contrôles à la Intercom : 6 px d'angle, 32 px de haut
 
 Thomas, 04/11/2026, relevé sur Refero (écrans de l'app Intercom : réglages,

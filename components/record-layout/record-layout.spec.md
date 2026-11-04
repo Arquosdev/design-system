@@ -2,8 +2,8 @@
 name: RecordLayout
 status: beta
 layer: metier
-role: Poser la fiche d'un objet — deux colonnes, chacune avec son propre défilement.
-keywords: [fiche, gabarit, rail, rubriques, deux colonnes, defilement, sommaire]
+role: Poser la fiche d'un objet — ses rubriques en rangée sous l'en-tête, la zone dessous avec son propre défilement.
+keywords: [fiche, gabarit, rail, onglets, rubriques, sous-rubriques, defilement, sommaire]
 platforms: [web]
 replaces:
   web:
@@ -12,8 +12,12 @@ replaces:
 
 # RecordLayout
 
-La mise en page d'une fiche : un rail de rubriques à gauche, la zone lue à
-droite, et chacun son défilement.
+La mise en page d'une fiche : les rubriques en une rangée d'onglets sous
+l'en-tête, la zone lue dessous, sur toute la largeur, avec son propre
+défilement. **Depuis le 04/11/2026** (Thomas : tous les menus de page à
+l'horizontale, comme une fiche Intercom ou Linear) ; avant, les rubriques
+vivaient dans un rail de 284 px à gauche. Le composant garde le nom `RecordRail`
+et ses props : les écrans n'ont rien eu à changer.
 
 Elle vivait dans une story, donc en markup d'histoire. La première fiche l'a
 recopiée, les neuf suivantes ont recopié la copie, et les dimensions en dur — la
@@ -24,25 +28,31 @@ endroits sans qu'on sache lequel faisait foi.
 
 - La page d'UN enregistrement, quand il porte assez de rubriques pour qu'un
   sommaire vaille mieux qu'un défilement.
-- Dès sept rubriques : c'est là que des onglets horizontaux cassent, et le rail
-  en tient quinze.
+- Jusqu'à neuf ou dix rubriques sur une ligne ; au-delà, la rangée défile de
+  côté et ramène l'onglet courant en vue. Les sous-rubriques ne comptent pas :
+  elles vivent dans la seconde rangée.
 
 ## Quand NE PAS l'utiliser
 
 - **Pour une liste d'enregistrements** → `RecordTable`. Le gabarit pose UN
   objet ; la liste en pose mille.
-- **Pour un objet à trois rubriques** → les poser à la suite. Un sommaire de
-  trois entrées coûte une colonne et n'épargne rien.
+- **Pour un objet à une seule rubrique** → la rangée se retire d'elle-même ;
+  le contenu prend la place.
 - **Pour un formulaire** → `Drawer` ou `Sheet`. On remplit un formulaire d'un
   bout à l'autre ; on ne le parcourt pas.
 
 ## Ce que le composant tient, et que l'hôte n'a pas à savoir
 
-- **Le mono-zone.** La page ne défile pas ; le rail et la zone défilent chacun
-  de leur côté. Sans cela les rubriques disparaissent dès qu'on descend, et on
+- **Le mono-zone.** La page ne défile pas ; seule la zone défile, et la rangée
+  reste en vue. Sans cela les rubriques disparaissent dès qu'on descend, et on
   ne sait plus où l'on est.
-- **La largeur du rail**, partagée avec son squelette. Écrite deux fois, la
-  fiche sautait de seize pixels au moment où le menu arrivait.
+- **La hauteur de la rangée**, partagée avec son squelette. Sans lui, la fiche
+  s'ouvre sans onglets, puis ils surgissent et la zone saute.
+- **Les sous-rubriques.** Une entrée à `children` ne se déplie pas : quand on
+  est chez elle ou chez l'un des siens, son onglet s'allume et ses enfants se
+  lisent en pastilles dans une seconde rangée, sur le gris de la surface. Un
+  enfant qui porte la clé de sa mère (« Toutes » sous Photos, « Synthèse » sous
+  Maintenance) est la rubrique de la mère, listée en clair pour y revenir.
 - **La zone est un `div`, pas un `main`.** Le shell porte déjà ce repère, et
   deux `main` imbriqués sont une faute que les lecteurs d'écran signalent.
 
@@ -51,8 +61,8 @@ endroits sans qu'on sache lequel faisait foi.
 | Composant | Rôle |
 | --- | --- |
 | `RecordLayout` | Le cadre des deux colonnes |
-| `RecordRail` | La colonne de gauche : recherche, bascule, rubriques |
-| `RecordRailSkeleton` | Le rail pendant le chargement |
+| `RecordRail` | La rangée sous l'en-tête : rubriques, bascule, loupe de recherche ; et la seconde rangée des sous-rubriques |
+| `RecordRailSkeleton` | La rangée pendant le chargement |
 | `RecordZone` | La zone lue, avec son défilement. C'est un conteneur (`@container`) : son contenu se règle sur sa largeur (`@min-[52rem]:grid-cols-2`), qu'un panneau ouvert à côté rétrécit sans changer la fenêtre |
 
 ## Props
@@ -62,7 +72,7 @@ endroits sans qu'on sache lequel faisait foi.
 | Prop | Type | Défaut | Rôle |
 | --- | --- | --- | --- |
 | `ariaLabel` | `string` | — | Ce que ce menu parcourt |
-| `recherche` | `{ label, onOuvrir }` | — | Absente = pas de bouton |
+| `recherche` | `{ label, onOuvrir }` | — | Une loupe au bout de la rangée ; absente = pas de bouton |
 | `onglets` | `{ ariaLabel, value, onChange, segments }` | — | Deux familles de rubriques |
 | `items` | `NavItem[]` | — | Les rubriques et leurs compteurs |
 | `current` | `string` | — | Celle qui est ouverte |
@@ -86,12 +96,19 @@ endroits sans qu'on sache lequel faisait foi.
 L'en-tête n'en fait pas partie : le fil d'Ariane d'une fiche sort de la
 déclaration de son objet, qui appartient à l'application.
 
-## Sur un téléphone
+## Anatomie
 
-Sous 768 px, les deux colonnes s'empilent : le rail passe en tête, et ses
-rubriques se lisent en une rangée d'onglets qui défile de côté, l'onglet courant
-ramené dans le champ. Les sous-rubriques s'y lisent à plat. La zone prend toute
-la largeur. Choix par défaut du 07/10/2026, réversible (un menu tiendrait aussi).
+- Rangée : `spacing.3xl` (40) de haut, filet `colors.borderSoft` dessous, même
+  retrait que le contenu (`spacing.base`, `spacing.xl` sur une fiche large).
+  Elle rentre sa marge de gauche d'un `spacing.sm` pour que le premier libellé
+  tombe sur la verticale du titre.
+- Onglet : `small` medium, encre `textMuted` ; le courant en `primary` avec un
+  trait de 2 px (`spacing.xxs`) posé sur le filet. Compteur en pastille ronde
+  sur `bgMuted`. Les flèches du clavier passent d'un onglet à l'autre.
+- Seconde rangée : fond `bgMuted`, pastilles de `controlHeight.sm` (28) ;
+  la courante sur `infoBg`, comme une entrée courante de `NavList`.
+- Sur une fiche étroite (un téléphone, ou un panneau ouvert à côté), rien ne
+  change : la rangée défile de côté, l'onglet courant ramené dans le champ.
 
 ## Le chargement d'une rubrique
 
