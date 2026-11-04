@@ -277,23 +277,27 @@ export const colors = {
  * `scripts/check-contraste.mjs`, comme les paires de statut.
  */
 export const tagPalette = {
-  blue:   { bg: '#E5EEFA', ink: '#2962AE' },
-  teal:   { bg: '#E5F9FA', ink: '#1E7A80' },
-  green:  { bg: '#E5FAF3', ink: '#1D7C59' },
-  lime:   { bg: '#EEFAE5', ink: '#437C1D' },
-  amber:  { bg: '#FAF3E5', ink: '#8C6521' },
-  orange: { bg: '#FAEEE5', ink: '#A15726' },
-  red:    { bg: '#FAE6E5', ink: '#AE2D29' },
-  pink:   { bg: '#FAE5EE', ink: '#AE295E' },
-  purple: { bg: '#F0E5FA', ink: '#7029AE' },
-  indigo: { bg: '#E6E5FA', ink: '#3229AE' },
+  /*
+    Refaites le 04/11/2026 (Thomas), dans l'esprit d'Attio et des badges de
+    shadcn : un fond pastel franc et l'encre foncée de la même teinte, posés
+    ensemble. Les paires suivent les rampes 100 et 800 de Tailwind ; chacune
+    dépasse 7:1. Le bleu est un ciel, pour ne pas se confondre avec la marque.
+  */
+  blue:   { bg: '#E0F2FE', ink: '#075985' },
+  teal:   { bg: '#CCFBF1', ink: '#115E59' },
+  green:  { bg: '#D1FAE5', ink: '#065F46' },
+  lime:   { bg: '#ECFCCB', ink: '#3F6212' },
+  amber:  { bg: '#FEF3C7', ink: '#92400E' },
+  orange: { bg: '#FFEDD5', ink: '#9A3412' },
+  red:    { bg: '#FFE4E6', ink: '#9F1239' },
+  pink:   { bg: '#FAE8FF', ink: '#86198F' },
+  purple: { bg: '#EDE9FE', ink: '#5B21B6' },
+  indigo: { bg: '#E0E7FF', ink: '#3730A3' },
   /**
    * La teinte neutre. Elle n'entre pas dans le tirage automatique : on la
-   * choisit, pour la valeur qui domine une colonne. Sur un parc où huit
-   * appareils sur dix sont des ascenseurs, une couleur vive sur la valeur la
-   * plus fréquente ne distingue rien — elle sature la colonne.
+   * choisit, pour une valeur qui ne doit pas ressortir (« Autre »).
    */
-  slate:  { bg: '#EFF1F4', ink: '#4D5B66' },
+  slate:  { bg: '#F1F5F9', ink: '#334155' },
 } as const;
 
 export type TagTone = keyof typeof tagPalette;

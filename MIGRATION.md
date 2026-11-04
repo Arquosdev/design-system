@@ -1379,7 +1379,7 @@ ni la vitrine, ni le contrôle de contraste n'avaient vu passer `undefined` : un
 variable invalide ne casse rien, elle rend l'élément invisible, ce qu'aucun
 d'eux ne mesure. Le générateur, lui, le sait au moment où il écrit.
 
-## Tag : `filled` (04/11/2026)
+## Tag : un fond teinté, une palette refaite (04/11/2026)
 
-Nouvelle prop facultative `filled`. Le mot prend l'encre de sa teinte sur le fond de la même teinte (`tagPalette`), sans point.
-Elle sert à une colonne aux valeurs peu nombreuses et fixes, comme le type d'un équipement. Un statut reste à `StatusBadge`.
+`Tag` n'a plus de point sur fond neutre : le mot prend l'encre de sa teinte, sur le fond de la même teinte, sur le web comme sur le mobile.
+`tagPalette` est refaite sur les rampes 100 et 800 de Tailwind. Aucune API ne change, mais toutes les pastilles changent d'aspect.
