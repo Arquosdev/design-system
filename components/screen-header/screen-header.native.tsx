@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 
 import { colors } from '../../src/colors';
-import { controlHeight } from '../../src/control';
+import { touchHeight } from '../../src/control';
 import { spacing } from '../../src/spacing';
 import { IconButton } from '../icon-button/icon-button.native';
 import { Text } from '../text/text.native';
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    minHeight: controlHeight.lg,
+    minHeight: touchHeight.md,
   },
   // La flèche s'aligne sur la gouttière du corps, pas sur le bord de son bouton.
   retour: { marginLeft: -spacing.sm },

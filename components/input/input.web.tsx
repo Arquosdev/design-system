@@ -8,7 +8,7 @@ import { cn } from '../_lib/cn';
  * Repris de shadcn/ui, habillé aux tokens. Deux écarts assumés avec leur
  * version :
  *
- * - **36 px de haut** (`h-9`), pour que le champ et le bouton posés côte à côte
+ * - **La hauteur d'un bouton** (`controlHeight.md`), pour que le champ et le bouton posés côte à côte
  *   aient la même hauteur. Les formulaires de la fiche mêlent les deux à chaque
  *   ligne, et 2 px d'écart se voient.
  * - **Le focus suit la convention du dépôt** — anneau de 2 px en `primary` —
@@ -21,7 +21,7 @@ export function Input({ className, type, ...props }: React.ComponentProps<'input
       type={type}
       data-slot="input"
       className={cn(
-        'h-9 w-full min-w-0 rounded-control border border-border bg-bg px-sm text-small text-text',
+        'h-(--arq-control-md) w-full min-w-0 rounded-control border border-border bg-bg px-sm text-small text-text',
         'outline-none transition-colors',
         'placeholder:text-text-muted',
         'selection:bg-primary selection:text-text-on-dark',

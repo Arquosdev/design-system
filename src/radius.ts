@@ -12,10 +12,11 @@ export const radius = {
   // Blocs de contenu : cartes, panneaux, tableaux. 4 px, le même rayon que les
   // contrôles (Louis, 27/09/2026) : arrondi voulu, net, sur la grille de 4 px.
   block: 4,
-  // Boutons, champs, menus, pastilles : le même rayon que les blocs (Louis,
-  // 27/09/2026 : « on sait rien » entre 5, 6 et 7). Un rayon pour toute
-  // l'interface, hors cercles.
-  control: 4,
+  // Boutons, champs, menus, pastilles : 6 px depuis le 04/11/2026 (Thomas,
+  // refonte des boutons « à la Intercom », relevée sur Refero : angles
+  // nettement arrondis sans être une pilule). Un seul rayon pour tous les
+  // contrôles, hors cercles ; les blocs gardent leurs 4 px (Louis, 27/09/2026).
+  control: 6,
   sm: 4,
   md: 8,     // ← défaut (cartes, inputs, boutons standards)
   lg: 12,

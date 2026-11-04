@@ -66,7 +66,7 @@ chercher le droit qui manque.
 | Prop        | Type                                            | Défaut      | Rôle                                   |
 | ----------- | ----------------------------------------------- | ----------- | -------------------------------------- |
 | `variant`   | `'default' \| 'secondary' \| 'outline' \| 'ghost' \| 'destructive' \| 'link'` | `'default'` | Poids visuel |
-| `size`      | `'default' \| 'sm' \| 'lg' \| 'icon'`            | `'default'` | 36px, 30px, 44px, ou carré 36px |
+| `size`      | `'default' \| 'sm' \| 'lg' \| 'icon'`            | `'default'` | 32px, 28px, 40px, ou carré 32px |
 | `inactive`  | `boolean`                                        | `false`     | Le geste est impossible ici, et on peut dire pourquoi |
 | `inactiveReason` | `string`                                    | —           | La raison, en infobulle et en description accessible |
 | `disabled`  | `boolean`                                        | `false`     | Retire le contrôle — aucune raison à donner |
@@ -78,7 +78,8 @@ Plus tous les attributs d'un `<button>` HTML.
 **Web et mobile n'ont pas la même forme** (Louis, 07/10/2026). Sur le mobile
 (`button.native.tsx`), le bouton est une pilule (`radius.full`) : c'est la forme
 des applications iPhone, et elle se prend au pouce. Sur le web
-(`button.web.tsx`), il garde ses angles (`radius.control`), comme les champs et
+(`button.web.tsx`), il a les angles d'Intercom (`radius.control`, 6 px) et sa
+hauteur (32 px), relevés sur Refero (Thomas, 04/11/2026), comme les champs et
 les barres d'outils qu'il côtoie. Ne pas aligner l'un sur l'autre.
 
 **Choisir la variante :** `default` pour l'action principale — **une seule par page**,
@@ -139,7 +140,7 @@ vaut aussi pour le natif, seules les classes changent.
 ## Accessibilité
 
 - Rend un `<button type="button">` : ne soumet pas de formulaire par accident.
-- Cible tactile d'au moins 36px en hauteur (`default`).
+- 32 px de haut (`default`) : c'est un contrôle de pointeur ; sur le téléphone, le bouton natif fait 44.
 - Un bouton sans texte visible doit recevoir un `aria-label`.
 
 ## Ce qui manque : un registre DANGER DOUX

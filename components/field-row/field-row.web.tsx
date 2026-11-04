@@ -66,6 +66,13 @@ export interface FieldRowProps {
   kind?: FieldKind;
   options?: readonly FieldOption[];
   onSave?: (value: string | string[]) => void;
+  /**
+   * La teinte de la VALEUR, quand elle dit un état (« Conforme », « À vérifier ») :
+   * elle se lit alors en pastille, et reste cliquable pour se corriger (Thomas,
+   * 04/11/2026). Ignorée quand la valeur est vide. À ne pas confondre avec
+   * `status`, qui juge le champ (renseigné, manquant), pas ce qu'il contient.
+   */
+  tone?: 'success' | 'warning' | 'danger';
   status?: FieldStatus;
   /**
    * Le retour d'enregistrement, à côté de la valeur. Il appartient à la ligne :
@@ -171,6 +178,12 @@ function RowButton({
 
 // Les mots viennent de la logique partagée, les classes restent ici : le
 // vocabulaire converge entre web et mobile, l'habillage non.
+const TONE_CLASS = {
+  success: 'bg-success-bg text-on-success-bg',
+  warning: 'bg-warning-bg text-on-warning-bg',
+  danger: 'bg-danger-bg text-on-danger-bg',
+} as const;
+
 const STATUS_CLASS: Record<FieldStatus, string> = {
   filled: 'bg-success-bg text-on-success-bg',
   missing: 'bg-danger-bg text-on-danger-bg',
@@ -209,6 +222,7 @@ export function FieldRow({
   options = [],
   onSave,
   status,
+  tone,
   save,
   origin,
   photos,
@@ -335,6 +349,8 @@ export function FieldRow({
                 isEmpty
                   ? 'text-text-muted border-border'
                   : 'text-text border-text-subtle',
+                // Une valeur d'état en pastille : la pastille dit le clic, le pointillé s'efface.
+                tone && !isEmpty && cn('rounded-control border-0 px-sm py-xxs text-caption font-semibold', TONE_CLASS[tone]),
               )}
             >
               {display && !isEmpty ? display : afficher(value, kind)}
@@ -690,7 +706,7 @@ function MultiEditor({
             value={otherText}
             placeholder="Saisir une valeur…"
             onChange={(e) => setOtherText(e.target.value)}
-            className="h-[30px]"
+            className="h-(--arq-control-sm)"
           />
         </div>
       ) : null}

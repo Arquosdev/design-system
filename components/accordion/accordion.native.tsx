@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 
 import { colors } from '../../src/colors';
-import { controlHeight } from '../../src/control';
+import { touchHeight } from '../../src/control';
 import type { IconRole } from '../../src/icons';
 import { shadowNative } from '../../src/elevation';
 import { radius } from '../../src/radius';
@@ -169,8 +169,8 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.md,
   },
   tuile: {
-    width: controlHeight.md + spacing.xs,
-    height: controlHeight.md + spacing.xs,
+    width: touchHeight.sm + spacing.xs,
+    height: touchHeight.sm + spacing.xs,
     borderRadius: radius.lg,
     backgroundColor: colors.infoBg,
     alignItems: 'center',

@@ -277,23 +277,27 @@ export const colors = {
  * `scripts/check-contraste.mjs`, comme les paires de statut.
  */
 export const tagPalette = {
-  blue:   { bg: '#E5EEFA', ink: '#2962AE' },
-  teal:   { bg: '#E5F9FA', ink: '#1E7A80' },
-  green:  { bg: '#E5FAF3', ink: '#1D7C59' },
-  lime:   { bg: '#EEFAE5', ink: '#437C1D' },
-  amber:  { bg: '#FAF3E5', ink: '#8C6521' },
-  orange: { bg: '#FAEEE5', ink: '#A15726' },
-  red:    { bg: '#FAE6E5', ink: '#AE2D29' },
-  pink:   { bg: '#FAE5EE', ink: '#AE295E' },
-  purple: { bg: '#F0E5FA', ink: '#7029AE' },
-  indigo: { bg: '#E6E5FA', ink: '#3229AE' },
+  /*
+    Calquées sur les badges d'Attio (Thomas, 04/11/2026, relevé sur Refero) :
+    un fond très clair, une bordure fine un cran plus soutenue, l'encre d'un
+    ton moyen de la même teinte. Les encres d'Attio sont un peu plus claires :
+    elles sont assombries juste assez pour passer 4,5:1 en 12 px.
+  */
+  blue:   { bg: '#EAF2FF', border: '#C9DDFE', ink: '#1F5BC4' },
+  teal:   { bg: '#E6F6F9', border: '#BDE5EE', ink: '#11718A' },
+  green:  { bg: '#E8F6EC', border: '#C3E6CD', ink: '#1F7438' },
+  lime:   { bg: '#EFF6E1', border: '#D5E7B4', ink: '#4A6F12' },
+  amber:  { bg: '#FFF5DC', border: '#F6DFA2', ink: '#8A5A00' },
+  orange: { bg: '#FFF0E5', border: '#FBD5B8', ink: '#A44C0C' },
+  red:    { bg: '#FEEDEB', border: '#F9CDC7', ink: '#B9352A' },
+  pink:   { bg: '#FCEDF6', border: '#F3C9E1', ink: '#A72E76' },
+  purple: { bg: '#F3EFFE', border: '#DACFFB', ink: '#6A3FCB' },
+  indigo: { bg: '#EEF0FE', border: '#CFD5FB', ink: '#4141BE' },
   /**
    * La teinte neutre. Elle n'entre pas dans le tirage automatique : on la
-   * choisit, pour la valeur qui domine une colonne. Sur un parc où huit
-   * appareils sur dix sont des ascenseurs, une couleur vive sur la valeur la
-   * plus fréquente ne distingue rien — elle sature la colonne.
+   * choisit, pour une valeur qui ne doit pas ressortir (« Autre »).
    */
-  slate:  { bg: '#EFF1F4', ink: '#4D5B66' },
+  slate:  { bg: '#F2F4F6', border: '#DDE1E6', ink: '#525E6A' },
 } as const;
 
 export type TagTone = keyof typeof tagPalette;

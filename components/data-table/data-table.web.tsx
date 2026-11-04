@@ -1,6 +1,9 @@
+'use client';
+
 import * as React from 'react';
 
 import { cn } from '../_lib/cn';
+import { SURFACE_A_PLAT, useFlatSurfaces } from '../_lib/flat-surfaces';
 
 export interface DataTableProps extends Omit<React.ComponentPropsWithoutRef<'section'>, 'children'> {
   title: string;
@@ -25,9 +28,10 @@ export function DataTable({
   className,
   ...props
 }: DataTableProps) {
+  const aPlat = useFlatSurfaces();
   return (
     <section
-      className={cn('overflow-hidden rounded-block border border-border-soft bg-bg', className)}
+      className={cn('overflow-hidden rounded-block border border-border-soft bg-bg', aPlat && SURFACE_A_PLAT, className)}
       {...props}
     >
       <div className="flex items-baseline gap-md border-b border-border-soft px-base py-md">

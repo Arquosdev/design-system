@@ -9,13 +9,14 @@ platforms: [web, mobile]
 
 # Tag
 
-Une pastille de valeur : **un point de couleur et le mot, sur un fond neutre**.
-Elle **distingue**, elle ne juge pas.
+Une pastille de valeur : **le mot dans l'encre de sa teinte, sur le fond de la
+même teinte**. Elle **distingue**, elle ne juge pas.
 
-Depuis la 2.36.0-refonte.5, le fond n'est plus teinté (audit design du 11/10/2026,
-A5-15 et A4-33) : « Étude sécurité » en aplat vert se lisait comme « Soumis »
-en aplat vert juste à côté. Les fonds teintés sont aux états (`StatusBadge`,
-`Badge`) ; le point garde ce qui faisait l'intérêt de la couleur, le balayage.
+Le 04/11/2026, Thomas a remplacé le point sur fond neutre par un fond teinté, et
+refait la palette dans l'esprit d'Attio et de shadcn. Cela revient sur l'audit
+design du 11/10/2026 (A5-15, A4-33), qui craignait qu'une catégorie en aplat vert
+se lise comme un état vert : les teintes de `tagPalette` restent distinctes de
+celles des états, plus franches et sans bordure.
 
 ## Pourquoi elle existe
 
@@ -35,8 +36,9 @@ relevé, un rôle. Sa teinte est tirée du libellé et ne veut rien dire. Si
 
 ## Teintes
 
-Dix paires (`tagPalette`) ; seule l'encre sert, au point. Le mot reste dans
-la couleur du texte.
+Dix paires et une neutre (`tagPalette`), sur les rampes 100 et 800 de
+Tailwind : le fond et l'encre servent ensemble. `slate` se choisit, elle n'est
+jamais tirée.
 
 Le même libellé reçoit toujours la même teinte, dans tout le produit : la
 fonction `tagTone` hache le texte. Pas de table à tenir à jour — le référentiel
@@ -50,7 +52,7 @@ des types compte des dizaines de valeurs et bouge sans nous.
 ```
 
 `colors` est déprécié : il servait aux statuts de relevé venus de Bubble, qui
-prennent désormais `StatusBadge`. Seule son encre sert encore, au point.
+prennent désormais `StatusBadge`. Ses deux couleurs remplacent celles de la teinte.
 
 ## À ne pas faire
 

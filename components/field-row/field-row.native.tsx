@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Pressable, StyleSheet, TextInput, View, type StyleProp, type ViewStyle } from 'react-native';
 
 import { colors } from '../../src/colors';
-import { controlHeight } from '../../src/control';
+import { touchHeight } from '../../src/control';
 import { radius } from '../../src/radius';
 import { spacing } from '../../src/spacing';
 import { fontFamilyNative, typography } from '../../src/typography';
@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
   saisieEnFaute: { borderColor: colors.danger },
   faute: { color: colors.danger, marginTop: spacing.xs },
   saisie: {
-    height: controlHeight.md,
+    height: touchHeight.sm,
     borderRadius: radius.control,
     borderWidth: 2,
     borderColor: colors.primary,

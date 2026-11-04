@@ -5,22 +5,27 @@ import * as AccordionPrimitive from '@radix-ui/react-accordion';
 
 import { Icon } from '../icon/icon.web';
 import { cn } from '../_lib/cn';
+import { SURFACE_A_PLAT, useFlatSurfaces } from '../_lib/flat-surfaces';
 
 export const Accordion = AccordionPrimitive.Root;
 
 export const AccordionItem = React.forwardRef<
   React.ComponentRef<typeof AccordionPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
->(({ className, ...props }, ref) => (
-  <AccordionPrimitive.Item
-    ref={ref}
-    className={cn(
-      'mb-md overflow-hidden rounded-block border border-border-soft bg-bg shadow-block last:mb-0',
-      className,
-    )}
-    {...props}
-  />
-));
+>(({ className, ...props }, ref) => {
+  const aPlat = useFlatSurfaces();
+  return (
+    <AccordionPrimitive.Item
+      ref={ref}
+      className={cn(
+        'mb-md overflow-hidden rounded-block border border-border-soft bg-bg shadow-block last:mb-0',
+        aPlat && `${SURFACE_A_PLAT} mb-0`,
+        className,
+      )}
+      {...props}
+    />
+  );
+});
 AccordionItem.displayName = 'AccordionItem';
 
 export interface AccordionTriggerProps
@@ -48,15 +53,18 @@ export interface AccordionTriggerProps
 export const AccordionTrigger = React.forwardRef<
   React.ComponentRef<typeof AccordionPrimitive.Trigger>,
   AccordionTriggerProps
->(({ className, title, meta, action, ...props }, ref) => (
+>(({ className, title, meta, action, ...props }, ref) => {
+  // À plat : pas de filet sous la tête, celui du haut du bloc suffit (il s'arrêtait à 8 px du bord).
+  const aPlat = useFlatSurfaces();
+  return (
   <AccordionPrimitive.Header
-    className={cn('flex items-stretch', action && 'border-b border-border-soft')}
+    className={cn('flex items-stretch', action && !aPlat && 'border-b border-border-soft')}
   >
     <AccordionPrimitive.Trigger
       ref={ref}
       className={cn(
         'group flex w-full items-center gap-sm',
-        !action && 'border-b border-border-soft',
+        !action && !aPlat && 'border-b border-border-soft',
         'px-base py-md text-left outline-none',
         'focus-ring',
         className,
@@ -93,7 +101,8 @@ export const AccordionTrigger = React.forwardRef<
       </button>
     ) : null}
   </AccordionPrimitive.Header>
-));
+  );
+});
 AccordionTrigger.displayName = 'AccordionTrigger';
 
 export const AccordionContent = React.forwardRef<

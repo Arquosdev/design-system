@@ -1,8 +1,11 @@
+'use client';
+
 import * as React from 'react';
 
 import { Button } from '../button/button.web';
 import { Icon } from '../icon/icon.web';
 import { cn } from '../_lib/cn';
+import { useFlatSurfaces } from '../_lib/flat-surfaces';
 import { FAILURES, failureKind, RETRY } from './empty-state.logic';
 import type { IconRole } from '../../src/icons';
 
@@ -39,9 +42,11 @@ export function EmptyState({
   density = 'page',
   className,
 }: EmptyStateProps) {
+  // À plat (FlatSurfaces) : le message d'une section vide perd son cadre pointillé, il se lit dans le bloc.
+  const aPlat = useFlatSurfaces();
   if (density === 'section') {
     return (
-      <div className={cn('flex items-start gap-md rounded-block border border-dashed border-border-soft px-base py-md', className)}>
+      <div className={cn('flex items-start gap-md rounded-block border border-dashed border-border-soft px-base py-md', aPlat && 'border-0 px-0', className)}>
         <Icon role={icon} size="md" weight="subtle" className="mt-xxs shrink-0 text-text-subtle" />
         <div className="flex min-w-0 flex-1 flex-col gap-xxs">
           <p className="text-small-bold text-text">{title}</p>

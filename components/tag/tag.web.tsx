@@ -8,40 +8,39 @@ import { cn } from '../_lib/cn';
 export interface TagProps {
   children: React.ReactNode;
   /**
-   * La teinte du point, quand elle est décidée ailleurs : un type d'équipement
-   * peut mériter sa couleur fixe. Sans elle, la teinte se déduit du libellé.
+   * La teinte, quand elle est décidée ailleurs : un type d'équipement peut
+   * mériter sa couleur fixe. Sans elle, la teinte se déduit du libellé.
    */
   tone?: TagTone;
   /**
    * Déprécié : servait aux statuts de relevé venus de Bubble avec leurs
-   * couleurs. Un statut prend `StatusBadge`. Seule l'encre sert encore, au point.
+   * couleurs. Un statut prend `StatusBadge`.
    */
   colors?: { background: string | null; foreground: string | null };
   className?: string;
 }
 
 /**
- * Une pastille de valeur : un point de couleur et le mot, sur un fond neutre.
+ * Une pastille de valeur à la manière d'Attio : le mot dans l'encre de sa
+ * teinte, sur un fond très clair cerné d'une bordure fine de la même teinte
+ * (Thomas, 04/11/2026 : plus de point sur fond neutre).
  *
- * Elle distingue, elle ne juge pas. Le point suffit à balayer un tableau de
- * trente colonnes ; le fond reste neutre pour qu'une catégorie ne se lise
- * jamais comme un état (audit design du 11/10/2026, A5-15 : « Étude sécurité »
- * en aplat vert, à côté de « Soumis » en aplat vert). Les fonds teintés sont
- * à `StatusBadge` et `Badge`.
+ * Elle distingue, elle ne juge pas : sa teinte est tirée du libellé. Les
+ * états restent à `StatusBadge` et `Badge`, qui ont leurs propres couleurs.
  */
 export function Tag({ children, tone, colors, className }: TagProps) {
   const texte = typeof children === 'string' ? children : '';
-  const encre = colors?.foreground ?? tagPalette[tone ?? tagTone(texte)].ink;
+  const teinte = tagPalette[tone ?? tagTone(texte)];
 
   return (
     <span
       className={cn(
-        'inline-flex max-w-full items-center gap-xs rounded-control border border-border-soft bg-bg px-xs py-[1px]',
-        'text-caption font-medium whitespace-nowrap text-text',
+        'inline-flex h-5 max-w-full items-center rounded-sm border px-[6px]',
+        'text-caption font-medium whitespace-nowrap',
         className,
       )}
+      style={{ backgroundColor: colors?.background ?? teinte.bg, borderColor: colors?.background ?? teinte.border, color: colors?.foreground ?? teinte.ink }}
     >
-      <span aria-hidden className="size-1.5 shrink-0 rounded-full" style={{ backgroundColor: encre }} />
       <span className="truncate">{children}</span>
     </span>
   );

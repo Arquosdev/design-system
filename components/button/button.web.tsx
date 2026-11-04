@@ -15,6 +15,11 @@ import { availability, availabilityAttributes, blocksActivation } from './button
  * de coller un extrait de leur documentation sans le retoucher. Seules les
  * couleurs changent, et elles viennent des variables que
  * `tokens.tailwind.css` traduit depuis les tokens.
+ *
+ * **La forme est celle des boutons d'Intercom** (Thomas, 04/11/2026, relevée
+ * sur Refero) : 32 px de haut (`controlHeight.md`), angles à 6 px
+ * (`radius.control`), 14 px semi-gras, marges intérieures de 12 px. Le petit
+ * fait 28, le grand 40. Les teintes restent celles d'Arquos.
  */
 export const buttonVariants = cva(
   'inline-flex items-center justify-center gap-sm whitespace-nowrap rounded-control ' +
@@ -35,9 +40,9 @@ export const buttonVariants = cva(
         link: 'text-primary underline-offset-4 hover:underline',
       },
       size: {
-        default: 'h-(--arq-control-md) px-base',
-        sm: 'h-(--arq-control-sm) px-md',
-        lg: 'h-(--arq-control-lg) px-lg',
+        default: 'h-(--arq-control-md) px-md',
+        sm: 'h-(--arq-control-sm) px-sm',
+        lg: 'h-(--arq-control-lg) px-base',
         icon: 'size-(--arq-control-md) px-0',
       },
     },

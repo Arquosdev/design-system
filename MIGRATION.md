@@ -1,5 +1,67 @@
 # Monter une app vers la version courante
 
+## Non publié · `FieldRow` : `tone`, une valeur d'état en pastille
+
+Nouveau (Thomas, 04/11/2026) : `tone="success" | "warning" | "danger"` dessine la VALEUR
+en pastille (« Conforme », « À vérifier »), toujours cliquable pour se corriger. Ignoré quand
+la valeur est vide. Rien à faire chez l'appelant.
+
+## Non publié · `FlatSurfaces`, les blocs à plat à la Attio
+
+Nouveau (Thomas et Louis, 04/11/2026) : dans un `<FlatSurfaces>`, `Card`,
+`AccordionItem` et `DataTable` perdent cadre, fond et ombre ; un filet en tête de
+chaque bloc les sépare, et déborde de `spacing.base` de part et d'autre pour que le
+titre du bloc tombe sur la verticale de la page et que deux blocs voisins (écart
+sous 32 px) joignent leurs filets. La tête d'une `Card` perd son filet, son titre
+passe au corps `body` semi-gras. Hors de la zone, rien ne change. Un conteneur
+dessiné à la main (`rounded-block border … shadow-block`) n'en sait rien : le reprendre.
+
+## Non publié · `shadow.ring`, l'ombre « anneau »
+
+Nouveau jeton (Thomas, 04/11/2026) : `0 0 0 1px` d'ombre bleu nuit à 8 %, puis un halo de
+8 px à 7 %. Un bloc blanc sur fond blanc ressort sans filet ; à poser à la place de
+`border border-border-soft shadow-block` (`border-0 shadow-ring`). Rien d'autre ne change.
+
+## Non publié · Les rubriques d'une fiche en rangée sous l'en-tête (`RecordRail`)
+
+Thomas, 04/11/2026 : tous les menus de page passent à l'horizontale, comme les
+onglets d'une fiche Intercom ou Linear. `RecordLayout` n'a plus deux colonnes :
+`RecordRail` est une rangée d'onglets sous l'en-tête (40 px, filet dessous),
+la zone prend toute la largeur. Mêmes props, même `NavItem` : rien à changer
+chez l'appelant. Ce qui change à l'écran :
+
+- la recherche de champ (`recherche`) est une loupe au bout de la rangée, et
+  non plus un champ de 284 px ;
+- une entrée à `children` ne se déplie plus : son onglet s'allume quand on est
+  chez elle ou chez l'un des siens, et les enfants se lisent en pastilles dans
+  une seconde rangée, sur le gris de la surface ;
+- plus de variante « étroite » : la rangée défile de côté à toute largeur ;
+- `RecordRailSkeleton` est une rangée, à la même hauteur.
+
+Les tests qui cherchaient le rail par `[data-role="defilement-du-rail"]` le
+trouvent toujours : c'est la rangée qui le porte. Ceux qui mesuraient sa
+largeur ou son défilement vertical sont à relire.
+
+## Non publié · Les boutons et les contrôles à la Intercom : 6 px d'angle, 32 px de haut
+
+Thomas, 04/11/2026, relevé sur Refero (écrans de l'app Intercom : réglages,
+canaux, questionnaire d'accueil) : angles nettement arrondis, boutons bas, 14 px
+semi-gras, marges serrées. Les teintes restent celles d'Arquos. Ce qui change :
+
+- `radius.control` passe de 4 à 6 px. Les blocs gardent 4 px.
+- `controlHeight` descend : `sm` 28, `md` 32, `lg` 40 (au lieu de 30, 36, 44).
+  Tout ce qui s'écrit `h-(--arq-control-md)` suit de lui-même : boutons, boutons
+  d'icône, champs, sélecteurs, barres d'outils, ligne de titre. `Input`,
+  `Toolbar` et `PasswordInput` écrivaient `h-9` : ils lisent le jeton.
+- `Button` : marges intérieures 12 px (`px-md`), 8 pour `sm`, 16 pour `lg`.
+- **Le mobile ne bouge pas** : il lit `touchHeight` (36 / 44), nouveau jeton,
+  tenu par la cible tactile. `controlHeight` est l'échelle du web.
+
+**À reprendre chez l'appelant** : toute hauteur de 36 écrite à la main pour
+s'aligner sur un bouton (`h-9`, `size-9`, `h-[36px]`) passe à
+`h-(--arq-control-md)` ; sinon elle dépasse de 4 px. Un cercle d'avatar en
+`size-9` n'est pas concerné.
+
 ## Non publié · les flèches de `PhotoViewer` sont fixes
 
 Elles étaient posées de part et d'autre de la photo, donc suivaient sa largeur :
@@ -1316,3 +1378,17 @@ La ligne désigne `colors.warning`, qui portait déjà le même orange.
 ni la vitrine, ni le contrôle de contraste n'avaient vu passer `undefined` : une
 variable invalide ne casse rien, elle rend l'élément invisible, ce qu'aucun
 d'eux ne mesure. Le générateur, lui, le sait au moment où il écrit.
+
+## Tag : un fond teinté, une palette refaite (04/11/2026)
+
+`Tag` n'a plus de point sur fond neutre : le mot prend l'encre de sa teinte, sur le fond de la même teinte, sur le web comme sur le mobile.
+`tagPalette` est refaite sur les rampes 100 et 800 de Tailwind. Aucune API ne change, mais toutes les pastilles changent d'aspect.
+
+## Tag et Badge : la forme des badges d'Attio (04/11/2026)
+
+`Tag` et les variantes douces de `Badge` prennent la forme des badges d'Attio : 20 px de haut, 4 px d'arrondi, une bordure fine de la teinte du fond, en graisse 500.
+`tagPalette` gagne une clé `border` pour chaque teinte. Les encres sont assombries juste assez pour passer 4,5:1.
+
+## RecordRail : le nom d'une entrée dans sa balise, la place du gras réservée (04/11/2026)
+
+Le nom de chaque entrée du rail est dans un `span` à lui, séparé de son compteur. Dans la rangée des sous-entrées, la largeur du gras est réservée : choisir une entrée ne décale plus ses voisines.

@@ -12,6 +12,8 @@ export const shadow = {
   // Teintée du marine de `pop`, à peine posée : la première, à deux couches, était
   // « trop prononcée » (Louis, 13/10/2026).
   block: '0 1px 3px rgba(0, 41, 91, 0.04)',
+  // Un bloc blanc sur fond blanc qui doit ressortir : un contour d'un pixel fait d'ombre, puis un halo diffus (Thomas, 04/11/2026, planche G « Anneau »).
+  ring: '0 0 0 1px rgba(0, 41, 91, 0.08), 0 2px 8px rgba(0, 41, 91, 0.07)',
   pop: '0 8px 24px rgba(0, 41, 91, 0.12)', // menus, popovers, feuilles modales
   fab: '0 4px 12px rgba(13, 90, 183, 0.30)', // bouton flottant — teintée de bleu
 } as const;
@@ -33,6 +35,13 @@ export const shadowNative = {
     shadowOpacity: 0.06,
     shadowRadius: 6,
     elevation: 1,
+  },
+  ring: {
+    shadowColor: '#00295B',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 2,
   },
   pop: {
     shadowColor: '#00295B',

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet, TextInput, type TextInputProps } from 'react-native';
 
 import { colors } from '../../src/colors';
-import { controlHeight } from '../../src/control';
+import { touchHeight } from '../../src/control';
 import { radius } from '../../src/radius';
 import { spacing } from '../../src/spacing';
 import { fontFamilyNative, typography } from '../../src/typography';
@@ -16,7 +16,7 @@ export interface InputProps extends TextInputProps {
   Le champ du web, aux cotes du mobile.
 
   **Deux divergences, toutes deux écrites dans la fiche.** La hauteur est
-  `controlHeight.lg` (44) et non 36 : c'est la cible tactile sous laquelle on
+  `touchHeight.md` (44) et non 36 : c'est la cible tactile sous laquelle on
   ne descend pas au doigt, et c'est la hauteur du `Button` natif, pour que les
   deux s'alignent côte à côte comme sur le web. Le corps est `body` (16) et non
   `small` (14) : on tape dehors, en marchant, et le texte qu'on tape est celui
@@ -70,7 +70,7 @@ export const Input = React.forwardRef<TextInput, InputProps>(function Input(
 
 const styles = StyleSheet.create({
   champ: {
-    height: controlHeight.lg,
+    height: touchHeight.md,
     width: '100%',
     minWidth: 0,
     borderRadius: radius.full,
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   plusieursLignes: {
     borderRadius: radius.xl,
     height: undefined,
-    minHeight: controlHeight.lg * 2,
+    minHeight: touchHeight.md * 2,
     paddingVertical: spacing.sm,
     textAlignVertical: 'top',
   },

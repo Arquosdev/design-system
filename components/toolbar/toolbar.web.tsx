@@ -8,7 +8,7 @@ import { cn } from '../_lib/cn';
 
 const BOUTON =
   // Le même que le bouton secondaire depuis le 07/10/2026 : gris pâle, bordure douce.
-  'flex h-9 items-center gap-sm rounded-control border border-border-soft bg-bg-muted px-md ' +
+  'flex h-(--arq-control-md) items-center gap-sm rounded-control border border-border-soft bg-bg-muted px-md ' +
   'text-small-bold whitespace-nowrap text-text hover:border-border hover:bg-border-soft ' +
   'focus-ring';
 
@@ -115,7 +115,7 @@ export function ToolbarSearch({ value, onChange, placeholder = 'Rechercher', lab
   return (
     <label
       className={cn(
-        'relative flex h-9 items-center overflow-hidden rounded-control border',
+        'relative flex h-(--arq-control-md) items-center overflow-hidden rounded-control border',
         'transition-[width,background-color,border-color] duration-200 ease-out motion-reduce:transition-none',
         ouverte
           ? 'w-full gap-sm border-border bg-bg px-md focus-ring-within sm:w-64'
