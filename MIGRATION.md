@@ -1383,3 +1383,8 @@ d'eux ne mesure. Le générateur, lui, le sait au moment où il écrit.
 
 `Tag` n'a plus de point sur fond neutre : le mot prend l'encre de sa teinte, sur le fond de la même teinte, sur le web comme sur le mobile.
 `tagPalette` est refaite sur les rampes 100 et 800 de Tailwind. Aucune API ne change, mais toutes les pastilles changent d'aspect.
+
+## Tag et Badge : la forme des badges d'Attio (04/11/2026)
+
+`Tag` et les variantes douces de `Badge` prennent la forme des badges d'Attio : 20 px de haut, 4 px d'arrondi, une bordure fine de la teinte du fond, en graisse 500.
+`tagPalette` gagne une clé `border` pour chaque teinte. Les encres sont assombries juste assez pour passer 4,5:1.

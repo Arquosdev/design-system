@@ -278,26 +278,26 @@ export const colors = {
  */
 export const tagPalette = {
   /*
-    Refaites le 04/11/2026 (Thomas), dans l'esprit d'Attio et des badges de
-    shadcn : un fond pastel franc et l'encre foncée de la même teinte, posés
-    ensemble. Les paires suivent les rampes 100 et 800 de Tailwind ; chacune
-    dépasse 7:1. Le bleu est un ciel, pour ne pas se confondre avec la marque.
+    Calquées sur les badges d'Attio (Thomas, 04/11/2026, relevé sur Refero) :
+    un fond très clair, une bordure fine un cran plus soutenue, l'encre d'un
+    ton moyen de la même teinte. Les encres d'Attio sont un peu plus claires :
+    elles sont assombries juste assez pour passer 4,5:1 en 12 px.
   */
-  blue:   { bg: '#E0F2FE', ink: '#075985' },
-  teal:   { bg: '#CCFBF1', ink: '#115E59' },
-  green:  { bg: '#D1FAE5', ink: '#065F46' },
-  lime:   { bg: '#ECFCCB', ink: '#3F6212' },
-  amber:  { bg: '#FEF3C7', ink: '#92400E' },
-  orange: { bg: '#FFEDD5', ink: '#9A3412' },
-  red:    { bg: '#FFE4E6', ink: '#9F1239' },
-  pink:   { bg: '#FAE8FF', ink: '#86198F' },
-  purple: { bg: '#EDE9FE', ink: '#5B21B6' },
-  indigo: { bg: '#E0E7FF', ink: '#3730A3' },
+  blue:   { bg: '#EAF2FF', border: '#C9DDFE', ink: '#1F5BC4' },
+  teal:   { bg: '#E6F6F9', border: '#BDE5EE', ink: '#11718A' },
+  green:  { bg: '#E8F6EC', border: '#C3E6CD', ink: '#1F7438' },
+  lime:   { bg: '#EFF6E1', border: '#D5E7B4', ink: '#4A6F12' },
+  amber:  { bg: '#FFF5DC', border: '#F6DFA2', ink: '#8A5A00' },
+  orange: { bg: '#FFF0E5', border: '#FBD5B8', ink: '#A44C0C' },
+  red:    { bg: '#FEEDEB', border: '#F9CDC7', ink: '#B9352A' },
+  pink:   { bg: '#FCEDF6', border: '#F3C9E1', ink: '#A72E76' },
+  purple: { bg: '#F3EFFE', border: '#DACFFB', ink: '#6A3FCB' },
+  indigo: { bg: '#EEF0FE', border: '#CFD5FB', ink: '#4141BE' },
   /**
    * La teinte neutre. Elle n'entre pas dans le tirage automatique : on la
    * choisit, pour une valeur qui ne doit pas ressortir (« Autre »).
    */
-  slate:  { bg: '#F1F5F9', ink: '#334155' },
+  slate:  { bg: '#F2F4F6', border: '#DDE1E6', ink: '#525E6A' },
 } as const;
 
 export type TagTone = keyof typeof tagPalette;

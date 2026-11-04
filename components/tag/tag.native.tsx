@@ -18,7 +18,7 @@ export interface TagProps {
 export function Tag({ children, tone, style }: TagProps) {
   const teinte = tagPalette[tone ?? tagTone(children)];
   return (
-    <View style={[styles.tag, { backgroundColor: teinte.bg }, style]}>
+    <View style={[styles.tag, { backgroundColor: teinte.bg, borderColor: teinte.border }, style]}>
       <Text variant="caption" numberOfLines={1} style={[styles.mot, { color: teinte.ink }]}>{children}</Text>
     </View>
   );
@@ -30,9 +30,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     flexShrink: 0,
-    borderRadius: radius.control,
-    paddingHorizontal: spacing.sm,
+    borderRadius: radius.sm,
+    borderWidth: StyleSheet.hairlineWidth,
+    paddingHorizontal: 6,
     paddingVertical: spacing.xxs,
   },
-  mot: { fontWeight: '600' },
+  mot: { fontWeight: '500' },
 });

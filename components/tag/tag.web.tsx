@@ -21,8 +21,9 @@ export interface TagProps {
 }
 
 /**
- * Une pastille de valeur : le mot dans l'encre de sa teinte, sur le fond de
- * la même teinte (Thomas, 04/11/2026 : plus de point sur fond neutre).
+ * Une pastille de valeur à la manière d'Attio : le mot dans l'encre de sa
+ * teinte, sur un fond très clair cerné d'une bordure fine de la même teinte
+ * (Thomas, 04/11/2026 : plus de point sur fond neutre).
  *
  * Elle distingue, elle ne juge pas : sa teinte est tirée du libellé. Les
  * états restent à `StatusBadge` et `Badge`, qui ont leurs propres couleurs.
@@ -34,11 +35,11 @@ export function Tag({ children, tone, colors, className }: TagProps) {
   return (
     <span
       className={cn(
-        'inline-flex max-w-full items-center rounded-control px-xs py-[1px]',
-        'text-caption font-semibold whitespace-nowrap',
+        'inline-flex h-5 max-w-full items-center rounded-sm border px-[6px]',
+        'text-caption font-medium whitespace-nowrap',
         className,
       )}
-      style={{ backgroundColor: colors?.background ?? teinte.bg, color: colors?.foreground ?? teinte.ink }}
+      style={{ backgroundColor: colors?.background ?? teinte.bg, borderColor: colors?.background ?? teinte.border, color: colors?.foreground ?? teinte.ink }}
     >
       <span className="truncate">{children}</span>
     </span>

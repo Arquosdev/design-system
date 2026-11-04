@@ -20,19 +20,21 @@ import { cn } from '../_lib/cn';
  * famille fait promettre une action là où il n'y en a pas.
  */
 export const badgeVariants = cva(
-  'inline-flex shrink-0 items-center rounded-control border px-xs py-xxs ' +
-    'text-caption font-semibold transition-colors',
+  /* La forme des badges d'Attio (Thomas, 04/11/2026), la même que `Tag` :
+     20 px de haut, 4 px d'arrondi, une bordure fine de la teinte du fond. */
+  'inline-flex h-5 shrink-0 items-center rounded-sm border px-[6px] ' +
+    'text-caption font-medium transition-colors',
   {
     variants: {
       variant: {
         default: 'border-transparent bg-primary text-primary-foreground',
         secondary: 'border-transparent bg-secondary text-secondary-foreground',
-        destructive: 'border-transparent bg-danger-bg text-on-danger-bg',
+        destructive: 'border-danger/20 bg-danger-bg text-on-danger-bg',
         outline: 'border-border text-muted-foreground',
-        success: 'border-transparent bg-success-bg text-on-success-bg',
-        warning: 'border-transparent bg-warning-bg text-on-warning-bg',
-        info: 'border-transparent bg-info-bg text-text-on-info-bg',
-        muted: 'border-transparent bg-muted text-muted-foreground',
+        success: 'border-success/20 bg-success-bg text-on-success-bg',
+        warning: 'border-warning/25 bg-warning-bg text-on-warning-bg',
+        info: 'border-primary/15 bg-info-bg text-text-on-info-bg',
+        muted: 'border-border-soft bg-muted text-muted-foreground',
       },
     },
     defaultVariants: { variant: 'muted' },
