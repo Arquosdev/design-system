@@ -199,7 +199,7 @@ export function RecordRail({
                       : 'text-text-muted hover:text-text',
                 )}
               >
-                {i.label}
+                <span>{i.label}</span>
                 <Compteur item={i} />
               </NavTarget>
             );
@@ -256,7 +256,8 @@ export function RecordRail({
                     actif ? 'bg-info-bg font-semibold text-on-info-bg' : 'text-text-muted hover:bg-bg-muted hover:text-text',
                   )}
                 >
-                  {e.label}
+                  {/* La place du gras réservée : l'entrée choisie passe en gras sans pousser ses voisines. */}
+                  <span data-texte={e.label} className="inline-grid after:invisible after:h-0 after:overflow-hidden after:font-semibold after:content-[attr(data-texte)]">{e.label}</span>
                   <Compteur item={e} />
                 </NavTarget>
               );

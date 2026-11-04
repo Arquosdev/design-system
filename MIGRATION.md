@@ -1388,3 +1388,7 @@ d'eux ne mesure. Le générateur, lui, le sait au moment où il écrit.
 
 `Tag` et les variantes douces de `Badge` prennent la forme des badges d'Attio : 20 px de haut, 4 px d'arrondi, une bordure fine de la teinte du fond, en graisse 500.
 `tagPalette` gagne une clé `border` pour chaque teinte. Les encres sont assombries juste assez pour passer 4,5:1.
+
+## RecordRail : le nom d'une entrée dans sa balise, la place du gras réservée (04/11/2026)
+
+Le nom de chaque entrée du rail est dans un `span` à lui, séparé de son compteur. Dans la rangée des sous-entrées, la largeur du gras est réservée : choisir une entrée ne décale plus ses voisines.
