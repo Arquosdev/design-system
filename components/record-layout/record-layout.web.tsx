@@ -251,7 +251,7 @@ export function RecordRail({
                   aria-current={actif ? 'page' : undefined}
                   onActivate={() => onChoose(e.id)}
                   className={cn(
-                    'flex h-(--arq-control-sm) shrink-0 items-center gap-xs whitespace-nowrap rounded-control px-md text-small outline-none focus-ring',
+                    'flex h-xl shrink-0 items-center gap-xs whitespace-nowrap rounded-control px-sm text-small outline-none focus-ring',
                     'disabled:pointer-events-none disabled:opacity-50',
                     actif ? 'bg-info-bg font-semibold text-on-info-bg' : 'text-text-muted hover:bg-bg-muted hover:text-text',
                   )}
