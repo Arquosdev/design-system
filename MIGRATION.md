@@ -1,5 +1,11 @@
 # Monter une app vers la version courante
 
+## Non publié · `shadow.ring`, l'ombre « anneau »
+
+Nouveau jeton (Thomas, 04/11/2026) : `0 0 0 1px` d'ombre bleu nuit à 8 %, puis un halo de
+8 px à 7 %. Un bloc blanc sur fond blanc ressort sans filet ; à poser à la place de
+`border border-border-soft shadow-block` (`border-0 shadow-ring`). Rien d'autre ne change.
+
 ## Non publié · Les rubriques d'une fiche en rangée sous l'en-tête (`RecordRail`)
 
 Thomas, 04/11/2026 : tous les menus de page passent à l'horizontale, comme les
