@@ -233,7 +233,7 @@ export function RecordRail({
       </div>
 
       {mere?.children?.length ? (
-        <div className="border-t border-border-soft bg-bg-muted px-base @min-[640px]/fiche:px-xl">
+        <div className="border-t border-border-soft bg-bg-subtle px-base @min-[640px]/fiche:px-xl">
           <div
             ref={sousRangee}
             role="presentation"
@@ -253,7 +253,7 @@ export function RecordRail({
                   className={cn(
                     'flex h-(--arq-control-sm) shrink-0 items-center gap-xs whitespace-nowrap rounded-control px-md text-small outline-none focus-ring',
                     'disabled:pointer-events-none disabled:opacity-50',
-                    actif ? 'bg-info-bg font-semibold text-on-info-bg' : 'text-text-muted hover:bg-bg hover:text-text',
+                    actif ? 'bg-info-bg font-semibold text-on-info-bg' : 'text-text-muted hover:bg-bg-muted hover:text-text',
                   )}
                 >
                   {e.label}
