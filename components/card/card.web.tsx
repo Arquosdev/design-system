@@ -3,6 +3,7 @@
 import * as React from 'react';
 
 import { cn } from '../_lib/cn';
+import { SURFACE_A_PLAT, useFlatSurfaces } from '../_lib/flat-surfaces';
 
 /**
  * Base shadcn/ui (`new-york`), habillée aux tokens Arquos.
@@ -16,21 +17,27 @@ import { cn } from '../_lib/cn';
  * shadcn attend qu'on fasse d'un composant copié.
  */
 export const Card = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<'div'>>(
-  ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn(
-        'overflow-hidden rounded-block border border-border-soft bg-card text-card-foreground shadow-block',
-        className,
-      )}
-      {...props}
-    />
-  ),
+  ({ className, ...props }, ref) => {
+    const aPlat = useFlatSurfaces();
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          'overflow-hidden rounded-block border border-border-soft bg-card text-card-foreground shadow-block',
+          aPlat && SURFACE_A_PLAT,
+          className,
+        )}
+        {...props}
+      />
+    );
+  },
 );
 Card.displayName = 'Card';
 
 export const CardHeader = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<'div'>>(
-  ({ className, ...props }, ref) => (
+  ({ className, ...props }, ref) => {
+    const aPlat = useFlatSurfaces();
+    return (
     <div
       ref={ref}
       className={cn(
@@ -42,18 +49,22 @@ export const CardHeader = React.forwardRef<HTMLDivElement, React.ComponentPropsW
            C'est le blanc cassé qui l'emporte parce que c'est lui que la fiche
            emploie partout ailleurs, en-têtes de tableau compris. */
         'flex items-baseline gap-md border-b border-border-soft px-base py-md',
+        // À plat : la tête n'est plus séparée du corps, le filet est en haut du bloc.
+        aPlat && 'border-b-0 bg-transparent pt-base pb-xs',
         className,
       )}
       {...props}
     />
-  ),
+    );
+  },
 );
 CardHeader.displayName = 'CardHeader';
 
 export const CardTitle = React.forwardRef<HTMLSpanElement, React.ComponentPropsWithoutRef<'span'>>(
-  ({ className, ...props }, ref) => (
-    <span ref={ref} className={cn('text-small font-bold text-foreground', className)} {...props} />
-  ),
+  ({ className, ...props }, ref) => {
+    const aPlat = useFlatSurfaces();
+    return <span ref={ref} className={cn('text-small font-bold text-foreground', aPlat && 'text-body font-semibold', className)} {...props} />;
+  },
 );
 CardTitle.displayName = 'CardTitle';
 

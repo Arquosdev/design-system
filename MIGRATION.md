@@ -1,5 +1,15 @@
 # Monter une app vers la version courante
 
+## Non publié · `FlatSurfaces`, les blocs à plat à la Attio
+
+Nouveau (Thomas et Louis, 04/11/2026) : dans un `<FlatSurfaces>`, `Card`,
+`AccordionItem` et `DataTable` perdent cadre, fond et ombre ; un filet en tête de
+chaque bloc les sépare, et déborde de `spacing.base` de part et d'autre pour que le
+titre du bloc tombe sur la verticale de la page et que deux blocs voisins (écart
+sous 32 px) joignent leurs filets. La tête d'une `Card` perd son filet, son titre
+passe au corps `body` semi-gras. Hors de la zone, rien ne change. Un conteneur
+dessiné à la main (`rounded-block border … shadow-block`) n'en sait rien : le reprendre.
+
 ## Non publié · `shadow.ring`, l'ombre « anneau »
 
 Nouveau jeton (Thomas, 04/11/2026) : `0 0 0 1px` d'ombre bleu nuit à 8 %, puis un halo de

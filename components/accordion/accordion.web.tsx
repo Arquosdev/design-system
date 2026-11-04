@@ -5,22 +5,27 @@ import * as AccordionPrimitive from '@radix-ui/react-accordion';
 
 import { Icon } from '../icon/icon.web';
 import { cn } from '../_lib/cn';
+import { SURFACE_A_PLAT, useFlatSurfaces } from '../_lib/flat-surfaces';
 
 export const Accordion = AccordionPrimitive.Root;
 
 export const AccordionItem = React.forwardRef<
   React.ComponentRef<typeof AccordionPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
->(({ className, ...props }, ref) => (
-  <AccordionPrimitive.Item
-    ref={ref}
-    className={cn(
-      'mb-md overflow-hidden rounded-block border border-border-soft bg-bg shadow-block last:mb-0',
-      className,
-    )}
-    {...props}
-  />
-));
+>(({ className, ...props }, ref) => {
+  const aPlat = useFlatSurfaces();
+  return (
+    <AccordionPrimitive.Item
+      ref={ref}
+      className={cn(
+        'mb-md overflow-hidden rounded-block border border-border-soft bg-bg shadow-block last:mb-0',
+        aPlat && `${SURFACE_A_PLAT} mb-0`,
+        className,
+      )}
+      {...props}
+    />
+  );
+});
 AccordionItem.displayName = 'AccordionItem';
 
 export interface AccordionTriggerProps
