@@ -17,6 +17,12 @@ export interface TagProps {
    * couleurs. Un statut prend `StatusBadge`. Seule l'encre sert encore, au point.
    */
   colors?: { background: string | null; foreground: string | null };
+  /**
+   * Le mot sur le fond de sa teinte, sans point : pour une colonne dont les
+   * valeurs sont peu nombreuses et fixes, qu'on veut repérer de loin (le type
+   * d'un équipement, Thomas, 04/11/2026). Jamais pour un statut : `StatusBadge`.
+   */
+  filled?: boolean;
   className?: string;
 }
 
@@ -29,9 +35,25 @@ export interface TagProps {
  * en aplat vert, à côté de « Soumis » en aplat vert). Les fonds teintés sont
  * à `StatusBadge` et `Badge`.
  */
-export function Tag({ children, tone, colors, className }: TagProps) {
+export function Tag({ children, tone, colors, filled = false, className }: TagProps) {
   const texte = typeof children === 'string' ? children : '';
-  const encre = colors?.foreground ?? tagPalette[tone ?? tagTone(texte)].ink;
+  const teinte = tagPalette[tone ?? tagTone(texte)];
+  const encre = colors?.foreground ?? teinte.ink;
+
+  if (filled) {
+    return (
+      <span
+        className={cn(
+          'inline-flex max-w-full items-center rounded-control px-xs py-[1px]',
+          'text-caption font-semibold whitespace-nowrap',
+          className,
+        )}
+        style={{ backgroundColor: teinte.bg, color: teinte.ink }}
+      >
+        <span className="truncate">{children}</span>
+      </span>
+    );
+  }
 
   return (
     <span

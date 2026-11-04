@@ -1378,3 +1378,8 @@ La ligne désigne `colors.warning`, qui portait déjà le même orange.
 ni la vitrine, ni le contrôle de contraste n'avaient vu passer `undefined` : une
 variable invalide ne casse rien, elle rend l'élément invisible, ce qu'aucun
 d'eux ne mesure. Le générateur, lui, le sait au moment où il écrit.
+
+## Tag : `filled` (04/11/2026)
+
+Nouvelle prop facultative `filled`. Le mot prend l'encre de sa teinte sur le fond de la même teinte (`tagPalette`), sans point.
+Elle sert à une colonne aux valeurs peu nombreuses et fixes, comme le type d'un équipement. Un statut reste à `StatusBadge`.
