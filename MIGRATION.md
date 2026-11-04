@@ -1,5 +1,11 @@
 # Monter une app vers la version courante
 
+## Non publié · `FieldRow` : `tone`, une valeur d'état en pastille
+
+Nouveau (Thomas, 04/11/2026) : `tone="success" | "warning" | "danger"` dessine la VALEUR
+en pastille (« Conforme », « À vérifier »), toujours cliquable pour se corriger. Ignoré quand
+la valeur est vide. Rien à faire chez l'appelant.
+
 ## Non publié · `FlatSurfaces`, les blocs à plat à la Attio
 
 Nouveau (Thomas et Louis, 04/11/2026) : dans un `<FlatSurfaces>`, `Card`,
