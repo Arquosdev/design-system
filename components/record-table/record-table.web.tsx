@@ -106,6 +106,19 @@ export interface RecordTableProps<T> {
    * 4 000 pixels en `standard` (mesuré le 07/09/2026).
    */
   density?: RecordTableDensity;
+  /**
+   * Le détail d'une ligne, qui se déplie SOUS elle, sur toute la largeur : les
+   * données du prix d'un équipement dans une affaire. Une ligne dont le détail
+   * rend `null` ne se déplie pas. Un chevron, devant l'identité, ouvre et ferme.
+   */
+  detail?: (row: T) => React.ReactNode;
+  /**
+   * Une bande avant chaque groupe de lignes qui se suivent : l'année des
+   * relevés d'un équipement. Les lignes doivent arriver déjà rangées.
+   */
+  group?: (row: T) => string;
+  /** La ligne choisie (sa clé) : fond d'information et filet bleu à gauche. */
+  activeKey?: string | null;
   className?: string;
 }
 
@@ -126,9 +139,22 @@ export function RecordTable<T>({
   widths,
   onWidths,
   density = 'standard',
+  detail,
+  group,
+  activeKey,
   className,
 }: RecordTableProps<T>) {
   const retrait = RETRAIT[density] ?? RETRAIT.standard;
+  const [deplies, setDeplies] = React.useState<ReadonlySet<string>>(() => new Set());
+  const deplier = (id: string) =>
+    setDeplies((d) => {
+      const suite = new Set(d);
+      if (suite.has(id)) suite.delete(id);
+      else suite.add(id);
+      return suite;
+    });
+  /* Toute la largeur du tableau, pour une bande ou un détail. */
+  const toutesColonnes = (selection ? 1 : 0) + 1 + columns.length;
   const sorted = React.useMemo(() => {
     if (!sort?.state) return rows;
     const col = columns.find((c) => c.id === sort.state!.column);
@@ -603,15 +629,32 @@ export function RecordTable<T>({
         </thead>
 
         <tbody className="max-sm:block">
-          {sorted.map((row) => {
+          {sorted.map((row, rang) => {
             const id = rowKey(row);
             const check = selection?.values.has(id) ?? false;
-            const fond = check ? 'bg-info-bg' : 'bg-bg';
+            const actif = activeKey != null && activeKey === id;
+            const fond = check || actif ? 'bg-info-bg' : 'bg-bg';
+            const leDetail = detail ? detail(row) : null;
+            const deplie = leDetail != null && deplies.has(id);
+            const bande = group ? group(row) : null;
+            const nouvelleBande = bande != null && (rang === 0 || group!(sorted[rang - 1]) !== bande);
             return (
-              // `group` : les cellules figées portent leur propre fond opaque, sans
-              // quoi le contenu défilant passerait dessous. Ce fond recouvre le
-              // survol de la ligne, et seule une partie du tableau grisait.
-              <tr key={id} className={cn('group transition-colors duration-(--arq-duration-rapide)', fond, !check && 'hover:bg-bg-muted',
+              <React.Fragment key={id}>
+              {nouvelleBande ? (
+                <tr className="max-sm:block">
+                  <th
+                    scope="colgroup"
+                    colSpan={toutesColonnes}
+                    className="border-b border-border-soft bg-bg px-md py-xs pl-xl text-left text-caption-bold text-text-muted max-sm:block max-sm:px-base"
+                  >
+                    {bande}
+                  </th>
+                </tr>
+              ) : null}
+              {/* `group` : les cellules figées portent leur propre fond opaque, sans
+                  quoi le contenu défilant passerait dessous. Ce fond recouvre le
+                  survol de la ligne, et seule une partie du tableau grisait. */}
+              <tr aria-current={actif ? 'true' : undefined} className={cn('group transition-colors duration-(--arq-duration-rapide)', fond, !check && !actif && 'hover:bg-bg-muted',
                 'max-sm:grid max-sm:items-baseline max-sm:gap-x-sm max-sm:gap-y-xxs max-sm:border-b max-sm:border-border-soft max-sm:px-base max-sm:py-sm',
                 selection ? 'max-sm:grid-cols-[auto_minmax(0,1fr)]' : 'max-sm:grid-cols-[minmax(0,1fr)]')}>
                 {selection && (
@@ -641,7 +684,8 @@ export function RecordTable<T>({
                   className={cn(
                     stickyIdentity,
                     fond,
-                    !check && 'transition-colors duration-(--arq-duration-rapide) group-hover:bg-bg-muted',
+                    !check && !actif && 'transition-colors duration-(--arq-duration-rapide) group-hover:bg-bg-muted',
+                    actif && 'shadow-[inset_2px_0_0_var(--color-primary)]',
                     // Une colonne rétrécie coupe son lien au lieu de le laisser passer sur la voisine (recette, 13/10/2026).
                     'border-r border-b border-border-soft px-md font-semibold whitespace-nowrap sm:overflow-hidden',
                     retrait,
@@ -652,10 +696,23 @@ export function RecordTable<T>({
                     'max-sm:static max-sm:block max-sm:whitespace-normal max-sm:border-0 max-sm:p-0',
                   )}
                 >
+                  {leDetail != null ? (
+                    <button
+                      type="button"
+                      aria-expanded={deplie}
+                      aria-label={`${deplie ? 'Replier' : 'Déplier'} : ${identity.label?.(row) ?? identity.value?.(row) ?? id}`}
+                      onClick={() => deplier(id)}
+                      className="mr-xs inline-grid size-6 place-items-center rounded-control align-middle text-text-muted hover:bg-bg-muted focus-ring sm:float-left sm:-ml-xs"
+                    >
+                      <Icon role={deplie ? 'collapse' : 'expand'} size="sm" aria-hidden />
+                    </button>
+                  ) : null}
                   {onOpen ? (
                     <button
                       type="button"
                       onClick={() => onOpen(row)}
+                      // Avec une ligne choisie, ouvrir CHOISIT : le bouton dit s'il l'est.
+                      aria-pressed={activeKey !== undefined ? actif : undefined}
                       className={cn(
                         'rounded-control text-primary hover:underline focus-ring max-sm:line-clamp-2 max-sm:text-left max-sm:[overflow-wrap:anywhere] sm:block sm:truncate sm:text-left',
                         borneIdentite,
@@ -716,6 +773,14 @@ export function RecordTable<T>({
                   );
                 })}
               </tr>
+              {deplie ? (
+                <tr className="max-sm:block">
+                  <td colSpan={toutesColonnes} className="border-b border-border-soft bg-bg-subtle p-0 max-sm:block">
+                    {leDetail}
+                  </td>
+                </tr>
+              ) : null}
+              </React.Fragment>
             );
           })}
         </tbody>

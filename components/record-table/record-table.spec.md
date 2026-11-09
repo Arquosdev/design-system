@@ -29,6 +29,9 @@ toutes.
 - **Pour comparer des mesures d'un même objet** (les cotes d'une baie palière
   d'un niveau à l'autre) → `DataTable`. Là, la comparaison colonne par colonne
   est le sujet, et il n'y a rien à ouvrir ni à sélectionner.
+- **Pour la rubrique d'une fiche** (les Contrats d'un client, les États d'un
+  équipement) → `SectionTable`, qui porte le titre, le compte, le filet et
+  l'icône de chaque en-tête.
 - **Pour les champs d'un seul objet** → `FieldRow` dans un `Accordion`.
 - **Pour naviguer entre les rubriques d'un écran** → `NavList`. Ici chaque ligne
   est un enregistrement, pas une destination.
@@ -48,6 +51,9 @@ toutes.
 | `sort`       | `{ state, onChange }`                   | —      | Sans lui, les en-têtes ne sont pas cliquables             |
 | `empty`      | `ReactNode`                            | —      | Ce qui remplace le tableau quand il n'y a aucune ligne    |
 | `density`    | `'standard' \| 'compact'`              | `'standard'` | La hauteur des lignes : voir « Choisir la densité » |
+| `detail`     | `(row) => ReactNode`                   | —            | Le détail d'une ligne, déplié sous elle par un chevron ; `null` = pas de détail |
+| `group`      | `(row) => string`                      | —            | Une bande avant chaque groupe de lignes qui se suivent (déjà rangées) |
+| `activeKey`  | `string \| null`                      | —            | La ligne choisie : fond d'information, filet bleu à gauche |
 
 **Choisir la densité.** `standard` pour une liste qu'on parcourt pour OUVRIR un
 enregistrement : la ligne laisse de l'air autour du lien. `compact` pour une

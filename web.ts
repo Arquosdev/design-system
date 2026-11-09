@@ -41,6 +41,11 @@ export {
   type RecordColumn,
 } from './components/record-table/record-table.web';
 export {
+  SectionTable,
+  type SectionTableProps,
+  type SectionColumn,
+} from './components/section-table/section-table.web';
+export {
   compare,
   paginationLabel,
   selectionLabel,

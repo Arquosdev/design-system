@@ -98,6 +98,19 @@ la publication ET la montée de son numéro épinglé.
 `Checkbox` et `Switch` ne sont pas interchangeables : la case attend un
 « Enregistrer », l'interrupteur s'applique en basculant.
 
+## Montrer des lignes : quel tableau
+
+| Les lignes… | Prendre |
+| --- | --- |
+| font l'écran d'une liste (filtres, tri, sélection, pages) | `RecordTable` |
+| font une **rubrique de fiche** (Contrats d'un client, États d'un équipement) | `SectionTable` |
+| comparent des mesures d'un même objet | `DataTable` |
+
+`SectionTable` est le tableau des fiches, sur le modèle des Contrats d'un client
+(Thomas, 09/11/2026) : titre et compte, tableau d'un bord à l'autre, filet
+au-dessus, densité des listes, icône obligatoire dans chaque en-tête. Une app le
+vérifie avec `scripts/check-tableaux.mjs <dossiers>`.
+
 ## Anatomie d'un composant
 
 | Fichier | Contenu |
