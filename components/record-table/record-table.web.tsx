@@ -740,7 +740,8 @@ export function RecordTable<T>({
                       selection && 'max-sm:col-start-2',
                     )}
                   >
-                    {surCarte.has(c.id) && !vide(contenu) ? <span className="shrink-0 sm:hidden">{c.header} :</span> : null}
+                    {/* Une colonne sans en-tête (les gestes d'une ligne) n'écrit pas « : » sur la carte. */}
+                    {surCarte.has(c.id) && c.header && !vide(contenu) ? <span className="shrink-0 sm:hidden">{c.header} :</span> : null}
                     {regle ? (
                       /*
                         `[&>*]:max-w-full` : quand une largeur est réglée, c'est
