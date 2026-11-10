@@ -5,6 +5,8 @@
 Le titre d'un `SectionTable` tombe à 24 px (`pt-xl`) du haut de la zone, et non plus 20
 (Thomas, 10/11/2026 : « mets 24 de partout »). Une rubrique dessinée à la main sous une
 barre d'onglets prend le même `pt-xl` ; voir « Composer une page » dans `CLAUDE.md`.
+Il devient aussi son propre conteneur (`@container w-full`) : ses boutons passent enfin à droite
+du titre sur grand écran, même quand la page autour ne déclare pas de conteneur.
 
 ## Non publié · `FieldRow` : `tone`, une valeur d'état en pastille
 

@@ -102,7 +102,7 @@ export function SectionTable<T>({
   const Titre = headingLevel === 2 ? 'h2' : 'h3';
   const total = count ?? rows.length;
   return (
-    <section className={cn('flex flex-col gap-md pt-xl pb-lg', className)}>
+    <section className={cn('@container flex w-full flex-col gap-md pt-xl pb-lg', className)}>
       <div className="flex flex-col gap-sm px-base sm:px-xl @min-[36rem]:flex-row @min-[36rem]:items-start @min-[36rem]:justify-between @min-[36rem]:gap-base">
         <div className="min-w-0 flex-1">
           {/* La hauteur d'un contrôle, centrée : le titre tombe au même endroit que
