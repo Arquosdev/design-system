@@ -46,6 +46,7 @@ Une mécanique que n'importe quelle application aurait — bouton, modale, ongle
 | [RadioGroup](radio-group/radio-group.spec.md) | Choisir une seule option parmi quelques-unes, toutes visibles à la fois. | 🖥️ | stable |
 | [RecordTable](record-table/record-table.spec.md) | Parcourir une collection d'enregistrements, en comparer quelques attributs, en sélectionner plusieurs et en ouvrir un. | 🖥️ | beta |
 | [ScreenHeader](screen-header/screen-header.spec.md) | Poser l'en-tête d'un écran mobile, le même partout : la flèche de retour, des boutons d'icône, puis le titre dans le corps. | 📱 | beta |
+| [SectionTable](section-table/section-table.spec.md) | Montrer la collection d'une rubrique de fiche, titrée et comptée, dans le tableau d'un bord à l'autre de la zone. | 🖥️ | beta |
 | [SegmentedTabs](segmented-tabs/segmented-tabs.spec.md) | Basculer entre deux ou trois vues d'un même écran, toutes également importantes. | 🖥️ 📱 | beta |
 | [Select](select/select.spec.md) | Choisir une valeur dans une liste fermée, sans quitter la ligne où on est. | 🖥️ | beta |
 | [SelectionBar](selection-bar/selection-bar.spec.md) | Offrir en bas de liste ce qu'on peut faire des enregistrements cochés. | 🖥️ | beta |
