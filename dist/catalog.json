@@ -1125,6 +1125,36 @@
       }
     },
     {
+      "name": "SectionTable",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Montrer la collection d'une rubrique de fiche, titrée et comptée, dans le tableau d'un bord à l'autre de la zone.",
+      "keywords": [
+        "tableau",
+        "rubrique",
+        "fiche",
+        "collection",
+        "contrats",
+        "états",
+        "relevés",
+        "équipements",
+        "écarts",
+        "sous-tableau"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/section-table",
+      "specFile": "components/section-table/section-table.spec.md",
+      "fichiers": {
+        "web": "components/section-table/section-table.web.tsx"
+      }
+    },
+    {
       "name": "SegmentedTabs",
       "status": "beta",
       "layer": "generique",
