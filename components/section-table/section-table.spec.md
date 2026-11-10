@@ -37,7 +37,7 @@ finissait par différer :
 
 - **Pour l'écran d'une liste** (Équipements, Affaires, la liste d'un module) →
   `RecordTable` dans l'écran de liste, avec sa barre d'outils, ses filtres et sa
-  sélection. `SectionTable` n'a ni tri piloté, ni pagination.
+  sélection. `SectionTable` n'a ni barre d'outils de liste, ni pagination.
 - **Pour les champs d'un seul objet** → `FieldRow`.
 - **Pour comparer des mesures** (cotes d'un niveau à l'autre) → `DataTable`.
 - **Pour trois éléments sans attributs** → une liste à filets. Un tableau à une
@@ -54,10 +54,11 @@ finissait par différer :
 | `rows` | `readonly T[]` | — | Les lignes |
 | `rowKey` | `(row) => string` | — | La clé d'une ligne |
 | `identity` | `{ header, icon, render, value?, label? }` | — | La colonne d'identité, icône comprise |
-| `columns` | `SectionColumn<T>[]` | — | `RecordColumn` dont `icon` est obligatoire |
+| `columns` | `SectionColumn<T>[]` | — | `RecordColumn` dont `icon` est obligatoire ; une colonne sans en-tête (les gestes d'une ligne) n'en montre pas |
 | `onOpen` | `(row) => void` | — | Ouvre l'enregistrement ; absent, l'identité n'est pas un lien |
 | `empty` | `ReactNode` | — | À la place du tableau quand il est vide |
 | `footer` | `ReactNode` | — | Sous le tableau : « 25 sur 300 · Voir tout » |
+| `sort` | voir `RecordTable` | — | Trier par un clic sur l'en-tête ; l'état appartient à l'écran |
 | `selection` | voir `RecordTable` | — | Cocher des lignes pour agir dessus : un devis sur des écarts |
 | `toolbar` | `ReactNode` | — | Entre le titre et le tableau : puces de filtre, bandeau |
 | `detail` | `(row) => ReactNode` | — | Le détail d'une ligne, déplié sous elle par un chevron ; `null` = pas de détail |

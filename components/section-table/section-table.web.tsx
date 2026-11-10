@@ -42,6 +42,11 @@ export interface SectionTableProps<T> {
   empty?: React.ReactNode;
   /** Sous le tableau : « 25 sur 300 · Voir tout ». */
   footer?: React.ReactNode;
+  /**
+   * Trier en cliquant un en-tête : l'état appartient à l'écran (voir `RecordTable`).
+   * Les Produits d'un barème se comparent par prix (Thomas, 10/11/2026).
+   */
+  sort?: RecordTableProps<T>['sort'];
   /** Cocher des lignes pour agir dessus (un devis sur des écarts) : voir `RecordTable`. */
   selection?: RecordTableProps<T>['selection'];
   /** Le détail d'une ligne, déplié sous elle (voir `RecordTable`). */
@@ -85,6 +90,7 @@ export function SectionTable<T>({
   onOpen,
   empty,
   footer,
+  sort,
   selection,
   detail,
   group,
@@ -122,8 +128,10 @@ export function SectionTable<T>({
           rows={rows}
           rowKey={rowKey}
           identity={identity}
-          columns={columns}
+          /* Une colonne sans en-tête (les gestes d'une ligne) ne montre pas d'icône seule. */
+          columns={columns.map((c) => (c.header ? c : { ...c, icon: undefined }))}
           onOpen={onOpen}
+          sort={sort}
           selection={selection}
           detail={detail}
           group={group}

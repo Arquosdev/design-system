@@ -7,7 +7,8 @@
 // Contrats).
 //
 // Ce contrôle lit les fichiers d'une FICHE — un chemin qui passe par `[id]`, ou
-// un composant de `record/` — et refuse :
+// un composant de `record/` — et d'une page de PARAMÈTRES (`configuration/`,
+// `settings/` : les Produits des devis, 10/11/2026), et refuse :
 //  - `<RecordTable` : prendre `SectionTable` ;
 //  - `density="compact"` : une rubrique se lit, elle ne se balaie pas.
 // Un tableau de fiche qui n'est pas une rubrique (le tableau d'un panneau, un
@@ -31,8 +32,8 @@ const parcourir = (d) => {
 };
 for (const d of dossiers) parcourir(d);
 
-/* Une fiche : un segment `[id]` (ou `[cle]`…) dans le chemin, ou le dossier `record`. */
-const deFiche = (f) => f.split(sep).some((s) => /^\[[^\]]+\]$/.test(s) || s === 'record');
+/* Une fiche (un segment `[id]`, `[cle]`…, ou le dossier `record`) ou une page de paramètres. */
+const deFiche = (f) => f.split(sep).some((s) => /^\[[^\]]+\]$/.test(s) || ['record', 'configuration', 'settings'].includes(s));
 
 const fautes = [];
 let lus = 0;
@@ -42,8 +43,8 @@ for (const f of fichiers.filter(deFiche)) {
   lignes.forEach((l, i) => {
     if (/tableau: hors rubrique/.test(l) || /tableau: hors rubrique/.test(lignes[i - 1] ?? '')) return;
     if (/^\s*(\/\/|\*|\/\*)/.test(l)) return;
-    const raison = /<RecordTable\b/.test(l) ? 'RecordTable dans une fiche : prendre SectionTable'
-      : /density=["']compact["']/.test(l) ? 'density="compact" dans une fiche'
+    const raison = /<RecordTable\b/.test(l) ? 'RecordTable dans une rubrique : prendre SectionTable'
+      : /density=["']compact["']/.test(l) ? 'density="compact" dans une rubrique'
         : null;
     if (raison) fautes.push(`${relative(process.cwd(), f)}:${i + 1} · ${raison}`);
   });
@@ -53,4 +54,4 @@ if (fautes.length) {
   console.error(`Tableau de fiche hors du modèle (prendre SectionTable, ou dire « tableau: hors rubrique ») :\n  ${fautes.join('\n  ')}`);
   process.exit(1);
 }
-console.log(`Tableaux : ${lus} fichiers de fiche lus, chaque rubrique prend SectionTable.`);
+console.log(`Tableaux : ${lus} fichiers de fiche et de paramètres lus, chaque rubrique prend SectionTable.`);
