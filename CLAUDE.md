@@ -111,6 +111,24 @@ la publication ET la montée de son numéro épinglé.
 au-dessus, densité des listes, icône obligatoire dans chaque en-tête. Une app le
 vérifie avec `scripts/check-tableaux.mjs <dossiers>`.
 
+## Composer une page : les règles de la recette
+
+Tirées des écrans revus avec Thomas (novembre 2026). Elles valent pour toute page
+sous une barre d'onglets : fiche, liste, Facturation, Pièces et stock.
+
+| Règle | Comment |
+| --- | --- |
+| **Multiples de 4 seulement** | Toujours un token de `spacing`, de préférence `sm` (8), `base` (16), `xl` (24), `2xl` (32). Jamais `pt-[22px]`, jamais une marge qui « tombe juste » par addition |
+| **24 px sous les onglets** | Entre le filet de la barre d'onglets et la ligne du titre : `pt-xl`, sur toutes les pages (`SectionTable` le fait). En bas d'une rubrique : `pb-lg` |
+| **Un titre visible partout** | Chaque page et chaque rubrique : `text-title` dans une ligne haute d'un contrôle (`flex min-h-(--arq-control-md) items-center`), pour que le texte tombe au même endroit avec ou sans bouton. Le compte suit en `font-normal text-text-muted` (« Inventaires 1 ») |
+| **Le geste à côté du titre** | Le bouton de la rubrique (« Nouvel inventaire », « Couvrir un équipement ») va dans `actions` du titre, pas dans l'en-tête de la page |
+| **À plat, d'un bord à l'autre** | Pas de carte autour d'un bloc de fiche : `FlatSurfaces`, des `FieldRow` (libellé sur 190 px), une rubrique à lignes en `SectionTable`. La page prend toute la largeur |
+| **Pas de bande de grands chiffres** | Ni onglets géants ni cases de compteurs au-dessus d'un tableau : le titre dit ce qu'on regarde, et son compte |
+| **Filtrer : un seul chemin** | Une liste qui a des Filtres n'ajoute ni bouton ni pastille pour le même critère. Les `FilterChips` servent quand il n'y a pas de Filtres (l'origine d'une ligne à facturer, les commandes pour une panne) |
+| **Les champs vides se replient** | Derrière un seul bouton « Afficher N champs vides » par bloc, pas un groupe « Autres » |
+| **Pas de phrase d'explication** | Pas de petite ligne grise sous un bouton ou en bas d'un panneau : le libellé suffit |
+| **Ce qui se corrige se voit** | Une valeur modifiable porte le pointillé de `FieldRow` |
+
 ## Anatomie d'un composant
 
 | Fichier | Contenu |
