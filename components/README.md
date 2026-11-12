@@ -43,7 +43,7 @@ Une mécanique que n'importe quelle application aurait — bouton, modale, ongle
 | [PasswordInput](password-input/password-input.spec.md) | Recueillir un mot de passe, avec une bascule masqué / en clair. | 🖥️ | beta |
 | [PhotoViewer](photo-viewer/photo-viewer.spec.md) | Regarder une photo en grand, et passer aux suivantes de la même série. | 🖥️ | beta |
 | [Popover](popover/popover.spec.md) | Poser un petit panneau au-dessus de la page, ancré à ce qui l'a ouvert. | 🖥️ | beta |
-| [Progress](progress/progress.spec.md) | Dire une proportion sobrement, d'une fine barre ou d'une rangée de cases pleines ou vides. | 🖥️ | beta |
+| [Progress](progress/progress.spec.md) | Dire une proportion sobrement, d'une fine barre à la couleur de son seuil. | 🖥️ | beta |
 | [RadioGroup](radio-group/radio-group.spec.md) | Choisir une seule option parmi quelques-unes, toutes visibles à la fois. | 🖥️ | stable |
 | [RecordTable](record-table/record-table.spec.md) | Parcourir une collection d'enregistrements, en comparer quelques attributs, en sélectionner plusieurs et en ouvrir un. | 🖥️ | beta |
 | [ScreenHeader](screen-header/screen-header.spec.md) | Poser l'en-tête d'un écran mobile, le même partout : la flèche de retour, des boutons d'icône, puis le titre dans le corps. | 📱 | beta |

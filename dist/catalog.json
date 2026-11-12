@@ -1014,7 +1014,7 @@
       "name": "Progress",
       "status": "beta",
       "layer": "generique",
-      "role": "Dire une proportion sobrement, d'une fine barre ou d'une rangée de cases pleines ou vides.",
+      "role": "Dire une proportion sobrement, d'une fine barre à la couleur de son seuil.",
       "keywords": [
         "progression",
         "barre",

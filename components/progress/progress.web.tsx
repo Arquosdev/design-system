@@ -43,32 +43,3 @@ export function ProgressBar({ value, label, tone, className, ...props }: Progres
     </div>
   );
 }
-
-export interface SlotRowProps extends React.ComponentPropsWithoutRef<'ul'> {
-  /** Les cases, dans l'ordre : leur nom (info-bulle) et si elles sont remplies. */
-  slots: readonly { name: string; filled: boolean }[];
-  /** Ce que la rangée compte, pour un lecteur d'écran : « Photos essentielles ». */
-  label: string;
-  tone?: keyof typeof TONES;
-}
-
-/**
- * Une rangée de petites cases (10 px, 4 px d'écart) : pleine pour ce qui est fait, contour
- * seul pour ce qui manque, le nom de chacune en info-bulle. Elle se lit d'un coup d'œil, là
- * où une liste de vingt noms gonflait la carte.
- */
-export function SlotRow({ slots, label, tone = 'primary', className, ...props }: SlotRowProps) {
-  return (
-    <ul aria-label={label} className={cn('flex flex-wrap gap-xs', className)} {...props}>
-      {slots.map((s, i) => (
-        <li
-          key={`${i}-${s.name}`}
-          title={`${s.name} : ${s.filled ? 'prise' : 'manquante'}`}
-          className={cn('size-2.5 rounded-[2px]', s.filled ? TONES[tone] : 'border border-border')}
-        >
-          <span className="sr-only">{`${s.name} : ${s.filled ? 'prise' : 'manquante'}`}</span>
-        </li>
-      ))}
-    </ul>
-  );
-}
