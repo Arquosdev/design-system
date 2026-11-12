@@ -100,7 +100,10 @@ export function SectionTable<T>({
   className,
 }: SectionTableProps<T>) {
   const Titre = headingLevel === 2 ? 'h2' : 'h3';
-  const total = count ?? rows.length;
+  /* PLUS DE DÉCOMPTE À CÔTÉ D'UN TITRE, ni de phrase qui décrit le tableau (Louis, 12/11/2026) :
+     un tableau de rubrique n'est pas une liste de premier niveau. `count` et `description` sont
+     acceptés et ignorés. */
+  void count; void description;
   return (
     <section className={cn('@container flex w-full flex-col gap-md pt-xl pb-lg', className)}>
       <div className="flex flex-col gap-sm px-base sm:px-xl @min-[36rem]:flex-row @min-[36rem]:items-start @min-[36rem]:justify-between @min-[36rem]:gap-base">
@@ -108,12 +111,8 @@ export function SectionTable<T>({
           {/* La hauteur d'un contrôle, centrée : le titre tombe au même endroit que
               celui des autres rubriques de la fiche, qu'un bouton l'accompagne ou non. */}
           <Titre className="flex min-h-(--arq-control-md) items-center gap-xs text-title">
-            {title}{' '}
-            <span className="font-normal tabular-nums text-text-muted">{total.toLocaleString('fr-FR')}</span>
+            {title}
           </Titre>
-          {description ? (
-            <p className="mt-xs max-w-reading text-pretty text-small text-text-muted">{description}</p>
-          ) : null}
         </div>
         {actions ? <div className="flex shrink-0 flex-wrap items-center gap-sm">{actions}</div> : null}
       </div>

@@ -78,9 +78,9 @@ export function GroupTitle({ title, count, actions, as: Titre = 'h3' }: {
 }) {
   return (
     <div className="flex flex-wrap items-end justify-between gap-x-md gap-y-xs">
-      <Titre className={GROUP_TITLE}>
+      {/* Plus de décompte à côté d'un titre de groupe (Louis, 12/11/2026) : `count` est ignoré. */}
+      <Titre className={GROUP_TITLE} data-compte={count ?? undefined}>
         {title}
-        {count !== undefined && count !== null ? <span className="font-normal tabular-nums text-text-subtle">{' '}{count}</span> : null}
       </Titre>
       {actions ? <div className="flex flex-wrap items-center gap-sm">{actions}</div> : null}
     </div>
