@@ -1,3 +1,4 @@
+import '../_lib/modalite';
 import * as React from 'react';
 import { createPortal } from 'react-dom';
 
@@ -275,7 +276,7 @@ function classeDOnglet(actif: boolean, vide?: boolean) {
        rogné haut et bas par la rangée qui défile, et ne laissait que deux traits verticaux
        bleus de part et d'autre de l'onglet (Louis, 12/11/2026). */
     'relative flex shrink-0 items-center gap-xs whitespace-nowrap rounded-control px-sm text-small font-medium outline-none',
-    'focus-visible:shadow-[inset_0_0_0_1.5px_var(--color-primary)]',
+    'focus-visible:shadow-[inset_0_0_0_1.5px_var(--color-primary)] [:root[data-modalite=pointeur]_&]:focus-visible:shadow-none',
     'disabled:pointer-events-none disabled:opacity-50',
     actif
       ? 'font-semibold text-primary after:absolute after:inset-x-sm after:bottom-0 after:h-xxs after:bg-primary'
@@ -460,7 +461,10 @@ export function RecordZone({ children, aside, asideLabel = 'Informations' }: Rec
   return (
     <div className="flex min-h-0 flex-1">
       {zone}
-      <aside aria-label={asideLabel} className="relative flex w-[340px] shrink-0 flex-col gap-xl overflow-y-auto border-l border-border-soft px-lg py-base">
+      {/* Le haut de la colonne (Louis, 12/11/2026) : le premier titre de groupe se pose de sorte que
+          son filet, 8 px sous lui, tombe sur celui de la barre d'onglets secondaire (une commande
+          plus 4 px de haut) : (32 + 4) − une ligne de titre − 8. Des jetons, pas une cote recopiée. */}
+      <aside aria-label={asideLabel} className="relative flex w-[340px] shrink-0 flex-col gap-xl overflow-y-auto border-l border-border-soft px-lg pt-[calc(var(--arq-control-md)+var(--spacing-xs)-var(--text-description--line-height)-var(--spacing-sm))] pb-base">
         {aside}
       </aside>
     </div>

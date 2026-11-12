@@ -274,3 +274,4 @@ export {
   Surface, FieldSurface, SurfaceFooter, Group, GroupTitle, GroupLink, DetailGroup, DetailRow, DETAIL_FIELD_ROWS,
   SURFACE, FIELD_ROWS, FIELD_ROWS_NARROW, SURFACE_TABLE, GROUP_TITLE, GROUP_LINK,
 } from './components/surface/surface.web';
+export { AddRow, CreationButton, LIBELLE_DE_CREATION, useHeaderCreation } from './components/creation/creation.web';

@@ -12,11 +12,20 @@
 
 let dernierGeste: 'pointeur' | 'clavier' = 'clavier';
 
+/* Le geste se lit aussi dans la page (`<html data-modalite>`) : un anneau qui ne doit paraître
+   qu'au clavier s'éteint sous `[data-modalite=pointeur]`, même quand le navigateur le juge visible
+   (un focus redonné par le script après un clic sur un onglet, Louis, 12/11/2026). */
+const noter = (g: 'pointeur' | 'clavier') => {
+  dernierGeste = g;
+  document.documentElement.dataset.modalite = g;
+};
+
 if (typeof document !== 'undefined') {
-  document.addEventListener('pointerdown', () => { dernierGeste = 'pointeur'; }, true);
+  // Rien au chargement : un attribut posé avant l'hydratation la ferait diverger du rendu serveur.
+  document.addEventListener('pointerdown', () => noter('pointeur'), true);
   document.addEventListener('keydown', (e) => {
     // Un raccourci (⌘K) n'est pas une navigation au clavier.
-    if (!e.metaKey && !e.ctrlKey && !e.altKey) dernierGeste = 'clavier';
+    if (!e.metaKey && !e.ctrlKey && !e.altKey) noter('clavier');
   }, true);
 }
 

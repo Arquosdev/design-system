@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import { Button } from '../button/button.web';
 import { Icon } from '../icon/icon.web';
+import { CreationButton } from '../creation/creation.web';
 import { cn } from '../_lib/cn';
 import { FAILURES, failureKind, RETRY } from './empty-state.logic';
 import type { IconRole } from '../../src/icons';
@@ -56,9 +57,11 @@ export function EmptyState({
       </span>
       <p className="text-small-bold text-text">{title}</p>
       {hint ? <p className="mt-xxs max-w-[44ch] text-pretty text-description text-text-muted">{hint}</p> : null}
+      {/* Son geste à lui s'il en a un ; sinon le bouton de création de l'en-tête, doublé ici
+          (Louis, 12/11/2026 : « je rajouterai toujours un bouton d'action »). */}
       {actionLabel && onAction ? (
         <Button variant="outline" size="sm" className="mt-base" onClick={onAction}>{actionLabel}</Button>
-      ) : null}
+      ) : <CreationButton />}
     </div>
   );
 }

@@ -141,7 +141,7 @@ export function PageHeader({
         {/* Sur un téléphone, les actions prennent leur ligne entière, alignées à
             gauche sous le titre : à droite, chacune passait sur sa propre ligne
             et le contenu commençait à 330 px (A3-14). */}
-        {actions && <span className={cn('flex w-full shrink-0 flex-wrap items-center gap-sm sm:ml-auto sm:w-auto sm:max-w-full sm:justify-end', HEADER_ACTIONS)}>{actions}</span>}
+        {actions && <span data-actions-en-tete className={cn('flex w-full shrink-0 flex-wrap items-center gap-sm sm:ml-auto sm:w-auto sm:max-w-full sm:justify-end', HEADER_ACTIONS)}>{actions}</span>}
       </div>
       </div>
     </div>
