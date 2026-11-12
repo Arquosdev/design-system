@@ -127,7 +127,8 @@ export function CommandInput({
         taille === 'sm' ? 'gap-sm px-sm' : 'gap-md px-base',
       )}
     >
-      <Icon role="search" size="sm" className="shrink-0 text-text-muted" />
+      {/* 14 px à la densité d'un menu (Louis, 12/11/2026), 16 dans la palette. */}
+      <Icon role="search" size={taille === 'sm' ? 'xs' : 'sm'} className="shrink-0 text-text-muted" />
       <CommandPrimitive.Input
         data-slot="command-input"
         className={cn(
@@ -176,7 +177,8 @@ export function CommandList({
           hauteur minimale de 24, et le compte se pose : 11 × 24 + 4 + 4 en haut
           et en bas = 272.
         */
-        taille === 'sm' ? 'max-h-[272px]' : 'max-h-[400px]',
+        /* Entrées de 28 px depuis le 12/11/2026 : 9 × 28 + 4 + 4 = 260, toujours entières. */
+        taille === 'sm' ? 'max-h-[260px]' : 'max-h-[400px]',
         className,
       )}
       {...props}
@@ -240,7 +242,8 @@ export function CommandItem({
           plus ses deux `xxs`, arrondie au pixel — ce qui rend la borne de la
           liste exactement divisible, et donc jamais coupée en deux.
         */
-        taille === 'sm' ? 'min-h-[24px] gap-sm px-sm py-xxs' : 'gap-base px-base py-sm',
+        /* 28 px à la densité d'un menu (Louis, 12/11/2026), comme le sélecteur d'agence. */
+        taille === 'sm' ? 'min-h-7 gap-sm px-sm py-xxs text-description' : 'gap-base px-base py-sm',
         'data-[selected=true]:bg-info-bg',
         'data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50',
         className,

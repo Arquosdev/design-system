@@ -1,5 +1,12 @@
 # Monter une app vers la version courante
 
+## Non publié (branche design-cartes) · Les menus : un seul contour, entrées de 28 px
+
+`PopoverContent` et `SelectContent` perdent leur `border` : l'anneau de `shadow-pop` suffit (un
+double trait se voyait). À la densité d'un menu (`Command size="sm"`, `Combobox`), une entrée
+fait 28 px en 13 px, la loupe 14 px ; les bornes de liste suivent (260 et 316 px). **À reprendre
+chez l'appelant** : une borne de hauteur calculée sur l'ancienne entrée de 24 px.
+
 ## Non publié (branche design-cartes) · La colonne d'informations (`RecordZone aside`)
 
 Nouveau : `RecordZone` accepte `aside` (la colonne de 340 px à droite) ; `DetailGroup`,

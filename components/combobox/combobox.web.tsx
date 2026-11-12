@@ -180,7 +180,8 @@ export function Combobox({
               pixels elle montrait sept marques sur trois cents. 13 × 24 + 4 + 4
               = 320, la hauteur que `main` avait retenue, tombe juste.
             */}
-            <CommandList className="max-h-[320px]">
+            {/* Entrées de 28 px depuis le 12/11/2026 : 11 × 28 + 4 + 4 = 316, toujours entières. */}
+            <CommandList className="max-h-[316px]">
               <CommandEmpty>Aucun choix ne correspond.</CommandEmpty>
               {choices.map((o) => (
                 <CommandItem

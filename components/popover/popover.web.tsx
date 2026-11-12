@@ -34,7 +34,9 @@ export const PopoverContent = React.forwardRef<
       align={align}
       sideOffset={sideOffset}
       className={cn(
-        'z-(--arq-layer-flottant) rounded-block border border-border-soft bg-bg p-base text-text shadow-pop outline-none',
+        /* Un seul contour : celui de l'ombre de fenêtre (`shadow-pop` porte son anneau d'1 px) ; une
+           `border` de plus le doublait (Louis, 12/11/2026, sélecteur d'agence). */
+        'z-(--arq-layer-flottant) rounded-block bg-bg p-base text-text shadow-pop outline-none',
       /* Même raison que dans `Select` : sur un contenu posé par le positionneur,
          l'animation de sortie ne démarre pas et Radix ne démonte donc jamais.
          Le menu restait dans la page, fermé mais présent, et les couches

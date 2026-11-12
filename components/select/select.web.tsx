@@ -85,7 +85,8 @@ export const SelectContent = React.forwardRef<
       position={position}
       className={cn(
         'relative z-(--arq-layer-flottant) max-h-[320px] min-w-[8rem] overflow-hidden rounded-block',
-        'border border-border-soft bg-bg text-text shadow-pop',
+        /* Un seul contour, celui de `shadow-pop` (Louis, 12/11/2026). */
+        'bg-bg text-text shadow-pop',
       /*
         PAS d'animation de sortie ici. Mesuré le 07/09/2026 dans la fiche : sur
         un contenu posé par le positionneur (`data-radix-popper-content-wrapper`),
