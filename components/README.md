@@ -37,7 +37,9 @@ Une mécanique que n'importe quelle application aurait — bouton, modale, ongle
 | [Input](input/input.spec.md) | Recueillir une valeur courte tapée au clavier, dans un formulaire. | 🖥️ 📱 | stable |
 | [Label](label/label.spec.md) | Nommer un champ, et agrandir sa cible de clic à tout l'intitulé. | 🖥️ 📱 | stable |
 | [Markdown](markdown/markdown.spec.md) | Mettre en forme un texte écrit en markdown, comme la réponse d'un assistant IA, pareil sur le web et le téléphone. | 🖥️ 📱 | beta |
+| [MenuItem](menu/menu.spec.md) | Poser les entrées d'un menu déroulant à la densité d'un menu, alignées, la destructive isolée en bas. | 🖥️ | beta |
 | [Meter](meter/meter.spec.md) | Montrer une proportion dans une série, quand plusieurs valeurs se comparent ligne à ligne. | 🖥️ | beta |
+| [Metric](metric/metric.spec.md) | Dire un chiffre de tableau de bord en tête de la carte qu'il résume, en rangée avec ses voisins. | 🖥️ | beta |
 | [PageBody](page-body/page-body.spec.md) | Poser le corps d'une page sous son en-tête, à la largeur et à la gouttière communes. | 🖥️ | beta |
 | [PageHeader](page-header/page-header.spec.md) | Dire en haut d'un écran d'où l'on vient, ce qu'on regarde et ce qu'on peut en faire. | 🖥️ | beta |
 | [PasswordInput](password-input/password-input.spec.md) | Recueillir un mot de passe, avec une bascule masqué / en clair. | 🖥️ | beta |

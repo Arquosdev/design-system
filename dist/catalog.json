@@ -789,6 +789,32 @@
       }
     },
     {
+      "name": "MenuItem",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Poser les entrées d'un menu déroulant à la densité d'un menu, alignées, la destructive isolée en bas.",
+      "keywords": [
+        "menu",
+        "actions",
+        "déroulant",
+        "entrée",
+        "contextuel",
+        "séparateur"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/menu",
+      "specFile": "components/menu/menu.spec.md",
+      "fichiers": {
+        "web": "components/menu/menu.web.tsx"
+      }
+    },
+    {
       "name": "Meter",
       "status": "beta",
       "layer": "generique",
@@ -814,6 +840,33 @@
       "specFile": "components/meter/meter.spec.md",
       "fichiers": {
         "web": "components/meter/meter.web.tsx"
+      }
+    },
+    {
+      "name": "Metric",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Dire un chiffre de tableau de bord en tête de la carte qu'il résume, en rangée avec ses voisins.",
+      "keywords": [
+        "indicateur",
+        "chiffre",
+        "kpi",
+        "statistique",
+        "tableau de bord",
+        "metric",
+        "mesure"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/metric",
+      "specFile": "components/metric/metric.spec.md",
+      "fichiers": {
+        "web": "components/metric/metric.web.tsx"
       }
     },
     {

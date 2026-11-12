@@ -56,6 +56,7 @@ export {
   type SortDirection,
 } from './components/record-table/record-table.logic';
 export { StatTile, type StatTileProps } from './components/stat-tile/stat-tile.web';
+export { Metric, MetricRow, METRIC_ROW, type MetricProps } from './components/metric/metric.web';
 export { PhotoTile, type PhotoTileProps } from './components/photo-tile/photo-tile.web';
 export {
   PhotoViewer,

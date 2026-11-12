@@ -164,6 +164,46 @@ cartes (`Surface`, `FieldSurface`) : une carte sépare des blocs, elle n'encadre
 | **Un onglet vide n'apparaît pas** | Un onglet ou un sous-onglet qui n'a rien à montrer ne paraît pas, et la fiche s'ouvre sur le premier qui a du contenu ; le calcul se fait au serveur avec les données de la fiche, jamais en affichant puis en cachant. Exception : un onglet dont la rubrique propose une création (« Nouvelle note ») reste, avec son état vide (Louis, 12/11/2026) |
 | **Les champs vides se replient** | Derrière un seul « Afficher N champs vides » au pied de la carte (`SurfaceFooter`) |
 
+### Un tableau de bord
+
+Sur le modèle de la vue d'ensemble de Fingerprint et des rapports de Dock (Louis, 12/11/2026 :
+« tout en lignes, on s'y retrouve pas »).
+
+| Règle | Comment |
+| --- | --- |
+| **Une seule forme, huit blocs au plus** | La période (mois, « du … au », filtres) dans l'en-tête de la page, à droite du titre ; une rangée de 3 ou 4 cartes d'indicateurs ; le bloc principal pleine largeur (un graphique dans le temps, ou le tableau qui compte le plus) ; puis une rangée de cartes « top » |
+| **Un indicateur est une carte** | `Surface` + `Metric` : libellé 12 px gris, valeur 20 px, et une précision : l'écart à la période précédente (`+12 %` en vert ou en rouge, puis « contre 412 000 € » ; un taux s'écarte en points). Rien à comparer (la période d'avant est vide) : pas d'écart, plutôt que « contre 0 ». Jamais une bande de grands chiffres sans carte |
+| **Pas de colonne à droite** | Elle répétait le milieu et noyait l'information (Louis, 12/11/2026) : ce qu'elle portait d'utile entre dans une carte (un indicateur, une carte « top »), sans doublon |
+| **Les mesures d'un graphique sont des onglets dans sa carte** | `SubTabs` en tête de la carte, le graphique dessous ; l'axe reste quand il n'y a rien à dessiner (jamais un état vide dans une carte) |
+| **Une rangée = des cartes de même hauteur** | Grille en `stretch`, chaque carte remplit sa cellule, son pied collé en bas. Mêmes lignes de 36 px partout (une ligne par objet, jamais sur deux lignes), cinq lignes par carte « top », et le même pied (« 5 sur 298 · Tout afficher », ou ce que la carte totalise) ; on montre moins plutôt que d'avoir des hauteurs inégales |
+| **Le rouge dit une alerte, pas une catégorie** | Une valeur hors de son objectif ; jamais une colonne entière en rouge parce que le tri met les mauvais en tête |
+| **Commandes de l'en-tête** | 28 px, texte 12 (un `Select` ou un `DateField` y est ramené à cette taille) ; 8 px entre deux commandes voisines, 16 px entre deux groupes |
+
+### Une page de travail (« À faire »)
+
+Une boîte de travail, rangée comme une fiche (Louis, 12/11/2026, d'après les boîtes de Linear
+et de Wrike ; ni lignes de comptes, ni grille de cartes, ni colonne de files à gauche).
+
+| Règle | Comment |
+| --- | --- |
+| **Deux barres d'onglets** | Barre principale (`RecordRail`) : les groupes — Urgent (toujours en tête, un point rouge de 6 px tant qu'il contient quelque chose), puis les domaines ; barre secondaire : les files du groupe. Aucun nombre dans un onglet ; un groupe ou une file vides n'apparaissent pas ; tout vide, l'état vide de la page |
+| **La file en tableau, collée sous la barre** | À plat, pleine largeur, ses colonnes propres ; le total dans le pied (`TableFooter`, « 50 sur 257 visites ») ; une ligne ouvre la fiche. L'action de la vue (« Ouvrir la liste », la liste filtrée) dans l'en-tête de la page, en secondaire |
+| **Largeurs** | Les colonnes courtes (codes, noms, dates, durées, montants) au plus juste ; UNE colonne de texte long (lieu, constat, adresse) prend la largeur libre, sur une ligne, tronquée avec son info-bulle |
+| **Le retard a sa colonne** | Alignée à droite, en texte courant ; seul un retard GRAVE est en rouge (une personne bloquée, un danger grave échu, une alerte sans prise en charge depuis un jour) — jamais toute une colonne |
+| **Une file ne cache rien** | Elle montre tout ce qui attend une décision, jours d'avant compris, du plus récent au plus ancien ; un jour se choisit en filtre facultatif, pas en bandeau qui renvoie ailleurs |
+| **Les gestes en lot** | Dans la barre de sélection standard (`SelectionBar`), une ligne comme plusieurs |
+| **L'adresse porte la vue** | `?groupe=…&file=…` : la file se partage et on y revient |
+
+### Une boîte de notifications
+
+Ce qui s'est PASSÉ, lu ou non ; le travail à faire vit dans « À faire » (Louis, 12/11/2026).
+
+| Règle | Comment |
+| --- | --- |
+| **Une liste, sans carte** | Façon Linear : groupée par jour (titres de groupe), lignes séparées d'un filet, d'un bord à l'autre ; sous-onglets « Non lues / Toutes » ; « Tout marquer comme lu » dans l'en-tête |
+| **Deux lignes au plus** | Le point de non-lu, l'icône de l'objet (14 px, grise, sur la première ligne), le titre (gras tant qu'il n'est pas lu) puis l'aperçu en gris, chacun tronqué avec info-bulle ; à droite, en colonnes de largeur fixe, l'objet concerné en lien (absent quand le titre le nomme) et l'heure (12 px, gris, jamais à la ligne) |
+| **Pas de file de travail** | Une alerte à traiter n'est pas une notification : elle est dans « À faire » › Urgent, avec ses gestes. La pastille du rail ne compte que les non lues |
+
 ## Anatomie d'un composant
 
 | Fichier | Contenu |
