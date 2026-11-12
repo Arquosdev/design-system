@@ -25,6 +25,14 @@ replaces:
 - **Pour une zone vide après chargement** → `EmptyState`. Un squelette qui ne se remplit jamais laisse croire à une panne.
 - **Pour une action en cours** (envoi, enregistrement) → l'état du bouton, ou un `Toast`. Le squelette dit qu'on attend une **donnée**, pas un effet.
 
+## Un chargement ne s'écrit jamais, il se dessine
+
+Plus aucun « Chargement… » à l'écran (Louis, 12/11/2026). Ce qui charge prend la forme de
+ce qui arrive, aux mêmes marges : lignes de tableau, lignes de champs, cartes, colonne. Un
+menu ou une liste de suggestions qui charge montre trois lignes : `SkeletonRows` (28 px
+par ligne, `density="row"` pour 36 px). Le texte reste pour le lecteur d'écran (`label`,
+visuellement masqué). Un geste court sur un bouton passe par `Button loading`.
+
 ## Props
 
 | Prop | Type | Défaut | Rôle |

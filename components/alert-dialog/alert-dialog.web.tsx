@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { AlertDialog as AlertDialogPrimitive } from 'radix-ui';
 
-import { buttonVariants } from '../button/button.web';
+import { buttonVariants, withLoadingSpinner } from '../button/button.web';
 import { cn } from '../_lib/cn';
 
 /*
@@ -73,17 +73,23 @@ export interface AlertDialogActionProps
   extends React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Action> {
   /** `danger` pour un geste qui détruit et ne se défait pas ; sinon l'action principale. */
   tone?: 'default' | 'danger';
+  /** Le geste est EN COURS : désactivé, une roue de 14 px devant le libellé, qui ne change pas. */
+  loading?: boolean;
 }
 
 export const AlertDialogAction = React.forwardRef<
   React.ComponentRef<typeof AlertDialogPrimitive.Action>,
   AlertDialogActionProps
->(({ className, tone = 'default', ...props }, ref) => (
+>(({ className, tone = 'default', loading, disabled, children, ...props }, ref) => (
   <AlertDialogPrimitive.Action
     ref={ref}
     className={cn(buttonVariants({ variant: tone === 'danger' ? 'destructive' : 'default' }), className)}
+    disabled={disabled || loading}
+    aria-busy={loading || undefined}
     {...props}
-  />
+  >
+    {loading ? withLoadingSpinner(children) : children}
+  </AlertDialogPrimitive.Action>
 ));
 AlertDialogAction.displayName = 'AlertDialogAction';
 

@@ -5,6 +5,7 @@ import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '../_lib/cn';
+import { Icon } from '../icon/icon.web';
 import { availability, availabilityAttributes, blocksActivation } from './button.logic';
 
 /**
@@ -109,15 +110,37 @@ export interface ButtonProps
    * est le défaut qu'on corrige, pas une variante acceptable.
    */
   inactiveReason?: string;
+  /**
+   * Le geste est EN COURS (un enregistrement, un envoi) : le bouton se désactive, une
+   * petite roue de 14 px prend la place de son icône (ou se pose devant le libellé),
+   * et le libellé NE CHANGE PAS. Un chargement ne s'écrit jamais : pas de
+   * « Enregistrement… » (Louis, 12/11/2026). `aria-busy` le dit au lecteur d'écran.
+   */
+  loading?: boolean;
 }
+
+/** Une roue de 14 px, à la place de l'icône d'un bouton en cours. */
+const Roue = () => <Icon role="loading" size="sm" className="animate-spin motion-reduce:animate-none" />;
+
+/** Les enfants d'un bouton en cours : la roue à la place de l'icône de tête (ou devant le libellé). */
+export const withLoadingSpinner = (children: React.ReactNode): React.ReactNode => {
+  const enfants = React.Children.toArray(children);
+  const i = enfants.findIndex((c) => !(typeof c === 'string' && c.trim() === ''));
+  const premier = enfants[i];
+  // L'icône de tête cède sa place à la roue ; sans icône, la roue se pose devant le libellé.
+  if (React.isValidElement(premier) && (premier.type === Icon || (premier.props as { role?: unknown }).role !== undefined)) {
+    return [...enfants.slice(0, i), <Roue key="roue" />, ...enfants.slice(i + 1)];
+  }
+  return [<Roue key="roue" />, ...enfants];
+};
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { className, variant, size, asChild = false, type, inactive, inactiveReason, disabled, onClick, ...props },
+    { className, variant, size, asChild = false, type, inactive, inactiveReason, disabled, onClick, loading, children, ...props },
     ref,
   ) => {
     const Component = asChild ? Slot : 'button';
-    const state = availability({ inactive, disabled });
+    const state = availability({ inactive, disabled: disabled || loading });
     const bloque = blocksActivation(state);
 
     return (
@@ -153,9 +176,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               }
             : onClick
         }
-        className={cn(buttonVariants({ variant, size }), inactive && !disabled && INACTIVE_SURFACE, className)}
+        className={cn(buttonVariants({ variant, size }), inactive && !disabled && !loading && INACTIVE_SURFACE, className)}
+        aria-busy={loading || undefined}
         {...props}
-      />
+      >
+        {loading && !asChild ? withLoadingSpinner(children) : children}
+      </Component>
     );
   },
 );

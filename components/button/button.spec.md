@@ -61,6 +61,13 @@ Et si le geste n'existe pas du tout dans ce contexte — pas « impossible ici �
 mais « pas encore écrit » — ne rendre aucun bouton. Un bouton inactif fait
 chercher le droit qui manque.
 
+## En cours : `loading`, jamais un libellé qui change
+
+Un geste court (enregistrer, envoyer, créer) se dit EN COURS par `loading` : le bouton se
+désactive, une roue de 14 px prend la place de son icône (ou se pose devant le libellé), et
+le libellé ne change pas. Jamais « Enregistrement… », « Envoi… » : un chargement ne s'écrit
+pas, il se dessine (Louis, 12/11/2026). `aria-busy` l'annonce.
+
 ## Props
 
 | Prop        | Type                                            | Défaut      | Rôle                                   |

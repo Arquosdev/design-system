@@ -51,6 +51,8 @@ export interface FileFieldProps {
   taille?: 'normale' | 'grande';
   /** Le libellé de l'action. Par défaut « Choisir le fichier », ou « Choisir des fichiers ». */
   placeholder?: string;
+  /** L'envoi est EN COURS : le champ se désactive et une roue prend la place de son icône, sans texte (Louis, 12/11/2026). */
+  loading?: boolean;
   /** Le fichier déjà enregistré, quand on peut le remplacer : son nom s'affiche tant qu'on n'en choisit pas d'autre. */
   current?: string | null;
   /** Remplace la ligne d'aide calculée (formats et poids). */
@@ -79,10 +81,12 @@ export function FileField({
   name,
   id,
   required,
-  disabled,
+  disabled: desactive,
+  loading,
   'aria-label': ariaLabel,
   className,
 }: FileFieldProps) {
+  const disabled = desactive || loading;
   const entree = React.useRef<HTMLInputElement>(null);
   /** Le dernier choix accepté, que le champ natif reprend après un refus. */
   const acceptes = React.useRef<File[]>([]);
@@ -177,7 +181,7 @@ export function FileField({
           )}
         >
           {champ}
-          <Icon role="import" size="sm" aria-hidden />
+          <Icon role={loading ? 'loading' : 'import'} size="sm" className={loading ? 'animate-spin motion-reduce:animate-none' : undefined} aria-hidden />
           {libelle}
         </label>
         {erreur}
@@ -189,6 +193,7 @@ export function FileField({
     <div className={cn('flex flex-col gap-xs', className)}>
       <label
         data-slot="file-field"
+        aria-busy={loading || undefined}
         onDragOver={(e) => { e.preventDefault(); if (!disabled) setSurvol(true); }}
         onDragLeave={() => setSurvol(false)}
         onDrop={surDepot}
@@ -204,7 +209,7 @@ export function FileField({
         )}
       >
         {champ}
-        <Icon role="import" size={taille === 'grande' ? 'xl' : 'md'} className="shrink-0 text-text-muted" aria-hidden />
+        <Icon role={loading ? 'loading' : 'import'} size={taille === 'grande' ? 'xl' : 'md'} className={cn('shrink-0 text-text-muted', loading && 'animate-spin motion-reduce:animate-none')} aria-hidden />
         <span className={cn('flex min-w-0 flex-col', taille === 'grande' && 'items-center gap-xxs')}>
           <span className="truncate text-small font-medium text-text">{titre}</span>
           {sousTitre ? <span className="text-caption text-text-muted">{sousTitre}</span> : null}

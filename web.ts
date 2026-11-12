@@ -209,7 +209,7 @@ export {
 // Trois composants remontés depuis le mobile, qui les avait et que le design
 // system n'avait pas. Voir CONVERGENCE.md — le premier mouvement va du mobile
 // vers le dépôt partagé, pas l'inverse.
-export { Skeleton, type SkeletonProps } from './components/skeleton/skeleton.web';
+export { Skeleton, SkeletonRows, type SkeletonProps, type SkeletonRowsProps } from './components/skeleton/skeleton.web';
 export {
   EmptyState,
   EmptyStateError,
