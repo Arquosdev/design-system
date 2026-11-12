@@ -59,7 +59,10 @@ export interface RecordTableProps<T> {
    * horizontal : sans elle, on ne sait plus de quelle ligne on lit les valeurs.
    */
   identity: {
-    /** Ignoré depuis le 12/11/2026 : toute colonne d'identité est en DM Mono (`IDENTIFIER`). */
+    /**
+     * L'identité est un CODE (« 53 A 00145 02 », « C-2024-245 ») : DM Mono (`IDENTIFIER`).
+     * Un NOM (immeuble, client, affaire) n'en est jamais un et reste en DM Sans (Louis, 12/11/2026).
+     */
     mono?: boolean;
     header: string;
     render: (row: T) => React.ReactNode;
@@ -691,10 +694,10 @@ export function RecordTable<T>({
                     actif && 'shadow-[inset_2px_0_0_var(--color-primary)]',
                     // Une colonne rétrécie coupe son lien au lieu de le laisser passer sur la voisine (recette, 13/10/2026).
                     'border-r border-b border-border-soft px-md whitespace-nowrap sm:overflow-hidden',
-                    /* L'identifiant en DM Mono, sur toutes les colonnes d'identité (Louis, 12/11/2026) ;
-                       la précision dessous (immeuble, adresse) reste en texte courant. */
-                    IDENTIFIER,
-                    '[&_.font-semibold]:font-medium [&_.font-bold]:font-medium [&_.text-small]:font-sans [&_.text-small]:tracking-normal [&_.text-caption]:font-sans [&_.text-caption]:tracking-normal',
+                    /* Un CODE en DM Mono, un nom en DM Sans (Louis, 12/11/2026) ; la précision
+                       dessous (immeuble, adresse) reste en texte courant. */
+                    identity.mono && IDENTIFIER,
+                    identity.mono && '[&_.font-semibold]:font-medium [&_.font-bold]:font-medium [&_.text-small]:font-sans [&_.text-small]:tracking-normal [&_.text-caption]:font-sans [&_.text-caption]:tracking-normal',
                     retrait,
                     !selection && 'pl-xl',
                     // Sur une carte, le titre passe sur deux lignes au plus, avec ses points de suspension :

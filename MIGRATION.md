@@ -1,5 +1,13 @@
 # Monter une app vers la version courante
 
+## Non publié (branche design-cartes) · DM Mono pour les codes seulement, chargements dessinés, menus
+
+`RecordTable` n'applique plus `IDENTIFIER` à toute identité : seulement avec `identity.mono`
+(un code). **À reprendre chez l'appelant** : poser `mono` sur les identités qui sont des codes.
+Nouveaux : `Button loading`, `AlertDialogAction loading`, `FileField loading`, `SkeletonRows`,
+`MenuItem`, `MenuSeparator`, `MENU_CONTENT`. `Sheet` et `Drawer` : filet de 1 px et ombre
+légère, titre 600, croix fantôme.
+
 ## Non publié (branche design-cartes) · `TableFooter`, et le total quitte le titre
 
 Nouveau : `TableFooter`, le pied d'un tableau (40 px, `--arq-control-lg`) : pagination
