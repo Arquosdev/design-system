@@ -115,8 +115,12 @@ export const icons = {
     dessins de Phosphor en direct, seul écran à le faire (Plan de recette V2,
     21/10/2026).
   */
+  // UNE SEULE icône pour les deux états (Louis, 12/11/2026) : le panneau simple, sans traits.
+  // L'état se dit par `aria-label` et `aria-expanded`, pas par le dessin.
   showSidebar: 'SidebarSimple',
-  hideSidebar: 'Sidebar',
+  hideSidebar: 'SidebarSimple',
+  /** La colonne de DROITE d'une fiche : le même panneau, en miroir (la barre à droite). */
+  sidebarRight: 'SidebarSimple',
   /*
     **RÉGLER quelque chose, et c'est différent de le FILTRER.**
 
@@ -227,9 +231,12 @@ export const icons = {
   // Un casque : la clé est déjà la maintenance (06/10/2026).
   technician: 'HardHat',
   deal: 'Handshake',
-  /** Le contrat se signe : la signature, pas la feuille de `document`. */
-  contract: 'Signature',
-  quote: 'Receipt',
+  /** Le contrat : un document à sceau (Louis, 12/11/2026, la signature ne plaisait pas). */
+  contract: 'Certificate',
+  /** Le devis : le bloc-notes du chiffrage ; le reçu est passé à la facturation (12/11/2026). */
+  quote: 'Notepad',
+  /** La facturation (l'entrée de navigation) : un reçu, plus la calculette (Louis, 12/11/2026). */
+  billing: 'Receipt',
   // La facture (0155 du POC GMAO) : un document chiffré, distinct du devis.
   invoice: 'Invoice',
   // Trois entrées de navigation qui ne sont pas des objets : une campagne de

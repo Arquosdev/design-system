@@ -59,8 +59,9 @@ import {
   PaperPlaneTilt,
   PencilSimple,
   Plus,
-  Sidebar,
   SidebarSimple,
+  Certificate,
+  Notepad,
   Receipt,
   Rows,
   Ruler,
@@ -105,7 +106,6 @@ import {
   CalendarCheck,
   CalendarDots,
   Polygon,
-  Signature,
   Printer,
   House,
   Star,
@@ -140,6 +140,13 @@ function Constellation({ size = 18, color = colors.text, weight, ...props }: { s
   );
 }
 
+/** Le panneau simple EN MIROIR : la barre à droite, comme la colonne d'une fiche (12/11/2026). */
+const SidebarSimpleADroite = React.forwardRef<unknown, React.ComponentProps<typeof SidebarSimple>>(
+  function SidebarSimpleADroite(props, ref) {
+    return <SidebarSimple ref={ref as never} mirrored {...props} />;
+  },
+) as unknown as PhosphorIcon;
+
 // Le MÊME tableau que `icon.web.tsx`, dessin pour dessin : les deux lisent
 // `IconRole`, et TypeScript refuse qu'un rôle manque d'un côté. Les 37 dessins
 // sont importés ici et nulle part ailleurs dans l'app mobile.
@@ -164,7 +171,8 @@ const DESSINS: Record<IconRole, PhosphorIcon> = {
   revealPassword: Eye,
   hidePassword: EyeSlash,
   showSidebar: SidebarSimple,
-  hideSidebar: Sidebar,
+  hideSidebar: SidebarSimple,
+  sidebarRight: SidebarSimpleADroite,
   settings: GearSix,
   compliant: CheckCircle,
   check: Check,
@@ -213,8 +221,9 @@ const DESSINS: Record<IconRole, PhosphorIcon> = {
   // du rail (Visites, Techniciens) portaient le même dessin. Louis, 06/10/2026.
   technician: HardHat,
   deal: Handshake,
-  contract: Signature,
-  quote: Receipt,
+  contract: Certificate,
+  quote: Notepad,
+  billing: Receipt,
   invoice: Invoice,
   campaign: Crosshair,
   import: UploadSimple,

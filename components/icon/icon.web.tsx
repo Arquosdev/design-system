@@ -61,8 +61,9 @@ import {
   MinusCircle,
   PencilSimple,
   Plus,
-  Sidebar,
   SidebarSimple,
+  Certificate,
+  Notepad,
   Rows,
   Ruler,
   ShieldCheck,
@@ -104,7 +105,6 @@ import {
   CalendarCheck,
   CalendarDots,
   Polygon,
-  Signature,
   Printer,
   House,
   Star,
@@ -144,6 +144,13 @@ const Constellation = React.forwardRef<SVGSVGElement, ProprietesDeDessin>(functi
   );
 }) as unknown as PhosphorIcon;
 
+/** Le panneau simple EN MIROIR : la barre à droite, comme la colonne d'une fiche (12/11/2026). */
+const SidebarSimpleADroite = React.forwardRef<unknown, React.ComponentProps<typeof SidebarSimple>>(
+  function SidebarSimpleADroite(props, ref) {
+    return <SidebarSimple ref={ref as never} mirrored {...props} />;
+  },
+) as unknown as PhosphorIcon;
+
 // Le vocabulaire de `src/icons.ts` résolu en composants. Les dessins sont
 // importés ici et nulle part ailleurs : c'est ce qui garantit qu'un rôle donne
 // le même dessin dans tout le produit.
@@ -176,7 +183,8 @@ const GLYPHS: Record<IconRole, PhosphorIcon> = {
   revealPassword: Eye,
   hidePassword: EyeSlash,
   showSidebar: SidebarSimple,
-  hideSidebar: Sidebar,
+  hideSidebar: SidebarSimple,
+  sidebarRight: SidebarSimpleADroite,
   settings: GearSix,
 
   compliant: CheckCircle,
@@ -230,8 +238,9 @@ const GLYPHS: Record<IconRole, PhosphorIcon> = {
   // du rail (Visites, Techniciens) portaient le même dessin. Louis, 06/10/2026.
   technician: HardHat,
   deal: Handshake,
-  contract: Signature,
-  quote: Receipt,
+  contract: Certificate,
+  quote: Notepad,
+  billing: Receipt,
   invoice: Invoice,
   campaign: Crosshair,
   import: UploadSimple,
