@@ -6,6 +6,7 @@ import { Checkbox } from '../checkbox/checkbox.web';
 import { Icon } from '../icon/icon.web';
 import type { IconRole } from '../../src/icons';
 import { cn } from '../_lib/cn';
+import { IDENTIFIER } from '../_lib/identifier';
 import {
   compare,
   decalageEntete,
@@ -58,7 +59,7 @@ export interface RecordTableProps<T> {
    * horizontal : sans elle, on ne sait plus de quelle ligne on lit les valeurs.
    */
   identity: {
-    /** Un numéro, une référence : composé en mono, comme une plaque. Pas pour un nom. */
+    /** Ignoré depuis le 12/11/2026 : toute colonne d'identité est en DM Mono (`IDENTIFIER`). */
     mono?: boolean;
     header: string;
     render: (row: T) => React.ReactNode;
@@ -689,10 +690,13 @@ export function RecordTable<T>({
                     !check && !actif && 'transition-colors duration-(--arq-duration-rapide) group-hover:bg-bg-muted',
                     actif && 'shadow-[inset_2px_0_0_var(--color-primary)]',
                     // Une colonne rétrécie coupe son lien au lieu de le laisser passer sur la voisine (recette, 13/10/2026).
-                    'border-r border-b border-border-soft px-md font-semibold whitespace-nowrap sm:overflow-hidden',
+                    'border-r border-b border-border-soft px-md whitespace-nowrap sm:overflow-hidden',
+                    /* L'identifiant en DM Mono, sur toutes les colonnes d'identité (Louis, 12/11/2026) ;
+                       la précision dessous (immeuble, adresse) reste en texte courant. */
+                    IDENTIFIER,
+                    '[&_.font-semibold]:font-medium [&_.font-bold]:font-medium [&_.text-small]:font-sans [&_.text-small]:tracking-normal [&_.text-caption]:font-sans [&_.text-caption]:tracking-normal',
                     retrait,
                     !selection && 'pl-xl',
-                    identity.mono && 'font-mono font-normal',
                     // Sur une carte, le titre passe sur deux lignes au plus, avec ses points de suspension :
                     // il était coupé net au bord (« Remplacement complet OPH DES ACACI », renotation du 12/10/2026).
                     'max-sm:static max-sm:block max-sm:whitespace-normal max-sm:border-0 max-sm:p-0',

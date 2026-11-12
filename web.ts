@@ -28,6 +28,7 @@ export {
   CardFooter,
 } from './components/card/card.web';
 export { FlatSurfaces, useFlatSurfaces } from './components/_lib/flat-surfaces';
+export { IDENTIFIER } from './components/_lib/identifier';
 export { ColorField, type ColorFieldProps } from './components/color-field/color-field.web';
 export { ThinkingDots, type ThinkingDotsProps } from './components/thinking-dots/thinking-dots.web';
 export { AiMark, type AiMarkProps } from './components/ai-mark/ai-mark.web';

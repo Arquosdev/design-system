@@ -1,5 +1,12 @@
 # Monter une app vers la version courante
 
+## Non publié (branche design-cartes) · `IDENTIFIER`, l'identifiant en DM Mono
+
+Nouveau : la classe `IDENTIFIER` (DM Mono, 500, approche resserrée). `RecordTable` la pose sur
+toute colonne d'identité (le `mono` de l'identité est ignoré) ; une précision en `text-small` ou
+`text-caption` dans la cellule reste en DM Sans. **À reprendre chez l'appelant** : le nom d'une
+fiche et les cartes d'identité prennent `IDENTIFIER` ; l'app doit charger DM Mono 500.
+
 ## Non publié (branche design-cartes) · Onglets sans compte, trait de 2 px, focus au clavier
 
 `RecordRail` et `SubTabs` n'affichent plus de compte (le `count` est ignoré) ; le trait de
