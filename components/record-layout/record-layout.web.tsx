@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { createPortal } from 'react-dom';
 
 import { Icon } from '../icon/icon.web';
 import { IconButton } from '../icon-button/icon-button.web';
@@ -16,6 +17,8 @@ import { cn } from '../_lib/cn';
 */
 type ChargementDeZone = {
   busy: boolean; setBusy: (busy: boolean) => void; zone: React.RefObject<HTMLDivElement | null>;
+  /** Où se pose la colonne d'informations : à droite du cadre, à côté des onglets ET de la zone. */
+  aside: HTMLElement | null;
 };
 const ContexteDeZone = React.createContext<ChargementDeZone | null>(null);
 
@@ -67,14 +70,21 @@ export interface RecordLayoutProps {
 export function RecordLayout({ children, className = '' }: RecordLayoutProps) {
   const [busy, setBusy] = React.useState(false);
   const zone = React.useRef<HTMLDivElement | null>(null);
-  const valeur = React.useMemo(() => ({ busy, setBusy, zone }), [busy]);
+  const [aside, setAside] = React.useState<HTMLElement | null>(null);
+  const valeur = React.useMemo(() => ({ busy, setBusy, zone, aside }), [busy, aside]);
   return (
     <ContexteDeZone.Provider value={valeur}>
       {/* Deux boîtes : une requête de conteneur ne s'applique pas à l'élément qui
-          EST le conteneur. L'extérieure se mesure, l'intérieure porte la colonne. */}
+          EST le conteneur. L'extérieure se mesure, l'intérieure porte la colonne.
+          LA COLONNE D'INFORMATIONS MONTE JUSQU'À L'EN-TÊTE (Louis, 12/11/2026, comme Attio) :
+          à gauche les onglets et la zone, à droite la colonne, sur toute la hauteur, sous le
+          filet de l'en-tête de la fiche. `RecordZone` l'envoie dans cet emplacement. */}
       <div className={`@container/fiche flex flex-col overflow-hidden bg-bg ${className}`}>
-        <div className="flex min-h-0 flex-1 flex-col items-stretch overflow-hidden">
-          {children}
+        <div className="flex min-h-0 flex-1 overflow-hidden">
+          <div className="flex min-h-0 min-w-0 flex-1 flex-col items-stretch overflow-hidden">
+            {children}
+          </div>
+          <div ref={setAside} className="contents" />
         </div>
       </div>
     </ContexteDeZone.Provider>
@@ -430,12 +440,17 @@ export function RecordZone({ children, aside, asideLabel = 'Informations' }: Rec
     <RecordZoneBody busy={busy} zoneRef={c?.zone}>{children}</RecordZoneBody>
   );
   if (!aside) return zone;
+  const colonne = (
+    <aside aria-label={asideLabel} className="flex w-[340px] shrink-0 flex-col gap-xl overflow-y-auto border-l border-border-soft px-lg py-base">
+      {aside}
+    </aside>
+  );
+  // Dans un `RecordLayout`, la colonne se pose à droite du cadre, à la hauteur des onglets.
+  if (c?.aside) return <>{zone}{createPortal(colonne, c.aside)}</>;
   return (
     <div className="flex min-h-0 flex-1">
       {zone}
-      <aside aria-label={asideLabel} className="flex w-[340px] shrink-0 flex-col gap-xl overflow-y-auto border-l border-border-soft px-lg py-base">
-        {aside}
-      </aside>
+      {colonne}
     </div>
   );
 }

@@ -134,8 +134,9 @@ la fois) : `FilterChips`. Ni sur une liste qui a déjà le panneau « Filtres »
 
 ## La colonne d'informations (`RecordZone aside`)
 
-D'après les « Record details » d'Attio (Louis, 12/11/2026). Une colonne de 340 px à droite de la
-zone, sous la barre d'onglets, séparée par un filet vertical doux, avec son propre défilement ;
+D'après les « Record details » d'Attio (Louis, 12/11/2026). Une colonne de 340 px à droite du
+cadre, qui monte jusqu'au filet de l'en-tête de la fiche (les onglets ne s'étendent que sur la zone
+de gauche), séparée par un filet vertical doux, avec son propre défilement ;
 elle reste la même quel que soit l'onglet. On y lit d'abord les **Rattachements** (une ligne par
 objet lié : icône de l'objet, rôle, nom en lien, sur une ligne), puis le suivi et l'essentiel de
 l'objet en lignes de champs compactes (`DetailGroup`, `DetailRow`, `DETAIL_FIELD_ROWS`), puis un
