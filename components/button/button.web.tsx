@@ -21,29 +21,36 @@ import { availability, availabilityAttributes, blocksActivation } from './button
  * (`radius.control`), 14 px semi-gras, marges intérieures de 12 px. Le petit
  * fait 28, le grand 40. Les teintes restent celles d'Arquos.
  */
+/*
+  LES BOUTONS FAÇON SUPABASE (Louis, 12/11/2026) : une seule taille de travail,
+  28 px, texte de 12 px en graisse 500, icônes de 14 px, rembourrage de 10 px,
+  arrondi de 6 px — partout, panneaux et boîtes de dialogue compris.
+  - secondaire (`outline`) : fond blanc, AUCUNE bordure, le contour est une
+    ombre (`shadow-control`), plus franche au survol, fond `bgHover` ;
+  - principal et destructif : la même forme pleine, une micro-ombre ;
+  - le fantôme et le lien ne changent pas.
+*/
 export const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-sm whitespace-nowrap rounded-control ' +
-    'text-small font-semibold transition-colors outline-none ' +
+  'inline-flex items-center justify-center gap-[calc(var(--spacing-xs)+var(--spacing-xxs))] whitespace-nowrap rounded-control ' +
+    'text-caption font-medium transition-[background-color,box-shadow,color] outline-none ' +
     'focus-ring ' +
     'disabled:pointer-events-none disabled:opacity-50 ' +
-    '[&_svg]:pointer-events-none [&_svg]:shrink-0',
+    '[&_svg]:pointer-events-none [&_svg]:size-3.5 [&_svg]:shrink-0',
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground hover:bg-primary/90',
+        default: 'bg-primary text-primary-foreground shadow-control-solid hover:bg-primary/90',
         secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-        // Gris pâle et bordure douce, à la manière d'Attio (Louis, 07/10/2026 :
-        // « pas très fan des boutons secondaires blanc avec bordures grises »).
-        outline: 'border border-border-soft bg-bg-muted text-text hover:border-border hover:bg-border-soft',
+        outline: 'bg-bg text-text shadow-control hover:bg-bg-hover hover:shadow-control-hover',
         ghost: 'text-muted-foreground hover:text-primary',
-        destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+        destructive: 'bg-destructive text-destructive-foreground shadow-control-solid hover:bg-destructive/90',
         link: 'text-primary underline-offset-4 hover:underline',
       },
       size: {
-        default: 'h-(--arq-control-md) px-md',
-        sm: 'h-(--arq-control-sm) px-sm',
-        lg: 'h-(--arq-control-lg) px-base',
-        icon: 'size-(--arq-control-md) px-0',
+        default: 'h-(--arq-control-sm) px-[calc(var(--spacing-sm)+var(--spacing-xxs))]',
+        sm: 'h-(--arq-control-sm) px-[calc(var(--spacing-sm)+var(--spacing-xxs))]',
+        lg: 'h-(--arq-control-md) px-md',
+        icon: 'size-(--arq-control-sm) px-0',
       },
     },
     defaultVariants: { variant: 'default', size: 'default' },

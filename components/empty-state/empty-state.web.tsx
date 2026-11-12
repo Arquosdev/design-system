@@ -5,7 +5,6 @@ import * as React from 'react';
 import { Button } from '../button/button.web';
 import { Icon } from '../icon/icon.web';
 import { cn } from '../_lib/cn';
-import { useFlatSurfaces } from '../_lib/flat-surfaces';
 import { FAILURES, failureKind, RETRY } from './empty-state.logic';
 import type { IconRole } from '../../src/icons';
 
@@ -42,53 +41,23 @@ export function EmptyState({
   density = 'page',
   className,
 }: EmptyStateProps) {
-  // À plat (FlatSurfaces) : le message d'une section vide perd son cadre pointillé, il se lit dans le bloc.
-  const aPlat = useFlatSurfaces();
-  if (density === 'section') {
-    return (
-      <div className={cn('flex items-start gap-md rounded-block border border-dashed border-border-soft px-base py-md', aPlat && 'border-0 px-0', className)}>
-        <Icon role={icon} size="md" weight="subtle" className="mt-xxs shrink-0 text-text-subtle" />
-        <div className="flex min-w-0 flex-1 flex-col gap-xxs">
-          <p className="text-small-bold text-text">{title}</p>
-          {hint ? <p className="text-small text-text-muted">{hint}</p> : null}
-        </div>
-        {actionLabel && onAction ? (
-          <Button variant="outline" size="sm" className="shrink-0" onClick={onAction}>{actionLabel}</Button>
-        ) : null}
-      </div>
-    );
-  }
+  /*
+    L'ÉTAT VIDE UNIQUE (Louis, 12/11/2026, d'après Supabase, Linear et Vercel) :
+    centré, une marge verticale généreuse, l'icône de l'objet dans un petit carré
+    blanc contouré de l'ombre des boutons, un titre court à 14 px, une ligne qui
+    dit ce qui apparaîtra ici (13 px, gris), et le geste qui remplit la rubrique
+    en bouton secondaire, jamais en bleu vif. Sans cadre : dans une rubrique en
+    cartes, c'est la carte qui l'entoure. `density` ne règle plus que la marge.
+  */
   return (
-    <div className={cn('flex flex-col items-center px-xl py-2xl text-center', className)}>
-      {/*
-        **L'icône nue, en trait, et non pleine dans un carré gris.**
-
-        Louis, le 22/09/2026 : « est-ce que l'empty state est cohérent avec le
-        nouveau design ? je le trouve moche. » Le carré doux de 60 px était le
-        motif de 2018 : il encadre une icône qui n'a rien à encadrer, et il
-        ajoute une surface là où l'écran est déjà vide. Les états vides des
-        produits qu'on regarde n'en ont plus — Figma n'a pas d'icône du tout,
-        Family en garde une, grande et en trait, sans cadre.
-
-        `subtle` (le trait) et non `active` (le plein) : posée seule, une icône
-        pleine pèse comme un pictogramme d'alerte, alors qu'un vide n'est pas
-        un incident. `textSubtle` est sa couleur — la fiche du vocabulaire la
-        réserve aux icônes, et elle est ici décorative : le titre dit tout.
-      */}
-      <Icon role={icon} size="xl" weight="subtle" className="mb-md text-text-subtle" />
-      <p className="text-subhead font-semibold text-text">{title}</p>
-      {/*
-        `small` et non `body` : à 16 sur un titre de 18, le conseil concurrençait
-        ce qu'il précise et les deux lignes faisaient un pavé. La hiérarchie se
-        creuse d'un cran, et la largeur se resserre pour qu'il tienne en deux
-        lignes courtes.
-      */}
-      {hint ? <p className="mt-xs max-w-[38ch] text-small text-text-muted">{hint}</p> : null}
-      {/* En contour : l'action principale de la page est dans son en-tête, et il n'y a qu'un bleu vif par page. */}
+    <div className={cn('flex flex-col items-center justify-center px-base text-center', density === 'page' ? 'py-5xl' : 'py-4xl', className)}>
+      <span aria-hidden className="mb-md grid size-9 place-items-center rounded-md bg-bg text-text-muted shadow-control">
+        <Icon role={icon} size="sm" />
+      </span>
+      <p className="text-small-bold text-text">{title}</p>
+      {hint ? <p className="mt-xxs max-w-[44ch] text-pretty text-description text-text-muted">{hint}</p> : null}
       {actionLabel && onAction ? (
-        <Button variant="outline" className="mt-base" onClick={onAction}>
-          {actionLabel}
-        </Button>
+        <Button variant="outline" size="sm" className="mt-base" onClick={onAction}>{actionLabel}</Button>
       ) : null}
     </div>
   );

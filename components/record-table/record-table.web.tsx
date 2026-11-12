@@ -125,7 +125,8 @@ export interface RecordTableProps<T> {
 export type RecordTableDensity = 'standard' | 'compact';
 
 /** Le retrait vertical d'une cellule du corps, par densité. */
-const RETRAIT: Record<RecordTableDensity, string> = { standard: 'py-[10px]', compact: 'py-xs' };
+// La densité façon Supabase (12/11/2026) : des lignes d'environ 36 px en texte de 13.
+const RETRAIT: Record<RecordTableDensity, string> = { standard: 'py-sm', compact: 'py-xs' };
 
 export function RecordTable<T>({
   rows,
@@ -366,7 +367,8 @@ export function RecordTable<T>({
 
   // Les en-têtes : petites capitales, sur le fond discret, collées en haut.
   const headerStyle =
-    'sticky top-0 border-b border-border-soft bg-bg-subtle px-md py-sm ' +
+    // L'en-tête est blanc, un simple filet dessous : le gris est réservé à la barre latérale (12/11/2026).
+    'sticky top-0 border-b border-border-soft bg-bg px-md py-sm ' +
     'text-caption font-medium whitespace-nowrap text-text-muted';
 
   /**
@@ -513,7 +515,7 @@ export function RecordTable<T>({
       <table
         style={largeurTable ? { width: largeurTable } : undefined}
         className={cn(
-          'border-separate border-spacing-0 text-left text-small',
+          'border-separate border-spacing-0 text-left text-description',
           regle ? 'table-fixed' : 'w-max min-w-full',
           /*
             **Sur un téléphone, une ligne devient une CARTE à deux niveaux**

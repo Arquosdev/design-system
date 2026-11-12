@@ -22,8 +22,10 @@ import { cn } from '../_lib/cn';
 export const badgeVariants = cva(
   /* La forme des badges d'Attio (Thomas, 04/11/2026), la même que `Tag` :
      20 px de haut, 4 px d'arrondi, une bordure fine de la teinte du fond. */
-  'inline-flex h-5 shrink-0 items-center rounded-sm border px-[6px] ' +
-    'text-caption font-medium transition-colors',
+  /* UNE SEULE FORME DE PASTILLE (Louis, 12/11/2026), sur le modèle des pastilles
+     d'en-tête d'un relevé : 22 px, arrondi de 6, fine bordure de la teinte, 12 px. */
+  'inline-flex h-[calc(var(--spacing-lg)+var(--spacing-xxs))] shrink-0 items-center gap-xs rounded-control border px-sm ' +
+    'text-caption font-medium whitespace-nowrap transition-colors',
   {
     variants: {
       variant: {

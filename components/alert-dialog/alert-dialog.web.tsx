@@ -34,7 +34,7 @@ export const AlertDialogContent = React.forwardRef<
       ref={ref}
       className={cn(
         'fixed top-1/2 left-1/2 z-(--arq-layer-plein-ecran) flex w-panel max-w-[calc(100vw-32px)] -translate-x-1/2 -translate-y-1/2 flex-col gap-base',
-        'rounded-block border border-border-soft bg-bg p-lg shadow-pop outline-none',
+        'rounded-lg bg-bg p-lg shadow-pop outline-none',
         'data-[state=open]:animate-voile-entree data-[state=closed]:animate-voile-sortie',
         className,
       )}

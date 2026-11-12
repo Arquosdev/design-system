@@ -1,6 +1,6 @@
 {
   "name": "@arquosdev/design-system",
-  "version": "2.36.0-refonte.12",
+  "version": "2.37.0-refonte.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
     "tag": "refonte"

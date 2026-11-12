@@ -7,10 +7,10 @@ import { type IconRole } from '../../src/icons';
 import { cn } from '../_lib/cn';
 
 const BOUTON =
-  // Le même que le bouton secondaire depuis le 07/10/2026 : gris pâle, bordure douce.
-  'flex h-(--arq-control-md) items-center gap-sm rounded-control border border-border-soft bg-bg-muted px-md ' +
-  'text-small-bold whitespace-nowrap text-text hover:border-border hover:bg-border-soft ' +
-  'focus-ring';
+  // Le même que le bouton secondaire (12/11/2026) : blanc, contour par ombre, 28 px, 12 px.
+  'flex h-(--arq-control-sm) items-center gap-[calc(var(--spacing-xs)+var(--spacing-xxs))] rounded-control bg-bg px-[calc(var(--spacing-sm)+var(--spacing-xxs))] ' +
+  'text-caption font-medium whitespace-nowrap text-text shadow-control transition-[background-color,box-shadow] hover:bg-bg-hover hover:shadow-control-hover ' +
+  'focus-ring [&_svg]:size-3.5';
 
 /** La barre au-dessus d'une liste : ce qu'on peut lui faire. */
 export function Toolbar({ children, className }: { children: React.ReactNode; className?: string }) {
@@ -46,7 +46,7 @@ export const ToolButton = React.forwardRef<HTMLButtonElement, ToolButtonProps>(
         className={cn(BOUTON, 'max-sm:px-sm', active && 'border-primary bg-info-bg text-on-info-bg hover:border-primary', className)}
         {...reste}
       >
-        <Icon role={icon} className="size-4 shrink-0" aria-hidden />
+        <Icon role={icon} className="size-3.5 shrink-0" aria-hidden />
         {/* Sur un téléphone, l'icône seule : le libellé reste pour un lecteur
             d'écran, et la barre tient sur une ligne au lieu de quatre (A3-14). */}
         <span className="max-sm:sr-only">{children}</span>
@@ -115,18 +115,18 @@ export function ToolbarSearch({ value, onChange, placeholder = 'Rechercher', lab
   return (
     <label
       className={cn(
-        'relative flex h-(--arq-control-md) items-center overflow-hidden rounded-control border',
-        'transition-[width,background-color,border-color] duration-200 ease-out motion-reduce:transition-none',
+        'relative flex h-(--arq-control-sm) items-center overflow-hidden rounded-control',
+        'transition-[width,background-color,box-shadow] duration-(--arq-duration-normal) ease-out motion-reduce:transition-none',
         ouverte
-          ? 'w-full gap-sm border-border bg-bg px-md focus-ring-within sm:w-64'
-          : 'w-9 cursor-pointer justify-center border-border-soft bg-bg-muted hover:border-border hover:bg-border-soft',
+          ? 'w-full gap-sm border border-border bg-bg px-sm focus-ring-within sm:w-64'
+          : 'size-(--arq-control-sm) cursor-pointer justify-center bg-bg shadow-control hover:bg-bg-hover hover:shadow-control-hover',
         className,
       )}
       onMouseDown={(e) => {
         if (!ouverte) { e.preventDefault(); ouvrir(); }
       }}
     >
-      <Icon role="search" className={cn('size-4 shrink-0', ouverte ? 'text-text-muted' : 'text-text')} aria-hidden />
+      <Icon role="search" className={cn('size-3.5 shrink-0', ouverte ? 'text-text-muted' : 'text-text')} aria-hidden />
       <input
         ref={ref}
         type="search"
@@ -144,7 +144,7 @@ export function ToolbarSearch({ value, onChange, placeholder = 'Rechercher', lab
         aria-label={label ?? placeholder}
         // Replié, le champ reste dans la page (le clavier et un lecteur d'écran l'atteignent) mais sans largeur.
         className={cn(
-          'min-w-0 bg-transparent text-small text-text outline-none placeholder:text-text-muted [&::-webkit-search-cancel-button]:hidden',
+          'min-w-0 bg-transparent text-caption text-text outline-none placeholder:text-text-muted [&::-webkit-search-cancel-button]:hidden',
           ouverte ? 'flex-1 opacity-100' : 'absolute inset-0 w-full cursor-pointer opacity-0',
         )}
       />

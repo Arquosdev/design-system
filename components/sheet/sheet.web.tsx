@@ -76,7 +76,8 @@ export const SheetContent = React.forwardRef<
       className={cn(
         'fixed inset-y-0 right-0 z-(--arq-layer-panneau) flex h-full max-w-[calc(100vw-32px)] flex-col',
         size === 'large' ? 'w-panel-wide' : 'w-panel',
-        'border-l border-border-soft bg-bg shadow-pop outline-none',
+        // Collé au bord : AUCUN arrondi (12/11/2026), seulement l'ombre des fenêtres.
+        'bg-bg shadow-pop outline-none',
         'data-[state=open]:animate-tiroir-entree data-[state=closed]:animate-tiroir-sortie',
         className,
       )}
@@ -182,7 +183,7 @@ export function SheetCloseButton({ className }: { className?: string }) {
     <SheetPrimitive.Close
       aria-label="Fermer"
       className={cn(
-        'grid size-(--arq-control-sm) shrink-0 place-items-center rounded-control bg-bg-muted text-text-muted outline-none',
+        'grid size-(--arq-control-sm) shrink-0 place-items-center rounded-control text-text-muted outline-none hover:bg-bg-hover',
         'hover:text-text focus-ring',
         className,
       )}

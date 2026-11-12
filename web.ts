@@ -264,3 +264,7 @@ export {
   type StatusObject,
   type StatusTone,
 } from './components/status-badge/status-badge.logic';
+export {
+  Surface, FieldSurface, SurfaceFooter, Group, GroupTitle, GroupLink,
+  SURFACE, FIELD_ROWS, FIELD_ROWS_NARROW, SURFACE_TABLE, GROUP_TITLE, GROUP_LINK,
+} from './components/surface/surface.web';

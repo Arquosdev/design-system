@@ -52,6 +52,7 @@ Une mécanique que n'importe quelle application aurait — bouton, modale, ongle
 | [SelectionBar](selection-bar/selection-bar.spec.md) | Offrir en bas de liste ce qu'on peut faire des enregistrements cochés. | 🖥️ | beta |
 | [Sheet](sheet/sheet.spec.md) | Un panneau qui entre par le bord pour une tâche annexe, sans quitter l'écran. | 🖥️ | beta |
 | [Skeleton](skeleton/skeleton.spec.md) | Occuper la place de ce qui charge, pour que l'écran ne mente pas en paraissant vide. | 🖥️ 📱 | stable |
+| [Surface](surface/surface.spec.md) | Pose les blocs qui s'empilent sur une page blanche, chacun dans une carte contourée par son ombre, son titre au-dessus. | 🖥️ | beta |
 | [Switch](switch/switch.spec.md) | Basculer un réglage qui s'applique immédiatement. | 🖥️ | stable |
 | [Tag](tag/tag.spec.md) | Distinguer une valeur de référentiel par sa couleur, sans la juger. | 🖥️ 📱 | stable |
 | [Text](text/text.spec.md) | Écrire du texte avec un préréglage typographique et un ton de couleur, sans jamais recomposer une taille à la main. | 📱 | beta |

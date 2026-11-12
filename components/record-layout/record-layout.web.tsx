@@ -110,7 +110,7 @@ export interface RecordRailProps {
   l'en-tête et du contenu, au lieu de huit pixels plus loin. Elle défile de
   côté quand la largeur manque, sans barre : l'onglet courant est ramené en vue.
 */
-const RANGEE = '-mx-sm flex h-3xl min-w-0 flex-1 items-stretch gap-xxs overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden';
+const RANGEE = '-mx-sm flex h-[calc(var(--arq-control-md)+var(--spacing-xs))] min-w-0 flex-1 items-stretch gap-xxs overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden';
 
 /** La rubrique mère de `current` : celle dont les enfants le portent, ou qui le porte elle-même. */
 function mereDe(items: readonly NavItem[], current?: string): NavItem | undefined {
@@ -171,40 +171,46 @@ export function RecordRail({
      ou chez l'un des siens, et c'est la pastille du dessous qui dit lequel. */
   const ongletCourant = mere ? mere.id : current;
 
+  /*
+    LES ONGLETS, PRINCIPAUX ET SECONDAIRES, D'UN SEUL DESSIN (Louis, 12/11/2026) :
+    texte, trait de 2 px sous l'onglet choisi, collé au filet de la rangée, droit ;
+    l'onglet choisi passe en graisse 600 (celle de l'entrée active de la barre
+    latérale) sans pousser ses voisins, la place du gras étant réservée. Plus de
+    pastilles pour les sous-rubriques. Fond blanc : le gris est réservé à la barre
+    latérale. Une rangée qui déborde montre ses chevrons.
+  */
+  const onglet = (i: NavItem, actif: boolean) => (
+    <NavTarget
+      key={i.id}
+      href={i.href}
+      disabled={i.disabled}
+      aria-current={actif ? 'page' : undefined}
+      onActivate={() => onChoose(i.id)}
+      className={cn(
+        // Le trait du courant se pose SUR le filet de la rangée, pas au-dessus : `-mb-px` est le pixel de ce filet.
+        'relative -mb-px flex shrink-0 items-center gap-xs whitespace-nowrap px-sm text-small font-medium outline-none focus-ring',
+        'disabled:pointer-events-none disabled:opacity-50',
+        actif
+          ? 'font-semibold text-primary after:absolute after:inset-x-sm after:bottom-0 after:h-xxs after:bg-primary'
+          : i.empty
+            /* Atténuée, jamais éteinte : une rubrique vide se prend, c'est en y allant qu'on la remplit. */
+            ? 'text-text-subtle hover:text-text'
+            : 'text-text-muted hover:text-text',
+      )}
+    >
+      {/* La place du gras réservée : l'onglet choisi passe en gras sans pousser ses voisins. */}
+      <span data-texte={i.label} className="inline-grid after:invisible after:h-0 after:overflow-hidden after:font-semibold after:content-[attr(data-texte)]">{i.label}</span>
+      <Compteur item={i} />
+    </NavTarget>
+  );
+
   return (
-    /* Le fond de la rangée : le gris très léger de la tête d'une liste (`bgSubtle`), pour que la
-       navigation se lise à part du contenu (Thomas, 04/11/2026). */
-    <nav aria-label={ariaLabel} className="shrink-0 border-b border-border-soft bg-bg-subtle">
-      <div className="flex items-center gap-sm px-base @min-[640px]/fiche:px-xl">
+    <nav aria-label={ariaLabel} className="shrink-0 border-b border-border-soft bg-bg">
+      <div className="relative flex items-center gap-sm px-base @min-[640px]/fiche:px-xl">
         <div ref={rangee} role="presentation" onKeyDown={auClavier} data-role="defilement-du-rail" className={RANGEE}>
-          {items.map((i) => {
-            const actif = i.id === ongletCourant;
-            return (
-              <NavTarget
-                key={i.id}
-                href={i.href}
-                disabled={i.disabled}
-                aria-current={actif ? 'page' : undefined}
-                onActivate={() => onChoose(i.id)}
-                className={cn(
-                  // Le trait du courant se pose SUR le filet de la rangée, pas au-dessus : `-mb-px` est le pixel de ce filet.
-                  'relative -mb-px flex shrink-0 items-center gap-xs whitespace-nowrap px-sm text-small font-medium outline-none focus-ring',
-                  'disabled:pointer-events-none disabled:opacity-50',
-                  // La graisse ne change pas : la rangée ne bouge pas d'un pixel quand on change d'onglet.
-                  actif
-                    ? 'text-primary after:absolute after:inset-x-sm after:bottom-0 after:h-xxs after:rounded-full after:bg-primary'
-                    : i.empty
-                      /* Atténuée, jamais éteinte : une rubrique vide se prend, c'est en y allant qu'on la remplit. */
-                      ? 'text-text-subtle hover:text-text'
-                      : 'text-text-muted hover:text-text',
-                )}
-              >
-                <span>{i.label}</span>
-                <Compteur item={i} />
-              </NavTarget>
-            );
-          })}
+          {items.map((i) => onglet(i, i.id === ongletCourant))}
         </div>
+        <Chevrons rangee={rangee} />
 
         {onglets ? (
           <SegmentedTabs
@@ -217,9 +223,7 @@ export function RecordRail({
         ) : null}
 
         {recherche ? (
-          /* La loupe au bout de la rangée, à la place du champ de 284 px qu'elle
-             était dans le rail : le libellé devient son nom accessible et son
-             infobulle. */
+          /* La loupe au bout de la rangée : le libellé devient son nom accessible et son infobulle. */
           <IconButton
             variant="ghost"
             size="sm"
@@ -233,39 +237,70 @@ export function RecordRail({
       </div>
 
       {mere?.children?.length ? (
-        <div className="border-t border-border-soft bg-bg-subtle px-base @min-[640px]/fiche:px-xl">
+        <div className="relative flex items-center border-t border-border-soft px-base @min-[640px]/fiche:px-xl">
           <div
             ref={sousRangee}
             role="presentation"
             onKeyDown={auClavier}
             aria-label={mere.label}
-            className="-mx-sm flex items-center gap-xs overflow-x-auto py-xs [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            data-role="defilement-du-rail"
+            className={RANGEE}
           >
-            {mere.children.map((e) => {
-              const actif = e.id === current;
-              return (
-                <NavTarget
-                  key={e.id}
-                  href={e.href}
-                  disabled={e.disabled}
-                  aria-current={actif ? 'page' : undefined}
-                  onActivate={() => onChoose(e.id)}
-                  className={cn(
-                    'flex h-(--arq-control-sm) shrink-0 items-center gap-xs whitespace-nowrap rounded-control px-sm text-small outline-none focus-ring',
-                    'disabled:pointer-events-none disabled:opacity-50',
-                    actif ? 'bg-info-bg font-semibold text-on-info-bg' : 'text-text-muted hover:bg-bg-muted hover:text-text',
-                  )}
-                >
-                  {/* La place du gras réservée : l'entrée choisie passe en gras sans pousser ses voisines. */}
-                  <span data-texte={e.label} className="inline-grid after:invisible after:h-0 after:overflow-hidden after:font-semibold after:content-[attr(data-texte)]">{e.label}</span>
-                  <Compteur item={e} />
-                </NavTarget>
-              );
-            })}
+            {mere.children.map((e) => onglet(e, e.id === current))}
           </div>
+          <Chevrons rangee={sousRangee} />
         </div>
       ) : null}
     </nav>
+  );
+}
+
+/**
+ * Les chevrons d'une rangée qui déborde (Louis, 12/11/2026) : à droite tant qu'il
+ * reste des onglets à droite, à gauche dès qu'on a défilé, sur un fondu blanc ;
+ * un clic avance d'un peu plus d'une demi-rangée. Ils disparaissent en bout de course.
+ */
+function Chevrons({ rangee }: { rangee: React.RefObject<HTMLDivElement | null> }) {
+  const [bords, setBords] = React.useState({ avant: false, apres: false, gauche: 0, droite: 0 });
+  React.useEffect(() => {
+    const r = rangee.current;
+    const parent = r?.parentElement;
+    if (!r || !parent) return;
+    const mesurer = () => {
+      const a = r.getBoundingClientRect();
+      const p = parent.getBoundingClientRect();
+      const suivant = {
+        avant: r.scrollLeft > 1,
+        apres: r.scrollLeft + r.clientWidth < r.scrollWidth - 1,
+        gauche: Math.round(a.left - p.left),
+        droite: Math.round(p.right - a.right),
+      };
+      setBords((b) => (b.avant === suivant.avant && b.apres === suivant.apres && b.gauche === suivant.gauche && b.droite === suivant.droite ? b : suivant));
+    };
+    mesurer();
+    r.addEventListener('scroll', mesurer, { passive: true });
+    const taille = new ResizeObserver(mesurer);
+    taille.observe(r);
+    taille.observe(parent);
+    return () => { r.removeEventListener('scroll', mesurer); taille.disconnect(); };
+  }, [rangee]);
+  const aller = (sens: 1 | -1) => {
+    const r = rangee.current;
+    r?.scrollBy({ left: sens * Math.round(r.clientWidth * 0.6), behavior: 'smooth' });
+  };
+  return (
+    <>
+      {bords.avant ? (
+        <span className="pointer-events-none absolute inset-y-0 z-10 flex items-center bg-linear-to-r from-bg from-60% to-transparent pr-xl" style={{ left: bords.gauche }}>
+          <IconButton variant="ghost" size="sm" className="pointer-events-auto" label="Onglets précédents" icon={<Icon role="previous" size="sm" />} onClick={() => aller(-1)} />
+        </span>
+      ) : null}
+      {bords.apres ? (
+        <span className="pointer-events-none absolute inset-y-0 z-10 flex items-center justify-end bg-linear-to-l from-bg from-60% to-transparent pl-xl" style={{ right: bords.droite }}>
+          <IconButton variant="ghost" size="sm" className="pointer-events-auto" label="Onglets suivants" icon={<Icon role="next" size="sm" />} onClick={() => aller(1)} />
+        </span>
+      ) : null}
+    </>
   );
 }
 
@@ -285,8 +320,8 @@ function Compteur({ item }: { item: NavItem }) {
  */
 export function RecordRailSkeleton() {
   return (
-    <div aria-hidden="true" className="shrink-0 border-b border-border-soft bg-bg-subtle px-base @min-[640px]/fiche:px-xl">
-      <div className="flex h-3xl items-center gap-base">
+    <div aria-hidden="true" className="shrink-0 border-b border-border-soft bg-bg px-base @min-[640px]/fiche:px-xl">
+      <div className="flex h-[calc(var(--arq-control-md)+var(--spacing-xs))] items-center gap-base">
         {/* Cinq traits : de quoi occuper la rangée sans prétendre dire combien de rubriques arrivent. */}
         {Array.from({ length: 5 }, (_, i) => (
           <div key={i} className="h-base w-5xl shrink-0 animate-pulse rounded-control bg-bg-muted" />

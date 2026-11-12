@@ -14,7 +14,13 @@ export const shadow = {
   block: '0 1px 3px rgba(0, 41, 91, 0.04)',
   // Un bloc blanc sur fond blanc qui doit ressortir : un contour d'un pixel fait d'ombre, puis un halo diffus (Thomas, 04/11/2026, planche G « Anneau »).
   ring: '0 0 0 1px rgba(0, 41, 91, 0.08), 0 2px 8px rgba(0, 41, 91, 0.07)',
-  pop: '0 8px 24px rgba(0, 41, 91, 0.12)', // menus, popovers, feuilles modales
+  pop: '0 0 0 1px rgba(16, 24, 40, 0.06), 0 2px 4px -1px rgba(16, 24, 40, 0.04), 0 8px 16px -4px rgba(16, 24, 40, 0.08), 0 20px 40px -8px rgba(16, 24, 40, 0.12)', // fenêtres : menus, popovers, boîtes de dialogue, panneaux (en couches douces, 12/11/2026)
+  // La carte d'une page blanche : son contour EST l'ombre, en couches très faibles (aucune bordure), 12/11/2026.
+  surface: '0 0 0 1px rgba(16, 24, 40, 0.06), 0 1px 1px 0 rgba(16, 24, 40, 0.02), 0 2px 4px 0 rgba(16, 24, 40, 0.02), 0 6px 16px -4px rgba(16, 24, 40, 0.04)',
+  // Le contour d'un bouton secondaire, au repos et au survol, et la micro-ombre d'un bouton plein.
+  control: '0 0 0 1px rgba(16, 24, 40, 0.12), 0 1px 2px 0 rgba(16, 24, 40, 0.06)',
+  controlHover: '0 0 0 1px rgba(16, 24, 40, 0.18), 0 1px 2px 0 rgba(16, 24, 40, 0.06)',
+  controlSolid: '0 1px 2px 0 rgba(16, 24, 40, 0.1)',
   fab: '0 4px 12px rgba(13, 90, 183, 0.30)', // bouton flottant — teintée de bleu
 } as const;
 

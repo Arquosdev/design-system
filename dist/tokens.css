@@ -86,6 +86,8 @@
   --arq-color-on-inactive-bg: #4D5B66;
   --arq-color-bg: #FFFFFF;
   --arq-color-bg-subtle: #FCFDFE;
+  --arq-color-bg-selected: #F5F8FD;
+  --arq-color-bg-hover: #FAFBFC;
   --arq-color-bg-muted: #F6F7F9;
   --arq-color-border: #C8D3DA;
   --arq-color-border-soft: #EAEEF1;
@@ -94,7 +96,7 @@
   --arq-color-text-subtle: #8094A3;
   --arq-color-text-on-dark: #FFFFFF;
   --arq-color-text-on-info-bg: #073B6F;
-  --arq-color-nav-bg: #F6F7F9;
+  --arq-color-nav-bg: #FBFCFD;
   --arq-color-nav-bg-hover: #EAEEF1;
   --arq-color-nav-bg-active: #FFFFFF;
   --arq-color-nav-border: #C8D3DA;
@@ -139,7 +141,7 @@
   --arq-width-rail: 284px;
   --arq-width-page: 960px;
   --arq-radius-none: 0px;
-  --arq-radius-block: 4px;
+  --arq-radius-block: 8px;
   --arq-radius-control: 6px;
   --arq-radius-sm: 4px;
   --arq-radius-md: 8px;
@@ -178,19 +180,24 @@
   --arq-shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04);
   --arq-shadow-block: 0 1px 3px rgba(0, 41, 91, 0.04);
   --arq-shadow-ring: 0 0 0 1px rgba(0, 41, 91, 0.08), 0 2px 8px rgba(0, 41, 91, 0.07);
-  --arq-shadow-pop: 0 8px 24px rgba(0, 41, 91, 0.12);
+  --arq-shadow-pop: 0 0 0 1px rgba(16, 24, 40, 0.06), 0 2px 4px -1px rgba(16, 24, 40, 0.04), 0 8px 16px -4px rgba(16, 24, 40, 0.08), 0 20px 40px -8px rgba(16, 24, 40, 0.12);
+  --arq-shadow-surface: 0 0 0 1px rgba(16, 24, 40, 0.06), 0 1px 1px 0 rgba(16, 24, 40, 0.02), 0 2px 4px 0 rgba(16, 24, 40, 0.02), 0 6px 16px -4px rgba(16, 24, 40, 0.04);
+  --arq-shadow-control: 0 0 0 1px rgba(16, 24, 40, 0.12), 0 1px 2px 0 rgba(16, 24, 40, 0.06);
+  --arq-shadow-control-hover: 0 0 0 1px rgba(16, 24, 40, 0.18), 0 1px 2px 0 rgba(16, 24, 40, 0.06);
+  --arq-shadow-control-solid: 0 1px 2px 0 rgba(16, 24, 40, 0.1);
   --arq-shadow-fab: 0 4px 12px rgba(13, 90, 183, 0.30);
 
   /* Typographie */
   --arq-font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --arq-font-mono: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --arq-font-size-caption: 12px;
+  --arq-font-size-description: 13px;
   --arq-font-size-small: 14px;
-  --arq-font-size-body: 16px;
-  --arq-font-size-subhead: 18px;
-  --arq-font-size-title: 20px;
-  --arq-font-size-title-large: 22px;
-  --arq-font-size-headline: 28px;
+  --arq-font-size-body: 14px;
+  --arq-font-size-subhead: 16px;
+  --arq-font-size-title: 18px;
+  --arq-font-size-title-large: 20px;
+  --arq-font-size-headline: 20px;
   --arq-font-size-display: 32px;
   --arq-font-weight-regular: 400;
   --arq-font-weight-medium: 500;
@@ -236,6 +243,13 @@
   letter-spacing: 1.5px;
 }
 
+.arq-text-description {
+  font-family: var(--arq-font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18.2px;
+}
+
 .arq-text-small {
   font-family: var(--arq-font-sans);
   font-size: 14px;
@@ -252,53 +266,53 @@
 
 .arq-text-body {
   font-family: var(--arq-font-sans);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
-  line-height: 22.4px;
+  line-height: 19.599999999999998px;
 }
 
 .arq-text-body-medium {
   font-family: var(--arq-font-sans);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 22.4px;
+  line-height: 19.599999999999998px;
 }
 
 .arq-text-body-bold {
   font-family: var(--arq-font-sans);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
-  line-height: 22.4px;
+  line-height: 19.599999999999998px;
 }
 
 .arq-text-subhead {
   font-family: var(--arq-font-sans);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-  line-height: 21.599999999999998px;
+  line-height: 19.2px;
 }
 
 .arq-text-title {
   font-family: var(--arq-font-sans);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
-  line-height: 24px;
+  line-height: 21.599999999999998px;
   letter-spacing: -0.5px;
 }
 
 .arq-text-title-large {
   font-family: var(--arq-font-sans);
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
-  line-height: 26.4px;
+  line-height: 24px;
   letter-spacing: -0.5px;
 }
 
 .arq-text-headline {
   font-family: var(--arq-font-sans);
-  font-size: 28px;
+  font-size: 20px;
   font-weight: 700;
-  line-height: 33.6px;
+  line-height: 24px;
   letter-spacing: -0.5px;
 }
 

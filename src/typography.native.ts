@@ -31,6 +31,7 @@ export * from './typography.ts';
 
 export const fontSize = {
   caption: 13,
+  description: 13,
   small: 15,
   body: 17,       // ← défaut
   subhead: 20,

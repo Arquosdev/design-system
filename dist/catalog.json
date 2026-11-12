@@ -1367,6 +1367,35 @@
       }
     },
     {
+      "name": "Surface",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Pose les blocs qui s'empilent sur une page blanche, chacun dans une carte contourée par son ombre, son titre au-dessus.",
+      "keywords": [
+        "carte",
+        "bloc",
+        "groupe",
+        "champs",
+        "page blanche",
+        "titre de groupe",
+        "à plat"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "mobile": [],
+        "web": [
+          "components/record/cartes.tsx"
+        ]
+      },
+      "dossier": "components/surface",
+      "specFile": "components/surface/surface.spec.md",
+      "fichiers": {
+        "web": "components/surface/surface.web.tsx"
+      }
+    },
+    {
       "name": "Switch",
       "status": "stable",
       "layer": "generique",

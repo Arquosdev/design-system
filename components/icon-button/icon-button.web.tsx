@@ -20,8 +20,9 @@ const iconButton = cva(
         solid: 'border-0 bg-brand text-text-on-dark hover:opacity-90',
       },
       size: {
-        sm: 'size-(--arq-control-sm)',
-        md: 'size-(--arq-control-md)',
+        // 28 × 28 dans les deux tailles : un bouton d'icône a la hauteur des boutons (12/11/2026).
+        sm: 'size-(--arq-control-sm) [&_svg]:size-3.5',
+        md: 'size-(--arq-control-sm) [&_svg]:size-3.5',
       },
     },
     defaultVariants: { variant: 'outline', size: 'md' },

@@ -63,7 +63,7 @@ export function SegmentedTabs({
             className={cn(
               // `flex-1` et non la largeur du texte : sinon la piste tressaute
               // d'un onglet à l'autre quand les libellés sont inégaux.
-              'flex flex-1 items-center justify-center gap-sm rounded-control px-sm py-sm text-small outline-none',
+              'flex h-[calc(var(--arq-control-sm)-var(--spacing-xs))] flex-1 items-center justify-center gap-xs rounded-control px-[calc(var(--spacing-sm)+var(--spacing-xxs))] text-caption outline-none [&_svg]:size-3.5',
               // Un libellé ne se coupe jamais en deux lignes : « Tous les
               // champs » rendait « Tous les / champs », et la piste doublait de
               // hauteur. Mieux vaut une piste qui dépasse — l'appelant la fait

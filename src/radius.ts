@@ -11,7 +11,7 @@ export const radius = {
   none: 0,
   // Blocs de contenu : cartes, panneaux, tableaux. 4 px, le même rayon que les
   // contrôles (Louis, 27/09/2026) : arrondi voulu, net, sur la grille de 4 px.
-  block: 4,
+  block: 8,   // une carte, un bloc, un menu (Louis, 12/11/2026 : 6 commande, 8 carte, 12 fenêtre)
   // Boutons, champs, menus, pastilles : 6 px depuis le 04/11/2026 (Thomas,
   // refonte des boutons « à la Intercom », relevée sur Refero : angles
   // nettement arrondis sans être une pilule). Un seul rayon pour tous les

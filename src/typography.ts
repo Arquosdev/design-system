@@ -46,14 +46,22 @@ export const fontFamilyMonoNative = {
   500: 'DMMono_500Medium',
 } as const;
 
+/*
+  LA DENSITÉ « FAÇON SUPABASE » (Louis, 12/11/2026) : l'échelle descend d'un cran
+  pour aller avec des boutons à 12 px. Le texte courant passe à 14, le titre
+  d'une rubrique à 18, le nom d'une fiche et le titre d'une liste à 20.
+  `description` (13) est la ligne qui accompagne : une description d'état vide,
+  un titre de groupe, un libellé de champ, une cellule de tableau.
+*/
 export const fontSize = {
   caption: 12,
+  description: 13,
   small: 14,
-  body: 16,        // ← défaut
-  subhead: 18,
-  title: 20,
-  titleLarge: 22,
-  headline: 28,
+  body: 14,        // ← défaut
+  subhead: 16,
+  title: 18,
+  titleLarge: 20,
+  headline: 20,
   display: 32,
 } as const;
 
@@ -128,6 +136,11 @@ export function scaleFrom(fs: Record<keyof typeof fontSize, number>) {
       fontWeight: fontWeight.medium,
       lineHeight: fs.caption * lineHeight.normal,
       letterSpacing: letterSpacing.wider,
+    },
+    description: {
+      fontSize: fs.description,
+      fontWeight: fontWeight.regular,
+      lineHeight: fs.description * lineHeight.normal,
     },
     small: {
       fontSize: fs.small,

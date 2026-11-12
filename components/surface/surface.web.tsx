@@ -1,0 +1,96 @@
+'use client';
+
+import * as React from 'react';
+
+import { cn } from '../_lib/cn';
+
+/*
+  LA PAGE EN CARTES (Louis, 12/11/2026). Sur une page blanche, une carte SÉPARE
+  des blocs qui s'empilent ; elle n'encadre jamais un élément seul. Son contour
+  est son ombre (`shadow-surface`), sans bordure, rayon de 8 px. Le titre d'un
+  bloc se pose AU-DESSUS de sa carte (`GroupTitle`, 13 px, graisse 600, gris),
+  8 px plus haut, avec ses gestes à droite (`GroupLink`). Une rubrique qui n'est
+  qu'un tableau ou une liste ne prend pas de carte : elle est à plat.
+*/
+
+/** La carte : fond blanc, rayon de 8 px, l'ombre pour contour. */
+export const SURFACE = 'rounded-block bg-bg shadow-surface';
+
+/*
+  Les lignes de champs d'une carte : une `FieldRow` par ligne, 10 px en hauteur
+  et 16 px de côté, le filet posé EN HAUT de chaque ligne et retiré à la première
+  rangée (la dernière n'a donc jamais de trait orphelin). Deux colonnes de champs
+  quand la carte passe 900 px (la zone 960 avec ses marges), jamais trois.
+*/
+const LIGNES =
+  'grid grid-cols-1 [&>*]:px-base [&>*]:py-[calc(var(--spacing-sm)+var(--spacing-xxs))] ' +
+  '[&>*]:border-b-0 [&>*]:border-t [&>*]:border-border-soft [&>*:first-child]:border-t-0 [&>[data-pied]]:col-span-full';
+export const FIELD_ROWS =
+  `${LIGNES} @min-[60rem]:grid-cols-2 sm:[&>*]:grid-cols-[200px_minmax(0,1fr)] @min-[60rem]:[&>*:nth-child(2)]:border-t-0`;
+/** Les mêmes lignes sur une colonne étroite (les cotes à côté d'un schéma) : la valeur tient sur sa ligne. */
+export const FIELD_ROWS_NARROW = `${LIGNES} sm:[&>*]:grid-cols-[minmax(0,1fr)_auto] [&>*>div]:whitespace-nowrap`;
+
+/** Un tableau dans une carte : il la remplit, les coins restent arrondis, l'en-tête est blanc. */
+export const SURFACE_TABLE = `${SURFACE} overflow-clip [&_tbody>tr:last-child>*]:border-b-0 [&_th]:bg-bg`;
+
+/** Le titre d'un groupe : le troisième niveau (sous le nom de la fiche et le titre de rubrique). */
+export const GROUP_TITLE = 'text-description font-semibold text-text-muted';
+
+/** Le geste à droite d'un titre de groupe : un seul dessin, un petit lien bleu souligné au survol. */
+export const GROUP_LINK = 'rounded-control text-description font-medium text-primary hover:underline focus-ring';
+
+type Div = React.ComponentPropsWithoutRef<'div'>;
+
+/** Une carte. */
+export function Surface({ className, ...props }: Div) {
+  return <div className={cn(SURFACE, className)} {...props} />;
+}
+
+/** Une carte de champs (`FieldRow` en lignes, deux colonnes quand elle est large). */
+export function FieldSurface({ className, narrow = false, ...props }: Div & { narrow?: boolean }) {
+  return <div className={cn(SURFACE, 'overflow-clip', narrow ? FIELD_ROWS_NARROW : FIELD_ROWS, className)} {...props} />;
+}
+
+/** Le pied d'une carte de champs : « Afficher N champs vides », sur toute sa largeur. */
+export function SurfaceFooter({ className, ...props }: Div) {
+  return <div data-pied className={cn('flex items-center border-t border-border-soft px-base py-sm', className)} {...props} />;
+}
+
+/** La ligne de titre d'un groupe, seule. */
+export function GroupTitle({ title, count, actions, as: Titre = 'h3' }: {
+  title: React.ReactNode;
+  count?: React.ReactNode;
+  actions?: React.ReactNode;
+  as?: 'h2' | 'h3' | 'h4';
+}) {
+  return (
+    <div className="flex flex-wrap items-end justify-between gap-x-md gap-y-xs">
+      <Titre className={GROUP_TITLE}>
+        {title}
+        {count !== undefined && count !== null ? <span className="font-normal tabular-nums text-text-subtle">{' '}{count}</span> : null}
+      </Titre>
+      {actions ? <div className="flex flex-wrap items-center gap-sm">{actions}</div> : null}
+    </div>
+  );
+}
+
+/** Un groupe : son titre au-dessus, son contenu (une carte) 8 px plus bas. */
+export function Group({ title, count, actions, children, className, ...props }: {
+  title: React.ReactNode;
+  count?: React.ReactNode;
+  actions?: React.ReactNode;
+  children: React.ReactNode;
+} & Omit<React.ComponentPropsWithoutRef<'section'>, 'title'>) {
+  return (
+    <section aria-label={typeof title === 'string' ? title : undefined} className={cn('flex min-w-0 flex-col gap-sm', className)} {...props}>
+      <GroupTitle title={title} count={count} actions={actions} />
+      {children}
+    </section>
+  );
+}
+
+/** Le geste d'un titre de groupe : « Tout voir », « 3 à renseigner ». */
+export const GroupLink = React.forwardRef<HTMLButtonElement, React.ComponentPropsWithoutRef<'button'>>(
+  ({ className, type = 'button', ...props }, ref) => <button ref={ref} type={type} className={cn(GROUP_LINK, className)} {...props} />,
+);
+GroupLink.displayName = 'GroupLink';

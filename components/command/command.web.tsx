@@ -103,7 +103,7 @@ export function CommandDialog({
           aria-describedby={undefined}
           className={cn(
             'fixed top-[96px] left-1/2 z-(--arq-layer-plein-ecran) w-[660px] max-w-[calc(100vw-32px)] -translate-x-1/2',
-            'overflow-hidden rounded-block bg-bg shadow-pop outline-none',
+            'overflow-hidden rounded-lg bg-bg shadow-pop outline-none',
             className,
           )}
         >
@@ -135,7 +135,7 @@ export function CommandInput({
           // `min-w-0` : sans lui l'entrée garde sa largeur intrinsèque, la
           // boîte déborde, et c'est l'invite qui se coupe.
           'min-w-0',
-          taille === 'sm' ? 'h-(--arq-control-md) text-small' : 'h-[52px] text-subhead',
+          taille === 'sm' ? 'h-(--arq-control-md) text-small' : 'h-[calc(var(--arq-control-lg)+var(--spacing-xs))] text-small',
           'placeholder:text-text-muted',
           className,
         )}

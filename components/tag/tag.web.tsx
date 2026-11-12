@@ -35,7 +35,8 @@ export function Tag({ children, tone, colors, className }: TagProps) {
   return (
     <span
       className={cn(
-        'inline-flex h-5 max-w-full items-center rounded-sm border px-[6px]',
+        // La forme de `Badge` : une seule pastille dans tout le produit (12/11/2026).
+        'inline-flex h-[calc(var(--spacing-lg)+var(--spacing-xxs))] max-w-full items-center rounded-control border px-sm',
         'text-caption font-medium whitespace-nowrap',
         className,
       )}

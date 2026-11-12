@@ -202,6 +202,10 @@ export const colors = {
    * nuance de blanc. La poser sur `grey[50]` la rendrait terne.
    */
   bgSubtle: '#FCFDFE',
+  /** Une ligne CHOISIE dans une liste (la note ouverte, l'agence courante) : un bleu à peine teinté, sans trait. */
+  bgSelected: '#F5F8FD',
+  /** Une ligne SURVOLÉE dans une liste ou une carte, et le fond d'un bouton secondaire survolé. */
+  bgHover: '#FAFBFC',
   bgMuted: palette.grey[50],
   border: palette.grey[200],
   borderSoft: palette.grey[100], // séparateurs internes, bordures de carte
@@ -252,7 +256,9 @@ export const colors = {
    * est un fond blanc cerné d'un filet (Fingerprint, Resend), sans barre de
    * couleur : Louis a écarté le trait orange à gauche, « ça fait trop IA ».
    */
-  navBg: palette.grey[50],
+  /* Bien plus pâle que le gris 50 (Louis, 12/11/2026) : le gris est réservé à
+     cette barre, et il faut seulement qu'on la devine à côté de la page blanche. */
+  navBg: '#FBFCFD',
   navBgHover: palette.grey[100],
   navBgActive: palette.white,
   navBorder: palette.grey[200],
