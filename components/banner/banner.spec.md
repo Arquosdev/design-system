@@ -33,6 +33,14 @@ replaces:
 > contexte de synchronisation : **c'est sa coque qui est remontée ici, pas sa
 > plomberie**, et c'est délibéré.
 
+
+## Le dessin, et quand il sert (Louis, 12/11/2026)
+
+Le dessin des pastilles : fond pâle de la teinte, filet de 1 px de la même teinte un peu plus
+soutenue, arrondi 8, texte 13 px de la teinte, icône 14 px. **Un bandeau ne sert qu'à ce qui
+est indispensable et ne se lit nulle part ailleurs** : un refus, une erreur, un avertissement
+réglementaire, un état bloquant. Jamais pour décrire, résumer ou expliquer ce qu'on voit :
+une information utile devient une donnée (pastille, colonne, état vide).
 ## Props
 
 | Prop | Type | Défaut | Rôle |

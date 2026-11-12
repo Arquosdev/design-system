@@ -14,11 +14,12 @@ export interface BannerProps extends React.ComponentProps<'div'> {
 }
 
 const TONES: Record<BannerTone, string> = {
-  info: 'bg-info-bg text-text-on-info-bg',
+  // Le dessin des pastilles (Louis, 12/11/2026) : fond pâle, filet de 1 px de la même teinte.
+  info: 'border-primary/15 bg-info-bg text-text-on-info-bg',
   // Un état réussi qui DURE sur la page (10/10/2026) : la paire de jetons du succès, jamais dissociée.
-  success: 'bg-success-bg text-on-success-bg',
-  warning: 'bg-warning-bg text-on-warning-bg',
-  danger: 'bg-danger-bg text-on-danger-bg',
+  success: 'border-success/20 bg-success-bg text-on-success-bg',
+  warning: 'border-warning/25 bg-warning-bg text-on-warning-bg',
+  danger: 'border-danger/20 bg-danger-bg text-on-danger-bg',
 };
 
 /**
@@ -60,13 +61,14 @@ export function Banner({
           depuis que `cn` déclare l'échelle d'espacement à tailwind-merge — avant
           cette date, une surcharge de ce genre était silencieusement ignorée.
         */
-        'flex w-full items-center gap-sm rounded-control px-base py-sm text-small font-medium',
+        // Aligné sur les pastilles (12/11/2026) : arrondi 8, filet de 1 px, texte 13 px, icône 14 px.
+        'flex w-full items-center gap-sm rounded-block border px-md py-sm text-description font-medium',
         TONES[tone],
         className,
       )}
       {...props}
     >
-      {icon ? <Icon role={icon} size="sm" /> : null}
+      {icon ? <Icon role={icon} size="sm" className="size-3.5 shrink-0" /> : null}
       <span className="min-w-0 flex-1">{children}</span>
       {action}
     </div>
