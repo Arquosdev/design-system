@@ -169,7 +169,8 @@ export function SheetFooter({ className, ...props }: React.ComponentProps<'div'>
            suivante au lieu de sortir du panneau (« Créer l'affaire sœur sur ce relevé »,
            audit ergonomie du 29/10/2026). Pas de marge automatique imposée : un pied à
            trois boutons garde la disposition que son appelant lui donne. */
-        'flex shrink-0 flex-wrap items-center justify-between gap-md border-t border-border-soft px-lg py-md',
+        // 8 px entre deux boutons voisins (Louis, 12/11/2026, « Composer une page »).
+        'flex shrink-0 flex-wrap items-center justify-between gap-sm border-t border-border-soft px-lg py-md',
         className,
       )}
       {...props}
