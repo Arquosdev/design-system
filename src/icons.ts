@@ -235,8 +235,12 @@ export const icons = {
   contract: 'Certificate',
   /** Le devis : le bloc-notes du chiffrage ; le reçu est passé à la facturation (12/11/2026). */
   quote: 'Notepad',
-  /** La facturation (l'entrée de navigation) : un reçu, plus la calculette (Louis, 12/11/2026). */
-  billing: 'Receipt',
+  /** La facturation (l'entrée de navigation) : des pièces de monnaie (Louis, 12/11/2026, après la calculette et le reçu). */
+  billing: 'Coins',
+  /** Les devis de PIÈCES (Maintenance) : la caisse à outils, distincte du devis de travaux (`quote`). */
+  partQuote: 'Toolbox',
+  /** « À faire » : une liste cochée, distincte du calendrier du Planning (12/11/2026). */
+  todo: 'ListChecks',
   // La facture (0155 du POC GMAO) : un document chiffré, distinct du devis.
   invoice: 'Invoice',
   // Trois entrées de navigation qui ne sont pas des objets : une campagne de
