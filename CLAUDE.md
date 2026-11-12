@@ -113,7 +113,7 @@ vérifie avec `scripts/check-tableaux.mjs <dossiers>`.
 
 ## Charte de design (anciennement « Composer une page »)
 
-La page de référence pour l'équipe est « Charte de design » dans ClickUp (Tech › Design system), tenue à l'identique de cette section ; une règle nouvelle s'écrit aux deux endroits, datée (Louis, 12/11/2026).
+La page de référence pour l'équipe est « Charte de design » dans ClickUp (dossier Design du document Documents), tenue à l'identique de cette section ; une règle nouvelle s'écrit aux deux endroits, datée (Louis, 12/11/2026).
 
 Tirées des écrans revus avec Thomas (novembre 2026). Elles valent pour toute page
 d'Arquos V2 : fiche, liste, Facturation, Pièces et stock. Deux principes les
