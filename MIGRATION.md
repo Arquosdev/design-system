@@ -1,5 +1,21 @@
 # Monter une app vers la version courante
 
+## Non publié (branche design-cartes) · La densité et la page en cartes façon Supabase
+
+Validé par Louis le 12/11/2026 sur la fiche Équipement. Ce qui change sans rien à faire :
+l'échelle de texte (corps 14, sous-titre 16, titre 18, nom de fiche et titre de liste 20,
+nouvelle taille `description` 13), l'arrondi `block` (8), l'ombre `pop` des fenêtres, le fond
+`navBg` ; `Button` à 28 px et 12 px (le secondaire contouré d'une ombre), `Badge` et `Tag`
+d'une seule forme (22 px, arrondi 6), `IconButton` 28 × 28, `SegmentedTabs`, `FilterChips` et
+la barre d'outils à la hauteur des boutons, `Label` à 13 px, `RecordTable` à 13 px et en-tête
+blanc, `RecordRail` blanc avec des sous-onglets du dessin des onglets (plus de pastilles) et
+des chevrons de débordement, `EmptyState` centré (les deux densités), `Sheet` sans arrondi,
+boîte de dialogue et palette à 12 px.
+
+À faire chez l'appelant : retirer toute surcharge de ces dessins ; une page qui empile des
+blocs prend `Surface`/`FieldSurface`/`Group` (nouveaux), une rubrique qui n'est qu'un tableau
+reste à plat. Une cote recopiée d'ici dans un calcul (hauteur d'entrée, de bouton) est à revoir.
+
 ## Non publié · `SectionTable` : 24 px sous les onglets
 
 Le titre d'un `SectionTable` tombe à 24 px (`pt-xl`) du haut de la zone, et non plus 20

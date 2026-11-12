@@ -118,28 +118,32 @@ d'Arquos V2 : fiche, liste, Facturation, Pièces et stock. Deux principes les
 tiennent ensemble : **cohérence** (une même chose se dessine toujours de la même
 façon) et **minimalisme** (rien qui ne serve à lire ou à agir).
 
-**« À plat », ce que ça veut dire.** Le contenu repose directement sur le fond de
-la page, d'un bord à l'autre : pas de carte, pas de cadre, pas d'ombre autour d'un
-bloc. Ce qui sépare deux blocs, c'est leur titre et un filet fin
-(`border-border-soft`), pas une boîte. Les champs sont des lignes `FieldRow`
-(libellé sur 190 px, valeur à droite), les lignes d'objets un `SectionTable`, et le
-tout vit dans un `FlatSurfaces`. Une carte ne revient que si elle porte un sens
-qu'on ne sait pas dire autrement (un résumé qu'on doit isoler du reste) ; c'est
-l'exception, et elle se justifie.
+**Validé par Louis le 12/11/2026 sur la fiche Équipement** (essai « fiche en cartes »,
+d'après Supabase) ; ces règles remplacent les blocs « à plat » de novembre.
+
+**Page blanche, à plat ou en cartes.** Le fond de la zone est blanc ; le gris est réservé
+à la barre latérale (`navBg`). Une rubrique qui n'est QU'UN tableau ou une liste en fait le
+sujet de la page : à plat, d'un bord à l'autre, sans carte ni largeur maximale. Une rubrique
+qui EMPILE des blocs (groupes de champs, un résumé suivi d'un tableau) les sépare par des
+cartes (`Surface`, `FieldSurface`) : une carte sépare des blocs, elle n'encadre jamais un
+élément seul. Son contour est son ombre (`shadow-surface`), sans bordure.
 
 | Règle | Comment |
 | --- | --- |
-| **À plat dès que possible** | La plupart des pages se dessinent à plat (voir ci-dessus). La page prend toute la largeur |
-| **Toujours les mêmes tableaux** | Trois tableaux, pas un de plus : `RecordTable` pour une liste, `SectionTable` pour une rubrique de fiche ou une sous-page, `DataTable` pour comparer des mesures. On ne dessine jamais un tableau, une liste à cartes ou une grille de lignes à la main : si l'un des trois ne suffit pas, on le complète ici |
-| **Un en-tête sur chaque sous-page** | Chaque page, sous-page et rubrique a un titre visible. Les boutons dont elle a besoin vont **à droite de ce titre**, sur la même ligne : titre et boutons forment l'en-tête. Pas de bouton de rubrique dans l'en-tête de la page, pas de bouton isolé au-dessus ou en dessous du titre |
-| **La forme de l'en-tête** | Titre en `text-title`, dans une ligne haute d'un contrôle (`flex min-h-(--arq-control-md) items-center`), pour que le texte tombe au même endroit avec ou sans bouton. Le compte suit en `font-normal text-text-muted` (« Inventaires 1 »). `SectionTable` le fait avec `title`, `count` et `actions` |
-| **Modifier en ligne quand c'est pertinent** | Une valeur simple (un texte, un choix, une date, un montant) se corrige là où on la lit, sans ouvrir de panneau, et porte le pointillé de `FieldRow`. Un panneau ou une boîte de dialogue reste pour ce qui demande plusieurs champs à la fois, une confirmation ou une création |
-| **Multiples de 4 seulement** | Toujours un token de `spacing` : `sm` (8), `base` (16), `xl` (24), `2xl` (32) d'abord. Jamais `pt-[22px]`, jamais une marge qui « tombe juste » par addition |
-| **24 px sous les onglets** | Entre le filet de la barre d'onglets et la ligne du titre : `pt-xl`, partout (`SectionTable` le fait). En bas d'une rubrique : `pb-lg` |
-| **Pas de bande de grands chiffres** | Ni onglets géants ni cases de compteurs au-dessus d'un tableau : le titre dit ce qu'on regarde, et son compte |
-| **Filtrer : un seul chemin** | Une liste qui a des Filtres n'ajoute ni bouton ni pastille pour le même critère. Les `FilterChips` servent quand il n'y a pas de Filtres (l'origine d'une ligne à facturer, les commandes pour une panne) |
-| **Les champs vides se replient** | Derrière un seul bouton « Afficher N champs vides » par bloc, pas un groupe « Autres » |
-| **Pas de phrase d'explication** | Pas de petite ligne grise sous un bouton ou en bas d'un panneau : le libellé suffit |
+| **Une liste d'objets est toujours un tableau** | Plusieurs lignes qui partagent les mêmes colonnes : `RecordTable`, `SectionTable`, ou `DataTable` pour des mesures. Jamais une liste de cartes. Une carte ne sert qu'à un bloc de champs d'un même objet, ou à un petit résumé de liens vers d'autres objets (l'identité d'une fiche) |
+| **Largeurs** | Une rubrique de champs s'étend jusqu'à 1 440 px ; ses cartes prennent toutes la largeur de la rubrique (jamais deux cartes côte à côte, sauf les petites cartes de liens et les cotes par zone) ; ce sont les CHAMPS qui passent sur deux colonnes au-delà de 900 px de carte, jamais trois. Une rubrique à plat prend toute la largeur. Marge de page 24 px (sur la verticale du nom de la fiche et des onglets) |
+| **Trois niveaux de titre** | Nom de la fiche 20 px (`title-large`, `brand`) ; titre de rubrique (18 px, `title`) masqué à l'écran quand il répète l'onglet, gardé pour le lecteur d'écran ; titre de groupe 13 px, graisse 600, gris (`GroupTitle`), 8 px au-dessus de sa carte, 24 px entre deux groupes |
+| **Actions de rubrique dans l'en-tête de fiche** | Les boutons d'une rubrique ou d'une sous-rubrique (« Nouvelle affaire », « Modifier ») se posent dans l'en-tête de la fiche, à gauche d'« Actions », et suivent l'onglet actif ; la loupe de recherche de champ les précède. Un bouton qui ne concerne qu'un groupe reste à droite du titre de son groupe ; le geste d'un titre de groupe est un `GroupLink` (13 px, 500, `primary`) |
+| **Densité** | Texte courant 14, cellules de tableau 13 (lignes d'environ 36 px), libellés de champ 13, lignes de champ 10 × 16 px, barre d'onglets 36 px, légendes 12 |
+| **Boutons uniques** | 28 px, 12 px graisse 500, icônes 14, rembourrage 10 ; secondaire blanc contouré d'une ombre ; un seul bleu vif par page ; tout ce qui se clique sur une même ligne a cette taille (segments, recherche, menus, puces, boutons d'icône 28 × 28) |
+| **Pastilles uniques** | `Badge`/`Tag`/`StatusBadge` : 22 px, arrondi 6, fine bordure de la teinte, 12 px ; jamais de pilule ronde dessinée à la main |
+| **Onglets** | Onglets principaux et secondaires d'un seul dessin : texte, onglet actif en graisse 600 (place du gras réservée) et trait de 2 px collé au filet ; chevrons quand la rangée déborde |
+| **Arrondis** | Commande (bouton, champ, pastille) 6 ; carte, menu, popover, info-bulle 8 ; boîte de dialogue, palette 12 ; un panneau collé au bord : 0 |
+| **État vide unique** | `EmptyState` : centré, l'icône dans un carré blanc contouré, un titre court, une ligne qui dit ce qui viendra, le geste en secondaire. Jamais une phrase grise posée seule |
+| **Modifier en ligne quand c'est pertinent** | Une valeur simple se corrige là où on la lit (pointillé de `FieldRow`). Un panneau reste pour plusieurs champs à la fois, une confirmation ou une création |
+| **Multiples de 4 seulement** | Toujours un token de `spacing` ; une cote qui n'en est pas un se compose de tokens (`calc(var(--spacing-sm)+var(--spacing-xxs))`) |
+| **Filtrer : un seul chemin** | Une liste qui a des Filtres n'ajoute ni bouton ni pastille pour le même critère |
+| **Les champs vides se replient** | Derrière un seul « Afficher N champs vides » au pied de la carte (`SurfaceFooter`) |
 
 ## Anatomie d'un composant
 
