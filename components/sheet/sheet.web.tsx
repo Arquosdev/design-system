@@ -43,7 +43,7 @@ export interface SheetContentProps
 export const SheetContent = React.forwardRef<
   React.ComponentRef<typeof SheetPrimitive.Content>,
   SheetContentProps
->(({ className, children, side = 'right', size = 'standard', onCloseAutoFocus, ...props }, ref) => {
+>(({ className, children, side = 'right', size = 'standard', onCloseAutoFocus, onOpenAutoFocus, ...props }, ref) => {
   /* Ce qui avait le focus à l'ouverture, lu au premier rendu, avant que le
      panneau ne le prenne. Radix rend le focus au `SheetTrigger` en se fermant ;
      un panneau ouvert par son état n'en a pas, et le focus tombait sur la page
@@ -54,8 +54,11 @@ export const SheetContent = React.forwardRef<
      hors de lui ne défilait plus, il bloque le défilement de tout le reste.
      Voir `conteneur-flottant` (repris de la v2.37.0, #80, le 08/10/2026). */
   const [noeud, setNoeud] = React.useState<HTMLDivElement | null>(null);
+  // Le même nœud, lisible dès le montage (l'état n'est relu qu'au rendu suivant).
+  const element = React.useRef<HTMLDivElement | null>(null);
   const relier = React.useCallback(
     (el: HTMLDivElement | null) => {
+      element.current = el;
       setNoeud(el);
       if (typeof ref === 'function') ref(el);
       else if (ref) ref.current = el;
@@ -83,6 +86,16 @@ export const SheetContent = React.forwardRef<
         className,
       )}
       {...props}
+      /* OUVERT À LA SOURIS, le focus va au panneau lui-même et non à son premier bouton, la
+         croix : elle portait un anneau bleu sans qu'on ait touché au clavier (Louis, 12/11/2026,
+         panneau « Astreintes »). Au clavier, Radix pose le focus sur le premier élément, comme il
+         se doit. Un champ `autoFocus` garde la main : le focus est déjà dans le panneau. */
+      onOpenAutoFocus={(e) => {
+        onOpenAutoFocus?.(e);
+        if (e.defaultPrevented || !aLaSouris()) return;
+        e.preventDefault();
+        element.current?.focus({ preventScroll: true });
+      }}
       onCloseAutoFocus={(e) => {
         onCloseAutoFocus?.(e);
         if (e.defaultPrevented) return;
