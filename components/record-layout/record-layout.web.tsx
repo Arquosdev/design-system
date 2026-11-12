@@ -189,7 +189,6 @@ export function RecordRail({
       className={classeDOnglet(actif, i.empty)}
     >
       <TexteDOnglet label={i.label} />
-      <Compteur item={i} />
     </NavTarget>
   );
 
@@ -247,8 +246,14 @@ export function RecordRail({
 /** Le dessin d'un onglet, principal ou secondaire : un seul, partagé par `RecordRail` et `SubTabs`. */
 function classeDOnglet(actif: boolean, vide?: boolean) {
   return cn(
-    // Le trait du courant se pose SUR le filet de la rangée, pas au-dessus : `-mb-px` est le pixel de ce filet.
-    'relative -mb-px flex shrink-0 items-center gap-xs whitespace-nowrap px-sm text-small font-medium outline-none focus-ring',
+    /* Le trait du courant (2 px) se pose au ras du filet de la rangée. Il le recouvrait par un
+       `-mb-px`, mais la rangée défile de côté, donc rogne aussi en hauteur : le pixel débordant
+       était coupé et le trait se lisait à 1 px (Louis, 12/11/2026). */
+    /* Le focus, au clavier seulement, en anneau fin DANS l'onglet : un contour extérieur était
+       rogné haut et bas par la rangée qui défile, et ne laissait que deux traits verticaux
+       bleus de part et d'autre de l'onglet (Louis, 12/11/2026). */
+    'relative flex shrink-0 items-center gap-xs whitespace-nowrap rounded-control px-sm text-small font-medium outline-none',
+    'focus-visible:shadow-[inset_0_0_0_1.5px_var(--color-primary)]',
     'disabled:pointer-events-none disabled:opacity-50',
     actif
       ? 'font-semibold text-primary after:absolute after:inset-x-sm after:bottom-0 after:h-xxs after:bg-primary'
@@ -267,7 +272,7 @@ function TexteDOnglet({ label }: { label: string }) {
 export interface SubTab {
   id: string;
   label: string;
-  /** Un compte après le libellé, comme sur un onglet de rubrique. */
+  /** Ignoré : les onglets ne portent plus de compte (Louis, 12/11/2026). */
   count?: number | string;
 }
 
@@ -319,7 +324,6 @@ export function SubTabs({ ariaLabel, value, onChange, tabs, className }: SubTabs
               className={classeDOnglet(actif)}
             >
               <TexteDOnglet label={t.label} />
-              <Compteur item={{ id: t.id, label: t.label, count: t.count }} />
             </button>
           );
         })}
@@ -378,15 +382,11 @@ function Chevrons({ rangee }: { rangee: React.RefObject<HTMLDivElement | null> }
   );
 }
 
-/** Le compteur, s'il y en a un : « … » tant qu'on ne sait pas, jamais un « 0 » qui affirme. */
-function Compteur({ item }: { item: NavItem }) {
-  if (item.count === undefined || item.count === '') return null;
-  return (
-    <span className="inline-flex h-lg min-w-lg items-center justify-center rounded-full bg-bg-muted px-xs text-caption tabular-nums text-text-muted">
-      {item.count}
-    </span>
-  );
-}
+/*
+  PLUS DE COMPTE DANS LES ONGLETS (Louis, 12/11/2026) : « Immeubles 2 », « Notes 0 » se
+  retirent des barres d'onglets, principales et secondaires. Le `count` d'un `NavItem` ou d'un
+  `SubTab` est accepté et ignoré ici ; une liste ou une rubrique dit son nombre elle-même.
+*/
 
 /**
  * La rangée pendant le chargement, à la même hauteur : sans elle, la fiche

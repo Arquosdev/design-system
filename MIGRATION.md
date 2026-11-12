@@ -1,5 +1,12 @@
 # Monter une app vers la version courante
 
+## Non publié (branche design-cartes) · Onglets sans compte, trait de 2 px, focus au clavier
+
+`RecordRail` et `SubTabs` n'affichent plus de compte (le `count` est ignoré) ; le trait de
+l'onglet actif n'est plus rogné à 1 px par la rangée qui défile ; le focus est un anneau fin
+dans l'onglet, au clavier seulement (Louis, 12/11/2026). **À reprendre chez l'appelant** : un
+test qui cherchait le compte dans un onglet (« Notes 3 »).
+
 ## Non publié (branche design-cartes) · `SubTabs`, la barre d'onglets secondaire
 
 Nouveau : une rangée qui fait choisir UNE vue parmi plusieurs (sélection exclusive) est une

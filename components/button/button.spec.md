@@ -82,8 +82,11 @@ des applications iPhone, et elle se prend au pouce. Sur le web
 hauteur (32 px), relevés sur Refero (Thomas, 04/11/2026), comme les champs et
 les barres d'outils qu'il côtoie. Ne pas aligner l'un sur l'autre.
 
-**Choisir la variante :** `default` pour l'action principale — **une seule par page**,
-l'étape suivante du travail ou, à défaut, « Modifier » ; `outline` pour toutes les
+**Choisir la variante :** `default` pour l'action principale — **une seule par page**.
+Sur une fiche, c'est **toujours le menu « Actions »** en haut à droite (Louis, 12/11/2026) ;
+les boutons de rubrique posés à sa gauche, l'étape suivante comprise, sont en `outline`, et une
+fiche sans menu « Actions » n'a pas de bleu vif dans son en-tête. Sur une liste, c'est
+« Nouveau … » ; `outline` pour toutes les
 autres actions — gris pâle à bordure douce depuis le 07/10/2026 (Louis), comme les
 boutons de la barre d'outils ; `ghost` pour une action discrète en fin de ligne ; `destructive` pour
 une action irréversible ; `link` pour ce qui se comporte comme un lien sans en être un.
