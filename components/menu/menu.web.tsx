@@ -33,8 +33,8 @@ const ENTREE =
   'disabled:cursor-not-allowed disabled:text-text-subtle disabled:hover:bg-transparent';
 
 function Gouttiere({ icon, destructive }: { icon?: IconRole; destructive?: boolean }) {
-  if (!icon) return <span aria-hidden className="invisible shrink-0"><Icon role="moreActions" size="sm" /></span>;
-  return <Icon role={icon} size="sm" className={cn('shrink-0', destructive ? 'text-danger' : 'text-text-muted')} aria-hidden />;
+  if (!icon) return <span aria-hidden className="invisible shrink-0"><Icon role="moreActions" size="sm" className="size-3.5" /></span>;
+  return <Icon role={icon} size="sm" className={cn('size-3.5 shrink-0', destructive ? 'text-danger' : 'text-text-muted')} aria-hidden />;
 }
 
 /** Une entrée de menu : 28 px, 13 px, icône de 14 px en gris. */
