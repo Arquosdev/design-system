@@ -250,6 +250,7 @@ export {
   ActiveFilters, type ActiveFilter, type ActiveFiltersProps,
 } from './components/active-filters/active-filters.web';
 export { TableFooter, type TableFooterProps } from './components/table-footer/table-footer.web';
+export { MenuItem, MenuSeparator, MENU_CONTENT, type MenuItemProps } from './components/menu/menu.web';
 
 export { PageHeader, type PageHeaderProps } from './components/page-header/page-header.web';
 export { PageBody, type PageBodyProps } from './components/page-body/page-body.web';
