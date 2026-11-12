@@ -158,6 +158,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           raison que `data-role` sur `Icon` et `data-colonne` sur `RecordTable`.
         */
         data-arq="button"
+        // La taille dans le DOM : un bouton d'icône seule (`icon`) garde son glyphe là où la
+        // règle des en-têtes retire les autres (`HEADER_ACTIONS`, Louis, 12/11/2026).
+        data-size={size ?? 'default'}
         {...availabilityAttributes(state, inactiveReason)}
         /*
           Un bouton inactif REÇOIT le clic — c'est le prix de son atteignabilité,

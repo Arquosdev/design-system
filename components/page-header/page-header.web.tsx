@@ -43,6 +43,16 @@ export interface PageHeaderProps {
 }
 
 /**
+ * LES ICÔNES DES BOUTONS D'EN-TÊTE (Louis, 12/11/2026, « Charte de design ») : deux seulement,
+ * le « + » d'une création (`add`) et le chevron d'un bouton qui ouvre un menu (`expand`,
+ * `collapse`) ; la roue d'un bouton qui travaille reste. Toute autre icône d'un bouton À
+ * TEXTE est retirée ici, d'un coup, plutôt que dans chaque appelant ; un bouton d'icône
+ * seule (`IconButton`, `Button size="icon"`) garde la sienne, puisqu'il n'a qu'elle.
+ */
+export const HEADER_ACTIONS =
+  '[&_[data-arq=button]:not([data-size=icon])_svg[data-role]:not([data-role=add]):not([data-role=expand]):not([data-role=collapse]):not([data-role=loading])]:hidden';
+
+/**
  * L'en-tête d'un écran : d'où l'on vient, ce qu'on regarde, ce qu'on peut faire.
  *
  * Il ne défile pas avec le contenu — il dit où l'on est, et cette information
@@ -131,7 +141,7 @@ export function PageHeader({
         {/* Sur un téléphone, les actions prennent leur ligne entière, alignées à
             gauche sous le titre : à droite, chacune passait sur sa propre ligne
             et le contenu commençait à 330 px (A3-14). */}
-        {actions && <span className="flex w-full shrink-0 flex-wrap items-center gap-sm sm:ml-auto sm:w-auto sm:max-w-full sm:justify-end">{actions}</span>}
+        {actions && <span className={cn('flex w-full shrink-0 flex-wrap items-center gap-sm sm:ml-auto sm:w-auto sm:max-w-full sm:justify-end', HEADER_ACTIONS)}>{actions}</span>}
       </div>
       </div>
     </div>
