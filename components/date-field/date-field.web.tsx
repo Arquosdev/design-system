@@ -79,6 +79,12 @@ export interface DateFieldProps {
    * d'enregistrer tant que le champ refuse.
    */
   onRefus?: (refus: string | null) => void;
+  /**
+   * `md` (32 px) dans un formulaire ; `sm` (28 px, texte de 12 px) sur une barre
+   * d'outils ou dans l'en-tête d'une page, à la taille des boutons voisins (Louis,
+   * 12/11/2026, « Commandes de l'en-tête »).
+   */
+  size?: 'md' | 'sm';
   className?: string;
 }
 
@@ -132,6 +138,7 @@ export function DateField({
   autoFocus = false,
   invalid = false,
   onRefus,
+  size = 'md',
   className,
 }: DateFieldProps) {
   const today = todayISO();
@@ -228,7 +235,8 @@ export function DateField({
           <div
             data-slot="date-field"
             className={cn(
-              'flex h-(--arq-control-md) w-full items-stretch overflow-hidden rounded-control',
+              'flex w-full items-stretch overflow-hidden rounded-control',
+              size === 'sm' ? 'h-(--arq-control-sm)' : 'h-(--arq-control-md)',
               'border border-border bg-bg transition-colors',
               /*
                 La mise au point se voit sur l'enveloppe, comme sur
@@ -272,7 +280,8 @@ export function DateField({
                 }
               }}
               className={cn(
-                'h-full min-w-0 flex-1 bg-transparent px-sm text-small text-text',
+                'h-full min-w-0 flex-1 bg-transparent px-sm text-text',
+                size === 'sm' ? 'text-caption' : 'text-small',
                 'outline-none placeholder:text-text-muted',
                 'selection:bg-primary selection:text-text-on-dark',
                 'disabled:pointer-events-none',
@@ -285,7 +294,8 @@ export function DateField({
                 aria-label="Choisir dans le calendrier"
                 title="Choisir dans le calendrier"
                 className={cn(
-                  'flex w-(--arq-control-md) shrink-0 items-center justify-center',
+                  'flex shrink-0 items-center justify-center',
+                  size === 'sm' ? 'w-(--arq-control-sm)' : 'w-(--arq-control-md)',
                   // Le bouton fait partie du champ ; bordure: contrôle
                   'border-l border-border text-text-muted outline-none',
                   'hover:bg-bg-muted hover:text-text',

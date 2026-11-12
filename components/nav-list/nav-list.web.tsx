@@ -41,6 +41,22 @@ export interface NavItem {
    * 11/10/2026, A2-22). Un clic simple passe toujours par `onChoose`.
    */
   href?: string;
+  /**
+   * Un point rouge de 6 px à droite du libellé : la rubrique contient quelque chose
+   * d'urgent (l'onglet « Urgent » d'« À faire », tant qu'il n'est pas vide). Un point et
+   * jamais un nombre : aucun onglet ne porte de compte (Louis, 12/11/2026).
+   */
+  dot?: boolean;
+}
+
+/** Le point d'une entrée qui porte `dot`, dit aussi au lecteur d'écran. */
+export function NavDot() {
+  return (
+    <>
+      <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-danger" />
+      <span className="sr-only">, à traiter</span>
+    </>
+  );
 }
 
 /**
@@ -338,6 +354,7 @@ function Entry({
         )}
       >
         <span className="flex-1">{item.label}</span>
+        {item.dot ? <NavDot /> : null}
         <Count item={item} active={active} />
       </NavTarget>
     );
@@ -367,6 +384,7 @@ function Entry({
         )}
       >
         <span className="flex-1">{item.label}</span>
+        {item.dot ? <NavDot /> : null}
         <Count item={item} active={active} />
       </NavTarget>
       <button

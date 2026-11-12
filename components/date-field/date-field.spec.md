@@ -91,6 +91,7 @@ entrée que rien ne valide, et la carte fausse est pire que la carte absente.
 | `autoFocus` | `boolean` | `false` | Le champ prend le focus dès qu'il paraît |
 | `invalid` | `boolean` | `false` | L'appelant sait la valeur fautive pour une raison que le champ ne voit pas — le service l'a refusée |
 | `onRefus` | `(refus: string \| null) => void` | — | Le champ dit au formulaire qu'il refuse sa frappe (la raison), ou `null`. Un formulaire qui enregistre une date FACULTATIVE s'en sert pour refuser d'enregistrer : sans lui, une date impossible s'enregistrait comme « rien » |
+| `size` | `'md' \| 'sm'` | `'md'` | `md` (32 px) dans un formulaire ; `sm` (28 px, texte de 12 px, bouton du calendrier de 28 × 28) sur une barre d'outils ou dans l'en-tête d'une page, à la taille des boutons voisins (« Commandes de l'en-tête », 12/11/2026). Remplace les surcharges `[&_[data-slot=date-field]]:h-…` des écrans |
 | `className` | `string` | — | — |
 
 `onValue` reçoit `null` dans trois cas qui n'ont pas à se distinguer pour

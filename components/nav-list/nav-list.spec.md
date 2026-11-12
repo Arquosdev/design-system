@@ -35,6 +35,8 @@ replaces:
 | `collapsible` | `boolean`                    | `false`| Rend l'intitulé cliquable, pour replier le groupe |
 | `defaultOpen` | `boolean`              | `true` | Ouvert au premier rendu                     |
 
+`NavItem` porte aussi `dot` (`boolean`) : un point rouge de 6 px à droite du libellé, dit « à traiter » au lecteur d'écran. Il dit qu'une rubrique contient quelque chose d'urgent (l'onglet « Urgent » d'« À faire »), jamais combien : aucun onglet ne porte de compte. `RecordRail` le dessine aussi sur ses onglets (12/11/2026).
+
 `NavItem` : `{ cle, label, compteur?, desactive?, vide?, enfants? }`.
 
 **`enfants` fait de l'entrée une rubrique dépliante.** Elle garde l'aspect des

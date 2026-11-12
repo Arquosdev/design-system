@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 
 import { Icon } from '../icon/icon.web';
 import { IconButton } from '../icon-button/icon-button.web';
-import { NavTarget, type NavItem } from '../nav-list/nav-list.web';
+import { NavDot, NavTarget, type NavItem } from '../nav-list/nav-list.web';
 import { SegmentedTabs, type Segment } from '../segmented-tabs/segmented-tabs.web';
 import { Skeleton } from '../skeleton/skeleton.web';
 import { cn } from '../_lib/cn';
@@ -204,6 +204,7 @@ export function RecordRail({
       className={classeDOnglet(actif, i.empty)}
     >
       <TexteDOnglet label={i.label} />
+      {i.dot ? <NavDot /> : null}
     </NavTarget>
   );
 

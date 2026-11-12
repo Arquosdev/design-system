@@ -48,7 +48,29 @@ export interface RecordColumn<T> {
    * de photos prises). Une phrase ; l'en-tête, lui, reste un nom.
    */
   hint?: string;
+  /**
+   * La colonne prend la largeur libre du tableau (une colonne de texte long : lieu,
+   * constat, adresse), sur une ligne, tronquée avec son info-bulle (Louis, 12/11/2026,
+   * « Une page de travail »). Une seule par tableau ; les autres restent au plus juste.
+   * Sans effet quand les largeurs sont réglées à la main.
+   */
+  grow?: boolean;
 }
+
+/** Le contenu d'une cellule qui prend la largeur libre : il ne pousse pas la colonne, il s'y tronque. */
+function Libre({ titre, children }: { titre?: string; children: React.ReactNode }) {
+  return (
+    <span className="relative block h-[1lh] min-w-48 max-sm:static max-sm:h-auto max-sm:min-w-0">
+      <span title={titre} className="absolute inset-0 truncate text-left max-sm:static">{children}</span>
+    </span>
+  );
+}
+
+/** Le texte d'une info-bulle : la valeur de tri, ou le rendu quand il n'est que du texte. */
+const texteDe = (valeur: unknown, rendu: React.ReactNode): string | undefined =>
+  typeof valeur === 'string' && valeur ? valeur
+    : typeof valeur === 'number' ? String(valeur)
+      : typeof rendu === 'string' || typeof rendu === 'number' ? String(rendu) : undefined;
 
 export interface RecordTableProps<T> {
   rows: readonly T[];
@@ -75,6 +97,8 @@ export interface RecordTableProps<T> {
     label?: (row: T) => string;
     /** La nature de la colonne d'identité, comme pour les autres. */
     icon?: IconRole;
+    /** L'identité prend la largeur libre (le nom d'une affaire) : voir `RecordColumn.grow`. */
+    grow?: boolean;
   };
   /** Ouvrir un enregistrement. Sans lui, l'identité ne devient pas cliquable. */
   onOpen?: (row: T) => void;
@@ -365,7 +389,7 @@ export function RecordTable<T>({
     et seul « Constat » à l'écran (Louis, 28/10/2026, en production). Bornée, elle
     se coupe en points de suspension ; avec des largeurs réglées, la cellule décide.
   */
-  const borneIdentite = regle ? 'sm:max-w-full' : 'sm:max-w-[28rem]';
+  const borneIdentite = regle || identity.grow ? 'sm:max-w-full' : 'sm:max-w-[28rem]';
   // Le décalage vient du même nombre que la largeur : voir `LARGEUR_CASE`.
   const decalageIdentite = { left: selection ? LARGEUR_CASE : 0 };
 
@@ -579,7 +603,7 @@ export function RecordTable<T>({
               // (`pl-xl`), comme la case quand elle est là : sinon le tableau
               // part 12 px plus à gauche que le titre et la barre d'outils
               // (Louis, 07/10/2026, sur la Facturation puis sur les Pièces).
-              className={cn(stickyIdentity, headerStyle, 'border-r border-border-soft', !selection && 'pl-xl')}
+              className={cn(stickyIdentity, headerStyle, 'border-r border-border-soft', !selection && 'pl-xl', identity.grow && !regle && 'w-full')}
               aria-sort={
                 sort?.state?.column === 'identity'
                   ? sort.state.direction === 'asc'
@@ -606,6 +630,7 @@ export function RecordTable<T>({
                 className={cn(
                   headerStyle,
                   'border-r border-border-soft last:border-r-0',
+                  c.grow && !regle && 'w-full',
                   c.numeric && 'text-right',
                   i === columns.length - 1 && 'pr-xl',
                 )}
@@ -696,7 +721,8 @@ export function RecordTable<T>({
                     'border-r border-b border-border-soft px-md whitespace-nowrap sm:overflow-hidden',
                     /* Un CODE en DM Mono, un nom en DM Sans (Louis, 12/11/2026) ; la précision
                        dessous (immeuble, adresse) reste en texte courant. */
-                    identity.mono && IDENTIFIER,
+                    /* Un NOM, colonne principale : DM Sans en graisse 500, sans que l'écran l'écrive. */
+                    identity.mono ? IDENTIFIER : 'font-sans font-medium',
                     identity.mono && '[&_.font-semibold]:font-medium [&_.font-bold]:font-medium [&_.text-small]:font-sans [&_.text-small]:tracking-normal [&_.text-caption]:font-sans [&_.text-caption]:tracking-normal',
                     retrait,
                     !selection && 'pl-xl',
@@ -727,10 +753,16 @@ export function RecordTable<T>({
                         borneIdentite,
                       )}
                     >
-                      {identity.render(row)}
+                      {identity.grow && !regle
+                        ? <Libre titre={texteDe(identity.value?.(row), identity.render(row))}>{identity.render(row)}</Libre>
+                        : identity.render(row)}
                     </button>
                   ) : (
-                    <span className={cn('max-sm:line-clamp-2 max-sm:[overflow-wrap:anywhere] sm:block sm:truncate', borneIdentite)}>{identity.render(row)}</span>
+                    <span className={cn('max-sm:line-clamp-2 max-sm:[overflow-wrap:anywhere] sm:block sm:truncate', borneIdentite)}>
+                      {identity.grow && !regle
+                        ? <Libre titre={texteDe(identity.value?.(row), identity.render(row))}>{identity.render(row)}</Libre>
+                        : identity.render(row)}
+                    </span>
                   )}
                 </td>
                 {columns.map((c, i) => {
@@ -777,7 +809,9 @@ export function RecordTable<T>({
                     ) : (
                       // Sans boîte au-delà de 640 px ; en dessous, la valeur se
                       // tronque à côté du nom de sa colonne.
-                      <div className="contents max-sm:block max-sm:min-w-0 max-sm:truncate">{contenu}</div>
+                      <div className="contents max-sm:block max-sm:min-w-0 max-sm:truncate">
+                        {c.grow ? <Libre titre={texteDe(c.value?.(row), contenu)}>{contenu}</Libre> : contenu}
+                      </div>
                     )}
                   </td>
                   );

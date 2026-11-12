@@ -204,6 +204,7 @@ export {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
+  type SelectSize,
 } from './components/select/select.web';
 
 // --- Attente, vide, condition ------------------------------------------

@@ -26,14 +26,69 @@ import { Icon } from '../icon/icon.web';
   3. Le caret vient de notre `Icon` (`deplier`), pas de `lucide-react`.
 */
 
-export const Select = SelectPrimitive.Root;
+/*
+  LA VALEUR SE LIT DÈS LE PREMIER RENDU (12/11/2026).
+
+  Radix écrit le libellé de l'entrée retenue dans `SelectValue` par un portail,
+  depuis une copie cachée du menu qu'il ne monte qu'APRÈS le premier rendu : rendue
+  au serveur, puis jusqu'à l'effet, la gâchette était vide, et chaque écran
+  recopiait le libellé en enfant de `SelectValue` pour la remplir. `Select` relève
+  donc lui-même les libellés de ses `SelectItem` (en parcourant ses enfants) et la
+  valeur courante, et `SelectValue` sans enfant affiche celui de la valeur retenue.
+  Une entrée rendue par un composant intermédiaire n'est pas vue : Radix reprend
+  alors la main, comme avant.
+*/
+type Releve = { value: string | undefined; libelles: Map<string, React.ReactNode> };
+const ContexteDeValeur = React.createContext<Releve | null>(null);
+
+function releverLesLibelles(noeud: React.ReactNode, libelles: Map<string, React.ReactNode>) {
+  React.Children.forEach(noeud, (enfant) => {
+    if (!React.isValidElement(enfant)) return;
+    const props = enfant.props as { value?: unknown; children?: React.ReactNode };
+    if (enfant.type === SelectItem && typeof props.value === 'string') {
+      libelles.set(props.value, props.children);
+    } else if (props.children !== undefined) {
+      releverLesLibelles(props.children, libelles);
+    }
+  });
+}
+
+export function Select({ value, defaultValue, onValueChange, children, ...props }: React.ComponentProps<typeof SelectPrimitive.Root>) {
+  const [interne, setInterne] = React.useState(defaultValue);
+  const courante = value ?? interne;
+  const libelles = new Map<string, React.ReactNode>();
+  releverLesLibelles(children, libelles);
+  return (
+    <ContexteDeValeur.Provider value={{ value: courante, libelles }}>
+      <SelectPrimitive.Root
+        {...props}
+        value={value}
+        defaultValue={defaultValue}
+        onValueChange={(v) => { setInterne(v); onValueChange?.(v); }}
+      >
+        {children}
+      </SelectPrimitive.Root>
+    </ContexteDeValeur.Provider>
+  );
+}
 export const SelectGroup = SelectPrimitive.Group;
-export const SelectValue = SelectPrimitive.Value;
+export const SelectValue = React.forwardRef<
+  React.ComponentRef<typeof SelectPrimitive.Value>,
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Value>
+>(({ children, ...props }, ref) => {
+  const releve = React.useContext(ContexteDeValeur);
+  const libelle = children !== undefined || !releve?.value ? children : releve.libelles.get(releve.value);
+  return <SelectPrimitive.Value ref={ref} {...props}>{libelle}</SelectPrimitive.Value>;
+});
+SelectValue.displayName = 'SelectValue';
+
+/** La taille de la gâchette : `md` (32 px) dans un formulaire, `sm` (28 px, 12 px) sur une barre d'outils ou un en-tête. */
+export type SelectSize = 'md' | 'sm';
 
 export const SelectTrigger = React.forwardRef<
   React.ComponentRef<typeof SelectPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & { size?: SelectSize }
+>(({ className, children, size = 'md', ...props }, ref) => (
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
@@ -50,14 +105,21 @@ export const SelectTrigger = React.forwardRef<
         changer l'une change les autres, ce qui est le seul moyen qu'elles
         restent d'accord.
       */
-      'flex h-(--arq-control-md) w-fit items-center justify-between gap-sm rounded-control',
+      'flex w-fit items-center justify-between rounded-control',
       // Une ligne, toujours : dans une colonne étroite, « + (ajoute au prix) »
       // passait sur deux lignes et débordait du champ (design-eu).
       'whitespace-nowrap [&>span]:min-w-0 [&>span]:truncate',
       // `px-md` comme le `px-3` de shadcn : à quatre pixels, le mot touchait
       // son contour et le champ se lisait comme une étiquette serrée.
-      'border border-border bg-bg px-md text-small font-medium text-text',
-      'shadow-card outline-none transition-colors hover:bg-bg-muted',
+      size === 'md' && 'h-(--arq-control-md) gap-sm border border-border bg-bg px-md text-small font-medium text-text shadow-card hover:bg-bg-muted',
+      /*
+        `sm` : À LA TAILLE DES BOUTONS D'UNE LIGNE (Louis, 12/11/2026, « Commandes de
+        l'en-tête ») : 28 px, 12 px graisse 500, rembourrage 10, et le contour d'un bouton
+        secondaire, son ombre. Un sélecteur posé entre deux boutons d'une barre d'outils ou
+        d'un en-tête (la période du Tableau de bord) s'aligne sur eux.
+      */
+      size === 'sm' && 'h-(--arq-control-sm) gap-xs bg-bg px-[calc(var(--spacing-sm)+var(--spacing-xxs))] text-caption font-medium text-text shadow-control hover:bg-bg-hover hover:shadow-control-hover',
+      'outline-none transition-colors',
       'focus-ring',
       'disabled:pointer-events-none disabled:opacity-50',
       // Le caret pivote quand le menu s'ouvre — c'est lui qui dit que ce champ

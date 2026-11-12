@@ -45,7 +45,7 @@ toutes.
 | `rows`    | `readonly T[]`                         | —      | Les enregistrements                                       |
 | `columns`  | `readonly RecordColumn<T>[]`          | —      | Les colonnes défilantes, dans l'ordre                     |
 | `rowKey`     | `(row: T) => string`                 | —      | L'identifiant stable d'une ligne                          |
-| `identity`  | `{ header, render, value? }`           | —      | La colonne qui nomme la ligne ; elle reste visible        |
+| `identity`  | `{ header, render, value?, mono?, grow? }` | —      | La colonne qui nomme la ligne ; elle reste visible. Un CODE (`mono`) en DM Mono, un NOM en DM Sans graisse 500, sans que l'écran l'écrive (12/11/2026) |
 | `onOpen`  | `(row: T) => void`                   | —      | Sans lui, l'identité ne devient pas cliquable             |
 | `selection` | `{ values, onChange, name, plural?, feminine? }` | — | Sans elle, pas de colonne de cases. `feminine` accorde le décompte : « 3 affaires sélectionnées » |
 | `sort`       | `{ state, onChange }`                   | —      | Sans lui, les en-têtes ne sont pas cliquables             |
@@ -64,7 +64,12 @@ ne bougent pas. Ajouté le 10/10/2026 : un barème de 78 lignes faisait près de
 4 000 pixels en `standard`, et l'appelant n'avait aucun moyen de serrer sans
 écrire une cote en dur.
 
-`RecordColumn<T>` : `{ id, header, render, value?, width?, numeric?, sortable? }`.
+`RecordColumn<T>` : `{ id, header, render, value?, width?, numeric?, sortable?, grow? }`.
+`grow` donne à la colonne (ou à l'identité) la largeur libre du tableau : une colonne de
+texte long (lieu, constat, adresse, le nom d'une affaire), sur une ligne, tronquée avec son
+info-bulle (la valeur de tri, ou le rendu s'il n'est que du texte). Une seule par tableau ;
+les colonnes courtes restent au plus juste. Sans effet quand les largeurs sont réglées à la
+main (« Une page de travail », 12/11/2026).
 `render` produit la cellule ; `value` dit sur quoi trier quand ce n'est pas ce
 qui s'affiche — une pastille « Parc » se trie sur le texte, pas sur le nœud.
 `hint` met en infobulle de l'en-tête ce que la colonne mesure, quand son nom ne

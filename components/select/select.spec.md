@@ -47,6 +47,22 @@ nue entrera au vocabulaire, elle pourra reprendre sa place.
 **Le caret vient de `Icon`** (`role="expand"`), et pivote à l'ouverture : c'est
 lui qui dit que ce champ en cache d'autres.
 
+## Deux tailles
+
+`SelectTrigger size="md"` (défaut, 32 px) dans un formulaire. `size="sm"` (28 px, 12 px
+graisse 500, rembourrage 10, contour d'ombre d'un bouton secondaire) sur une barre
+d'outils ou dans l'en-tête d'une page — la période du Tableau de bord, le jour d'« À
+faire » — pour s'aligner sur les boutons voisins (« Commandes de l'en-tête », 12/11/2026).
+
+## La valeur se lit dès le premier rendu
+
+Radix écrit le libellé retenu dans `SelectValue` depuis une copie du menu montée après
+le premier rendu : la gâchette était vide au serveur, et les écrans recopiaient le
+libellé en enfant de `SelectValue`. `Select` relève désormais les libellés de ses
+`SelectItem` et la valeur courante : `<SelectValue />` sans enfant affiche le bon
+libellé tout de suite. Un enfant explicite garde la main ; une entrée rendue par un
+composant intermédiaire n'est pas vue, et Radix reprend comme avant (12/11/2026).
+
 ## Exemples
 
 ```tsx
