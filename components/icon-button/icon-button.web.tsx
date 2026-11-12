@@ -12,7 +12,9 @@ const iconButton = cva(
   {
     variants: {
       variant: {
-        outline: 'border border-border bg-bg text-text-muted hover:bg-bg-muted',
+        // Le même secondaire que `Button` (Louis, 12/11/2026) : une ombre pour contour, le glyphe
+        // en couleur de texte. La loupe des fiches et celle des listes se dessinent ainsi pareil.
+        outline: 'bg-bg text-text shadow-control hover:bg-bg-hover hover:shadow-control-hover',
         soft: 'bg-info-bg text-on-info-bg hover:opacity-80',
         ghost: 'bg-transparent text-text-muted hover:bg-bg-muted',
         // L'action d'un compositeur : envoyer. Pleine et marine, comme l'avion en

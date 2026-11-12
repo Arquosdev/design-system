@@ -119,16 +119,28 @@ GroupLink.displayName = 'GroupLink';
 export function DetailGroup({ title, actions, children }: { title: React.ReactNode; actions?: React.ReactNode; children: React.ReactNode }) {
   return (
     <section aria-label={typeof title === 'string' ? title : undefined} className="flex min-w-0 flex-col gap-xs">
-      <GroupTitle title={title} actions={actions} />
+      {/* Un filet doux SOUS le titre, et aucun entre les lignes (Louis, 12/11/2026) : la colonne
+          prend de la structure sans devenir une pile de cartes. */}
+      <div className="border-b border-border-soft pb-xs">
+        <GroupTitle title={title} actions={actions} />
+      </div>
       <div className="flex min-w-0 flex-col">{children}</div>
     </section>
   );
 }
 
+/*
+  LE LIBELLÉ SUR LA PREMIÈRE LIGNE DE SA VALEUR (Louis, 12/11/2026) : une valeur qui passe
+  sur deux ou trois lignes (un nom, une adresse email) ne fait plus flotter son libellé au
+  milieu. Alignement sur la ligne de base, et un retrait qui garde 32 px à une ligne seule :
+  32 px (xl + sm) moins une hauteur de ligne, partagés en haut et en bas.
+*/
+const LIGNE_DE_32 = 'py-[calc((var(--spacing-xl)+var(--spacing-sm)-1lh)/2)]';
+
 /** Une ligne de la colonne : l'icône et le libellé à gauche (120 px), la valeur à droite. */
 export function DetailRow({ icon, label, children }: { icon?: React.ReactNode; label: React.ReactNode; children: React.ReactNode }) {
   return (
-    <div className="grid min-h-8 grid-cols-[120px_minmax(0,1fr)] items-center gap-sm text-description">
+    <div className={`grid min-h-8 grid-cols-[120px_minmax(0,1fr)] items-baseline gap-sm text-description ${LIGNE_DE_32}`}>
       <span className="flex min-w-0 items-center gap-xs text-text-muted">
         {icon ? <span className="shrink-0 [&_svg]:size-3.5" aria-hidden>{icon}</span> : null}
         <span className="truncate">{label}</span>
@@ -143,4 +155,4 @@ export function DetailRow({ icon, label, children }: { icon?: React.ReactNode; l
  * filet. À poser sur leur conteneur ; elles restent corrigibles en place.
  */
 export const DETAIL_FIELD_ROWS =
-  'flex min-w-0 flex-col [&>*]:grid [&>*]:min-h-8 [&>*]:grid-cols-[120px_minmax(0,1fr)] [&>*]:items-center [&>*]:gap-sm [&>*]:border-0 [&>*]:px-0 [&>*]:py-xs [&>*]:text-description';
+  'flex min-w-0 flex-col [&>*]:grid [&>*]:min-h-8 [&>*]:grid-cols-[120px_minmax(0,1fr)] [&>*]:items-baseline [&>*]:gap-sm [&>*]:border-0 [&>*]:px-0 [&>*]:py-[calc((var(--spacing-xl)+var(--spacing-sm)-1lh)/2)] [&>*]:text-description';
