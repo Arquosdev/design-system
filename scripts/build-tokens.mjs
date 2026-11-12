@@ -720,8 +720,9 @@ function buildTailwind() {
     '    outline-offset: 2px;',
     '  }',
     '}',
+    // Visible quand le champ l'est : au clavier seulement pour un bouton ou un fichier (12/11/2026).
     '@utility focus-ring-within {',
-    '  &:focus-within {',
+    '  &:has(:focus-visible) {',
     `    outline: 1.5px solid ${colors.primary};`,
     '    outline-offset: 2px;',
     '  }',

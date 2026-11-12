@@ -5,6 +5,7 @@ import { Dialog as SheetPrimitive } from 'radix-ui';
 
 import { Icon } from '../icon/icon.web';
 import { cn } from '../_lib/cn';
+import { aLaSouris } from '../_lib/modalite';
 import { ConteneurFlottant } from '../_lib/conteneur-flottant';
 
 /*
@@ -85,6 +86,8 @@ export const SheetContent = React.forwardRef<
       onCloseAutoFocus={(e) => {
         onCloseAutoFocus?.(e);
         if (e.defaultPrevented) return;
+        // Refermé à la souris : pas de focus rendu, donc pas d'anneau qui reste (voir `modalite`).
+        if (aLaSouris()) { e.preventDefault(); return; }
         if (avant && avant.isConnected && avant !== document.body) {
           e.preventDefault();
           avant.focus();

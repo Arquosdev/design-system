@@ -176,7 +176,7 @@ export function FileField({
           data-slot="file-field"
           className={cn(
             buttonVariants({ variant: 'outline', size: 'sm' }),
-            'relative w-fit cursor-pointer focus-within:ring-2 focus-within:ring-primary',
+            'relative w-fit cursor-pointer has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary',
             disabled && 'pointer-events-none opacity-50',
           )}
         >

@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Popover as PopoverPrimitive } from 'radix-ui';
 
 import { cn } from '../_lib/cn';
+import { sansAnneauALaSouris } from '../_lib/modalite';
 import { useConteneurFlottant } from '../_lib/conteneur-flottant';
 
 /*
@@ -22,7 +23,7 @@ export const PopoverAnchor = PopoverPrimitive.Anchor;
 export const PopoverContent = React.forwardRef<
   React.ComponentRef<typeof PopoverPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>
->(({ className, align = 'start', sideOffset = 4, ...props }, ref) => {
+>(({ className, align = 'start', sideOffset = 4, onCloseAutoFocus, ...props }, ref) => {
   /* Dans un panneau, la liste se pose DANS le panneau : posée à la racine, le
      blocage du défilement du panneau la rendait immobile sous la molette. Voir
      `conteneur-flottant` (v2.37.0, #80). */
@@ -45,6 +46,8 @@ export const PopoverContent = React.forwardRef<
         className,
       )}
       {...props}
+      // Refermé à la souris, le focus ne revient pas sur la gâchette : pas d'anneau qui reste.
+      onCloseAutoFocus={sansAnneauALaSouris(onCloseAutoFocus)}
     />
   </PopoverPrimitive.Portal>
   );

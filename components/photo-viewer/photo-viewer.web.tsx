@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Dialog } from 'radix-ui';
 
 import { cn } from '../_lib/cn';
+import { aLaSouris } from '../_lib/modalite';
 import { clampPan, drawnBox, ZOOM, type Box } from './photo-viewer.logic';
 import { Icon } from '../icon/icon.web';
 import type { IconRole } from '../../src/icons';
@@ -202,7 +203,8 @@ export function PhotoViewer({
             // Couper la reprise de Radix — elle viserait un `Trigger` absent —
             // et rendre le focus nous-mêmes.
             e.preventDefault();
-            origin.current?.focus();
+            // Refermée à la souris, le focus ne revient pas sur la vignette : pas d'anneau qui reste.
+            if (!aLaSouris()) origin.current?.focus();
           }}
           onKeyDown={(e) => {
             if (e.key === 'ArrowLeft') deplacer(-1);

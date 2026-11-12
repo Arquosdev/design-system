@@ -6,6 +6,7 @@ import { Dialog } from 'radix-ui';
 
 import { Icon } from '../icon/icon.web';
 import { cn } from '../_lib/cn';
+import { sansAnneauALaSouris } from '../_lib/modalite';
 
 /*
   Repris de shadcn/ui (`npx shadcn@latest add command`), habillé aux tokens
@@ -101,6 +102,8 @@ export function CommandDialog({
         <Dialog.Overlay className="fixed inset-0 z-(--arq-layer-plein-ecran) bg-brand/15 backdrop-blur-[2px]" />
         <Dialog.Content
           aria-describedby={undefined}
+          // Refermée à la souris, le focus ne revient pas sur la recherche : pas d'anneau qui reste.
+          onCloseAutoFocus={sansAnneauALaSouris()}
           className={cn(
             'fixed top-[96px] left-1/2 z-(--arq-layer-plein-ecran) w-[660px] max-w-[calc(100vw-32px)] -translate-x-1/2',
             'overflow-hidden rounded-lg bg-bg shadow-pop outline-none',

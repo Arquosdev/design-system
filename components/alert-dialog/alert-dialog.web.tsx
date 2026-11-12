@@ -5,6 +5,7 @@ import { AlertDialog as AlertDialogPrimitive } from 'radix-ui';
 
 import { buttonVariants, withLoadingSpinner } from '../button/button.web';
 import { cn } from '../_lib/cn';
+import { sansAnneauALaSouris } from '../_lib/modalite';
 
 /*
   Repris de shadcn/ui (`npx shadcn@latest add alert-dialog`), habillé aux tokens
@@ -22,7 +23,7 @@ export const AlertDialogTrigger = AlertDialogPrimitive.Trigger;
 export const AlertDialogContent = React.forwardRef<
   React.ComponentRef<typeof AlertDialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>
->(({ className, ...props }, ref) => (
+>(({ className, onCloseAutoFocus, ...props }, ref) => (
   <AlertDialogPrimitive.Portal>
     <AlertDialogPrimitive.Overlay
       className={cn(
@@ -39,6 +40,8 @@ export const AlertDialogContent = React.forwardRef<
         className,
       )}
       {...props}
+      // Refermée à la souris, le focus ne revient pas sur la gâchette : pas d'anneau qui reste.
+      onCloseAutoFocus={sansAnneauALaSouris(onCloseAutoFocus)}
     />
   </AlertDialogPrimitive.Portal>
 ));

@@ -371,7 +371,7 @@
   }
 }
 @utility focus-ring-within {
-  &:focus-within {
+  &:has(:focus-visible) {
     outline: 1.5px solid #0D5AB7;
     outline-offset: 2px;
   }
