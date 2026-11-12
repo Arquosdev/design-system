@@ -723,7 +723,8 @@ export function RecordTable<T>({
                        dessous (immeuble, adresse) reste en texte courant. */
                     /* Un NOM, colonne principale : DM Sans en graisse 500, sans que l'écran l'écrive. */
                     identity.mono ? IDENTIFIER : 'font-sans font-medium',
-                    identity.mono && '[&_.font-semibold]:font-medium [&_.font-bold]:font-medium [&_.text-small]:font-sans [&_.text-small]:tracking-normal [&_.text-caption]:font-sans [&_.text-caption]:tracking-normal',
+                    // Une ABSENCE (« Sans numéro », en gris ou en italique) n'est pas un code : elle reste en DM Sans (12/11/2026).
+                    identity.mono && '[&_.font-semibold]:font-medium [&_.font-bold]:font-medium [&_.text-small]:font-sans [&_.text-small]:tracking-normal [&_.text-caption]:font-sans [&_.text-caption]:tracking-normal [&_.text-text-muted]:font-sans [&_.text-text-muted]:tracking-normal [&_.italic]:font-sans [&_.italic]:tracking-normal',
                     retrait,
                     !selection && 'pl-xl',
                     // Sur une carte, le titre passe sur deux lignes au plus, avec ses points de suspension :
