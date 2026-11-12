@@ -34,3 +34,12 @@ replaces:
   lignes, sans ombre ni retrait de côté, entre deux filets ; le libellé tombe sur
   la verticale du nom de la fiche. Une carte sépare des blocs, elle n'en encadre
   pas un seul.
+
+## La colonne d'informations : `DetailGroup`, `DetailRow`, `DETAIL_FIELD_ROWS`
+
+Dans la colonne de droite d'une fiche (voir `RecordLayout`), tout est en lignes : 32 px, 13 px,
+libellé de 120 px précédé d'une petite icône grise, valeur à droite ; une relation se lit en lien
+sur une seule ligne, tronquée avec info-bulle. Aucune carte, bordure ni ombre ; les groupes se
+séparent par leur titre de niveau 3 et un espace. `DETAIL_FIELD_ROWS` met des `FieldRow` à ce
+format, toujours corrigibles en place.
+

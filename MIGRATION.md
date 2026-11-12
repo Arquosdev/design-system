@@ -1,5 +1,10 @@
 # Monter une app vers la version courante
 
+## Non publié (branche design-cartes) · La colonne d'informations (`RecordZone aside`)
+
+Nouveau : `RecordZone` accepte `aside` (la colonne de 340 px à droite) ; `DetailGroup`,
+`DetailRow` et `DETAIL_FIELD_ROWS` composent son contenu en lignes. Rien ne change sans `aside`.
+
 ## Non publié (branche design-cartes) · `IDENTIFIER`, l'identifiant en DM Mono
 
 Nouveau : la classe `IDENTIFIER` (DM Mono, 500, approche resserrée). `RecordTable` la pose sur

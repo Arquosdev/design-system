@@ -107,3 +107,40 @@ export const GroupLink = React.forwardRef<HTMLButtonElement, React.ComponentProp
   ({ className, type = 'button', ...props }, ref) => <button ref={ref} type={type} className={cn(GROUP_LINK, className)} {...props} />,
 );
 GroupLink.displayName = 'GroupLink';
+
+/*
+  LA COLONNE D'INFORMATIONS D'UNE FICHE (Louis, 12/11/2026, d'après les « Record details »
+  d'Attio). Rien en carte : une liste de lignes attribut / valeur, sans bordure ni ombre ;
+  les groupes se séparent par leur titre de niveau 3 et un espace. Lignes de 32 px, texte de
+  13 px, libellé sur 120 px à gauche, précédé d'une petite icône grise quand il y en a une.
+*/
+
+/** Un groupe de la colonne : son titre (niveau 3), ses lignes, ses gestes à droite du titre. */
+export function DetailGroup({ title, actions, children }: { title: React.ReactNode; actions?: React.ReactNode; children: React.ReactNode }) {
+  return (
+    <section aria-label={typeof title === 'string' ? title : undefined} className="flex min-w-0 flex-col gap-xs">
+      <GroupTitle title={title} actions={actions} />
+      <div className="flex min-w-0 flex-col">{children}</div>
+    </section>
+  );
+}
+
+/** Une ligne de la colonne : l'icône et le libellé à gauche (120 px), la valeur à droite. */
+export function DetailRow({ icon, label, children }: { icon?: React.ReactNode; label: React.ReactNode; children: React.ReactNode }) {
+  return (
+    <div className="grid min-h-8 grid-cols-[120px_minmax(0,1fr)] items-center gap-sm text-description">
+      <span className="flex min-w-0 items-center gap-xs text-text-muted">
+        {icon ? <span className="shrink-0 [&_svg]:size-3.5" aria-hidden>{icon}</span> : null}
+        <span className="truncate">{label}</span>
+      </span>
+      <span className="min-w-0 text-text">{children}</span>
+    </div>
+  );
+}
+
+/**
+ * Des `FieldRow` au format de la colonne : 120 px de libellé, 32 px de haut, 13 px, sans
+ * filet. À poser sur leur conteneur ; elles restent corrigibles en place.
+ */
+export const DETAIL_FIELD_ROWS =
+  'flex min-w-0 flex-col [&>*]:grid [&>*]:min-h-8 [&>*]:grid-cols-[120px_minmax(0,1fr)] [&>*]:items-center [&>*]:gap-sm [&>*]:border-0 [&>*]:px-0 [&>*]:py-xs [&>*]:text-description';

@@ -407,6 +407,14 @@ export function RecordRailSkeleton() {
 
 export interface RecordZoneProps {
   children: React.ReactNode;
+  /**
+   * La colonne d'informations, à droite de la zone (Louis, 12/11/2026, d'après Attio) :
+   * 340 px, sous la barre d'onglets, séparée par un filet doux, avec son propre
+   * défilement ; la même quel que soit l'onglet. Absente : la zone prend toute la largeur.
+   */
+  aside?: React.ReactNode;
+  /** Le nom de la colonne pour un lecteur d'écran. */
+  asideLabel?: string;
 }
 
 /**
@@ -415,9 +423,25 @@ export interface RecordZoneProps {
  * Un `div` et non un `main` : le shell porte déjà ce repère, et deux `main`
  * imbriqués sont une faute que les lecteurs d'écran signalent.
  */
-export function RecordZone({ children }: RecordZoneProps) {
+export function RecordZone({ children, aside, asideLabel = 'Informations' }: RecordZoneProps) {
   const c = React.useContext(ContexteDeZone);
   const busy = c?.busy ?? false;
+  const zone = (
+    <RecordZoneBody busy={busy} zoneRef={c?.zone}>{children}</RecordZoneBody>
+  );
+  if (!aside) return zone;
+  return (
+    <div className="flex min-h-0 flex-1">
+      {zone}
+      <aside aria-label={asideLabel} className="flex w-[340px] shrink-0 flex-col gap-xl overflow-y-auto border-l border-border-soft px-lg py-base">
+        {aside}
+      </aside>
+    </div>
+  );
+}
+
+function RecordZoneBody({ busy, zoneRef, children }: { busy: boolean; zoneRef?: React.RefObject<HTMLDivElement | null>; children: React.ReactNode }) {
+  const c = { zone: zoneRef };
   return (
     // `@container` : ce qui s'y pose se règle sur la largeur de la zone, pas sur celle de
     // la fenêtre. Un panneau ouvert à côté (l'assistant) la rétrécit sans changer la fenêtre.

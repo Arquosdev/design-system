@@ -132,3 +132,18 @@ flèches passent de l'un à l'autre.
 Ne pas s'en servir pour des pastilles à sélection MULTIPLE (plusieurs actives à
 la fois) : `FilterChips`. Ni sur une liste qui a déjà le panneau « Filtres ».
 
+## La colonne d'informations (`RecordZone aside`)
+
+D'après les « Record details » d'Attio (Louis, 12/11/2026). Une colonne de 340 px à droite de la
+zone, sous la barre d'onglets, séparée par un filet vertical doux, avec son propre défilement ;
+elle reste la même quel que soit l'onglet. On y lit d'abord les **Rattachements** (une ligne par
+objet lié : icône de l'objet, rôle, nom en lien, sur une ligne), puis le suivi et l'essentiel de
+l'objet en lignes de champs compactes (`DetailGroup`, `DetailRow`, `DETAIL_FIELD_ROWS`), puis un
+`GroupLink` vers l'onglet complet. Rien en carte dans la colonne, ni bordure ni ombre.
+
+C'est une **préférence de l'utilisateur** (colonne ou onglet), retenue sur son compte ; par
+défaut la colonne. Sous 1 280 px, c'est toujours l'onglet. Colonne ouverte, l'onglet Général
+disparaît s'il ne lui reste rien ; colonne fermée, son contenu revient en premier onglet,
+« Informations », en cartes (les rattachements en petites cartes en grille). Le bouton d'icône
+(28 × 28) qui bascule la préférence est le plus à droite de l'en-tête, après « Actions ».
+
