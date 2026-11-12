@@ -46,9 +46,22 @@ export function Surface({ className, ...props }: Div) {
   return <div className={cn(SURFACE, className)} {...props} />;
 }
 
-/** Une carte de champs (`FieldRow` en lignes, deux colonnes quand elle est large). */
-export function FieldSurface({ className, narrow = false, ...props }: Div & { narrow?: boolean }) {
-  return <div className={cn(SURFACE, 'overflow-clip', narrow ? FIELD_ROWS_NARROW : FIELD_ROWS, className)} {...props} />;
+/*
+  À PLAT : un bloc de champs SEUL dans sa rubrique ne prend pas de carte (une carte
+  sépare des blocs, elle n'encadre pas un élément seul). Les mêmes lignes, sans
+  ombre ni retrait de côté, entre deux filets : le libellé tombe sur la verticale
+  du nom de la fiche et des onglets.
+*/
+const FLAT = 'border-y border-border-soft [&>*]:px-0 @min-[60rem]:[&>*:nth-child(even)]:pl-xl';
+
+/** Une carte de champs (`FieldRow` en lignes, deux colonnes quand elle est large) ; `flat` quand elle est seule. */
+export function FieldSurface({ className, narrow = false, flat = false, ...props }: Div & { narrow?: boolean; flat?: boolean }) {
+  return (
+    <div
+      className={cn(!flat && SURFACE, !flat && 'overflow-clip', narrow ? FIELD_ROWS_NARROW : FIELD_ROWS, flat && FLAT, className)}
+      {...props}
+    />
+  );
 }
 
 /** Le pied d'une carte de champs : « Afficher N champs vides », sur toute sa largeur. */

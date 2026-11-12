@@ -30,3 +30,7 @@ replaces:
 - Lignes de champs : 10 × 16 px, filet en haut de chaque ligne, deux colonnes de
   champs au-delà de 900 px de carte, jamais trois.
 - Les vides se replient derrière « Afficher N champs vides » (`SurfaceFooter`).
+- Un bloc de champs SEUL dans sa rubrique prend `FieldSurface flat` : les mêmes
+  lignes, sans ombre ni retrait de côté, entre deux filets ; le libellé tombe sur
+  la verticale du nom de la fiche. Une carte sépare des blocs, elle n'en encadre
+  pas un seul.

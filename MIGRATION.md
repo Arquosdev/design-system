@@ -1,5 +1,11 @@
 # Monter une app vers la version courante
 
+## Non publié (branche design-cartes) · `FieldSurface flat`, le bloc de champs seul
+
+Nouveau : `flat` pose les lignes d'une `FieldSurface` à plat (sans ombre, sans retrait de
+côté, entre deux filets), pour une rubrique qui n'a qu'un bloc de champs. Rien à faire
+chez l'appelant qui ne s'en sert pas.
+
 ## Non publié (branche design-cartes) · La densité et la page en cartes façon Supabase
 
 Validé par Louis le 12/11/2026 sur la fiche Équipement. Ce qui change sans rien à faire :
