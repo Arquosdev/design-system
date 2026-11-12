@@ -142,9 +142,8 @@ objet lié : icône de l'objet, rôle, nom en lien, sur une ligne), puis le suiv
 l'objet en lignes de champs compactes (`DetailGroup`, `DetailRow`, `DETAIL_FIELD_ROWS`), puis un
 `GroupLink` vers l'onglet complet. Rien en carte dans la colonne, ni bordure ni ombre.
 
-C'est une **préférence de l'utilisateur** (colonne ou onglet), retenue sur son compte ; par
-défaut la colonne. Sous 1 280 px, c'est toujours l'onglet. Colonne ouverte, l'onglet Général
-disparaît s'il ne lui reste rien ; colonne fermée, son contenu revient en premier onglet,
-« Informations », en cartes (les rattachements en petites cartes en grille). Le bouton d'icône
-(28 × 28) qui bascule la préférence est le plus à droite de l'en-tête, après « Actions ».
+Elle est **toujours affichée sur un écran assez large** (1 280 px et plus), sans bouton ni
+préférence ; plus étroit, son contenu devient automatiquement l'onglet « Informations », en cartes
+(les rattachements en petites cartes en grille). Colonne affichée, l'onglet Général disparaît s'il
+ne lui reste rien.
 
