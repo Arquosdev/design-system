@@ -408,7 +408,8 @@ export function RecordRailSkeleton() {
       <div className="flex h-[calc(var(--arq-control-md)+var(--spacing-xs))] items-center gap-base">
         {/* Cinq traits : de quoi occuper la rangée sans prétendre dire combien de rubriques arrivent. */}
         {Array.from({ length: 5 }, (_, i) => (
-          <div key={i} className="h-base w-5xl shrink-0 animate-pulse rounded-control bg-bg-muted" />
+          /* Le squelette du design system, d'une seule couleur partout (Louis, 12/11/2026). */
+          <Skeleton key={i} className="h-base w-5xl shrink-0 rounded-control" />
         ))}
       </div>
     </div>
@@ -462,10 +463,10 @@ function RecordZoneBody({ busy, zoneRef, children }: { busy: boolean; zoneRef?: 
     // la fenêtre. Un panneau ouvert à côté (l'assistant) la rétrécit sans changer la fenêtre.
     <div ref={c?.zone} aria-busy={busy || undefined} className="@container min-h-0 min-w-0 flex-1 overflow-y-auto">
       {busy ? (
-        <div aria-hidden className="flex flex-col gap-base px-base pt-lg sm:px-xl">
-          <Skeleton className="h-6 w-48" />
-          <Skeleton className="h-40 w-full" />
-          <Skeleton className="h-24 w-full" />
+        /* Les marges de la page chargée (24 px de côté et sous les onglets), pas un dessin à part. */
+        <div aria-hidden className="flex flex-col gap-xl px-base pt-xl sm:px-xl">
+          <Skeleton className="h-40 w-full rounded-block" />
+          <Skeleton className="h-24 w-full rounded-block" />
         </div>
       ) : null}
       {/* `contents` : l'enveloppe n'existe pas pour la mise en page tant qu'on ne charge pas. */}
