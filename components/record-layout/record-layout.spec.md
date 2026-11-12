@@ -142,8 +142,10 @@ objet lié : icône de l'objet, rôle, nom en lien, sur une ligne), puis le suiv
 l'objet en lignes de champs compactes (`DetailGroup`, `DetailRow`, `DETAIL_FIELD_ROWS`), puis un
 `GroupLink` vers l'onglet complet. Rien en carte dans la colonne, ni bordure ni ombre.
 
-Elle est **toujours affichée sur un écran assez large** (1 280 px et plus), sans bouton ni
-préférence ; plus étroit, son contenu devient automatiquement l'onglet « Informations », en cartes
+Elle s'affiche sur un écran assez large (1 280 px et plus). Une croix discrète, en haut à droite
+de la colonne, la ferme ; le bouton « Informations » au bout de la barre d'onglets principale
+(`RecordRail fin`, bouton fantôme, pas un onglet) la rouvre ; le choix se retient pour le visiteur,
+sur toutes les fiches ; plus étroit, son contenu devient automatiquement l'onglet « Informations », en cartes
 (les rattachements en petites cartes en grille). Colonne affichée, l'onglet Général disparaît s'il
 ne lui reste rien.
 

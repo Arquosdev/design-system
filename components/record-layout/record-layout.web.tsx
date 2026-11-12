@@ -110,6 +110,11 @@ export interface RecordRailProps {
   items: readonly NavItem[];
   current?: string;
   onChoose: (id: string) => void;
+  /**
+   * Au bout de la rangée principale, tout à droite : un geste qui n'est pas un onglet (le
+   * bouton « Informations » qui rouvre la colonne d'informations, 12/11/2026).
+   */
+  fin?: React.ReactNode;
 }
 
 /*
@@ -140,6 +145,7 @@ export function RecordRail({
   items,
   current,
   onChoose,
+  fin,
 }: RecordRailProps) {
   const rangee = React.useRef<HTMLDivElement>(null);
   const sousRangee = React.useRef<HTMLDivElement>(null);
@@ -249,6 +255,7 @@ export function RecordRail({
             className="shrink-0"
           />
         ) : null}
+        {fin ? <span className="flex shrink-0 items-center">{fin}</span> : null}
       </div>
 
     </nav>
@@ -452,7 +459,7 @@ export function RecordZone({ children, aside, asideLabel = 'Informations' }: Rec
   return (
     <div className="flex min-h-0 flex-1">
       {zone}
-      <aside aria-label={asideLabel} className="flex w-[340px] shrink-0 flex-col gap-xl overflow-y-auto border-l border-border-soft px-lg py-base">
+      <aside aria-label={asideLabel} className="relative flex w-[340px] shrink-0 flex-col gap-xl overflow-y-auto border-l border-border-soft px-lg py-base">
         {aside}
       </aside>
     </div>
