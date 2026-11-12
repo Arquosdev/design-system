@@ -62,10 +62,16 @@ centrage du 12/10). L'en-tête reçoit la même `width` (`page` ou `reading`) : 
 actions s'arrêtent au bord droit de la colonne, et son filet traverse toujours
 l'écran. Une page à rail garde `width="full"`, le défaut.
 
+## Le total n'est plus à côté du titre
+
+Depuis l'essai « fiche en cartes » (Louis, 12/11/2026), le titre d'une liste est
+seul : « Équipements », jamais « Équipements 828 ». Le total passe dans le pied
+du tableau (`TableFooter`), à gauche. `count` est ignoré et ne s'affiche plus.
+
 ## Exemple
 
 ```tsx
-<PageHeader title="Équipements" count={31500} />
+<PageHeader title="Équipements" />
 
 <PageHeader
   title="Devis 20539"

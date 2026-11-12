@@ -55,6 +55,7 @@ Une mécanique que n'importe quelle application aurait — bouton, modale, ongle
 | [Skeleton](skeleton/skeleton.spec.md) | Occuper la place de ce qui charge, pour que l'écran ne mente pas en paraissant vide. | 🖥️ 📱 | stable |
 | [Surface](surface/surface.spec.md) | Pose les blocs qui s'empilent sur une page blanche, chacun dans une carte contourée par son ombre, son titre au-dessus. | 🖥️ | beta |
 | [Switch](switch/switch.spec.md) | Basculer un réglage qui s'applique immédiatement. | 🖥️ | stable |
+| [TableFooter](table-footer/table-footer.spec.md) | Dire sous un tableau combien il y a de lignes, et laisser changer de page et de nombre par page. | 🖥️ | beta |
 | [Tag](tag/tag.spec.md) | Distinguer une valeur de référentiel par sa couleur, sans la juger. | 🖥️ 📱 | stable |
 | [Text](text/text.spec.md) | Écrire du texte avec un préréglage typographique et un ton de couleur, sans jamais recomposer une taille à la main. | 📱 | beta |
 | [Textarea](textarea/textarea.spec.md) | Recueillir un texte de plusieurs lignes — une observation, un commentaire. | 🖥️ | stable |

@@ -1,5 +1,13 @@
 # Monter une app vers la version courante
 
+## Non publié (branche design-cartes) · `TableFooter`, et le total quitte le titre
+
+Nouveau : `TableFooter`, le pied d'un tableau (40 px, `--arq-control-lg`) : pagination
+« ‹ 1 / 34 › » à gauche, total au centre, « 25 par page » à droite. `PageHeader` ignore
+désormais `count` (gardé dans le type, posé en `data-compte`). **À reprendre chez
+l'appelant** : le total d'une liste passe dans `TableFooter summary` ; un test qui lisait le
+compte à côté du titre le lit dans le pied.
+
 ## Non publié (branche design-cartes) · Les menus : un seul contour, entrées de 28 px
 
 `PopoverContent` et `SelectContent` perdent leur `border` : l'anneau de `shadow-pop` suffit (un

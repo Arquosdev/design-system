@@ -17,7 +17,12 @@ export interface PageHeaderProps {
   parent?: { label: string; href: string };
   /** Ce qu'on regarde, au bout du fil. Défaut : le titre. */
   current?: string;
-  /** Un décompte à côté du titre : le nombre de résultats d'une liste. */
+  /**
+   * IGNORÉ depuis l'essai « fiche en cartes » (Louis, 12/11/2026) : le total
+   * d'une liste quitte le titre et passe dans son pied (`TableFooter`). Gardé
+   * pour ne pas casser les appelants ; il ne s'affiche plus.
+   * @deprecated
+   */
   count?: string | number;
   /** Ce qui s'aligne à droite : une action sur l'écran entier. */
   actions?: React.ReactNode;
@@ -58,6 +63,7 @@ export function PageHeader({
   return (
     <div
       className={cn('shrink-0 border-b border-border-soft pt-base pb-md', !borne && 'px-base sm:px-xl', className)}
+      data-compte={count ?? undefined}
     >
       {/* Bornée, la ligne du titre garde la largeur de la colonne, ancrée à gauche comme elle (13/10/2026). */}
       <div className={borne ? cn('w-full px-base sm:px-xl', width === 'page' ? 'max-w-page' : 'max-w-reading') : 'contents'}>
@@ -104,7 +110,7 @@ export function PageHeader({
       */}
       <div className="flex min-h-(--arq-control-md) flex-wrap items-center gap-sm sm:flex-nowrap">
         {/*
-          Le titre et son décompte s'alignent sur la LIGNE DE BASE entre eux —
+          Le titre et ce qui le suit s'alignent sur la LIGNE DE BASE entre eux —
           deux corps différents alignés autrement se lisent de travers — mais
           le groupe entier se centre dans la ligne.
 
@@ -115,9 +121,6 @@ export function PageHeader({
         */}
         <span className="flex min-w-0 flex-wrap items-baseline gap-x-sm gap-y-xxs">
           <h1 className="line-clamp-2 min-w-0 text-headline text-brand [overflow-wrap:anywhere]" title={title}>{title}</h1>
-          {count !== undefined && (
-            <span className="text-title font-normal tabular-nums text-text-muted">{count}</span>
-          )}
           {status || figure ? (
             <span className="flex shrink-0 items-center gap-sm self-center">
               {status}

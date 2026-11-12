@@ -1452,6 +1452,32 @@
       }
     },
     {
+      "name": "TableFooter",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Dire sous un tableau combien il y a de lignes, et laisser changer de page et de nombre par page.",
+      "keywords": [
+        "pied",
+        "pagination",
+        "total",
+        "par page",
+        "tableau",
+        "liste"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/table-footer",
+      "specFile": "components/table-footer/table-footer.spec.md",
+      "fichiers": {
+        "web": "components/table-footer/table-footer.web.tsx"
+      }
+    },
+    {
       "name": "Tag",
       "status": "stable",
       "layer": "generique",
