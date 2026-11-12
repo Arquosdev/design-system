@@ -751,6 +751,10 @@ export function RecordTable<T>({
                       className={cn(
                         'rounded-control text-primary hover:underline focus-ring max-sm:line-clamp-2 max-sm:text-left max-sm:[overflow-wrap:anywhere] sm:block sm:truncate sm:text-left',
                         borneIdentite,
+                        /* Une identité qui prend la largeur libre la remplit : son texte est posé en
+                           absolu (`Libre`), et le bouton restait à 192 px, le nom coupé au milieu
+                           d'une colonne vide (paramètres, 12/11/2026). */
+                        identity.grow && !regle && 'sm:w-full',
                       )}
                     >
                       {identity.grow && !regle
