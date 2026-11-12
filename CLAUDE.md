@@ -143,6 +143,7 @@ cartes (`Surface`, `FieldSurface`) : une carte sépare des blocs, elle n'encadre
 | **Modifier en ligne quand c'est pertinent** | Une valeur simple se corrige là où on la lit (pointillé de `FieldRow`). Un panneau reste pour plusieurs champs à la fois, une confirmation ou une création |
 | **Multiples de 4 seulement** | Toujours un token de `spacing` ; une cote qui n'en est pas un se compose de tokens (`calc(var(--spacing-sm)+var(--spacing-xxs))`) |
 | **Filtrer : un seul chemin** | Une liste qui a des Filtres n'ajoute ni bouton ni pastille pour le même critère |
+| **Choisir une vue, c'est un onglet** | Une rangée qui fait choisir UNE vue d'un contenu parmi plusieurs (sélection exclusive) est une barre d'onglets secondaire (`SubTabs`, le dessin des sous-rubriques de Maintenance), posée sous la barre principale ; jamais des pastilles ni des boutons. Les pastilles à sélection MULTIPLE restent des `FilterChips` ; une liste qui a déjà le panneau « Filtres » n'en ajoute pas (Louis, 12/11/2026) |
 | **Les champs vides se replient** | Derrière un seul « Afficher N champs vides » au pied de la carte (`SurfaceFooter`) |
 
 ## Anatomie d'un composant

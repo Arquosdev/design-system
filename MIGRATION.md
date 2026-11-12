@@ -1,5 +1,12 @@
 # Monter une app vers la version courante
 
+## Non publié (branche design-cartes) · `SubTabs`, la barre d'onglets secondaire
+
+Nouveau : une rangée qui fait choisir UNE vue parmi plusieurs (sélection exclusive) est une
+barre d'onglets secondaire, du dessin des sous-rubriques de `RecordRail`, et non des
+`FilterChips` ni des boutons (Louis, 12/11/2026). **À reprendre chez l'appelant** : toute rangée
+de pastilles ou de `SegmentedTabs` à sélection exclusive qui change la vue d'un contenu.
+
 ## Non publié (branche design-cartes) · `FieldSurface flat`, le bloc de champs seul
 
 Nouveau : `flat` pose les lignes d'une `FieldSurface` à plat (sans ombre, sans retrait de

@@ -118,3 +118,17 @@ zone en haut et y pose un squelette, `setBusy(false)` à la réponse rend le
 contenu (A1-03, A1-B-02 : un clic ne changeait rien à l'écran pendant une
 demi-seconde, et la rubrique suivante s'ouvrait au défilement de la
 précédente). La rubrique choisie s'allume dans le rail au clic, sans attendre.
+
+## `SubTabs`, la barre d'onglets secondaire
+
+Une rangée qui fait choisir UNE vue d'un contenu parmi plusieurs (le fil d'un
+client : Tout, Échanges, Affaires…) est une barre d'onglets, pas des pastilles
+(Louis, 12/11/2026). `SubTabs` a le dessin exact des sous-rubriques de
+`RecordRail` : texte, l'onglet choisi en graisse 600 avec son trait de 2 px collé
+au filet, même hauteur, chevrons quand elle déborde. Elle se pose sous la barre
+principale, d'un bord à l'autre de la zone. Ce sont des onglets (`tablist`) : les
+flèches passent de l'un à l'autre.
+
+Ne pas s'en servir pour des pastilles à sélection MULTIPLE (plusieurs actives à
+la fois) : `FilterChips`. Ni sur une liste qui a déjà le panneau « Filtres ».
+

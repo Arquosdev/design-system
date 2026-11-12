@@ -186,20 +186,9 @@ export function RecordRail({
       disabled={i.disabled}
       aria-current={actif ? 'page' : undefined}
       onActivate={() => onChoose(i.id)}
-      className={cn(
-        // Le trait du courant se pose SUR le filet de la rangée, pas au-dessus : `-mb-px` est le pixel de ce filet.
-        'relative -mb-px flex shrink-0 items-center gap-xs whitespace-nowrap px-sm text-small font-medium outline-none focus-ring',
-        'disabled:pointer-events-none disabled:opacity-50',
-        actif
-          ? 'font-semibold text-primary after:absolute after:inset-x-sm after:bottom-0 after:h-xxs after:bg-primary'
-          : i.empty
-            /* Atténuée, jamais éteinte : une rubrique vide se prend, c'est en y allant qu'on la remplit. */
-            ? 'text-text-subtle hover:text-text'
-            : 'text-text-muted hover:text-text',
-      )}
+      className={classeDOnglet(actif, i.empty)}
     >
-      {/* La place du gras réservée : l'onglet choisi passe en gras sans pousser ses voisins. */}
-      <span data-texte={i.label} className="inline-grid after:invisible after:h-0 after:overflow-hidden after:font-semibold after:content-[attr(data-texte)]">{i.label}</span>
+      <TexteDOnglet label={i.label} />
       <Compteur item={i} />
     </NavTarget>
   );
@@ -252,6 +241,91 @@ export function RecordRail({
         </div>
       ) : null}
     </nav>
+  );
+}
+
+/** Le dessin d'un onglet, principal ou secondaire : un seul, partagé par `RecordRail` et `SubTabs`. */
+function classeDOnglet(actif: boolean, vide?: boolean) {
+  return cn(
+    // Le trait du courant se pose SUR le filet de la rangée, pas au-dessus : `-mb-px` est le pixel de ce filet.
+    'relative -mb-px flex shrink-0 items-center gap-xs whitespace-nowrap px-sm text-small font-medium outline-none focus-ring',
+    'disabled:pointer-events-none disabled:opacity-50',
+    actif
+      ? 'font-semibold text-primary after:absolute after:inset-x-sm after:bottom-0 after:h-xxs after:bg-primary'
+      : vide
+        /* Atténuée, jamais éteinte : une rubrique vide se prend, c'est en y allant qu'on la remplit. */
+        ? 'text-text-subtle hover:text-text'
+        : 'text-text-muted hover:text-text',
+  );
+}
+
+/** Le libellé d'un onglet, la place du gras réservée : l'onglet choisi passe en gras sans pousser ses voisins. */
+function TexteDOnglet({ label }: { label: string }) {
+  return <span data-texte={label} className="inline-grid after:invisible after:h-0 after:overflow-hidden after:font-semibold after:content-[attr(data-texte)]">{label}</span>;
+}
+
+export interface SubTab {
+  id: string;
+  label: string;
+  /** Un compte après le libellé, comme sur un onglet de rubrique. */
+  count?: number | string;
+}
+
+export interface SubTabsProps {
+  /** Ce que la rangée choisit : « Filtrer le fil », « Source ». */
+  ariaLabel: string;
+  value: string;
+  onChange: (id: string) => void;
+  tabs: readonly SubTab[];
+  className?: string;
+}
+
+/**
+ * Une barre d'onglets secondaire : la vue d'un contenu, choisie parmi plusieurs
+ * (Louis, 12/11/2026 : une rangée de pastilles à sélection EXCLUSIVE est une barre
+ * d'onglets, pas des boutons). Le dessin des sous-rubriques de `RecordRail` :
+ * texte, l'onglet choisi en gras avec son trait de 2 px collé au filet, même
+ * hauteur, chevrons quand elle déborde. Posée sous la barre principale, d'un bord
+ * à l'autre. Les pastilles à sélection MULTIPLE restent des `FilterChips`.
+ */
+export function SubTabs({ ariaLabel, value, onChange, tabs, className }: SubTabsProps) {
+  const rangee = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    rangee.current?.querySelector('[aria-selected="true"]')?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  }, [value]);
+  // Un tablist : les flèches passent d'un onglet à l'autre et le choisissent.
+  const auClavier = (e: React.KeyboardEvent, i: number) => {
+    const pas = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+    if (!pas) return;
+    e.preventDefault();
+    const j = (i + pas + tabs.length) % tabs.length;
+    rangee.current?.querySelectorAll<HTMLButtonElement>('[role="tab"]')[j]?.focus();
+    onChange(tabs[j].id);
+  };
+  return (
+    <div className={cn('relative flex shrink-0 items-center border-b border-border-soft bg-bg px-base @min-[640px]/fiche:px-xl', className)}>
+      <div ref={rangee} role="tablist" aria-label={ariaLabel} className={RANGEE}>
+        {tabs.map((t, i) => {
+          const actif = t.id === value;
+          return (
+            <button
+              key={t.id}
+              type="button"
+              role="tab"
+              aria-selected={actif}
+              tabIndex={actif ? 0 : -1}
+              onClick={() => onChange(t.id)}
+              onKeyDown={(e) => auClavier(e, i)}
+              className={classeDOnglet(actif)}
+            >
+              <TexteDOnglet label={t.label} />
+              <Compteur item={{ id: t.id, label: t.label, count: t.count }} />
+            </button>
+          );
+        })}
+      </div>
+      <Chevrons rangee={rangee} />
+    </div>
   );
 }
 
