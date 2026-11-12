@@ -161,6 +161,7 @@ cartes (`Surface`, `FieldSurface`) : une carte sépare des blocs, elle n'encadre
 | **Une seule barre de progression** | `ProgressBar` : 4 px, coins entièrement arrondis (piste et remplissage), couleur par seuil ; `Meter` la dessine aussi. Aucune barre dessinée à la main (Louis, 12/11/2026) |
 | **Menus à la densité d'un menu** | `MenuItem` dans un `PopoverContent` + `MENU_CONTENT` : entrées de 28 px en 13 px, icônes de 14 px en gris, gouttière gardée sans icône, filets fins (`MenuSeparator`), l'entrée destructive en rouge isolée en bas ; arrondi 8, ombre de fenêtre, rembourrage 4 px (Louis, 12/11/2026) |
 | **Panneaux latéraux** | `Sheet` et `Drawer` collés au bord : arrondi 0, un filet de 1 px `borderSoft` à gauche et l'ombre légère (`shadow-card`), jamais l'anneau d'une fenêtre en plus ; titre 16 px graisse 600, pas de sous-titre qui décrit, croix en bouton d'icône fantôme de 28 px ; leurs boutons à 28 px (Louis, 12/11/2026) |
+| **Un onglet vide n'apparaît pas** | Un onglet ou un sous-onglet qui n'a rien à montrer ne paraît pas, et la fiche s'ouvre sur le premier qui a du contenu ; le calcul se fait au serveur avec les données de la fiche, jamais en affichant puis en cachant. Exception : un onglet dont la rubrique propose une création (« Nouvelle note ») reste, avec son état vide (Louis, 12/11/2026) |
 | **Les champs vides se replient** | Derrière un seul « Afficher N champs vides » au pied de la carte (`SurfaceFooter`) |
 
 ## Anatomie d'un composant
