@@ -77,7 +77,7 @@ export const SheetContent = React.forwardRef<
         'fixed inset-y-0 right-0 z-(--arq-layer-panneau) flex h-full max-w-[calc(100vw-32px)] flex-col',
         size === 'large' ? 'w-panel-wide' : 'w-panel',
         // Collé au bord : AUCUN arrondi (12/11/2026), seulement l'ombre des fenêtres.
-        'bg-bg shadow-pop outline-none',
+        'border-l border-border-soft bg-bg shadow-card outline-none',
         'data-[state=open]:animate-tiroir-entree data-[state=closed]:animate-tiroir-sortie',
         className,
       )}
@@ -125,7 +125,7 @@ export const SheetTitle = React.forwardRef<
     ref={ref}
     /* La hauteur de la croix, centrée : alignés par le haut, un titre de 18 px et une
        croix de la hauteur d'un contrôle n'avaient pas le même milieu (Recette V2, 1246t8yt213). */
-    className={cn('flex min-h-(--arq-control-sm) items-center text-subhead font-bold text-text', className)}
+    className={cn('flex min-h-(--arq-control-sm) items-center text-subhead font-semibold text-text', className)}
     {...props}
   />
 ));
@@ -137,7 +137,7 @@ export const SheetDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Description
     ref={ref}
-    className={cn('mt-xs text-small text-text-muted', className)}
+    className={cn('mt-xs text-description text-text-muted', className)}
     {...props}
   />
 ));

@@ -75,20 +75,22 @@ export function Drawer({
           // Bornée à son conteneur : sur un téléphone (375 px), 460 px la poussaient hors
           // de l'écran par la gauche, et l'opérateur d'un filtre ne se lisait plus.
           'absolute inset-y-0 right-0 z-(--arq-layer-flottant) flex w-[460px] max-w-full flex-col',
-          'border-l border-border-soft bg-bg shadow-pop',
+          // Collé au bord : un filet de 1 px à gauche et une ombre légère, jamais l'anneau d'une fenêtre
+          // en plus du filet, qui faisait un trait grossier (Louis, 12/11/2026).
+          'border-l border-border-soft bg-bg shadow-card',
           className,
         )}
       >
         <div className="flex shrink-0 items-center gap-md border-b border-border-soft px-lg py-base">
           <div className="min-w-0 flex-1">
-            <div className="text-subhead font-bold text-text">{title}</div>
+            <div className="text-subhead font-semibold text-text">{title}</div>
             {detail && <div className="mt-[2px] truncate text-small text-text-muted">{detail}</div>}
           </div>
           <button
             type="button"
             onClick={onClose}
             aria-label="Fermer"
-            className="grid size-(--arq-control-sm) shrink-0 place-items-center rounded-control bg-bg-muted text-text-muted hover:text-text"
+            className="grid size-(--arq-control-sm) shrink-0 place-items-center rounded-control text-text-muted outline-none hover:bg-bg-hover hover:text-text focus-ring"
           >
             <Icon role="close" className="size-3.5" aria-hidden />
           </button>
