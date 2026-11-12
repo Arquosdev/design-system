@@ -121,7 +121,9 @@ export function DetailGroup({ title, actions, children }: { title: React.ReactNo
     <section aria-label={typeof title === 'string' ? title : undefined} className="flex min-w-0 flex-col gap-xs">
       {/* Un filet doux SOUS le titre, et aucun entre les lignes (Louis, 12/11/2026) : la colonne
           prend de la structure sans devenir une pile de cartes. */}
-      <div className="border-b border-border-soft pb-xs">
+      {/* 2 px sous le titre : le filet tombe sur celui de la barre d'onglets secondaire de la zone
+          de gauche (mesuré au rendu, 12/11/2026 : 4 px le posaient 2 px trop bas). */}
+      <div className="border-b border-border-soft pb-xxs">
         <GroupTitle title={title} actions={actions} />
       </div>
       <div className="flex min-w-0 flex-col">{children}</div>
