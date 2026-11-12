@@ -241,6 +241,9 @@ export const icons = {
   partQuote: 'Toolbox',
   /** « À faire » : une liste cochée, distincte du calendrier du Planning (12/11/2026). */
   todo: 'ListChecks',
+  /** Les deux stores où s'installe l'application mobile (page myArquos, 12/11/2026). */
+  appStore: 'AppleLogo',
+  playStore: 'GooglePlayLogo',
   // La facture (0155 du POC GMAO) : un document chiffré, distinct du devis.
   invoice: 'Invoice',
   // Trois entrées de navigation qui ne sont pas des objets : une campagne de
