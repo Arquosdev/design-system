@@ -17,8 +17,9 @@ import { cn } from '../_lib/cn';
 */
 type ChargementDeZone = {
   busy: boolean; setBusy: (busy: boolean) => void; zone: React.RefObject<HTMLDivElement | null>;
-  /** Où se pose la colonne d'informations : à droite du cadre, à côté des onglets ET de la zone. */
-  aside: HTMLElement | null;
+  /** Où se pose la seconde rangée d'onglets : au-dessus de la zone, à gauche de la colonne d'informations. */
+  sousRangee: HTMLElement | null;
+  setSousRangee: (el: HTMLElement | null) => void;
 };
 const ContexteDeZone = React.createContext<ChargementDeZone | null>(null);
 
@@ -70,21 +71,18 @@ export interface RecordLayoutProps {
 export function RecordLayout({ children, className = '' }: RecordLayoutProps) {
   const [busy, setBusy] = React.useState(false);
   const zone = React.useRef<HTMLDivElement | null>(null);
-  const [aside, setAside] = React.useState<HTMLElement | null>(null);
-  const valeur = React.useMemo(() => ({ busy, setBusy, zone, aside }), [busy, aside]);
+  const [sousRangee, setSousRangee] = React.useState<HTMLElement | null>(null);
+  const valeur = React.useMemo(() => ({ busy, setBusy, zone, sousRangee, setSousRangee }), [busy, sousRangee]);
   return (
     <ContexteDeZone.Provider value={valeur}>
       {/* Deux boîtes : une requête de conteneur ne s'applique pas à l'élément qui
           EST le conteneur. L'extérieure se mesure, l'intérieure porte la colonne.
-          LA COLONNE D'INFORMATIONS MONTE JUSQU'À L'EN-TÊTE (Louis, 12/11/2026, comme Attio) :
-          à gauche les onglets et la zone, à droite la colonne, sur toute la hauteur, sous le
-          filet de l'en-tête de la fiche. `RecordZone` l'envoie dans cet emplacement. */}
+          LA BARRE D'ONGLETS PRINCIPALE COUVRE TOUTE LA LARGEUR, la colonne d'informations
+          commence sous son filet, et la seconde rangée ne couvre que la zone de gauche
+          (Louis, 12/11/2026, d'après la maquette « Colonne ouverte »). */}
       <div className={`@container/fiche flex flex-col overflow-hidden bg-bg ${className}`}>
-        <div className="flex min-h-0 flex-1 overflow-hidden">
-          <div className="flex min-h-0 min-w-0 flex-1 flex-col items-stretch overflow-hidden">
-            {children}
-          </div>
-          <div ref={setAside} className="contents" />
+        <div className="flex min-h-0 flex-1 flex-col items-stretch overflow-hidden">
+          {children}
         </div>
       </div>
     </ContexteDeZone.Provider>
@@ -145,6 +143,7 @@ export function RecordRail({
 }: RecordRailProps) {
   const rangee = React.useRef<HTMLDivElement>(null);
   const sousRangee = React.useRef<HTMLDivElement>(null);
+  const zoneDeRangee = React.useContext(ContexteDeZone)?.sousRangee ?? null;
 
   // L'onglet courant se montre : une rubrique du bout de la rangée s'ouvrait coupée au bord.
   React.useEffect(() => {
@@ -202,7 +201,25 @@ export function RecordRail({
     </NavTarget>
   );
 
+  /* La seconde rangée, sous son propre filet, au-dessus de la zone : dans un cadre, elle
+     ne couvre que la zone de gauche (la colonne d'informations commence sous la barre). */
+  const seconde = mere?.children?.length ? (
+    <nav aria-label={mere.label} className="relative flex shrink-0 items-center border-b border-border-soft bg-bg px-base @min-[640px]/fiche:px-xl">
+      <div
+        ref={sousRangee}
+        role="presentation"
+        onKeyDown={auClavier}
+        data-role="defilement-du-rail"
+        className={RANGEE}
+      >
+        {mere.children.map((e) => onglet(e, e.id === current))}
+      </div>
+      <Chevrons rangee={sousRangee} />
+    </nav>
+  ) : null;
+
   return (
+    <>
     <nav aria-label={ariaLabel} className="shrink-0 border-b border-border-soft bg-bg">
       <div className="relative flex items-center gap-sm px-base @min-[640px]/fiche:px-xl">
         <div ref={rangee} role="presentation" onKeyDown={auClavier} data-role="defilement-du-rail" className={RANGEE}>
@@ -234,22 +251,9 @@ export function RecordRail({
         ) : null}
       </div>
 
-      {mere?.children?.length ? (
-        <div className="relative flex items-center border-t border-border-soft px-base @min-[640px]/fiche:px-xl">
-          <div
-            ref={sousRangee}
-            role="presentation"
-            onKeyDown={auClavier}
-            aria-label={mere.label}
-            data-role="defilement-du-rail"
-            className={RANGEE}
-          >
-            {mere.children.map((e) => onglet(e, e.id === current))}
-          </div>
-          <Chevrons rangee={sousRangee} />
-        </div>
-      ) : null}
     </nav>
+    {seconde ? (zoneDeRangee ? createPortal(seconde, zoneDeRangee) : seconde) : null}
+    </>
   );
 }
 
@@ -437,21 +441,20 @@ export interface RecordZoneProps {
 export function RecordZone({ children, aside, asideLabel = 'Informations' }: RecordZoneProps) {
   const c = React.useContext(ContexteDeZone);
   const busy = c?.busy ?? false;
+  // La seconde rangée d'onglets se pose ici, au-dessus de la zone, à gauche de la colonne.
   const zone = (
-    <RecordZoneBody busy={busy} zoneRef={c?.zone}>{children}</RecordZoneBody>
+    <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+      {c ? <div ref={c.setSousRangee} className="contents" /> : null}
+      <RecordZoneBody busy={busy} zoneRef={c?.zone}>{children}</RecordZoneBody>
+    </div>
   );
   if (!aside) return zone;
-  const colonne = (
-    <aside aria-label={asideLabel} className="flex w-[340px] shrink-0 flex-col gap-xl overflow-y-auto border-l border-border-soft px-lg py-base">
-      {aside}
-    </aside>
-  );
-  // Dans un `RecordLayout`, la colonne se pose à droite du cadre, à la hauteur des onglets.
-  if (c?.aside) return <>{zone}{createPortal(colonne, c.aside)}</>;
   return (
     <div className="flex min-h-0 flex-1">
       {zone}
-      {colonne}
+      <aside aria-label={asideLabel} className="flex w-[340px] shrink-0 flex-col gap-xl overflow-y-auto border-l border-border-soft px-lg py-base">
+        {aside}
+      </aside>
     </div>
   );
 }
