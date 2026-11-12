@@ -15,6 +15,8 @@ const TONES = {
   warning: 'bg-warning',
   danger: 'bg-danger',
   primary: 'bg-primary',
+  // Une quantité sans jugement (le stock d'une pièce au-dessus de son seuil).
+  neutral: 'bg-text-subtle',
 } as const;
 
 export interface ProgressBarProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 'role'> {

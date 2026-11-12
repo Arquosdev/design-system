@@ -81,9 +81,7 @@ Sous 34 % `danger`, sous 67 % `warning`, au-dessus `success`.
 
 ## Accessibilité
 
-La barre porte `role="img"` et un `aria-label` qui reprend le label et la
-valeur : « Taux de connaissance : 41 % ». Le chiffre visible est `aria-hidden`,
-sans quoi un lecteur d'écran l'annoncerait deux fois.
+La barre est `ProgressBar` (`role="progressbar"`, `aria-label` = le label, `aria-valuenow`) : une seule barre de progression dans le design system, coins entièrement arrondis, 4 px (Louis, 12/11/2026).
 
 La couleur ne dit jamais l'état à elle seule : le chiffre est écrit à côté. Le
 masquer avec `figure={false}` ne se justifie que dans une cellule où la valeur
