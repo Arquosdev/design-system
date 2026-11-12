@@ -143,8 +143,9 @@ export const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      'relative flex cursor-pointer items-center rounded-control px-md py-xs',
-      'text-small text-text outline-none select-none',
+      // À la densité d'un menu (Louis, 12/11/2026) : 28 px, 13 px.
+      'relative flex min-h-(--arq-control-sm) cursor-pointer items-center rounded-control px-sm',
+      'text-description text-text outline-none select-none',
       'data-[highlighted]:bg-bg-muted',
       // L'entrée retenue, au motif du rail : fond bleuté, demi-gras.
       'data-[state=checked]:bg-info-bg data-[state=checked]:font-semibold data-[state=checked]:text-on-info-bg',
