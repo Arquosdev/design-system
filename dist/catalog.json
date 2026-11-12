@@ -1011,6 +1011,33 @@
       }
     },
     {
+      "name": "Progress",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Dire une proportion sobrement, d'une fine barre ou d'une rangée de cases pleines ou vides.",
+      "keywords": [
+        "progression",
+        "barre",
+        "taux",
+        "cases",
+        "photos",
+        "manquantes",
+        "proportion"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/progress",
+      "specFile": "components/progress/progress.spec.md",
+      "fichiers": {
+        "web": "components/progress/progress.web.tsx"
+      }
+    },
+    {
       "name": "RadioGroup",
       "status": "stable",
       "layer": "generique",
