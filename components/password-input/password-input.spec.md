@@ -4,11 +4,12 @@ status: beta
 layer: generique
 role: Recueillir un mot de passe, avec une bascule masqué / en clair.
 keywords: [mot de passe, password, connexion, login, oeil, masquer, afficher]
-platforms: [web]
+platforms: [web, mobile]
 replaces:
   web:
     - app/login/form.tsx — un lien « Afficher » posé dans le rang du libellé
-  mobile: []
+  mobile:
+    - app/login.tsx — un `Input` avec `secureTextEntry`, sans moyen de relire ce qu'on a tapé
 ---
 
 # PasswordInput
@@ -53,6 +54,22 @@ d'implémentation.
   required
 />
 ```
+
+```tsx
+// mobile
+<Label nativeID="login-password">Votre mot de passe</Label>
+<PasswordInput
+  value={password}
+  onChangeText={setPassword}
+  autoComplete="current-password"
+  textContentType="password"
+  accessibilityLabel="Votre mot de passe"
+/>
+```
+
+Sur mobile, `style` porte sur l'enveloppe, comme `className` sur le web ;
+`editable={false}` grise le champ **et** l'œil ; `invalid` passe la bordure en
+`danger`. `secureTextEntry` n'est pas une prop : c'est la bascule qui le pilote.
 
 ## Logique partagée
 
@@ -110,10 +127,11 @@ quelqu'un sur un poste partagé, la fois suivante, sans qu'il l'ait demandé.
   pour que la tabulation aille droit au bouton suivant du formulaire ; la
   bascule est le seul moyen de relire ce qu'on a tapé, et la retirer du clavier
   la réserverait à la souris.
-- Cible de 34 × 34 px — le creux de l'enveloppe, bordure déduite. En dessous
-  des 44 pt d'une cible tactile : le composant est déclaré `web` seulement, et
-  une implémentation mobile devra l'agrandir. Le côté vient de `aspect-square`
-  et non d'une largeur écrite en dur, qui donnait un bouton plus large que haut
-  de deux pixels.
+- Cible de 34 × 34 px sur le web — le creux de l'enveloppe, bordure déduite.
+  Le côté vient de `aspect-square` et non d'une largeur écrite en dur, qui
+  donnait un bouton plus large que haut de deux pixels. **Sur mobile, l'œil
+  fait 44 × 44**, la cible tactile, aux cotes d'`Input` natif (pilule de 44) ;
+  il n'a pas de filet vertical, qui couperait la courbe de la pilule.
+  `accessibilityState.selected` y est le pendant d'`aria-pressed`.
 - L'anneau de mise au point du bouton est tourné vers l'intérieur : posé dehors,
   il serait coupé par l'enveloppe et deviendrait invisible au clavier.
