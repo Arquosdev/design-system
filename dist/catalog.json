@@ -1724,6 +1724,32 @@
       "fichiers": {
         "web": "components/toolbar/toolbar.web.tsx"
       }
+    },
+    {
+      "name": "Trail",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Dire d'où l'on vient et ce qu'on regarde, en haut d'un écran ou d'une fiche.",
+      "keywords": [
+        "fil d'Ariane",
+        "chemin",
+        "navigation",
+        "retour",
+        "parent",
+        "breadcrumb"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": [],
+        "mobile": []
+      },
+      "dossier": "components/trail",
+      "specFile": "components/trail/trail.spec.md",
+      "fichiers": {
+        "web": "components/trail/trail.web.tsx"
+      }
     }
   ]
 }

@@ -65,6 +65,7 @@ Une mécanique que n'importe quelle application aurait — bouton, modale, ongle
 | [ThinkingDots](thinking-dots/thinking-dots.spec.md) | Dire que l'assistant réfléchit, par la constellation de son icône animée en vague. | 🖥️ 📱 | beta |
 | [Toast](toast/toast.spec.md) | Annoncer sans quitter la page ce qui vient de réussir ou d'échouer. | 🖥️ | beta |
 | [Toolbar](toolbar/toolbar.spec.md) | Réunir au-dessus d'une liste ce qu'on peut lui faire — filtrer, composer, exporter, changer de vue. | 🖥️ | beta |
+| [Trail](trail/trail.spec.md) | Dire d'où l'on vient et ce qu'on regarde, en haut d'un écran ou d'une fiche. | 🖥️ | beta |
 
 ## Métier
 

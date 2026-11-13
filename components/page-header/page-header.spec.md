@@ -38,15 +38,25 @@ coup de molette.
 ## Anatomie
 
 - Bande : `spacing.base` horizontal sur un téléphone, `spacing.xl` au-delà, trait `colors.borderSoft` en bas
-- **Hauteur : `--arq-bandeau-tete` (60 px), contenu centré dedans** (Louis,
-  13/11/2026). C'est la hauteur du bandeau de tête, partagée avec le nom de
-  l'agence dans la barre latérale : les deux filets se rejoignent à la
-  verticale de la barre, et cinq pixels et demi d'écart s'y voyaient. Un
-  plancher, pas un plafond : un fil d'Ariane fait grandir la bande. Égaliser
-  les marges des deux bandeaux ne suffisait pas — ils n'ont pas le même
-  contenu, donc le même rembourrage ne donne pas la même hauteur
-- Fil : `small` en `colors.textMuted`, parent en `colors.primary`, chevron
-  `colors.textSubtle`, courant en `colors.text`
+- **Sans fil d'Ariane — hauteur `--arq-bandeau-tete` (60 px), contenu centré
+  dedans** (Louis, 13/11/2026). C'est la hauteur du bandeau de tête, partagée
+  avec le nom de l'agence dans la barre latérale : les deux filets se
+  rejoignent à la verticale de la barre, et cinq pixels et demi d'écart s'y
+  voyaient. Égaliser les marges des deux bandeaux ne suffisait pas — ils n'ont
+  pas le même contenu, donc le même rembourrage ne donne pas la même hauteur
+- **Avec un fil d'Ariane — le rythme commun `PAGE_HEAD`** (20 px au-dessus du
+  fil, 12 entre le fil et le nom, 16 sous le nom), celui de l'en-tête d'une
+  fiche, et **pas de filet**. Le fil et le nom tombent alors exactement où ils
+  tombent sur une fiche : mesuré au rendu, fil de 20 à 40, nom de 56 à 80. Ils
+  étaient seize pixels plus haut ici que là-bas. Cent pixels de tête ne
+  tiennent pas dans un bandeau de soixante : garder le filet le ferait tomber
+  quarante pixels sous celui de la barre latérale, qui est juste à sa gauche
+- Fil : `Trail`, le composant commun — un seul fil d'Ariane dans le produit
+  depuis le 13/11/2026 (Louis). `caption` (12 px), parent et courant en
+  `colors.text`, chevron `colors.textSubtle`. **Plus de bleu** : le parent
+  était en `colors.primary`, et l'en-tête d'une fiche le dessinait déjà en
+  gris ; deux fils d'un dessin différent se lisaient l'un après l'autre en
+  passant d'un écran à l'autre
 - Titre : `typography.headline`, deux lignes au plus (tronqué au-delà, le titre entier en infobulle)
 - Statut et chiffre (`status`, `figure`) : à la suite du titre, le statut d'une fiche (`StatusBadge`) puis le chiffre qui la résume en `typography.title` (« 13 118,60 € TTC »)
 - Décompte : `typography.title` en `colors.textMuted`, chiffres à chasse fixe
