@@ -27,7 +27,7 @@ Une mécanique que n'importe quelle application aurait — bouton, modale, ongle
 | [ColorField](color-field/color-field.spec.md) | Choisir une couleur de marque dans une zone de couleur, par son code, ou parmi des couleurs proposées. | 🖥️ | beta |
 | [Combobox](combobox/combobox.spec.md) | Choisir dans une liste trop longue pour être parcourue, en la filtrant. | 🖥️ | beta |
 | [Command](command/command.spec.md) | Atteindre n'importe quoi dans un écran dense, en tapant son nom. | 🖥️ | beta |
-| [Creation](creation/creation.spec.md) | Redonne le bouton de création de l'en-tête là où l'on regarde ce qui manque, dans l'état vide et sous un tableau. | 🖥️ | beta |
+| [Creation](creation/creation.spec.md) | Redonne le bouton de création de l'en-tête là où l'on regarde ce qui manque, dans l'état vide et en fin de tableau. | 🖥️ | beta |
 | [DateField](date-field/date-field.spec.md) | Saisir une date au clavier, ou la choisir dans un calendrier, et la rendre en ISO. | 🖥️ | beta |
 | [Drawer](drawer/drawer.spec.md) | Ouvrir un panneau latéral pour régler ce qu'on regarde, sans quitter l'écran. | 🖥️ | beta |
 | [EmptyState](empty-state/empty-state.spec.md) | Dire pourquoi une zone est vide, et ce qu'on peut y faire. | 🖥️ 📱 | stable |

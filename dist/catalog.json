@@ -394,7 +394,7 @@
       "name": "Creation",
       "status": "beta",
       "layer": "generique",
-      "role": "Redonne le bouton de création de l'en-tête là où l'on regarde ce qui manque, dans l'état vide et sous un tableau.",
+      "role": "Redonne le bouton de création de l'en-tête là où l'on regarde ce qui manque, dans l'état vide et en fin de tableau.",
       "keywords": [
         "création",
         "nouveau",

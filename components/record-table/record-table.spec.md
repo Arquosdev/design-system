@@ -54,6 +54,19 @@ toutes.
 | `detail`     | `(row) => ReactNode`                   | —            | Le détail d'une ligne, déplié sous elle par un chevron ; `null` = pas de détail |
 | `group`      | `(row) => string`                      | —            | Une bande avant chaque groupe de lignes qui se suivent (déjà rangées) |
 | `activeKey`  | `string \| null`                      | —            | La ligne choisie : fond d'information, filet bleu à gauche |
+| `onAdd`      | `() => void`                           | —            | La ligne « + » en fin de tableau : voir « La ligne d'ajout » |
+| `addLabel`   | `string`                               | —            | Le nom du geste (« Nouvel équipement ») : `aria-label` et info-bulle. Sans lui ni `onAdd`, pas de ligne |
+
+**La ligne d'ajout, façon Airtable** (Louis, 13/11/2026). Après la dernière ligne
+(de la page courante, avant `TableFooter`), une ligne fine de 32 px
+(`--arq-control-md`) qui ne porte qu'une icône `add` de 14 px en `textMuted`,
+alignée sur la première colonne (marge `spacing.xl`), sans texte visible. Au
+survol, fond `bgHover` et icône `text`. Pas de bordure en plus : le filet doux de
+toute ligne. Un vrai `<button>` couvre toute la ligne, nommé par `addLabel`
+(`aria-label` et info-bulle). `onAdd` déclenche **le même geste** que le bouton
+de création de l'en-tête (en pratique le `trigger` de `useHeaderCreation`), jamais
+un second chemin ; le bouton de l'en-tête reste. Les lignes « + Nouveau … »
+d'avant, trop grosses, sont retirées (`AddRow` déprécié).
 
 **Choisir la densité.** `standard` pour une liste qu'on parcourt pour OUVRIR un
 enregistrement : la ligne laisse de l'air autour du lien. `compact` pour une

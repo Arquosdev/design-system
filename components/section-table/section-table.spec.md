@@ -65,6 +65,8 @@ finissait par différer :
 | `group` | `(row) => string` | — | Une bande avant chaque groupe (lignes déjà rangées) : l'année |
 | `activeKey` | `string \| null` | — | La ligne choisie : fond d'information, filet bleu à gauche |
 | `headingLevel` | `2 \| 3` | `2` | `3` sous une sous-rubrique déjà titrée |
+| `onAdd` | `() => void` | — | La ligne « + » discrète en fin de tableau, façon Airtable : le geste de création de l'en-tête de la fiche (voir `RecordTable`) |
+| `addLabel` | `string` | — | Son nom : `aria-label` et info-bulle (« Nouvelle note », « Ajouter un relevé ») |
 
 Les icônes de nature viennent du vocabulaire : `fieldText` (texte),
 `fieldNumber` (nombre, montant, année), `fieldDate`, `fieldChoice` (une valeur

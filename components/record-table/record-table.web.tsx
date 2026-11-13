@@ -158,6 +158,15 @@ export interface RecordTableProps<T> {
   group?: (row: T) => string;
   /** La ligne choisie (sa clé) : fond d'information et filet bleu à gauche. */
   activeKey?: string | null;
+  /**
+   * LA LIGNE « + » EN FIN DE TABLEAU, façon Airtable (Louis, 13/11/2026) : une ligne fine,
+   * une icône « + » seule, alignée sur la première colonne. Elle ouvre la même création
+   * que le bouton de l'en-tête : l'appelant lui passe CE geste, jamais un second chemin.
+   * Sans `onAdd` ni `addLabel`, pas de ligne.
+   */
+  onAdd?: () => void;
+  /** Le nom du geste, lu par le lecteur d'écran et en info-bulle : « Nouvel équipement ». */
+  addLabel?: string;
   className?: string;
 }
 
@@ -182,6 +191,8 @@ export function RecordTable<T>({
   detail,
   group,
   activeKey,
+  onAdd,
+  addLabel,
   className,
 }: RecordTableProps<T>) {
   const retrait = RETRAIT[density] ?? RETRAIT.standard;
@@ -843,6 +854,34 @@ export function RecordTable<T>({
               </React.Fragment>
             );
           })}
+          {onAdd && addLabel ? (
+            /*
+              LA LIGNE « + » (Louis, 13/11/2026, d'après Airtable). Les lignes « + Nouveau … »
+              d'avant étaient trop grosses ; celle-ci est discrète : 32 px, l'icône seule en gris,
+              sans texte visible, le filet doux de toute ligne et rien de plus. Le bouton couvre
+              toute la ligne ; l'icône reste sur la première colonne quand le tableau défile en
+              largeur (`sticky`).
+            */
+            <tr className="max-sm:block">
+              <td colSpan={toutesColonnes} className="border-b border-border-soft p-0 max-sm:block">
+                <button
+                  type="button"
+                  data-ligne-d-ajout
+                  onClick={onAdd}
+                  aria-label={addLabel}
+                  title={addLabel}
+                  /* L'anneau au clavier seulement, et posé en DEDANS : `focus-ring` le dessine
+                     deux pixels en dehors, donc hors du tableau, où l'enveloppe qui défile en
+                     largeur le rogne. Même règle (`:focus-visible`), autre décalage. */
+                  className="flex h-(--arq-control-md) w-full items-center text-text-muted transition-colors duration-(--arq-duration-rapide) outline-none hover:bg-bg-hover hover:text-text focus-visible:outline-[1.5px] focus-visible:-outline-offset-2 focus-visible:outline-primary"
+                >
+                  <span className="sticky left-0 flex items-center pl-xl max-sm:pl-base">
+                    <Icon role="add" size="xs" aria-hidden />
+                  </span>
+                </button>
+              </td>
+            </tr>
+          ) : null}
         </tbody>
       </table>
 

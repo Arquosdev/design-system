@@ -4,7 +4,8 @@
   LE GESTE DE CRÉATION, DOUBLÉ DANS LE CORPS DE LA PAGE (Louis, 12/11/2026, d'après ClickUp,
   Notion et Linear) : le bouton de création reste en haut à droite de l'en-tête, et il se
   retrouve aussi là où l'on regarde ce qui manque : dans l'état vide (« + Nouvelle note »),
-  et en dernière ligne d'un tableau (« + Nouvelle note », discrète).
+  et en fin de tableau, la ligne « + » discrète de `RecordTable` (`onAdd`, Louis, 13/11/2026,
+  façon Airtable), à qui l'écran passe le `trigger` de `useHeaderCreation`.
 
   Rien à câbler écran par écran : les en-têtes (`PageHeader`, l'en-tête de fiche) marquent
   leur zone de boutons (`data-actions-en-tete`), et l'on y lit le bouton dont le libellé
@@ -19,13 +20,17 @@ import { Icon } from '../icon/icon.web';
 import { cn } from '../_lib/cn';
 
 /** Le libellé d'un bouton qui crée : c'est ce que le doublon recopie. */
-export const LIBELLE_DE_CREATION = /^(Nouveau|Nouvelle|Nouvel|Ajouter|Déposer|Déclarer|Noter)\b/;
+// « Couvrir » : couvrir un équipement par un contrat est l'ajout de sa rubrique (13/11/2026).
+export const LIBELLE_DE_CREATION = /^(Nouveau|Nouvelle|Nouvel|Ajouter|Couvrir|Déposer|Déclarer|Noter)\b/;
 
 type Creation = { label: string; trigger: () => void };
 
-/** Le bouton de création actif des en-têtes de la page, tel qu'il est À CET INSTANT. */
-function boutonDeCreation(): { label: string; el: HTMLElement } | null {
-  for (const zone of document.querySelectorAll<HTMLElement>('[data-actions-en-tete]')) {
+/** Les zones de boutons des en-têtes : `PageHeader` et l'en-tête de fiche les marquent. */
+export const ZONE_D_EN_TETE = '[data-actions-en-tete]';
+
+/** Le bouton de création actif des zones désignées, tel qu'il est À CET INSTANT. */
+function boutonDeCreation(zones: string): { label: string; el: HTMLElement } | null {
+  for (const zone of document.querySelectorAll<HTMLElement>(zones)) {
     for (const el of zone.querySelectorAll<HTMLElement>('button, a')) {
       const label = el.textContent?.replace(/\s+/g, ' ').trim() ?? '';
       const inactif = el instanceof HTMLButtonElement && el.disabled;
@@ -35,27 +40,31 @@ function boutonDeCreation(): { label: string; el: HTMLElement } | null {
   return null;
 }
 
-/** Le bouton de création de l'en-tête de la page, s'il y en a un, actif. */
-export function useHeaderCreation(enabled = true): Creation | null {
+/**
+ * Le bouton de création de l'en-tête de la page, s'il y en a un, actif. `zones` resserre la
+ * lecture (un sélecteur CSS) : une fiche n'y lit que l'emplacement de la rubrique affichée,
+ * pour qu'un tableau ne déclenche pas le bouton d'une autre rubrique.
+ */
+export function useHeaderCreation(enabled = true, zones: string = ZONE_D_EN_TETE): Creation | null {
   // Le LIBELLÉ seulement : React remplace le bouton d'en-tête à son gré, et un clic sur un
   // nœud détaché ne fait rien. Le bouton se relit au moment du clic.
   const [label, setLabel] = React.useState<string | null>(null);
   React.useEffect(() => {
     if (!enabled) { setLabel(null); return; }
-    const lire = () => setLabel(boutonDeCreation()?.label ?? null);
+    const lire = () => setLabel(boutonDeCreation(zones)?.label ?? null);
     lire();
     // Les boutons d'un onglet montent dans l'en-tête après coup (un portail) : on suit la zone.
     const veille = new MutationObserver(lire);
-    document.querySelectorAll('[data-actions-en-tete]').forEach((z) => veille.observe(z, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ['disabled'] }));
+    document.querySelectorAll(zones).forEach((z) => veille.observe(z, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ['disabled'] }));
     return () => veille.disconnect();
-  }, [enabled]);
-  return label ? { label, trigger: () => boutonDeCreation()?.el.click() } : null;
+  }, [enabled, zones]);
+  return label ? { label, trigger: () => boutonDeCreation(zones)?.el.click() } : null;
 }
 
 /**
- * La dernière ligne d'un tableau qui accepte des créations : « + Nouvelle note », discrète,
- * pleine largeur, aux marges de la page. Elle déclenche le bouton de création de l'en-tête ;
- * sans lui, elle ne paraît pas.
+ * @deprecated Plus posée nulle part depuis le 13/11/2026 : la fin d'un tableau prend la ligne
+ * « + » de `RecordTable` (`onAdd`, `addLabel`), façon Airtable. Gardée exportée pour ne casser
+ * aucun appelant.
  */
 export function AddRow({ className }: { className?: string }) {
   const creation = useHeaderCreation();

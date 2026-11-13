@@ -59,6 +59,10 @@ export interface SectionTableProps<T> {
   toolbar?: React.ReactNode;
   /** Le titre en `h2` par défaut ; `h3` sous une sous-rubrique déjà titrée. */
   headingLevel?: 2 | 3;
+  /** La ligne « + » en fin de tableau : le geste de création de l'en-tête (voir `RecordTable`). */
+  onAdd?: () => void;
+  /** Son nom, en info-bulle et pour le lecteur d'écran : « Nouvelle note ». */
+  addLabel?: string;
   className?: string;
 }
 
@@ -97,6 +101,8 @@ export function SectionTable<T>({
   activeKey,
   toolbar,
   headingLevel = 2,
+  onAdd,
+  addLabel,
   className,
 }: SectionTableProps<T>) {
   const Titre = headingLevel === 2 ? 'h2' : 'h3';
@@ -135,10 +141,11 @@ export function SectionTable<T>({
           detail={detail}
           group={group}
           activeKey={activeKey}
+          /* La ligne « + » discrète en fin de tableau, façon Airtable (Louis, 13/11/2026). */
+          onAdd={onAdd}
+          addLabel={addLabel}
         />
       )}
-      {/* Plus de ligne « + Nouveau … » sous le tableau d'une rubrique (Louis, 13/11/2026) : le
-          geste est déjà dans l'en-tête. L'état vide garde son bouton. */}
 
       {footer ? <div className="px-base text-small text-text-muted sm:px-xl">{footer}</div> : null}
     </section>
