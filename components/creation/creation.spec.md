@@ -19,8 +19,9 @@ et Linear) :
 
 - dans l'état vide, un bouton contour « + Nouvelle note » ;
 - en fin de tableau, la ligne « + » de `RecordTable` et `SectionTable` (`onAdd`,
-  `addLabel`, Louis, 13/11/2026, façon Airtable) : l'icône seule, sans texte
-  visible. L'écran lui passe le `trigger` de `useHeaderCreation`.
+  `addLabel`, Louis, 13/11/2026, façon Airtable) : l'icône puis le libellé
+  écrit, fine et grise. L'écran lui passe le `trigger` et le `label` de
+  `useHeaderCreation`.
 
 Rien ne se câble écran par écran. `PageHeader` et l'en-tête de fiche marquent
 leur zone de boutons (`data-actions-en-tete`). Le doublon y lit le bouton dont

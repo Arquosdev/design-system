@@ -857,10 +857,15 @@ export function RecordTable<T>({
           {onAdd && addLabel ? (
             /*
               LA LIGNE « + » (Louis, 13/11/2026, d'après Airtable). Les lignes « + Nouveau … »
-              d'avant étaient trop grosses ; celle-ci est discrète : 32 px, l'icône seule en gris,
-              sans texte visible, le filet doux de toute ligne et rien de plus. Le bouton couvre
-              toute la ligne ; l'icône reste sur la première colonne quand le tableau défile en
-              largeur (`sticky`).
+              d'avant étaient trop grosses ; celle-ci est discrète : 32 px, l'icône de 14 px et
+              son libellé en 13, le tout en gris, le filet doux de toute ligne et rien de plus.
+              C'est un LIEN de fin de tableau, pas un bouton. Le bouton couvre toute la ligne ;
+              l'icône et le libellé restent sur la première colonne quand le tableau défile en
+              largeur (`sticky`), sans quoi on ne lirait plus ce que la ligne crée.
+
+              **Le libellé est écrit** (Louis, 13/11/2026, correction du jour) : l'icône seule
+              laissait deviner ce qu'on ajoute. `addLabel` est donc le texte visible autant que
+              le nom accessible, et la même ligne sert partout — liste comme rubrique de fiche.
             */
             <tr className="max-sm:block">
               <td colSpan={toutesColonnes} className="border-b border-border-soft p-0 max-sm:block">
@@ -868,15 +873,14 @@ export function RecordTable<T>({
                   type="button"
                   data-ligne-d-ajout
                   onClick={onAdd}
-                  aria-label={addLabel}
-                  title={addLabel}
                   /* L'anneau au clavier seulement, et posé en DEDANS : `focus-ring` le dessine
                      deux pixels en dehors, donc hors du tableau, où l'enveloppe qui défile en
                      largeur le rogne. Même règle (`:focus-visible`), autre décalage. */
-                  className="flex h-(--arq-control-md) w-full items-center text-text-muted transition-colors duration-(--arq-duration-rapide) outline-none hover:bg-bg-hover hover:text-text focus-visible:outline-[1.5px] focus-visible:-outline-offset-2 focus-visible:outline-primary"
+                  className="flex h-(--arq-control-md) w-full items-center text-description text-text-muted transition-colors duration-(--arq-duration-rapide) outline-none hover:bg-bg-hover hover:text-text focus-visible:outline-[1.5px] focus-visible:-outline-offset-2 focus-visible:outline-primary"
                 >
-                  <span className="sticky left-0 flex items-center pl-xl max-sm:pl-base">
+                  <span className="sticky left-0 flex items-center gap-xs pl-xl whitespace-nowrap max-sm:pl-base">
                     <Icon role="add" size="xs" aria-hidden />
+                    {addLabel}
                   </span>
                 </button>
               </td>
