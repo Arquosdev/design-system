@@ -45,7 +45,7 @@ toutes.
 | `rows`    | `readonly T[]`                         | —      | Les enregistrements                                       |
 | `columns`  | `readonly RecordColumn<T>[]`          | —      | Les colonnes défilantes, dans l'ordre                     |
 | `rowKey`     | `(row: T) => string`                 | —      | L'identifiant stable d'une ligne                          |
-| `identity`  | `{ header, render, value?, mono?, grow? }` | —      | La colonne qui nomme la ligne ; elle reste visible. Un CODE (`mono`) en DM Mono, un NOM en DM Sans graisse 500, sans que l'écran l'écrive (12/11/2026) |
+| `identity`  | `{ header, render, value?, grow? }` | —      | La colonne qui nomme la ligne ; elle reste visible. Toute identité, code ou nom, en DM Mono graisse 600 (`IDENTIFIER`), sans que l'écran l'écrive ; coupée, elle se lit en entier au survol. `mono` est accepté et ignoré (Louis, 13/11/2026) |
 | `onOpen`  | `(row: T) => void`                   | —      | Sans lui, l'identité ne devient pas cliquable             |
 | `selection` | `{ values, onChange, name, plural?, feminine? }` | — | Sans elle, pas de colonne de cases. `feminine` accorde le décompte : « 3 affaires sélectionnées » |
 | `sort`       | `{ state, onChange }`                   | —      | Sans lui, les en-têtes ne sont pas cliquables             |

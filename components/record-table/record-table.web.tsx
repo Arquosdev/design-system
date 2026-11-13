@@ -72,6 +72,17 @@ const texteDe = (valeur: unknown, rendu: React.ReactNode): string | undefined =>
     : typeof valeur === 'number' ? String(valeur)
       : typeof rendu === 'string' || typeof rendu === 'number' ? String(rendu) : undefined;
 
+/**
+ * Une identité coupée (« … ») se lit en entier au survol (Louis, 13/11/2026 : en DM Mono, plus
+ * large, un nom long se coupe plus tôt). Le titre ne se pose que si le texte déborde vraiment :
+ * une info-bulle qui répète ce qu'on lit déjà est du bruit.
+ */
+const titreSiCoupe = (e: React.MouseEvent<HTMLElement>) => {
+  const el = e.currentTarget;
+  if (el.scrollWidth > el.clientWidth + 1) el.title = (el.textContent ?? '').trim();
+  else el.removeAttribute('title');
+};
+
 export interface RecordTableProps<T> {
   rows: readonly T[];
   columns: readonly RecordColumn<T>[];
@@ -82,8 +93,8 @@ export interface RecordTableProps<T> {
    */
   identity: {
     /**
-     * L'identité est un CODE (« 53 A 00145 02 », « C-2024-245 ») : DM Mono (`IDENTIFIER`).
-     * Un NOM (immeuble, client, affaire) n'en est jamais un et reste en DM Sans (Louis, 12/11/2026).
+     * @deprecated Ignoré : toute identité, code ou nom, est en DM Mono (`IDENTIFIER`, Louis,
+     * 13/11/2026). Accepté pour ne pas casser un appelant qui le passe encore.
      */
     mono?: boolean;
     header: string;
@@ -719,12 +730,11 @@ export function RecordTable<T>({
                     actif && 'shadow-[inset_2px_0_0_var(--color-primary)]',
                     // Une colonne rétrécie coupe son lien au lieu de le laisser passer sur la voisine (recette, 13/10/2026).
                     'border-r border-b border-border-soft px-md whitespace-nowrap sm:overflow-hidden',
-                    /* Un CODE en DM Mono, un nom en DM Sans (Louis, 12/11/2026) ; la précision
-                       dessous (immeuble, adresse) reste en texte courant. */
-                    /* Un NOM, colonne principale : DM Sans en graisse 500, sans que l'écran l'écrive. */
-                    identity.mono ? IDENTIFIER : 'font-sans font-medium',
-                    // Une ABSENCE (« Sans numéro », en gris ou en italique) n'est pas un code : elle reste en DM Sans (12/11/2026).
-                    identity.mono && '[&_.font-semibold]:font-medium [&_.font-bold]:font-medium [&_.text-small]:font-sans [&_.text-small]:tracking-normal [&_.text-caption]:font-sans [&_.text-caption]:tracking-normal [&_.text-text-muted]:font-sans [&_.text-text-muted]:tracking-normal [&_.italic]:font-sans [&_.italic]:tracking-normal',
+                    /* TOUTE IDENTITÉ EN DM MONO, graisse 600, code ou nom (Louis, 13/11/2026) ; la
+                       précision dessous (immeuble, adresse) reste en texte courant. */
+                    IDENTIFIER,
+                    // Une ABSENCE (« Sans numéro », en gris ou en italique) n'est pas une identité : elle reste en DM Sans (12/11/2026).
+                    '[&_.text-small]:font-sans [&_.text-small]:font-medium [&_.text-small]:tracking-normal [&_.text-caption]:font-sans [&_.text-caption]:font-medium [&_.text-caption]:tracking-normal [&_.text-text-muted]:font-sans [&_.text-text-muted]:font-medium [&_.text-text-muted]:tracking-normal [&_.italic]:font-sans [&_.italic]:font-medium [&_.italic]:tracking-normal',
                     retrait,
                     !selection && 'pl-xl',
                     // Sur une carte, le titre passe sur deux lignes au plus, avec ses points de suspension :
@@ -749,6 +759,7 @@ export function RecordTable<T>({
                       onClick={() => onOpen(row)}
                       // Avec une ligne choisie, ouvrir CHOISIT : le bouton dit s'il l'est.
                       aria-pressed={activeKey !== undefined ? actif : undefined}
+                      onMouseEnter={identity.grow && !regle ? undefined : titreSiCoupe}
                       className={cn(
                         'rounded-control text-primary hover:underline focus-ring max-sm:line-clamp-2 max-sm:text-left max-sm:[overflow-wrap:anywhere] sm:block sm:truncate sm:text-left',
                         borneIdentite,
@@ -763,7 +774,7 @@ export function RecordTable<T>({
                         : identity.render(row)}
                     </button>
                   ) : (
-                    <span className={cn('max-sm:line-clamp-2 max-sm:[overflow-wrap:anywhere] sm:block sm:truncate', borneIdentite)}>
+                    <span onMouseEnter={identity.grow && !regle ? undefined : titreSiCoupe} className={cn('max-sm:line-clamp-2 max-sm:[overflow-wrap:anywhere] sm:block sm:truncate', borneIdentite)}>
                       {identity.grow && !regle
                         ? <Libre titre={texteDe(identity.value?.(row), identity.render(row))}>{identity.render(row)}</Libre>
                         : identity.render(row)}
