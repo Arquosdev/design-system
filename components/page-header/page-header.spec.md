@@ -38,6 +38,13 @@ coup de molette.
 ## Anatomie
 
 - Bande : `spacing.base` horizontal sur un téléphone, `spacing.xl` au-delà, trait `colors.borderSoft` en bas
+- **Hauteur : `--arq-bandeau-tete` (60 px), contenu centré dedans** (Louis,
+  13/11/2026). C'est la hauteur du bandeau de tête, partagée avec le nom de
+  l'agence dans la barre latérale : les deux filets se rejoignent à la
+  verticale de la barre, et cinq pixels et demi d'écart s'y voyaient. Un
+  plancher, pas un plafond : un fil d'Ariane fait grandir la bande. Égaliser
+  les marges des deux bandeaux ne suffisait pas — ils n'ont pas le même
+  contenu, donc le même rembourrage ne donne pas la même hauteur
 - Fil : `small` en `colors.textMuted`, parent en `colors.primary`, chevron
   `colors.textSubtle`, courant en `colors.text`
 - Titre : `typography.headline`, deux lignes au plus (tronqué au-delà, le titre entier en infobulle)

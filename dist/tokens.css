@@ -117,6 +117,9 @@
   --arq-control-md: 32px;
   --arq-control-lg: 40px;
 
+  /* Bandeau de tête — barre latérale et en-tête de page, pour que leurs filets tombent ensemble */
+  --arq-bandeau-tete: 60px;
+
   /* Espacements (base 4) */
   --arq-space-none: 0px;
   --arq-space-xxs: 2px;

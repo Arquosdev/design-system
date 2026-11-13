@@ -32,6 +32,7 @@ import { layers } from '../src/layers.ts';
 import { borderWidth } from '../src/border.ts';
 import { width } from '../src/sizes.ts';
 import { controlHeight } from '../src/control.ts';
+import { bandeau } from '../src/bandeau.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
@@ -126,6 +127,9 @@ const DESCRIPTIONS = {
     normal: 'Une bascule visible — un chevron qui pivote, un onglet qui glisse.',
     lent: 'Une surface qui entre ou sort — panneau, modale, feuille.',
   },
+  bandeau: {
+    tete: "60px — le bandeau de tête : le nom de l'agence dans la barre latérale, l'en-tête d'une page à `PageHeader`. Les deux le portent, contenu centré dedans, pour que leurs filets tombent au même pixel.",
+  },
   controlHeight: {
     sm: "30px — l'action discrète : fin de ligne, barre de sélection, éditeur en place. Sous la cible tactile de 44 pt.",
     md: '36px — LA RÉFÉRENCE. Bouton, bouton d\'icône, sélecteur, et toute ligne qui doit valoir exactement la hauteur d\'un bouton. À prendre en cas de doute : c\'est elle qui aligne trois contrôles sur une même barre.',
@@ -201,6 +205,11 @@ function buildCss() {
   section('Hauteurs de contrôle — bouton, sélecteur, ligne de titre');
   for (const [key, value] of Object.entries(controlHeight)) {
     lines.push(`  --${NS}-control-${kebab(key)}: ${value}px;`);
+  }
+
+  section('Bandeau de tête — barre latérale et en-tête de page, pour que leurs filets tombent ensemble');
+  for (const [key, value] of Object.entries(bandeau)) {
+    lines.push(`  --${NS}-bandeau-${kebab(key)}: ${value}px;`);
   }
 
   section('Espacements (base 4)');
@@ -357,6 +366,11 @@ function buildJson() {
       $type: 'cubicBezier',
       $value: easing,
       $description: 'La courbe par défaut — sortie douce.',
+    },
+    bandeau: {
+      $description:
+        "Hauteur d'un bandeau de tête. Le nom de l'agence et l'en-tête d'une page la portent tous deux, contenu centré dedans, pour que leurs filets tombent au même pixel. S'écrit `h-(--arq-bandeau-tete)`.",
+      ...group(bandeau, 'dimension', 'px', DESCRIPTIONS.bandeau),
     },
     controlHeight: {
       $description:
@@ -518,6 +532,10 @@ function buildTailwind() {
   push('--ease-arquos', easing);
   for (const [key, value] of Object.entries(controlHeight)) {
     push(`--${NS}-control-${kebab(key)}`, `${value}px`);
+  }
+
+  for (const [key, value] of Object.entries(bandeau)) {
+    push(`--${NS}-bandeau-${kebab(key)}`, `${value}px`);
   }
 
   for (const [key, value] of Object.entries(borderWidth)) {

@@ -72,7 +72,20 @@ export function PageHeader({
   const borne = width !== 'full';
   return (
     <div
-      className={cn('shrink-0 border-b border-border-soft pt-base pb-md', !borne && 'px-base sm:px-xl', className)}
+      /*
+        LA HAUTEUR DU BANDEAU DE TÊTE, déclarée une fois (`--arq-bandeau-tete`, Louis,
+        13/11/2026) : le filet de cet en-tête et celui du nom de l'agence, dans la barre
+        latérale, tombent alors au même pixel. Ils se rejoignent à la verticale de la barre,
+        et cinq pixels et demi d'écart s'y voyaient. Le contenu se centre dedans plutôt que de
+        s'y poser par ses marges : les deux bandeaux n'ont pas le même contenu, donc le même
+        rembourrage ne donne pas la même hauteur. Un contenu plus haut que le jeton (un fil
+        d'Ariane) l'emporte, et le bandeau grandit : c'est un plancher, pas un plafond.
+      */
+      className={cn(
+        'flex min-h-(--arq-bandeau-tete) shrink-0 flex-col justify-center border-b border-border-soft py-xs',
+        !borne && 'px-base sm:px-xl',
+        className,
+      )}
       data-compte={count ?? undefined}
     >
       {/* Bornée, la ligne du titre garde la largeur de la colonne, ancrée à gauche comme elle (13/10/2026). */}
