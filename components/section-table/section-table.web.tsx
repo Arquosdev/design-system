@@ -1,6 +1,5 @@
 'use client';
 
-import { AddRow } from '../creation/creation.web';
 import * as React from 'react';
 
 import type { IconRole } from '../../src/icons';
@@ -138,10 +137,8 @@ export function SectionTable<T>({
           activeKey={activeKey}
         />
       )}
-      {/* La ligne d'ajout sous le tableau d'une rubrique (Louis, 12/11/2026) : le bouton de
-          création de l'en-tête, doublé ; sans lui, rien. Pas sous un tableau vide : l'état vide
-          porte déjà le bouton. */}
-      {headingLevel === 2 && rows.length > 0 ? <AddRow /> : null}
+      {/* Plus de ligne « + Nouveau … » sous le tableau d'une rubrique (Louis, 13/11/2026) : le
+          geste est déjà dans l'en-tête. L'état vide garde son bouton. */}
 
       {footer ? <div className="px-base text-small text-text-muted sm:px-xl">{footer}</div> : null}
     </section>

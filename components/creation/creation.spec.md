@@ -28,9 +28,11 @@ avec son panneau et ses droits, et non une seconde porte qui pourrait diverger.
 ## Quand l'utiliser
 
 - Rarement à la main : `EmptyState` pose `CreationButton` quand on ne lui donne
-  pas d'action, et `SectionTable` pose `AddRow` sous ses lignes.
-- Un tableau écrit sans `SectionTable` qui accepte des créations : poser
-  `<AddRow />` juste après lui.
+  pas d'action.
+- **Plus de ligne `AddRow` sous un tableau** (Louis, 13/11/2026) : ni sous une
+  liste, ni sous un tableau de rubrique ; le geste est dans l'en-tête.
+  `SectionTable` ne la pose plus, et `AddRow` reste exporté pour ne casser
+  aucun appelant.
 
 ## Quand NE PAS l'utiliser
 
