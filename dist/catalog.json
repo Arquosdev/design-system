@@ -391,6 +391,33 @@
       }
     },
     {
+      "name": "Creation",
+      "status": "beta",
+      "layer": "generique",
+      "role": "Redonne le bouton de création de l'en-tête là où l'on regarde ce qui manque, dans l'état vide et sous un tableau.",
+      "keywords": [
+        "création",
+        "nouveau",
+        "ajouter",
+        "ligne d'ajout",
+        "état vide",
+        "doublon",
+        "AddRow",
+        "CreationButton"
+      ],
+      "platforms": [
+        "web"
+      ],
+      "replaces": {
+        "web": []
+      },
+      "dossier": "components/creation",
+      "specFile": "components/creation/creation.spec.md",
+      "fichiers": {
+        "web": "components/creation/creation.web.tsx"
+      }
+    },
+    {
       "name": "DataTable",
       "status": "beta",
       "layer": "metier",
