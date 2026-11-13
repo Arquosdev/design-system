@@ -990,7 +990,8 @@
         "afficher"
       ],
       "platforms": [
-        "web"
+        "web",
+        "mobile"
       ],
       "replaces": {
         "web": [],
@@ -1000,6 +1001,7 @@
       "specFile": "components/password-input/password-input.spec.md",
       "fichiers": {
         "web": "components/password-input/password-input.web.tsx",
+        "mobile": "components/password-input/password-input.native.tsx",
         "logique": "components/password-input/password-input.logic.ts"
       }
     },
