@@ -1,5 +1,15 @@
 # Monter une app vers la version courante
 
+## Non publié · Trois rôles d'icône : `merge`, `newVersion`, `moveTo`
+
+**`merge`** (Phosphor `ArrowsMerge`) réunit deux objets en un seul
+(« Fusionner l'équipement ») : le contraire exact de `split`. **`newVersion`**
+(`FileArrowUp`) dépose une version neuve d'un document déjà là ; pas `import`,
+qui nomme l'écran des imports. **`moveTo`** (`FolderOpen`) range ailleurs
+(« Déplacer » vers une autre rubrique) ; `folder` fermé reste l'objet dossier.
+Rien à faire chez l'appelant ; les entrées de menu qui restaient nues les
+prennent.
+
 ## Non publié (branche design-cartes) · DM Mono pour les codes seulement, chargements dessinés, menus
 
 `RecordTable` n'applique plus `IDENTIFIER` à toute identité : seulement avec `identity.mono`

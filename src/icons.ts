@@ -201,6 +201,14 @@ export const icons = {
   */
   split: 'ArrowsSplit',
   /*
+    Réunir deux objets en un seul (« Fusionner l'équipement », deux fiches d'un
+    même appareil). Deux flèches qui se rejoignent : l'exact contraire de
+    `split`, et c'est voulu — les deux gestes se lisent l'un par rapport à
+    l'autre. Ni `sync`, dont l'éclair promet l'automatique, ni `copy`, qui
+    DOUBLE là où la fusion réduit. Ajouté le 13/11/2026 (manque 14 du web).
+  */
+  merge: 'ArrowsMerge',
+  /*
     Ressortir ce qu'on avait retiré : un fournisseur remis dans la base, une
     conversation sortie des archives. L'inverse exact d'`archive` — la même
     boîte, une flèche qui en sort — là où l'entrée de menu empruntait
@@ -288,6 +296,21 @@ export const icons = {
   conversation: 'ChatCircleDots',
   copy: 'Copy',
   folder: 'Folder',
+  /*
+    DÉPOSER UNE VERSION NEUVE d'un document déjà là (« Nouvelle version », sur
+    une notice ou un plan d'équipement). Un fichier et une flèche qui monte :
+    c'est le document qui change, pas la page. Pas `import`, qui NOMME l'écran
+    des imports de données, ni `add`, qui en ajouterait un second à côté.
+    Ajouté le 13/11/2026.
+  */
+  newVersion: 'FileArrowUp',
+  /*
+    RANGER AILLEURS (« Déplacer », un document vers une autre rubrique). Le
+    dossier OUVERT, celui qui reçoit ; `folder` fermé dit l'objet dossier
+    lui-même, et un rôle qui nomme une chose ne dit pas un geste.
+    Ajouté le 13/11/2026.
+  */
+  moveTo: 'FolderOpen',
   archive: 'Archive',
   /*
     Sortir de son compte. Le profil de myArquos importait `SignOut` de Phosphor
