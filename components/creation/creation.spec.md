@@ -39,6 +39,11 @@ avec son panneau et ses droits, et non une seconde porte qui pourrait diverger.
   que l'emplacement où monte le bouton de la rubrique affichée : un tableau ne
   déclenche pas le bouton d'une autre rubrique.
 
+Quand une zone porte PLUSIEURS gestes (la rubrique Relevés d'une affaire :
+« Ajouter un relevé » et « Nouveau relevé »), **créer passe avant rattacher** :
+la ligne « + » d'un tableau fait naître une ligne, comme chez Airtable, et le
+rattachement reste le bouton de l'en-tête.
+
 ## Quand NE PAS l'utiliser
 
 - **Pour une action qui ne crée pas.** Le doublon ne recopie que ce qui

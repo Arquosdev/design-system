@@ -28,16 +28,30 @@ type Creation = { label: string; trigger: () => void };
 /** Les zones de boutons des en-têtes : `PageHeader` et l'en-tête de fiche les marquent. */
 export const ZONE_D_EN_TETE = '[data-actions-en-tete]';
 
-/** Le bouton de création actif des zones désignées, tel qu'il est À CET INSTANT. */
+/** Ce qui fait naître un objet, parmi ce que le doublon recopie : « Nouveau … ». */
+const LIBELLE_DE_NAISSANCE = /^(Nouveau|Nouvelle|Nouvel)\b/;
+
+/**
+ * Le bouton de création actif des zones désignées, tel qu'il est À CET INSTANT.
+ *
+ * **Quand plusieurs répondent, CRÉER passe avant RATTACHER.** La rubrique Relevés d'une
+ * affaire porte les deux (« Ajouter un relevé » et « Nouveau relevé ») : la ligne « + »
+ * d'un tableau fait naître une ligne, comme chez Airtable, et le rattachement reste le
+ * bouton de l'en-tête. Sans aucun « Nouveau … », le premier venu — « Couvrir un
+ * équipement » est bien l'ajout de sa rubrique.
+ */
 function boutonDeCreation(zones: string): { label: string; el: HTMLElement } | null {
+  let premier: { label: string; el: HTMLElement } | null = null;
   for (const zone of document.querySelectorAll<HTMLElement>(zones)) {
     for (const el of zone.querySelectorAll<HTMLElement>('button, a')) {
       const label = el.textContent?.replace(/\s+/g, ' ').trim() ?? '';
       const inactif = el instanceof HTMLButtonElement && el.disabled;
-      if (!inactif && LIBELLE_DE_CREATION.test(label)) return { label, el };
+      if (inactif || !LIBELLE_DE_CREATION.test(label)) continue;
+      if (LIBELLE_DE_NAISSANCE.test(label)) return { label, el };
+      premier ??= { label, el };
     }
   }
-  return null;
+  return premier;
 }
 
 /**
