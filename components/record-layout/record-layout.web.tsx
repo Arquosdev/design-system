@@ -362,7 +362,7 @@ export function SubTabs({ ariaLabel, value, onChange, tabs, className }: SubTabs
  * un clic avance d'un peu plus d'une demi-rangée. Ils disparaissent en bout de course.
  */
 function Chevrons({ rangee }: { rangee: React.RefObject<HTMLDivElement | null> }) {
-  const [bords, setBords] = React.useState({ avant: false, apres: false, gauche: 0, droite: 0 });
+  const [bords, setBords] = React.useState({ avant: false, apres: false, gauche: 0, droite: 0, retrait: 0 });
   React.useEffect(() => {
     const r = rangee.current;
     const parent = r?.parentElement;
@@ -370,13 +370,20 @@ function Chevrons({ rangee }: { rangee: React.RefObject<HTMLDivElement | null> }
     const mesurer = () => {
       const a = r.getBoundingClientRect();
       const p = parent.getBoundingClientRect();
+      const droite = Math.round(p.right - a.right);
+      /* Le chevron de droite tombe sur la marge de la rangée, jamais plus loin (Louis,
+         13/11/2026) : la rangée sort de 8 px de sa marge quand rien ne la suit, et le
+         chevron de la seconde barre se posait 8 px à droite de celui de la première.
+         Le fondu, lui, couvre la rangée jusqu'à son bord. */
+      const marge = Math.round(parseFloat(getComputedStyle(parent).paddingRight) || 0);
       const suivant = {
         avant: r.scrollLeft > 1,
         apres: r.scrollLeft + r.clientWidth < r.scrollWidth - 1,
         gauche: Math.round(a.left - p.left),
-        droite: Math.round(p.right - a.right),
+        droite,
+        retrait: Math.max(0, marge - droite),
       };
-      setBords((b) => (b.avant === suivant.avant && b.apres === suivant.apres && b.gauche === suivant.gauche && b.droite === suivant.droite ? b : suivant));
+      setBords((b) => (b.avant === suivant.avant && b.apres === suivant.apres && b.gauche === suivant.gauche && b.droite === suivant.droite && b.retrait === suivant.retrait ? b : suivant));
     };
     mesurer();
     r.addEventListener('scroll', mesurer, { passive: true });
@@ -397,7 +404,7 @@ function Chevrons({ rangee }: { rangee: React.RefObject<HTMLDivElement | null> }
         </span>
       ) : null}
       {bords.apres ? (
-        <span className="pointer-events-none absolute inset-y-0 z-10 flex items-center justify-end bg-linear-to-l from-bg from-60% to-transparent pl-xl" style={{ right: bords.droite }}>
+        <span className="pointer-events-none absolute inset-y-0 z-10 flex items-center justify-end bg-linear-to-l from-bg from-60% to-transparent pl-xl" style={{ right: bords.droite, paddingRight: bords.retrait }}>
           <IconButton variant="ghost" size="sm" className="pointer-events-auto" label="Onglets suivants" icon={<Icon role="next" size="sm" />} onClick={() => aller(1)} />
         </span>
       ) : null}
