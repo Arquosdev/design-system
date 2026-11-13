@@ -1,5 +1,6 @@
 'use client';
 
+import '../_lib/modalite';
 import * as React from 'react';
 
 import { Icon } from '../icon/icon.web';
@@ -75,7 +76,9 @@ export function SegmentedTabs({
               // le compteur — « Tous les champs239 », collés. `min-w-fit` pose
               // le plancher ; la part égale ne joue qu'au-dessus.
               'min-w-fit',
-              'focus-ring',
+              // Le focus au clavier seulement : après un clic, même redonné par le script, pas
+              // d'anneau (`data-modalite`, comme les onglets de `RecordRail`, Louis, 13/11/2026).
+              'focus-ring [:root[data-modalite=pointeur]_&]:focus-visible:outline-none',
               // Même règle que `NavList` : un segment au repos est en `medium`,
               // le segment courant garde `semibold`. Les deux composants se
               // touchent en haut du rail, un écart de graisse entre eux se
