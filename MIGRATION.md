@@ -1,5 +1,17 @@
 # Monter une app vers la version courante
 
+## Non publié · `EmptyState` : `hint` obligatoire, et la cellule d'identité tient la graisse 500
+
+**`hint` devient obligatoire** dans le type web d'`EmptyState` (Louis, 14/11/2026 : un petit
+texte sur chaque état vide). **À reprendre chez l'appelant** : tout `EmptyState` sans `hint` ne
+compile plus ; lui écrire la ligne qui dit ce qui apparaîtra ici ou comment en ajouter. Le natif
+ne change pas.
+
+**La cellule d'identité de `RecordTable` ramène à 500 toute graisse plus forte** de ce que
+l'appelant y rend (`font-semibold`, `font-bold`) : DM Mono n'est dessinée que jusqu'à 500, et un
+600 demandé était un faux gras. Rien à faire chez l'appelant ; ses `font-semibold` d'identité
+deviennent inutiles. Le compteur de `SegmentedTabs` reste aussi à 500 dans le segment courant.
+
 ## Non publié · Trois rôles d'icône : `merge`, `newVersion`, `moveTo`
 
 **`merge`** (Phosphor `ArrowsMerge`) réunit deux objets en un seul

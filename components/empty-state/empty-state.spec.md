@@ -28,6 +28,8 @@ replaces:
   Un bloc centré au milieu d'un formulaire casse la lecture.
 - **Sans conseil.** « Aucun résultat » seul laisse devant un mur. Ce qui aide,
   c'est ce qu'on peut faire ensuite — élargir le filtre, ajouter, réessayer.
+  Sur le web, le type refuse un état vide sans `hint` (voir « Un conseil sur
+  chaque état vide »).
 - **Avec un bouton qui ne marchera pas.** Hors ligne, un « Réessayer » qui
   échouera aussitôt use la patience ; c'est exactement ce que `EmptyStateError`
   évite en distinguant les deux cas.
@@ -38,7 +40,7 @@ replaces:
 | --- | --- | --- |
 | `icon` | `IconRole` | Un rôle du vocabulaire, pas un dessin |
 | `title` | `string` | Ce qui se passe, en trois mots |
-| `hint` | `string` | Ce qu'il faut comprendre, et si possible quoi faire. Facultatif |
+| `hint` | `string` | Ce qui apparaîtra ici, ou comment en ajouter. **Obligatoire** sur le web (voir plus bas) |
 | `density` | `'page' \| 'section'` | Un écran entier (défaut), ou une rubrique et un bloc de fiche, serré et aligné à gauche (web) |
 | `actionLabel` + `onAction` | `string` + `() => void` | Les deux ou aucun |
 
@@ -113,3 +115,16 @@ concurrençait ce qu'il précise.
 Une rubrique vide prend `density="section"`, jamais une ligne grise « Aucun… »
 en texte nu (A1-13 : trois styles dans une même fiche client). L'action d'un
 état vide est en contour : le bleu vif de la page est dans son en-tête.
+
+## Un conseil sur chaque état vide
+
+**`hint` est obligatoire dans le type web depuis le 14/11/2026** (Louis :
+« j'aimerais un petit texte sur chaque état vide, comme Note »). « Aucune
+note » portait sa phrase, « Aucune modification » n'en avait pas : la même
+fiche disait les choses de deux façons. Le type le tient, si bien qu'aucun état
+vide ne peut plus l'oublier.
+
+Le conseil est une ligne courte, propre à l'objet : ce qui apparaîtra ici
+(« Les modifications et les interventions s'afficheront ici. ») ou comment en
+ajouter. Jamais une phrase générique recopiée partout, et même quand un élément
+voisin dit déjà le reste, une phrase courte et juste.

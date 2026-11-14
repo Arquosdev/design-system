@@ -13,8 +13,13 @@ export interface EmptyStateProps {
   /** Le rôle de l'icône — voir le vocabulaire dans `src/icons.ts`. */
   icon: IconRole;
   title: string;
-  /** Ce qu'il faut comprendre, et si possible ce qu'on peut faire. Une ligne ; facultatif quand le titre suffit. */
-  hint?: string;
+  /**
+   * Ce qui apparaîtra ici, ou comment en ajouter : une ligne courte sous le titre.
+   * OBLIGATOIRE depuis le 14/11/2026 (Louis : « un petit texte sur chaque état vide,
+   * comme Note ») : un titre seul (« Aucune modification ») ne dit ni pourquoi ni quoi
+   * attendre. Le type le tient, aucun état vide ne peut l'oublier.
+   */
+  hint: string;
   actionLabel?: string;
   onAction?: () => void;
   /**

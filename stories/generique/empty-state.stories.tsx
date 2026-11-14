@@ -28,7 +28,7 @@ export const AvecUneAction: Story = {
   args: {
     icon: 'filter',
     title: 'Aucun écart ne correspond',
-    hint: 'Le filtre « Non résolus » masque les quatre écarts de cet appareil.',
+    hint: 'Le filtre « Non résolus » masque les quatre écarts de cet équipement.',
     actionLabel: 'Retirer le filtre',
     onAction: () => {},
   },

@@ -741,9 +741,13 @@ export function RecordTable<T>({
                     actif && 'shadow-[inset_2px_0_0_var(--color-primary)]',
                     // Une colonne rétrécie coupe son lien au lieu de le laisser passer sur la voisine (recette, 13/10/2026).
                     'border-r border-b border-border-soft px-md whitespace-nowrap sm:overflow-hidden',
-                    /* TOUTE IDENTITÉ EN DM MONO, graisse 600, code ou nom (Louis, 13/11/2026) ; la
+                    /* TOUTE IDENTITÉ EN DM MONO, graisse 500, code ou nom (Louis, 13/11/2026) ; la
                        précision dessous (immeuble, adresse) reste en texte courant. */
                     IDENTIFIER,
+                    /* Et 500 tient même quand l'appelant rend la sienne plus grasse : DM Mono n'est pas
+                       dessinée en 600 ni en 700, le navigateur épaissirait le 500 (Louis, 14/11/2026 :
+                       « des polices DM Mono en trop gras »). */
+                    '[&_.font-semibold]:font-medium [&_.font-bold]:font-medium',
                     // Une ABSENCE (« Sans numéro », en gris ou en italique) n'est pas une identité : elle reste en DM Sans (12/11/2026).
                     '[&_.text-small]:font-sans [&_.text-small]:font-medium [&_.text-small]:tracking-normal [&_.text-caption]:font-sans [&_.text-caption]:font-medium [&_.text-caption]:tracking-normal [&_.text-text-muted]:font-sans [&_.text-text-muted]:font-medium [&_.text-text-muted]:tracking-normal [&_.italic]:font-sans [&_.italic]:font-medium [&_.italic]:tracking-normal',
                     retrait,

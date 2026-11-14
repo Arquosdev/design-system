@@ -109,7 +109,8 @@ export function SegmentedTabs({
             {segment.count !== undefined && segment.count !== '' ? (
               <span
                 className={cn(
-                  'font-mono tabular-nums',
+                  // 500 au plus, même dans le segment courant en `semibold` : DM Mono n'est pas dessinée plus grasse.
+                  'font-mono font-medium tabular-nums',
                   active ? 'text-brand' : 'text-text-muted',
                 )}
               >
