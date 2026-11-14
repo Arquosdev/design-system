@@ -73,8 +73,7 @@ const texteDe = (valeur: unknown, rendu: React.ReactNode): string | undefined =>
       : typeof rendu === 'string' || typeof rendu === 'number' ? String(rendu) : undefined;
 
 /**
- * Une identité coupée (« … ») se lit en entier au survol (Louis, 13/11/2026 : en DM Mono, plus
- * large, un nom long se coupe plus tôt). Le titre ne se pose que si le texte déborde vraiment :
+ * Une identité coupée (« … ») se lit en entier au survol (Louis, 13/11/2026). Le titre ne se pose que si le texte déborde vraiment :
  * une info-bulle qui répète ce qu'on lit déjà est du bruit.
  */
 const titreSiCoupe = (e: React.MouseEvent<HTMLElement>) => {
@@ -93,7 +92,7 @@ export interface RecordTableProps<T> {
    */
   identity: {
     /**
-     * @deprecated Ignoré : toute identité, code ou nom, est en DM Mono (`IDENTIFIER`, Louis,
+     * @deprecated Ignoré : toute identité, code ou nom, s'écrit de même (`IDENTIFIER`, Louis,
      * 13/11/2026). Accepté pour ne pas casser un appelant qui le passe encore.
      */
     mono?: boolean;
@@ -741,15 +740,13 @@ export function RecordTable<T>({
                     actif && 'shadow-[inset_2px_0_0_var(--color-primary)]',
                     // Une colonne rétrécie coupe son lien au lieu de le laisser passer sur la voisine (recette, 13/10/2026).
                     'border-r border-b border-border-soft px-md whitespace-nowrap sm:overflow-hidden',
-                    /* TOUTE IDENTITÉ EN DM MONO, graisse 500, code ou nom (Louis, 13/11/2026) ; la
-                       précision dessous (immeuble, adresse) reste en texte courant. */
+                    /* TOUTE IDENTITÉ, code ou nom, en DM Sans 500 (`IDENTIFIER`, Louis, 13 et 14/11/2026),
+                       et à 500 même quand l'appelant rend la sienne plus grasse (14/11/2026 : une seule
+                       graisse d'identité d'une ligne à l'autre). Une précision dessous (immeuble, adresse)
+                       ou une absence (« Sans numéro ») en `text-small` ou `text-caption` reste à 500
+                       aussi : sans cela, la graisse de son préréglage (400) l'emporterait. */
                     IDENTIFIER,
-                    /* Et 500 tient même quand l'appelant rend la sienne plus grasse : DM Mono n'est pas
-                       dessinée en 600 ni en 700, le navigateur épaissirait le 500 (Louis, 14/11/2026 :
-                       « des polices DM Mono en trop gras »). */
-                    '[&_.font-semibold]:font-medium [&_.font-bold]:font-medium',
-                    // Une ABSENCE (« Sans numéro », en gris ou en italique) n'est pas une identité : elle reste en DM Sans (12/11/2026).
-                    '[&_.text-small]:font-sans [&_.text-small]:font-medium [&_.text-small]:tracking-normal [&_.text-caption]:font-sans [&_.text-caption]:font-medium [&_.text-caption]:tracking-normal [&_.text-text-muted]:font-sans [&_.text-text-muted]:font-medium [&_.text-text-muted]:tracking-normal [&_.italic]:font-sans [&_.italic]:font-medium [&_.italic]:tracking-normal',
+                    '[&_.font-semibold]:font-medium [&_.font-bold]:font-medium [&_.text-small]:font-medium [&_.text-caption]:font-medium',
                     retrait,
                     !selection && 'pl-xl',
                     // Sur une carte, le titre passe sur deux lignes au plus, avec ses points de suspension :

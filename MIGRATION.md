@@ -1,5 +1,21 @@
 # Monter une app vers la version courante
 
+## Non publié · Une seule police, DM Sans : plus de DM Mono
+
+Louis, 14/11/2026 : « arrêter d'utiliser la police DM Mono, n'utiliser que la police DM Sans ».
+**`IDENTIFIER` vaut `font-medium tabular-nums`** : DM Sans 500, chiffres de même largeur ;
+rien à faire chez l'appelant qui l'emploie. **Retirés** : `fontFamilyMono`,
+`fontFamilyMonoNative`, `--arq-font-mono`, l'entrée `fontFamilyMono` de `tokens.json`, et la
+prop `mono` du `Text` natif. Le thème Tailwind pose `--font-mono: initial` (la classe
+`font-mono` ne produit plus rien, celle du design system comme celle de Tailwind) et
+`--default-mono-font-family: var(--font-sans)` (code, pre, kbd et samp en DM Sans).
+**À reprendre chez l'appelant** : retirer ses `font-mono` (un chiffre à aligner prend
+`tabular-nums`) et le chargement de DM Mono (`next/font`, `@expo-google-fonts/dm-mono`) ; un
+appelant qui veut garder une mono à lui la redéclare dans son propre `@theme`, après l'import,
+comme le fait déjà le back-office. La cellule d'identité de `RecordTable` ne remet plus
+d'approche ni de famille à une absence : elle n'a plus rien à défaire.
+
+
 ## Non publié · `EmptyState` : `hint` obligatoire, et la cellule d'identité tient la graisse 500
 
 **`hint` devient obligatoire** dans le type web d'`EmptyState` (Louis, 14/11/2026 : un petit

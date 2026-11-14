@@ -192,7 +192,6 @@
 
   /* Typographie */
   --arq-font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --arq-font-mono: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --arq-font-size-caption: 12px;
   --arq-font-size-description: 13px;
   --arq-font-size-small: 14px;

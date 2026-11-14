@@ -18,7 +18,7 @@ export const site = {
     textOnNight: '#EEF3F9',
     /** Texte secondaire posé sur la nuit : chapeaux, légendes. */
     textOnNightMuted: '#C6D4E6',
-    /** Repères et libellés mono posés sur la nuit. */
+    /** Repères et plaques posés sur la nuit. */
     textOnNightSubtle: '#93A9C6',
     /** Cadre du téléphone et de l'ordinateur dessinés en CSS, plus profond que la nuit. */
     deviceFrame: '#0B1220',

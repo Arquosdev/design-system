@@ -49,8 +49,8 @@ const theme = create({
   textMutedColor: colors.textMuted,
 
   fontBase: fontFamily,
-  // La chasse fixe des valeurs : les tokens s'y lisent en colonne.
-  fontCode: "'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace",
+  // Une seule police, même pour le code (Louis, 14/11/2026).
+  fontCode: fontFamily,
 
   inputBg: colors.bg,
   inputBorder: colors.border,

@@ -9,7 +9,7 @@
 /* DM Sans est la seule police de la marque. Ici on l'appelle chez Google — la
    vitrine est un site public, pas le module embarqué dans Bubble, qui lui la
    sert depuis son propre domaine à cause de la politique de sécurité. */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;900&family=DM+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;900&display=swap');
 @import 'tailwindcss';
 @import '../dist/tokens.tailwind.css';
 /* `tokens.css` en plus : il déclare les variables `--arq-*` que les encarts
@@ -102,7 +102,8 @@ body {
 }
 
 .sbdocs code {
-  font-family: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Une seule police, même pour le code de la documentation (Louis, 14/11/2026). */
+  font-family: var(--arq-font-sans);
   font-size: 0.86em;
   background: var(--arq-color-bg-muted);
   border: 1px solid var(--arq-color-border-soft);

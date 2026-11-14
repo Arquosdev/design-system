@@ -39,7 +39,7 @@ export function Markdown({ children, onLink, externes = 'lien', style }: Markdow
       case 'texte': return m.texte;
       case 'gras': return <Text key={c} style={styles.gras}>{ligne(m.enfants, c)}</Text>;
       case 'italique': return <Text key={c} style={styles.italique}>{ligne(m.enfants, c)}</Text>;
-      case 'code': return <Text key={c} mono style={styles.codeEnLigne}>{m.texte}</Text>;
+      case 'code': return <Text key={c} style={styles.codeEnLigne}>{m.texte}</Text>;
       case 'lien':
         if (externes === 'texte' && !lienSansSortie(m.href)) {
           return <Text key={c}>{ligne(m.enfants, c)}<Text style={styles.domaine}> ({domaineDe(m.href)})</Text></Text>;
@@ -101,7 +101,7 @@ export function Markdown({ children, onLink, externes = 'lien', style }: Markdow
       case 'code':
         return (
           <ScrollView key={cle} horizontal showsHorizontalScrollIndicator={false} style={styles.code}>
-            <Text mono selectable style={styles.codeTexte}>{b.texte}</Text>
+            <Text selectable style={styles.codeTexte}>{b.texte}</Text>
           </ScrollView>
         );
       case 'filet':

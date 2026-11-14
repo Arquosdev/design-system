@@ -14,18 +14,12 @@
 export const fontFamily =
   "'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
 
-/**
- * DM Mono, la compagne de DM Sans dessinée dans la même famille — pour les
- * **valeurs de données** : numéros d'équipement, cotes, dates, légendes de
- * figure, plaques du site vitrine.
- *
- * Elle ne remplace pas DM Sans, elle la complète là où des chiffres s'alignent
- * ou qu'une valeur doit se lire comme une valeur. L'application ne l'emploie
- * pas encore ; le site vitrine l'emploie partout où une donnée s'affiche
- * (décision du 20/09/2026, DM Sans partout, DM Mono pour la donnée).
- */
-export const fontFamilyMono =
-  "'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace";
+/*
+  UNE SEULE POLICE, DM SANS (Louis, 14/11/2026 : « arrêter d'utiliser la police DM Mono,
+  n'utiliser que la police DM Sans »). Le jeton mono a été RETIRÉ, pas gardé inutilisé : un
+  jeton qui existe finit par resservir. Là où des chiffres s'alignent (un numéro, un montant
+  en colonne), c'est `tabular-nums` en DM Sans (`fontVariant: ['tabular-nums']` en natif).
+*/
 
 export const fontFamilyNative = {
   400: 'DMSans_400Regular',
@@ -34,16 +28,6 @@ export const fontFamilyNative = {
   700: 'DMSans_700Bold',
   800: 'DMSans_800ExtraBold',
   900: 'DMSans_900Black',
-} as const;
-
-/**
- * DM Mono côté React Native : les numéros d'équipement, composés en plaque
- * comme sur le web (design-eu, 26/09/2026). Deux graisses seulement, celles
- * que `@expo-google-fonts/dm-mono` fournit.
- */
-export const fontFamilyMonoNative = {
-  400: 'DMMono_400Regular',
-  500: 'DMMono_500Medium',
 } as const;
 
 /*
@@ -86,7 +70,7 @@ export const letterSpacing = {
   tight: -0.5,
   normal: 0,
   wide: 0.5,
-  wider: 1.5, // plaques en capitales — composées en DM Mono
+  wider: 1.5, // plaques en capitales
 } as const;
 
 // Combinaisons sémantiques prêtes à l'emploi. Préfère ces tokens dans le code
@@ -127,8 +111,8 @@ export function scaleFrom(fs: Record<keyof typeof fontSize, number>) {
       letterSpacing: letterSpacing.wide,
     },
     /**
-     * La PLAQUE du site arquos.eu : une étiquette courte en capitales, composée
-     * en DM Mono (`font-mono`, que ce préréglage ne porte pas). Surtitre d'un
+     * La PLAQUE du site arquos.eu : une étiquette courte en capitales, en DM Sans
+     * comme tout le reste (14/11/2026). Surtitre d'un
      * écran, en-tête de colonne, libellé d'un chiffre.
      */
     plate: {

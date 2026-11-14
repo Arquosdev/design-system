@@ -53,7 +53,7 @@ export function Markdown({ children, renderLink, externes = 'lien', className }:
       case 'texte': return <React.Fragment key={c}>{m.texte}</React.Fragment>;
       case 'gras': return <strong key={c} className="font-semibold text-text">{ligne(m.enfants, c)}</strong>;
       case 'italique': return <em key={c}>{ligne(m.enfants, c)}</em>;
-      case 'code': return <code key={c} className="rounded-control bg-bg-muted px-[5px] py-px font-mono text-[0.92em] text-text">{m.texte}</code>;
+      case 'code': return <code key={c} className="rounded-control bg-bg-muted px-[5px] py-px text-[0.92em] text-text">{m.texte}</code>;
       case 'lien':
         if (externes === 'texte' && !lienSansSortie(m.href)) {
           return (
@@ -123,7 +123,7 @@ export function Markdown({ children, renderLink, externes = 'lien', className }:
         return <blockquote key={cle} className="flex flex-col gap-sm border-l-2 border-border-soft pl-md text-text-muted">{b.blocs.map((x, k) => bloc(x, `${cle}.${k}`))}</blockquote>;
       case 'code':
         return (
-          <pre key={cle} className="max-w-full overflow-x-auto rounded-block bg-bg-muted px-md py-sm font-mono text-caption leading-relaxed text-text">
+          <pre key={cle} className="max-w-full overflow-x-auto rounded-block bg-bg-muted px-md py-sm text-caption leading-relaxed text-text">
             <code>{b.texte}</code>
           </pre>
         );

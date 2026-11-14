@@ -16,7 +16,6 @@ import { palette, core, colors } from '../src/colors.ts';
 import { site } from '../src/site.ts';
 import {
   fontFamily,
-  fontFamilyMono,
   fontSize,
   fontWeight,
   lineHeight,
@@ -49,7 +48,7 @@ const DESCRIPTIONS = {
       night: "Surface de nuit du site arquos.eu — hero, appel à la démo, pied de page.",
       textOnNight: 'Texte courant posé sur `night`. 15,9 pour 1.',
       textOnNightMuted: 'Texte secondaire posé sur `night` — chapeaux, légendes. 11,6 pour 1.',
-      textOnNightSubtle: 'Repères et libellés mono posés sur `night`. 6,2 pour 1.',
+      textOnNightSubtle: 'Repères et plaques posés sur `night`. 6,2 pour 1.',
       deviceFrame: 'Cadre du téléphone et de l’ordinateur dessinés en CSS par le site.',
     },
   },
@@ -254,7 +253,6 @@ function buildCss() {
 
   section('Typographie');
   lines.push(`  --${NS}-font-sans: ${fontFamily};`);
-  lines.push(`  --${NS}-font-mono: ${fontFamilyMono};`);
   for (const [key, value] of Object.entries(fontSize)) {
     lines.push(`  --${NS}-font-size-${kebab(key)}: ${value}px;`);
   }
@@ -412,12 +410,6 @@ function buildJson() {
       $description:
         'DM Sans est la seule police de la marque. Côté React Native, utiliser `fontFamilyNative` : le gras synthétique rend mal sur Android.',
     },
-    fontFamilyMono: {
-      $type: 'fontFamily',
-      $value: fontFamilyMono,
-      $description:
-        "DM Mono, la compagne de DM Sans pour les valeurs de données — numéros, cotes, dates, plaques du site vitrine. Ne remplace pas DM Sans.",
-    },
     fontSize: {
       $description: "Échelle typographique. `body` (16px) est la taille du texte courant. Ne pas ajouter de nouvelle taille.",
       ...group(fontSize, 'dimension', 'px'),
@@ -506,7 +498,11 @@ function buildTailwind() {
 
   theme.push('', '  /* Typographie */');
   push('--font-sans', fontFamily);
-  push('--font-mono', fontFamilyMono);
+  // UNE SEULE POLICE (Louis, 14/11/2026). Tailwind apporte sa propre `font-mono` (une mono
+  // du système) et l'applique d'office à code, pre, kbd et samp : la première est retirée du
+  // thème, les seconds prennent DM Sans. Une classe `font-mono` oubliée ne produit plus rien.
+  push('--font-mono', 'initial');
+  push('--default-mono-font-family', 'var(--font-sans)');
   for (const [key, preset] of Object.entries(typography)) {
     // En Tailwind v4, `--text-x` et `--text-x--line-height` se combinent : une
     // seule classe `text-body` pose la taille ET l'interligne.
