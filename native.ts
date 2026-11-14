@@ -51,6 +51,7 @@ export {
   type Segment,
 } from './components/segmented-tabs/segmented-tabs.native';
 export { Input, type InputProps } from './components/input/input.native';
+export { PasswordInput, type PasswordInputProps } from './components/password-input/password-input.native';
 export { Label, type LabelProps } from './components/label/label.native';
 export {
   EmptyState,

@@ -43,7 +43,7 @@ Une mécanique que n'importe quelle application aurait — bouton, modale, ongle
 | [Metric](metric/metric.spec.md) | Dire un chiffre de tableau de bord en tête de la carte qu'il résume, en rangée avec ses voisins. | 🖥️ | beta |
 | [PageBody](page-body/page-body.spec.md) | Poser le corps d'une page sous son en-tête, à la largeur et à la gouttière communes. | 🖥️ | beta |
 | [PageHeader](page-header/page-header.spec.md) | Dire en haut d'un écran d'où l'on vient, ce qu'on regarde et ce qu'on peut en faire. | 🖥️ | beta |
-| [PasswordInput](password-input/password-input.spec.md) | Recueillir un mot de passe, avec une bascule masqué / en clair. | 🖥️ | beta |
+| [PasswordInput](password-input/password-input.spec.md) | Recueillir un mot de passe, avec une bascule masqué / en clair. | 🖥️ 📱 | beta |
 | [PhotoViewer](photo-viewer/photo-viewer.spec.md) | Regarder une photo en grand, et passer aux suivantes de la même série. | 🖥️ | beta |
 | [Popover](popover/popover.spec.md) | Poser un petit panneau au-dessus de la page, ancré à ce qui l'a ouvert. | 🖥️ | beta |
 | [Progress](progress/progress.spec.md) | Dire une proportion sobrement, d'une fine barre à la couleur de son seuil. | 🖥️ | beta |
