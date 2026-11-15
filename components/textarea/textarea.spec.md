@@ -45,6 +45,7 @@ import { Textarea, Label } from '@arquos/design-system/web';
 
 ## Anatomie
 
+- Texte de 12 px (`caption`), celui d'`Input` (14/11/2026)
 - Focus et erreur identiques à `Input` — les deux champs ne divergent pas
 
 ## États

@@ -92,7 +92,7 @@ export function ColorField({
           disabled={disabled}
           aria-label={ariaLabel}
           className={cn(
-            'flex h-(--arq-control-md) w-full max-w-[14rem] items-center gap-sm rounded-control border border-border bg-bg px-sm text-small text-text',
+            'flex h-(--arq-control-sm) w-full max-w-[14rem] items-center gap-sm rounded-control border border-border bg-bg px-sm text-caption text-text',
             'focus-ring disabled:cursor-not-allowed disabled:opacity-50',
             className,
           )}
@@ -146,7 +146,7 @@ export function ColorField({
             style={{ left: `${(tsv.t / 360) * 100}%`, backgroundColor: versHex({ t: tsv.t, s: 1, v: 1 }) }} />
         </div>
         <div className="flex items-center gap-sm">
-          <span aria-hidden className="size-(--arq-control-md) shrink-0 rounded-control border border-border-soft" style={{ backgroundColor: courante }} />
+          <span aria-hidden className="size-(--arq-control-sm) shrink-0 rounded-control border border-border-soft" style={{ backgroundColor: courante }} />
           <Input
             aria-label="Code de la couleur"
             value={texte}

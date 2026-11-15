@@ -59,7 +59,7 @@ qui habille la palette plein écran et porte sa hauteur.
 
 ## Anatomie
 
-- Champ : mêmes traits que la gâchette de `Select`, au pixel — 32 px, arrondi `radius.control`, contour `colors.border`, ombre `shadow.card`, retrait `spacing.md` — pour qu'un champ à menu ait la même tête, court ou long
+- Champ : mêmes traits que la gâchette de `Select`, au pixel — 28 px et texte de 12 px, la taille du bouton par défaut (Louis, 14/11/2026), arrondi `radius.control`, contour `colors.border`, ombre `shadow.card`, retrait `spacing.md` — pour qu'un champ à menu ait la même tête, court ou long
 - Liste : à la largeur du champ, 220 px au moins, **320 px de haut au plus, et jamais plus de 45 % de la hauteur visible** — à 240 px elle montrait sept marques sur trois cents, et chercher redevenait faire défiler
 - Liste : **la molette s'arrête au bout** (`overscroll-contain`). Sans ça elle poursuit sur la surface du dessous ; dans un panneau qui défile, celle-ci emmène l'ancre et la liste paraît sauter
 

@@ -15,7 +15,8 @@ export function Textarea({ className, ...props }: React.ComponentProps<'textarea
       data-slot="textarea"
       className={cn(
         'flex field-sizing-content min-h-16 w-full rounded-control border border-border bg-bg px-sm py-xs',
-        'text-small text-text outline-none transition-colors',
+        // Le texte d'`Input`, 12 px (Louis, 14/11/2026) : une saisie longue ne s'écrit pas plus gros qu'une courte.
+        'text-caption text-text outline-none transition-colors',
         'placeholder:text-text-muted',
         'focus-visible:border-primary focus-ring',
         'disabled:pointer-events-none disabled:opacity-50',

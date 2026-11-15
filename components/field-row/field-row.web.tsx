@@ -538,7 +538,7 @@ function Editor({ kind, label, value, options, other, onValider, onAnnuler }: Ed
       // Valider à la perte de focus : le réflexe est de cliquer ailleurs, pas
       // d'appuyer sur Entrée. Sans ça, la saisie est silencieusement perdue.
       onBlur={(e) => onValider(e.currentTarget.value)}
-      className="h-(--arq-control-sm) w-full rounded-control border-(length:--arq-border-epais) border-primary px-sm text-small text-text outline-none"
+      className="h-(--arq-control-sm) w-full rounded-control border-(length:--arq-border-epais) border-primary px-sm text-caption text-text outline-none"
     />
   );
 }
@@ -583,7 +583,7 @@ function EmailEditor({ label, value, onValider, onAnnuler }: Pick<EditorProps, '
         }}
         onBlur={(e) => valider(e.currentTarget.value)}
         className={cn(
-          'h-(--arq-control-sm) w-full rounded-control border-(length:--arq-border-epais) px-sm text-small text-text outline-none',
+          'h-(--arq-control-sm) w-full rounded-control border-(length:--arq-border-epais) px-sm text-caption text-text outline-none',
           enFaute ? 'border-danger' : 'border-primary',
         )}
       />

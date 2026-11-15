@@ -49,7 +49,7 @@ lui qui dit que ce champ en cache d'autres.
 
 ## Deux tailles
 
-`SelectTrigger size="md"` (défaut, 32 px) dans un formulaire. `size="sm"` (28 px, 12 px
+`SelectTrigger size="md"` (défaut, 28 px en 12 px depuis le 14/11/2026, la taille d'`Input` et du bouton par défaut) dans un formulaire. `size="sm"` (28 px, 12 px
 graisse 500, rembourrage 10, contour d'ombre d'un bouton secondaire) sur une barre
 d'outils ou dans l'en-tête d'une page — la période du Tableau de bord, le jour d'« À
 faire » — pour s'aligner sur les boutons voisins (« Commandes de l'en-tête », 12/11/2026).
@@ -89,7 +89,7 @@ import {
 
 ## Anatomie
 
-- Gâchette : hauteur 32 px, largeur au contenu, arrondi `radius.control`, contour `colors.border`, ombre `shadow.card`, retrait `spacing.md` de chaque côté — le `px-3` de shadcn ; à quatre pixels le mot touchait son contour et le champ se lisait comme une étiquette serrée. Texte `typography.small` en `fontWeight.medium`
+- Gâchette : hauteur 28 px, texte de 12 px, largeur au contenu, arrondi `radius.control`, contour `colors.border`, ombre `shadow.card`, retrait `spacing.md` de chaque côté — le `px-3` de shadcn ; à quatre pixels le mot touchait son contour et le champ se lisait comme une étiquette serrée. Texte `typography.small` en `fontWeight.medium`
 - Menu : arrondi `radius.md`, contour `colors.borderSoft`, ombre `shadow.pop`, jamais plus étroit que sa gâchette
 
 ## États

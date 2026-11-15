@@ -80,9 +80,10 @@ export interface DateFieldProps {
    */
   onRefus?: (refus: string | null) => void;
   /**
-   * `md` (32 px) dans un formulaire ; `sm` (28 px, texte de 12 px) sur une barre
-   * d'outils ou dans l'en-tête d'une page, à la taille des boutons voisins (Louis,
-   * 12/11/2026, « Commandes de l'en-tête »).
+   * SANS EFFET depuis le 14/11/2026 : tout champ de date fait 28 px en 12 px, la
+   * taille du bouton par défaut (Louis : « tous les inputs sont un peu gros »).
+   * Gardé pour ne pas casser les appelants.
+   * @deprecated
    */
   size?: 'md' | 'sm';
   className?: string;
@@ -138,7 +139,6 @@ export function DateField({
   autoFocus = false,
   invalid = false,
   onRefus,
-  size = 'md',
   className,
 }: DateFieldProps) {
   const today = todayISO();
@@ -236,7 +236,7 @@ export function DateField({
             data-slot="date-field"
             className={cn(
               'flex w-full items-stretch overflow-hidden rounded-control',
-              size === 'sm' ? 'h-(--arq-control-sm)' : 'h-(--arq-control-md)',
+              'h-(--arq-control-sm)',
               'border border-border bg-bg transition-colors',
               /*
                 La mise au point se voit sur l'enveloppe, comme sur
@@ -281,7 +281,7 @@ export function DateField({
               }}
               className={cn(
                 'h-full min-w-0 flex-1 bg-transparent px-sm text-text',
-                size === 'sm' ? 'text-caption' : 'text-small',
+                'text-caption',
                 'outline-none placeholder:text-text-muted',
                 'selection:bg-primary selection:text-text-on-dark',
                 'disabled:pointer-events-none',
@@ -295,7 +295,7 @@ export function DateField({
                 title="Choisir dans le calendrier"
                 className={cn(
                   'flex shrink-0 items-center justify-center',
-                  size === 'sm' ? 'w-(--arq-control-sm)' : 'w-(--arq-control-md)',
+                  'w-(--arq-control-sm)',
                   // Le bouton fait partie du champ ; bordure: contrôle
                   'border-l border-border text-text-muted outline-none',
                   'hover:bg-bg-muted hover:text-text',

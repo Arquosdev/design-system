@@ -86,8 +86,8 @@ Plus tous les attributs d'un `<button>` HTML.
 (`button.native.tsx`), le bouton est une pilule (`radius.full`) : c'est la forme
 des applications iPhone, et elle se prend au pouce. Sur le web
 (`button.web.tsx`), il a les angles d'Intercom (`radius.control`, 6 px) et sa
-hauteur (32 px), relevés sur Refero (Thomas, 04/11/2026), comme les champs et
-les barres d'outils qu'il côtoie. Ne pas aligner l'un sur l'autre.
+hauteur, relevés sur Refero (Thomas, 04/11/2026) ; il fait 28 px depuis le 12/11/2026,
+comme les champs (14/11/2026) et les barres d'outils qu'il côtoie. Ne pas aligner l'un sur l'autre.
 
 **Choisir la variante :** `default` pour l'action principale — **une seule par page**.
 Sur une fiche, c'est **toujours le menu « Actions »** en haut à droite (Louis, 12/11/2026) ;

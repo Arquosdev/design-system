@@ -54,7 +54,7 @@ Toutes celles de `<input>`, rien n'est intercepté.
 
 ## Anatomie
 
-- Hauteur **36 px**, la même que `Button` : les deux s'alignent côte à côte.
+- Hauteur **28 px** (`controlHeight.sm`) et texte de **12 px** (`caption`), ceux du `Button` par défaut : les deux s'alignent côte à côte et se lisent d'une même main (Louis, 14/11/2026 : « tous les inputs sont un peu gros par rapport au reste de l'application »). Tous les contrôles de saisie suivent : `PasswordInput`, `SelectTrigger`, `Combobox`, `DateField`, `ColorField`, l'éditeur de `FieldRow`, et `Textarea` pour son texte.
 - Focus : bordure `primary` + anneau de 2 px, la convention du dépôt — et non l'anneau translucide de shadcn.
 
 ## États

@@ -40,7 +40,7 @@ export function PasswordInput({ className, disabled, ...props }: PasswordInputPr
     <div
       data-slot="password-input"
       className={cn(
-        'flex h-(--arq-control-md) w-full items-stretch overflow-hidden rounded-control border border-border bg-bg',
+        'flex h-(--arq-control-sm) w-full items-stretch overflow-hidden rounded-control border border-border bg-bg',
         // La mise au point se voit sur l'enveloppe : le champ n'a pas de bordure,
         // un contour posé sur lui serait avalé par le `overflow-hidden`. Le MÊME
         // contour que `Input` (2 px décalé de 2 px) : un anneau collé, plus épais,
@@ -61,7 +61,7 @@ export function PasswordInput({ className, disabled, ...props }: PasswordInputPr
         type={revealed ? 'text' : 'password'}
         disabled={disabled}
         className={cn(
-          'h-full min-w-0 flex-1 bg-transparent px-sm text-small text-text',
+          'h-full min-w-0 flex-1 bg-transparent px-sm text-caption text-text',
           'outline-none placeholder:text-text-muted',
           'selection:bg-primary selection:text-text-on-dark',
           'disabled:pointer-events-none',

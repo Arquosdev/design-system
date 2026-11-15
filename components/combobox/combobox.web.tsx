@@ -98,7 +98,7 @@ export function Combobox({
           <div
             ref={ancre}
             className={cn(
-              'flex h-(--arq-control-md) w-full items-center gap-sm rounded-control',
+              'flex h-(--arq-control-sm) w-full items-center gap-sm rounded-control',
               // Les mêmes traits que la gâchette de `Select`, au pixel : un
               // champ à menu doit avoir la même tête, court ou long.
               'border border-border bg-bg px-md shadow-card',
@@ -121,7 +121,7 @@ export function Combobox({
               placeholder={invite}
               aria-label={ariaLabel}
               className={cn(
-                'min-w-0 flex-1 bg-transparent text-small font-medium text-text outline-none',
+                'min-w-0 flex-1 bg-transparent text-caption font-medium text-text outline-none',
                 'placeholder:font-normal placeholder:text-text-muted',
               )}
             />

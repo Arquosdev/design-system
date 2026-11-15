@@ -1,5 +1,18 @@
 # Monter une app vers la version courante
 
+## Non publié · Les contrôles de saisie à la taille du bouton : 28 px, texte de 12 px
+
+Louis, 14/11/2026 : « tous les inputs sont un peu gros par rapport au reste de l'application,
+les boutons, les textes ». **Changent de cote** : `Input`, `PasswordInput`, `SelectTrigger`
+`size="md"` (le défaut), `Combobox`, `DateField`, `ColorField` et l'éditeur de `FieldRow`
+passent de 32 px en 14 px (`controlHeight.md`, `small`) à **28 px en 12 px**
+(`controlHeight.sm`, `caption`), la taille du `Button` par défaut ; `Textarea` passe en 12 px.
+La prop `size` de `DateField` est sans effet (dépréciée). **À reprendre chez l'appelant** :
+toute cote recopiée de l'ancien champ (un déclencheur dessiné à la main à côté d'un `Input`,
+une hauteur de ligne de formulaire, un calcul sur `--arq-control-md`) passe à
+`--arq-control-sm` et `text-caption`. Un champ plus grand voulu quelque part se déclare chez
+l'appelant, avec sa raison.
+
 ## Non publié · `PAGE_TITLE` : un seul format de titre d'écran
 
 Louis, 14/11/2026 : « que toutes les pages aient le même format de titre. Y compris les pages

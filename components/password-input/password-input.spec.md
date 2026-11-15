@@ -90,7 +90,7 @@ L'enveloppe :
   `colors.danger`)
 - Arrondi : `radius.control`
 - Fond : `colors.bg`
-- Hauteur : 36 px, la même que `Input` et que `Button`
+- Hauteur : 28 px et texte de 12 px, les mêmes que `Input` et que `Button`
 
 Le bouton, carré, séparé par un filet `border.color` :
 
