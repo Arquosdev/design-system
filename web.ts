@@ -31,6 +31,7 @@ export { FlatSurfaces, useFlatSurfaces } from './components/_lib/flat-surfaces';
 export { IDENTIFIER } from './components/_lib/identifier';
 export { PAGE_TITLE } from './components/_lib/page-title';
 export { FIELD_PAIR } from './components/_lib/field-pair';
+export { TABLE_HEAD } from './components/_lib/table-head';
 export { ProgressBar, type ProgressBarProps } from './components/progress/progress.web';
 export { ColorField, type ColorFieldProps } from './components/color-field/color-field.web';
 export { ThinkingDots, type ThinkingDotsProps } from './components/thinking-dots/thinking-dots.web';

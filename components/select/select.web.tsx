@@ -111,8 +111,9 @@ export const SelectTrigger = React.forwardRef<
       'whitespace-nowrap [&>span]:min-w-0 [&>span]:truncate',
       // `px-md` comme le `px-3` de shadcn : à quatre pixels, le mot touchait
       // son contour et le champ se lisait comme une étiquette serrée.
-      // `md`, le champ d'un formulaire : la hauteur et le texte d'`Input` et du bouton par défaut, 28 px en 12 px (Louis, 14/11/2026).
-      size === 'md' && 'h-(--arq-control-sm) gap-sm border border-border bg-bg px-md text-caption font-medium text-text shadow-card hover:bg-bg-muted',
+      // `md`, le champ d'un formulaire : la hauteur et le texte d'`Input`, 28 px en 12 px graisse 400 (Louis, 14/11/2026 ;
+      // la graisse 500 le distinguait du champ voisin, balayage du 15/11/2026). `sm`, posé parmi les boutons, garde la leur.
+      size === 'md' && 'h-(--arq-control-sm) gap-sm border border-border bg-bg px-md text-caption text-text shadow-card hover:bg-bg-muted',
       /*
         `sm` : À LA TAILLE DES BOUTONS D'UNE LIGNE (Louis, 12/11/2026, « Commandes de
         l'en-tête ») : 28 px, 12 px graisse 500, rembourrage 10, et le contour d'un bouton

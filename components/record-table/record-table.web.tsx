@@ -6,6 +6,7 @@ import { Checkbox } from '../checkbox/checkbox.web';
 import { Icon } from '../icon/icon.web';
 import type { IconRole } from '../../src/icons';
 import { cn } from '../_lib/cn';
+import { TABLE_HEAD } from '../_lib/table-head';
 import { IDENTIFIER } from '../_lib/identifier';
 import {
   compare,
@@ -417,8 +418,7 @@ export function RecordTable<T>({
   // Les en-têtes : petites capitales, sur le fond discret, collées en haut.
   const headerStyle =
     // L'en-tête est blanc, un simple filet dessous : le gris est réservé à la barre latérale (12/11/2026).
-    'sticky top-0 border-b border-border-soft bg-bg px-md py-sm ' +
-    'text-caption font-medium whitespace-nowrap text-text-muted';
+    `sticky top-0 border-b border-border-soft bg-bg px-md py-sm whitespace-nowrap ${TABLE_HEAD}`;
 
   /**
    * La poignée de redimensionnement, au bord droit d'un en-tête.

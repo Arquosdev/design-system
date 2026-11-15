@@ -121,7 +121,8 @@ export function Combobox({
               placeholder={invite}
               aria-label={ariaLabel}
               className={cn(
-                'min-w-0 flex-1 bg-transparent text-caption font-medium text-text outline-none',
+                // La graisse d'`Input` (balayage du 15/11/2026) : un champ cherchable reste un champ.
+                'min-w-0 flex-1 bg-transparent text-caption text-text outline-none',
                 'placeholder:font-normal placeholder:text-text-muted',
               )}
             />

@@ -1,5 +1,15 @@
 # Monter une app vers la version courante
 
+## Non publié · `TABLE_HEAD`, et les menus de formulaire en graisse 400
+
+Balayage d'uniformité du 15/11/2026 (Louis : « il faut vérifier partout »). **Nouveau** :
+`TABLE_HEAD` (`text-caption font-medium text-text-muted`), le texte d'un en-tête de colonne,
+lu par `RecordTable` ; un tableau dessiné par l'appelant le prend plutôt que de recomposer un
+préréglage. **Change** : `SelectTrigger size="md"` et le champ de `Combobox` passent de la
+graisse 500 à 400, celle d'`Input` ; `size="sm"`, posé parmi les boutons, garde la leur.
+**À reprendre chez l'appelant** : les en-têtes de colonne et les titres de bloc dessinés à la
+main (`TABLE_HEAD`, `GROUP_TITLE`), et les totaux sous un tableau, à la taille de ses cellules.
+
 ## Non publié · `FIELD_PAIR` : une paire libellé / valeur à l'échelle de la colonne d'informations
 
 Louis, 14/11/2026 : « les libellés au centre semblent plus gros que ceux de droite […]
