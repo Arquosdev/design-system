@@ -81,7 +81,8 @@ export function Drawer({
           className,
         )}
       >
-        <div className="flex shrink-0 items-center gap-md border-b border-border-soft px-lg py-base">
+        {/* La hauteur du bandeau de tête, comme `SheetHeader` (Louis, 14/11/2026) : le filet tombe sur celui de la liste derrière. */}
+        <div className="flex min-h-(--arq-bandeau-tete) shrink-0 items-center gap-md border-b border-border-soft px-lg py-sm">
           <div className="min-w-0 flex-1">
             <div className="text-subhead font-semibold text-text">{title}</div>
             {detail && <div className="mt-[2px] truncate text-small text-text-muted">{detail}</div>}

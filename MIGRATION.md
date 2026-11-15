@@ -1,5 +1,12 @@
 # Monter une app vers la version courante
 
+## Non publié · L'en-tête d'un panneau à la hauteur du bandeau de tête
+
+`SheetHeader` et l'en-tête de `Drawer` font au moins `--arq-bandeau-tete` (60 px, bordure
+comprise), contenu centré : leur filet tombe au pixel de celui d'une liste (Louis, 14/11/2026).
+Ils faisaient 61 px. Rien à faire chez l'appelant, sauf retirer une hauteur ou un rembourrage
+qu'il aurait posé sur `SheetHeader`.
+
 ## Non publié · Les contrôles de saisie à la taille du bouton : 28 px, texte de 12 px
 
 Louis, 14/11/2026 : « tous les inputs sont un peu gros par rapport au reste de l'application,

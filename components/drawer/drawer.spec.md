@@ -32,7 +32,7 @@ barre d'outils, et on veut garder l'écran sous les yeux pendant qu'on le change
 
 - Voile : `colors.brand` à 35 %, posé sur la zone de contenu et non sur la page
 - Panneau : 460 px, toute la hauteur, `colors.bg`, `shadow.pop`, trait à gauche
-- En-tête : titre en `typography.bodyLarge` gras, détail en `small` discret,
+- En-tête : hauteur du bandeau de tête (`--arq-bandeau-tete`, 60 px bordure comprise, un plancher), pour que son filet tombe au pixel de celui de la liste derrière (Louis, 14/11/2026) ; titre en `typography.bodyLarge` gras, détail en `small` discret,
   bouton de fermeture de 30 px
 - Corps : défile seul, `spacing.lg` de marge, `spacing.lg` entre les sections
 - Pied : fixe, action discrète à gauche, action attendue à droite

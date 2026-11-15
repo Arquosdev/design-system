@@ -124,7 +124,14 @@ export function SheetHeader({
 }: React.ComponentProps<'div'> & { close?: boolean }) {
   return (
     <div
-      className={cn('flex shrink-0 items-start gap-md border-b border-border-soft px-lg py-base', className)}
+      /*
+        LA HAUTEUR DU BANDEAU DE TÊTE (`--arq-bandeau-tete`, Louis, 14/11/2026 : « l'en-tête des
+        blocs de droite doit avoir la même hauteur que l'en-tête des pages, notamment des
+        tableaux ») : le filet du panneau tombe au pixel de celui d'une liste et du nom de
+        l'agence, 60 px, bordure comprise. Il tombait à 61. Un plancher : une description
+        fait grandir la bande.
+      */
+      className={cn('flex min-h-(--arq-bandeau-tete) shrink-0 items-center gap-md border-b border-border-soft px-lg py-sm', className)}
       {...props}
     >
       <div className="min-w-0 flex-1">{children}</div>

@@ -35,6 +35,13 @@ sur `tw-animate-css`, une dépendance de plus pour quatre keyframes.
 - **Pour regarder une image** → `PhotoViewer`.
 - **Pour du contenu principal** : ce qu'on consulte souvent mérite une rubrique, pas un tiroir qu'il faut rouvrir à chaque fois.
 
+## L'en-tête : la hauteur du bandeau de tête
+
+`SheetHeader` fait au moins `--arq-bandeau-tete` (60 px, bordure comprise), titre et croix
+centrés : son filet tombe au pixel de celui de l'en-tête d'une liste et du nom de l'agence
+(Louis, 14/11/2026 : « l'en-tête des blocs de droite doit avoir la même hauteur que l'en-tête
+des pages »). Il tombait à 61. Une description le fait grandir.
+
 ## Props
 
 Composition shadcn : `Sheet` (racine, `open` / `onOpenChange`), `SheetContent`,
