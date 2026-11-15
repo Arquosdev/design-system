@@ -110,6 +110,7 @@ est une corruption de données réelle.
 
 ## Anatomie
 
+- **Une seule échelle, `FIELD_PAIR`** (Louis, 14/11/2026 : « je préfère le format de la partie droite, en taille ») : libellé et valeur en 13 px (`description`), graisse 400, libellé gris, ligne de 32 px à une ligne seule, celle de la colonne d'informations (`DetailRow`). La valeur était en 14 px graisse 500. Le pointillé ne grandit pas la ligne. Marqueur `data-slot="field-row"` (`DetailRow` : `detail-row`).
 - Valeur éditable : **soulignement pointillé** en `colors.textSubtle` — le signal « ceci se corrige d'un clic ».
 - Au-delà de 640 px, le libellé à gauche (190 px) et la valeur à droite ; **en dessous, le libellé au-dessus de la valeur**, chacun sur toute la largeur.
 

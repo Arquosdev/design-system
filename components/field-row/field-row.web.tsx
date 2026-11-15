@@ -5,6 +5,7 @@ import * as React from 'react';
 import { Icon } from '../icon/icon.web';
 import type { IconRole } from '../../src/icons';
 import { cn } from '../_lib/cn';
+import { FIELD_PAIR } from '../_lib/field-pair';
 import { DateField } from '../date-field/date-field.web';
 import { toISO } from '../date-field/date-field.logic';
 import {
@@ -278,6 +279,7 @@ export function FieldRow({
 
   return (
     <div
+      data-slot="field-row"
       ref={landmark ? amener : undefined}
       className={cn(
         /*
@@ -287,7 +289,8 @@ export function FieldRow({
           étroites (« Les Allées du / Maine B », audit A1-09). Empilés, libellé
           et valeur ont toute la largeur, comme dans les réglages d'iOS.
         */
-        'grid grid-cols-1 items-start gap-xxs py-sm sm:grid-cols-[190px_1fr] sm:gap-md',
+        // La ligne de 32 px de la colonne d'informations (`FIELD_PAIR.row`, Louis, 14/11/2026).
+        'grid grid-cols-1 items-start gap-xxs text-description sm:grid-cols-[190px_1fr] sm:gap-md', FIELD_PAIR.row,
         /*
           Le filet, et le `last:` qui le retire en bas de la pile.
 
@@ -307,7 +310,8 @@ export function FieldRow({
     >
       <span
         className={cn(
-          'min-w-0 pt-xxs text-small break-words text-text-muted',
+          // Libellé et valeur à l'échelle de la colonne d'informations, 13 px (`FIELD_PAIR`, Louis, 14/11/2026).
+          'min-w-0 break-words', FIELD_PAIR.label,
           landmark && 'animate-repere-libelle underline decoration-transparent decoration-2 underline-offset-4',
         )}
       >
@@ -340,12 +344,14 @@ export function FieldRow({
                 }
               }}
               className={cn(
-                'min-w-0 text-small font-medium break-words',
+                'min-w-0 text-description break-words',
                 // Le soulignement pointillé est LE signal « cette valeur se
                 // corrige d'un clic ». Sans lui, rien ne distingue une donnée
                 // modifiable d'une donnée figée. Il pâlit avec la valeur quand
                 // le champ est vide, pour ne pas attirer l'œil sur un manque.
-                editable && 'cursor-text border-b border-dashed pb-px outline-none focus-ring',
+                // Le pointillé ne grandit pas la ligne (`-mb-[2px]` rend son trait et son retrait) : une ligne corrigible
+                // fait 32 px comme une ligne figée, et comme celles de la colonne d'informations (14/11/2026).
+                editable && 'cursor-text border-b border-dashed pb-px -mb-[2px] outline-none focus-ring',
                 isEmpty
                   ? 'text-text-muted border-border'
                   : 'text-text border-text-subtle',

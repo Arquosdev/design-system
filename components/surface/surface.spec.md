@@ -27,7 +27,7 @@ replaces:
 ## Règles
 
 - Contour par l'ombre (`shadow-surface`), aucune bordure, rayon 8.
-- Lignes de champs : 10 × 16 px, filet en haut de chaque ligne, deux colonnes de
+- Lignes de champs : 32 px à une ligne seule et 16 px de côté (`FIELD_PAIR.row`, celle de la colonne d'informations, 14/11/2026), filet en haut de chaque ligne, deux colonnes de
   champs au-delà de 900 px de carte, jamais trois.
 - Les vides se replient derrière « Afficher N champs vides » (`SurfaceFooter`).
 - Un bloc de champs SEUL dans sa rubrique prend `FieldSurface flat` : les mêmes

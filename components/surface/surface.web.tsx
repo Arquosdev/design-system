@@ -3,6 +3,7 @@
 import * as React from 'react';
 
 import { cn } from '../_lib/cn';
+import { FIELD_PAIR } from '../_lib/field-pair';
 
 /*
   LA PAGE EN CARTES (Louis, 12/11/2026). Sur une page blanche, une carte SÉPARE
@@ -17,13 +18,14 @@ import { cn } from '../_lib/cn';
 export const SURFACE = 'rounded-block bg-bg shadow-surface';
 
 /*
-  Les lignes de champs d'une carte : une `FieldRow` par ligne, 10 px en hauteur
-  et 16 px de côté, le filet posé EN HAUT de chaque ligne et retiré à la première
+  Les lignes de champs d'une carte : une `FieldRow` par ligne, 32 px à une ligne seule comme
+  celles de la colonne (`FIELD_PAIR.row`, Louis, 14/11/2026 ; 10 px de retrait avant) et 16 px
+  de côté, le filet posé EN HAUT de chaque ligne et retiré à la première
   rangée (la dernière n'a donc jamais de trait orphelin). Deux colonnes de champs
   quand la carte passe 900 px (la zone 960 avec ses marges), jamais trois.
 */
 const LIGNES =
-  'grid grid-cols-1 [&>*]:px-base [&>*]:py-[calc(var(--spacing-sm)+var(--spacing-xxs))] ' +
+  'grid grid-cols-1 [&>*]:px-base [&>*]:py-[calc((var(--spacing-xl)+var(--spacing-sm)-1lh)/2)] ' +
   '[&>*]:border-b-0 [&>*]:border-t [&>*]:border-border-soft [&>*:first-child]:border-t-0 [&>[data-pied]]:col-span-full';
 export const FIELD_ROWS =
   `${LIGNES} @min-[60rem]:grid-cols-2 sm:[&>*]:grid-cols-[200px_minmax(0,1fr)] @min-[60rem]:[&>*:nth-child(2)]:border-t-0`;
@@ -137,12 +139,12 @@ export function DetailGroup({ title, actions, children }: { title: React.ReactNo
   milieu. Alignement sur la ligne de base, et un retrait qui garde 32 px à une ligne seule :
   32 px (xl + sm) moins une hauteur de ligne, partagés en haut et en bas.
 */
-const LIGNE_DE_32 = 'py-[calc((var(--spacing-xl)+var(--spacing-sm)-1lh)/2)]';
+const LIGNE_DE_32 = FIELD_PAIR.row;
 
 /** Une ligne de la colonne : l'icône et le libellé à gauche (120 px), la valeur à droite. */
 export function DetailRow({ icon, label, children }: { icon?: React.ReactNode; label: React.ReactNode; children: React.ReactNode }) {
   return (
-    <div className={`grid min-h-8 grid-cols-[120px_minmax(0,1fr)] items-baseline gap-sm text-description ${LIGNE_DE_32}`}>
+    <div data-slot="detail-row" className={`grid min-h-8 grid-cols-[120px_minmax(0,1fr)] items-baseline gap-sm text-description ${LIGNE_DE_32}`}>
       <span className="flex min-w-0 items-center gap-xs text-text-muted">
         {icon ? <span className="shrink-0 [&_svg]:size-3.5" aria-hidden>{icon}</span> : null}
         <span className="truncate">{label}</span>

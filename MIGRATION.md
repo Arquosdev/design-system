@@ -1,5 +1,16 @@
 # Monter une app vers la version courante
 
+## Non publié · `FIELD_PAIR` : une paire libellé / valeur à l'échelle de la colonne d'informations
+
+Louis, 14/11/2026 : « les libellés au centre semblent plus gros que ceux de droite […]
+Uniformise. Je préfère le format de la partie droite, en taille ». **Nouveau** : `FIELD_PAIR`
+(`label`, `value`, `row`), exporté par `@arquos/design-system/web` depuis un module sans
+`'use client'`. **Changent de cote** : `FieldRow`, libellé et valeur en 13 px graisse 400 (la
+valeur était en 14 px graisse 500), ligne de 32 px à une ligne seule (elle en faisait 38) ; les
+lignes d'une carte de champs (`FIELD_ROWS`) passent du retrait de 10 px à la ligne de 32 px.
+`FieldRow` porte `data-slot="field-row"`, `DetailRow` `data-slot="detail-row"`. **À reprendre
+chez l'appelant** : toute paire libellé / valeur dessinée à la main prend `FIELD_PAIR`.
+
 ## Non publié · L'en-tête d'un panneau à la hauteur du bandeau de tête
 
 `SheetHeader` et l'en-tête de `Drawer` font au moins `--arq-bandeau-tete` (60 px, bordure
