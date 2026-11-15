@@ -3,6 +3,7 @@
 import * as React from 'react';
 
 import { cn } from '../_lib/cn';
+import { PAGE_TITLE } from '../_lib/page-title';
 import { Trail } from '../trail/trail.web';
 
 export interface PageHeaderProps {
@@ -183,7 +184,7 @@ export function PageHeader({
           règle la place du titre dedans.
         */}
         <span className="flex min-w-0 flex-wrap items-baseline gap-x-sm gap-y-xxs">
-          <h1 className="line-clamp-2 min-w-0 text-headline text-brand [overflow-wrap:anywhere]" title={title}>{title}</h1>
+          <h1 className={cn('line-clamp-2 min-w-0 [overflow-wrap:anywhere]', PAGE_TITLE)} title={title}>{title}</h1>
           {status || figure ? (
             <span className="flex shrink-0 items-center gap-sm self-center">
               {status}

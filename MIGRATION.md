@@ -1,5 +1,15 @@
 # Monter une app vers la version courante
 
+## Non publié · `PAGE_TITLE` : un seul format de titre d'écran
+
+Louis, 14/11/2026 : « que toutes les pages aient le même format de titre. Y compris les pages
+de paramètres ». **Nouveau** : `PAGE_TITLE` (`text-headline text-brand`), exporté par
+`@arquos/design-system/web` depuis un module sans `'use client'` (une page serveur peut
+l'importer par `@arquos/design-system/components/_lib/page-title.ts`). Le `h1` de `PageHeader`
+le lit ; rendu identique. **À reprendre chez l'appelant** : tout `h1` écrit à la main prend
+`PAGE_TITLE` et rien d'autre en classe de texte ; le nom d'une fiche quitte `IDENTIFIER`
+(graisse 500) pour `PAGE_TITLE` (700).
+
 ## Non publié · Une seule police, DM Sans : plus de DM Mono
 
 Louis, 14/11/2026 : « arrêter d'utiliser la police DM Mono, n'utiliser que la police DM Sans ».

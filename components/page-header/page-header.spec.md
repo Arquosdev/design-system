@@ -57,7 +57,7 @@ coup de molette.
   était en `colors.primary`, et l'en-tête d'une fiche le dessinait déjà en
   gris ; deux fils d'un dessin différent se lisaient l'un après l'autre en
   passant d'un écran à l'autre
-- Titre : `typography.headline`, deux lignes au plus (tronqué au-delà, le titre entier en infobulle)
+- Titre : `PAGE_TITLE` (`typography.headline` en `colors.brand`), le format de TOUT titre d'écran, nom de fiche compris : un écran qui pose son `h1` lui-même le prend aussi (Louis, 14/11/2026). Deux lignes au plus (tronqué au-delà, le titre entier en infobulle)
 - Statut et chiffre (`status`, `figure`) : à la suite du titre, le statut d'une fiche (`StatusBadge`) puis le chiffre qui la résume en `typography.title` (« 13 118,60 € TTC »)
 - Décompte : `typography.title` en `colors.textMuted`, chiffres à chasse fixe
 - Écran étroit : les actions passent à la ligne sous le titre, et entre elles,
