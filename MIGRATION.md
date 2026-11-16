@@ -1,5 +1,13 @@
 # Monter une app vers la version courante
 
+## Non publié · `SegmentedTabs fit="content"` : quatre segments sur un téléphone
+
+« Ma journée » de myArquos, 16/11/2026 (Louis : Aujourd'hui · En retard · Autour · Lots). En
+parts égales, « Aujourd'hui » et « En retard 66 » se coupaient pendant que « Lots 6 » gardait du
+vide. **Nouveau** : la prop `fit` (`equal` par défaut, ou `content`, web et mobile) ; en
+`content`, chaque segment part de la largeur de son texte et le reste se partage. Rien à faire
+chez l'appelant : le défaut ne change pas.
+
 ## Non publié · `TABLE_HEAD`, et les menus de formulaire en graisse 400
 
 Balayage d'uniformité du 15/11/2026 (Louis : « il faut vérifier partout »). **Nouveau** :

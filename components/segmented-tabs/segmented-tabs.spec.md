@@ -37,6 +37,7 @@ replaces:
 | `value`    | `string`                  | —      | La clé du segment actif                  |
 | `onChange` | `(id: string) => void`   | —      | Appelé au changement                     |
 | `ariaLabel` | `string`                  | —      | Ce que le groupe sépare, pour l'annoncer |
+| `fit`       | `'equal' \| 'content'`    | `equal` | Parts égales, ou chaque segment part de sa largeur de texte |
 
 `Segment` : `{ id, label, count? }`. Le compteur suit le libellé, en retrait.
 
@@ -66,6 +67,11 @@ import { SegmentedTabs } from '@arquos/design-system/web';
 - **Actif** : fond blanc détaché **et** `aria-selected`. La couleur seule ne suffit pas.
 - **Libellés de longueurs inégales** : chaque segment prend la moitié, pas sa
   largeur de texte — sinon la piste tressaute d'un onglet à l'autre.
+- **Quatre segments sur un téléphone** (`fit="content"`, « Ma journée » de
+  myArquos, 16/11/2026) : en parts égales, « Aujourd'hui » et « En retard 66 »
+  se coupaient pendant que « Lots 6 » gardait du vide. Chaque segment part de sa
+  largeur de texte, le reste se partage. Le prix : la piste bouge d'un ou deux
+  points quand le segment actif passe en gras.
 - **Compteur inconnu** : l'omettre. Un `0` affirmerait qu'il n'y a rien.
 - **Libellé long** : il ne se coupe jamais en deux lignes. La largeur d'un
   segment est celle de son libellé **en gras**, réservée d'avance par un

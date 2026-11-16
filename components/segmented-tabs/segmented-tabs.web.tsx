@@ -22,6 +22,8 @@ export interface SegmentedTabsProps {
   onChange: (id: string) => void;
   /** Ce que ce groupe sépare, pour l'annoncer aux lecteurs d'écran. */
   ariaLabel: string;
+  /** `equal` (défaut) : des parts égales. `content` : chaque segment part de sa largeur de texte. */
+  fit?: 'equal' | 'content';
   className?: string;
 }
 
@@ -30,6 +32,7 @@ export function SegmentedTabs({
   value,
   onChange,
   ariaLabel,
+  fit = 'equal',
   className,
 }: SegmentedTabsProps) {
   // Les flèches déplacent la sélection : c'est ce qu'un lecteur d'écran attend
@@ -70,6 +73,7 @@ export function SegmentedTabs({
               // hauteur. Mieux vaut une piste qui dépasse — l'appelant la fait
               // passer à la ligne — qu'un onglet illisible.
               'whitespace-nowrap',
+              fit === 'content' && 'flex-auto',
               // Et jamais plus étroit que son contenu. `flex-1` partage la
               // place en parts égales, y compris quand elle manque : l'onglet
               // se retrouvait plus court que son texte, qui débordait alors sur

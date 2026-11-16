@@ -19,6 +19,12 @@ export interface SegmentedTabsProps {
   onChange: (id: string) => void;
   /** Ce que le groupe sépare, pour l'annoncer. Même nom que sur le web. */
   ariaLabel: string;
+  /**
+   * `equal` (défaut) : chaque segment prend la même part. `content` : chaque segment
+   * part de la largeur de son libellé et de son compteur, et le reste se partage.
+   * Pour quatre segments sur un téléphone (« Ma journée », 16/11/2026).
+   */
+  fit?: 'equal' | 'content';
   style?: StyleProp<ViewStyle>;
 }
 
@@ -33,7 +39,7 @@ export interface SegmentedTabsProps {
   longueur de son libellé : sinon la piste tressaute d'un onglet à l'autre.
   Le libellé ne se coupe pas en deux lignes ; il rétrécit d'abord.
 */
-export function SegmentedTabs({ segments, value, onChange, ariaLabel, style }: SegmentedTabsProps) {
+export function SegmentedTabs({ segments, value, onChange, ariaLabel, fit = 'equal', style }: SegmentedTabsProps) {
   return (
     <View accessibilityRole="tablist" accessibilityLabel={ariaLabel} style={[styles.piste, style]}>
       {segments.map((segment) => {
@@ -49,7 +55,7 @@ export function SegmentedTabs({ segments, value, onChange, ariaLabel, style }: S
                 : segment.label
             }
             onPress={() => onChange(segment.id)}
-            style={[styles.segment, actif && styles.segmentActif]}
+            style={[styles.segment, fit === 'content' ? styles.segmentAuContenu : styles.segmentEgal, actif && styles.segmentActif]}
           >
             <Text
               variant="small"
@@ -94,7 +100,6 @@ const styles = StyleSheet.create({
     padding: spacing.xxs,
   },
   segment: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -102,6 +107,16 @@ const styles = StyleSheet.create({
     borderRadius: radius.full,
     paddingHorizontal: spacing.sm,
     paddingVertical: spacing.sm,
+  },
+  segmentEgal: {
+    flex: 1,
+  },
+  // Part de la largeur de son contenu, puis grandit : un long libellé n'est pas coupé pour
+  // laisser de la place vide à un court. Pas de `flex: 1` dessous : il imposerait une base nulle.
+  segmentAuContenu: {
+    flexGrow: 1,
+    flexShrink: 1,
+    paddingHorizontal: spacing.xs,
   },
   segmentActif: {
     backgroundColor: colors.bg,
