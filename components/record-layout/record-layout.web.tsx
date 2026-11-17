@@ -318,8 +318,17 @@ export interface SubTabsProps {
  */
 export function SubTabs({ ariaLabel, value, onChange, tabs, className }: SubTabsProps) {
   const rangee = React.useRef<HTMLDivElement>(null);
+  // L'onglet choisi est ramené dans la RANGÉE, à l'horizontale seulement (Ombeline, 17/11/2026) :
+  // `scrollIntoView` fait aussi défiler la page, et un formulaire qui porte des onglets plus bas
+  // (« Ce qu'on remettra » de Nouvelle affaire) s'ouvrait au milieu.
   React.useEffect(() => {
-    rangee.current?.querySelector('[aria-selected="true"]')?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    const r = rangee.current;
+    const t = r?.querySelector<HTMLElement>('[aria-selected="true"]');
+    if (!r || !t) return;
+    const a = r.getBoundingClientRect();
+    const b = t.getBoundingClientRect();
+    if (b.left < a.left) r.scrollLeft -= a.left - b.left;
+    else if (b.right > a.right) r.scrollLeft += b.right - a.right;
   }, [value]);
   // Un tablist : les flèches passent d'un onglet à l'autre et le choisissent.
   const auClavier = (e: React.KeyboardEvent, i: number) => {
